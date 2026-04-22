@@ -158,8 +158,9 @@ quiz-dual-screen/
 │  ├─ architecture.md
 │  ├─ event-protocol.md
 │  ├─ state-machine.md
-│  ├─ game-rules.md
-│  └─ backlog.md
+│  ├─ quiz-engine.md
+│  ├─ GAME-RULES.md
+│  └─ CONSTRAINTS.md
 ├─ package.json
 ├─ pnpm-workspace.yaml
 └─ README.md

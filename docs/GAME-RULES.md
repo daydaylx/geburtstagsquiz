@@ -18,6 +18,7 @@
 ### 1. Multiple Choice (MVP-Fokus)
 
 **Ablauf:**
+
 - Host sieht Frage + Optionen
 - Player sehen Antwortbuttons auf Handy
 - Timer läuft (Standard: 10–15 Sekunden)
@@ -27,11 +28,13 @@
 - Punkte vergeben
 
 **Punktelogik für MVP:**
+
 - richtige Antwort = feste Punkte (z.B. 10 Punkte)
 - falsche Antwort = 0 Punkte
 - **keine Geschwindigkeitsboni** (zu früh kompliziert)
 
 **Constraints:**
+
 - pro Spieler pro Frage nur eine gültige Antwort
 - späte Antworten werden ignoriert
 - Server entscheidet, wann Timer endet
@@ -39,16 +42,19 @@
 ### 2. Schätzfrage (später)
 
 **Ablauf:**
+
 - Host sieht Frage + korrekten Wert
 - Player geben numerischen Wert ein
 - Player sehen ihr Ergebnis nach Submit nicht
 
 **Punktelogik:**
+
 - Punkte nach Nähe zur korrekten Antwort
 - näher = mehr Punkte
 - z.B. linear: `max(0, points * (1 - distance/range))`
 
 **Beispiel:**
+
 - Frage: "Wie viele Menschen gibt es in Berlin?"
 - korrekt: 3,6 Millionen
 - Player 1 antwortet: 3,5 Mio → ~9 Punkte
@@ -57,6 +63,7 @@
 ### 3. Buzzer (später)
 
 **Ablauf:**
+
 - Frage wird gestellt
 - Timer läuft (z.B. 5 Sekunden offen für Buzzer)
 - Player drücken Buzzer
@@ -66,15 +73,23 @@
 - wenn falsch: nächster Spieler in Buzzer-Reihenfolge darf versuchen
 
 **Punktelogik:**
+
 - richtig beim ersten Versuch: max Punkte
 - richtig beim 2. Versuch: 50% Punkte
 - richtig beim 3. Versuch: 25% Punkte
 - falsch: 0 Punkte
 
 **Fairness:**
+
 - Server entscheidet Buzzer-Reihenfolge
-- basiert auf Zeitstempel des `buzzer`-Events
+- basiert auf Zeitstempel des `buzzer`-Events (serverseitiger Eingang, nicht Client-Clock)
 - nicht auf client-seitigen Clocks
+
+**Tiebreak (identische Timestamps):**
+
+- Wenn zwei `buzzer`-Events exakt denselben serverseitigen Timestamp haben: deterministischer Tiebreak via `playerId`-Alphabetsortierung
+- Beide Spieler bekommen kein Sonderprivileg — wer alphabetisch vorne liegt, gewinnt
+- Dieser Fall ist in der Praxis extrem selten, muss aber definiert sein um nicht-deterministische Bugs zu vermeiden
 
 ## Punkteberechnung
 
@@ -304,6 +319,7 @@ Spiel endet wenn:
 2. Host bricht Spiel ab
 
 Nach Spielende:
+
 - Endrangliste anzeigen
 - Gewinner ankündigen
 - Optionen zum Neustarten
