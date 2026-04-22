@@ -1,0 +1,1 @@
+export const DEFAULT_MULTIPLE_CHOICE_POINTS = 10;

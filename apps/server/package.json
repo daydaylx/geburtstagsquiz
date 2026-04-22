@@ -1,0 +1,24 @@
+{
+  "name": "@quiz/server",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@quiz/shared-types": "workspace:*",
+    "@quiz/shared-protocol": "workspace:*",
+    "@quiz/shared-utils": "workspace:*",
+    "@quiz/quiz-engine": "workspace:*",
+    "ws": "^8.18.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@types/ws": "^8.5.14",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}

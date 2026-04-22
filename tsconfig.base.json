@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "target": "ES2022",
+    "module": "ES2022",
+    "moduleResolution": "bundler",
+    "baseUrl": ".",
+    "paths": {
+      "@quiz/shared-types": ["packages/shared-types/src/index.ts"],
+      "@quiz/shared-protocol": ["packages/shared-protocol/src/index.ts"],
+      "@quiz/shared-utils": ["packages/shared-utils/src/index.ts"],
+      "@quiz/quiz-engine": ["packages/quiz-engine/src/index.ts"]
+    },
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true
+  }
+}

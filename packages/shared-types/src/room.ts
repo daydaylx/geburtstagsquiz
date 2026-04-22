@@ -1,0 +1,16 @@
+import type { GameState, RoomState } from "./enums.js";
+import type { Player } from "./player.js";
+import type { Quiz } from "./quiz.js";
+
+export interface Room {
+  id: string;
+  joinCode: string;
+  state: RoomState;
+  hostName: string;
+  hostSessionId: string;
+  hostConnected: boolean;
+  players: Player[];
+  quiz: Quiz | null;
+  currentQuestionIndex: number | null;
+  gameState: GameState | null;
+}

@@ -131,6 +131,25 @@ Viele Events verwenden wiederkehrende Felder.
 
 ---
 
+## Wire-Format
+
+Alle WebSocket-Nachrichten verwenden denselben Envelope:
+
+```json
+{
+  "event": "room:create",
+  "payload": {}
+}
+```
+
+### Regeln
+
+- `event` ist der kanonische Eventname aus `shared-protocol`
+- `payload` ist das typisierte Payload-Objekt für genau dieses Event
+- Server und Clients validieren immer zuerst Envelope, dann Event-Payload
+
+---
+
 # Verbindungs- und Sitzungsfluss
 
 ## 1. Verbindungsaufbau
@@ -227,10 +246,11 @@ Versuch, eine bestehende Sitzung wieder aufzunehmen.
 
 ### Erfolg
 
-Server sendet typischerweise:
+Server sendet bei erfolgreichem Resume:
 
-- `player:reconnected`
-- und/oder aktuelle Raum-/Spielzustände
+- `connection:resumed` an den zurückkehrenden Client
+- `lobby:update` an alle relevanten Clients
+- bei Player-Resume zusätzlich `player:reconnected` an die anderen Clients
 
 ### Fehlerfälle
 
@@ -239,6 +259,38 @@ Server sendet typischerweise:
 - Sitzung ungültig oder abgelaufen
 
 Dann folgt ein `error:protocol` oder eine Aufforderung zum normalen Join-Flow.
+
+---
+
+## `connection:resumed`
+
+### Richtung
+
+- **Server → Client**
+
+### Zweck
+
+Bestätigt, dass eine bekannte Host- oder Player-Sitzung erfolgreich wiederhergestellt wurde.
+
+### Payload
+
+```json
+{
+  "role": "host | player",
+  "roomId": "string",
+  "roomState": "waiting",
+  "sessionId": "string",
+  "joinCode": "string",
+  "playerId": "string?",
+  "playerState": "connected | ready?"
+}
+```
+
+### Hinweise
+
+- der zurückkehrende Client verlässt sich auf dieses Event als Resume-Bestätigung
+- in der Lobby-Phase ist `roomState` aktuell `waiting`
+- `player:reconnected` ist ergänzend für andere Clients gedacht, nicht als primäre Resume-Bestätigung für den zurückkehrenden Client
 
 ---
 
@@ -400,7 +452,7 @@ Player darf:
 ### Richtung
 
 - **Server → Host**
-- optional auch **Server → Player**
+- **Server → Player**
 
 ### Zweck
 
@@ -412,6 +464,7 @@ Aktualisierung des Lobbyzustands.
 {
   "roomId": "string",
   "roomState": "waiting",
+  "hostConnected": true,
   "players": [
     {
       "playerId": "string",
@@ -436,7 +489,8 @@ Aktualisierung des Lobbyzustands.
 ### Hinweise
 
 - Host soll daraus seine Lobby rendern
-- Falls Player ebenfalls Lobby sehen, kann dasselbe Event verwendet werden
+- Player können dasselbe autoritative Snapshot-Event rendern
+- `hostConnected` zeigt an, ob der Host gerade verbunden ist oder sich im Grace-Zeitraum befindet
 
 ---
 
@@ -445,12 +499,11 @@ Aktualisierung des Lobbyzustands.
 ### Richtung
 
 - **Server → Host**
-- **Server → betroffener Player**
-- optional an weitere Clients
+- optional an weitere andere Clients
 
 ### Zweck
 
-Meldet, dass ein bekannter Spieler erfolgreich zurück ist.
+Meldet den anderen Clients, dass ein bekannter Spieler erfolgreich zurück ist.
 
 ### Payload
 
@@ -458,7 +511,7 @@ Meldet, dass ein bekannter Spieler erfolgreich zurück ist.
 {
   "roomId": "string",
   "playerId": "string",
-  "playerState": "reconnected",
+  "playerState": "connected",
   "connected": true
 }
 ```
@@ -468,6 +521,7 @@ Meldet, dass ein bekannter Spieler erfolgreich zurück ist.
 - kein neuer Spieler
 - keine neue Score-Instanz
 - kein neuer Lobby-Eintrag
+- der zurückkehrende Player selbst bekommt stattdessen `connection:resumed`
 
 ---
 
@@ -1129,6 +1183,7 @@ Allgemeiner Fehler bei ungültigem Event oder unzulässigem Zustand.
 
 ## Host darf senden
 
+- `connection:resume`
 - `room:create`
 - `game:start`
 - `game:next-question`

@@ -118,7 +118,7 @@ Der Raum ist die höchste Zustandsebene.
 
 - Raum-Status auf `completed` setzen
 - finale Rankings berechnen
-- `game:completed` Event an alle senden
+- `game:finished` Event an alle senden
 
 ---
 
@@ -150,7 +150,7 @@ Der Raum ist die höchste Zustandsebene.
 **Fehlerbehandlung:**
 Wenn Client Event sendet, das diesen Übergängen widerspricht:
 
-- Server antwortet mit `error: INVALID_GAME_STATE`
+- Server antwortet mit `error:protocol` mit Code `INVALID_STATE`
 
 ---
 
@@ -225,8 +225,8 @@ Der Game State beschreibt den **Spielablauf innerhalb eines laufenden Spiels**.
 **Server-Aktion:**
 
 - Game State auf `answer_locked` setzen
-- `answer:locked` Event an alle senden
-- neue `answer:submit` Events ablehnen mit `error: ANSWER_TOO_LATE`
+- `question:close` Event an alle senden
+- neue `answer:submit` Events ablehnen mit `error:protocol` mit Code `ANSWER_TOO_LATE`
 - Auswertung beginnen
 
 ---
@@ -243,8 +243,8 @@ Der Game State beschreibt den **Spielablauf innerhalb eines laufenden Spiels**.
 **Server-Aktion:**
 
 - Game State auf `revealing` setzen
-- `round:reveal` Event mit korrekter Antwort
-- `round:scores` Event mit Ergebnissen und Rangliste
+- `question:reveal` Event mit korrekter Antwort
+- `score:update` Event mit Ergebnissen und Rangliste
 
 ---
 
@@ -281,7 +281,7 @@ Der Game State beschreibt den **Spielablauf innerhalb eines laufenden Spiels**.
 
 - Raum State → `completed`
 - Game State → gesetzt (nicht mehr relevant)
-- `game:completed` Event an alle
+- `game:finished` Event an alle
 
 ---
 
@@ -323,7 +323,7 @@ Jeder Spieler hat einen eigenen Status, unabhängig vom Game State.
 
 #### `connected` (initial)
 
-**Auslöser:** Spieler tritt Raum bei (`room:joined` Event erhalten)
+**Auslöser:** Spieler tritt Raum bei (`player:joined` Event erhalten)
 
 **Spieler-Info:**
 
@@ -414,7 +414,7 @@ Jeder Spieler hat einen eigenen Status, unabhängig vom Game State.
 **Server-Aktion:**
 
 - Player State auf `disconnected` setzen
-- andere Spieler bekommen `room:player-left` mit reason: `disconnect`
+- Host und relevante Clients bekommen `player:disconnected`
 - Host sieht Spieler als grau/offline in Lobby
 - Antworten des Spielers werden nicht mehr akzeptiert
 
@@ -428,7 +428,7 @@ Jeder Spieler hat einen eigenen Status, unabhängig vom Game State.
 
 #### `disconnected` → `reconnecting`
 
-**Auslöser:** Spieler sendet `connection:reconnect` mit korrekter Session ID
+**Auslöser:** Spieler sendet `connection:resume` mit korrekter Session ID
 
 **Bedingung:**
 
@@ -437,19 +437,22 @@ Jeder Spieler hat einen eigenen Status, unabhängig vom Game State.
 
 **Server-Aktion:**
 
-- Player State auf `reconnecting` setzen
-- `connection:reconnected` Event senden mit aktuellem Game State
-- Client wird mit Kontext aktualisiert (welche Frage, was war die Antwort, etc.)
+- Reconnect prüfen und Socket wieder derselben Session zuordnen
+- optional transient `reconnecting` intern verwenden
+- `connection:resumed` an den zurückkehrenden Player senden
+- `player:reconnected` nur an andere relevante Clients senden
+- `lobby:update` bzw. aktuelles Snapshot-Event erneut verteilen
 
 ---
 
 #### `reconnecting` → `connected`
 
-**Auslöser:** Spieler empfängt `connection:reconnected` und UI ist aktualisiert
+**Auslöser:** Spieler empfängt `connection:resumed` und den aktuellen Snapshot
 
 **Bedingung:**
 
-- `connection:reconnected` Event empfangen
+- `connection:resumed` Event empfangen
+- aktueller Server-Snapshot ist angewendet
 
 **Client-Aktion:**
 
@@ -561,7 +564,7 @@ NACHHER:
 **Verhalten:**
 
 - Session ist abgelaufen
-- `connection:reconnect` wird abgelehnt
+- `connection:resume` wird abgelehnt
 - Spieler muss neuen Join machen mit Code
 - wird als neuer Spieler im Raum hinzugefügt (alte Antworten weg)
 
@@ -592,7 +595,7 @@ Diese Übergänge sind **nicht erlaubt**:
 
 Wenn Client-Code diese Übergänge versucht:
 
-- Server lehnt mit `error: INVALID_GAME_STATE` ab
+- Server lehnt mit `error:protocol` mit Code `INVALID_STATE` ab
 - Client wird auf aktuellen State zurückgesetzt
 
 ---
@@ -619,7 +622,7 @@ Beispiel: Spieler sieht „Antwort gesendet", aber Rundenende kommt nicht.
 Beispiel: Host sieht noch Antwort-Buttons, Player sieht schon Ergebnis.
 
 1. Timer-Sync prüfen
-2. `answer:locked` Event angekommen?
+2. `question:close` Event angekommen?
 3. Netzwerk-Latenz Faktor?
 
 ---

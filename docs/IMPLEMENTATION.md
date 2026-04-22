@@ -59,7 +59,7 @@ Phase 6: Erweiterungen       (Schätzfrage, Buzzer, Teams, etc.)
 - Screen: Startscreen
   - "neues Spiel"-Button
 - Screen: Lobby
-  - QR-Code anzeigen (statisch generiert)
+  - QR-Code aus aktueller Host-URL erzeugen
   - Raumcode anzeigen (6-stellig)
   - Spielerliste (Name, verbunden/getrennt)
   - "Spiel starten"-Button (disabelt wenn <1 Spieler)
@@ -76,16 +76,16 @@ Phase 6: Erweiterungen       (Schätzfrage, Buzzer, Teams, etc.)
 
 ### Server
 - Raum erstellen (`room:create` → `room:created` mit joinCode)
-- Raum beitreten (`room:join` → `room:joined`)
-- andere Spieler benachrichtigen (`room:player-joined`)
-- Spieler entfernen bei Disconnect (`room:player-left`)
-- Lobby-State an alle Clients senden (`room:lobby-update`)
+- Raum beitreten (`room:join` → `player:joined`)
+- Lobby nach Join/Disconnect/Reconnect aktualisieren (`lobby:update`)
+- temporäre Verbindungsverluste über `player:disconnected` signalisieren
 
 ### Verbindung
 - Host und alle Player verbinden sich via WebSocket
-- Client sendet `client:identify` mit Rolle
-- Server vergibt Connection-ID
-- Lobby-Updates laufen via `room:lobby-update`
+- Server bestätigt technisch mit `connection:ack`
+- Clients senden danach je nach Rolle `room:create` oder `room:join`
+- Lobby-Updates laufen via `lobby:update`
+- Messages nutzen ein gemeinsames Envelope-Format `{ event, payload }`
 
 **Nicht eingeschlossen:**
 - kein echtes Spielen
@@ -113,6 +113,7 @@ Phase 6: Erweiterungen       (Schätzfrage, Buzzer, Teams, etc.)
 
 ### Server
 - Reconnect-Logik: Session-ID pro Player
+- Reconnect-Logik: Session-ID pro Host
 - Player-Status-Transitions: `lobby` → andere States
 - Eventvalidierung: alle Events werden gegen zod-Schemas geprüft
 - doppelte Events blockieren
@@ -128,6 +129,7 @@ Phase 6: Erweiterungen       (Schätzfrage, Buzzer, Teams, etc.)
 ### Client (Host + Player)
 - WebSocket-Fehlerbehandlung
 - Auto-Reconnect mit Backoff
+- Resume-Bestätigung über `connection:resumed`
 - klare Status-Messages
 - "Verbindung verloren" UI-State
 
@@ -139,6 +141,7 @@ Phase 6: Erweiterungen       (Schätzfrage, Buzzer, Teams, etc.)
 - [x] 5 Spieler können stabil beitreten + bleiben
 - [x] Spieler verliert Verbindung → Auto-Reconnect
 - [x] nach Reconnect: alter Player-State wiederhergestellt
+- [x] Host kann denselben Raum innerhalb des Grace-Timeouts wieder aufnehmen
 - [x] Host schließt Seite → Raum bleibt 30s, Player können zurück
 - [x] doppelte Events werden ignoriert
 - [x] ungültige Events werden verworfen
@@ -162,7 +165,7 @@ Phase 6: Erweiterungen       (Schätzfrage, Buzzer, Teams, etc.)
 - richtige Antwort berechnen
 - Punkte vergeben (einfache Logik: korrekt = 10, falsch = 0)
 - Rangliste updaten
-- `answer:reveal` + `score:update` senden
+- `question:reveal` + `score:update` senden
 
 ### Host-App
 - neuer Screen: Frage-Anzeige
