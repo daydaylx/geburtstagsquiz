@@ -1,0 +1,17 @@
+{
+  "name": "quiz-dual-screen",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "corepack pnpm -r --parallel run dev",
+    "build": "corepack pnpm -r run build",
+    "typecheck": "corepack pnpm -r run typecheck"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0"
+  },
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=9"
+  }
+}
