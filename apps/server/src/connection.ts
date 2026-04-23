@@ -73,12 +73,17 @@ export function syncSessionToRoomState(session: SessionRecord, room: RoomRecord)
       roomId: room.id,
       roomState: RoomState.Completed,
       gameState: GameState.Completed,
+      totalQuestionCount: room.quiz?.questions.length ?? 0,
       finalScoreboard: getSortedScoreboard(room),
     });
     return;
   }
 
   if (room.state !== RoomState.InGame || room.gameState === null) {
+    return;
+  }
+
+  if (!room.quiz) {
     return;
   }
 
@@ -90,6 +95,7 @@ export function syncSessionToRoomState(session: SessionRecord, room: RoomRecord)
 
   const connectedPlayers = getConnectedPlayers(room);
   const scoreboard = getSortedScoreboard(room);
+  const totalQuestionCount = room.quiz.questions.length;
   const playerAnswer = session.playerId ? room.currentAnswers.get(session.playerId) ?? null : null;
 
   if (playerAnswer) {
@@ -108,6 +114,7 @@ export function syncSessionToRoomState(session: SessionRecord, room: RoomRecord)
         roomState: RoomState.InGame,
         gameState: GameState.Idle,
         questionIndex: room.currentQuestionIndex,
+        totalQuestionCount,
       });
       return;
 
@@ -116,6 +123,7 @@ export function syncSessionToRoomState(session: SessionRecord, room: RoomRecord)
         roomId: room.id,
         questionId: question.id,
         questionIndex: room.currentQuestionIndex,
+        totalQuestionCount,
         type: question.type,
         text: question.text,
         options: question.options,
@@ -148,6 +156,7 @@ export function syncSessionToRoomState(session: SessionRecord, room: RoomRecord)
         roomId: room.id,
         questionId: question.id,
         questionIndex: room.currentQuestionIndex,
+        totalQuestionCount,
         type: question.type,
         text: question.text,
         options: question.options,
@@ -166,6 +175,7 @@ export function syncSessionToRoomState(session: SessionRecord, room: RoomRecord)
         roomId: room.id,
         questionId: question.id,
         questionIndex: room.currentQuestionIndex,
+        totalQuestionCount,
         type: question.type,
         text: question.text,
         options: question.options,
@@ -190,6 +200,7 @@ export function syncSessionToRoomState(session: SessionRecord, room: RoomRecord)
         roomId: room.id,
         questionId: question.id,
         questionIndex: room.currentQuestionIndex,
+        totalQuestionCount,
         type: question.type,
         text: question.text,
         options: question.options,
@@ -220,6 +231,7 @@ export function syncSessionToRoomState(session: SessionRecord, room: RoomRecord)
         roomId: room.id,
         roomState: RoomState.Completed,
         gameState: GameState.Completed,
+        totalQuestionCount: room.quiz?.questions.length ?? 0,
         finalScoreboard: scoreboard,
       });
       return;

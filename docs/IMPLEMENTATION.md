@@ -35,6 +35,7 @@ Sicherstellen:
 
 - Host erstellt einen Raum
 - Join-Code und QR sind sichtbar
+- Host zeigt Status, Fortschritt und Spieler in einer stabilen Uebersicht statt in losen Einzelscreens
 - Spieler joinen mit Namen
 - Lobby aktualisiert sich live
 - Disconnects werden sichtbar statt still ignoriert
@@ -50,6 +51,7 @@ Abnahme:
 Sicherstellen:
 
 - Host startet das Spiel
+- Host behaltet aktuelle Frage und Gesamtfragen autoritativ im Blick
 - Frage erscheint auf Host und Player
 - Timer kommt vom Server
 - pro Spieler zaehlt nur eine Antwort

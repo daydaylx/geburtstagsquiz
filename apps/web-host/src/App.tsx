@@ -6,16 +6,16 @@ import {
   PROTOCOL_ERROR_CODES,
   parseServerToClientEnvelope,
   serializeEnvelope,
-  type ClientToServerEventPayloadMap,
-  type LobbyUpdatePayload,
-  type QuestionShowPayload,
-  type QuestionRevealPayload,
-  type ScoreUpdatePayload,
-  type GameFinishedPayload,
   type AnswerProgressPayload,
+  type ClientToServerEventPayloadMap,
+  type GameFinishedPayload,
+  type LobbyUpdatePayload,
+  type QuestionRevealPayload,
+  type QuestionShowPayload,
+  type ScoreUpdatePayload,
 } from "@quiz/shared-protocol";
-import { GameState, type ScoreboardEntry } from "@quiz/shared-types";
-import { isLoopbackHostname, getReconnectDelay, getWebSocketProtocol } from "@quiz/shared-utils";
+import { GameState, RoomState, type ScoreboardEntry } from "@quiz/shared-types";
+import { getReconnectDelay, getWebSocketProtocol, isLoopbackHostname } from "@quiz/shared-utils";
 
 import {
   clearHostStoredSession,
@@ -25,6 +25,8 @@ import {
 } from "./storage.js";
 
 type ConnectionState = "connecting" | "connected" | "reconnecting";
+type HostScreen = "start" | "lobby" | "question" | "reveal" | "scoreboard" | "finished";
+type HostCategoryId = "general" | "birthday" | "personal" | "music" | "fun";
 
 interface HostRoomInfo {
   roomId: string;
@@ -36,7 +38,50 @@ interface HostNotice {
   text: string;
 }
 
-type HostScreen = "start" | "lobby" | "question" | "reveal" | "scoreboard" | "finished";
+interface HostCategoryOption {
+  id: HostCategoryId;
+  label: string;
+  description: string;
+}
+
+interface PrimaryAction {
+  label: string;
+  description: string;
+  disabled: boolean;
+  note: string;
+  onClick?: () => void;
+}
+
+const HOST_CATEGORY_OPTIONS: HostCategoryOption[] = [
+  {
+    id: "general",
+    label: "Allgemein",
+    description: "Warme Einstiegsrunde für alle im Raum.",
+  },
+  {
+    id: "birthday",
+    label: "Geburtstag",
+    description: "Klassische Fragen rund um Feier, Alter und Abend.",
+  },
+  {
+    id: "personal",
+    label: "Persönlich",
+    description: "Direkte Fragen über das Geburtstagskind.",
+  },
+  {
+    id: "music",
+    label: "Musik",
+    description: "Songs, Lieblingshits und schnelle Erkennerfragen.",
+  },
+  {
+    id: "fun",
+    label: "Spaßfragen",
+    description: "Locker, albern und gut für Zwischendurch.",
+  },
+] as const;
+
+const DEFAULT_SELECTED_CATEGORY_IDS = HOST_CATEGORY_OPTIONS.map((category) => category.id);
+const FLOW_STEPS = ["Lobby", "Kategorien", "Frage", "Auflösung", "Endstand"] as const;
 
 function getServerSocketUrl(): string {
   const url = new URL(window.location.href);
@@ -70,6 +115,55 @@ function getConnectionLabel(connectionState: ConnectionState): string {
   }
 }
 
+function getRoomStateLabel(
+  roomState: LobbyUpdatePayload["roomState"] | GameFinishedPayload["roomState"] | undefined,
+) {
+  switch (roomState) {
+    case "waiting":
+      return "Lobby offen";
+    case "in_game":
+      return "Quiz läuft";
+    case "completed":
+      return "Quiz beendet";
+    case "closed":
+      return "Raum geschlossen";
+    case "created":
+      return "Raum erstellt";
+    default:
+      return "Noch kein Raum";
+  }
+}
+
+function getQuestionPhaseLabel(screen: HostScreen, gameState?: QuestionShowPayload["gameState"]) {
+  if (screen === "lobby" || screen === "start") {
+    return "Lobby";
+  }
+
+  if (screen === "reveal") {
+    return "Auflösung";
+  }
+
+  if (screen === "scoreboard") {
+    return "Zwischenstand";
+  }
+
+  if (screen === "finished") {
+    return "Endstand";
+  }
+
+  switch (gameState) {
+    case GameState.AnswerLocked:
+      return "Antworten gesperrt";
+    case GameState.Revealing:
+      return "Auflösung";
+    case GameState.Scoreboard:
+      return "Zwischenstand";
+    case GameState.QuestionActive:
+    default:
+      return "Frage aktiv";
+  }
+}
+
 function createHostClientInfo() {
   return {
     deviceType: "browser",
@@ -98,9 +192,16 @@ export function App() {
   const [question, setQuestion] = useState<QuestionShowPayload | null>(null);
   const [remainingMs, setRemainingMs] = useState<number>(0);
   const [answerProgress, setAnswerProgress] = useState<AnswerProgressPayload | null>(null);
-  const [revealedAnswer, setRevealedAnswer] = useState<QuestionRevealPayload["correctAnswer"] | null>(null);
+  const [revealedAnswer, setRevealedAnswer] = useState<
+    QuestionRevealPayload["correctAnswer"] | null
+  >(null);
   const [scoreboard, setScoreboard] = useState<ScoreUpdatePayload | null>(null);
   const [finalResult, setFinalResult] = useState<GameFinishedPayload | null>(null);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number | null>(null);
+  const [totalQuestionCount, setTotalQuestionCount] = useState<number | null>(null);
+  const [selectedCategoryIds, setSelectedCategoryIds] = useState<HostCategoryId[]>(
+    DEFAULT_SELECTED_CATEGORY_IDS,
+  );
 
   const socketRef = useRef<WebSocket | null>(null);
   const reconnectTimerRef = useRef<number | null>(null);
@@ -156,6 +257,8 @@ export function App() {
     setRevealedAnswer(null);
     setScoreboard(null);
     setFinalResult(null);
+    setCurrentQuestionIndex(null);
+    setTotalQuestionCount(null);
   });
 
   const scheduleReconnect = useEffectEvent(() => {
@@ -272,7 +375,21 @@ export function App() {
         });
 
         if (parsedEnvelope.data.payload.roomState === "waiting") {
+          setQuestion(null);
+          setRemainingMs(0);
+          setAnswerProgress(null);
+          setRevealedAnswer(null);
+          setScoreboard(null);
+          setFinalResult(null);
+          setCurrentQuestionIndex(null);
+          setTotalQuestionCount(null);
           setScreen("lobby");
+        } else {
+          const gs = parsedEnvelope.data.payload.gameState;
+          if (gs === GameState.Revealing) setScreen("reveal");
+          else if (gs === GameState.Scoreboard) setScreen("scoreboard");
+          else if (gs === GameState.Completed) setScreen("finished");
+          else setScreen("question");
         }
         return;
       }
@@ -283,6 +400,11 @@ export function App() {
       }
 
       case EVENTS.GAME_STARTED: {
+        setQuestion(null);
+        setScoreboard(null);
+        setFinalResult(null);
+        setCurrentQuestionIndex(parsedEnvelope.data.payload.questionIndex);
+        setTotalQuestionCount(parsedEnvelope.data.payload.totalQuestionCount);
         setScreen("question");
         setNotice({ kind: "info", text: "Spiel gestartet!" });
         return;
@@ -293,6 +415,9 @@ export function App() {
         setRemainingMs(parsedEnvelope.data.payload.durationMs);
         setAnswerProgress(null);
         setRevealedAnswer(null);
+        setScoreboard(null);
+        setCurrentQuestionIndex(parsedEnvelope.data.payload.questionIndex);
+        setTotalQuestionCount(parsedEnvelope.data.payload.totalQuestionCount);
         setScreen("question");
         setNotice(null);
         return;
@@ -327,6 +452,8 @@ export function App() {
 
       case EVENTS.GAME_FINISHED: {
         setFinalResult(parsedEnvelope.data.payload);
+        setTotalQuestionCount(parsedEnvelope.data.payload.totalQuestionCount);
+        setRemainingMs(0);
         setScreen("finished");
         return;
       }
@@ -380,7 +507,9 @@ export function App() {
     const socket = new WebSocket(getServerSocketUrl());
     socketRef.current = socket;
     setConnectionState(
-      hostSessionRef.current || roomInfo || pendingCreateRoomRef.current ? "reconnecting" : "connecting",
+      hostSessionRef.current || roomInfo || pendingCreateRoomRef.current
+        ? "reconnecting"
+        : "connecting",
     );
 
     socket.addEventListener("message", (event) => {
@@ -392,13 +521,17 @@ export function App() {
     });
 
     socket.addEventListener("close", () => {
-      if (socketRef.current === socket) {
-        socketRef.current = null;
+      if (socketRef.current !== socket) {
+        return;
       }
 
+      socketRef.current = null;
       setConnectionState("reconnecting");
 
-      if (!intentionalReconnectRef.current && (hostSessionRef.current || roomInfo || pendingCreateRoomRef.current)) {
+      if (
+        !intentionalReconnectRef.current &&
+        (hostSessionRef.current || roomInfo || pendingCreateRoomRef.current)
+      ) {
         setNotice({
           kind: "info",
           text: "Verbindung verloren. Host-Sitzung wird erneut verbunden…",
@@ -409,6 +542,10 @@ export function App() {
     });
 
     socket.addEventListener("error", () => {
+      if (socketRef.current !== socket) {
+        return;
+      }
+
       setNotice({
         kind: "error",
         text: "Serververbindung gestört. Neuer Verbindungsversuch läuft…",
@@ -422,9 +559,11 @@ export function App() {
     return () => {
       shouldReconnectRef.current = false;
       clearReconnectTimer();
-      socketRef.current?.close();
+      const socket = socketRef.current;
+      socketRef.current = null;
+      socket?.close();
     };
-  }, [clearReconnectTimer, connectSocket]);
+  }, []);
 
   const reconnectAsFreshHost = useEffectEvent((noticeText: string) => {
     intentionalReconnectRef.current = true;
@@ -500,7 +639,7 @@ export function App() {
         return;
       }
 
-      reconnectAsFreshHost("Host-Verbindung wird zurueckgesetzt. Neuer Raum folgt gleich.");
+      reconnectAsFreshHost("Host-Verbindung wird zurückgesetzt. Neuer Raum folgt gleich.");
       return;
     }
 
@@ -537,27 +676,474 @@ export function App() {
   const loopback = isLoopbackHostname(window.location.hostname);
   const joinUrl = roomInfo?.joinCode ? getPlayerJoinUrl(roomInfo.joinCode) : "";
   const canCreateRoom = connectionState === "connected" && !isCreatingRoom;
-  const connectedPlayerCount = lobby?.players.filter((p) => p.connected).length ?? 0;
+  const connectedPlayerCount = lobby?.players.filter((player) => player.connected).length ?? 0;
+  const totalPlayerCount = lobby?.playerCount ?? 0;
+  const disconnectedPlayerCount = Math.max(0, totalPlayerCount - connectedPlayerCount);
   const timerSeconds = Math.ceil((remainingMs ?? 0) / 1000);
-  const progressPercent =
+  const answerProgressPercent =
     answerProgress && answerProgress.totalEligiblePlayers > 0
       ? (answerProgress.answeredCount / answerProgress.totalEligiblePlayers) * 100
       : 0;
   const revealedOptionLabel =
     question && revealedAnswer
-      ? question.options.find((option) => option.id === revealedAnswer.value)?.label ??
-        revealedAnswer.value
+      ? (question.options.find((option) => option.id === revealedAnswer.value)?.label ??
+        revealedAnswer.value)
       : null;
-  const winningEntry = finalResult?.finalScoreboard[0] ?? null;
+
+  const selectedCategories = HOST_CATEGORY_OPTIONS.filter((category) =>
+    selectedCategoryIds.includes(category.id),
+  );
+  const categoryPlanPercent =
+    HOST_CATEGORY_OPTIONS.length > 0
+      ? (selectedCategories.length / HOST_CATEGORY_OPTIONS.length) * 100
+      : 0;
+
+  const latestScoreboard: ScoreboardEntry[] =
+    finalResult?.finalScoreboard ?? scoreboard?.scoreboard ?? [];
+  const scoreByPlayerId = new Map<string, number>();
+  for (const entry of latestScoreboard) {
+    scoreByPlayerId.set(entry.playerId, entry.score);
+  }
+
+  const playersForSidebar = [...(lobby?.players ?? [])]
+    .map((player) => ({
+      ...player,
+      score: scoreByPlayerId.get(player.playerId) ?? player.score,
+    }))
+    .sort((left, right) => {
+      if (left.connected !== right.connected) {
+        return left.connected ? -1 : 1;
+      }
+
+      return left.name.localeCompare(right.name, "de");
+    });
+
+  const effectiveTotalQuestionCount =
+    totalQuestionCount ?? question?.totalQuestionCount ?? finalResult?.totalQuestionCount ?? null;
+  const currentQuestionNumber = currentQuestionIndex !== null ? currentQuestionIndex + 1 : 0;
+  const visibleQuestionNumber =
+    effectiveTotalQuestionCount === null
+      ? 0
+      : screen === "finished"
+        ? effectiveTotalQuestionCount
+        : currentQuestionNumber;
+  const questionProgressPercent =
+    effectiveTotalQuestionCount && visibleQuestionNumber > 0
+      ? (visibleQuestionNumber / effectiveTotalQuestionCount) * 100
+      : 0;
+
+  const roomStateValue =
+    screen === "finished"
+      ? RoomState.Completed
+      : screen === "question" || screen === "reveal" || screen === "scoreboard"
+        ? RoomState.InGame
+        : roomInfo
+          ? (lobby?.roomState ?? RoomState.Waiting)
+          : undefined;
+  const roomStateLabel = getRoomStateLabel(roomStateValue);
+  const questionPhaseLabel = getQuestionPhaseLabel(screen, question?.gameState);
+
+  const isReadyToStart = screen === "lobby" && Boolean(roomInfo) && connectedPlayerCount > 0;
+  const readinessLabel =
+    screen === "lobby"
+      ? isReadyToStart
+        ? "Ja"
+        : "Noch nicht"
+      : screen === "finished"
+        ? "Abgeschlossen"
+        : "Läuft";
+
+  let statusHeadline = "Host bereit";
+  let statusHint = "Die Host-Ansicht bündelt Status, Fortschritt und Spieler an einer Stelle.";
+
+  switch (screen) {
+    case "lobby":
+      statusHeadline = isReadyToStart ? "Startklar" : "Warte auf Spieler";
+      statusHint = isReadyToStart
+        ? "Das Quiz kann jetzt gestartet werden. Die Kategorien sind aktuell nur als Host-Vorbereitung sichtbar."
+        : "Sobald mindestens ein Handy verbunden ist, kann das Quiz losgehen.";
+      break;
+    case "question":
+      statusHeadline = "Frage läuft";
+      statusHint = "Timer und Antwortannahme bleiben serverseitig autoritativ.";
+      break;
+    case "reveal":
+      statusHeadline = "Auflösung sichtbar";
+      statusHint = "Die richtige Antwort ist jetzt auf dem Hauptscreen sichtbar.";
+      break;
+    case "scoreboard":
+      statusHeadline = "Zwischenstand bereit";
+      statusHint = "Von hier geht es per Host-Steuerung zur nächsten Frage oder in den Endstand.";
+      break;
+    case "finished":
+      statusHeadline = "Quiz beendet";
+      statusHint = "Für ein neues Spiel wird der aktuelle Raum geschlossen und neu aufgebaut.";
+      break;
+    default:
+      break;
+  }
+
+  let controlDescription = "Der nächste sinnvolle Schritt wird hier zentral ausgelöst.";
+  let controlNote = "Keine Zusatzlogik auf dem Client: Der Server bleibt die Wahrheit.";
+  let primaryAction: PrimaryAction = {
+    label: "Quiz starten",
+    description: "Sobald mindestens ein Handy verbunden ist, kann die erste Frage starten.",
+    disabled: !isReadyToStart,
+    note: "Die Kategorien sind aktuell nur als Vorbereitung sichtbar und steuern den Fragenblock noch nicht.",
+    onClick: handleStartGame,
+  };
+
+  switch (screen) {
+    case "lobby":
+      primaryAction = {
+        label: "Quiz starten",
+        description:
+          connectedPlayerCount > 0
+            ? "Der Server startet die erste Frage und übernimmt Timer, Antworten und Punkte."
+            : "Vor dem Start muss mindestens ein Spieler verbunden sein.",
+        disabled: !isReadyToStart,
+        note:
+          selectedCategories.length > 0
+            ? "Die Kategorien markieren aktuell nur den geplanten Host-Flow. Gestartet wird weiterhin das bestehende Standardquiz."
+            : "Ohne vorbereitete Kategorien startet trotzdem das bestehende Standardquiz.",
+        onClick: handleStartGame,
+      };
+      controlDescription = primaryAction.description;
+      controlNote = primaryAction.note;
+      break;
+    case "question":
+      primaryAction = {
+        label: "Antworten laufen",
+        description:
+          "Die Frage ist offen. Der Server schließt sie automatisch bei Zeitablauf oder wenn alle geantwortet haben.",
+        disabled: true,
+        note: "Hier ist bewusst keine manuelle Abkürzung eingebaut.",
+      };
+      controlDescription = primaryAction.description;
+      controlNote = primaryAction.note;
+      break;
+    case "reveal":
+      primaryAction = {
+        label: "Auflösung läuft",
+        description:
+          "Die richtige Antwort wird gerade gezeigt. Anschließend landet der Host automatisch im Zwischenstand.",
+        disabled: true,
+        note: "Die Anzeige bleibt ruhig, damit der Screen aus der Distanz lesbar bleibt.",
+      };
+      controlDescription = primaryAction.description;
+      controlNote = primaryAction.note;
+      break;
+    case "scoreboard": {
+      const isLastQuestion =
+        effectiveTotalQuestionCount !== null &&
+        currentQuestionNumber >= effectiveTotalQuestionCount;
+      primaryAction = {
+        label: isLastQuestion ? "Endstand zeigen" : "Nächste Frage",
+        description: isLastQuestion
+          ? "Die letzte Frage ist durch. Mit dem nächsten Schritt sendet der Server den Endstand."
+          : "Der Server springt zur nächsten Frage und setzt die Antwortphase neu auf.",
+        disabled: !roomInfo,
+        note: "Ob noch eine weitere Frage folgt oder das Spiel endet, entscheidet allein der Server.",
+        onClick: handleNextQuestion,
+      };
+      controlDescription = primaryAction.description;
+      controlNote = primaryAction.note;
+      break;
+    }
+    case "finished":
+      primaryAction = {
+        label: "Neues Spiel vorbereiten",
+        description: "Der alte Raum wird geschlossen und direkt durch einen frischen Raum ersetzt.",
+        disabled: !roomInfo && !hostSessionRef.current,
+        note: "Die lokale Kategorien-Auswahl bleibt erhalten, bis du sie selbst änderst.",
+        onClick: handleCreateRoom,
+      };
+      controlDescription = primaryAction.description;
+      controlNote = primaryAction.note;
+      break;
+    default:
+      break;
+  }
+
+  const currentFlowStepIndex =
+    screen === "finished"
+      ? 4
+      : screen === "scoreboard" || screen === "reveal"
+        ? 3
+        : screen === "question"
+          ? 2
+          : selectedCategories.length > 0
+            ? 1
+            : 0;
+
+  const renderStagePanel = () => {
+    if (screen === "lobby" && roomInfo) {
+      return (
+        <>
+          <div className="host-stage-head">
+            <div className="host-stage-copy">
+              <p className="host-kicker">Lobby</p>
+              <h2 className="host-stage-title">Raum ist offen und bereit für den Quiz-Start.</h2>
+              <p className="host-stage-text">
+                {connectedPlayerCount > 0
+                  ? `${connectedPlayerCount} Handy${connectedPlayerCount === 1 ? "" : "s"} sind verbunden. Sobald alle drin sind, startest du rechts das Quiz.`
+                  : "Zeige Join-Code oder QR groß auf dem Screen. Sobald mindestens ein Handy drin ist, kann das Quiz starten."}
+              </p>
+            </div>
+
+            <div className="host-stage-pill-row">
+              <span className="host-stage-pill">{totalPlayerCount} Spieler insgesamt</span>
+              <span
+                className="host-stage-pill"
+                data-tone={connectedPlayerCount > 0 ? "success" : "neutral"}
+              >
+                {connectedPlayerCount} verbunden
+              </span>
+            </div>
+          </div>
+
+          <div className="host-stage-split">
+            <div className="host-join-stage">
+              <p className="host-section-label">Join-Code</p>
+              <p className="host-join-code">{roomInfo.joinCode}</p>
+              <p className="host-join-caption">
+                Code groß sichtbar lassen oder direkt per QR einscannen.
+              </p>
+            </div>
+
+            <div className="host-support-stack">
+              {loopback ? (
+                <div className="host-hint">
+                  QR ist für echte Handys erst sinnvoll, wenn diese Host-Seite über eine LAN-IP oder
+                  einen lokalen Hostnamen geöffnet wurde statt über <code>localhost</code>.
+                </div>
+              ) : (
+                <div className="host-qr-card">
+                  {qrCodeDataUrl ? (
+                    <img alt="QR-Code für den Player-Join" src={qrCodeDataUrl} />
+                  ) : null}
+                </div>
+              )}
+
+              <div className="host-join-link-card">
+                <p className="host-join-link-label">Direktlink</p>
+                <div className="host-join-link">{joinUrl}</div>
+              </div>
+            </div>
+          </div>
+        </>
+      );
+    }
+
+    if (screen === "question") {
+      if (!question) {
+        return <div className="host-empty">Die Frage wird gerade vom Server geladen.</div>;
+      }
+
+      return (
+        <>
+          <div className="host-stage-head">
+            <div className="host-stage-copy">
+              <p className="host-kicker">
+                Frage {currentQuestionNumber}
+                {effectiveTotalQuestionCount ? ` von ${effectiveTotalQuestionCount}` : ""}
+              </p>
+              <h2 className="host-stage-title">Jetzt antworten die Handys.</h2>
+              <p className="host-stage-text">
+                Die Frage läuft auf dem Hauptscreen, die Antworten kommen gesammelt vom Server
+                zurück.
+              </p>
+            </div>
+
+            <div className="host-timer-shell" data-urgent={timerSeconds <= 5 ? "true" : undefined}>
+              <span className="host-timer-label">Restzeit</span>
+              <div className="host-timer">{timerSeconds}s</div>
+            </div>
+          </div>
+
+          <div className="host-stage-pill-row">
+            <span className="host-stage-pill">
+              {effectiveTotalQuestionCount
+                ? `${effectiveTotalQuestionCount} Fragen gesamt`
+                : "Fragenblock aktiv"}
+            </span>
+            <span className="host-stage-pill" data-tone="accent">
+              {answerProgress
+                ? `${answerProgress.answeredCount} / ${answerProgress.totalEligiblePlayers} Antworten`
+                : "Warte auf Antworten"}
+            </span>
+          </div>
+
+          <h3 className="host-question-text">{question.text}</h3>
+
+          <div className="host-options-grid">
+            {question.options.map((option) => (
+              <div className="host-option-card" key={option.id}>
+                <span className="host-option-id">{option.id}</span>
+                <span className="host-option-label">{option.label}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="host-progress-block">
+            <div className="host-bar-meta">
+              <span>Antwortfortschritt</span>
+              <strong>
+                {answerProgress
+                  ? `${answerProgress.answeredCount} / ${answerProgress.totalEligiblePlayers} geantwortet`
+                  : "Noch keine Antworten bestätigt"}
+              </strong>
+            </div>
+            <div className="host-bar">
+              <div
+                className="host-bar-fill"
+                style={{
+                  width: `${answerProgressPercent}%`,
+                }}
+              />
+              <span className="host-bar-text">
+                {answerProgress
+                  ? `${answerProgress.answeredCount} / ${answerProgress.totalEligiblePlayers} geantwortet`
+                  : "Warte auf Antworten"}
+              </span>
+            </div>
+          </div>
+        </>
+      );
+    }
+
+    if (screen === "reveal") {
+      if (!question) {
+        return <div className="host-empty">Die Auflösung wird gerade synchronisiert.</div>;
+      }
+
+      return (
+        <>
+          <div className="host-stage-head">
+            <div className="host-stage-copy">
+              <p className="host-kicker">Auflösung</p>
+              <h2 className="host-stage-title">Die richtige Antwort steht auf dem Screen.</h2>
+              <p className="host-stage-text">
+                Jetzt ist der Moment für Reaktion im Raum, bevor der Zwischenstand kommt.
+              </p>
+            </div>
+
+            <div className="host-reveal-callout">
+              <span className="host-reveal-label">Richtig</span>
+              <strong>{revealedOptionLabel ?? "Wird geladen"}</strong>
+            </div>
+          </div>
+
+          <h3 className="host-question-text">{question.text}</h3>
+
+          <div className="host-options-grid">
+            {question.options.map((option) => (
+              <div
+                className="host-option-card"
+                data-correct={revealedAnswer?.value === option.id ? "true" : undefined}
+                key={option.id}
+              >
+                <span className="host-option-id">{option.id}</span>
+                <span className="host-option-label">{option.label}</span>
+              </div>
+            ))}
+          </div>
+        </>
+      );
+    }
+
+    if (screen === "scoreboard") {
+      return (
+        <>
+          <div className="host-stage-head">
+            <div className="host-stage-copy">
+              <p className="host-kicker">Zwischenstand</p>
+              <h2 className="host-stage-title">Punkte nach dieser Frage.</h2>
+              <p className="host-stage-text">
+                Der Hauptscreen bleibt bei der Rangliste, bis du rechts den nächsten Schritt
+                auslöst.
+              </p>
+            </div>
+
+            <div className="host-stage-pill-row">
+              <span className="host-stage-pill">
+                Frage {currentQuestionNumber}
+                {effectiveTotalQuestionCount ? ` / ${effectiveTotalQuestionCount}` : ""}
+              </span>
+            </div>
+          </div>
+
+          {latestScoreboard.length > 0 ? (
+            <div className="host-scoreboard-list">
+              {latestScoreboard.map((entry, index) => (
+                <article
+                  className="host-scoreboard-item"
+                  data-placement={index < 3 ? String(index + 1) : undefined}
+                  key={entry.playerId}
+                >
+                  <span className="host-scoreboard-rank">{index + 1}.</span>
+                  <span className="host-scoreboard-name">{entry.name}</span>
+                  <span className="host-scoreboard-score">{entry.score} Punkte</span>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <div className="host-empty">Der Zwischenstand wird gerade aufgebaut.</div>
+          )}
+        </>
+      );
+    }
+
+    if (screen === "finished") {
+      const winner = finalResult?.finalScoreboard[0] ?? null;
+
+      return (
+        <>
+          <div className="host-stage-head">
+            <div className="host-stage-copy">
+              <p className="host-kicker">Endstand</p>
+              <h2 className="host-stage-title">Das Quiz ist beendet.</h2>
+              <p className="host-stage-text">
+                {winner
+                  ? `${winner.name} führt den Abend an. Von rechts kann direkt ein neues Spiel vorbereitet werden.`
+                  : "Der Endstand ist fertig und der Raum kann für ein neues Spiel ersetzt werden."}
+              </p>
+            </div>
+          </div>
+
+          {latestScoreboard.length > 0 ? (
+            <div className="host-scoreboard-list">
+              {latestScoreboard.map((entry, index) => (
+                <article
+                  className="host-scoreboard-item"
+                  data-placement={index < 3 ? String(index + 1) : undefined}
+                  key={entry.playerId}
+                >
+                  <span className="host-scoreboard-rank">{index + 1}.</span>
+                  <span className="host-scoreboard-name">{entry.name}</span>
+                  <span className="host-scoreboard-score">{entry.score} Punkte</span>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <div className="host-empty">Der Endstand wird gerade synchronisiert.</div>
+          )}
+        </>
+      );
+    }
+
+    return <div className="host-empty">Die Host-Ansicht wird vorbereitet.</div>;
+  };
 
   return (
     <main className="host-shell" data-screen={screen}>
       <div className="host-header">
         <div className="host-brand">
           <span className="host-flag">Geburtstagsabend live</span>
-          <h1 className="host-title">Quiz Dual Screen</h1>
+          <h1 className="host-title">Geburtstagsquiz Host</h1>
           <p className="host-subtitle">
-            Ein gemeinsamer Screen führt durch den Abend, die Handys antworten live.
+            Eine klare Steueroberfläche für Join-Code, Fortschritt, Spieler und den nächsten
+            sinnvollen Schritt im Abendablauf.
           </p>
         </div>
 
@@ -572,15 +1158,18 @@ export function App() {
         </div>
       ) : null}
 
-      {screen === "start" && !roomInfo && (
+      {screen === "start" && !roomInfo ? (
         <section className="host-start host-panel">
           <div className="host-start-copy">
             <p className="host-kicker">Host Setup</p>
-            <h2 className="host-copy-title">Ein Code. Ein Screen. Dann kann der Abend starten.</h2>
+            <h2 className="host-copy-title">
+              Raum öffnen, Leute reinholen, dann sauber durch den Abend führen.
+            </h2>
             <p className="host-copy-text">
-              Raum erstellen, Join-Code groß zeigen und danach nur noch durch Fragen, Auflösung
-              und Rangliste führen.
+              Erst Raum erstellen, dann Join-Code zeigen und danach aus einer ruhigen
+              Host-Oberfläche durch Lobby, Frage, Auflösung und Rangliste steuern.
             </p>
+
             <div className="host-chip-row">
               <span className="host-chip">1 Host</span>
               <span className="host-chip">mehrere Handys</span>
@@ -602,7 +1191,7 @@ export function App() {
                 disabled={connectionState !== "connected"}
                 onClick={() => {
                   pendingCreateRoomRef.current = false;
-                  reconnectAsFreshHost("Gespeicherte Host-Sitzung wurde geloescht.");
+                  reconnectAsFreshHost("Gespeicherte Host-Sitzung wurde gelöscht.");
                 }}
                 type="button"
               >
@@ -613,268 +1202,300 @@ export function App() {
 
           <aside className="host-note-card">
             <p className="host-note-label">Vor dem Start</p>
-            <h2>Handys nur über das gleiche WLAN holen.</h2>
+            <h2>Handys nur über dasselbe WLAN holen.</h2>
             <p>
-              Für echte Handys im selben WLAN die Host-Seite nicht über `localhost`, sondern über
-              die LAN-IP oder einen lokalen Hostnamen öffnen. Dann zeigt der QR-Code direkt auf die
-              Player-App im selben Netz.
+              Für echte Handys im selben WLAN die Host-Seite nicht über <code>localhost</code>,
+              sondern über die LAN-IP oder einen lokalen Hostnamen öffnen. Dann zeigt der QR-Code
+              direkt auf die Player-App im selben Netz.
             </p>
           </aside>
         </section>
-      )}
+      ) : null}
 
-      {screen === "lobby" && roomInfo && (
-        <section className="host-lobby host-layout">
-          <aside className="host-panel host-lobby-aside">
-            <div className="host-panel-top">
-              <p className="host-kicker">Lobby</p>
-              <div className="host-ready-pill">{connectedPlayerCount} bereit</div>
-            </div>
-            <h2 className="host-main-title">Join-Code</h2>
-            <div className="host-join-stage">
-              <p className="host-join-code">{roomInfo.joinCode}</p>
-              <p className="host-join-caption">
-                Den Code gut sichtbar lassen oder direkt per QR einscannen.
-              </p>
-            </div>
+      {roomInfo ? (
+        <section className="host-dashboard">
+          <div className="host-dashboard-main">
+            <section className="host-panel host-stage-panel" data-mode={screen}>
+              {renderStagePanel()}
+            </section>
 
-            <div className="host-qr-shell">
-              {loopback ? (
-                <div className="host-hint">
-                  QR für echte Handys ist erst sinnvoll, wenn diese Host-Seite über eine LAN-IP oder
-                  einen lokalen Hostnamen geöffnet wurde statt über `localhost`.
+            <section className="host-panel host-categories-panel">
+              <div className="host-panel-top">
+                <div>
+                  <p className="host-section-label">Kategorieauswahl</p>
+                  <h2 className="host-panel-title">Rundenplan für den Host vorbereiten.</h2>
+                  <p className="host-panel-copy">
+                    Sichtbare Mehrfachauswahl für den Abendfluss. Diese Auswahl steuert den
+                    Fragenblock aktuell noch nicht serverseitig.
+                  </p>
                 </div>
-              ) : (
-                <div className="host-qr-card">
-                  {qrCodeDataUrl ? <img alt="QR-Code für den Player-Join" src={qrCodeDataUrl} /> : null}
+
+                <div className="host-ready-pill" data-tone="soft">
+                  {selectedCategories.length} gewählt
                 </div>
-              )}
-
-              <div className="host-join-link-card">
-                <p className="host-join-link-label">Direktlink</p>
-                <div className="host-join-link">{joinUrl}</div>
-              </div>
-            </div>
-          </aside>
-
-          <section className="host-panel host-lobby-main">
-            <div className="host-main-top">
-              <div>
-                <p className="host-section-label">Live</p>
-                <h2 className="host-main-title">Warteraum</h2>
-                <p className="host-copy-text">
-                  {connectedPlayerCount} verbundene Spieler sind bereit. Sobald alle drin sind,
-                  startet hier die erste Frage.
-                </p>
               </div>
 
-              <button
-                className="host-primary-button"
-                disabled={connectedPlayerCount === 0}
-                onClick={handleStartGame}
-                type="button"
-              >
-                Spiel starten
-              </button>
-            </div>
-
-            <div className="host-metric-grid">
-              <div className="host-metric">
-                <p className="host-metric-label">Spieler</p>
-                <p className="host-metric-value">{lobby?.playerCount ?? 0}</p>
+              <div className="host-category-note">
+                Mock-/Vorbereitungsstand: Kategorien sind jetzt bewusst UI-seitig angelegt, damit
+                der Host schon mit einer klaren Struktur arbeiten kann.
               </div>
 
-              <div className="host-metric">
-                <p className="host-metric-label">Host</p>
-                <p className="host-metric-value">{lobby?.hostConnected ? "online" : "offline"}</p>
-              </div>
+              <div className="host-category-grid">
+                {HOST_CATEGORY_OPTIONS.map((category) => {
+                  const isSelected = selectedCategoryIds.includes(category.id);
 
-              <div className="host-metric">
-                <p className="host-metric-label">Raumstatus</p>
-                <p className="host-metric-value">{lobby?.roomState ?? "waiting"}</p>
-              </div>
-            </div>
-
-            <div className="host-player-list">
-              {lobby && lobby.players.length > 0 ? (
-                lobby.players.map((player, index) => (
-                  <article
-                    className="host-player-item"
-                    data-connected={player.connected}
-                    key={player.playerId}
-                  >
-                    <div
-                      className="host-player-rank"
-                      data-placement={index < 3 ? String(index + 1) : undefined}
+                  return (
+                    <button
+                      aria-pressed={isSelected}
+                      className="host-category-card"
+                      data-selected={isSelected ? "true" : undefined}
+                      key={category.id}
+                      onClick={() => {
+                        setSelectedCategoryIds((currentIds) =>
+                          currentIds.includes(category.id)
+                            ? currentIds.filter((currentId) => currentId !== category.id)
+                            : [...currentIds, category.id],
+                        );
+                      }}
+                      type="button"
                     >
-                      {String(index + 1).padStart(2, "0")}
-                    </div>
+                      <span className="host-category-state">
+                        {isSelected ? "gewählt" : "nicht gewählt"}
+                      </span>
+                      <strong>{category.label}</strong>
+                      <span>{category.description}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </section>
+          </div>
 
-                    <div className="host-player-meta">
-                      <p className="host-player-name">{player.name}</p>
-                      <p className="host-player-score">{player.score} Punkte</p>
-                    </div>
-
-                    <div className="host-player-state" data-connected={player.connected}>
-                      {player.connected ? "verbunden" : "getrennt"}
-                    </div>
-                  </article>
-                ))
-              ) : (
-                <div className="host-empty">
-                  Noch keine Spieler in der Lobby. Join-Code teilen oder QR auf einen zweiten
-                  Bildschirm halten.
+          <aside className="host-sidebar">
+            <section className="host-panel host-sidebar-panel">
+              <div className="host-panel-top">
+                <div>
+                  <p className="host-section-label">Status</p>
+                  <h2 className="host-panel-title">Was läuft gerade?</h2>
                 </div>
-              )}
-            </div>
-          </section>
-        </section>
-      )}
 
-      {screen === "question" && question && (
-        <section className="host-game host-panel" data-mode="question">
-          <div className="host-game-header">
-            <div className="host-stage-copy">
-              <p className="host-kicker">Frage {question.questionIndex + 1}</p>
-              <p className="host-stage-line">Jetzt antworten die Handys.</p>
-            </div>
-            <div className="host-timer-shell" data-urgent={timerSeconds <= 5 ? "true" : undefined}>
-              <span className="host-timer-label">Restzeit</span>
-              <div className="host-timer">{timerSeconds}s</div>
-            </div>
-          </div>
-
-          <h2 className="host-question-text">{question.text}</h2>
-
-          <div className="host-options-grid">
-            {question.options.map((option) => (
-              <div className="host-option-card" key={option.id}>
-                <span className="host-option-id">{option.id}</span>
-                <span className="host-option-label">{option.label}</span>
+                <div className="host-ready-pill">{statusHeadline}</div>
               </div>
-            ))}
-          </div>
 
-          {answerProgress && (
-            <div className="host-progress-shell">
-              <div className="host-progress-meta">
-                <span>Antwortfortschritt</span>
-                <strong>
-                  {answerProgress.answeredCount} / {answerProgress.totalEligiblePlayers} geantwortet
-                </strong>
+              <div className="host-summary-grid">
+                <article className="host-summary-item">
+                  <p className="host-summary-label">Spielstatus</p>
+                  <p className="host-summary-value">{statusHeadline}</p>
+                </article>
+                <article className="host-summary-item">
+                  <p className="host-summary-label">Raumstatus</p>
+                  <p className="host-summary-value">{roomStateLabel}</p>
+                </article>
+                <article className="host-summary-item">
+                  <p className="host-summary-label">Fragephase</p>
+                  <p className="host-summary-value">{questionPhaseLabel}</p>
+                </article>
+                <article className="host-summary-item">
+                  <p className="host-summary-label">Startbereit</p>
+                  <p className="host-summary-value">{readinessLabel}</p>
+                </article>
+                <article className="host-summary-item">
+                  <p className="host-summary-label">Geplante Kategorien</p>
+                  <p className="host-summary-value">
+                    {selectedCategories.length > 0
+                      ? `${selectedCategories.length} vorbereitet`
+                      : "Noch keine"}
+                  </p>
+                </article>
               </div>
-              <div className="host-progress-bar">
+
+              <div className="host-chip-row">
+                {selectedCategories.length > 0 ? (
+                  selectedCategories.map((category) => (
+                    <span className="host-chip" key={category.id}>
+                      {category.label}
+                    </span>
+                  ))
+                ) : (
+                  <span className="host-chip">Noch keine Kategorie markiert</span>
+                )}
+              </div>
+
+              <p className="host-panel-note">{statusHint}</p>
+            </section>
+
+            <section className="host-panel host-sidebar-panel">
+              <div className="host-panel-top">
+                <div>
+                  <p className="host-section-label">Fortschritt</p>
+                  <h2 className="host-panel-title">Ablauf auf einen Blick.</h2>
+                </div>
+              </div>
+
+              <div className="host-flow-list">
+                {FLOW_STEPS.map((step, index) => {
+                  const state =
+                    index < currentFlowStepIndex
+                      ? "done"
+                      : index === currentFlowStepIndex
+                        ? "current"
+                        : "upcoming";
+
+                  return (
+                    <div className="host-flow-item" data-state={state} key={step}>
+                      <span className="host-flow-index">{index + 1}</span>
+                      <div>
+                        <strong>{step}</strong>
+                        <span>
+                          {state === "done"
+                            ? "erledigt"
+                            : state === "current"
+                              ? "gerade aktiv"
+                              : "folgt später"}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="host-progress-block">
+                <div className="host-bar-meta">
+                  <span>Fragen</span>
+                  <strong>
+                    {effectiveTotalQuestionCount !== null
+                      ? `${visibleQuestionNumber} / ${effectiveTotalQuestionCount}`
+                      : "Noch nicht gestartet"}
+                  </strong>
+                </div>
+                <div className="host-bar">
+                  <div
+                    className="host-bar-fill"
+                    style={{
+                      width: `${questionProgressPercent}%`,
+                    }}
+                  />
+                  <span className="host-bar-text">
+                    {effectiveTotalQuestionCount !== null
+                      ? `Frage ${visibleQuestionNumber} von ${effectiveTotalQuestionCount}`
+                      : "Fragenblock wird vom Server geliefert"}
+                  </span>
+                </div>
+              </div>
+
+              <div className="host-progress-block">
+                <div className="host-bar-meta">
+                  <span>Rundenplan</span>
+                  <strong>
+                    {selectedCategories.length} / {HOST_CATEGORY_OPTIONS.length} vorbereitet
+                  </strong>
+                </div>
+                <div className="host-bar" data-tone="soft">
+                  <div
+                    className="host-bar-fill"
+                    style={{
+                      width: `${categoryPlanPercent}%`,
+                    }}
+                  />
+                  <span className="host-bar-text">Kategorien aktuell als UI-Vorbereitung</span>
+                </div>
+              </div>
+            </section>
+
+            <section className="host-panel host-sidebar-panel">
+              <div className="host-panel-top">
+                <div>
+                  <p className="host-section-label">Steuerung</p>
+                  <h2 className="host-panel-title">Nächster Schritt</h2>
+                  <p className="host-panel-copy">{controlDescription}</p>
+                </div>
+              </div>
+
+              <div className="host-actions host-actions-column">
+                <button
+                  className="host-primary-button"
+                  disabled={primaryAction.disabled}
+                  onClick={primaryAction.onClick}
+                  type="button"
+                >
+                  {primaryAction.label}
+                </button>
+              </div>
+
+              <p className="host-panel-note">{controlNote}</p>
+            </section>
+
+            <section className="host-panel host-player-panel">
+              <div className="host-panel-top">
+                <div>
+                  <p className="host-section-label">Spielerübersicht</p>
+                  <h2 className="host-panel-title">Wer ist drin und verbunden?</h2>
+                  <p className="host-panel-copy">
+                    Verbindung bleibt klar sichtbar. Antwortstatus kommt aktuell gesammelt, nicht
+                    pro Spieler.
+                  </p>
+                </div>
+
                 <div
-                  className="host-progress-fill"
-                  style={{
-                    width: `${progressPercent}%`,
-                  }}
-                />
-                <span className="host-progress-text">
-                  {answerProgress.answeredCount} / {answerProgress.totalEligiblePlayers} geantwortet
-                </span>
+                  className="host-ready-pill"
+                  data-tone={connectedPlayerCount > 0 ? "success" : "soft"}
+                >
+                  {connectedPlayerCount} online
+                </div>
               </div>
-            </div>
-          )}
-        </section>
-      )}
 
-      {screen === "reveal" && question && (
-        <section className="host-game host-panel" data-mode="reveal">
-          <div className="host-game-header">
-            <div className="host-stage-copy">
-              <p className="host-kicker">Auflösung</p>
-              {revealedOptionLabel ? (
-                <p className="host-stage-line">Richtige Antwort: {revealedOptionLabel}</p>
-              ) : null}
-            </div>
-          </div>
-
-          <h2 className="host-question-text">{question.text}</h2>
-
-          <div className="host-options-grid">
-            {question.options.map((option) => (
-              <div
-                className="host-option-card"
-                key={option.id}
-                data-correct={revealedAnswer?.value === option.id ? "true" : undefined}
-              >
-                <span className="host-option-id">{option.id}</span>
-                <span className="host-option-label">{option.label}</span>
+              <div className="host-metric-grid host-metric-grid-compact">
+                <div className="host-metric">
+                  <p className="host-metric-label">Gesamt</p>
+                  <p className="host-metric-value">{totalPlayerCount}</p>
+                </div>
+                <div className="host-metric">
+                  <p className="host-metric-label">Verbunden</p>
+                  <p className="host-metric-value">{connectedPlayerCount}</p>
+                </div>
+                <div className="host-metric">
+                  <p className="host-metric-label">Getrennt</p>
+                  <p className="host-metric-value">{disconnectedPlayerCount}</p>
+                </div>
               </div>
-            ))}
-          </div>
+
+              <div className="host-player-list">
+                {playersForSidebar.length > 0 ? (
+                  playersForSidebar.map((player) => (
+                    <article
+                      className="host-player-item"
+                      data-connected={player.connected}
+                      key={player.playerId}
+                    >
+                      <div className="host-player-avatar">
+                        {player.name.slice(0, 1).toUpperCase()}
+                      </div>
+                      <div className="host-player-meta">
+                        <p className="host-player-name">{player.name}</p>
+                        <p className="host-player-score">{player.score} Punkte</p>
+                      </div>
+                      <div className="host-player-state" data-connected={player.connected}>
+                        {player.connected ? "verbunden" : "getrennt"}
+                      </div>
+                    </article>
+                  ))
+                ) : (
+                  <div className="host-empty">
+                    Noch keine Spieler in der Lobby. Join-Code teilen oder QR auf den Hauptscreen
+                    bringen.
+                  </div>
+                )}
+              </div>
+
+              <p className="host-panel-note">
+                {answerProgress
+                  ? `Antwortstatus aktuell gesammelt: ${answerProgress.answeredCount} / ${answerProgress.totalEligiblePlayers} bestätigt.`
+                  : "Individuelle Antwortmarken werden später ergänzt, sobald der Server sie liefert."}
+              </p>
+            </section>
+          </aside>
         </section>
-      )}
-
-      {screen === "scoreboard" && scoreboard && (
-        <section className="host-game host-panel" data-mode="scoreboard">
-          <div className="host-game-header">
-            <div className="host-stage-copy">
-              <p className="host-kicker">Rangliste</p>
-              <p className="host-stage-line">Zwischenstand nach dieser Frage.</p>
-            </div>
-          </div>
-
-          <div className="host-scoreboard-list">
-            {scoreboard.scoreboard.map((entry, index) => (
-              <article
-                className="host-scoreboard-item"
-                data-placement={index < 3 ? String(index + 1) : undefined}
-                key={entry.playerId}
-              >
-                <span className="host-scoreboard-rank">{index + 1}.</span>
-                <span className="host-scoreboard-name">{entry.name}</span>
-                <span className="host-scoreboard-score">{entry.score} Punkte</span>
-              </article>
-            ))}
-          </div>
-
-          <div className="host-actions">
-            <button className="host-primary-button" onClick={handleNextQuestion} type="button">
-              Nächste Frage
-            </button>
-          </div>
-        </section>
-      )}
-
-      {screen === "finished" && finalResult && (
-        <section className="host-game host-panel" data-mode="finished">
-          <div className="host-game-header">
-            <div className="host-stage-copy">
-              <p className="host-kicker">Spiel beendet</p>
-              <h2 className="host-main-title">Endergebnis</h2>
-              {winningEntry ? (
-                <p className="host-stage-line">{winningEntry.name} führt den Abend an.</p>
-              ) : null}
-            </div>
-          </div>
-
-          <div className="host-scoreboard-list">
-            {finalResult.finalScoreboard.map((entry, index) => (
-              <article
-                className="host-scoreboard-item"
-                data-placement={index < 3 ? String(index + 1) : undefined}
-                key={entry.playerId}
-              >
-                <span className="host-scoreboard-rank">{index + 1}.</span>
-                <span className="host-scoreboard-name">{entry.name}</span>
-                <span className="host-scoreboard-score">{entry.score} Punkte</span>
-              </article>
-            ))}
-          </div>
-
-          <div className="host-actions">
-            <button
-              className="host-primary-button"
-              onClick={handleCreateRoom}
-              type="button"
-            >
-              Neues Spiel
-            </button>
-          </div>
-        </section>
-      )}
+      ) : null}
     </main>
   );
 }

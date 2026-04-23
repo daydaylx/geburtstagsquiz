@@ -67,6 +67,7 @@ describe("parseServerToClientEnvelope", () => {
         roomId: "room-1",
         questionId: "q1",
         questionIndex: 0,
+        totalQuestionCount: 7,
         type: "multiple_choice",
         text: "Testfrage?",
         options: [
@@ -96,6 +97,7 @@ describe("parseServerToClientEnvelope", () => {
         roomId: "room-1",
         questionId: "q1",
         questionIndex: 0,
+        totalQuestionCount: 7,
         type: "multiple_choice",
         text: "Testfrage?",
         options: [

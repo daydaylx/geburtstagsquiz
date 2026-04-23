@@ -54,6 +54,8 @@ Der Host:
 - erstellt den Raum
 - startet das Spiel
 - sieht den Join-Code und QR
+- sieht Status, Fortschritt und Spieler in einer dauerhaften Uebersicht
+- kann Kategorien fuer den Host-Flow vorbereiten, ohne dass daraus schon serverseitige Regeln behauptet werden
 - sieht den Fortschritt der Antworten
 - geht zur naechsten Frage weiter
 - sieht Endstand und kann den Raum schliessen
@@ -75,6 +77,7 @@ Die Spieler:
 - Frage gross und lesbar
 - Timer klar sichtbar
 - Rangliste einfach zu erfassen
+- Status, Fortschritt und Spieleruebersicht bleiben klar gegliedert
 - kein ueberladenes Layout
 
 ### Handy

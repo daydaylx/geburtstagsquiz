@@ -5,7 +5,7 @@ import { GameState, PlayerState, RoomState, type Player } from "@quiz/shared-typ
 import { normalizePlayerName } from "@quiz/shared-utils";
 
 import type { RoomRecord, SessionRecord, TrackedWebSocket } from "./server-types.js";
-import { PROTOCOL_ERROR_CODES, sendEvent, sendProtocolError } from "./protocol.js";
+import { PROTOCOL_ERROR_CODES, sendEvent, sendProtocolError, toLobbyUpdatePayload } from "./protocol.js";
 import { roomsById, sessionsById, getRoomByJoinCode, logRoomEvent } from "./state.js";
 import { attachSocketToSession } from "./room.js";
 import { broadcastToRoom, syncSessionToRoomState } from "./connection.js";
@@ -231,16 +231,5 @@ export function broadcastLobbyUpdate(room: RoomRecord): void {
     return;
   }
 
-  broadcastToRoom(room, EVENTS.LOBBY_UPDATE, {
-    roomId: room.id,
-    roomState: RoomState.Waiting,
-    hostConnected: room.hostConnected,
-    players: room.players.map((player) => ({
-      playerId: player.id,
-      name: player.name,
-      connected: player.state !== PlayerState.Disconnected,
-      score: player.score,
-    })),
-    playerCount: room.players.length,
-  });
+  broadcastToRoom(room, EVENTS.LOBBY_UPDATE, toLobbyUpdatePayload(room));
 }

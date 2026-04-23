@@ -12,6 +12,7 @@ import {
   type GameFinishedPayload,
   type ConnectionResumedPayload,
 } from "@quiz/shared-protocol";
+import { GameState } from "@quiz/shared-types";
 import {
   getReconnectDelay,
   getWebSocketProtocol,
@@ -271,7 +272,9 @@ export function App() {
         };
 
         resumedAnswerOptionIdRef.current =
-          resumedPayload.currentAnswer?.type === "option" ? resumedPayload.currentAnswer.value : null;
+          resumedPayload.currentAnswer?.type === "option"
+            ? resumedPayload.currentAnswer.value
+            : null;
 
         updateStoredSession(session);
         setRoomId(resumedPayload.roomId);
@@ -287,6 +290,12 @@ export function App() {
 
         if (resumedPayload.roomState === "waiting") {
           setScreen("lobby");
+        } else {
+          const gs = resumedPayload.gameState;
+          if (gs === GameState.Revealing) setScreen("reveal");
+          else if (gs === GameState.Scoreboard) setScreen("scoreboard");
+          else if (gs === GameState.Completed) setScreen("finished");
+          else setScreen("question");
         }
         return;
       }
@@ -416,10 +425,11 @@ export function App() {
     });
 
     socket.addEventListener("close", () => {
-      if (socketRef.current === socket) {
-        socketRef.current = null;
+      if (socketRef.current !== socket) {
+        return;
       }
 
+      socketRef.current = null;
       setConnectionState("reconnecting");
 
       if (!intentionalReconnectRef.current && (playerSessionRef.current || roomId)) {
@@ -433,6 +443,10 @@ export function App() {
     });
 
     socket.addEventListener("error", () => {
+      if (socketRef.current !== socket) {
+        return;
+      }
+
       setNotice({
         kind: "error",
         text: "Serververbindung gestört. Neuer Verbindungsversuch läuft…",
@@ -446,9 +460,11 @@ export function App() {
     return () => {
       shouldReconnectRef.current = false;
       clearReconnectTimer();
-      socketRef.current?.close();
+      const socket = socketRef.current;
+      socketRef.current = null;
+      socket?.close();
     };
-  }, [clearReconnectTimer, connectSocket]);
+  }, []);
 
   const reconnectAsFreshPlayer = useEffectEvent((noticeText: string) => {
     intentionalReconnectRef.current = true;
@@ -505,14 +521,16 @@ export function App() {
   const timerSeconds = Math.ceil((remainingMs ?? 0) / 1000);
   const revealedOptionLabel =
     question && correctAnswer
-      ? question.options.find((option) => option.id === correctAnswer.value)?.label ??
-        correctAnswer.value
+      ? (question.options.find((option) => option.id === correctAnswer.value)?.label ??
+        correctAnswer.value)
       : null;
   const ownScoreboardPlacement = scoreboard
     ? scoreboard.scoreboard.findIndex((entry) => entry.playerId === ownPlayerId)
     : -1;
   const ownScoreboardEntry =
-    ownScoreboardPlacement >= 0 && scoreboard ? scoreboard.scoreboard[ownScoreboardPlacement] : null;
+    ownScoreboardPlacement >= 0 && scoreboard
+      ? scoreboard.scoreboard[ownScoreboardPlacement]
+      : null;
   const ownFinalPlacement = finalResult
     ? finalResult.finalScoreboard.findIndex((entry) => entry.playerId === ownPlayerId)
     : -1;
@@ -630,7 +648,9 @@ export function App() {
             <div className="player-spotlight">
               <p className="player-spotlight-label">Raumcode</p>
               <p className="player-room-code">{joinCode || playerSession?.joinCode || "------"}</p>
-              <p className="player-spotlight-text">Im gleichen WLAN bleiben und auf den Start warten.</p>
+              <p className="player-spotlight-text">
+                Im gleichen WLAN bleiben und auf den Start warten.
+              </p>
             </div>
 
             <div className="player-metrics">
@@ -692,7 +712,9 @@ export function App() {
                 <div className="player-stage-copy">
                   <span className="player-kicker">Frage {question.questionIndex + 1}</span>
                   <h1 className="player-stage-title">Jetzt antworten</h1>
-                  <p className="player-text">Wähle genau eine Antwort. Danach ist deine Runde gesperrt.</p>
+                  <p className="player-text">
+                    Wähle genau eine Antwort. Danach ist deine Runde gesperrt.
+                  </p>
                 </div>
                 <div
                   className="player-timer-shell"
@@ -828,7 +850,9 @@ export function App() {
               ))}
             </div>
 
-            <p className="player-helper-text player-helper-text--center">Warte auf nächste Frage…</p>
+            <p className="player-helper-text player-helper-text--center">
+              Warte auf nächste Frage…
+            </p>
           </>
         )}
 

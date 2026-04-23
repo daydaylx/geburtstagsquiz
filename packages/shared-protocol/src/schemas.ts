@@ -197,6 +197,7 @@ export const GameStartedPayloadSchema = z
     roomState: z.literal(RoomState.InGame),
     gameState: z.literal(GameState.Idle),
     questionIndex: z.number().int().nonnegative(),
+    totalQuestionCount: z.number().int().nonnegative(),
   })
   .strict();
 
@@ -205,6 +206,7 @@ export const QuestionShowPayloadSchema = z
     roomId: idSchema,
     questionId: idSchema,
     questionIndex: z.number().int().nonnegative(),
+    totalQuestionCount: z.number().int().nonnegative(),
     type: z.literal(QuestionType.MultipleChoice),
     text: z.string().min(1),
     options: z.array(QuestionOptionSchema),
@@ -304,6 +306,7 @@ export const GameFinishedPayloadSchema = z
     roomId: idSchema,
     roomState: z.literal(RoomState.Completed),
     gameState: z.literal(GameState.Completed),
+    totalQuestionCount: z.number().int().nonnegative(),
     finalScoreboard: z.array(ScoreboardEntrySchema),
   })
   .strict();

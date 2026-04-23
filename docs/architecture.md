@@ -50,6 +50,7 @@ Der Hostscreen:
 
 - erstellt den Raum
 - zeigt QR und Join-Code
+- zeigt persistent Status, Fortschritt und Spieleruebersicht
 - startet das Spiel
 - zeigt Fragen, Aufloesung und Rangliste
 
@@ -61,6 +62,12 @@ Die Player-UI:
 - bestaetigt Versand und Ergebnis
 
 Keiner der Clients ist die Wahrheitsquelle fuer Spielentscheidungen.
+
+Praktisch fuer die Host-UI:
+
+- Die Host-Oberflaeche darf eine lokale Kategorievorbereitung zeigen.
+- Solange Kategorien noch nicht serverseitig verdrahtet sind, bleiben sie klar als Vorbereitung markiert.
+- Echte Fortschrittszahlen wie aktuelle Frage und Gesamtfragen kommen vom Server.
 
 ### 3. Bestehende Shared-Pakete nur nutzen, nicht ausbauen
 
@@ -90,6 +97,8 @@ Alles darueber hinaus ist optional und fuer dieses Repo nicht vorrangig.
 - Hostscreen
 - Raum erstellen
 - Lobby
+- persistente Steueransicht fuer Status, Fortschritt und Spieler
+- lokale Vorbereitung fuer Kategorien/Rundenplan
 - Frageansicht
 - Aufloesung
 - Rangliste

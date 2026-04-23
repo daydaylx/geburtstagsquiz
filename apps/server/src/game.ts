@@ -65,6 +65,7 @@ export function handleGameStart(socket: TrackedWebSocket, roomId: string): void 
     roomState: RoomState.InGame,
     gameState: GameState.Idle,
     questionIndex: 0,
+    totalQuestionCount: room.quiz.questions.length,
   });
 
   startQuestion(room);
@@ -282,6 +283,7 @@ function startQuestion(room: RoomRecord): void {
     roomId: room.id,
     questionId: question.id,
     questionIndex: room.currentQuestionIndex,
+    totalQuestionCount: room.quiz.questions.length,
     type: question.type,
     text: question.text,
     options: question.options,
@@ -437,6 +439,7 @@ function finishGame(room: RoomRecord): void {
     roomId: room.id,
     roomState: RoomState.Completed,
     gameState: GameState.Completed,
+    totalQuestionCount: room.quiz?.questions.length ?? 0,
     finalScoreboard,
   });
 }

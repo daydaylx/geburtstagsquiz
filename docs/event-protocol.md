@@ -82,8 +82,8 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 | Event | Richtung | Zweck | Kernfelder |
 | --- | --- | --- | --- |
 | `game:start` | Host -> Server | Quiz starten | `roomId` |
-| `game:started` | Server -> Host/Player | Spiel ist gestartet | `roomId`, `roomState`, `gameState`, `questionIndex` |
-| `question:show` | Server -> Host/Player | Neue Frage freigeben | `roomId`, `questionId`, `questionIndex`, `type`, `text`, `options`, `durationMs`, `gameState` |
+| `game:started` | Server -> Host/Player | Spiel ist gestartet | `roomId`, `roomState`, `gameState`, `questionIndex`, `totalQuestionCount` |
+| `question:show` | Server -> Host/Player | Neue Frage freigeben | `roomId`, `questionId`, `questionIndex`, `totalQuestionCount`, `type`, `text`, `options`, `durationMs`, `gameState` |
 | `question:timer` | Server -> Host/Player | Verbleibende Fragezeit anzeigen | `roomId`, `questionId`, `remainingMs` |
 | `answer:submit` | Player -> Server | Antwort auf aktive Frage senden | `roomId`, `questionId`, `playerId`, `answer`, `requestId` |
 | `answer:accepted` | Server -> Player | Antwort wurde gespeichert | `roomId`, `questionId`, `playerId`, `status` |
@@ -93,7 +93,7 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 | `question:reveal` | Server -> Host/Player | Richtige Antwort zeigen | `roomId`, `questionId`, `correctAnswer`, `gameState` |
 | `score:update` | Server -> Host/Player | Punktestand nach der Runde | `roomId`, `questionId`, `scoreboard`, `gameState` |
 | `game:next-question` | Host -> Server | Zur naechsten Frage wechseln | `roomId` |
-| `game:finished` | Server -> Host/Player | Quiz ist zu Ende | `roomId`, `roomState`, `gameState`, `finalScoreboard` |
+| `game:finished` | Server -> Host/Player | Quiz ist zu Ende | `roomId`, `roomState`, `gameState`, `totalQuestionCount`, `finalScoreboard` |
 
 ### Fehler
 
@@ -123,6 +123,7 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 - `connection:resumed` kann inzwischen auch `in_game` und `completed` transportieren.
 - Nach erfolgreichem Resume sendet der Server dem zurueckkehrenden Client einen passenden Snapshot fuer Lobby, aktive Frage, Reveal, Rangliste oder Endstand.
 - Bei einem Player kann `currentAnswer` mitkommen, damit eine schon gesendete Antwort lokal wieder erkennbar bleibt.
+- Der Host bekommt bei Spielstart, Frage-Snapshot und Endstand jetzt auch `totalQuestionCount`, damit Fortschritt nicht lokal geraten werden muss.
 
 ## Typische Eventfolgen
 

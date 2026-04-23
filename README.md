@@ -17,6 +17,7 @@ Dieses Repo ist kein Produkt, keine Plattform und kein langfristiges System. Zie
 - Host erstellt einen Raum
 - Spieler treten mit dem Handy bei
 - Lobby aktualisiert sich live
+- Host behaelt Status, Fortschritt und Spieler in einer uebersichtlichen Steueransicht im Blick
 - Host startet ein Multiple-Choice-Quiz
 - Server nimmt Antworten an und wertet aus
 - Hostscreen zeigt Aufloesung und Rangliste
@@ -38,6 +39,7 @@ Wenn etwas technisch schoen klingt, aber fuer den Abend keinen direkten Nutzen h
 
 - Der Server bleibt die Wahrheit fuer Raumstatus, aktive Frage, Timer, gueltige Antworten und Punkte.
 - Der Hostscreen steuert und zeigt an, berechnet aber nichts als Wahrheitsquelle.
+- Die Host-UI darf Kategorien und Ablauf vorbereiten, verkauft lokale Vorschau aber nicht als serverseitige Spiellogik.
 - Die Player-UI bleibt einfach: joinen, antworten, Status sehen.
 - Der Zustand lebt im Speicher. Wenn der Server neu startet, ist der Raum weg.
 - Die bestehende Monorepo-Struktur darf bleiben, soll aber nicht weiter aufgeblasen werden.
