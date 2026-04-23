@@ -84,6 +84,27 @@ Standard-URLs:
 - Host: `http://localhost:5173`
 - Player: `http://localhost:5174`
 
+## Quizfragen lokal reviewen
+
+Das kleine Review-Tool laeuft lokal ohne Datenbank und ohne Login:
+
+```bash
+corepack pnpm run review:questions -- path/zur/fragen.json
+```
+
+Dann `http://127.0.0.1:4177` oeffnen. Alternativ kann der JSON-Pfad direkt in der UI geladen werden.
+
+Das Original-JSON wird nicht veraendert. Der Review-Zustand wird als `review_state.json` neben der geladenen Fragen-Datei gespeichert:
+
+```json
+{
+  "question_id": {
+    "status": "keep",
+    "note": "Kommentar"
+  }
+}
+```
+
 ## Relevante Doku
 
 - `docs/architecture.md` fuer die pragmatische Zielarchitektur
