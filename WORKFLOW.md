@@ -1,396 +1,87 @@
 # WORKFLOW.md
 
-# Arbeitsablauf für Agenten im Quiz-Dual-Screen-Projekt
+# Arbeitsablauf fuer dieses Repo
 
-## Ziel dieses Workflows
+Dieser Workflow ist absichtlich klein gehalten. Das Repo soll nicht in Richtlinien ersticken, sondern ein Geburtstagsquiz fuer einen Abend liefern.
 
-Dieser Workflow soll verhindern, dass ein Agent:
+## Grundsatz
 
-- zu viel gleichzeitig umbaut
-- den Scope unnötig aufbläst
-- instabile Architektur produziert
-- Client-Logik falsch priorisiert
-- halbfertige Features stapelt
-- den Basisfluss kaputtentwickelt
+Erst verstehen, dann klein aendern, dann pruefen.
 
-Der Workflow ist absichtlich strikt.
+Nicht:
 
----
+- Scope aufblasen
+- Zukunftssysteme mitbauen
+- aus jeder Aenderung eine Umstrukturierung machen
 
-## Grundprinzip
+## 1. Relevanten Stand lesen
 
-Erst:
+Vor einer Aenderung:
 
-- verstehen
-- begrenzen
-- strukturieren
-- klein umsetzen
-- prüfen
-- härten
+- betroffene Dateien lesen
+- vorhandene Doku gegen den aktuellen Code pruefen
+- herausfinden, was fuer den Kernfluss wirklich relevant ist
 
-Dann erst erweitern.
+Nicht raten, wenn das Repo die Antwort schon zeigt.
 
-Nicht andersherum.
+## 2. Kleinsten sinnvollen Schritt waehlen
 
----
+Jede Aufgabe soll auf den naechsten echten Nutzen reduziert werden.
 
-## Phase 0 – Verstehen und Eingrenzen
+Sinnvoll sind zum Beispiel:
 
-Bevor Code geändert wird, muss der Agent klären:
+- Join-Flow klarziehen
+- Lobby konsistent machen
+- eine Frage sauber von Anzeige bis Wertung durchziehen
+- Doku an die tatsaechliche Implementierung anpassen
 
-- Was ist das konkrete Ziel dieser Phase?
-- Welche Teile des Projekts sind dafür wirklich relevant?
-- Welche Teile sind ausdrücklich **nicht** Teil dieser Phase?
-- Welche Risiken entstehen, wenn jetzt zu viel gebaut wird?
+Nicht sinnvoll sind zum Beispiel:
 
-### Pflichtausgabe in dieser Phase
+- mehrere neue Modi parallel
+- Architektur fuer spaeter erfinden
+- Struktur aus Prinzip weiter aufteilen
 
-- kurze Zielbeschreibung
-- betroffene Ordner / Dateien
-- klare Nicht-Ziele
-- erkennbare Risiken
+## 3. Direkt und pragmatisch umsetzen
 
-### Verboten in dieser Phase
+Beim Umsetzen gilt:
 
-- sofortiger Umbau großer Teile
-- Einführen zusätzlicher Systeme ohne Not
-- Ausweiten des Scopes „weil es später nützlich sein könnte"
+- bestehende Struktur respektieren
+- keine doppelte Logik schaffen
+- nur neue Dateien anlegen, wenn sie sofort Klarheit bringen
+- keine Produkt- oder Plattformabstraktion einfuehren, wenn eine einfache Loesung reicht
 
----
+## 4. Direkt danach pruefen
 
-## Phase 1 – Struktur und Plan
+Nach einer Aenderung:
 
-Vor der Umsetzung muss ein Agent einen kleinen, realistischen Plan aufstellen.
+- passt der Kernfluss noch?
+- ist der Server weiter die Wahrheit?
+- sind Eventfluss und Zustaende nachvollziehbar?
+- ist die Aenderung kleiner geblieben als die theoretisch moegliche Loesung?
 
-### Der Plan muss enthalten
+Wenn etwas wacklig oder ueberkompliziert ist, offen benennen.
 
-- welches Problem gelöst wird
-- welche Dateien wahrscheinlich angepasst oder erstellt werden
-- welche Architekturregel relevant ist
-- welche Abnahmekriterien gelten
-- was absichtlich noch **nicht** gebaut wird
+## 5. Vor dem Abend wichtiger als vor spaeter
 
-### Der Plan darf nicht sein
+Bei Zweifeln priorisieren:
 
-- vage
-- zu groß
-- voller Zukunftsphantasien
-- voller optionaler Nebensysteme
+- reale Handys statt theoretische Browsermatrix
+- stabile Lobby statt Zusatzfeatures
+- klarer Hostscreen statt Spielereien
+- manuelle Testbarkeit statt Ausbauplan
 
----
+## Regeln fuer Datei- und Strukturentscheidungen
 
-## Phase 2 – Kleinste sinnvolle Vertikalscheibe umsetzen
+- Neue Datei nur bei echtem Klarheitsgewinn.
+- Shared-Code nur dann, wenn er wirklich von mehreren Stellen gebraucht wird.
+- Kein Vorbauen fuer Accounts, Cloud, Persistenz, Admin, Teams, Buzzer, Joker oder Editor, solange sie fuer den Abend nicht noetig sind.
 
-Es wird nur der kleinste sinnvolle, belastbare Schritt umgesetzt.
+## Doku-Workflow
 
-### Beispiele
+Wenn Verhalten, Eventfluss oder Scope geaendert werden, muessen die relevanten Doku-Dateien mitgezogen werden.
 
-#### Sinnvoll
-
-- Raum erstellen + Lobby synchronisieren
-- Join-Code + Join per Player-UI
-- eine Multiple-Choice-Frage komplett von Start bis Auswertung
-
-#### Nicht sinnvoll
-
-- gleichzeitig Lobby, Rangliste, Buzzer, Teams und Quiz-Editor bauen
-
----
-
-## Phase 3 – Selbstprüfung direkt nach der Umsetzung
-
-Nach jeder Umsetzung muss der Agent prüfen:
-
-- Ist die Lösung kleiner geblieben als ursprünglich möglich?
-- Ist die Spielwahrheit serverseitig geblieben?
-- Wurde Logik doppelt definiert?
-- Sind Eventnamen und Payloads konsistent?
-- Ist etwas unnötig kompliziert geworden?
-- Sind neue Dateien klar benannt und sauber eingeordnet?
-- Wurde Scope heimlich ausgeweitet?
-
-### Pflicht
-
-Wenn Probleme auftauchen, müssen sie offen benannt werden.
-Kein Schönreden.
-
----
-
-## Phase 4 – Review vor Erweiterung
-
-Bevor die nächste Phase beginnt, wird geprüft:
-
-- Ist die aktuelle Phase wirklich stabil genug?
-- Fehlen noch offensichtliche Härten?
-- Gibt es Reconnect-, Timer- oder Event-Schwächen?
-- Wurde etwas nur „gerade so funktionsfähig" gebaut?
-- Muss vereinfacht oder aufgeräumt werden, bevor es weitergeht?
-
-Wenn die Basis wackelt, wird **nicht** erweitert.
-
----
-
-## Phase 5 – Erst dann nächste Phase
-
-Nur wenn die vorigen Schritte sauber genug sind, darf die nächste Ausbaustufe folgen.
-
----
-
-## Verbindliche Reihenfolge im Projekt
-
-### Stufe 1 – Basisstruktur
-
-**Ziel:**
-
-- Monorepo-Struktur
-- Shared Types
-- Shared Protocol
-- Grunddokumentation
-- Server-/Client-Trennung klarziehen
-
-**Abnahmekriterien:**
-
-- Verantwortung der Apps ist klar
-- Eventstruktur ist grob definiert
-- keine doppelte Typ- oder Eventlogik
-
----
-
-### Stufe 2 – Lobby
-
-**Ziel:**
-
-- Host erstellt Raum
-- Join-Code existiert
-- Player kann beitreten
-- Lobby synchronisiert live
-
-**Abnahmekriterien:**
-
-- mehrere Geräte können stabil beitreten
-- Player erscheinen korrekt
-- Verbindungsstatus ist nachvollziehbar
-
----
-
-### Stufe 3 – Multiple Choice vollständig
-
-**Ziel:**
-
-- Host startet Frage
-- Player antworten
-- Server wertet aus
-- Punkte werden berechnet
-- Ergebnis wird angezeigt
-
-**Abnahmekriterien:**
-
-- eine Runde läuft sauber durch
-- pro Spieler zählt nur eine Antwort
-- Timer kommt vom Server
-- Score ist nachvollziehbar
-
----
-
-### Stufe 4 – Rangliste & Scoring
-
-**Ziel:**
-
-- Endscreen nach letzter Frage
-- finale Rangliste anzeigen
-- Scoreboard zwischen Fragen stabil
-- Punktestand für alle Spieler korrekt
-
-**Abnahmekriterien:**
-
-- Rangliste nach jeder Runde korrekt
-- Endscreen zeigt finale Platzierungen
-- Scores stimmen mit Server-Berechnungen überein
-- kein Zustand „Spiel hängt nach letzter Frage"
-
----
-
-### Stufe 5 – Härten
-
-**Ziel:**
-
-- Reconnect
-- ungültige Events abweisen
-- doppelte Antworten ignorieren
-- Host-Abbruch behandeln
-- Statuskonsistenz verbessern
-
-**Abnahmekriterien:**
-
-- Fehlerfälle sind mitgedacht
-- keine offensichtlichen Race-Conditions bleiben ungeprüft
-- Eventfluss bleibt nachvollziehbar
-
----
-
-### Stufe 6 – Erweiterungen
-
-Erst danach dürfen Features wie diese geprüft werden:
-
-- Buzzer
-- Schätzfragen
-- Teams
-- Joker
-- Quiz-Import
-- Editor
-
-Diese Features sind **kein Frühziel**.
-
----
-
-## Regeln für Änderungen an Dateien
-
-### Vor einer Dateiänderung prüfen
-
-- Gehört diese Logik wirklich in diese Datei?
-- Gibt es bereits einen Shared-Ort dafür?
-- Wird hier UI und Geschäftslogik unnötig vermischt?
-- Entsteht hier Dublette?
-
-### Nach einer Dateiänderung prüfen
-
-- Ist der Name noch passend?
-- Ist die Datei klarer oder nur voller?
-- Wurde Logik besser getrennt oder nur verschoben?
-- Ist der Code verständlicher geworden?
-
----
-
-## Regeln für neue Dateien
-
-Neue Dateien nur anlegen, wenn sie einen klaren Zweck haben.
-
-### Neue Datei ist sinnvoll, wenn
-
-- ein klar eigener Verantwortungsbereich entsteht
-- Wiederverwendung real ist
-- Lesbarkeit verbessert wird
-- Trennung von Host / Player / Server / Shared gestärkt wird
-
-### Neue Datei ist nicht sinnvoll, wenn
-
-- nur minimale Logik ausgelagert wird ohne echten Nutzen
-- die Struktur künstlich aufgebläht wird
-- ein Problem nur verschoben statt gelöst wird
-
----
-
-## Event-Workflow
-
-Bei jeder Änderung an Echtzeitlogik prüfen:
-
-- Wer sendet das Event?
-- Wer empfängt es?
-- Wer validiert es?
-- Welche Zustandsänderung löst es aus?
-- Was passiert bei ungültigem oder verspätetem Event?
-- Ist dokumentiert, wann das Event erlaubt ist?
-
-Wenn diese Fragen nicht beantwortbar sind, ist die Lösung unklar.
-
----
-
-## Review-Checkliste pro Phase
-
-### Architektur
-
-- server authoritative?
-- klare Trennung der Zuständigkeiten?
-- keine verdoppelte Logik?
-- kein unnötiger Overhead?
-
-### Kommunikation
-
-- Events klar benannt?
-- Payloads typisiert?
-- validiert?
-- dokumentiert?
-
-### UX
-
-- Hostscreen klar?
-- Player UI mobil nutzbar?
-- Zustände verständlich?
-- kein unnötiger UI-Ballast?
-
-### Stabilität
-
-- doppelte Antworten abgefangen?
-- invalide Zustände abgefangen?
-- Reconnect mitgedacht?
-- Timer nicht clientseitig als Wahrheit?
-
----
-
-## Was ein Agent aktiv vermeiden soll
-
-- Scope inflation
-- voreilige Erweiterbarkeit um jeden Preis
-- kosmetische Arbeit statt Kernstabilität
-- große Refactors ohne zwingenden Grund
-- drei halbfertige Systeme statt eines sauberen
-- spontane Zusatzfeatures
-- unklare Zustandslogik
-- „erstmal schnell direkt in die UI bauen"
-
----
-
-## Kommunikationsstil des Agents
-
-Der Agent soll klar benennen:
-
-- was er baut
-- warum er es so baut
-- was daran riskant ist
-- was bewusst verschoben wird
-- wo die aktuelle Lösung noch schwach ist
-
-Nicht erwünscht:
-
-- Schönreden
-- Marketingformulierungen
-- Fortschritt simulieren
-- halbfertige Lösungen als solide darstellen
-
----
-
-## Dokumentationsworkflow
-
-Bei strukturellen Änderungen prüfen, ob folgende Dateien angepasst werden müssen:
-
-- `README.md`
-- `docs/CONCEPT.md`
-- `docs/architecture.md`
-- `docs/GAME-RULES.md`
-- `docs/IMPLEMENTATION.md`
-- `docs/CONSTRAINTS.md`
-
-Wenn Code und Doku auseinanderlaufen, ist das ein Wartungsfehler.
-
----
-
-## Eskalationsregel
-
-Wenn ein Agent merkt, dass eine Aufgabe eigentlich:
-
-- zu groß ist
-- mehrere Phasen vermischt
-- neue Architektur erzwingt
-- oder zu viel Risiko auf einmal erzeugt
-
-dann muss er die Aufgabe in kleinere, kontrollierbare Schritte zerlegen.
-
-Nicht trotzdem durchdrücken.
-
----
+Code und Doku duerfen nicht in verschiedene Richtungen laufen.
 
 ## Schlussregel
 
-Wenn unklar ist, ob ein weiterer Ausbau schon sinnvoll ist, gilt:
-
-**erst stabilisieren, dann erweitern.**
+Lieber ein kleiner, ehrlicher, funktionierender Stand als ein grosser, theoretisch sauberer, aber wackliger Entwurf.

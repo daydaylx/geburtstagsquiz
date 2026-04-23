@@ -1,107 +1,100 @@
-# Quiz-Dual-Screen
+# Geburtstagsquiz
 
-Browserbasiertes Multiplayer-Quizspiel für Gruppen.
+Privates browserbasiertes Quiz fuer einen Geburtstag.
 
-## Idee
+Dieses Repo ist kein Produkt, keine Plattform und kein langfristiges System. Ziel ist ein stabiler Ablauf fuer einen Abend:
 
-- **Laptop / TV / Monitor** zeigt: Lobby, Fragen, Timer, Auflösung, Rangliste
-- **Handys der Spieler** dienen für: Beitritt, Antworten, Buzzer, Joker
+- ein Host
+- ein gemeinsamer Bildschirm
+- mehrere Handys
+- einfacher Join per Code oder QR
+- Fragen anzeigen
+- Antworten einsammeln
+- Punkte und Rangliste zeigen
 
-Ein Host startet auf dem Laptop ein Spiel. Spieler scannen per Handy einen QR-Code oder geben einen Raumcode ein. Antworten werden privat auf dem Handy abgegeben. Der gemeinsame Bildschirm zeigt den Ablauf für alle.
+## Wofuer dieses Repo da ist
 
-## Zielgruppe
+- Host erstellt einen Raum
+- Spieler treten mit dem Handy bei
+- Lobby aktualisiert sich live
+- Host startet ein Multiple-Choice-Quiz
+- Server nimmt Antworten an und wertet aus
+- Hostscreen zeigt Aufloesung und Rangliste
 
-Freunde, Familie, Spieleabend, kleine Events, später optional Schule / Team-Event.
+## Wofuer dieses Repo nicht da ist
 
-## Anforderungen
+- kein SaaS
+- keine Plattform fuer viele Einsaetze
+- keine Accounts oder Profile
+- keine Cloud-Persistenz ueber den Abend hinaus
+- kein Admin- oder Moderationssystem
+- keine komplexen Modi parallel
+- kein Editor-Ausbau als Pflicht
+- keine Infra- oder Skalierungsuebung
 
-- schnell startbar
-- sofort verständlich
-- ohne App-Installation nutzbar
-- mobil bedienbar
-- gruppentauglich
-- klarer, sauberer Ablauf
-- technisch stabil
+Wenn etwas technisch schoen klingt, aber fuer den Abend keinen direkten Nutzen hat, gehoert es nicht in den Fokus.
 
-## Stack
+## Praktische Leitlinien
 
-- **Frontend:** React, TypeScript, Vite
-- **Backend:** Node.js, WebSockets
-- **Monorepo:** pnpm workspaces
-- **Validierung:** zod
-- **Persistenz:** In-Memory (MVP), später optional Redis/Postgres
+- Der Server bleibt die Wahrheit fuer Raumstatus, aktive Frage, Timer, gueltige Antworten und Punkte.
+- Der Hostscreen steuert und zeigt an, berechnet aber nichts als Wahrheitsquelle.
+- Die Player-UI bleibt einfach: joinen, antworten, Status sehen.
+- Der Zustand lebt im Speicher. Wenn der Server neu startet, ist der Raum weg.
+- Die bestehende Monorepo-Struktur darf bleiben, soll aber nicht weiter aufgeblasen werden.
 
-## Projektstruktur
+## Repo-Struktur
 
+```text
+geburtstagsquiz/
+|- apps/
+|  |- server/       # Raum, Spielstatus, Timer, Auswertung
+|  |- web-host/     # Hostscreen auf Laptop/TV
+|  `- web-player/   # Spieleroberflaeche auf dem Handy
+|- packages/
+|  |- quiz-engine/      # Auswertung und Score-Logik
+|  |- shared-protocol/  # Eventnamen und Payload-Schemas
+|  |- shared-types/     # Gemeinsame Typen
+|  `- shared-utils/     # Kleine gemeinsame Helfer
+`- docs/
+   |- architecture.md
+   |- event-protocol.md
+   |- state-machine.md
+   |- IMPLEMENTATION.md
+   |- CONSTRAINTS.md
+   `- GAME-RULES.md
 ```
-quiz-dual-screen/
-├─ apps/
-│  ├─ web-host/          # Host-Oberfläche (Laptop/TV)
-│  ├─ web-player/        # Player-Oberfläche (Handy)
-│  └─ server/            # Zentrale Spiellogik
-├─ packages/
-│  ├─ shared-types/      # TypeScript-Typen
-│  ├─ shared-protocol/   # Event-Definitionen
-│  ├─ shared-utils/      # Helper & Validierung
-│  └─ quiz-engine/       # Spielregeln & Punkteberechnung
-└─ docs/
-   ├─ CONCEPT.md         # Produktidee & Zielgruppe
-   ├─ architecture.md    # Technisches Design (kanonisch)
-   ├─ state-machine.md   # Zustandsmaschine
-   ├─ event-protocol.md  # WebSocket-Protokoll
-   ├─ GAME-RULES.md      # Spielmechaniken
-   ├─ IMPLEMENTATION.md  # Phasenplan
-   └─ CONSTRAINTS.md     # Probleme & Grenzen
-```
 
-## Wichtige Regel
+## Lokal starten
 
-**Der Server ist die einzige Wahrheit** für:
+Voraussetzungen:
 
-- Spielstatus
-- aktuelle Runde
-- Timer
-- Antworten
-- Punkte
-- Buzzer-Reihenfolge
-
-Keine clientseitige Hauptlogik für Spielentscheidungen.
-
-## Lokales Setup
-
-TODO: wird in Phase 0 ausgefüllt.
-
-Voraussetzungen: Node.js ≥ 20, pnpm ≥ 9
+- Node.js >= 20
+- pnpm >= 9
 
 ```bash
-pnpm install        # Dependencies installieren
-pnpm dev            # Server + Host + Player starten
+corepack pnpm install
+corepack pnpm dev
 ```
 
-## Start-Leitfaden
+Standard-URLs:
 
-1. Lies `docs/CONCEPT.md` – Produktidee & Zielgruppe
-2. Lies `docs/architecture.md` – technisches Design (kanonisch)
-3. Lies `docs/state-machine.md` – Zustände und Übergänge
-4. Lies `docs/event-protocol.md` – WebSocket-Protokoll
-5. Lies `docs/IMPLEMENTATION.md` – Phasenplan mit Abnahmekriterien
-6. Lies `docs/CONSTRAINTS.md` – kritische Punkte und bewusstes Weglassen
+- Server: `ws://localhost:3001`
+- Host: `http://localhost:5173`
+- Player: `http://localhost:5174`
 
-## Was das Produkt sein soll
+## Relevante Doku
 
-- schnell startbar
-- sofort verständlich
-- ohne App-Installation
-- mobil bedienbar
-- gruppentauglich
-- klarer Ablauf
+- `docs/architecture.md` fuer die pragmatische Zielarchitektur
+- `docs/event-protocol.md` fuer die aktiven WebSocket-Events
+- `docs/state-machine.md` fuer die tatsaechlich genutzten Zustaende
+- `docs/IMPLEMENTATION.md` fuer den realistischen Bau- und Testplan
+- `docs/CONSTRAINTS.md` fuer Abendrisiken und bewusste Grenzen
+- `docs/GAME-RULES.md` fuer den konkreten Spielablauf
 
-## Was es am Anfang nicht sein soll
+## Aktueller Fokus
 
-- kein Account-System
-- kein Shop
-- keine Profile / XP / Battlepass
-- kein Community-System
-- keine überladene KI-Funktionalität
-- kein 20-Modi-Monster
-- keine Native-App-Pflicht
+Dieses Repo soll ein brauchbares Geburtstagsquiz liefern, nicht eine ausbaubare Quiz-Plattform. Deshalb gilt:
+
+- lieber ein sauberer Multiple-Choice-Ablauf als mehrere halbe Modi
+- lieber In-Memory und einfache lokale Bedienung als Persistenz und Deploy-Theater
+- lieber echte Tests auf Handy und gemeinsamem Bildschirm als Architektur-Rhetorik

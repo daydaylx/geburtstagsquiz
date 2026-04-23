@@ -1,139 +1,29 @@
 # event-protocol.md
 
-# Quiz Dual Screen – Event-Protokoll
+# Event-Protokoll fuer das Geburtstagsquiz
 
 ## Zweck
 
-Dieses Dokument definiert die Echtzeitkommunikation zwischen:
+Dieses Dokument beschreibt die aktiven WebSocket-Events fuer den einfachen Quiz-Abend.
 
-- **Host Client**
-- **Player Client**
-- **Server**
+Es ist bewusst kein allgemeines Multiplayer-Protokoll und keine Blaupause fuer spaetere Plattform-Features.
 
-Das Protokoll ist die verlässliche Grundlage für:
+Die exakten Schemas stehen in:
 
-- Join-Flow
-- Lobby-Synchronisation
-- Spielstart
-- Fragenwechsel
-- Antwortabgabe
-- Auswertung
-- Ranglisten-Updates
-- Reconnect
-- Fehlermeldungen
+- `packages/shared-protocol/src/events.ts`
+- `packages/shared-protocol/src/schemas.ts`
 
-Wichtig:
-Der **Server bleibt die einzige Wahrheit**.
-Clients senden Absichten und Eingaben.
-Der Server prüft, akzeptiert, lehnt ab und verteilt den gültigen Zustand.
+Wenn Doku und Code widersprechen, gewinnt der Code.
 
----
+## Grundregeln
 
-## Grundprinzipien
-
-### 1. Der Server ist authoritative
-
-Clients dürfen:
-
-- Events senden
-- lokale UI aktualisieren
-- Zustandswechsel visuell darstellen
-
-Clients dürfen **nicht** final entscheiden über:
-
-- gültige Raumzustände
-- Antwortannahme
-- Rundenende
-- Punkte
-- Rangliste
-- Buzzer-Reihenfolge
-
----
-
-### 2. Events sind explizit und typisiert
-
-Jedes Event muss klar definieren:
-
-- **wer sendet**
-- **wer empfängt**
-- **wann es erlaubt ist**
-- **welche Payload erwartet wird**
-- **welche Antwort oder Folgeevents entstehen**
-
----
-
-### 3. Ungültige Events werden abgewiesen
-
-Typische Gründe:
-
-- falscher Raumstatus
-- falscher Spielstatus
-- unvollständige Payload
-- doppeltes Senden
-- verspätete Eingabe
-- nicht autorisierte Aktion
-- unbekannter Spieler / Raum / Fragekontext
-
-Ein invalides Event darf nie stillschweigend Spiellogik verändern.
-
----
-
-### 4. Zustandsupdates gehen vom Server aus
-
-Clients dürfen zwar lokal reagieren, aber der relevante Zustand wird erst durch Server-Events verbindlich.
-
-Beispiel:
-
-- Player sendet `answer:submit`
-- UI kann lokal „wird gesendet" anzeigen
-- gültig angenommen ist die Antwort aber erst nach `answer:accepted`
-
----
-
-## Event-Namensräume
-
-Zur Konsistenz werden Events in Gruppen organisiert:
-
-- `room:*`
-- `host:*`
-- `player:*`
-- `lobby:*`
-- `game:*`
-- `question:*`
-- `answer:*`
-- `score:*`
-- `connection:*`
-- `error:*`
-
----
-
-## Gemeinsame Payload-Felder
-
-Viele Events verwenden wiederkehrende Felder.
-
-### Basisfelder
-
-- `roomId`
-- `joinCode`
-- `playerId`
-- `sessionId`
-- `questionId`
-- `gameId`
-- `timestamp`
-- `requestId`
-
-### Hinweise
-
-- `timestamp` ist informativ, aber **nicht** die Wahrheitsquelle für Spiellogik
-- `requestId` kann helfen, UI-Roundtrips oder Dubletten nachzuvollziehen
-- `sessionId` dient der Wiedererkennung bei Reconnect
-- `playerId` wird serverseitig vergeben oder bestätigt
-
----
+- Alle Nachrichten nutzen ein Envelope-Format mit `event` und `payload`.
+- Der Server entscheidet ueber gueltige Zustaende, Antworten, Timer und Punkte.
+- Host und Player senden Absichten, keine Wahrheiten.
+- Ungueltige oder unpassende Payloads werden abgewiesen.
+- Das Protokoll deckt nur Lobby und Multiple-Choice-Kernfluss ab.
 
 ## Wire-Format
-
-Alle WebSocket-Nachrichten verwenden denselben Envelope:
 
 ```json
 {
@@ -142,1046 +32,9 @@ Alle WebSocket-Nachrichten verwenden denselben Envelope:
 }
 ```
 
-### Regeln
+## Rollenrechte
 
-- `event` ist der kanonische Eventname aus `shared-protocol`
-- `payload` ist das typisierte Payload-Objekt für genau dieses Event
-- Server und Clients validieren immer zuerst Envelope, dann Event-Payload
-
----
-
-# Verbindungs- und Sitzungsfluss
-
-## 1. Verbindungsaufbau
-
-Ein Client verbindet sich zunächst technisch mit dem Server.
-Danach beginnt die semantische Anmeldung als Host oder Player.
-
-### Typischer Ablauf
-
-1. WebSocket-Verbindung wird aufgebaut
-2. Server bestätigt Verbindung technisch
-3. Client sendet Host- oder Join-Event
-4. Server prüft Raum- oder Spielerkontext
-5. Server sendet bestätigendes Event oder Fehler
-
----
-
-## 2. Reconnect-Grundsatz
-
-Ein Reconnect ist **kein neuer Spieler**, wenn die Sitzung wiedererkannt wird.
-
-Dafür wird eine Form von stabiler Sitzungsidentifikation benötigt, z. B.:
-
-- `sessionId`
-- gespeicherte Player-Zuordnung
-- serverseitige Reconnect-Logik
-
-Reconnect darf nicht versehentlich zu:
-
-- doppelten Spielern
-- doppelten Antworten
-- kaputten Lobbys
-- falschen Punkteständen
-
-führen.
-
----
-
-# Events im Detail
-
----
-
-## `connection:ack`
-
-### Richtung
-
-- **Server → Client**
-
-### Zweck
-
-Technische Bestätigung, dass die Socket-Verbindung steht.
-
-### Payload
-
-```json
-{
-  "connectionId": "string",
-  "serverTime": "string"
-}
-```
-
-### Hinweise
-
-- rein technisch
-- noch keine Bestätigung für Raum- oder Spielteilnahme
-- kann für Debugging und UI-Initialisierung genutzt werden
-
----
-
-## `connection:resume`
-
-### Richtung
-
-- **Client → Server**
-
-### Zweck
-
-Versuch, eine bestehende Sitzung wieder aufzunehmen.
-
-### Payload
-
-```json
-{
-  "sessionId": "string",
-  "roomId": "string"
-}
-```
-
-### Erlaubt wenn
-
-- Client hatte vorher bereits eine bekannte Sitzung
-- Raum ist noch existent
-- Server kann die Sitzung zuordnen
-
-### Erfolg
-
-Server sendet bei erfolgreichem Resume:
-
-- `connection:resumed` an den zurückkehrenden Client
-- `lobby:update` an alle relevanten Clients
-- bei Player-Resume zusätzlich `player:reconnected` an die anderen Clients
-
-### Fehlerfälle
-
-- Sitzung unbekannt
-- Raum nicht mehr vorhanden
-- Sitzung ungültig oder abgelaufen
-
-Dann folgt ein `error:protocol` oder eine Aufforderung zum normalen Join-Flow.
-
----
-
-## `connection:resumed`
-
-### Richtung
-
-- **Server → Client**
-
-### Zweck
-
-Bestätigt, dass eine bekannte Host- oder Player-Sitzung erfolgreich wiederhergestellt wurde.
-
-### Payload
-
-```json
-{
-  "role": "host | player",
-  "roomId": "string",
-  "roomState": "waiting",
-  "sessionId": "string",
-  "joinCode": "string",
-  "playerId": "string?",
-  "playerState": "connected | ready?"
-}
-```
-
-### Hinweise
-
-- der zurückkehrende Client verlässt sich auf dieses Event als Resume-Bestätigung
-- in der Lobby-Phase ist `roomState` aktuell `waiting`
-- `player:reconnected` ist ergänzend für andere Clients gedacht, nicht als primäre Resume-Bestätigung für den zurückkehrenden Client
-
----
-
-## `room:create`
-
-### Richtung
-
-- **Host → Server**
-
-### Zweck
-
-Host fordert die Erstellung eines neuen Raums an.
-
-### Payload
-
-```json
-{
-  "hostName": "string",
-  "clientInfo": {
-    "deviceType": "string",
-    "appVersion": "string"
-  }
-}
-```
-
-### Erlaubt wenn
-
-- Verbindung steht
-- Client ist noch keinem aktiven Raum als Host zugeordnet
-
-### Erfolg
-
-Server erstellt:
-
-- `roomId`
-- `joinCode`
-- initialen Raumzustand
-
-und antwortet mit:
-
-- `room:created`
-
-### Fehlerfälle
-
-- Host ist bereits an einen aktiven Raum gebunden
-- Server kann keinen Raum anlegen
-- Payload ist unvollständig oder ungültig
-
----
-
-## `room:created`
-
-### Richtung
-
-- **Server → Host**
-
-### Zweck
-
-Bestätigung, dass der Raum erstellt wurde.
-
-### Payload
-
-```json
-{
-  "roomId": "string",
-  "joinCode": "string",
-  "roomState": "waiting",
-  "hostSessionId": "string"
-}
-```
-
-### Folge
-
-Host kann nun:
-
-- Lobby anzeigen
-- QR-Code rendern
-- auf Player-Joins warten
-
----
-
-## `room:join`
-
-### Richtung
-
-- **Player → Server**
-
-### Zweck
-
-Spieler versucht, einem Raum beizutreten.
-
-### Payload
-
-```json
-{
-  "joinCode": "string",
-  "playerName": "string",
-  "sessionId": "string | null"
-}
-```
-
-### Erlaubt wenn
-
-- Raum existiert
-- Raum erlaubt Beitritt
-- Name ist gültig
-- Sitzung ist neu oder korrekt wiedererkennbar
-
-### Erfolg
-
-Server sendet:
-
-- `player:joined` an diesen Player
-- `lobby:update` an Host und ggf. andere relevante Clients
-
-### Fehlerfälle
-
-- Join-Code unbekannt
-- Raum geschlossen
-- Raum läuft und erlaubt keinen Beitritt
-- Name ungültig oder leer
-- Name kollidiert mit Regeln, falls Namenseindeutigkeit erzwungen wird
-
----
-
-## `player:joined`
-
-### Richtung
-
-- **Server → Player**
-
-### Zweck
-
-Bestätigung des erfolgreichen Beitritts.
-
-### Payload
-
-```json
-{
-  "roomId": "string",
-  "playerId": "string",
-  "sessionId": "string",
-  "playerState": "connected",
-  "roomState": "waiting"
-}
-```
-
-### Folge
-
-Player darf:
-
-- Warteraum / Lobby-Status sehen
-- auf Spielstart warten
-
----
-
-## `lobby:update`
-
-### Richtung
-
-- **Server → Host**
-- **Server → Player**
-
-### Zweck
-
-Aktualisierung des Lobbyzustands.
-
-### Payload
-
-```json
-{
-  "roomId": "string",
-  "roomState": "waiting",
-  "hostConnected": true,
-  "players": [
-    {
-      "playerId": "string",
-      "name": "string",
-      "connected": true,
-      "score": 0
-    }
-  ],
-  "playerCount": 3
-}
-```
-
-### Wird gesendet bei
-
-- neuem Join
-- Disconnect
-- Reconnect
-- Kick / Entfernen
-- Namensänderung, falls später erlaubt
-- Startwechseln relevanter Lobbystati
-
-### Hinweise
-
-- Host soll daraus seine Lobby rendern
-- Player können dasselbe autoritative Snapshot-Event rendern
-- `hostConnected` zeigt an, ob der Host gerade verbunden ist oder sich im Grace-Zeitraum befindet
-
----
-
-## `player:reconnected`
-
-### Richtung
-
-- **Server → Host**
-- optional an weitere andere Clients
-
-### Zweck
-
-Meldet den anderen Clients, dass ein bekannter Spieler erfolgreich zurück ist.
-
-### Payload
-
-```json
-{
-  "roomId": "string",
-  "playerId": "string",
-  "playerState": "connected",
-  "connected": true
-}
-```
-
-### Hinweise
-
-- kein neuer Spieler
-- keine neue Score-Instanz
-- kein neuer Lobby-Eintrag
-- der zurückkehrende Player selbst bekommt stattdessen `connection:resumed`
-
----
-
-## `player:disconnected`
-
-### Richtung
-
-- **Server → Host**
-- optional an relevante Clients
-
-### Zweck
-
-Meldet temporären Verbindungsverlust eines Spielers.
-
-### Payload
-
-```json
-{
-  "roomId": "string",
-  "playerId": "string",
-  "playerState": "disconnected",
-  "connected": false
-}
-```
-
-### Hinweise
-
-- Spieler wird nicht sofort endgültig entfernt
-- konkrete Timeout- oder Cleanup-Strategie ist Sache der State-Machine
-
----
-
-## `game:start`
-
-### Richtung
-
-- **Host → Server**
-
-### Zweck
-
-Host will das Spiel starten.
-
-### Payload
-
-```json
-{
-  "roomId": "string"
-}
-```
-
-### Erlaubt wenn
-
-- Sender ist Host dieses Raums
-- Raum ist im Zustand `waiting`
-- Mindestanzahl Spieler erfüllt
-- Spiel ist noch nicht aktiv
-
-### Erfolg
-
-Server wechselt den Raum-/Spielzustand und sendet:
-
-- `game:started`
-- danach typischerweise `question:show`
-
-### Fehlerfälle
-
-- zu wenige Spieler
-- Spiel läuft bereits
-- Host nicht autorisiert
-- Raumstatus falsch
-
----
-
-## `game:started`
-
-### Richtung
-
-- **Server → Host**
-- **Server → Player**
-
-### Zweck
-
-Verbindliche Information, dass das Spiel gestartet hat.
-
-### Payload
-
-```json
-{
-  "roomId": "string",
-  "roomState": "in_game",
-  "gameState": "idle",
-  "questionIndex": 0
-}
-```
-
-### Hinweise
-
-- Clients wechseln von Lobby in Spielmodus
-- noch nicht zwingend Frage sichtbar, je nach Fluss folgt direkt `question:show`
-
----
-
-## `question:show`
-
-### Richtung
-
-- **Server → Host**
-- **Server → Player**
-
-### Zweck
-
-Eine neue Frage wird freigegeben.
-
-### Payload für Host
-
-```json
-{
-  "roomId": "string",
-  "questionId": "string",
-  "questionIndex": 0,
-  "type": "multiple_choice",
-  "text": "string",
-  "options": [
-    { "id": "A", "label": "string" },
-    { "id": "B", "label": "string" },
-    { "id": "C", "label": "string" },
-    { "id": "D", "label": "string" }
-  ],
-  "durationMs": 15000,
-  "gameState": "question_active"
-}
-```
-
-### Payload für Player
-
-Im MVP identisch oder leicht reduziert:
-
-```json
-{
-  "roomId": "string",
-  "questionId": "string",
-  "questionIndex": 0,
-  "type": "multiple_choice",
-  "text": "string",
-  "options": [
-    { "id": "A", "label": "string" },
-    { "id": "B", "label": "string" },
-    { "id": "C", "label": "string" },
-    { "id": "D", "label": "string" }
-  ],
-  "durationMs": 15000,
-  "gameState": "question_active"
-}
-```
-
-### Hinweise
-
-- Startzeit und Sperrlogik bleiben serverseitig maßgeblich
-- Client darf UI-Countdown zeigen, aber nicht die Wahrheit bestimmen
-
----
-
-## `question:timer`
-
-### Richtung
-
-- **Server → Host**
-- **Server → Player**
-
-### Zweck
-
-Synchronisations-Event für laufende Fragezeit. Wird alle 500ms gesendet, solange eine Frage aktiv ist (Game State = `question_active`).
-
-### Payload
-
-```json
-{
-  "roomId": "string",
-  "questionId": "string",
-  "remainingMs": 9200
-}
-```
-
-### Hinweise
-
-- wird genau alle 500ms gesendet, nicht öfter, nicht seltener
-- Clients dürfen lokal interpolieren für flüssige Anzeige, aber nicht als Wahrheitsquelle nutzen
-- das `question:close`-Event (nicht das letzte Timer-Event) ist die maßgebliche Sperrung
-
----
-
-## `answer:submit`
-
-### Richtung
-
-- **Player → Server**
-
-### Zweck
-
-Spieler sendet eine Antwort auf die aktive Frage.
-
-### Payload
-
-```json
-{
-  "roomId": "string",
-  "questionId": "string",
-  "playerId": "string",
-  "answer": {
-    "type": "option",
-    "value": "A"
-  },
-  "requestId": "string"
-}
-```
-
-### Erlaubt wenn
-
-- Raum aktiv
-- Frage aktiv
-- Spieler ist gültig
-- Spieler gehört zum Raum
-- Spieler hat noch keine gültige Antwort abgegeben
-- Antwortformat passt zum Fragetyp
-
-### Erfolg
-
-Server sendet:
-
-- `answer:accepted` an diesen Player
-- optional `answer:status` oder aktualisierte Antwortanzahl an Host
-
-### Fehlerfälle
-
-- Frage nicht aktiv
-- falsches `questionId`
-- doppelte Antwort
-- ungültiger Spieler
-- verspätete Antwort
-- ungültiges Antwortformat
-
----
-
-## `answer:accepted`
-
-### Richtung
-
-- **Server → Player**
-
-### Zweck
-
-Bestätigung, dass die Antwort gültig angenommen wurde.
-
-### Payload
-
-```json
-{
-  "roomId": "string",
-  "questionId": "string",
-  "playerId": "string",
-  "status": "accepted"
-}
-```
-
-### Hinweise
-
-- erst hier darf die UI sicher „Antwort gespeichert" anzeigen
-- keine Aussage darüber, ob die Antwort korrekt war
-
----
-
-## `answer:rejected`
-
-### Richtung
-
-- **Server → Player**
-
-### Zweck
-
-Antwort wurde nicht akzeptiert.
-
-### Payload
-
-```json
-{
-  "roomId": "string",
-  "questionId": "string",
-  "playerId": "string",
-  "status": "rejected",
-  "reason": "duplicate | late | invalid_payload | invalid_state | unauthorized"
-}
-```
-
-### Hinweise
-
-- UI muss klar machen, dass die Antwort nicht zählt
-- besonders wichtig bei Doppel-Klicks oder verspäteter Eingabe
-
----
-
-## `answer:progress`
-
-### Richtung
-
-- **Server → Host**
-
-### Zweck
-
-Host sieht, wie viele Spieler bereits geantwortet haben.
-
-### Payload
-
-```json
-{
-  "roomId": "string",
-  "questionId": "string",
-  "answeredCount": 2,
-  "totalEligiblePlayers": 4
-}
-```
-
-### Hinweise
-
-- keine Offenlegung individueller Antworten
-- nur Fortschrittsanzeige
-
----
-
-## `question:close`
-
-### Richtung
-
-- **Server → Host**
-- **Server → Player**
-
-### Zweck
-
-Frage ist offiziell geschlossen, Eingaben sind gesperrt.
-
-### Payload
-
-```json
-{
-  "roomId": "string",
-  "questionId": "string",
-  "gameState": "answer_locked"
-}
-```
-
-### Wird ausgelöst durch
-
-- Timerende
-- alle Antworten vorhanden
-- Host-Aktion, falls später erlaubt und regelkonform
-
-### Hinweise
-
-- nach diesem Event dürfen keine Antworten mehr akzeptiert werden
-- verspätete `answer:submit` müssen abgewiesen werden
-
----
-
-## `question:reveal`
-
-### Richtung
-
-- **Server → Host**
-- optional **Server → Player**
-
-### Zweck
-
-Zeigt die Auflösung der Frage.
-
-### Payload
-
-```json
-{
-  "roomId": "string",
-  "questionId": "string",
-  "correctAnswer": {
-    "type": "option",
-    "value": "C"
-  },
-  "gameState": "revealing"
-}
-```
-
-### Optional erweiterbar
-
-- Liste der richtigen Spieler
-- Statistik der Antwortverteilung
-
-Aber im MVP sparsam halten.
-
----
-
-## `score:update`
-
-### Richtung
-
-- **Server → Host**
-- **Server → Player**
-
-### Zweck
-
-Aktualisierung des Punktestands nach einer Runde.
-
-### Payload
-
-```json
-{
-  "roomId": "string",
-  "questionId": "string",
-  "scoreboard": [
-    {
-      "playerId": "string",
-      "name": "string",
-      "score": 100
-    },
-    {
-      "playerId": "string",
-      "name": "string",
-      "score": 50
-    }
-  ],
-  "gameState": "scoreboard"
-}
-```
-
-### Hinweise
-
-- nur der Server berechnet diesen Stand
-- Clients übernehmen den Stand, sie erzeugen ihn nicht
-
----
-
-## `game:next-question`
-
-### Richtung
-
-- **Host → Server**
-
-### Zweck
-
-Host will zur nächsten Frage übergehen.
-
-### Payload
-
-```json
-{
-  "roomId": "string"
-}
-```
-
-### Erlaubt wenn
-
-- Sender ist Host
-- aktuelle Frage ist abgeschlossen
-- Spiel befindet sich im passenden Zustand, z. B. `scoreboard` oder `revealing`
-
-### Erfolg
-
-Server sendet:
-
-- neue `question:show`
-- oder `game:finished`, wenn keine Fragen mehr übrig sind
-
-### Fehlerfälle
-
-- Zustand nicht passend
-- Host nicht autorisiert
-- keine weitere Frage vorhanden
-
----
-
-## `game:finished`
-
-### Richtung
-
-- **Server → Host**
-- **Server → Player**
-
-### Zweck
-
-Spiel ist beendet.
-
-### Payload
-
-```json
-{
-  "roomId": "string",
-  "roomState": "completed",
-  "gameState": "completed",
-  "finalScoreboard": [
-    {
-      "playerId": "string",
-      "name": "string",
-      "score": 180
-    }
-  ]
-}
-```
-
-### Folge
-
-Clients wechseln in Endzustand / Endscreen.
-
----
-
-## `room:close`
-
-### Richtung
-
-- **Host → Server**
-- oder **Server → Clients** als Folge
-
-### Zweck
-
-Raum wird beendet / geschlossen.
-
-### Payload
-
-```json
-{
-  "roomId": "string"
-}
-```
-
-### Hinweise
-
-- Host oder Server kann Schließung auslösen
-- wenn Host aktiv beendet, sendet der Server finalen Schließungszustand an alle
-
----
-
-## `room:closed`
-
-### Richtung
-
-- **Server → Host**
-- **Server → Player**
-
-### Zweck
-
-Raum wurde endgültig geschlossen.
-
-### Payload
-
-```json
-{
-  "roomId": "string",
-  "roomState": "closed"
-}
-```
-
-### Folge
-
-- Clients verlassen Spielkontext
-- keine weiteren Spiel-Events mehr zulässig
-
----
-
-# Fehlerprotokoll
-
-## `error:protocol`
-
-### Richtung
-
-- **Server → Client**
-
-### Zweck
-
-Allgemeiner Fehler bei ungültigem Event oder unzulässigem Zustand.
-
-### Payload
-
-```json
-{
-  "code": "string",
-  "message": "string",
-  "context": {
-    "event": "string",
-    "roomId": "string | null",
-    "questionId": "string | null"
-  }
-}
-```
-
-### Typische Fehlercodes
-
-- `ROOM_NOT_FOUND`
-- `ROOM_CLOSED`
-- `INVALID_JOIN_CODE`
-- `INVALID_PAYLOAD`
-- `INVALID_STATE`
-- `NOT_AUTHORIZED`
-- `QUESTION_NOT_ACTIVE`
-- `ANSWER_ALREADY_SUBMITTED`
-- `ANSWER_TOO_LATE`
-- `SESSION_NOT_FOUND`
-- `PLAYER_NOT_FOUND`
-
-### Hinweise
-
-- Fehlercodes sollen maschinenlesbar und stabil sein
-- `message` darf UI-freundlicher sein, aber nicht die einzige Quelle für Logik
-
----
-
-# MVP-Eventfluss
-
-## A. Raum erstellen und Lobby
-
-1. Client verbindet sich
-2. Server sendet `connection:ack`
-3. Host sendet `room:create`
-4. Server sendet `room:created`
-5. Player sendet `room:join`
-6. Server sendet `player:joined`
-7. Server sendet `lobby:update`
-8. weitere Joins aktualisieren erneut `lobby:update`
-
----
-
-## B. Spielstart
-
-1. Host sendet `game:start`
-2. Server prüft Voraussetzungen
-3. Server sendet `game:started`
-4. Server sendet `question:show`
-
----
-
-## C. Frage beantworten
-
-1. Player sendet `answer:submit`
-2. Server validiert
-3. Server sendet `answer:accepted` oder `answer:rejected`
-4. Server sendet optional `answer:progress` an Host
-5. Wenn Zeit abläuft oder alle geantwortet haben:
-   - Server sendet `question:close`
-6. Server wertet aus
-7. Server sendet `question:reveal`
-8. Server sendet `score:update`
-
----
-
-## D. Nächste Frage
-
-1. Host sendet `game:next-question`
-2. Server prüft Zustand
-3. Server sendet nächste `question:show`
-4. wenn keine Frage mehr übrig:
-   - Server sendet `game:finished`
-
----
-
-# Autorisierungsregeln nach Rolle
-
-## Host darf senden
+### Host darf senden
 
 - `connection:resume`
 - `room:create`
@@ -1189,111 +42,129 @@ Allgemeiner Fehler bei ungültigem Event oder unzulässigem Zustand.
 - `game:next-question`
 - `room:close`
 
-## Player darf senden
+### Player darf senden
 
 - `room:join`
 - `connection:resume`
 - `answer:submit`
 
-## Server darf senden
+### Server sendet
 
-- alle bestätigenden und zustandsverändernden Events
+- alle bestaetigenden und zustandsaendernden Events
 - alle Fehler-Events
-- alle Raum-, Spiel-, Frage- und Score-Updates
 
----
+## Aktive Events
 
-# Regeln gegen Dubletten und Chaos
+### Verbindung und Raum
 
-## 1. Antworten sind idempotent kontrolliert zu behandeln
+| Event | Richtung | Zweck | Kernfelder |
+| --- | --- | --- | --- |
+| `connection:ack` | Server -> Client | Technische Socket-Bestaetigung | `connectionId`, `serverTime` |
+| `connection:resume` | Client -> Server | Bestehende Sitzung wieder aufnehmen | `sessionId`, `roomId` |
+| `connection:resumed` | Server -> Client | Resume bestaetigt | `role`, `roomId`, `roomState`, optional `gameState`, `sessionId`, `joinCode`, optional `playerId`, optional `playerState`, optional `currentAnswer` |
+| `room:create` | Host -> Server | Neuen Raum anlegen | `hostName`, `clientInfo` |
+| `room:created` | Server -> Host | Raum wurde erstellt | `roomId`, `joinCode`, `roomState`, `hostSessionId` |
+| `room:join` | Player -> Server | Raum per Join-Code betreten | `joinCode`, `playerName`, optional `sessionId` |
+| `player:joined` | Server -> Player | Join bestaetigt | `roomId`, `playerId`, `sessionId`, `playerState`, `roomState` |
+| `room:close` | Host -> Server | Raum beenden | `roomId` |
+| `room:closed` | Server -> Host/Player | Raum ist endgueltig zu | `roomId`, `roomState` |
 
-Wenn ein Player mehrfach dieselbe Frage beantwortet:
+### Lobby und Verbindungssicht
 
-- erste gültige Antwort zählt
-- spätere Antworten werden abgewiesen
+| Event | Richtung | Zweck | Kernfelder |
+| --- | --- | --- | --- |
+| `lobby:update` | Server -> Host/Player | Autoritativer Lobby-Snapshot | `roomId`, `roomState`, `hostConnected`, `players`, `playerCount` |
+| `player:reconnected` | Server -> Host/Player | Bisheriger Spieler ist wieder da | `roomId`, `playerId`, `playerState`, `connected` |
+| `player:disconnected` | Server -> Host/Player | Spieler ist temporaer weg | `roomId`, `playerId`, `playerState`, `connected` |
 
-## 2. Events mit falschem Kontext werden ignoriert oder abgewiesen
+### Spielablauf
 
-Beispiel:
+| Event | Richtung | Zweck | Kernfelder |
+| --- | --- | --- | --- |
+| `game:start` | Host -> Server | Quiz starten | `roomId` |
+| `game:started` | Server -> Host/Player | Spiel ist gestartet | `roomId`, `roomState`, `gameState`, `questionIndex` |
+| `question:show` | Server -> Host/Player | Neue Frage freigeben | `roomId`, `questionId`, `questionIndex`, `type`, `text`, `options`, `durationMs`, `gameState` |
+| `question:timer` | Server -> Host/Player | Verbleibende Fragezeit anzeigen | `roomId`, `questionId`, `remainingMs` |
+| `answer:submit` | Player -> Server | Antwort auf aktive Frage senden | `roomId`, `questionId`, `playerId`, `answer`, `requestId` |
+| `answer:accepted` | Server -> Player | Antwort wurde gespeichert | `roomId`, `questionId`, `playerId`, `status` |
+| `answer:rejected` | Server -> Player | Antwort wurde nicht gewertet | `roomId`, `questionId`, `playerId`, `status`, `reason` |
+| `answer:progress` | Server -> Host | Anzahl eingegangener Antworten | `roomId`, `questionId`, `answeredCount`, `totalEligiblePlayers` |
+| `question:close` | Server -> Host/Player | Frage ist gesperrt | `roomId`, `questionId`, `gameState` |
+| `question:reveal` | Server -> Host/Player | Richtige Antwort zeigen | `roomId`, `questionId`, `correctAnswer`, `gameState` |
+| `score:update` | Server -> Host/Player | Punktestand nach der Runde | `roomId`, `questionId`, `scoreboard`, `gameState` |
+| `game:next-question` | Host -> Server | Zur naechsten Frage wechseln | `roomId` |
+| `game:finished` | Server -> Host/Player | Quiz ist zu Ende | `roomId`, `roomState`, `gameState`, `finalScoreboard` |
 
-- Antwort auf alte `questionId`
-- Join in geschlossenen Raum
-- `game:start` durch Nicht-Host
+### Fehler
 
-## 3. Reihenfolge zählt nur serverseitig
+| Event | Richtung | Zweck | Kernfelder |
+| --- | --- | --- | --- |
+| `error:protocol` | Server -> Client | Ungueltiges Event oder ungueltiger Zustand | `code`, `message`, `context` |
 
-Weder Host noch Player dürfen lokale Reihenfolgen als Wahrheit behandeln.
+## Praktische Regeln
 
-## 4. Clients dürfen spekulativ anzeigen, aber nicht final werten
+### Antworten
 
-Zum Beispiel:
+- Pro Spieler zaehlt pro Frage nur eine Antwort.
+- Die erste gueltige Antwort gewinnt.
+- Spaetere oder doppelte Antworten werden abgelehnt oder ignoriert.
+- Erst `answer:accepted` bestaetigt, dass eine Antwort gespeichert wurde.
 
-- Button nach Absenden deaktivieren: okay
-- Antwort als sicher akzeptiert markieren ohne Server: nicht okay
+### Timer
 
----
+- Der Server sendet `question:timer`.
+- Die Client-Anzeige darf weich laufen, ist aber nicht die Wahrheitsquelle.
+- `question:close` ist das massgebliche Signal fuer "zu spaet".
 
-# Nicht-Ziele des ersten Protokolls
+### Reconnect
 
-Dieses Dokument deckt **nicht** vollständig ab:
+- Sessions werden mit `sessionId` wiedererkannt.
+- Disconnects werden fuer kurze Zeit toleriert.
+- `connection:resumed` kann inzwischen auch `in_game` und `completed` transportieren.
+- Nach erfolgreichem Resume sendet der Server dem zurueckkehrenden Client einen passenden Snapshot fuer Lobby, aktive Frage, Reveal, Rangliste oder Endstand.
+- Bei einem Player kann `currentAnswer` mitkommen, damit eine schon gesendete Antwort lokal wieder erkennbar bleibt.
 
-- Teammodus
+## Typische Eventfolgen
+
+### Raum erstellen und joinen
+
+1. Server sendet `connection:ack`
+2. Host sendet `room:create`
+3. Server sendet `room:created`
+4. Player sendet `room:join`
+5. Server sendet `player:joined`
+6. Server verteilt `lobby:update`
+
+### Spielrunde
+
+1. Host sendet `game:start`
+2. Server sendet `game:started`
+3. Server sendet `question:show`
+4. Server sendet waehrenddessen `question:timer`
+5. Player senden `answer:submit`
+6. Server antwortet mit `answer:accepted` oder `answer:rejected`
+7. Server sendet `question:close`
+8. Server sendet `question:reveal`
+9. Server sendet `score:update`
+
+### Naechste Frage oder Ende
+
+1. Host sendet `game:next-question`
+2. Server sendet entweder die naechste `question:show`
+3. oder `game:finished`
+
+## Ausdruecklich nicht Teil dieses Protokolls
+
+- Buzzer-Events
+- Team-Events
 - Joker
-- Chat
-- Persistenz-Events
-- Admin-/Moderationsfunktionen
-- komplexe Buzzer-Sonderregeln
-- Quiz-Editor / Import-Workflows
-- Benutzerkonten
+- Quiz-Editor-Workflows
+- Admin- oder Moderationsfunktionen
+- Persistenz- oder Cloud-Events
+- Produktweite Kontenlogik
 
-Wenn solche Systeme später kommen, soll das Protokoll gezielt erweitert werden, nicht chaotisch verwässert.
+## Schluss
 
----
+Das Protokoll soll fuer dieses Repo klein und klar bleiben.
 
-# Empfehlungen für die Implementierung
-
-## 1. Eventnamen zentral definieren
-
-Keine frei zusammengetippten Strings in mehreren Apps.
-
-## 2. Payloads schema-validieren
-
-Mindestens serverseitig verpflichtend.
-Clientseitig zusätzlich sinnvoll für defensive Robustheit.
-
-## 3. Server-Antworten explizit halten
-
-Nicht stillschweigend Zustände ändern, die der Client erraten muss.
-
-## 4. Fehler klar benennen
-
-Lieber ein sauberer `error:protocol` mit stabilem Code als stilles Scheitern.
-
-## 5. MVP klein halten
-
-Erst sauberer Fluss für:
-
-- Raum
-- Lobby
-- eine Frage
-- Antwort
-- Reveal
-- Score
-
-Dann erst Erweiterung.
-
----
-
-# Zusammenfassung
-
-Das Event-Protokoll folgt vier nicht verhandelbaren Regeln:
-
-1. **Server entscheidet**
-2. **Events sind klar benannt und typisiert**
-3. **Ungültige Zustände werden aktiv abgefangen**
-4. **Der MVP bleibt klein und diszipliniert**
-
-Wenn das eingehalten wird, bleibt die Echtzeitlogik beherrschbar.
-
-Wenn nicht, entsteht das übliche Multiplayer-Chaos:
-doppelte Wahrheiten, inkonsistente Events, kaputte Zustände und Debugging-Müll.
+Wenn ein Event nur fuer einen moeglichen spaeteren Ausbau existieren wuerde, gehoert es nicht hierher.

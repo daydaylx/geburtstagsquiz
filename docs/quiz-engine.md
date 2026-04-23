@@ -34,13 +34,15 @@ interface Question {
   type: QuestionType;
   text: string;
   options?: { id: string; label: string }[]; // multiple_choice
-  correctAnswer: string; // Option-ID bei MC, Zahl bei Estimate
+  correctOptionId: string; // Option-ID bei MC
   durationMs: number; // Fragedauer in Millisekunden
+  points: number; // Punkte für korrekte Antwort (Standard: 10)
 }
 
 interface SubmittedAnswer {
   playerId: string;
-  value: string; // gewählte Option-ID oder Zahlenwert als String
+  questionId: string;
+  answer: Answer; // { type: "option", value: string }
   submittedAtMs: number; // serverseitiger Zeitstempel des Eingangs (relativ zu Fragestart)
 }
 
@@ -48,12 +50,13 @@ interface PlayerRoundResult {
   playerId: string;
   isCorrect: boolean;
   pointsEarned: number;
-  answerValue: string | null; // null wenn keine Antwort gesendet
+  answer: Answer | null; // null wenn keine Antwort gesendet
 }
 
 interface RoundResult {
   questionId: string;
-  results: PlayerRoundResult[];
+  correctAnswer: CorrectAnswer;
+  playerResults: PlayerRoundResult[];
 }
 ```
 
@@ -64,14 +67,14 @@ interface RoundResult {
 ### `evaluateMultipleChoice`
 
 ```typescript
-function evaluateMultipleChoice(question: Question, answers: SubmittedAnswer[]): RoundResult;
+function evaluateMultipleChoice(question: MultipleChoiceQuestion, answers: SubmittedAnswer[]): RoundResult;
 ```
 
 **Verhalten:**
 
-- Für jeden Spieler der eine Antwort gesendet hat: `isCorrect = answer.value === question.correctAnswer`
-- Punkte via `scoreMultipleChoice(isCorrect)` berechnen
-- Spieler die **keine** Antwort gesendet haben, erhalten `pointsEarned: 0`, `isCorrect: false`, `answerValue: null`
+- Für jeden Spieler der eine Antwort gesendet hat: `isCorrect = answer.value === question.correctOptionId`
+- Punkte via `scoreMultipleChoice(isCorrect, question.points)` berechnen
+- Spieler die **keine** Antwort gesendet haben, werden **nicht** in `playerResults` aufgeführt — der Server muss Nicht-Antwortende separat mergen (0 Punkte, `isCorrect: false`, `answer: null`)
 - Die Liste `answers` enthält nur valide, deduplizierte Antworten (Duplikate werden bereits vom Server gefiltert)
 
 **Nicht zuständig für:**
@@ -85,7 +88,7 @@ function evaluateMultipleChoice(question: Question, answers: SubmittedAnswer[]):
 ### `scoreMultipleChoice`
 
 ```typescript
-function scoreMultipleChoice(isCorrect: boolean): number;
+function scoreMultipleChoice(isCorrect: boolean, points?: number): number;
 ```
 
 **Punkteregeln (MVP):**

@@ -5,10 +5,12 @@
   "scripts": {
     "dev": "corepack pnpm -r --parallel run dev",
     "build": "corepack pnpm -r run build",
-    "typecheck": "corepack pnpm -r run typecheck"
+    "typecheck": "corepack pnpm -r run typecheck",
+    "test": "vitest run"
   },
   "devDependencies": {
-    "typescript": "^5.7.0"
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0"
   },
   "engines": {
     "node": ">=20",

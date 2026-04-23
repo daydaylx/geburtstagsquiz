@@ -48,6 +48,12 @@ export const GameStateSchema = z.nativeEnum(GameState);
 export const PlayerStateSchema = z.nativeEnum(PlayerState);
 export const QuestionTypeSchema = z.nativeEnum(QuestionType);
 export const ClientRoleSchema = z.enum(CLIENT_ROLES);
+export const QuestionDisplayGameStateSchema = z.enum([
+  GameState.QuestionActive,
+  GameState.AnswerLocked,
+  GameState.Revealing,
+  GameState.Scoreboard,
+] as const);
 
 export const ClientInfoSchema = z
   .object({
@@ -107,11 +113,13 @@ export const ConnectionResumedPayloadSchema = z
   .object({
     role: ClientRoleSchema,
     roomId: idSchema,
-    roomState: z.literal(RoomState.Waiting),
+    roomState: RoomStateSchema,
     sessionId: idSchema,
     joinCode: joinCodeSchema,
+    gameState: GameStateSchema.nullable().optional(),
     playerId: idSchema.optional(),
-    playerState: z.enum([PlayerState.Connected, PlayerState.Ready]).optional(),
+    playerState: PlayerStateSchema.optional(),
+    currentAnswer: AnswerSchema.nullable().optional(),
   })
   .strict();
 
@@ -144,7 +152,7 @@ export const PlayerJoinedPayloadSchema = z
     roomId: idSchema,
     playerId: idSchema,
     sessionId: idSchema,
-    playerState: z.literal(PlayerState.Connected),
+    playerState: z.literal(PlayerState.Ready),
     roomState: z.literal(RoomState.Waiting),
   })
   .strict();
@@ -152,7 +160,7 @@ export const PlayerJoinedPayloadSchema = z
 export const LobbyUpdatePayloadSchema = z
   .object({
     roomId: idSchema,
-    roomState: z.literal(RoomState.Waiting),
+    roomState: RoomStateSchema,
     hostConnected: z.boolean(),
     players: z.array(LobbyPlayerSchema),
     playerCount: z.number().int().nonnegative(),
@@ -163,7 +171,7 @@ export const PlayerReconnectedPayloadSchema = z
   .object({
     roomId: idSchema,
     playerId: idSchema,
-    playerState: z.literal(PlayerState.Connected),
+    playerState: PlayerStateSchema,
     connected: z.literal(true),
   })
   .strict();
@@ -201,7 +209,7 @@ export const QuestionShowPayloadSchema = z
     text: z.string().min(1),
     options: z.array(QuestionOptionSchema),
     durationMs: z.number().int().positive(),
-    gameState: z.literal(GameState.QuestionActive),
+    gameState: QuestionDisplayGameStateSchema,
   })
   .strict();
 

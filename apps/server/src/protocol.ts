@@ -41,7 +41,7 @@ export function sendProtocolError(
 export function toLobbyUpdatePayload(room: RoomRecord): LobbyUpdatePayload {
   return {
     roomId: room.id,
-    roomState: RoomState.Waiting,
+    roomState: room.state,
     hostConnected: room.hostConnected,
     players: room.players.map((player) => ({
       playerId: player.id,
