@@ -24,7 +24,8 @@
     "engine_features": {
       "question_types": [
         "multiple_choice",
-        "estimate"
+        "estimate",
+        "ranking"
       ],
       "supports_alias_answers": true,
       "supports_explanations": true,
@@ -46,7 +47,7 @@
     },
     "stats": {
       "total_categories": 10,
-      "total_questions": 280,
+      "total_questions": 285,
       "engine_question_type": "multiple_choice",
       "generated_options_per_question": 4
     },
@@ -856,7 +857,7 @@
         "slug": "sex-liebe-expliziter-bullshit",
         "name": "Sex, Liebe & expliziter Bullshit",
         "intro": "Jetzt wird’s erwachsen. Also pseudo-erwachsen: genug Halbwissen, um bei Tinder arrogant zu wirken, aber zu wenig, um peinliche Gespräche wirklich zu überleben. Millennial-Dating ist ein Schlachtfeld.",
-        "question_count": 28,
+        "question_count": 29,
         "difficulty": "medium_hard",
         "questions": [
           {
@@ -1628,6 +1629,21 @@
             "explanation": "Statistisch gesehen sind es 7 Partner. Manche haben 70, manche 0, aber in der Mitte trifft man sich beim Durchschnitts-Abenteuer.",
             "difficulty": "medium",
             "points": 1
+          },
+          {
+            "id": "q-02-m76538ddcab",
+            "type": "estimate",
+            "prompt": "Wie viel Prozent der Deutschen haben laut Umfrage schon mal ihren Partner beim Handy beschnüffelt?",
+            "answer": {
+              "canonical": "34 %",
+              "reference_value": 34,
+              "unit": "%",
+              "context": "Deutschland, YouGov 2021"
+            },
+            "scoring_rule": "closest_wins",
+            "explanation": "Jeder Dritte! Vertrauen ist gut, PIN-Code-Ändern ist offensichtlich besser.",
+            "difficulty": "medium",
+            "points": 1
           }
         ]
       },
@@ -1636,7 +1652,7 @@
         "slug": "cringe-millennial-slang-internet-fossilien",
         "name": "Cringe Millennial-Slang & Internet-Fossilien",
         "intro": "Willkommen im digitalen Moor eurer Jugend. ICQ-Geräusche, schlechte Emoticons und die peinliche Gewissheit, dass ihr damals alles davon für cool gehalten habt. Eure alten Statusmeldungen verfolgen euch bis heute.",
-        "question_count": 28,
+        "question_count": 29,
         "difficulty": "medium_hard",
         "questions": [
           {
@@ -2408,6 +2424,38 @@
             "explanation": "Exakt eine Million Nutzer. Damals war es noch exklusiv für Studenten und man brauchte eine Uni-E-Mail-Adresse.",
             "difficulty": "medium",
             "points": 1
+          },
+          {
+            "id": "q-03-mac9aa73df0",
+            "type": "ranking",
+            "prompt": "Sortiere diese Chat-Apps nach ihrem Release (älteste zuerst).",
+            "items": [
+              {
+                "id": "A",
+                "label": "WhatsApp (2009)"
+              },
+              {
+                "id": "B",
+                "label": "ICQ (1996)"
+              },
+              {
+                "id": "C",
+                "label": "Telegram (2013)"
+              },
+              {
+                "id": "D",
+                "label": "Signal (2014)"
+              }
+            ],
+            "correct_order": [
+              "B",
+              "A",
+              "C",
+              "D"
+            ],
+            "explanation": "ICQ war der Urvater, WhatsApp kam erst über ein Jahrzehnt später. Telegram und Signal sind die modernen Nachzügler.",
+            "difficulty": "medium",
+            "points": 2
           }
         ]
       },
@@ -4750,7 +4798,7 @@
         "slug": "gaming-frust-pixel-nostalgie",
         "name": "Gaming-Frust & Pixel-Nostalgie",
         "intro": "Hier liegt der wahre Schaden eurer Kindheit: blaue Panzer, tote Tamagotchis und Speicherstände, die auf wundersame Weise „aus Versehen“ weg waren. Charakterbildung durch Frust, nennt man das wohl.",
-        "question_count": 29,
+        "question_count": 30,
         "difficulty": "medium_hard",
         "default_question_type": "multiple_choice",
         "default_points": 1,
@@ -4806,7 +4854,7 @@
               "case_sensitive": false,
               "match_strategy": "alias_or_option_id"
             },
-            "explanation": "Richtig ist: Der blaue Panzer. Diese Antwort ist in der vorhandenen Quizbasis als eindeutige Ziellösung hinterlegt.",
+            "explanation": "Der Albtraum jedes Führenden. Er bestraft Erfolg mit purer, blauer Willkür und hat vermutlich mehr Freundschaften zerstört als jede Erbschaftsstreitigkeit.",
             "tags": [
               "gaming",
               "retro",
@@ -4867,7 +4915,7 @@
               "case_sensitive": false,
               "match_strategy": "alias_or_option_id"
             },
-            "explanation": "Richtig ist: Sims konnten ertrinken. Diese Antwort ist in der vorhandenen Quizbasis als eindeutige Ziellösung hinterlegt.",
+            "explanation": "Leiter weg, Schicksal besiegelt. Es war der erste Moment, in dem wir alle unsere dunkle, gottgleiche Seite im Kinderzimmer entdeckten. RIP Sim-Hausmann.",
             "tags": [
               "gaming",
               "retro",
@@ -4928,7 +4976,7 @@
               "case_sensitive": false,
               "match_strategy": "alias_or_option_id"
             },
-            "explanation": "Richtig ist: LXGIWYL. Diese Antwort ist in der vorhandenen Quizbasis als eindeutige Ziellösung hinterlegt.",
+            "explanation": "Der Klassiker unter den San Andreas Cheats. Wer das heute noch blind in die Tastatur hacken kann, hatte definitiv keine Hausaufgaben gemacht.",
             "tags": [
               "gaming",
               "retro",
@@ -4989,7 +5037,7 @@
               "case_sensitive": false,
               "match_strategy": "alias_or_option_id"
             },
-            "explanation": "Richtig ist: Zum Verbinden zweier Geräte für Datenaustausch oder Multiplayer. Diese Antwort ist in der vorhandenen Quizbasis als eindeutige Ziellösung hinterlegt.",
+            "explanation": "Das Kabel der Hoffnung. Stundenlanges Gefummel, nur um dann doch festzustellen, dass einer 'Pokémon Rot' und der andere 'Blau' hat.",
             "tags": [
               "gaming",
               "retro",
@@ -5111,7 +5159,7 @@
               "case_sensitive": false,
               "match_strategy": "alias_or_option_id"
             },
-            "explanation": "Richtig ist: Dass es sterben konnte, wenn man es vernachlässigte. Diese Antwort ist in der vorhandenen Quizbasis als eindeutige Ziellösung hinterlegt.",
+            "explanation": "Ein digitaler Haufen Pixel, der uns mehr unter Druck gesetzt hat als unser späteres Berufsleben. Und wehe, man hat in der Mathestunde nicht heimlich gefüttert.",
             "tags": [
               "gaming",
               "retro",
@@ -5172,7 +5220,7 @@
               "case_sensitive": false,
               "match_strategy": "alias_or_option_id"
             },
-            "explanation": "Richtig ist: Nintendo 64. Diese Antwort ist in der vorhandenen Quizbasis als eindeutige Ziellösung hinterlegt.",
+            "explanation": "Das Ding, auf dem wir alle 'GoldenEye' im 4-Spieler-Splitscreen gezockt haben, während wir uns gegenseitig beschuldigten, auf den Bildschirm des anderen zu schauen.",
             "tags": [
               "gaming",
               "retro",
@@ -5233,7 +5281,7 @@
               "case_sensitive": false,
               "match_strategy": "alias_or_option_id"
             },
-            "explanation": "Richtig ist: Ein lokales Netzwerk-Treffen zum gemeinsamen Zocken mit eigenen PCs/Konsolen. Diese Antwort ist in der vorhandenen Quizbasis als eindeutige Ziellösung hinterlegt.",
+            "explanation": "Drei Tage ohne Schlaf, stapelweise Pizzakartons und der Geruch von 15 schwitzenden Teenagern in einem Keller. Die Geburtsstunde des modernen E-Sports.",
             "tags": [
               "gaming",
               "retro",
@@ -5294,7 +5342,7 @@
               "case_sensitive": false,
               "match_strategy": "alias_or_option_id"
             },
-            "explanation": "Richtig ist: Mortal Kombat. Diese Antwort ist in der vorhandenen Quizbasis als eindeutige Ziellösung hinterlegt.",
+            "explanation": "Der Grund, warum unsere Eltern dachten, wir würden alle zu Gewaltverbrechern werden. Dabei wollten wir nur sehen, wie Sub-Zero die Wirbelsäule zieht.",
             "tags": [
               "gaming",
               "retro",
@@ -5355,7 +5403,7 @@
               "case_sensitive": false,
               "match_strategy": "alias_or_option_id"
             },
-            "explanation": "Richtig ist: Dass Speicherstände verloren gehen oder die Karte fehlte/kaputtging. Diese Antwort ist in der vorhandenen Quizbasis als eindeutige Ziellösung hinterlegt.",
+            "explanation": "Der Moment, in dem dein 80-Stunden-Final-Fantasy-Savegame einfach verschwindet. Eines der prägendsten Traumata unserer Generation.",
             "tags": [
               "gaming",
               "retro",
@@ -5416,7 +5464,7 @@
               "case_sensitive": false,
               "match_strategy": "alias_or_option_id"
             },
-            "explanation": "Richtig ist: Die Sims. Diese Antwort ist in der vorhandenen Quizbasis als eindeutige Ziellösung hinterlegt.",
+            "explanation": "Eine Lebenssimulation, in der wir Häuser bauten, die wir uns im echten Leben niemals leisten können. Rosebud war unser einziger Ausweg aus der Armut.",
             "tags": [
               "gaming",
               "retro",
@@ -5477,7 +5525,7 @@
               "case_sensitive": false,
               "match_strategy": "alias_or_option_id"
             },
-            "explanation": "Richtig ist: Mario Kart. Diese Antwort ist in der vorhandenen Quizbasis als eindeutige Ziellösung hinterlegt.",
+            "explanation": "Das Spiel, das den blauen Panzer erfand, um uns daran zu erinnern, dass man im Leben niemals zu sicher sein sollte.",
             "tags": [
               "gaming",
               "retro",
@@ -5538,7 +5586,7 @@
               "case_sensitive": false,
               "match_strategy": "alias_or_option_id"
             },
-            "explanation": "Richtig ist: Role-Playing Game. Diese Antwort ist in der vorhandenen Quizbasis als eindeutige Ziellösung hinterlegt.",
+            "explanation": "RPG. Der Modus, in dem wir hunderte Stunden in Welten investierten, die wesentlich interessanter waren als der Schulhof.",
             "tags": [
               "gaming",
               "retro",
@@ -5599,7 +5647,7 @@
               "case_sensitive": false,
               "match_strategy": "alias_or_option_id"
             },
-            "explanation": "Richtig ist: Dass jemand passiv an einer Stelle bleibt und dort Gegner abfängt. Diese Antwort ist in der vorhandenen Quizbasis als eindeutige Ziellösung hinterlegt.",
+            "explanation": "Camping. Die feigeste aller Taktiken, die in jedem Online-Chat der 2000er zu sofortigen Beleidigungen führte.",
             "tags": [
               "gaming",
               "retro",
@@ -5660,7 +5708,7 @@
               "case_sensitive": false,
               "match_strategy": "alias_or_option_id"
             },
-            "explanation": "Richtig ist: Xbox 360. Diese Antwort ist in der vorhandenen Quizbasis als eindeutige Ziellösung hinterlegt.",
+            "explanation": "Der 'Red Ring of Death' war das Todesurteil für jede Gaming-Session. Ein Designfehler, der uns lehrte, dass Technik nicht ewig hält.",
             "tags": [
               "gaming",
               "retro",
@@ -5721,7 +5769,7 @@
               "case_sensitive": false,
               "match_strategy": "alias_or_option_id"
             },
-            "explanation": "Richtig ist: Mehrere PCs, LAN-Verkabelung und oft manuelle Netzwerkeinrichtung. Diese Antwort ist in der vorhandenen Quizbasis als eindeutige Ziellösung hinterlegt.",
+            "explanation": "IP-Adressen manuell vergeben (192.168.0.1...), bis alle im selben Subnetz waren. Wir waren IT-Experten, bevor wir wussten, was IT überhaupt bedeutet.",
             "tags": [
               "gaming",
               "retro",
@@ -5843,7 +5891,7 @@
               "case_sensitive": false,
               "match_strategy": "alias_or_option_id"
             },
-            "explanation": "Richtig ist: Die Aufforderung zu einem direkten Duell gegen eine Person. Diese Antwort ist in der vorhandenen Quizbasis als eindeutige Ziellösung hinterlegt.",
+            "explanation": "1vs1 me bro! Die universelle Antwort auf jede Beleidigung in Counter-Strike oder Quake. Ort: Meistens Map 'Pool_day'.",
             "tags": [
               "gaming",
               "retro",
@@ -5904,7 +5952,7 @@
               "case_sensitive": false,
               "match_strategy": "alias_or_option_id"
             },
-            "explanation": "Richtig ist: Nintendo. Diese Antwort ist in der vorhandenen Quizbasis als eindeutige Ziellösung hinterlegt.",
+            "explanation": "Die Firma, die uns lehrte, dass man Probleme lösen kann, indem man einfach kräftig in den Modulschlitz pustet. Funktioniert heute leider nicht mehr bei Laptops.",
             "tags": [
               "gaming",
               "retro",
@@ -5965,7 +6013,7 @@
               "case_sensitive": false,
               "match_strategy": "alias_or_option_id"
             },
-            "explanation": "Richtig ist: Fallende Blöcke passend anordnen, um vollständige Linien zu bilden. Diese Antwort ist in der vorhandenen Quizbasis als eindeutige Ziellösung hinterlegt.",
+            "explanation": "Tetris. Das Spiel, das uns bis in die Träume verfolgte und uns lehrte, dass Fehler sich stapeln, während Erfolge sofort verschwinden.",
             "tags": [
               "gaming",
               "retro",
@@ -6026,7 +6074,7 @@
               "case_sensitive": false,
               "match_strategy": "alias_or_option_id"
             },
-            "explanation": "Richtig ist: Link. Diese Antwort ist in der vorhandenen Quizbasis als eindeutige Ziellösung hinterlegt.",
+            "explanation": "NEIN, ER HEISST NICHT ZELDA. Zelda ist die Prinzessin. Wie oft müssen wir das eigentlich noch klären? Generationen-Frust pur.",
             "tags": [
               "gaming",
               "retro",
@@ -6087,7 +6135,7 @@
               "case_sensitive": false,
               "match_strategy": "alias_or_option_id"
             },
-            "explanation": "Richtig ist: Schnelleres Fortbewegen. Diese Antwort ist in der vorhandenen Quizbasis als eindeutige Ziellösung hinterlegt.",
+            "explanation": "Speedrun-Taktik oder einfach nur Ungeduld. In einer Zeit vor Open-World- Schnellreise war jeder Trick willkommen.",
             "tags": [
               "gaming",
               "retro",
@@ -6148,7 +6196,7 @@
               "case_sensitive": false,
               "match_strategy": "alias_or_option_id"
             },
-            "explanation": "Richtig ist: Die Sims. Diese Antwort ist in der vorhandenen Quizbasis als eindeutige Ziellösung hinterlegt.",
+            "explanation": "Eine Lebenssimulation, in der wir Häuser bauten, die wir uns im echten Leben niemals leisten können. Rosebud war unser einziger Ausweg aus der Armut.",
             "tags": [
               "gaming",
               "retro",
@@ -6209,7 +6257,7 @@
               "case_sensitive": false,
               "match_strategy": "alias_or_option_id"
             },
-            "explanation": "Richtig ist: Ein Schuss ohne das Visier/Fernrohr zu benutzen, meist mit Sniper. Diese Antwort ist in der vorhandenen Quizbasis als eindeutige Ziellösung hinterlegt.",
+            "explanation": "No-Scope. Die höchste Form der Demütigung für das Opfer. Meistens gefolgt von einem übertriebenen Jubelschrei im Teamspeak.",
             "tags": [
               "gaming",
               "retro",
@@ -6346,6 +6394,38 @@
             "explanation": "84 Pixel Breite (und 48 Pixel Höhe). Mehr brauchte man nicht für das beste Spiel der Welt: Snake II.",
             "difficulty": "medium",
             "points": 1
+          },
+          {
+            "id": "q-07-mdb25573919",
+            "type": "ranking",
+            "prompt": "Sortiere diese Gaming-Konsolen nach Erscheinungsjahr in Deutschland (älteste zuerst).",
+            "items": [
+              {
+                "id": "A",
+                "label": "PlayStation 2 (2000)"
+              },
+              {
+                "id": "B",
+                "label": "Super Nintendo (1992)"
+              },
+              {
+                "id": "C",
+                "label": "Xbox 360 (2005)"
+              },
+              {
+                "id": "D",
+                "label": "Nintendo 64 (1997)"
+              }
+            ],
+            "correct_order": [
+              "B",
+              "D",
+              "A",
+              "C"
+            ],
+            "explanation": "SNES und N64 prägten die 90er, die PS2 startete das Millenium und die Xbox 360 brachte uns HD-Gaming.",
+            "difficulty": "medium",
+            "points": 2
           }
         ]
       },
@@ -7992,7 +8072,7 @@
         "slug": "gefahrliches-halbwissen-fur-erwachsene-adulting-fails",
         "name": "Gefährliches Halbwissen für Erwachsene (Adulting Fails)",
         "intro": "Jetzt kommt der Teil, in dem ihr merkt, dass man mit 30 zwar Rechnungen bekommt, aber nicht automatisch Kompetenz. Willkommen im Club der Leute, die Mülltrennung googeln, während der Rücken bereits kündigt. Adulting ist ein Scam.",
-        "question_count": 29,
+        "question_count": 30,
         "difficulty": "medium",
         "default_question_type": "multiple_choice",
         "default_points": 1,
@@ -9588,6 +9668,21 @@
             "explanation": "121 E-Mails pro Tag. Und 120 davon hätten wahrscheinlich auch ein kurzes Slack-Gespräch sein können.",
             "difficulty": "medium",
             "points": 1
+          },
+          {
+            "id": "q-09-m7404ef4ed3",
+            "type": "estimate",
+            "prompt": "Wie viel Prozent der Deutschen trinken laut Statistik täglich Kaffee?",
+            "answer": {
+              "canonical": "77 %",
+              "reference_value": 77,
+              "unit": "%",
+              "context": "Deutschland, DKV 2022"
+            },
+            "scoring_rule": "closest_wins",
+            "explanation": "Ohne Kaffee geht bei 77% gar nichts. Wir sind eine Gesellschaft von koffeinabhängigen Zombies.",
+            "difficulty": "medium",
+            "points": 1
           }
         ]
       },
@@ -9596,7 +9691,7 @@
         "slug": "technik-fails-hardware-friedhof",
         "name": "Technik-Fails & Hardware-Friedhof",
         "intro": "Hier liegt der Elektroschrott eurer Jugend in Ehren begraben: Röhrenmonster, Discman-Gehopse und CDs, die mit illegalen MP3s und 14 Viren zugleich gebrannt wurden. Fortschritt war damals nur ein anderes Wort für „funktioniert irgendwie, bis es raucht“.",
-        "question_count": 27,
+        "question_count": 28,
         "difficulty": "medium",
         "default_question_type": "multiple_choice",
         "default_points": 1,
@@ -11162,6 +11257,38 @@
             "explanation": "133 Gramm pure Unzerstörbarkeit. Wenn es runterfiel, ging der Boden kaputt, nicht das Handy.",
             "difficulty": "medium",
             "points": 1
+          },
+          {
+            "id": "q-10-m9e136a2a7e",
+            "type": "ranking",
+            "prompt": "Sortiere diese Speichermedien nach ihrer Kapazität (kleinste zuerst).",
+            "items": [
+              {
+                "id": "A",
+                "label": "Blu-ray (25 GB)"
+              },
+              {
+                "id": "B",
+                "label": "Floppy Disk (1.44 MB)"
+              },
+              {
+                "id": "C",
+                "label": "DVD (4.7 GB)"
+              },
+              {
+                "id": "D",
+                "label": "CD (700 MB)"
+              }
+            ],
+            "correct_order": [
+              "B",
+              "D",
+              "C",
+              "A"
+            ],
+            "explanation": "Von der Diskette bis zur Blu-ray – ein Weg voller Kratzer, Lesefehler und 'Bitte Disk 2 einlegen'.",
+            "difficulty": "medium",
+            "points": 2
           }
         ]
       }
