@@ -26,4 +26,8 @@ export enum PlayerState {
 
 export enum QuestionType {
   MultipleChoice = "multiple_choice",
+  Estimate = "estimate",
+  MajorityGuess = "majority_guess",
+  Ranking = "ranking",
+  Logic = "logic",
 }

@@ -1,12 +1,6 @@
 import { z } from "zod";
 
-import {
-  CLIENT_ROLES,
-  GameState,
-  PlayerState,
-  QuestionType,
-  RoomState,
-} from "@quiz/shared-types";
+import { CLIENT_ROLES, GameState, PlayerState, QuestionType, RoomState } from "@quiz/shared-types";
 import {
   isJoinCodeFormat,
   JOIN_CODE_LENGTH,
@@ -29,9 +23,12 @@ const displayNameSchema = z
   .string()
   .transform(normalizePlayerName)
   .pipe(
-    z.string().min(PLAYER_NAME_MIN_LENGTH).max(PLAYER_NAME_MAX_LENGTH, {
-      message: `Name must be between ${PLAYER_NAME_MIN_LENGTH} and ${PLAYER_NAME_MAX_LENGTH} characters`,
-    }),
+    z
+      .string()
+      .min(PLAYER_NAME_MIN_LENGTH)
+      .max(PLAYER_NAME_MAX_LENGTH, {
+        message: `Name must be between ${PLAYER_NAME_MIN_LENGTH} and ${PLAYER_NAME_MAX_LENGTH} characters`,
+      }),
   );
 
 const joinCodeSchema = z
@@ -69,12 +66,32 @@ export const QuestionOptionSchema = z
   })
   .strict();
 
-export const AnswerSchema = z
+export const OptionAnswerSchema = z
   .object({
     type: z.literal("option"),
     value: idSchema,
   })
   .strict();
+
+export const NumberAnswerSchema = z
+  .object({
+    type: z.literal("number"),
+    value: z.number(),
+  })
+  .strict();
+
+export const RankingAnswerSchema = z
+  .object({
+    type: z.literal("ranking"),
+    value: z.array(z.string().min(1)),
+  })
+  .strict();
+
+export const AnswerSchema = z.discriminatedUnion("type", [
+  OptionAnswerSchema,
+  NumberAnswerSchema,
+  RankingAnswerSchema,
+]);
 
 export const CorrectAnswerSchema = AnswerSchema;
 
@@ -92,6 +109,15 @@ export const ScoreboardEntrySchema = z
     playerId: idSchema,
     name: z.string().min(1),
     score: z.number().int().nonnegative(),
+  })
+  .strict();
+
+export const PlayerRoundResultSchema = z
+  .object({
+    playerId: idSchema,
+    answer: AnswerSchema.nullable(),
+    isCorrect: z.boolean(),
+    pointsEarned: z.number().int().nonnegative(),
   })
   .strict();
 
@@ -201,19 +227,55 @@ export const GameStartedPayloadSchema = z
   })
   .strict();
 
-export const QuestionShowPayloadSchema = z
-  .object({
-    roomId: idSchema,
-    questionId: idSchema,
-    questionIndex: z.number().int().nonnegative(),
-    totalQuestionCount: z.number().int().nonnegative(),
-    type: z.literal(QuestionType.MultipleChoice),
-    text: z.string().min(1),
-    options: z.array(QuestionOptionSchema),
-    durationMs: z.number().int().positive(),
-    gameState: QuestionDisplayGameStateSchema,
-  })
-  .strict();
+const questionShowBaseFields = {
+  roomId: idSchema,
+  questionId: idSchema,
+  questionIndex: z.number().int().nonnegative(),
+  totalQuestionCount: z.number().int().nonnegative(),
+  text: z.string().min(1),
+  durationMs: z.number().int().positive(),
+  gameState: QuestionDisplayGameStateSchema,
+};
+
+export const QuestionShowPayloadSchema = z.discriminatedUnion("type", [
+  z
+    .object({
+      ...questionShowBaseFields,
+      type: z.literal(QuestionType.MultipleChoice),
+      options: z.array(QuestionOptionSchema),
+    })
+    .strict(),
+  z
+    .object({
+      ...questionShowBaseFields,
+      type: z.literal(QuestionType.Logic),
+      options: z.array(QuestionOptionSchema),
+    })
+    .strict(),
+  z
+    .object({
+      ...questionShowBaseFields,
+      type: z.literal(QuestionType.Estimate),
+      unit: z.string().min(1),
+      context: z.string().min(1),
+    })
+    .strict(),
+  z
+    .object({
+      ...questionShowBaseFields,
+      type: z.literal(QuestionType.MajorityGuess),
+      unit: z.string().min(1),
+      context: z.string().min(1),
+    })
+    .strict(),
+  z
+    .object({
+      ...questionShowBaseFields,
+      type: z.literal(QuestionType.Ranking),
+      items: z.array(QuestionOptionSchema),
+    })
+    .strict(),
+]);
 
 export const QuestionTimerPayloadSchema = z
   .object({
@@ -282,6 +344,7 @@ export const QuestionRevealPayloadSchema = z
     roomId: idSchema,
     questionId: idSchema,
     correctAnswer: CorrectAnswerSchema,
+    playerResults: z.array(PlayerRoundResultSchema),
     gameState: z.literal(GameState.Revealing),
   })
   .strict();
@@ -291,6 +354,25 @@ export const ScoreUpdatePayloadSchema = z
     roomId: idSchema,
     questionId: idSchema,
     scoreboard: z.array(ScoreboardEntrySchema),
+    gameState: z.literal(GameState.Scoreboard),
+  })
+  .strict();
+
+export const NextQuestionReadyPayloadSchema = z
+  .object({
+    roomId: idSchema,
+    questionId: idSchema,
+    playerId: idSchema,
+  })
+  .strict();
+
+export const NextQuestionReadyProgressPayloadSchema = z
+  .object({
+    roomId: idSchema,
+    questionId: idSchema,
+    readyCount: z.number().int().nonnegative(),
+    totalEligiblePlayers: z.number().int().nonnegative(),
+    readyPlayerIds: z.array(idSchema),
     gameState: z.literal(GameState.Scoreboard),
   })
   .strict();
@@ -352,6 +434,7 @@ export const PLAYER_TO_SERVER_EVENT_SCHEMAS = {
   [EVENTS.CONNECTION_RESUME]: ConnectionResumePayloadSchema,
   [EVENTS.ROOM_JOIN]: RoomJoinPayloadSchema,
   [EVENTS.ANSWER_SUBMIT]: AnswerSubmitPayloadSchema,
+  [EVENTS.NEXT_QUESTION_READY]: NextQuestionReadyPayloadSchema,
 } as const;
 
 export const CLIENT_TO_SERVER_EVENT_SCHEMAS = {
@@ -373,6 +456,7 @@ export const SERVER_TO_HOST_EVENT_SCHEMAS = {
   [EVENTS.QUESTION_CLOSE]: QuestionClosePayloadSchema,
   [EVENTS.QUESTION_REVEAL]: QuestionRevealPayloadSchema,
   [EVENTS.SCORE_UPDATE]: ScoreUpdatePayloadSchema,
+  [EVENTS.NEXT_QUESTION_READY_PROGRESS]: NextQuestionReadyProgressPayloadSchema,
   [EVENTS.GAME_FINISHED]: GameFinishedPayloadSchema,
   [EVENTS.ROOM_CLOSED]: RoomClosedPayloadSchema,
   [EVENTS.ERROR_PROTOCOL]: ErrorPayloadSchema,
@@ -393,6 +477,7 @@ export const SERVER_TO_PLAYER_EVENT_SCHEMAS = {
   [EVENTS.QUESTION_CLOSE]: QuestionClosePayloadSchema,
   [EVENTS.QUESTION_REVEAL]: QuestionRevealPayloadSchema,
   [EVENTS.SCORE_UPDATE]: ScoreUpdatePayloadSchema,
+  [EVENTS.NEXT_QUESTION_READY_PROGRESS]: NextQuestionReadyProgressPayloadSchema,
   [EVENTS.GAME_FINISHED]: GameFinishedPayloadSchema,
   [EVENTS.ROOM_CLOSED]: RoomClosedPayloadSchema,
   [EVENTS.ERROR_PROTOCOL]: ErrorPayloadSchema,
@@ -424,6 +509,10 @@ export type AnswerProgressPayload = z.infer<typeof AnswerProgressPayloadSchema>;
 export type QuestionClosePayload = z.infer<typeof QuestionClosePayloadSchema>;
 export type QuestionRevealPayload = z.infer<typeof QuestionRevealPayloadSchema>;
 export type ScoreUpdatePayload = z.infer<typeof ScoreUpdatePayloadSchema>;
+export type NextQuestionReadyPayload = z.infer<typeof NextQuestionReadyPayloadSchema>;
+export type NextQuestionReadyProgressPayload = z.infer<
+  typeof NextQuestionReadyProgressPayloadSchema
+>;
 export type GameNextQuestionPayload = z.infer<typeof GameNextQuestionPayloadSchema>;
 export type GameFinishedPayload = z.infer<typeof GameFinishedPayloadSchema>;
 export type RoomClosePayload = z.infer<typeof RoomClosePayloadSchema>;

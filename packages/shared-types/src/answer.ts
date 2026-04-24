@@ -3,9 +3,19 @@ export interface OptionAnswer {
   value: string;
 }
 
-export type Answer = OptionAnswer;
+export interface NumberAnswer {
+  type: "number";
+  value: number;
+}
 
-export type CorrectAnswer = OptionAnswer;
+export interface RankingAnswer {
+  type: "ranking";
+  value: string[];
+}
+
+export type Answer = OptionAnswer | NumberAnswer | RankingAnswer;
+
+export type CorrectAnswer = OptionAnswer | NumberAnswer | RankingAnswer;
 
 export interface SubmittedAnswer {
   playerId: string;

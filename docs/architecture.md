@@ -147,7 +147,7 @@ Alles darueber hinaus ist optional und fuer dieses Repo nicht vorrangig.
 
 - `room:create`
 - `game:start`
-- `game:next-question`
+- `game:next-question` bleibt als technische Rueckfalloption vorhanden
 - `room:close`
 
 ### Player -> Server
@@ -155,6 +155,7 @@ Alles darueber hinaus ist optional und fuer dieses Repo nicht vorrangig.
 - `room:join`
 - `connection:resume`
 - `answer:submit`
+- `next-question:ready`
 
 ### Server -> alle relevanten Clients
 
@@ -164,6 +165,7 @@ Alles darueber hinaus ist optional und fuer dieses Repo nicht vorrangig.
 - Antwortbestaetigung oder Ablehnung
 - Aufloesung
 - Score-Update
+- Bereit-Fortschritt fuer die naechste Frage
 - Spielende
 - Raumschluss
 

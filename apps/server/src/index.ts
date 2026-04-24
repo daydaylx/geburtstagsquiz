@@ -12,7 +12,12 @@ import { roomsById, sessionsById } from "./state.js";
 import { toKnownEventName, createRoom, closeRoom } from "./room.js";
 import { handleRoomJoin, handleConnectionResume } from "./lobby.js";
 import { handleSocketClose } from "./session.js";
-import { handleGameStart, handleGameNextQuestion, handleAnswerSubmit } from "./game.js";
+import {
+  handleGameStart,
+  handleGameNextQuestion,
+  handleAnswerSubmit,
+  handleNextQuestionReady,
+} from "./game.js";
 
 const server = createServer((_request, response) => {
   response.writeHead(200, { "Content-Type": "text/plain; charset=utf-8" });
@@ -32,8 +37,13 @@ server.on("upgrade", (request, socket, head) => {
   });
 });
 
-websocketServer.on("connection", (websocket) => {
+websocketServer.on("connection", (websocket, request) => {
   const socket = websocket as TrackedWebSocket;
+
+  console.log("socket:connected", {
+    connectionId: socket.connectionId,
+    remoteAddress: request.socket.remoteAddress,
+  });
 
   socket.on("pong", () => {
     socket.isAlive = true;
@@ -126,6 +136,10 @@ function handleSocketMessage(socket: TrackedWebSocket, rawMessage: string): void
 
     case EVENTS.ANSWER_SUBMIT:
       handleAnswerSubmit(socket, parsedEnvelope.data.payload);
+      return;
+
+    case EVENTS.NEXT_QUESTION_READY:
+      handleNextQuestionReady(socket, parsedEnvelope.data.payload);
       return;
   }
 }

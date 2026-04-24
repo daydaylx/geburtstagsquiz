@@ -17,8 +17,10 @@ Ein Host fuehrt ein simples Multiple-Choice-Quiz durch.
 5. Jeder Spieler kann eine Antwort absenden.
 6. Nach Timerende oder wenn alle geantwortet haben, wird die Frage geschlossen.
 7. Die richtige Antwort wird gezeigt.
-8. Der Punktestand wird aktualisiert.
-9. Der Host startet die naechste Frage oder das Spiel endet.
+8. Spieler sehen, ob ihre Antwort richtig war und wie viele Punkte diese Frage gebracht hat.
+9. Der Punktestand wird aktualisiert.
+10. Alle verbundenen Spieler druecken auf dem Handy "Bereit fuer naechste Frage".
+11. Der Server startet automatisch die naechste Frage oder beendet das Spiel.
 
 ## Punkte
 
@@ -26,6 +28,7 @@ Aktuell gilt fuer Multiple Choice:
 
 - richtige Antwort = Punkte der Frage
 - falsche Antwort = `0`
+- keine Antwort = `0`
 - keine Geschwindigkeitsboni
 - keine Multiplikatoren
 
@@ -42,6 +45,7 @@ Im mitgelieferten Standard-Quiz sind die Fragen derzeit schlicht und fest bepunk
 ## Timer-Regel
 
 - Der Timer kommt vom Server.
+- Die Antwortzeit pro Frage betraegt aktuell `60s`.
 - Clients zeigen nur den verbleibenden Stand an.
 - Nicht der letzte sichtbare Tick, sondern die serverseitige Sperre ist massgeblich.
 
@@ -57,7 +61,7 @@ Der Host:
 - sieht Status, Fortschritt und Spieler in einer dauerhaften Uebersicht
 - kann Kategorien fuer den Host-Flow vorbereiten, ohne dass daraus schon serverseitige Regeln behauptet werden
 - sieht den Fortschritt der Antworten
-- geht zur naechsten Frage weiter
+- sieht, wie viele Spieler fuer die naechste Frage bereit sind
 - sieht Endstand und kann den Raum schliessen
 
 ### Spieler
@@ -68,7 +72,8 @@ Die Spieler:
 - geben einen Namen ein
 - senden eine Antwort pro Frage
 - sehen, ob die Antwort angenommen wurde
-- sehen Reveal, Rangliste und Endstand
+- sehen bei der Aufloesung richtig/falsch, Punkte fuer die Frage, Rangliste und Endstand
+- starten die naechste Frage gemeinsam ueber "Bereit fuer naechste Frage"
 
 ## UI-Fokus
 

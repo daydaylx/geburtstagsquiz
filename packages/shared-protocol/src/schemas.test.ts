@@ -8,7 +8,7 @@ import {
 } from "./index.js";
 
 describe("parseClientToServerEnvelope", () => {
-  it("accepts a valid answer:submit payload", () => {
+  it("accepts a valid answer:submit payload (option)", () => {
     const envelope = serializeEnvelope(EVENTS.ANSWER_SUBMIT, {
       roomId: "room-1",
       questionId: "q1",
@@ -32,6 +32,40 @@ describe("parseClientToServerEnvelope", () => {
     }
   });
 
+  it("accepts a valid answer:submit payload (number/estimate)", () => {
+    const envelope = serializeEnvelope(EVENTS.ANSWER_SUBMIT, {
+      roomId: "room-1",
+      questionId: "q-est-01",
+      playerId: "p1",
+      answer: { type: "number", value: 13.5 },
+      requestId: "req-2",
+    });
+
+    const result = parseClientToServerEnvelope(envelope);
+
+    expect(result.success).toBe(true);
+    if (result.success && result.data.event === EVENTS.ANSWER_SUBMIT) {
+      expect(result.data.payload.answer.type).toBe("number");
+    }
+  });
+
+  it("accepts a valid answer:submit payload (ranking)", () => {
+    const envelope = serializeEnvelope(EVENTS.ANSWER_SUBMIT, {
+      roomId: "room-1",
+      questionId: "q-rank-01",
+      playerId: "p1",
+      answer: { type: "ranking", value: ["B", "A", "C", "D"] },
+      requestId: "req-3",
+    });
+
+    const result = parseClientToServerEnvelope(envelope);
+
+    expect(result.success).toBe(true);
+    if (result.success && result.data.event === EVENTS.ANSWER_SUBMIT) {
+      expect(result.data.payload.answer.type).toBe("ranking");
+    }
+  });
+
   it("accepts a valid room:join payload", () => {
     const envelope = serializeEnvelope(EVENTS.ROOM_JOIN, {
       joinCode: "ABC234",
@@ -42,6 +76,21 @@ describe("parseClientToServerEnvelope", () => {
     const result = parseClientToServerEnvelope(envelope);
 
     expect(result.success).toBe(true);
+  });
+
+  it("accepts a valid next-question:ready payload", () => {
+    const envelope = serializeEnvelope(EVENTS.NEXT_QUESTION_READY, {
+      roomId: "room-1",
+      questionId: "q1",
+      playerId: "p1",
+    });
+
+    const result = parseClientToServerEnvelope(envelope);
+
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.event).toBe(EVENTS.NEXT_QUESTION_READY);
+    }
   });
 
   it("rejects a payload with missing required fields", () => {
@@ -133,6 +182,62 @@ describe("parseServerToClientEnvelope", () => {
     expect(result.success).toBe(true);
   });
 
+  it("accepts a valid next-question:ready-progress payload", () => {
+    const envelope = JSON.stringify({
+      event: EVENTS.NEXT_QUESTION_READY_PROGRESS,
+      payload: {
+        roomId: "room-1",
+        questionId: "q1",
+        readyCount: 1,
+        totalEligiblePlayers: 2,
+        readyPlayerIds: ["p1"],
+        gameState: "scoreboard",
+      },
+    });
+
+    const result = parseServerToClientEnvelope(envelope);
+
+    expect(result.success).toBe(true);
+    if (result.success && result.data.event === EVENTS.NEXT_QUESTION_READY_PROGRESS) {
+      expect(result.data.payload.readyCount).toBe(1);
+      expect(result.data.payload.totalEligiblePlayers).toBe(2);
+    }
+  });
+
+  it("accepts a question:reveal payload with player round results", () => {
+    const envelope = JSON.stringify({
+      event: EVENTS.QUESTION_REVEAL,
+      payload: {
+        roomId: "room-1",
+        questionId: "q1",
+        correctAnswer: { type: "option", value: "B" },
+        playerResults: [
+          {
+            playerId: "p1",
+            answer: { type: "option", value: "B" },
+            isCorrect: true,
+            pointsEarned: 10,
+          },
+          {
+            playerId: "p2",
+            answer: null,
+            isCorrect: false,
+            pointsEarned: 0,
+          },
+        ],
+        gameState: "revealing",
+      },
+    });
+
+    const result = parseServerToClientEnvelope(envelope);
+
+    expect(result.success).toBe(true);
+    if (result.success && result.data.event === EVENTS.QUESTION_REVEAL) {
+      expect(result.data.payload.playerResults).toHaveLength(2);
+      expect(result.data.payload.playerResults[0].isCorrect).toBe(true);
+    }
+  });
+
   it("accepts an in-game connection:resumed payload with current answer", () => {
     const envelope = JSON.stringify({
       event: EVENTS.CONNECTION_RESUMED,
@@ -161,6 +266,58 @@ describe("parseServerToClientEnvelope", () => {
         type: "option",
         value: "B",
       });
+    }
+  });
+
+  it("accepts a valid estimate question:show payload", () => {
+    const envelope = JSON.stringify({
+      event: EVENTS.QUESTION_SHOW,
+      payload: {
+        roomId: "room-1",
+        questionId: "q-est-01",
+        questionIndex: 3,
+        totalQuestionCount: 10,
+        type: "estimate",
+        text: "Wie lang ist der durchschnittliche erigierte Penis? (cm)",
+        unit: "cm",
+        context: "weltweit, BJU International 2015",
+        durationMs: 20000,
+        gameState: "question_active",
+      },
+    });
+
+    const result = parseServerToClientEnvelope(envelope);
+
+    expect(result.success).toBe(true);
+    if (result.success && result.data.event === EVENTS.QUESTION_SHOW) {
+      expect(result.data.payload.type).toBe("estimate");
+    }
+  });
+
+  it("accepts a valid ranking question:show payload", () => {
+    const envelope = JSON.stringify({
+      event: EVENTS.QUESTION_SHOW,
+      payload: {
+        roomId: "room-1",
+        questionId: "q-rank-01",
+        questionIndex: 5,
+        totalQuestionCount: 10,
+        type: "ranking",
+        text: "Sortiere diese Messenger vom ältesten zum neuesten.",
+        items: [
+          { id: "A", label: "WhatsApp" },
+          { id: "B", label: "ICQ" },
+        ],
+        durationMs: 30000,
+        gameState: "question_active",
+      },
+    });
+
+    const result = parseServerToClientEnvelope(envelope);
+
+    expect(result.success).toBe(true);
+    if (result.success && result.data.event === EVENTS.QUESTION_SHOW) {
+      expect(result.data.payload.type).toBe("ranking");
     }
   });
 

@@ -61,8 +61,11 @@ export function createRoom(
     playerDisconnectTimers: new Map(),
     questionTimer: null,
     timerTickInterval: null,
+    revealTimer: null,
     currentAnswers: new Map(),
+    nextQuestionReadyPlayerIds: new Set(),
     questionStartedAt: null,
+    lastRoundResult: null,
   };
 
   const session: SessionRecord = {
@@ -101,6 +104,21 @@ export function closeRoom(room: RoomRecord, reason: string): void {
   if (room.hostDisconnectTimer) {
     clearTimeout(room.hostDisconnectTimer);
     room.hostDisconnectTimer = null;
+  }
+
+  if (room.questionTimer) {
+    clearTimeout(room.questionTimer);
+    room.questionTimer = null;
+  }
+
+  if (room.timerTickInterval) {
+    clearInterval(room.timerTickInterval);
+    room.timerTickInterval = null;
+  }
+
+  if (room.revealTimer) {
+    clearTimeout(room.revealTimer);
+    room.revealTimer = null;
   }
 
   for (const disconnectTimer of room.playerDisconnectTimers.values()) {
@@ -155,6 +173,7 @@ export function removePlayerFromRoom(room: RoomRecord, playerId: string): void {
   }
 
   const [player] = room.players.splice(playerIndex, 1);
+  room.nextQuestionReadyPlayerIds.delete(player.id);
   const disconnectTimer = room.playerDisconnectTimers.get(player.sessionId);
 
   if (disconnectTimer) {

@@ -1,4 +1,4 @@
-import type { ClientRole, Room, SubmittedAnswer } from "@quiz/shared-types";
+import type { ClientRole, Room, RoundResult, SubmittedAnswer } from "@quiz/shared-types";
 import type WebSocket from "ws";
 
 export interface TrackedWebSocket extends WebSocket {
@@ -22,6 +22,9 @@ export interface RoomRecord extends Room {
   playerDisconnectTimers: Map<string, ReturnType<typeof setTimeout>>;
   questionTimer: ReturnType<typeof setTimeout> | null;
   timerTickInterval: ReturnType<typeof setInterval> | null;
+  revealTimer: ReturnType<typeof setTimeout> | null;
   currentAnswers: Map<string, SubmittedAnswer>;
+  nextQuestionReadyPlayerIds: Set<string>;
   questionStartedAt: number | null;
+  lastRoundResult: RoundResult | null;
 }

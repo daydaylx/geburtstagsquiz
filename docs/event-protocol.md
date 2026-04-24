@@ -39,7 +39,7 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 - `connection:resume`
 - `room:create`
 - `game:start`
-- `game:next-question`
+- `game:next-question` als technische Rueckfalloption, nicht mehr im normalen Host-UI-Fluss
 - `room:close`
 
 ### Player darf senden
@@ -47,6 +47,7 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 - `room:join`
 - `connection:resume`
 - `answer:submit`
+- `next-question:ready`
 
 ### Server sendet
 
@@ -90,9 +91,11 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 | `answer:rejected` | Server -> Player | Antwort wurde nicht gewertet | `roomId`, `questionId`, `playerId`, `status`, `reason` |
 | `answer:progress` | Server -> Host | Anzahl eingegangener Antworten | `roomId`, `questionId`, `answeredCount`, `totalEligiblePlayers` |
 | `question:close` | Server -> Host/Player | Frage ist gesperrt | `roomId`, `questionId`, `gameState` |
-| `question:reveal` | Server -> Host/Player | Richtige Antwort zeigen | `roomId`, `questionId`, `correctAnswer`, `gameState` |
+| `question:reveal` | Server -> Host/Player | Richtige Antwort und Rundenergebnisse zeigen | `roomId`, `questionId`, `correctAnswer`, `playerResults`, `gameState` |
 | `score:update` | Server -> Host/Player | Punktestand nach der Runde | `roomId`, `questionId`, `scoreboard`, `gameState` |
-| `game:next-question` | Host -> Server | Zur naechsten Frage wechseln | `roomId` |
+| `next-question:ready` | Player -> Server | Spieler ist nach der Rangliste bereit fuer die naechste Frage | `roomId`, `questionId`, `playerId` |
+| `next-question:ready-progress` | Server -> Host/Player | Bereitschaft fuer die naechste Frage anzeigen | `roomId`, `questionId`, `readyCount`, `totalEligiblePlayers`, `readyPlayerIds`, `gameState` |
+| `game:next-question` | Host -> Server | Technische Rueckfalloption zum Wechseln | `roomId` |
 | `game:finished` | Server -> Host/Player | Quiz ist zu Ende | `roomId`, `roomState`, `gameState`, `totalQuestionCount`, `finalScoreboard` |
 
 ### Fehler
@@ -109,12 +112,22 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 - Die erste gueltige Antwort gewinnt.
 - Spaetere oder doppelte Antworten werden abgelehnt oder ignoriert.
 - Erst `answer:accepted` bestaetigt, dass eine Antwort gespeichert wurde.
+- Ob eine Antwort richtig war und wie viele Punkte sie bringt, kommt erst mit `question:reveal`.
 
 ### Timer
 
 - Der Server sendet `question:timer`.
 - Die Client-Anzeige darf weich laufen, ist aber nicht die Wahrheitsquelle.
 - `question:close` ist das massgebliche Signal fuer "zu spaet".
+- Die aktive Antwortzeit ist aktuell `60s` pro Frage.
+
+### Bereit fuer die naechste Frage
+
+- Nach `score:update` bleiben Host und Player auf der Rangliste.
+- Jeder verbundene Spieler sendet `next-question:ready` ueber sein Handy.
+- Der Server sendet `next-question:ready-progress` an Host und Player.
+- Sobald alle verbundenen Spieler bereit sind, startet der Server automatisch die naechste Frage oder beendet das Spiel.
+- Disconnectete Spieler blockieren den Wechsel nicht.
 
 ### Reconnect
 
@@ -123,6 +136,7 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 - `connection:resumed` kann inzwischen auch `in_game` und `completed` transportieren.
 - Nach erfolgreichem Resume sendet der Server dem zurueckkehrenden Client einen passenden Snapshot fuer Lobby, aktive Frage, Reveal, Rangliste oder Endstand.
 - Bei einem Player kann `currentAnswer` mitkommen, damit eine schon gesendete Antwort lokal wieder erkennbar bleibt.
+- In Reveal und Rangliste sendet der Server die letzten `playerResults` erneut, damit richtig/falsch und Punkte auch nach Reload sichtbar bleiben.
 - Der Host bekommt bei Spielstart, Frage-Snapshot und Endstand jetzt auch `totalQuestionCount`, damit Fortschritt nicht lokal geraten werden muss.
 
 ## Typische Eventfolgen
@@ -145,14 +159,12 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 5. Player senden `answer:submit`
 6. Server antwortet mit `answer:accepted` oder `answer:rejected`
 7. Server sendet `question:close`
-8. Server sendet `question:reveal`
-9. Server sendet `score:update`
-
-### Naechste Frage oder Ende
-
-1. Host sendet `game:next-question`
-2. Server sendet entweder die naechste `question:show`
-3. oder `game:finished`
+8. Server sendet `question:reveal` mit richtiger Antwort und Rundenergebnissen
+9. Server zeigt die Aufloesung kurz an
+10. Server sendet `score:update`
+11. Player senden `next-question:ready`
+12. Server sendet `next-question:ready-progress`
+13. Sobald alle verbundenen Spieler bereit sind, sendet der Server entweder die naechste `question:show` oder `game:finished`
 
 ## Ausdruecklich nicht Teil dieses Protokolls
 

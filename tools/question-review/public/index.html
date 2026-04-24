@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Quizfragen Review</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="topbar">
+        <div>
+          <h1>Quizfragen Review</h1>
+          <p id="paths" class="muted">Keine JSON geladen</p>
+        </div>
+        <form id="load-form" class="load-form">
+          <input id="json-path" name="path" type="text" autocomplete="off" placeholder="Pfad zur Fragen-JSON" />
+          <button type="submit">JSON laden</button>
+        </form>
+      </header>
+
+      <section id="message" class="message" hidden></section>
+
+      <section id="review" class="review" hidden>
+        <div class="progress-row">
+          <div>
+            <strong id="progress-text">0 / 0</strong>
+            <span id="current-text" class="muted">Frage 0</span>
+          </div>
+          <label>
+            Filter
+            <select id="filter">
+              <option value="all">Alle</option>
+              <option value="open">Offen</option>
+              <option value="keep">Behalten</option>
+              <option value="revise">Überarbeiten</option>
+              <option value="remove">Entfernen</option>
+            </select>
+          </label>
+        </div>
+        <div class="progress-track" aria-hidden="true">
+          <div id="progress-fill"></div>
+        </div>
+
+        <article class="question-panel">
+          <div class="question-meta">
+            <span id="category">Kategorie</span>
+            <span id="status-label">Offen</span>
+          </div>
+          <h2 id="question">Frage</h2>
+          <div class="answer-block">
+            <span>Antwort</span>
+            <p id="answer">Antwort</p>
+          </div>
+        </article>
+
+        <div class="status-buttons" role="group" aria-label="Review-Status">
+          <button type="button" data-status="keep">1 Behalten</button>
+          <button type="button" data-status="revise">2 Überarbeiten</button>
+          <button type="button" data-status="remove">3 Entfernen</button>
+        </div>
+
+        <label class="note-label" for="note">Kommentar</label>
+        <textarea id="note" rows="4" placeholder="Kommentar zur Frage"></textarea>
+
+        <nav class="nav-buttons" aria-label="Fragen-Navigation">
+          <button id="previous" type="button">Zurück</button>
+          <button id="next" type="button">Weiter</button>
+        </nav>
+      </section>
+    </main>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

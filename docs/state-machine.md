@@ -37,8 +37,8 @@ Hinweis:
 | `idle` | Spiel wurde gestartet, naechste Frage wird vorbereitet | `question:show` -> `question_active` |
 | `question_active` | Frage ist offen, Antworten duerfen eingehen | Timerende oder alle Antworten da -> `answer_locked` |
 | `answer_locked` | Eingaben sind gesperrt, Server wertet aus | direkte Weitergabe an `revealing` |
-| `revealing` | Richtige Antwort wird gezeigt | danach `scoreboard` |
-| `scoreboard` | Punktestand nach der Runde wird gezeigt | `game:next-question` -> `idle` oder Ende |
+| `revealing` | Richtige Antwort und Rundenergebnisse werden gezeigt | nach kurzer Aufloesungszeit -> `scoreboard` |
+| `scoreboard` | Punktestand nach der Runde wird gezeigt | alle verbundenen Spieler bereit -> `idle` oder Ende |
 | `completed` | Spiel ist vorbei | kein sinnvoller Rueckweg |
 
 Der praktische Fluss ist linear:
@@ -87,14 +87,16 @@ Hinweise:
 ### Frage schliessen und auswerten
 
 - Server geht auf `answer_locked`
-- danach `revealing`
+- danach `revealing` mit richtiger Antwort, richtig/falsch je Spieler und Punkten fuer die Runde
 - danach `scoreboard`
 
 ### Naechste Frage
 
-- Host loest `game:next-question` aus
-- entweder naechste Frage beginnt
+- jeder verbundene Player meldet auf dem Handy `next-question:ready`
+- der Server zaehlt nur verbundene Spieler als blockierend
+- sobald alle verbundenen Spieler bereit sind, beginnt entweder die naechste Frage
 - oder das Spiel geht auf `completed`
+- `game:next-question` bleibt technisch vorhanden, ist aber nicht mehr der normale Host-UI-Fluss
 
 ## Disconnect und Grace-Zeiten
 

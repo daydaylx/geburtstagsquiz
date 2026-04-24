@@ -1,5 +1,6 @@
 import type {
   CorrectAnswer,
+  LogicQuestion,
   MultipleChoiceQuestion,
   PlayerRoundResult,
   RoundResult,
@@ -8,7 +9,9 @@ import type {
 
 import { DEFAULT_MULTIPLE_CHOICE_POINTS } from "./constants.js";
 
-function toCorrectAnswer(question: MultipleChoiceQuestion): CorrectAnswer {
+type OptionQuestion = MultipleChoiceQuestion | LogicQuestion;
+
+function toCorrectAnswer(question: OptionQuestion): CorrectAnswer {
   return {
     type: "option",
     value: question.correctOptionId,
@@ -23,7 +26,7 @@ export function scoreMultipleChoice(
 }
 
 export function evaluateMultipleChoice(
-  question: MultipleChoiceQuestion,
+  question: OptionQuestion,
   answers: SubmittedAnswer[],
 ): RoundResult {
   const correctAnswer = toCorrectAnswer(question);
