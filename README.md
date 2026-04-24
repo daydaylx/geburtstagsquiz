@@ -18,7 +18,7 @@ Dieses Repo ist kein Produkt, keine Plattform und kein langfristiges System. Zie
 - Spieler treten mit dem Handy bei
 - Lobby aktualisiert sich live
 - Host behaelt Status, Fortschritt und Spieler in einer uebersichtlichen Steueransicht im Blick
-- Host startet ein Multiple-Choice-Quiz
+- Host startet das vorbereitete Abend-Quiz
 - Server nimmt Antworten an und wertet aus
 - Hostscreen zeigt Aufloesung und Rangliste
 
@@ -118,6 +118,6 @@ Das Original-JSON wird nicht veraendert. Der Review-Zustand wird als `review_sta
 
 Dieses Repo soll ein brauchbares Geburtstagsquiz liefern, nicht eine ausbaubare Quiz-Plattform. Deshalb gilt:
 
-- lieber ein sauberer Multiple-Choice-Ablauf als mehrere halbe Modi
+- lieber ein sauberer Ablauf mit den vorbereiteten Fragetypen als mehrere halbe Modi
 - lieber In-Memory und einfache lokale Bedienung als Persistenz und Deploy-Theater
 - lieber echte Tests auf Handy und gemeinsamem Bildschirm als Architektur-Rhetorik

@@ -21,7 +21,7 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 - Der Server entscheidet ueber gueltige Zustaende, Antworten, Timer und Punkte.
 - Host und Player senden Absichten, keine Wahrheiten.
 - Ungueltige oder unpassende Payloads werden abgewiesen.
-- Das Protokoll deckt nur Lobby und Multiple-Choice-Kernfluss ab.
+- Das Protokoll deckt nur Lobby und den vorbereiteten Quiz-Kernfluss ab.
 
 ## Wire-Format
 
@@ -39,7 +39,7 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 - `connection:resume`
 - `room:create`
 - `game:start`
-- `game:next-question` als technische Rueckfalloption, nicht mehr im normalen Host-UI-Fluss
+- `game:next-question` als sichtbarer Host-Override nach der Rangliste
 - `room:close`
 
 ### Player darf senden
@@ -95,7 +95,7 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 | `score:update` | Server -> Host/Player | Punktestand nach der Runde | `roomId`, `questionId`, `scoreboard`, `gameState` |
 | `next-question:ready` | Player -> Server | Spieler ist nach der Rangliste bereit fuer die naechste Frage | `roomId`, `questionId`, `playerId` |
 | `next-question:ready-progress` | Server -> Host/Player | Bereitschaft fuer die naechste Frage anzeigen | `roomId`, `questionId`, `readyCount`, `totalEligiblePlayers`, `readyPlayerIds`, `gameState` |
-| `game:next-question` | Host -> Server | Technische Rueckfalloption zum Wechseln | `roomId` |
+| `game:next-question` | Host -> Server | Host-Override zum Wechseln nach der Rangliste | `roomId` |
 | `game:finished` | Server -> Host/Player | Quiz ist zu Ende | `roomId`, `roomState`, `gameState`, `totalQuestionCount`, `finalScoreboard` |
 
 ### Fehler
@@ -128,6 +128,7 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 - Der Server sendet `next-question:ready-progress` an Host und Player.
 - Sobald alle verbundenen Spieler bereit sind, startet der Server automatisch die naechste Frage oder beendet das Spiel.
 - Disconnectete Spieler blockieren den Wechsel nicht.
+- Der Host kann nach `score:update` manuell weiterschalten, falls ein Handy haengen bleibt.
 
 ### Reconnect
 

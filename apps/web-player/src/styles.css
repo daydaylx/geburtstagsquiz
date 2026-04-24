@@ -46,6 +46,22 @@ body {
   margin-bottom: 16px;
 }
 
+.player-notice {
+  margin-bottom: 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: #fff5f5;
+  border: 1px solid rgba(179, 66, 66, 0.2);
+  color: var(--player-red);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+.player-notice[data-kind="info"] {
+  background: #f0f7f6;
+  border-color: rgba(35, 111, 104, 0.2);
+  color: var(--player-teal);
+}
+
 .player-status {
   display: flex;
   align-items: center;

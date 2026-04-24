@@ -21,7 +21,7 @@ Es geht nicht um Produkt-Compliance, Cloud-Betrieb oder grosse Lastszenarien, so
 ## Was bewusst klein bleibt
 
 - In-Memory-State statt Persistenz
-- ein einfacher Multiple-Choice-Modus statt Modussammlung
+- ein vorbereiteter Abendablauf statt Modussammlung
 - manuelles Vorbereiten des Quiz statt Editor-Ausbau
 - ein praktischer lokaler oder einfacher Serverbetrieb statt Infra-Setup
 - pragmatischer Snapshot-Resume statt komplexer Wiederherstellungslogik

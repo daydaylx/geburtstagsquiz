@@ -138,7 +138,7 @@ Alles darueber hinaus ist optional und fuer dieses Repo nicht vorrangig.
 
 ### `packages/quiz-engine`
 
-- Multiple-Choice-Auswertung
+- Auswertung der vorbereiteten Fragetypen
 - Scoreboard-Berechnung
 
 ## Datenfluss
@@ -147,7 +147,7 @@ Alles darueber hinaus ist optional und fuer dieses Repo nicht vorrangig.
 
 - `room:create`
 - `game:start`
-- `game:next-question` bleibt als technische Rueckfalloption vorhanden
+- `game:next-question` dient als Host-Override nach der Rangliste
 - `room:close`
 
 ### Player -> Server

@@ -76,6 +76,23 @@ function getConnectionLabel(connectionState: ConnectionState): string {
   }
 }
 
+function getProtocolErrorMessage(code: string, fallback: string): string {
+  switch (code) {
+    case PROTOCOL_ERROR_CODES.ROOM_NOT_FOUND:
+      return "Raum nicht gefunden. Bitte Code prüfen.";
+    case PROTOCOL_ERROR_CODES.ROOM_CLOSED:
+      return "Der Raum nimmt keine Spieler mehr an.";
+    case PROTOCOL_ERROR_CODES.SESSION_NOT_FOUND:
+      return "Deine alte Sitzung ist abgelaufen. Bitte neu beitreten.";
+    case PROTOCOL_ERROR_CODES.INVALID_PAYLOAD:
+      return "Eingabe ungültig. Bitte prüfen und erneut versuchen.";
+    case PROTOCOL_ERROR_CODES.INVALID_STATE:
+      return "Diese Aktion passt gerade nicht zum Spielstand.";
+    default:
+      return fallback;
+  }
+}
+
 export function App() {
   const initialSession = loadPlayerStoredSession();
 
@@ -166,41 +183,59 @@ export function App() {
   const handleSubmitAnswer = useEffectEvent((optionId: string) => {
     const session = playerSessionRef.current;
     if (!session || !question || answerStatus !== "idle") return;
+    setNotice(null);
     setSelectedOptionId(optionId);
     setAnswerStatus("submitting");
-    sendClientEvent(EVENTS.ANSWER_SUBMIT, {
+    const sent = sendClientEvent(EVENTS.ANSWER_SUBMIT, {
       roomId: session.roomId,
       questionId: question.questionId,
       playerId: session.playerId,
       answer: { type: "option", value: optionId },
       requestId: crypto.randomUUID(),
     });
+
+    if (!sent) {
+      setAnswerStatus("idle");
+      setNotice({ kind: "error", text: "Keine Verbindung zum Server." });
+    }
   });
 
   const handleSubmitEstimate = useEffectEvent((value: number) => {
     const session = playerSessionRef.current;
     if (!session || !question || answerStatus !== "idle") return;
+    setNotice(null);
     setAnswerStatus("submitting");
-    sendClientEvent(EVENTS.ANSWER_SUBMIT, {
+    const sent = sendClientEvent(EVENTS.ANSWER_SUBMIT, {
       roomId: session.roomId,
       questionId: question.questionId,
       playerId: session.playerId,
       answer: { type: "number", value },
       requestId: crypto.randomUUID(),
     });
+
+    if (!sent) {
+      setAnswerStatus("idle");
+      setNotice({ kind: "error", text: "Keine Verbindung zum Server." });
+    }
   });
 
   const handleSubmitRanking = useEffectEvent((order: string[]) => {
     const session = playerSessionRef.current;
     if (!session || !question || answerStatus !== "idle") return;
+    setNotice(null);
     setAnswerStatus("submitting");
-    sendClientEvent(EVENTS.ANSWER_SUBMIT, {
+    const sent = sendClientEvent(EVENTS.ANSWER_SUBMIT, {
       roomId: session.roomId,
       questionId: question.questionId,
       playerId: session.playerId,
       answer: { type: "ranking", value: order },
       requestId: crypto.randomUUID(),
     });
+
+    if (!sent) {
+      setAnswerStatus("idle");
+      setNotice({ kind: "error", text: "Keine Verbindung zum Server." });
+    }
   });
 
   const handleReadyForNextQuestion = useEffectEvent(() => {
@@ -302,7 +337,30 @@ export function App() {
         return;
 
       case EVENTS.ANSWER_ACCEPTED:
+        setNotice(null);
         setAnswerStatus("accepted");
+        return;
+
+      case EVENTS.ANSWER_REJECTED:
+        switch (parsedEnvelope.data.payload.reason) {
+          case "duplicate":
+            setAnswerStatus("accepted");
+            setNotice({ kind: "info", text: "Antwort war bereits gespeichert." });
+            return;
+          case "late":
+          case "invalid_state":
+            setAnswerStatus("locked");
+            setNotice({ kind: "error", text: "Antwort kam zu spät." });
+            return;
+          case "invalid_payload":
+            setAnswerStatus("idle");
+            setNotice({ kind: "error", text: "Antwort ungültig. Bitte erneut versuchen." });
+            return;
+          case "unauthorized":
+            setAnswerStatus("rejected");
+            setNotice({ kind: "error", text: "Antwort wurde nicht angenommen." });
+            return;
+        }
         return;
 
       case EVENTS.QUESTION_CLOSE:
@@ -333,7 +391,28 @@ export function App() {
       case EVENTS.ROOM_CLOSED:
         updateStoredSession(null);
         resetToJoin();
+        setNotice({ kind: "info", text: "Raum geschlossen. Bitte neu beitreten." });
         return;
+
+      case EVENTS.ERROR_PROTOCOL: {
+        const error = parsedEnvelope.data.payload;
+        setIsJoining(false);
+        setNotice({ kind: "error", text: getProtocolErrorMessage(error.code, error.message) });
+
+        if (error.context.event === EVENTS.ANSWER_SUBMIT) {
+          setAnswerStatus(error.code === PROTOCOL_ERROR_CODES.INVALID_PAYLOAD ? "idle" : "locked");
+        }
+
+        if (
+          error.code === PROTOCOL_ERROR_CODES.ROOM_NOT_FOUND ||
+          error.code === PROTOCOL_ERROR_CODES.ROOM_CLOSED ||
+          error.code === PROTOCOL_ERROR_CODES.SESSION_NOT_FOUND
+        ) {
+          updateStoredSession(null);
+          resetToJoin();
+        }
+        return;
+      }
 
       default:
         return;
@@ -367,9 +446,26 @@ export function App() {
     const npn = normalizePlayerName(playerName);
     setJoinCode(njc);
     setPlayerName(npn);
+    setNotice(null);
+
+    if (njc.length !== 6 || npn.length === 0) {
+      setIsJoining(false);
+      setNotice({ kind: "error", text: "Bitte Raumcode und Namen prüfen." });
+      return;
+    }
+
     setIsJoining(true);
     lastJoinAttemptRef.current = { joinCode: njc, playerName: npn };
-    sendClientEvent(EVENTS.ROOM_JOIN, { joinCode: njc, playerName: npn, sessionId: null });
+    const sent = sendClientEvent(EVENTS.ROOM_JOIN, {
+      joinCode: njc,
+      playerName: npn,
+      sessionId: null,
+    });
+
+    if (!sent) {
+      setIsJoining(false);
+      setNotice({ kind: "error", text: "Keine Verbindung zum Server." });
+    }
   });
 
   const playerSession = playerSessionRef.current;
@@ -403,6 +499,12 @@ export function App() {
           </div>
         )}
       </header>
+
+      {notice && (
+        <div className="player-notice" data-kind={notice.kind}>
+          {notice.text}
+        </div>
+      )}
 
       <div className="player-main">
         {screen === "join" && (
@@ -587,6 +689,14 @@ export function App() {
                 style={{ background: "var(--player-line)", color: "var(--player-ink)" }}
               >
                 Zeit abgelaufen
+              </div>
+            )}
+            {answerStatus === "rejected" && (
+              <div
+                className="player-feedback"
+                style={{ background: "var(--player-red)", color: "white" }}
+              >
+                Antwort nicht angenommen
               </div>
             )}
           </>

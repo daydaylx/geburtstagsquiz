@@ -8,7 +8,7 @@ import { roomsById, sessionsById, logRoomEvent } from "./state.js";
 import { broadcastToRoom } from "./connection.js";
 import { closeRoom, removePlayerFromRoom } from "./room.js";
 import { broadcastLobbyUpdate } from "./lobby.js";
-import { handleScoreboardReadinessChanged } from "./game.js";
+import { handleAnswerEligibilityChanged, handleScoreboardReadinessChanged } from "./game.js";
 
 export function handleSocketClose(socket: TrackedWebSocket): void {
   if (!socket.sessionId) {
@@ -89,5 +89,6 @@ export function handleSocketClose(socket: TrackedWebSocket): void {
   });
 
   broadcastLobbyUpdate(room);
+  handleAnswerEligibilityChanged(room);
   handleScoreboardReadinessChanged(room);
 }

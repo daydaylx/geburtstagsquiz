@@ -136,16 +136,17 @@ Das MVP muss klein bleiben.
   - „warte auf Auflösung"
 - Platzierung / Punktestand sehen
 
-### Spielmodi für das MVP
+### Fragetypen fuer den Abend
 
-Nur diese 3 sind geplant:
+Aktiv genutzt werden die vorbereiteten Fragetypen:
 
 1. **Multiple Choice** – Auswahl aus Optionen
 2. **Schätzfrage** – numerische Antwort
-3. **Buzzer** – wer zuerst antwortet
+3. **Mehrheitsfrage** – numerische Antwort nach Server-Auswertung
+4. **Ranking** – Reihenfolge
+5. **Logic** – Optionsfrage
 
-Am Anfang sollte technisch aber **nur Multiple Choice** vollständig umgesetzt werden.
-Schätzfrage und Buzzer erst danach.
+Buzzer, Teams und Joker bleiben ausserhalb des Abendumfangs.
 
 ## Erfolgskriterien
 

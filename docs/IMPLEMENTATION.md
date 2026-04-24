@@ -63,12 +63,14 @@ Abnahme:
 - eine komplette Frage laeuft ohne manuelle Eingriffe durch
 - spaete Antworten zaehlen nicht
 - doppelte Antworten veraendern den Spielstand nicht
+- unpassende Antworttypen werden nicht gespeichert
 
 ### 4. Mehrere Fragen und Spielende pruefen
 
 Sicherstellen:
 
-- Host kann zur naechsten Frage wechseln
+- Server wechselt automatisch weiter, wenn alle verbundenen Spieler bereit sind
+- Host kann nach der Rangliste manuell weiterschalten, falls ein Handy haengen bleibt
 - Scoreboard bleibt konsistent
 - letzte Frage fuehrt in einen Endstand
 - Raum kann am Ende sauber geschlossen werden
@@ -100,11 +102,11 @@ Abnahme:
 - keine Datenbankphase
 - keine Cloud- oder Deploy-Architektur
 - keine Editor-Plattform
-- keine Teams, Joker, Buzzer oder Schaetzfragen als Ausbaustufen
+- keine Teams, Joker oder Buzzer als Ausbaustufen
 
 Wenn etwas vor dem Abend noch fehlt, gilt:
 
-Erst den bestehenden Multiple-Choice-Ablauf verlaesslich machen. Nicht das naechste System anfangen.
+Erst den bestehenden Quizablauf verlaesslich machen. Nicht das naechste System anfangen.
 
 ## Entscheidungsregel fuer weitere Arbeit
 

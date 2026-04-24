@@ -96,7 +96,7 @@ Hinweise:
 - der Server zaehlt nur verbundene Spieler als blockierend
 - sobald alle verbundenen Spieler bereit sind, beginnt entweder die naechste Frage
 - oder das Spiel geht auf `completed`
-- `game:next-question` bleibt technisch vorhanden, ist aber nicht mehr der normale Host-UI-Fluss
+- `game:next-question` ist als Host-Override nach der Rangliste sichtbar
 
 ## Disconnect und Grace-Zeiten
 

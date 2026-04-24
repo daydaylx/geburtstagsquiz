@@ -2,7 +2,7 @@
 
 ## Ziel
 
-Ein Host fuehrt ein simples Multiple-Choice-Quiz durch.
+Ein Host fuehrt ein simples Quiz mit den vorbereiteten Fragetypen durch.
 
 - Der Hauptscreen zeigt Frage, Aufloesung und Rangliste.
 - Die Handys der Spieler dienen nur fuer Join, Antwort und Status.
@@ -21,10 +21,11 @@ Ein Host fuehrt ein simples Multiple-Choice-Quiz durch.
 9. Der Punktestand wird aktualisiert.
 10. Alle verbundenen Spieler druecken auf dem Handy "Bereit fuer naechste Frage".
 11. Der Server startet automatisch die naechste Frage oder beendet das Spiel.
+12. Falls Spieler haengen bleiben, kann der Host auf der Rangliste manuell weiterschalten.
 
 ## Punkte
 
-Aktuell gilt fuer Multiple Choice:
+Aktuell gilt:
 
 - richtige Antwort = Punkte der Frage
 - falsche Antwort = `0`
@@ -32,7 +33,9 @@ Aktuell gilt fuer Multiple Choice:
 - keine Geschwindigkeitsboni
 - keine Multiplikatoren
 
-Im mitgelieferten Standard-Quiz sind die Fragen derzeit schlicht und fest bepunktet.
+Bei Schaetz- und Mehrheitsfragen bekommen die naechsten beziehungsweise passenden Antworten die Punkte nach Server-Auswertung. Ranking-Fragen zaehlen nur bei exakt richtiger Reihenfolge.
+
+Im mitgelieferten Standard-Quiz sind die Fragen fest bepunktet. Fuer den Abend wird eine feste Auswahl aus den vorhandenen Fragetypen gespielt.
 
 ## Antwortregeln
 
@@ -40,12 +43,13 @@ Im mitgelieferten Standard-Quiz sind die Fragen derzeit schlicht und fest bepunk
 - Die erste gueltige Antwort gewinnt.
 - Doppelte Antworten duerfen den Score nicht veraendern.
 - Spaete Antworten nach `question:close` zaehlen nicht.
+- Antworten muessen zum aktiven Fragetyp passen.
 - Der Client darf Feedback zeigen, aber nicht selbst ueber Gueltigkeit entscheiden.
 
 ## Timer-Regel
 
 - Der Timer kommt vom Server.
-- Die Antwortzeit pro Frage betraegt aktuell `60s`.
+- Die Antwortzeit kommt aus der vorbereiteten Frage.
 - Clients zeigen nur den verbleibenden Stand an.
 - Nicht der letzte sichtbare Tick, sondern die serverseitige Sperre ist massgeblich.
 
@@ -100,7 +104,6 @@ Die Spieler:
 
 ## Was ausdruecklich nicht Teil dieses Spiels ist
 
-- Schaetzfragen
 - Buzzer
 - Teams
 - Joker
@@ -114,4 +117,4 @@ Die Spieler:
 
 Dieses Spiel soll klar und stressfrei funktionieren.
 
-Lieber ein einfacher, sauberer Multiple-Choice-Abend als ein ueberladenes Quiz mit halbfertigen Sonderregeln.
+Lieber ein einfacher, sauberer Abend mit den vorbereiteten Fragetypen als ein ueberladenes Quiz mit halbfertigen Sonderregeln.

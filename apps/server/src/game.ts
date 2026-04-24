@@ -7,9 +7,26 @@ import { PROTOCOL_ERROR_CODES, sendEvent, sendProtocolError } from "./protocol.j
 import type { RoomRecord, TrackedWebSocket } from "./server-types.js";
 import { roomsById, sessionsById, logRoomEvent } from "./state.js";
 import { broadcastToRoom } from "./connection.js";
-import { broadcastLobbyUpdate } from "./lobby.js";
 import { getDefaultQuiz } from "./quiz-data.js";
-import { QUESTION_DURATION_MS, REVEAL_DURATION_MS } from "./config.js";
+import { REVEAL_DURATION_MS } from "./config.js";
+import { isAnswerValidForQuestion } from "./answer-validation.js";
+
+const EVENING_QUESTION_COUNT_PER_TYPE = 6;
+const EVENING_QUESTION_TYPE_ORDER = [
+  QuestionType.MultipleChoice,
+  QuestionType.Logic,
+  QuestionType.Estimate,
+  QuestionType.MajorityGuess,
+  QuestionType.Ranking,
+] as const;
+
+export function getEveningQuestions(questions: Question[]): Question[] {
+  return EVENING_QUESTION_TYPE_ORDER.flatMap((questionType) =>
+    questions
+      .filter((question) => question.type === questionType)
+      .slice(0, EVENING_QUESTION_COUNT_PER_TYPE),
+  );
+}
 
 export function handleGameStart(socket: TrackedWebSocket, roomId: string): void {
   const session = socket.sessionId ? sessionsById.get(socket.sessionId) : null;
@@ -72,10 +89,7 @@ export function handleGameStart(socket: TrackedWebSocket, roomId: string): void 
   const defaultQuiz = getDefaultQuiz();
   room.quiz = {
     ...defaultQuiz,
-    questions: defaultQuiz.questions.map((question) => ({
-      ...question,
-      durationMs: QUESTION_DURATION_MS,
-    })),
+    questions: getEveningQuestions(defaultQuiz.questions),
   };
   room.currentQuestionIndex = 0;
   room.state = RoomState.InGame;
@@ -180,15 +194,6 @@ export function handleAnswerSubmit(
     return;
   }
 
-  if (room.gameState !== GameState.QuestionActive) {
-    sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "Question is not active", {
-      event: EVENTS.ANSWER_SUBMIT,
-      roomId: room.id,
-      questionId: payload.questionId,
-    });
-    return;
-  }
-
   if (!room.quiz || room.currentQuestionIndex === null) {
     sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "No active question", {
       event: EVENTS.ANSWER_SUBMIT,
@@ -245,6 +250,23 @@ export function handleAnswerSubmit(
     return;
   }
 
+  if (room.gameState !== GameState.QuestionActive) {
+    sendEvent(socket, EVENTS.ANSWER_REJECTED, {
+      roomId: room.id,
+      questionId: payload.questionId,
+      playerId: player.id,
+      status: "rejected",
+      reason:
+        room.gameState === GameState.AnswerLocked ||
+        room.gameState === GameState.Revealing ||
+        room.gameState === GameState.Scoreboard ||
+        room.gameState === GameState.Completed
+          ? "late"
+          : "invalid_state",
+    });
+    return;
+  }
+
   if (room.currentAnswers.has(player.id)) {
     sendEvent(socket, EVENTS.ANSWER_REJECTED, {
       roomId: room.id,
@@ -252,6 +274,17 @@ export function handleAnswerSubmit(
       playerId: player.id,
       status: "rejected",
       reason: "duplicate",
+    });
+    return;
+  }
+
+  if (!isAnswerValidForQuestion(currentQuestion, payload.answer)) {
+    sendEvent(socket, EVENTS.ANSWER_REJECTED, {
+      roomId: room.id,
+      questionId: payload.questionId,
+      playerId: player.id,
+      status: "rejected",
+      reason: "invalid_payload",
     });
     return;
   }
@@ -280,20 +313,7 @@ export function handleAnswerSubmit(
     status: "accepted",
   });
 
-  const connectedCount = room.players.filter((p) => p.state !== PlayerState.Disconnected).length;
-  const answeredCount = room.currentAnswers.size;
-
-  const hostSession = sessionsById.get(room.hostSessionId);
-  sendEvent(hostSession?.socket, EVENTS.ANSWER_PROGRESS, {
-    roomId: room.id,
-    questionId: payload.questionId,
-    answeredCount,
-    totalEligiblePlayers: connectedCount,
-  });
-
-  if (answeredCount >= connectedCount) {
-    closeQuestion(room);
-  }
+  handleAnswerEligibilityChanged(room);
 }
 
 export function handleNextQuestionReady(
@@ -482,6 +502,48 @@ function startQuestion(room: RoomRecord): void {
     }
     closeQuestion(room);
   }, question.durationMs);
+}
+
+export function handleAnswerEligibilityChanged(room: RoomRecord): void {
+  if (room.gameState !== GameState.QuestionActive) {
+    return;
+  }
+
+  if (!room.quiz || room.currentQuestionIndex === null) {
+    return;
+  }
+
+  const question = room.quiz.questions[room.currentQuestionIndex];
+  const progress = getAnswerProgress(room);
+  const hostSession = sessionsById.get(room.hostSessionId);
+
+  sendEvent(hostSession?.socket, EVENTS.ANSWER_PROGRESS, {
+    roomId: room.id,
+    questionId: question.id,
+    answeredCount: progress.answeredCount,
+    totalEligiblePlayers: progress.totalEligiblePlayers,
+  });
+
+  if (
+    progress.totalEligiblePlayers > 0 &&
+    progress.answeredCount >= progress.totalEligiblePlayers
+  ) {
+    closeQuestion(room);
+  }
+}
+
+export function getAnswerProgress(room: Pick<RoomRecord, "players" | "currentAnswers">): {
+  answeredCount: number;
+  totalEligiblePlayers: number;
+} {
+  const connectedPlayers = room.players.filter(
+    (player) => player.state !== PlayerState.Disconnected,
+  );
+
+  return {
+    answeredCount: connectedPlayers.filter((player) => room.currentAnswers.has(player.id)).length,
+    totalEligiblePlayers: connectedPlayers.length,
+  };
 }
 
 function closeQuestion(room: RoomRecord): void {

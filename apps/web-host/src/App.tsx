@@ -141,6 +141,7 @@ export function App() {
   const hostSessionRef = useRef<HostStoredSession | null>(initialSession);
   const shouldReconnectRef = useRef(true);
   const intentionalReconnectRef = useRef(false);
+  const pendingRoomCreateRef = useRef(false);
 
   const clearReconnectTimer = useEffectEvent(() => {
     if (reconnectTimerRef.current !== null) {
@@ -185,6 +186,20 @@ export function App() {
     setTotalQuestionCount(null);
   });
 
+  const createRoomOnCurrentSocket = useEffectEvent(() => {
+    setIsCreatingRoom(true);
+    setNotice(null);
+    const sent = sendClientEvent(EVENTS.ROOM_CREATE, {
+      hostName: "Host",
+      clientInfo: createHostClientInfo(),
+    });
+
+    if (!sent) {
+      setIsCreatingRoom(false);
+      setNotice({ kind: "error", text: "Server ist nicht verbunden. Bitte kurz warten." });
+    }
+  });
+
   const scheduleReconnect = useEffectEvent(() => {
     if (!shouldReconnectRef.current) return;
     clearReconnectTimer();
@@ -209,10 +224,14 @@ export function App() {
             roomId: hostSessionRef.current.roomId,
             sessionId: hostSessionRef.current.sessionId,
           });
+        } else if (pendingRoomCreateRef.current) {
+          pendingRoomCreateRef.current = false;
+          createRoomOnCurrentSocket();
         }
         return;
 
       case EVENTS.ROOM_CREATED:
+        pendingRoomCreateRef.current = false;
         updateStoredSession({
           roomId: parsedEnvelope.data.payload.roomId,
           sessionId: parsedEnvelope.data.payload.hostSessionId,
@@ -223,6 +242,7 @@ export function App() {
         });
         setScreen("lobby");
         setIsCreatingRoom(false);
+        setNotice(null);
         return;
 
       case EVENTS.CONNECTION_RESUMED:
@@ -292,6 +312,21 @@ export function App() {
         updateStoredSession(null);
         return;
 
+      case EVENTS.ERROR_PROTOCOL:
+        setIsCreatingRoom(false);
+        if (
+          parsedEnvelope.data.payload.code === PROTOCOL_ERROR_CODES.SESSION_NOT_FOUND ||
+          parsedEnvelope.data.payload.code === PROTOCOL_ERROR_CODES.ROOM_NOT_FOUND
+        ) {
+          updateStoredSession(null);
+          resetLobbyState();
+          if (pendingRoomCreateRef.current) {
+            socketRef.current?.close();
+          }
+        }
+        setNotice({ kind: "error", text: parsedEnvelope.data.payload.message });
+        return;
+
       default:
         return;
     }
@@ -330,12 +365,35 @@ export function App() {
   }, [roomInfo?.joinCode]);
 
   const handleCreateRoom = useEffectEvent(() => {
-    setIsCreatingRoom(true);
-    sendClientEvent(EVENTS.ROOM_CREATE, { hostName: "Host", clientInfo: createHostClientInfo() });
+    if (screen === "finished" && roomInfo) {
+      pendingRoomCreateRef.current = true;
+      setIsCreatingRoom(true);
+      setNotice(null);
+      updateStoredSession(null);
+      const sent = sendClientEvent(EVENTS.ROOM_CLOSE, { roomId: roomInfo.roomId });
+
+      if (!sent) {
+        resetLobbyState();
+        socketRef.current?.close();
+      }
+      return;
+    }
+
+    createRoomOnCurrentSocket();
   });
 
   const handleStartGame = useEffectEvent(() => {
-    if (roomInfo) sendClientEvent(EVENTS.GAME_START, { roomId: roomInfo.roomId });
+    if (roomInfo) {
+      setNotice(null);
+      sendClientEvent(EVENTS.GAME_START, { roomId: roomInfo.roomId });
+    }
+  });
+
+  const handleAdvanceQuestion = useEffectEvent(() => {
+    if (roomInfo) {
+      setNotice(null);
+      sendClientEvent(EVENTS.GAME_NEXT_QUESTION, { roomId: roomInfo.roomId });
+    }
   });
 
   const loopback = isLoopbackHostname(getPublicHost());
@@ -587,8 +645,19 @@ export function App() {
   };
 
   const primaryActionLabel =
-    screen === "lobby" ? "Quiz starten" : screen === "finished" ? "Neues Spiel" : "Warten...";
-  const isPrimaryDisabled = screen === "lobby" ? connectedPlayerCount === 0 : screen !== "finished";
+    screen === "lobby"
+      ? "Quiz starten"
+      : screen === "scoreboard"
+        ? "Nächste Frage"
+        : screen === "finished"
+          ? "Neues Spiel"
+          : "Warten...";
+  const isPrimaryDisabled =
+    screen === "lobby"
+      ? connectedPlayerCount === 0
+      : screen === "scoreboard"
+        ? false
+        : screen !== "finished";
 
   return (
     <main className="host-shell" data-screen={screen}>
@@ -750,7 +819,13 @@ export function App() {
             <button
               className="host-primary-button"
               disabled={isPrimaryDisabled}
-              onClick={screen === "lobby" ? handleStartGame : handleCreateRoom}
+              onClick={
+                screen === "lobby"
+                  ? handleStartGame
+                  : screen === "scoreboard"
+                    ? handleAdvanceQuestion
+                    : handleCreateRoom
+              }
               type="button"
             >
               {primaryActionLabel}
