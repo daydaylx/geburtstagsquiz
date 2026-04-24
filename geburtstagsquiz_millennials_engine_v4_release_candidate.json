@@ -23,7 +23,8 @@
     ],
     "engine_features": {
       "question_types": [
-        "multiple_choice"
+        "multiple_choice",
+        "estimate"
       ],
       "supports_alias_answers": true,
       "supports_explanations": true,
@@ -45,7 +46,7 @@
     },
     "stats": {
       "total_categories": 10,
-      "total_questions": 250,
+      "total_questions": 280,
       "engine_question_type": "multiple_choice",
       "generated_options_per_question": 4
     },
@@ -66,7 +67,7 @@
         "slug": "harry-potter-nur-filme-harter-schwierigkeitsgrad",
         "name": "Harry Potter (Nur Filme, harter Schwierigkeitsgrad)",
         "intro": "Ihr habt die Filme natürlich „alle oft gesehen“. Klar. Und trotzdem werdet ihr gleich mit dem Gesicht zuerst in euren eigenen Butterbier-Eimer fallen. Zeit für ein bisschen Realitätscheck.",
-        "question_count": 25,
+        "question_count": 28,
         "difficulty": "hard",
         "default_question_type": "multiple_choice",
         "default_points": 1,
@@ -802,6 +803,51 @@
             "correct_option_id": "opt-1",
             "explanation": "Dumbledore brauchte noch 10 Punkte für Gryffindor, also musste Nevilles Mut herhalten. Nevilles Schicksal: Der einzige Vernünftige sein und dafür versteinert werden.",
             "difficulty": "hard"
+          },
+          {
+            "id": "q-01-e01-c564fe35e2",
+            "type": "estimate",
+            "prompt": "Wie viele Treppen gibt es laut den Büchern/Filmen in Hogwarts?",
+            "answer": {
+              "canonical": "142 Treppen",
+              "reference_value": 142,
+              "unit": "Treppen",
+              "context": "Hogwarts Castle Canon"
+            },
+            "scoring_rule": "closest_wins",
+            "explanation": "Es sind exakt 142 Treppen. Manche sind breit, manche schmal, und manche führen freitags woanders hin. Viel Spaß beim Treppensteigen.",
+            "difficulty": "medium",
+            "points": 1
+          },
+          {
+            "id": "q-01-e02-0ed6866105",
+            "type": "estimate",
+            "prompt": "Wie hoch war das Budget für den ersten Film 'Harry Potter und der Stein der Weisen' (in Millionen US-Dollar)?",
+            "answer": {
+              "canonical": "125 Millionen USD",
+              "reference_value": 125,
+              "unit": "Millionen USD",
+              "context": "Produktionskosten 2001"
+            },
+            "scoring_rule": "closest_wins",
+            "explanation": "125 Millionen Dollar. Ein echtes Schnäppchen, wenn man bedenkt, dass die Merchandising-Maschine danach Milliarden eingespielt hat.",
+            "difficulty": "medium",
+            "points": 1
+          },
+          {
+            "id": "q-01-e03-a6553820f8",
+            "type": "estimate",
+            "prompt": "Wie viele Millionen US-Dollar spielte der letzte Film 'Harry Potter und die Heiligtümer des Todes – Teil 2' weltweit insgesamt ein?",
+            "answer": {
+              "canonical": "1342 Millionen USD",
+              "reference_value": 1342,
+              "unit": "Millionen USD",
+              "context": "Box Office Mojo"
+            },
+            "scoring_rule": "closest_wins",
+            "explanation": "Über 1,34 Milliarden Dollar. Ein magischer Abschluss für eine magische Geldmaschine.",
+            "difficulty": "medium",
+            "points": 1
           }
         ]
       },
@@ -810,7 +856,7 @@
         "slug": "sex-liebe-expliziter-bullshit",
         "name": "Sex, Liebe & expliziter Bullshit",
         "intro": "Jetzt wird’s erwachsen. Also pseudo-erwachsen: genug Halbwissen, um bei Tinder arrogant zu wirken, aber zu wenig, um peinliche Gespräche wirklich zu überleben. Millennial-Dating ist ein Schlachtfeld.",
-        "question_count": 25,
+        "question_count": 28,
         "difficulty": "medium_hard",
         "questions": [
           {
@@ -1537,6 +1583,51 @@
             "correct_option_id": "opt-1",
             "explanation": "Sicher, vernünftig, einvernehmlich. Wer das bricht, spielt nicht – er begeht eine Straftat. Ein bisschen Disziplin muss sein, auch beim Auspeitschen.",
             "difficulty": "medium_hard"
+          },
+          {
+            "id": "q-02-e01-e7a5eeddc0",
+            "type": "estimate",
+            "prompt": "Wie lang ist der durchschnittliche erigierte Penis in Deutschland laut einer großen Statista-Erhebung?",
+            "answer": {
+              "canonical": "14.5 cm",
+              "reference_value": 14.5,
+              "unit": "cm",
+              "context": "Deutschland, Durchschnitt"
+            },
+            "scoring_rule": "closest_wins",
+            "explanation": "14,5 cm. Die meisten Männer geben bei Umfragen mehr an, aber das Lineal lügt nicht. Sorry, Jungs.",
+            "difficulty": "medium",
+            "points": 1
+          },
+          {
+            "id": "q-02-e02-3c8467882a",
+            "type": "estimate",
+            "prompt": "Wie alt sind Deutsche im Durchschnitt bei ihrem 'ersten Mal'?",
+            "answer": {
+              "canonical": "17.3 Jahre",
+              "reference_value": 17.3,
+              "unit": "Jahre",
+              "context": "Deutschland, BZgA Studie 2020"
+            },
+            "scoring_rule": "closest_wins",
+            "explanation": "Im Durchschnitt sind es 17,3 Jahre. Die Zeitspanne zwischen 'ich will unbedingt' und 'was mache ich hier eigentlich' ist meistens sehr kurz.",
+            "difficulty": "medium",
+            "points": 1
+          },
+          {
+            "id": "q-02-e03-eb38c27ac1",
+            "type": "estimate",
+            "prompt": "Wie viele verschiedene Sexualpartner hat ein Deutscher im Durchschnitt im Laufe seines Lebens?",
+            "answer": {
+              "canonical": "7.0 Partner",
+              "reference_value": 7.0,
+              "unit": "Partner",
+              "context": "Deutschland, Durchschnittswert"
+            },
+            "scoring_rule": "closest_wins",
+            "explanation": "Statistisch gesehen sind es 7 Partner. Manche haben 70, manche 0, aber in der Mitte trifft man sich beim Durchschnitts-Abenteuer.",
+            "difficulty": "medium",
+            "points": 1
           }
         ]
       },
@@ -1545,7 +1636,7 @@
         "slug": "cringe-millennial-slang-internet-fossilien",
         "name": "Cringe Millennial-Slang & Internet-Fossilien",
         "intro": "Willkommen im digitalen Moor eurer Jugend. ICQ-Geräusche, schlechte Emoticons und die peinliche Gewissheit, dass ihr damals alles davon für cool gehalten habt. Eure alten Statusmeldungen verfolgen euch bis heute.",
-        "question_count": 25,
+        "question_count": 28,
         "difficulty": "medium_hard",
         "questions": [
           {
@@ -2272,6 +2363,51 @@
             "correct_option_id": "opt-1",
             "explanation": "ICQ (I Seek You). Wenn die Blume rot war, warst du 'Offline'. Wenn sie grün war, konntest du endlich deine Hausaufgaben ignorieren und mit Fremden chatten.",
             "difficulty": "medium_hard"
+          },
+          {
+            "id": "q-03-e01-b4f45030f1",
+            "type": "estimate",
+            "prompt": "Wie viele aktive Nutzer hatte MySpace in seinem absoluten Rekordmonat im Jahr 2008?",
+            "answer": {
+              "canonical": "75.9 Millionen",
+              "reference_value": 75.9,
+              "unit": "Millionen",
+              "context": "Weltweit, Peak MySpace"
+            },
+            "scoring_rule": "closest_wins",
+            "explanation": "Fast 76 Millionen Menschen haben damals gleichzeitig ihre Profil-Songs ausgesucht und Tom in ihrer Top-Friends-Liste gelassen.",
+            "difficulty": "medium",
+            "points": 1
+          },
+          {
+            "id": "q-03-e02-cb56fcabf0",
+            "type": "estimate",
+            "prompt": "Wie viele Millionen Euro zahlte Google im Jahr 2006 für den Kauf von YouTube?",
+            "answer": {
+              "canonical": "1310 Millionen Euro",
+              "reference_value": 1310,
+              "unit": "Millionen Euro",
+              "context": "Unternehmenskauf 2006"
+            },
+            "scoring_rule": "closest_wins",
+            "explanation": "Google zahlte ca. 1,65 Milliarden USD, was damals etwa 1,31 Milliarden Euro entsprach. Heute ist YouTube ein Vielfaches davon wert.",
+            "difficulty": "medium",
+            "points": 1
+          },
+          {
+            "id": "q-03-e03-b05498e1e6",
+            "type": "estimate",
+            "prompt": "Wie viele aktive Nutzer hatte Facebook am Ende seines Gründungsjahres 2004?",
+            "answer": {
+              "canonical": "1.0 Millionen",
+              "reference_value": 1.0,
+              "unit": "Millionen",
+              "context": "Facebook History"
+            },
+            "scoring_rule": "closest_wins",
+            "explanation": "Exakt eine Million Nutzer. Damals war es noch exklusiv für Studenten und man brauchte eine Uni-E-Mail-Adresse.",
+            "difficulty": "medium",
+            "points": 1
           }
         ]
       },
@@ -2280,7 +2416,7 @@
         "slug": "90er-00er-trash-tv-kollektives-trauma",
         "name": "90er/00er Trash-TV & kollektives Trauma",
         "intro": "Fernsehen war damals kein Medium, sondern ein Gewaltverbrechen an Würde und Geschmack. Und natürlich habt ihr es trotzdem geguckt wie religiöse Pflichtveranstaltungen. Zeit für eine Runde kollektives Fremdschämen.",
-        "question_count": 25,
+        "question_count": 28,
         "difficulty": "medium_hard",
         "questions": [
           {
@@ -3007,6 +3143,51 @@
             "correct_option_id": "opt-1",
             "explanation": "Das WG-Casting der Dritten Programme. Intellektueller Trash mit Bilderrätseln und Hausmusik. Ein Klassiker.",
             "difficulty": "medium_hard"
+          },
+          {
+            "id": "q-04-e01-b137796e03",
+            "type": "estimate",
+            "prompt": "Wie viele Tage verbrachte der Kult-Kandidat Zlatko in der allerersten Big-Brother-Staffel im Haus?",
+            "answer": {
+              "canonical": "41 Tage",
+              "reference_value": 41,
+              "unit": "Tage",
+              "context": "RTL II, Big Brother Staffel 1 (2000)"
+            },
+            "scoring_rule": "closest_wins",
+            "explanation": "Nach 41 Tagen wurde er rausgewählt. Es fühlte sich an wie ein ganzes Jahrzehnt Fernsehgeschichte.",
+            "difficulty": "medium",
+            "points": 1
+          },
+          {
+            "id": "q-04-e02-adddcf4169",
+            "type": "estimate",
+            "prompt": "Wie viele Zuschauer (in Millionen) sahen das Finale der ersten 'Deutschland sucht den Superstar'-Staffel (Sieg von Alexander Klaws)?",
+            "answer": {
+              "canonical": "12.8 Millionen",
+              "reference_value": 12.8,
+              "unit": "Millionen",
+              "context": "Deutschland, Finale 2003"
+            },
+            "scoring_rule": "closest_wins",
+            "explanation": "Unglaubliche 12,8 Millionen Menschen sahen zu. Das war noch vor der Zeit, in der Streaming alles kaputt gemacht hat.",
+            "difficulty": "medium",
+            "points": 1
+          },
+          {
+            "id": "q-04-e03-5dc7eb08d2",
+            "type": "estimate",
+            "prompt": "Wie viele Staffeln von 'Germany's Next Topmodel' (GNTM) wurden bis einschließlich 2024 ausgestrahlt?",
+            "answer": {
+              "canonical": "19 Staffeln",
+              "reference_value": 19,
+              "unit": "Staffeln",
+              "context": "ProSieben, GNTM Historie"
+            },
+            "scoring_rule": "closest_wins",
+            "explanation": "19 Staffeln. Seit 2006 sucht Heidi jedes Jahr ein neues Meedchen. Nur einer hat sie alle gesehen: Du wahrscheinlich nicht.",
+            "difficulty": "medium",
+            "points": 1
           }
         ]
       },
@@ -3015,7 +3196,7 @@
         "slug": "saufen-feiern-toxische-jugend-drinks",
         "name": "Saufen, Feiern & toxische Jugend-Drinks",
         "intro": "Ah ja, die glorreiche Zeit, in der man billigen Fusel mit noch billigerem Energy mischte und das „Vorglühen“ nannte, als wäre es ein Kulturbeitrag. Eure Leber würde gern klagen, hat aber keine Kraft mehr. Zeit für einen Kater-Rückblick.",
-        "question_count": 25,
+        "question_count": 28,
         "difficulty": "medium",
         "questions": [
           {
@@ -3742,6 +3923,51 @@
             "correct_option_id": "opt-1",
             "explanation": "Meistens der Drink, der einen über die Klippe stößt. Aber hey, man will ja nichts verpassen. YOLO (vong Niceheit her).",
             "difficulty": "medium"
+          },
+          {
+            "id": "q-05-e01-17bf04c35b",
+            "type": "estimate",
+            "prompt": "Wie viel Liter Bier trinkt ein Deutscher durchschnittlich pro Jahr (Stand 2022)?",
+            "answer": {
+              "canonical": "87.2 Liter",
+              "reference_value": 87.2,
+              "unit": "Liter",
+              "context": "Deutschland, Pro-Kopf-Verbrauch"
+            },
+            "scoring_rule": "closest_wins",
+            "explanation": "87,2 Liter. Das ist zwar viel, aber der Wert sinkt seit Jahren. Früher waren wir mal bei über 140 Litern – Legenden.",
+            "difficulty": "medium",
+            "points": 1
+          },
+          {
+            "id": "q-05-e02-4d430361dd",
+            "type": "estimate",
+            "prompt": "Wie viel Gramm Zucker enthält eine klassische 250ml-Dose Red Bull?",
+            "answer": {
+              "canonical": "27.5 Gramm",
+              "reference_value": 27.5,
+              "unit": "Gramm",
+              "context": "Standard-Dose (250ml)"
+            },
+            "scoring_rule": "closest_wins",
+            "explanation": "27,5g Zucker. Das sind ca. 9 bis 10 Stück Würfelzucker. Aber hey, man hat ja Flügel.",
+            "difficulty": "medium",
+            "points": 1
+          },
+          {
+            "id": "q-05-e03-1f23da5f70",
+            "type": "estimate",
+            "prompt": "Welchen Alkoholgehalt (in Vol-%) hatte das Kult-Getränk 'Smirnoff Ice' bei seiner Einführung in Deutschland?",
+            "answer": {
+              "canonical": "5.0 Vol-%",
+              "reference_value": 5.0,
+              "unit": "Vol-%",
+              "context": "Produktspezifikation"
+            },
+            "scoring_rule": "closest_wins",
+            "explanation": "5,0 %. Schmeckte wie Limo, haute aber rein wie Bier. Der perfekte Treibstoff für die Dorfdisco.",
+            "difficulty": "medium",
+            "points": 1
           }
         ]
       },
@@ -3750,7 +3976,7 @@
         "slug": "absurde-skandale-popkultur-meltdowns",
         "name": "Absurde Skandale & Popkultur-Meltdowns",
         "intro": "Nichts eint eine Gesellschaft so sehr wie kollektive Empörung über Promis, die sich benehmen wie Promis. Damals war jede Woche ein Fiebertraum mit Paparazzi-Blitz und moralischer Panik. Schnallt euch an, es wird peinlich.",
-        "question_count": 25,
+        "question_count": 27,
         "difficulty": "medium_hard",
         "default_question_type": "multiple_choice",
         "default_points": 1,
@@ -4486,6 +4712,36 @@
             "correct_option_id": "opt-1",
             "explanation": "Wer seinen Eastpak nicht so tief hängen hatte, dass er in den Kniekehlen schlug, hatte keine Ehre. Und wehe, es stand kein Edding-Müll drauf.",
             "difficulty": "medium_hard"
+          },
+          {
+            "id": "q-06-e01-efc82aae93",
+            "type": "estimate",
+            "prompt": "Wie viele Stunden hielt die berüchtigte Blitz-Ehe von Britney Spears und Jason Alexander im Jahr 2004?",
+            "answer": {
+              "canonical": "55 Stunden",
+              "reference_value": 55,
+              "unit": "Stunden",
+              "context": "Las Vegas, Januar 2004"
+            },
+            "scoring_rule": "closest_wins",
+            "explanation": "Nach 55 Stunden war der Spuk vorbei. Eine der kürzesten und ehrlichsten Promi-Ehen der Geschichte.",
+            "difficulty": "medium",
+            "points": 1
+          },
+          {
+            "id": "q-06-e02-cf01d207c2",
+            "type": "estimate",
+            "prompt": "In welchem Jahr ereignete sich der berühmte 'Nipplegate'-Skandal um Janet Jackson beim Super Bowl?",
+            "answer": {
+              "canonical": "2004 Jahr",
+              "reference_value": 2004,
+              "unit": "Jahr",
+              "context": "USA, Super Bowl Halftime Show"
+            },
+            "scoring_rule": "closest_wins",
+            "explanation": "Es war 2004. Justin Timberlake riss an der Kleidung, die USA bekamen einen Nervenzusammenbruch und YouTube wurde quasi deshalb erfunden.",
+            "difficulty": "medium",
+            "points": 1
           }
         ]
       },
@@ -4494,7 +4750,7 @@
         "slug": "gaming-frust-pixel-nostalgie",
         "name": "Gaming-Frust & Pixel-Nostalgie",
         "intro": "Hier liegt der wahre Schaden eurer Kindheit: blaue Panzer, tote Tamagotchis und Speicherstände, die auf wundersame Weise „aus Versehen“ weg waren. Charakterbildung durch Frust, nennt man das wohl.",
-        "question_count": 25,
+        "question_count": 29,
         "difficulty": "medium_hard",
         "default_question_type": "multiple_choice",
         "default_points": 1,
@@ -6030,6 +6286,66 @@
               "needs_manual_review": false,
               "review_flags": []
             }
+          },
+          {
+            "id": "q-07-e01-9ce9e570a8",
+            "type": "estimate",
+            "prompt": "Wie viel Megabyte (MB) Speicherplatz bot eine offizielle Memory Card für die erste PlayStation (PS1)?",
+            "answer": {
+              "canonical": "1.0 MB",
+              "reference_value": 1.0,
+              "unit": "MB",
+              "context": "Hardware Specs, 15 Speicherblöcke"
+            },
+            "scoring_rule": "closest_wins",
+            "explanation": "1 MB. Darauf passten 15 Blöcke. Und wir mussten ständig entscheiden, welches Savegame wir opfern – wahre Millennial-Traumata.",
+            "difficulty": "medium",
+            "points": 1
+          },
+          {
+            "id": "q-07-e02-158977001a",
+            "type": "estimate",
+            "prompt": "Wie viele Millionen Einheiten des Game Boy (Original & Color) wurden weltweit insgesamt verkauft?",
+            "answer": {
+              "canonical": "118.7 Millionen",
+              "reference_value": 118.7,
+              "unit": "Millionen",
+              "context": "Verkaufszahlen weltweit"
+            },
+            "scoring_rule": "closest_wins",
+            "explanation": "Fast 119 Millionen Stück. Jeder hatte einen, oder kannte jemanden, der einen hatte. Und jeder hat das Klick-Geräusch beim Einschalten im Ohr.",
+            "difficulty": "medium",
+            "points": 1
+          },
+          {
+            "id": "q-07-e03-52b027ab0a",
+            "type": "estimate",
+            "prompt": "Wie viele Millionen Tamagotchis wurden in den ersten drei Jahren (1996-1999) weltweit verkauft?",
+            "answer": {
+              "canonical": "40.0 Millionen",
+              "reference_value": 40.0,
+              "unit": "Millionen",
+              "context": "Weltweit, Bandai Statistik"
+            },
+            "scoring_rule": "closest_wins",
+            "explanation": "40 Millionen Stück. Und gefühlt 39 Millionen davon sind gestorben, weil wir in der Schule nicht füttern durften.",
+            "difficulty": "medium",
+            "points": 1
+          },
+          {
+            "id": "q-07-e04-4073853fbd",
+            "type": "estimate",
+            "prompt": "Wie viele Pixel breit war das Display des legendären Nokia 3310?",
+            "answer": {
+              "canonical": "84 Pixel",
+              "reference_value": 84,
+              "unit": "Pixel",
+              "context": "Hardware-Spezifikationen"
+            },
+            "scoring_rule": "closest_wins",
+            "explanation": "84 Pixel Breite (und 48 Pixel Höhe). Mehr brauchte man nicht für das beste Spiel der Welt: Snake II.",
+            "difficulty": "medium",
+            "points": 1
           }
         ]
       },
@@ -6038,7 +6354,7 @@
         "slug": "musikalische-jugendsunden-emo-phasen",
         "name": "Musikalische Jugendsünden & Emo-Phasen",
         "intro": "Jetzt betreten wir den Friedhof eurer Playlist-Historie. Boybands, Emo-Bangs und Klingeltöne – also genau der akustische Sondermüll, den ihr heute heimlich noch mitsingen könnt. Setzt euren seitlichen Pony zurecht, es wird peinlich.",
-        "question_count": 25,
+        "question_count": 28,
         "difficulty": "medium",
         "default_question_type": "multiple_choice",
         "default_points": 1,
@@ -7623,6 +7939,51 @@
               "needs_manual_review": false,
               "review_flags": []
             }
+          },
+          {
+            "id": "q-08-e01-26b596c217",
+            "type": "estimate",
+            "prompt": "Wie viele Wochen stand der Sommerhit 'Dragostea Din Tei' (O-Zone) im Jahr 2004 auf Platz 1 der deutschen Charts?",
+            "answer": {
+              "canonical": "14 Wochen",
+              "reference_value": 14,
+              "unit": "Wochen",
+              "context": "Deutschland, Single-Charts"
+            },
+            "scoring_rule": "closest_wins",
+            "explanation": "14 Wochen lang gab es kein Entkommen vor 'Ma-ia-hii, Ma-ia-huu'. Eine kollektive Gehirnwäsche.",
+            "difficulty": "medium",
+            "points": 1
+          },
+          {
+            "id": "q-08-e02-4ad75bc879",
+            "type": "estimate",
+            "prompt": "Welchen BPM-Wert (Beats Per Minute) hat der Trance-Klassiker 'Sandstorm' von Darude?",
+            "answer": {
+              "canonical": "136 BPM",
+              "reference_value": 136,
+              "unit": "BPM",
+              "context": "Musik-Metrik"
+            },
+            "scoring_rule": "closest_wins",
+            "explanation": "Mit 136 BPM ist es der perfekte Rhythmus für... alles. Wirklich alles.",
+            "difficulty": "medium",
+            "points": 1
+          },
+          {
+            "id": "q-08-e03-aac1454a8b",
+            "type": "estimate",
+            "prompt": "In welchem Jahr wurde der deutsche Musiksender VIVA offiziell eingestellt?",
+            "answer": {
+              "canonical": "2018 Jahr",
+              "reference_value": 2018,
+              "unit": "Jahr",
+              "context": "Medienhistorie Deutschland"
+            },
+            "scoring_rule": "closest_wins",
+            "explanation": "Am 31. Dezember 2018 war Schluss. Das Ende einer Ära für alle, die nach der Schule erst mal VIVA geschaut haben.",
+            "difficulty": "medium",
+            "points": 1
           }
         ]
       },
@@ -7631,7 +7992,7 @@
         "slug": "gefahrliches-halbwissen-fur-erwachsene-adulting-fails",
         "name": "Gefährliches Halbwissen für Erwachsene (Adulting Fails)",
         "intro": "Jetzt kommt der Teil, in dem ihr merkt, dass man mit 30 zwar Rechnungen bekommt, aber nicht automatisch Kompetenz. Willkommen im Club der Leute, die Mülltrennung googeln, während der Rücken bereits kündigt. Adulting ist ein Scam.",
-        "question_count": 25,
+        "question_count": 29,
         "difficulty": "medium",
         "default_question_type": "multiple_choice",
         "default_points": 1,
@@ -9167,6 +9528,66 @@
               "needs_manual_review": false,
               "review_flags": []
             }
+          },
+          {
+            "id": "q-09-e01-c4ce8bab00",
+            "type": "estimate",
+            "prompt": "Wie hoch ist der durchschnittliche Kaffeekonsum pro Kopf in Deutschland pro Jahr (in Litern)?",
+            "answer": {
+              "canonical": "167 Liter",
+              "reference_value": 167,
+              "unit": "Liter",
+              "context": "Deutschland, Pro-Kopf-Verbrauch 2022"
+            },
+            "scoring_rule": "closest_wins",
+            "explanation": "167 Liter pro Jahr. Das ist mehr als Wasser oder Bier. Wir sind eine Gesellschaft von koffeinabhängigen Zombies.",
+            "difficulty": "medium",
+            "points": 1
+          },
+          {
+            "id": "q-09-e02-f64f016e43",
+            "type": "estimate",
+            "prompt": "Wie viel Kilogramm Fleisch isst ein Deutscher durchschnittlich pro Jahr (Stand 2022)?",
+            "answer": {
+              "canonical": "52 kg",
+              "reference_value": 52,
+              "unit": "kg",
+              "context": "Deutschland, Pro-Kopf-Verbrauch"
+            },
+            "scoring_rule": "closest_wins",
+            "explanation": "52 kg. Das sind etwa 1 kg pro Woche. Aber wir 'essen ja alle viel weniger Fleisch als früher', klar.",
+            "difficulty": "medium",
+            "points": 1
+          },
+          {
+            "id": "q-09-e03-28cbb403a0",
+            "type": "estimate",
+            "prompt": "Wie viel Prozent ihres Netto-Einkommens gibt ein durchschnittlicher Millennial in Deutschland für Miete aus?",
+            "answer": {
+              "canonical": "30.0 %",
+              "reference_value": 30.0,
+              "unit": "%",
+              "context": "Statistisches Bundesamt, Durchschnitt"
+            },
+            "scoring_rule": "closest_wins",
+            "explanation": "30 Prozent ist die Faustregel, aber in Städten wie Berlin oder München lachen (oder weinen) wir über diesen Wert nur.",
+            "difficulty": "medium",
+            "points": 1
+          },
+          {
+            "id": "q-09-e04-eefb0daff9",
+            "type": "estimate",
+            "prompt": "Wie viele E-Mails erhält ein durchschnittlicher Büroangestellter pro Tag?",
+            "answer": {
+              "canonical": "121 E-Mails",
+              "reference_value": 121,
+              "unit": "E-Mails",
+              "context": "Radicati Group Study"
+            },
+            "scoring_rule": "closest_wins",
+            "explanation": "121 E-Mails pro Tag. Und 120 davon hätten wahrscheinlich auch ein kurzes Slack-Gespräch sein können.",
+            "difficulty": "medium",
+            "points": 1
           }
         ]
       },
@@ -9175,7 +9596,7 @@
         "slug": "technik-fails-hardware-friedhof",
         "name": "Technik-Fails & Hardware-Friedhof",
         "intro": "Hier liegt der Elektroschrott eurer Jugend in Ehren begraben: Röhrenmonster, Discman-Gehopse und CDs, die mit illegalen MP3s und 14 Viren zugleich gebrannt wurden. Fortschritt war damals nur ein anderes Wort für „funktioniert irgendwie, bis es raucht“.",
-        "question_count": 25,
+        "question_count": 27,
         "difficulty": "medium",
         "default_question_type": "multiple_choice",
         "default_points": 1,
@@ -10711,6 +11132,36 @@
               "needs_manual_review": false,
               "review_flags": []
             }
+          },
+          {
+            "id": "q-10-e01-89d163ce7d",
+            "type": "estimate",
+            "prompt": "Wie viele Milliarden SMS wurden im absoluten Rekordjahr 2012 in Deutschland verschickt?",
+            "answer": {
+              "canonical": "59.8 Milliarden",
+              "reference_value": 59.8,
+              "unit": "Milliarden",
+              "context": "Deutschland, SMS-Statistik"
+            },
+            "scoring_rule": "closest_wins",
+            "explanation": "59,8 Milliarden SMS. Danach kam WhatsApp und hat die SMS fast vollständig beerdigt. RIP T9.",
+            "difficulty": "medium",
+            "points": 1
+          },
+          {
+            "id": "q-10-e02-b0f83de864",
+            "type": "estimate",
+            "prompt": "Wie viel Gramm wiegt ein original Nokia 3310 (das legendäre unzerstörbare Handy)?",
+            "answer": {
+              "canonical": "133 Gramm",
+              "reference_value": 133,
+              "unit": "Gramm",
+              "context": "Hardware-Spezifikationen"
+            },
+            "scoring_rule": "closest_wins",
+            "explanation": "133 Gramm pure Unzerstörbarkeit. Wenn es runterfiel, ging der Boden kaputt, nicht das Handy.",
+            "difficulty": "medium",
+            "points": 1
           }
         ]
       }
