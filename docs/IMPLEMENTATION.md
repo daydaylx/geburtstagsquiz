@@ -8,7 +8,7 @@ Erfolg bedeutet:
 
 - Raum erstellen klappt
 - Spieler koennen einfach joinen
-- Fragen erscheinen auf Host und Handy
+- Fragen erscheinen vollstaendig auf dem Host, Handys dienen als Antwort-Controller
 - Antworten werden serverseitig angenommen
 - Punkte und Rangliste stimmen
 - der Ablauf bleibt auf echten Geraeten stabil genug
@@ -52,7 +52,8 @@ Sicherstellen:
 
 - Host startet das Spiel
 - Host behaltet aktuelle Frage und Gesamtfragen autoritativ im Blick
-- Frage erscheint auf Host und Player
+- Frage erscheint vollstaendig auf dem Host
+- Player bekommen nur Controller-Daten und keinen vollstaendigen Fragetext
 - Timer kommt vom Server
 - pro Spieler zaehlt nur eine Antwort
 - Player sehen Antwort angenommen oder abgelehnt

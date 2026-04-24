@@ -38,6 +38,7 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 
 - `connection:resume`
 - `room:create`
+- `room:settings:update`
 - `game:start`
 - `game:next-question` als sichtbarer Host-Override nach der Rangliste
 - `room:close`
@@ -65,6 +66,7 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 | `connection:resumed` | Server -> Client | Resume bestaetigt | `role`, `roomId`, `roomState`, optional `gameState`, `sessionId`, `joinCode`, optional `playerId`, optional `playerState`, optional `currentAnswer` |
 | `room:create` | Host -> Server | Neuen Raum anlegen | `hostName`, `clientInfo` |
 | `room:created` | Server -> Host | Raum wurde erstellt | `roomId`, `joinCode`, `roomState`, `hostSessionId` |
+| `room:settings:update` | Host -> Server | Lobby-Einstellungen setzen | `roomId`, `showAnswerTextOnPlayerDevices` |
 | `room:join` | Player -> Server | Raum per Join-Code betreten | `joinCode`, `playerName`, optional `sessionId` |
 | `player:joined` | Server -> Player | Join bestaetigt | `roomId`, `playerId`, `sessionId`, `playerState`, `roomState` |
 | `room:close` | Host -> Server | Raum beenden | `roomId` |
@@ -74,7 +76,7 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 
 | Event | Richtung | Zweck | Kernfelder |
 | --- | --- | --- | --- |
-| `lobby:update` | Server -> Host/Player | Autoritativer Lobby-Snapshot | `roomId`, `roomState`, `hostConnected`, `players`, `playerCount` |
+| `lobby:update` | Server -> Host/Player | Autoritativer Lobby-Snapshot | `roomId`, `roomState`, `hostConnected`, `settings`, `players`, `playerCount` |
 | `player:reconnected` | Server -> Host/Player | Bisheriger Spieler ist wieder da | `roomId`, `playerId`, `playerState`, `connected` |
 | `player:disconnected` | Server -> Host/Player | Spieler ist temporaer weg | `roomId`, `playerId`, `playerState`, `connected` |
 
@@ -84,7 +86,8 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 | --- | --- | --- | --- |
 | `game:start` | Host -> Server | Quiz starten | `roomId` |
 | `game:started` | Server -> Host/Player | Spiel ist gestartet | `roomId`, `roomState`, `gameState`, `questionIndex`, `totalQuestionCount` |
-| `question:show` | Server -> Host/Player | Neue Frage freigeben | `roomId`, `questionId`, `questionIndex`, `totalQuestionCount`, `type`, `text`, `options`, `durationMs`, `gameState` |
+| `question:show` | Server -> Host | Vollstaendige Frage freigeben | `roomId`, `questionId`, `questionIndex`, `totalQuestionCount`, `type`, `text`, `options`/`items`, `unit`, `context`, `durationMs`, `gameState` |
+| `question:controller` | Server -> Player | Reduzierte Controller-Daten freigeben | `roomId`, `questionId`, `questionIndex`, `totalQuestionCount`, `type`, Options-/Item-IDs, optional Antworttexte, `unit`, `durationMs`, `gameState` |
 | `question:timer` | Server -> Host/Player | Verbleibende Fragezeit anzeigen | `roomId`, `questionId`, `remainingMs` |
 | `answer:submit` | Player -> Server | Antwort auf aktive Frage senden | `roomId`, `questionId`, `playerId`, `answer`, `requestId` |
 | `answer:accepted` | Server -> Player | Antwort wurde gespeichert | `roomId`, `questionId`, `playerId`, `status` |
@@ -113,6 +116,8 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 - Spaetere oder doppelte Antworten werden abgelehnt oder ignoriert.
 - Erst `answer:accepted` bestaetigt, dass eine Antwort gespeichert wurde.
 - Ob eine Antwort richtig war und wie viele Punkte sie bringt, kommt erst mit `question:reveal`.
+- Player erhalten waehrend aktiver Fragen `question:controller` statt `question:show`; der vollstaendige Fragetext bleibt auf dem Host.
+- Antworttexte auf Player-Geraeten sind eine Lobby-Einstellung und standardmaessig aus.
 
 ### Timer
 
@@ -136,6 +141,7 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 - Disconnects werden fuer kurze Zeit toleriert.
 - `connection:resumed` kann inzwischen auch `in_game` und `completed` transportieren.
 - Nach erfolgreichem Resume sendet der Server dem zurueckkehrenden Client einen passenden Snapshot fuer Lobby, aktive Frage, Reveal, Rangliste oder Endstand.
+- Beim Player-Resume wird der aktuelle Fragen-Snapshot weiterhin als `question:controller` gesendet, nicht als Host-Vollfrage.
 - Bei einem Player kann `currentAnswer` mitkommen, damit eine schon gesendete Antwort lokal wieder erkennbar bleibt.
 - In Reveal und Rangliste sendet der Server die letzten `playerResults` erneut, damit richtig/falsch und Punkte auch nach Reload sichtbar bleiben.
 - Der Host bekommt bei Spielstart, Frage-Snapshot und Endstand jetzt auch `totalQuestionCount`, damit Fortschritt nicht lokal geraten werden muss.
@@ -155,7 +161,7 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 
 1. Host sendet `game:start`
 2. Server sendet `game:started`
-3. Server sendet `question:show`
+3. Server sendet `question:show` an den Host und `question:controller` an Player
 4. Server sendet waehrenddessen `question:timer`
 5. Player senden `answer:submit`
 6. Server antwortet mit `answer:accepted` oder `answer:rejected`
@@ -165,7 +171,7 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 10. Server sendet `score:update`
 11. Player senden `next-question:ready`
 12. Server sendet `next-question:ready-progress`
-13. Sobald alle verbundenen Spieler bereit sind, sendet der Server entweder die naechste `question:show` oder `game:finished`
+13. Sobald alle verbundenen Spieler bereit sind, sendet der Server entweder die naechste Frage (`question:show`/`question:controller`) oder `game:finished`
 
 ## Ausdruecklich nicht Teil dieses Protokolls
 

@@ -8,7 +8,7 @@ Dieses Repo ist kein Produkt, keine Plattform und kein langfristiges System. Zie
 - ein gemeinsamer Bildschirm
 - mehrere Handys
 - einfacher Join per Code oder QR
-- Fragen anzeigen
+- Fragen auf dem gemeinsamen Bildschirm anzeigen
 - Antworten einsammeln
 - Punkte und Rangliste zeigen
 
@@ -19,6 +19,7 @@ Dieses Repo ist kein Produkt, keine Plattform und kein langfristiges System. Zie
 - Lobby aktualisiert sich live
 - Host behaelt Status, Fortschritt und Spieler in einer uebersichtlichen Steueransicht im Blick
 - Host startet das vorbereitete Abend-Quiz
+- Handys dienen waehrend aktiver Fragen als Antwort-Controller
 - Server nimmt Antworten an und wertet aus
 - Hostscreen zeigt Aufloesung und Rangliste
 
@@ -40,7 +41,7 @@ Wenn etwas technisch schoen klingt, aber fuer den Abend keinen direkten Nutzen h
 - Der Server bleibt die Wahrheit fuer Raumstatus, aktive Frage, Timer, gueltige Antworten und Punkte.
 - Der Hostscreen steuert und zeigt an, berechnet aber nichts als Wahrheitsquelle.
 - Die Host-UI darf Kategorien und Ablauf vorbereiten, verkauft lokale Vorschau aber nicht als serverseitige Spiellogik.
-- Die Player-UI bleibt einfach: joinen, antworten, Status sehen.
+- Die Player-UI bleibt einfach: joinen, antworten, Status sehen; waehrend aktiver Fragen ohne vollstaendigen Fragetext.
 - Der Zustand lebt im Speicher. Wenn der Server neu startet, ist der Raum weg.
 - Die bestehende Monorepo-Struktur darf bleiben, soll aber nicht weiter aufgeblasen werden.
 
@@ -76,6 +77,12 @@ Voraussetzungen:
 ```bash
 corepack pnpm install
 corepack pnpm dev
+```
+
+Der Server-Dev-Start nutzt `node --watch --import tsx`, damit kein separater `tsx watch`-IPC-Server noetig ist. Falls du explizit die alte `tsx`-Watch-CLI testen willst:
+
+```bash
+corepack pnpm --filter @quiz/server run dev:tsx
 ```
 
 Standard-URLs:

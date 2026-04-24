@@ -15,9 +15,8 @@ Ein browserbasiertes Quizspiel für Gruppen mit zwei Bildschirmen:
 - **Private Screens (Handys der Spieler)**
   - Beitritt
   - Namenseingabe
-  - Antworten
-  - Buzzer
-  - Joker / Sonderaktionen
+  - Antwort-Controller
+  - Status und eigener Punktestand
 
 ## Produktidee
 
@@ -90,21 +89,20 @@ Ein browserbasiertes Quizspiel für Gruppen mit zwei Bildschirmen:
 - Raum erstellen
 - Spiel starten
 - nächste Frage
-- Runde beenden
-- Ergebnis freigeben
+- Lobby-Einstellung fuer Antworttexte auf Handys
 
 #### Spieler → Server
 
 - Raum beitreten
 - Namen setzen
 - Antwort absenden
-- Buzzer drücken
-- Joker nutzen
+- bereit fuer nächste Frage melden
 
-#### Server → alle
+#### Server → Clients
 
 - Lobby-Update
-- neue Frage
+- vollständige Frage an Host
+- reduzierte Controller-Daten an Player
 - Timerstatus
 - Antwort bestätigt
 - Rundenende
@@ -121,6 +119,7 @@ Das MVP muss klein bleiben.
 - QR-Code anzeigen
 - Lobby mit Spielern
 - Fragen anzeigen
+- Antworttexte sichtbar machen, falls der Host das fuer Handys einschaltet
 - Timer anzeigen
 - richtige Antwort anzeigen
 - Punktestand anzeigen
@@ -130,6 +129,7 @@ Das MVP muss klein bleiben.
 
 - per QR-Code beitreten
 - Namen eingeben
+- während aktiver Fragen auf den Hauptscreen schauen
 - Antwort auswählen
 - Bestätigung sehen:
   - „Antwort gesendet"

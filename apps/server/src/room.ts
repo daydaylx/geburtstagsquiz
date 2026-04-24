@@ -51,6 +51,9 @@ export function createRoom(
     hostName: normalizeHostName(payload.hostName),
     hostSessionId,
     hostConnected: true,
+    settings: {
+      showAnswerTextOnPlayerDevices: false,
+    },
     players: [],
     quiz: null,
     currentQuestionIndex: null,

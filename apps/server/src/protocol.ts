@@ -43,6 +43,7 @@ export function toLobbyUpdatePayload(room: RoomRecord): LobbyUpdatePayload {
     roomId: room.id,
     roomState: room.state,
     hostConnected: room.hostConnected,
+    settings: room.settings,
     players: room.players.map((player) => ({
       playerId: player.id,
       name: player.name,

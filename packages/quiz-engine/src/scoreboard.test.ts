@@ -101,4 +101,35 @@ describe("applyRoundResultToScoreboard", () => {
 
     expect(() => applyRoundResultToScoreboard(players, scoreboard, roundResult)).toThrow();
   });
+
+  it("adds missing players from the players list with score 0", () => {
+    const initialPlayers = [{ id: "p1", name: "Alice" }];
+    const scoreboard = createInitialScoreboard(initialPlayers);
+    
+    const currentPlayers = [
+      { id: "p1", name: "Alice" },
+      { id: "p2", name: "Bob" },
+    ];
+    
+    const roundResult: RoundResult = {
+      questionId: "q1",
+      correctAnswer: { type: "option", value: "A" },
+      playerResults: [
+        {
+          playerId: "p1",
+          answer: { type: "option", value: "A" },
+          isCorrect: true,
+          pointsEarned: 10,
+        },
+      ],
+    };
+
+    const updated = applyRoundResultToScoreboard(currentPlayers, scoreboard, roundResult);
+
+    expect(updated).toHaveLength(2);
+    const bob = updated.find((e) => e.playerId === "p2");
+    expect(bob).toBeDefined();
+    expect(bob?.score).toBe(0);
+    expect(bob?.name).toBe("Bob");
+  });
 });

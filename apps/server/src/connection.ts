@@ -1,6 +1,6 @@
 import { WebSocket } from "ws";
 
-import { EVENTS } from "@quiz/shared-protocol";
+import { EVENTS, type QuestionShowPayload } from "@quiz/shared-protocol";
 import {
   GameState,
   PlayerState,
@@ -14,6 +14,7 @@ import type { ServerToClientEventName, ServerToClientEventPayloadMap } from "@qu
 import type { RoomRecord, SessionRecord, TrackedWebSocket } from "./server-types.js";
 import { sendEvent, toLobbyUpdatePayload } from "./protocol.js";
 import { sessionsById } from "./state.js";
+import { toQuestionControllerPayload, toQuestionShowPayload } from "./question-payloads.js";
 
 export function broadcastToRoom<TEvent extends ServerToClientEventName>(
   room: RoomRecord,
@@ -96,50 +97,23 @@ function getRevealResultPayload(room: RoomRecord, question: Question) {
   };
 }
 
-function sendQuestionShow(
+function sendQuestionForSession(
   socket: TrackedWebSocket,
+  session: SessionRecord,
   room: RoomRecord,
   question: Question,
-  questionIndex: number,
-  totalQuestionCount: number,
-  gameState:
-    | GameState.QuestionActive
-    | GameState.AnswerLocked
-    | GameState.Revealing
-    | GameState.Scoreboard,
+  gameState: QuestionShowPayload["gameState"],
 ): void {
-  const base = {
-    roomId: room.id,
-    questionId: question.id,
-    questionIndex,
-    totalQuestionCount,
-    text: question.text,
-    durationMs: question.durationMs,
-    gameState,
-  };
-  if (question.type === QuestionType.MultipleChoice || question.type === QuestionType.Logic) {
-    sendEvent(socket, EVENTS.QUESTION_SHOW, {
-      ...base,
-      type: question.type,
-      options: question.options,
-    });
-  } else if (
-    question.type === QuestionType.Estimate ||
-    question.type === QuestionType.MajorityGuess
-  ) {
-    sendEvent(socket, EVENTS.QUESTION_SHOW, {
-      ...base,
-      type: question.type,
-      unit: question.unit,
-      context: question.context,
-    });
-  } else if (question.type === QuestionType.Ranking) {
-    sendEvent(socket, EVENTS.QUESTION_SHOW, {
-      ...base,
-      type: question.type,
-      items: question.items,
-    });
+  if (session.role === "host") {
+    sendEvent(socket, EVENTS.QUESTION_SHOW, toQuestionShowPayload(room, question, gameState));
+    return;
   }
+
+  sendEvent(
+    socket,
+    EVENTS.QUESTION_CONTROLLER,
+    toQuestionControllerPayload(room, question, gameState),
+  );
 }
 
 function sendNextQuestionReadyProgress(
@@ -228,14 +202,7 @@ export function syncSessionToRoomState(session: SessionRecord, room: RoomRecord)
       return;
 
     case GameState.QuestionActive: {
-      sendQuestionShow(
-        socket,
-        room,
-        question,
-        room.currentQuestionIndex,
-        totalQuestionCount,
-        GameState.QuestionActive,
-      );
+      sendQuestionForSession(socket, session, room, question, GameState.QuestionActive);
 
       const elapsedMs = room.questionStartedAt ? Date.now() - room.questionStartedAt : 0;
       const remainingMs = Math.max(0, question.durationMs - elapsedMs);
@@ -258,14 +225,7 @@ export function syncSessionToRoomState(session: SessionRecord, room: RoomRecord)
     }
 
     case GameState.AnswerLocked:
-      sendQuestionShow(
-        socket,
-        room,
-        question,
-        room.currentQuestionIndex,
-        totalQuestionCount,
-        GameState.AnswerLocked,
-      );
+      sendQuestionForSession(socket, session, room, question, GameState.AnswerLocked);
       sendEvent(socket, EVENTS.QUESTION_CLOSE, {
         roomId: room.id,
         questionId: question.id,
@@ -277,14 +237,7 @@ export function syncSessionToRoomState(session: SessionRecord, room: RoomRecord)
       {
         const roundResult = getRevealResultPayload(room, question);
 
-        sendQuestionShow(
-          socket,
-          room,
-          question,
-          room.currentQuestionIndex,
-          totalQuestionCount,
-          GameState.Revealing,
-        );
+        sendQuestionForSession(socket, session, room, question, GameState.Revealing);
         sendEvent(socket, EVENTS.QUESTION_CLOSE, {
           roomId: room.id,
           questionId: question.id,
@@ -304,14 +257,7 @@ export function syncSessionToRoomState(session: SessionRecord, room: RoomRecord)
       {
         const roundResult = getRevealResultPayload(room, question);
 
-        sendQuestionShow(
-          socket,
-          room,
-          question,
-          room.currentQuestionIndex,
-          totalQuestionCount,
-          GameState.Scoreboard,
-        );
+        sendQuestionForSession(socket, session, room, question, GameState.Scoreboard);
         sendEvent(socket, EVENTS.QUESTION_CLOSE, {
           roomId: room.id,
           questionId: question.id,

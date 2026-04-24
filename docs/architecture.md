@@ -58,6 +58,8 @@ Die Player-UI:
 
 - joint den Raum
 - zeigt den Spielerstatus
+- dient waehrend aktiver Fragen als Antwort-Controller
+- bekommt fuer aktive Fragen nur reduzierte Controller-Daten
 - nimmt Antworten entgegen
 - bestaetigt Versand und Ergebnis
 
@@ -148,6 +150,7 @@ Alles darueber hinaus ist optional und fuer dieses Repo nicht vorrangig.
 - `room:create`
 - `game:start`
 - `game:next-question` dient als Host-Override nach der Rangliste
+- `room:settings:update` fuer die Lobby-Option Antworttexte auf Handys
 - `room:close`
 
 ### Player -> Server
@@ -161,7 +164,7 @@ Alles darueber hinaus ist optional und fuer dieses Repo nicht vorrangig.
 
 - Lobby-Snapshots
 - Spielstart
-- Frage und Timer
+- Host-Frage, Player-Controller und Timer
 - Antwortbestaetigung oder Ablehnung
 - Aufloesung
 - Score-Update
@@ -181,6 +184,7 @@ Wichtig:
 - Reconnect ist als praktische Absicherung gegen WLAN-Aussetzer gedacht.
 - Reconnect ist hier keine Einladung, komplexe Pause-, Resume- oder Recovery-Systeme zu bauen.
 - Der Server kann beim Resume inzwischen wieder einen brauchbaren Snapshot fuer Lobby, aktive Frage, Reveal, Rangliste oder Endstand schicken.
+- Host-Snapshots enthalten den vollstaendigen Fragetext, Player-Snapshots bleiben Controller-Payloads.
 - Das bleibt bewusst pragmatisch: genug fuer kurze Aussetzer an einem Abend, nicht als grosses Recovery-System.
 
 ## Was ausdruecklich nicht Teil der Zielarchitektur ist

@@ -5,12 +5,12 @@ import { WebSocketServer } from "ws";
 
 import { EVENTS, parseClientToServerEnvelope } from "@quiz/shared-protocol";
 
-import { HEARTBEAT_INTERVAL_MS, PORT } from "./config.js";
+import { HEARTBEAT_INTERVAL_MS, HOST, PORT } from "./config.js";
 import { PROTOCOL_ERROR_CODES, sendEvent, sendProtocolError } from "./protocol.js";
 import type { TrackedWebSocket } from "./server-types.js";
 import { roomsById, sessionsById } from "./state.js";
 import { toKnownEventName, createRoom, closeRoom } from "./room.js";
-import { handleRoomJoin, handleConnectionResume } from "./lobby.js";
+import { handleRoomJoin, handleConnectionResume, handleRoomSettingsUpdate } from "./lobby.js";
 import { handleSocketClose } from "./session.js";
 import {
   handleGameStart,
@@ -88,9 +88,30 @@ websocketServer.on("close", () => {
   clearInterval(heartbeatInterval);
 });
 
-server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+server.on("error", (error: NodeJS.ErrnoException) => {
+  if (error.code === "EADDRINUSE") {
+    console.error(`Server port ${PORT} is already in use.`);
+  } else if (error.code === "EPERM") {
+    console.error(
+      `Server is not allowed to listen on ${HOST ?? "0.0.0.0"}:${PORT}. ` +
+        "Run it outside a restricted sandbox or adjust HOST/PORT.",
+    );
+  } else {
+    console.error("Server failed to start", error);
+  }
+
+  process.exit(1);
 });
+
+const logServerStarted = () => {
+  console.log(`Server running on ${HOST ?? "0.0.0.0"}:${PORT}`);
+};
+
+if (HOST) {
+  server.listen(PORT, HOST, logServerStarted);
+} else {
+  server.listen(PORT, logServerStarted);
+}
 
 function handleSocketMessage(socket: TrackedWebSocket, rawMessage: string): void {
   const parsedEnvelope = parseClientToServerEnvelope(rawMessage);
@@ -116,6 +137,10 @@ function handleSocketMessage(socket: TrackedWebSocket, rawMessage: string): void
 
     case EVENTS.ROOM_JOIN:
       handleRoomJoin(socket, parsedEnvelope.data.payload);
+      return;
+
+    case EVENTS.ROOM_SETTINGS_UPDATE:
+      handleRoomSettingsUpdate(socket, parsedEnvelope.data.payload);
       return;
 
     case EVENTS.CONNECTION_RESUME:

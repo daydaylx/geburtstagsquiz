@@ -34,7 +34,7 @@ Hinweis:
 
 | State | Bedeutung im Repo | Typische Uebergaenge |
 | --- | --- | --- |
-| `idle` | Spiel wurde gestartet, naechste Frage wird vorbereitet | `question:show` -> `question_active` |
+| `idle` | Spiel wurde gestartet, naechste Frage wird vorbereitet | `question:show`/`question:controller` -> `question_active` |
 | `question_active` | Frage ist offen, Antworten duerfen eingehen | Timerende oder alle Antworten da -> `answer_locked` |
 | `answer_locked` | Eingaben sind gesperrt, Server wertet aus | direkte Weitergabe an `revealing` |
 | `revealing` | Richtige Antwort und Rundenergebnisse werden gezeigt | nach kurzer Aufloesungszeit -> `scoreboard` |
@@ -76,6 +76,7 @@ Hinweise:
 ### Frage aktiv
 
 - alle verbundenen Spieler werden auf `answering` gesetzt
+- der Host bekommt die vollstaendige Frage, Player bekommen nur Controller-Daten
 - Antworten duerfen eingehen
 - Disconnects setzen einen Spieler auf `disconnected`
 

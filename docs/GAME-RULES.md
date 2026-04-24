@@ -12,7 +12,7 @@ Ein Host fuehrt ein simples Quiz mit den vorbereiteten Fragetypen durch.
 
 1. Host startet das Spiel.
 2. Der Server oeffnet die naechste Frage.
-3. Host und Player sehen dieselbe Frage.
+3. Der Host zeigt die vollstaendige Frage; Player sehen nur den Antwort-Controller.
 4. Der Timer laeuft serverseitig.
 5. Jeder Spieler kann eine Antwort absenden.
 6. Nach Timerende oder wenn alle geantwortet haben, wird die Frage geschlossen.
@@ -66,6 +66,7 @@ Der Host:
 - kann Kategorien fuer den Host-Flow vorbereiten, ohne dass daraus schon serverseitige Regeln behauptet werden
 - sieht den Fortschritt der Antworten
 - sieht, wie viele Spieler fuer die naechste Frage bereit sind
+- entscheidet in der Lobby, ob Antworttexte auf Handys sichtbar sein sollen
 - sieht Endstand und kann den Raum schliessen
 
 ### Spieler
@@ -74,6 +75,7 @@ Die Spieler:
 
 - treten per Code oder QR bei
 - geben einen Namen ein
+- schauen waehrend aktiver Fragen auf den Host-Bildschirm
 - senden eine Antwort pro Frage
 - sehen, ob die Antwort angenommen wurde
 - sehen bei der Aufloesung richtig/falsch, Punkte fuer die Frage, Rangliste und Endstand
@@ -84,6 +86,7 @@ Die Spieler:
 ### Hauptscreen
 
 - Frage gross und lesbar
+- Antwortoptionen beziehungsweise Ranking-Items mit Text klar sichtbar
 - Timer klar sichtbar
 - Rangliste einfach zu erfassen
 - Status, Fortschritt und Spieleruebersicht bleiben klar gegliedert
@@ -92,6 +95,8 @@ Die Spieler:
 ### Handy
 
 - grosse Buttons
+- waehrend aktiver Fragen kein vollstaendiger Fragetext
+- Antworttexte nur, wenn der Host sie bewusst in der Lobby einschaltet
 - moeglichst kein Scrollen im Kernfluss
 - klare Rueckmeldung nach dem Absenden
 - wenig Ablenkung

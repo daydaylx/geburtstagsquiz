@@ -1,4 +1,4 @@
-import { EVENTS } from "@quiz/shared-protocol";
+import { EVENTS, type QuestionShowPayload } from "@quiz/shared-protocol";
 import { evaluateEstimate, evaluateMultipleChoice, evaluateRanking } from "@quiz/quiz-engine";
 import { GameState, PlayerState, QuestionType, RoomState } from "@quiz/shared-types";
 import type { Question, SubmittedAnswer } from "@quiz/shared-types";
@@ -10,6 +10,7 @@ import { broadcastToRoom } from "./connection.js";
 import { getDefaultQuiz } from "./quiz-data.js";
 import { REVEAL_DURATION_MS } from "./config.js";
 import { isAnswerValidForQuestion } from "./answer-validation.js";
+import { toQuestionControllerPayload, toQuestionShowPayload } from "./question-payloads.js";
 
 const EVENING_QUESTION_COUNT_PER_TYPE = 6;
 const EVENING_QUESTION_TYPE_ORDER = [
@@ -26,6 +27,43 @@ export function getEveningQuestions(questions: Question[]): Question[] {
       .filter((question) => question.type === questionType)
       .slice(0, EVENING_QUESTION_COUNT_PER_TYPE),
   );
+}
+
+function sendQuestionForCurrentRole(
+  sessionSocket: TrackedWebSocket | null | undefined,
+  role: "host" | "player",
+  room: RoomRecord,
+  question: Question,
+  gameState: QuestionShowPayload["gameState"],
+): void {
+  if (role === "host") {
+    sendEvent(
+      sessionSocket,
+      EVENTS.QUESTION_SHOW,
+      toQuestionShowPayload(room, question, gameState),
+    );
+    return;
+  }
+
+  sendEvent(
+    sessionSocket,
+    EVENTS.QUESTION_CONTROLLER,
+    toQuestionControllerPayload(room, question, gameState),
+  );
+}
+
+function sendQuestionToRoom(
+  room: RoomRecord,
+  question: Question,
+  gameState: QuestionShowPayload["gameState"],
+): void {
+  const hostSession = sessionsById.get(room.hostSessionId);
+  sendQuestionForCurrentRole(hostSession?.socket, "host", room, question, gameState);
+
+  for (const player of room.players) {
+    const session = sessionsById.get(player.sessionId);
+    sendQuestionForCurrentRole(session?.socket, "player", room, question, gameState);
+  }
 }
 
 export function handleGameStart(socket: TrackedWebSocket, roomId: string): void {
@@ -194,7 +232,11 @@ export function handleAnswerSubmit(
     return;
   }
 
-  if (!room.quiz || room.currentQuestionIndex === null) {
+  if (
+    !room.quiz ||
+    room.currentQuestionIndex === null ||
+    room.currentQuestionIndex >= room.quiz.questions.length
+  ) {
     sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "No active question", {
       event: EVENTS.ANSWER_SUBMIT,
       roomId: room.id,
@@ -294,7 +336,7 @@ export function handleAnswerSubmit(
     playerId: player.id,
     questionId: payload.questionId,
     answer: payload.answer,
-    submittedAtMs: now - (room.questionStartedAt ?? now),
+    submittedAtMs: Math.max(0, now - (room.questionStartedAt ?? now)),
     requestId: payload.requestId,
   };
 
@@ -345,7 +387,11 @@ export function handleNextQuestionReady(
     return;
   }
 
-  if (!room.quiz || room.currentQuestionIndex === null) {
+  if (
+    !room.quiz ||
+    room.currentQuestionIndex === null ||
+    room.currentQuestionIndex >= room.quiz.questions.length
+  ) {
     sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "No active question", {
       event: EVENTS.NEXT_QUESTION_READY,
       roomId: room.id,
@@ -413,7 +459,12 @@ export function handleNextQuestionReady(
 }
 
 function startQuestion(room: RoomRecord): void {
-  if (!room.quiz || room.currentQuestionIndex === null) return;
+  if (
+    !room.quiz ||
+    room.currentQuestionIndex === null ||
+    room.currentQuestionIndex >= room.quiz.questions.length
+  )
+    return;
 
   if (room.revealTimer) {
     clearTimeout(room.revealTimer);
@@ -440,39 +491,8 @@ function startQuestion(room: RoomRecord): void {
     questionId: question.id,
   });
 
-  const baseShowFields = {
-    roomId: room.id,
-    questionId: question.id,
-    questionIndex: room.currentQuestionIndex,
-    totalQuestionCount: room.quiz.questions.length,
-    text: question.text,
-    durationMs: question.durationMs,
-    gameState: GameState.QuestionActive as const,
-  };
-
-  if (question.type === QuestionType.MultipleChoice || question.type === QuestionType.Logic) {
-    broadcastToRoom(room, EVENTS.QUESTION_SHOW, {
-      ...baseShowFields,
-      type: question.type,
-      options: question.options,
-    });
-  } else if (
-    question.type === QuestionType.Estimate ||
-    question.type === QuestionType.MajorityGuess
-  ) {
-    broadcastToRoom(room, EVENTS.QUESTION_SHOW, {
-      ...baseShowFields,
-      type: question.type,
-      unit: question.unit,
-      context: question.context,
-    });
-  } else if (question.type === QuestionType.Ranking) {
-    broadcastToRoom(room, EVENTS.QUESTION_SHOW, {
-      ...baseShowFields,
-      type: question.type,
-      items: question.items,
-    });
-  }
+  sendQuestionToRoom(room, question, GameState.QuestionActive);
+  handleAnswerEligibilityChanged(room);
 
   const remainingMs = () => {
     const elapsed = Date.now() - now;
@@ -509,7 +529,11 @@ export function handleAnswerEligibilityChanged(room: RoomRecord): void {
     return;
   }
 
-  if (!room.quiz || room.currentQuestionIndex === null) {
+  if (
+    !room.quiz ||
+    room.currentQuestionIndex === null ||
+    room.currentQuestionIndex >= room.quiz.questions.length
+  ) {
     return;
   }
 
@@ -560,7 +584,12 @@ function closeQuestion(room: RoomRecord): void {
 
   room.gameState = GameState.AnswerLocked;
 
-  if (!room.quiz || room.currentQuestionIndex === null) return;
+  if (
+    !room.quiz ||
+    room.currentQuestionIndex === null ||
+    room.currentQuestionIndex >= room.quiz.questions.length
+  )
+    return;
 
   const question = room.quiz.questions[room.currentQuestionIndex];
 
@@ -640,7 +669,11 @@ function evaluateQuestion(room: RoomRecord, question: Question): void {
       return;
     }
 
-    if (!room.quiz || room.currentQuestionIndex === null) {
+    if (
+      !room.quiz ||
+      room.currentQuestionIndex === null ||
+      room.currentQuestionIndex >= room.quiz.questions.length
+    ) {
       return;
     }
 
@@ -682,7 +715,11 @@ export function handleScoreboardReadinessChanged(room: RoomRecord): void {
     return;
   }
 
-  if (!room.quiz || room.currentQuestionIndex === null) {
+  if (
+    !room.quiz ||
+    room.currentQuestionIndex === null ||
+    room.currentQuestionIndex >= room.quiz.questions.length
+  ) {
     return;
   }
 

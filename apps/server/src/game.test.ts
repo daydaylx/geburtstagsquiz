@@ -77,9 +77,37 @@ describe("getAnswerProgress", () => {
       totalEligiblePlayers: 2,
     });
   });
+
+  it("returns zeros when no players are eligible", () => {
+    expect(
+      getAnswerProgress({
+        players: [makePlayer("p1", PlayerState.Disconnected)],
+        currentAnswers: new Map(),
+      }),
+    ).toEqual({
+      answeredCount: 0,
+      totalEligiblePlayers: 0,
+    });
+  });
+
+  it("returns zeros when there are no players", () => {
+    expect(
+      getAnswerProgress({
+        players: [],
+        currentAnswers: new Map(),
+      }),
+    ).toEqual({
+      answeredCount: 0,
+      totalEligiblePlayers: 0,
+    });
+  });
 });
 
 describe("getEveningQuestions", () => {
+  it("handles empty question list", () => {
+    expect(getEveningQuestions([])).toEqual([]);
+  });
+
   it("keeps the first six questions per supported question type", () => {
     const questions = [
       ...Array.from({ length: 8 }, (_, index) =>

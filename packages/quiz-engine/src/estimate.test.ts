@@ -53,4 +53,10 @@ describe("evaluateEstimate", () => {
     expect(result.playerResults.find(r => r.playerId === "p1")?.pointsEarned).toBe(0);
     expect(result.playerResults.find(r => r.playerId === "p2")?.isCorrect).toBe(true);
   });
+
+  it("should handle empty answers array", () => {
+    const result = evaluateEstimate(question, []);
+    expect(result.playerResults).toHaveLength(0);
+    expect(result.correctAnswer).toEqual({ type: "number", value: 100 });
+  });
 });

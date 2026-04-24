@@ -134,6 +134,7 @@ export function App() {
   const [selectedCategoryIds, setSelectedCategoryIds] = useState<HostCategoryId[]>(
     DEFAULT_SELECTED_CATEGORY_IDS,
   );
+  const [showAnswerTextOnPlayerDevices, setShowAnswerTextOnPlayerDevices] = useState(false);
 
   const socketRef = useRef<WebSocket | null>(null);
   const reconnectTimerRef = useRef<number | null>(null);
@@ -184,6 +185,7 @@ export function App() {
     setFinalResult(null);
     setCurrentQuestionIndex(null);
     setTotalQuestionCount(null);
+    setShowAnswerTextOnPlayerDevices(false);
   });
 
   const createRoomOnCurrentSocket = useEffectEvent(() => {
@@ -240,6 +242,7 @@ export function App() {
           roomId: parsedEnvelope.data.payload.roomId,
           joinCode: parsedEnvelope.data.payload.joinCode,
         });
+        setShowAnswerTextOnPlayerDevices(false);
         setScreen("lobby");
         setIsCreatingRoom(false);
         setNotice(null);
@@ -264,6 +267,9 @@ export function App() {
 
       case EVENTS.LOBBY_UPDATE:
         setLobby(parsedEnvelope.data.payload);
+        setShowAnswerTextOnPlayerDevices(
+          parsedEnvelope.data.payload.settings.showAnswerTextOnPlayerDevices,
+        );
         return;
 
       case EVENTS.GAME_STARTED:
@@ -389,6 +395,20 @@ export function App() {
     }
   });
 
+  const handleAnswerTextSettingChange = useEffectEvent((enabled: boolean) => {
+    if (!roomInfo || screen !== "lobby") return;
+    setShowAnswerTextOnPlayerDevices(enabled);
+    setNotice(null);
+    const sent = sendClientEvent(EVENTS.ROOM_SETTINGS_UPDATE, {
+      roomId: roomInfo.roomId,
+      showAnswerTextOnPlayerDevices: enabled,
+    });
+
+    if (!sent) {
+      setNotice({ kind: "error", text: "Einstellung konnte nicht gesendet werden." });
+    }
+  });
+
   const handleAdvanceQuestion = useEffectEvent(() => {
     if (roomInfo) {
       setNotice(null);
@@ -439,22 +459,22 @@ export function App() {
         <div className="host-panel-content">
           <p className="host-section-label">Lobby / Join</p>
           <div className="host-start-container">
-            <div className="host-card host-card--dark host-start-card">
+            <div className="host-card host-card--dark host-start-card pulse">
               <p className="host-control-label">Raumcode</p>
               <p className="host-join-code">{roomInfo.joinCode}</p>
               {!loopback && qrCodeDataUrl && (
-                <div className="host-qr-mini pulse">
+                <div className="host-qr-mini">
                   <img alt="QR-Code" src={qrCodeDataUrl} />
                 </div>
               )}
             </div>
-            <div className="host-card" style={{ marginTop: "16px" }}>
+            <div className="host-card">
               <p className="host-section-label">Player Link</p>
               <code
                 style={{
-                  fontSize: "0.8rem",
+                  fontSize: "0.85rem",
                   wordBreak: "break-all",
-                  color: "var(--host-ink-soft)",
+                  color: "var(--host-neon-cyan)",
                 }}
               >
                 {joinUrl}
@@ -501,7 +521,8 @@ export function App() {
             <div className="host-ranking-list">
               {question.items.map((item) => (
                 <div className="host-ranking-item" key={item.id}>
-                  {item.label}
+                  <span className="host-option-id">{item.id}</span>
+                  <span>{item.label}</span>
                 </div>
               ))}
             </div>
@@ -575,7 +596,8 @@ export function App() {
                 return (
                   <div className="host-ranking-item" key={id}>
                     <span style={{ fontWeight: 700, marginRight: "8px" }}>{i + 1}.</span>
-                    {item?.label ?? id}
+                    <span className="host-option-id">{id}</span>
+                    <span>{item?.label ?? id}</span>
                   </div>
                 );
               })}
@@ -686,15 +708,14 @@ export function App() {
           }}
         >
           <div className="host-start-container">
-            <h2 className="host-stage-title" style={{ fontSize: "3rem", marginBottom: "24px" }}>
+            <h2 className="host-stage-title" style={{ fontSize: "3.5rem", fontWeight: 900, marginBottom: "32px" }}>
               Bereit für das Quiz?
             </h2>
             <button
-              className="host-primary-button"
+              className="host-primary-button pulse"
               disabled={connectionState !== "connected" || isCreatingRoom}
               onClick={handleCreateRoom}
               type="button"
-              style={{ fontSize: "1.5rem", padding: "20px 48px" }}
             >
               {isCreatingRoom ? "Erstelle Raum..." : "Neues Quiz starten"}
             </button>
@@ -771,6 +792,22 @@ export function App() {
                     ))}
                   </div>
                 </div>
+              </div>
+              <div className="host-card">
+                <p className="host-section-label">Handy-Controller</p>
+                <label className="host-toggle-row">
+                  <input
+                    checked={showAnswerTextOnPlayerDevices}
+                    disabled={screen !== "lobby"}
+                    onChange={(event) => handleAnswerTextSettingChange(event.target.checked)}
+                    type="checkbox"
+                  />
+                  <span className="host-toggle-track" />
+                  <span className="host-toggle-copy">
+                    <strong>Antworttexte auf Handys</strong>
+                    <small>{showAnswerTextOnPlayerDevices ? "An" : "Aus"}</small>
+                  </span>
+                </label>
               </div>
               <div className="host-card">
                 <p className="host-section-label">Kategorien</p>

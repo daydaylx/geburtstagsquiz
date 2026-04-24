@@ -9,7 +9,7 @@ import {
   type LobbyUpdatePayload,
   type NextQuestionReadyProgressPayload,
   type QuestionRevealPayload,
-  type QuestionShowPayload,
+  type QuestionControllerPayload,
   type ScoreUpdatePayload,
   type GameFinishedPayload,
   type ConnectionResumedPayload,
@@ -93,6 +93,31 @@ function getProtocolErrorMessage(code: string, fallback: string): string {
   }
 }
 
+function getQuestionKindLabel(type: QuestionType): string {
+  switch (type) {
+    case QuestionType.Estimate:
+      return "Schätzfrage";
+    case QuestionType.MajorityGuess:
+      return "Mehrheitsfrage";
+    case QuestionType.Ranking:
+      return "Reihenfolge";
+    case QuestionType.Logic:
+      return "Denkfrage";
+    default:
+      return "Frage";
+  }
+}
+
+function formatControllerAnswer(
+  answer: QuestionRevealPayload["correctAnswer"] | null | undefined,
+  unit?: string,
+): string {
+  if (!answer) return "-";
+  if (answer.type === "option") return answer.value;
+  if (answer.type === "number") return `${answer.value}${unit ? ` ${unit}` : ""}`;
+  return answer.value.join(" > ");
+}
+
 export function App() {
   const initialSession = loadPlayerStoredSession();
 
@@ -105,7 +130,7 @@ export function App() {
   const [isJoining, setIsJoining] = useState(false);
 
   const [screen, setScreen] = useState<PlayerScreen>(initialSession ? "lobby" : "join");
-  const [question, setQuestion] = useState<QuestionShowPayload | null>(null);
+  const [question, setQuestion] = useState<QuestionControllerPayload | null>(null);
   const [remainingMs, setRemainingMs] = useState<number>(0);
   const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
   const [estimateValue, setEstimateValue] = useState<string>("");
@@ -126,7 +151,7 @@ export function App() {
   const shouldReconnectRef = useRef(true);
   const playerSessionRef = useRef<PlayerStoredSession | null>(initialSession);
   const lastJoinAttemptRef = useRef<JoinAttempt | null>(null);
-  const resumedAnswerOptionIdRef = useRef<string | null>(null);
+  const resumedAnswerRef = useRef<ConnectionResumedPayload["currentAnswer"] | null>(null);
   const intentionalReconnectRef = useRef(false);
 
   const clearReconnectTimer = useEffectEvent(() => {
@@ -156,6 +181,8 @@ export function App() {
     setScoreboard(null);
     setNextQuestionReadyProgress(null);
     setFinalResult(null);
+    setEstimateValue("");
+    setRankingOrder([]);
   });
 
   const sendClientEvent = useEffectEvent(
@@ -295,10 +322,7 @@ export function App() {
           playerName: resumedPlayerName,
           joinCode: resumedPayload.joinCode,
         });
-        resumedAnswerOptionIdRef.current =
-          resumedPayload.currentAnswer?.type === "option"
-            ? resumedPayload.currentAnswer.value
-            : null;
+        resumedAnswerRef.current = resumedPayload.currentAnswer ?? null;
         setRoomId(resumedPayload.roomId);
         setJoinCode(resumedPayload.joinCode);
         setPlayerName(resumedPlayerName);
@@ -317,19 +341,20 @@ export function App() {
         setLobby(parsedEnvelope.data.payload);
         return;
 
-      case EVENTS.QUESTION_SHOW:
+      case EVENTS.QUESTION_CONTROLLER:
+        const resumedAnswer = resumedAnswerRef.current;
         setQuestion(parsedEnvelope.data.payload);
         setRemainingMs(parsedEnvelope.data.payload.durationMs);
-        setSelectedOptionId(resumedAnswerOptionIdRef.current);
-        setEstimateValue("");
-        setRankingOrder([]);
-        setAnswerStatus(resumedAnswerOptionIdRef.current ? "accepted" : "idle");
+        setSelectedOptionId(resumedAnswer?.type === "option" ? resumedAnswer.value : null);
+        setEstimateValue(resumedAnswer?.type === "number" ? String(resumedAnswer.value) : "");
+        setRankingOrder(resumedAnswer?.type === "ranking" ? resumedAnswer.value : []);
+        setAnswerStatus(resumedAnswer ? "accepted" : "idle");
         setCorrectAnswer(null);
         setRoundResults([]);
         setScoreboard(null);
         setNextQuestionReadyProgress(null);
         setScreen("question");
-        resumedAnswerOptionIdRef.current = null;
+        resumedAnswerRef.current = null;
         return;
 
       case EVENTS.QUESTION_TIMER:
@@ -560,41 +585,66 @@ export function App() {
 
         {screen === "question" && question && (
           <>
-            <div className="player-card">
+            <div className="player-card player-controller-card">
               <span className="player-kicker">
-                {question.type === QuestionType.Estimate
-                  ? "Schätzfrage"
-                  : question.type === QuestionType.MajorityGuess
-                    ? "Mehrheitsfrage"
-                    : question.type === QuestionType.Ranking
-                      ? "Reihenfolge"
-                      : question.type === QuestionType.Logic
-                        ? "Denkfrage"
-                        : "Frage"}{" "}
-                · {question.questionIndex + 1}
+                {getQuestionKindLabel(question.type)} · Frage {question.questionIndex + 1} /{" "}
+                {question.totalQuestionCount}
               </span>
-              <h2 className="player-question-text">{question.text}</h2>
-              {(question.type === QuestionType.Estimate ||
-                question.type === QuestionType.MajorityGuess) && (
-                <p className="player-question-unit">
-                  {question.unit} · {question.context}
-                </p>
+              <h2 className="player-controller-title">
+                {answerStatus === "accepted"
+                  ? "Antwort gespeichert"
+                  : "Schau auf den Host-Bildschirm"}
+              </h2>
+              <p className="player-controller-copy">
+                {answerStatus === "accepted"
+                  ? "Warte auf die Auflösung."
+                  : "Die Frage und Antworttexte stehen vorne auf dem Hauptbildschirm."}
+              </p>
+              {answerStatus === "submitting" && (
+                <div className="player-controller-status">Sende Antwort...</div>
+              )}
+              {answerStatus === "accepted" && (
+                <div className="player-controller-status" data-state="saved">
+                  {selectedOptionId && <span>Du hast {selectedOptionId} gewählt.</span>}
+                  {!selectedOptionId && estimateValue && (
+                    <span>
+                      Deine Schätzung: {estimateValue}{" "}
+                      {(question.type === QuestionType.Estimate ||
+                        question.type === QuestionType.MajorityGuess) &&
+                        question.unit}
+                    </span>
+                  )}
+                  {!selectedOptionId && rankingOrder.length > 0 && (
+                    <span>Deine Reihenfolge: {rankingOrder.join(" > ")}</span>
+                  )}
+                </div>
+              )}
+              {answerStatus === "locked" && (
+                <div className="player-controller-status" data-state="locked">
+                  Zeit abgelaufen
+                </div>
+              )}
+              {answerStatus === "rejected" && (
+                <div className="player-controller-status" data-state="error">
+                  Antwort nicht angenommen
+                </div>
               )}
             </div>
 
             {(question.type === QuestionType.MultipleChoice ||
               question.type === QuestionType.Logic) && (
-              <div className="player-options-list">
+              <div className="player-controller-options">
                 {question.options.map((opt) => (
                   <button
                     key={opt.id}
-                    className="player-option-button"
+                    className="player-controller-option"
                     data-state={selectedOptionId === opt.id ? "selected" : "idle"}
                     disabled={answerStatus !== "idle"}
                     onClick={() => handleSubmitAnswer(opt.id)}
+                    type="button"
                   >
-                    <span>{opt.label}</span>
-                    {selectedOptionId === opt.id && <span style={{ fontSize: "0.8rem" }}>✓</span>}
+                    <span className="player-controller-option-id">{opt.label}</span>
+                    {opt.text && <span className="player-controller-option-text">{opt.text}</span>}
                   </button>
                 ))}
               </div>
@@ -625,7 +675,9 @@ export function App() {
 
             {question.type === QuestionType.Ranking && (
               <div className="player-ranking-area">
-                <p className="player-ranking-hint">Tippe in der richtigen Reihenfolge:</p>
+                <p className="player-ranking-hint">
+                  Tippe die IDs in der Reihenfolge vom Host-Bildschirm.
+                </p>
                 <div className="player-ranking-pool">
                   {question.items
                     .filter((item) => !rankingOrder.includes(item.id))
@@ -637,7 +689,8 @@ export function App() {
                         onClick={() => setRankingOrder([...rankingOrder, item.id])}
                         type="button"
                       >
-                        {item.label}
+                        <span>{item.label}</span>
+                        {item.text && <small>{item.text}</small>}
                       </button>
                     ))}
                 </div>
@@ -649,6 +702,7 @@ export function App() {
                         <div key={id} className="player-ranking-slot">
                           <span className="player-ranking-pos">{i + 1}.</span>
                           <span>{item.label}</span>
+                          {item.text && <small>{item.text}</small>}
                           {answerStatus === "idle" && (
                             <button
                               className="player-ranking-remove"
@@ -674,31 +728,6 @@ export function App() {
                 </button>
               </div>
             )}
-
-            {answerStatus === "accepted" && (
-              <div
-                className="player-feedback"
-                style={{ background: "var(--player-teal)", color: "white" }}
-              >
-                Antwort gespeichert!
-              </div>
-            )}
-            {answerStatus === "locked" && (
-              <div
-                className="player-feedback"
-                style={{ background: "var(--player-line)", color: "var(--player-ink)" }}
-              >
-                Zeit abgelaufen
-              </div>
-            )}
-            {answerStatus === "rejected" && (
-              <div
-                className="player-feedback"
-                style={{ background: "var(--player-red)", color: "white" }}
-              >
-                Antwort nicht angenommen
-              </div>
-            )}
           </>
         )}
 
@@ -708,69 +737,40 @@ export function App() {
               {isSelfCorrect ? "RICHTIG!" : "LEIDER FALSCH"}
             </div>
             <div className="player-card">
-              <span className="player-kicker">Ergebnis</span>
+              <span className="player-kicker">Auflösung</span>
+              <h2 className="player-title">Schau auf den Host-Bildschirm</h2>
               <p style={{ margin: 0, fontWeight: 700 }}>
                 {ownRoundResult?.pointsEarned ?? 0} Punkte verdient.
               </p>
-            </div>
-
-            {(question?.type === QuestionType.MultipleChoice ||
-              question?.type === QuestionType.Logic) && (
-              <div className="player-options-list">
-                {question.options.map((opt) => {
-                  const isCorrect =
-                    correctAnswer?.type === "option" && correctAnswer.value === opt.id;
-                  const wasSelected =
-                    (ownRoundResult?.answer?.type === "option"
-                      ? ownRoundResult.answer.value
-                      : selectedOptionId) === opt.id;
-                  return (
-                    <div
-                      key={opt.id}
-                      className="player-option-card"
-                      data-state={isCorrect ? "correct" : wasSelected ? "wrong" : "dimmed"}
-                    >
-                      <span>{opt.label}</span>
-                      {isCorrect && <span>✓</span>}
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-
-            {(question?.type === QuestionType.Estimate ||
-              question?.type === QuestionType.MajorityGuess) && (
-              <div className="player-estimate-result">
-                <div className="player-estimate-result-row">
-                  <span>Deine Schätzung</span>
+              <div className="player-result-lines">
+                <div>
+                  <span>Deine Antwort</span>
                   <strong>
-                    {ownRoundResult?.answer?.type === "number" ? ownRoundResult.answer.value : "–"}{" "}
-                    {question.unit}
+                    {formatControllerAnswer(
+                      ownRoundResult?.answer ?? null,
+                      question &&
+                        (question.type === QuestionType.Estimate ||
+                          question.type === QuestionType.MajorityGuess)
+                        ? question.unit
+                        : undefined,
+                    )}
                   </strong>
                 </div>
-                <div className="player-estimate-result-row player-estimate-result-correct">
+                <div>
                   <span>Richtig</span>
                   <strong>
-                    {correctAnswer?.type === "number" ? correctAnswer.value : "–"} {question.unit}
+                    {formatControllerAnswer(
+                      correctAnswer,
+                      question &&
+                        (question.type === QuestionType.Estimate ||
+                          question.type === QuestionType.MajorityGuess)
+                        ? question.unit
+                        : undefined,
+                    )}
                   </strong>
                 </div>
               </div>
-            )}
-
-            {question?.type === QuestionType.Ranking && correctAnswer?.type === "ranking" && (
-              <div className="player-ranking-result">
-                <p className="player-ranking-hint">Richtige Reihenfolge:</p>
-                {correctAnswer.value.map((id, i) => {
-                  const item = question.items.find((x) => x.id === id);
-                  return (
-                    <div key={id} className="player-ranking-slot">
-                      <span className="player-ranking-pos">{i + 1}.</span>
-                      <span>{item?.label ?? id}</span>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
+            </div>
           </>
         )}
 
@@ -783,19 +783,12 @@ export function App() {
                 <div style={{ fontWeight: 700 }}>{ownScoreboardEntry.score} Punkte</div>
               </div>
             )}
-            <div className="player-scoreboard-list">
-              {scoreboard?.scoreboard.map((e, i) => (
-                <div
-                  key={e.playerId}
-                  className="player-scoreboard-item"
-                  data-self={e.playerId === ownPlayerId}
-                >
-                  <span>
-                    {i + 1}. {e.name}
-                  </span>
-                  <strong>{e.score}</strong>
-                </div>
-              ))}
+            <div className="player-card">
+              <span className="player-kicker">Zwischenstand</span>
+              <h2 className="player-title">Gesamtrangliste vorne</h2>
+              <p style={{ color: "var(--player-ink-soft)", marginBottom: 0 }}>
+                Warte auf die nächste Frage und schau auf den Host-Bildschirm.
+              </p>
             </div>
             <button
               className="player-primary-button"

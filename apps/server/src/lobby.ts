@@ -226,6 +226,63 @@ export function handleConnectionResume(
   resumeSession(socket, session, room, EVENTS.CONNECTION_RESUME);
 }
 
+export function handleRoomSettingsUpdate(
+  socket: TrackedWebSocket,
+  payload: import("@quiz/shared-protocol").RoomSettingsUpdatePayload,
+): void {
+  const room = roomsById.get(payload.roomId);
+
+  if (!room) {
+    sendProtocolError(socket, PROTOCOL_ERROR_CODES.ROOM_NOT_FOUND, "Room not found", {
+      event: EVENTS.ROOM_SETTINGS_UPDATE,
+      roomId: payload.roomId,
+      questionId: null,
+    });
+    return;
+  }
+
+  const session = socket.sessionId ? sessionsById.get(socket.sessionId) : null;
+
+  if (!session || session.role !== "host" || session.roomId !== room.id) {
+    sendProtocolError(
+      socket,
+      PROTOCOL_ERROR_CODES.NOT_AUTHORIZED,
+      "Only the host can update room settings",
+      {
+        event: EVENTS.ROOM_SETTINGS_UPDATE,
+        roomId: room.id,
+        questionId: null,
+      },
+    );
+    return;
+  }
+
+  if (room.state !== RoomState.Waiting) {
+    sendProtocolError(
+      socket,
+      PROTOCOL_ERROR_CODES.INVALID_STATE,
+      "Room settings can only be changed in the lobby",
+      {
+        event: EVENTS.ROOM_SETTINGS_UPDATE,
+        roomId: room.id,
+        questionId: null,
+      },
+    );
+    return;
+  }
+
+  room.settings = {
+    showAnswerTextOnPlayerDevices: payload.showAnswerTextOnPlayerDevices,
+  };
+  room.lastActivityAt = Date.now();
+
+  logRoomEvent("room:settings:update", room, {
+    showAnswerTextOnPlayerDevices: String(room.settings.showAnswerTextOnPlayerDevices),
+  });
+
+  broadcastLobbyUpdate(room);
+}
+
 export function broadcastLobbyUpdate(room: RoomRecord): void {
   if (room.state === RoomState.Closed) {
     return;

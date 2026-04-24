@@ -93,6 +93,20 @@ describe("parseClientToServerEnvelope", () => {
     }
   });
 
+  it("accepts a valid room:settings:update payload", () => {
+    const envelope = serializeEnvelope(EVENTS.ROOM_SETTINGS_UPDATE, {
+      roomId: "room-1",
+      showAnswerTextOnPlayerDevices: true,
+    });
+
+    const result = parseClientToServerEnvelope(envelope);
+
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.event).toBe(EVENTS.ROOM_SETTINGS_UPDATE);
+    }
+  });
+
   it("rejects a payload with missing required fields", () => {
     const raw = JSON.stringify({ event: EVENTS.ANSWER_SUBMIT, payload: { roomId: "room-1" } });
 
@@ -164,6 +178,53 @@ describe("parseServerToClientEnvelope", () => {
     if (result.success && result.data.event === EVENTS.QUESTION_SHOW) {
       expect(result.data.payload.gameState).toBe("scoreboard");
     }
+  });
+
+  it("accepts a reduced question:controller payload without question text", () => {
+    const envelope = JSON.stringify({
+      event: EVENTS.QUESTION_CONTROLLER,
+      payload: {
+        roomId: "room-1",
+        questionId: "q1",
+        questionIndex: 0,
+        totalQuestionCount: 7,
+        type: "multiple_choice",
+        options: [
+          { id: "A", label: "A" },
+          { id: "B", label: "B" },
+        ],
+        durationMs: 15000,
+        gameState: "question_active",
+      },
+    });
+
+    const result = parseServerToClientEnvelope(envelope);
+
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.event).toBe(EVENTS.QUESTION_CONTROLLER);
+    }
+  });
+
+  it("rejects question:controller payloads that include full question text", () => {
+    const envelope = JSON.stringify({
+      event: EVENTS.QUESTION_CONTROLLER,
+      payload: {
+        roomId: "room-1",
+        questionId: "q1",
+        questionIndex: 0,
+        totalQuestionCount: 7,
+        type: "multiple_choice",
+        text: "This should stay on the host.",
+        options: [{ id: "A", label: "A" }],
+        durationMs: 15000,
+        gameState: "question_active",
+      },
+    });
+
+    const result = parseServerToClientEnvelope(envelope);
+
+    expect(result.success).toBe(false);
   });
 
   it("accepts a valid score:update payload", () => {

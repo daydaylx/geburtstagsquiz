@@ -52,6 +52,12 @@ export const QuestionDisplayGameStateSchema = z.enum([
   GameState.Scoreboard,
 ] as const);
 
+export const RoomSettingsSchema = z
+  .object({
+    showAnswerTextOnPlayerDevices: z.boolean(),
+  })
+  .strict();
+
 export const ClientInfoSchema = z
   .object({
     deviceType: z.string().min(1),
@@ -63,6 +69,14 @@ export const QuestionOptionSchema = z
   .object({
     id: idSchema,
     label: z.string().min(1),
+  })
+  .strict();
+
+export const QuestionControllerOptionSchema = z
+  .object({
+    id: idSchema,
+    label: z.string().min(1),
+    text: z.string().min(1).optional(),
   })
   .strict();
 
@@ -165,6 +179,13 @@ export const RoomCreatedPayloadSchema = z
   })
   .strict();
 
+export const RoomSettingsUpdatePayloadSchema = z
+  .object({
+    roomId: idSchema,
+    showAnswerTextOnPlayerDevices: z.boolean(),
+  })
+  .strict();
+
 export const RoomJoinPayloadSchema = z
   .object({
     joinCode: joinCodeSchema,
@@ -188,6 +209,7 @@ export const LobbyUpdatePayloadSchema = z
     roomId: idSchema,
     roomState: RoomStateSchema,
     hostConnected: z.boolean(),
+    settings: RoomSettingsSchema,
     players: z.array(LobbyPlayerSchema),
     playerCount: z.number().int().nonnegative(),
   })
@@ -237,6 +259,15 @@ const questionShowBaseFields = {
   gameState: QuestionDisplayGameStateSchema,
 };
 
+const questionControllerBaseFields = {
+  roomId: idSchema,
+  questionId: idSchema,
+  questionIndex: z.number().int().nonnegative(),
+  totalQuestionCount: z.number().int().nonnegative(),
+  durationMs: z.number().int().positive(),
+  gameState: QuestionDisplayGameStateSchema,
+};
+
 export const QuestionShowPayloadSchema = z.discriminatedUnion("type", [
   z
     .object({
@@ -273,6 +304,54 @@ export const QuestionShowPayloadSchema = z.discriminatedUnion("type", [
       ...questionShowBaseFields,
       type: z.literal(QuestionType.Ranking),
       items: z.array(QuestionOptionSchema),
+    })
+    .strict(),
+]);
+
+export const QuestionControllerPayloadSchema = z.discriminatedUnion("type", [
+  z
+    .object({
+      ...questionControllerBaseFields,
+      type: z.literal(QuestionType.MultipleChoice),
+      options: z.array(QuestionControllerOptionSchema),
+    })
+    .strict(),
+  z
+    .object({
+      ...questionControllerBaseFields,
+      type: z.literal(QuestionType.Logic),
+      options: z.array(QuestionControllerOptionSchema),
+    })
+    .strict(),
+  z
+    .object({
+      roomId: idSchema,
+      questionId: idSchema,
+      questionIndex: z.number().int().nonnegative(),
+      totalQuestionCount: z.number().int().nonnegative(),
+      type: z.literal(QuestionType.Estimate),
+      unit: z.string().min(1),
+      durationMs: z.number().int().positive(),
+      gameState: QuestionDisplayGameStateSchema,
+    })
+    .strict(),
+  z
+    .object({
+      roomId: idSchema,
+      questionId: idSchema,
+      questionIndex: z.number().int().nonnegative(),
+      totalQuestionCount: z.number().int().nonnegative(),
+      type: z.literal(QuestionType.MajorityGuess),
+      unit: z.string().min(1),
+      durationMs: z.number().int().positive(),
+      gameState: QuestionDisplayGameStateSchema,
+    })
+    .strict(),
+  z
+    .object({
+      ...questionControllerBaseFields,
+      type: z.literal(QuestionType.Ranking),
+      items: z.array(QuestionControllerOptionSchema),
     })
     .strict(),
 ]);
@@ -425,6 +504,7 @@ export const ErrorPayloadSchema = z
 export const HOST_TO_SERVER_EVENT_SCHEMAS = {
   [EVENTS.CONNECTION_RESUME]: ConnectionResumePayloadSchema,
   [EVENTS.ROOM_CREATE]: RoomCreatePayloadSchema,
+  [EVENTS.ROOM_SETTINGS_UPDATE]: RoomSettingsUpdatePayloadSchema,
   [EVENTS.GAME_START]: GameStartPayloadSchema,
   [EVENTS.GAME_NEXT_QUESTION]: GameNextQuestionPayloadSchema,
   [EVENTS.ROOM_CLOSE]: RoomClosePayloadSchema,
@@ -470,7 +550,7 @@ export const SERVER_TO_PLAYER_EVENT_SCHEMAS = {
   [EVENTS.PLAYER_RECONNECTED]: PlayerReconnectedPayloadSchema,
   [EVENTS.PLAYER_DISCONNECTED]: PlayerDisconnectedPayloadSchema,
   [EVENTS.GAME_STARTED]: GameStartedPayloadSchema,
-  [EVENTS.QUESTION_SHOW]: QuestionShowPayloadSchema,
+  [EVENTS.QUESTION_CONTROLLER]: QuestionControllerPayloadSchema,
   [EVENTS.QUESTION_TIMER]: QuestionTimerPayloadSchema,
   [EVENTS.ANSWER_ACCEPTED]: AnswerAcceptedPayloadSchema,
   [EVENTS.ANSWER_REJECTED]: AnswerRejectedPayloadSchema,
@@ -493,6 +573,7 @@ export type ConnectionResumePayload = z.infer<typeof ConnectionResumePayloadSche
 export type ConnectionResumedPayload = z.infer<typeof ConnectionResumedPayloadSchema>;
 export type RoomCreatePayload = z.infer<typeof RoomCreatePayloadSchema>;
 export type RoomCreatedPayload = z.infer<typeof RoomCreatedPayloadSchema>;
+export type RoomSettingsUpdatePayload = z.infer<typeof RoomSettingsUpdatePayloadSchema>;
 export type RoomJoinPayload = z.infer<typeof RoomJoinPayloadSchema>;
 export type PlayerJoinedPayload = z.infer<typeof PlayerJoinedPayloadSchema>;
 export type LobbyUpdatePayload = z.infer<typeof LobbyUpdatePayloadSchema>;
@@ -501,6 +582,7 @@ export type PlayerDisconnectedPayload = z.infer<typeof PlayerDisconnectedPayload
 export type GameStartPayload = z.infer<typeof GameStartPayloadSchema>;
 export type GameStartedPayload = z.infer<typeof GameStartedPayloadSchema>;
 export type QuestionShowPayload = z.infer<typeof QuestionShowPayloadSchema>;
+export type QuestionControllerPayload = z.infer<typeof QuestionControllerPayloadSchema>;
 export type QuestionTimerPayload = z.infer<typeof QuestionTimerPayloadSchema>;
 export type AnswerSubmitPayload = z.infer<typeof AnswerSubmitPayloadSchema>;
 export type AnswerAcceptedPayload = z.infer<typeof AnswerAcceptedPayloadSchema>;

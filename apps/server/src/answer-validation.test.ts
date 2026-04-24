@@ -69,6 +69,14 @@ describe("isAnswerValidForQuestion", () => {
     expect(
       isAnswerValidForQuestion(rankingQuestion, { type: "ranking", value: ["A", "B", "X"] }),
     ).toBe(false);
+    expect(isAnswerValidForQuestion(rankingQuestion, { type: "ranking", value: [] })).toBe(false);
+  });
+
+  it("handles decimal values for estimate questions", () => {
+    expect(isAnswerValidForQuestion(estimateQuestion, { type: "number", value: 3.14159 })).toBe(
+      true,
+    );
+    expect(isAnswerValidForQuestion(estimateQuestion, { type: "number", value: -10 })).toBe(true);
   });
 
   it("rejects mismatched answer types", () => {
