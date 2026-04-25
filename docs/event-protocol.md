@@ -86,8 +86,8 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 | --- | --- | --- | --- |
 | `game:start` | Host -> Server | Quiz starten | `roomId` |
 | `game:started` | Server -> Host/Player | Spiel ist gestartet | `roomId`, `roomState`, `gameState`, `questionIndex`, `totalQuestionCount` |
-| `question:show` | Server -> Host | Vollstaendige Frage freigeben | `roomId`, `questionId`, `questionIndex`, `totalQuestionCount`, `type`, `text`, `options`/`items`, `unit`, `context`, `durationMs`, `gameState` |
-| `question:controller` | Server -> Player | Reduzierte Controller-Daten freigeben | `roomId`, `questionId`, `questionIndex`, `totalQuestionCount`, `type`, Options-/Item-IDs, optional Antworttexte, `unit`, `durationMs`, `gameState` |
+| `question:show` | Server -> Host | Vollstaendige Frage freigeben | `roomId`, `questionId`, `questionIndex`, `totalQuestionCount`, `type`, `text`, je nach Typ `options`/`items`/`unit`/`context`, `durationMs`, `gameState` |
+| `question:controller` | Server -> Player | Reduzierte Controller-Daten freigeben | `roomId`, `questionId`, `questionIndex`, `totalQuestionCount`, `type`, je nach Typ Options-/Item-IDs, optional Antworttexte oder `unit`, `durationMs`, `gameState` |
 | `question:timer` | Server -> Host/Player | Verbleibende Fragezeit anzeigen | `roomId`, `questionId`, `remainingMs` |
 | `answer:submit` | Player -> Server | Antwort auf aktive Frage senden | `roomId`, `questionId`, `playerId`, `answer`, `requestId` |
 | `answer:accepted` | Server -> Player | Antwort wurde gespeichert | `roomId`, `questionId`, `playerId`, `status` |
@@ -118,6 +118,7 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 - Ob eine Antwort richtig war und wie viele Punkte sie bringt, kommt erst mit `question:reveal`.
 - Player erhalten waehrend aktiver Fragen `question:controller` statt `question:show`; der vollstaendige Fragetext bleibt auf dem Host.
 - Antworttexte auf Player-Geraeten sind eine Lobby-Einstellung und standardmaessig aus.
+- Antwortformen sind `option`, `number`, `ranking` und `text`; Mehrheits-Reveals koennen als `correctAnswer: { type: "options", value: [...] }` mehrere Gewinneroptionen enthalten.
 
 ### Timer
 

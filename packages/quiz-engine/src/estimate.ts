@@ -1,7 +1,6 @@
 import type {
   CorrectAnswer,
   EstimateQuestion,
-  MajorityGuessQuestion,
   NumberAnswer,
   PlayerRoundResult,
   RoundResult,
@@ -9,7 +8,7 @@ import type {
 } from "@quiz/shared-types";
 
 export function evaluateEstimate(
-  question: EstimateQuestion | MajorityGuessQuestion,
+  question: EstimateQuestion,
   answers: SubmittedAnswer[],
 ): RoundResult {
   const correctAnswer: CorrectAnswer = { type: "number", value: question.correctValue };

@@ -33,9 +33,9 @@ Aktuell gilt:
 - keine Geschwindigkeitsboni
 - keine Multiplikatoren
 
-Bei Schaetz- und Mehrheitsfragen bekommen die naechsten beziehungsweise passenden Antworten die Punkte nach Server-Auswertung. Ranking-Fragen zaehlen nur bei exakt richtiger Reihenfolge.
+Bei Schaetzfragen bekommt die naechste Antwort die Punkte. Bei Mehrheitsfragen bekommen alle Punkte, die eine meistgewaehlte Option getroffen haben; bei Gleichstand zaehlen alle Top-Optionen. Ranking-Fragen zaehlen nur bei exakt richtiger Reihenfolge. Freitextfragen zaehlen bei normalisiert exakter Uebereinstimmung mit der hinterlegten Antwort oder einem Alias.
 
-Im mitgelieferten Standard-Quiz sind die Fragen fest bepunktet. Fuer den Abend wird eine feste Auswahl aus den vorhandenen Fragetypen gespielt.
+Im mitgelieferten Standard-Quiz sind die Fragen fest bepunktet. Fuer den Abend wird eine Auswahl aus dem kombinierten JSON-Fragenpool gespielt.
 
 ## Antwortregeln
 

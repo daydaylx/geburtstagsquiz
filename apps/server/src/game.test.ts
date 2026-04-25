@@ -3,6 +3,7 @@ import { PlayerState, QuestionType, type Player, type Question } from "@quiz/sha
 
 import { getAnswerProgress, getEveningQuestions } from "./game.js";
 import { QUESTION_DURATION_MS } from "./config.js";
+import { getDefaultQuiz } from "./quiz-data.js";
 
 function makePlayer(id: string, state: PlayerState): Player {
   return {
@@ -15,7 +16,7 @@ function makePlayer(id: string, state: PlayerState): Player {
 }
 
 function makeQuestion(id: string, type: QuestionType): Question {
-  if (type === QuestionType.Estimate || type === QuestionType.MajorityGuess) {
+  if (type === QuestionType.Estimate) {
     return {
       id,
       type,
@@ -23,6 +24,20 @@ function makeQuestion(id: string, type: QuestionType): Question {
       correctValue: 1,
       unit: "x",
       context: "test",
+      durationMs: 10_000,
+      points: 1,
+    };
+  }
+
+  if (type === QuestionType.MajorityGuess) {
+    return {
+      id,
+      type,
+      text: id,
+      options: [
+        { id: "A", label: "A" },
+        { id: "B", label: "B" },
+      ],
       durationMs: 10_000,
       points: 1,
     };
@@ -38,6 +53,18 @@ function makeQuestion(id: string, type: QuestionType): Question {
         { id: "B", label: "B" },
       ],
       correctOrder: ["A", "B"],
+      durationMs: 10_000,
+      points: 1,
+    };
+  }
+
+  if (type === QuestionType.OpenText) {
+    return {
+      id,
+      type,
+      text: id,
+      correctText: "Antwort",
+      aliases: ["Alias"],
       durationMs: 10_000,
       points: 1,
     };
@@ -125,15 +152,11 @@ describe("getEveningQuestions", () => {
     expect(getEveningQuestions([])).toEqual([]);
   });
 
-  it("selects six questions per type and sets QUESTION_DURATION_MS", () => {
+  it("selects a proportional evening mix and sets QUESTION_DURATION_MS", () => {
     const questions = [
-      ...Array.from({ length: 8 }, (_, i) => makeQuestion(`mc-${i}`, QuestionType.MultipleChoice)),
-      ...Array.from({ length: 7 }, (_, i) => makeQuestion(`logic-${i}`, QuestionType.Logic)),
-      ...Array.from({ length: 6 }, (_, i) => makeQuestion(`estimate-${i}`, QuestionType.Estimate)),
-      ...Array.from({ length: 6 }, (_, i) =>
-        makeQuestion(`majority-${i}`, QuestionType.MajorityGuess),
-      ),
-      ...Array.from({ length: 9 }, (_, i) => makeQuestion(`ranking-${i}`, QuestionType.Ranking)),
+      ...Array.from({ length: 16 }, (_, i) => makeQuestion(`mc-${i}`, QuestionType.MultipleChoice)),
+      ...Array.from({ length: 14 }, (_, i) => makeQuestion(`estimate-${i}`, QuestionType.Estimate)),
+      ...Array.from({ length: 5 }, (_, i) => makeQuestion(`ranking-${i}`, QuestionType.Ranking)),
     ];
 
     const selected = getEveningQuestions(questions);
@@ -142,11 +165,9 @@ describe("getEveningQuestions", () => {
     expect(selected.every((q) => q.durationMs === QUESTION_DURATION_MS)).toBe(true);
     expect(questions.every((q) => q.durationMs === 10_000)).toBe(true);
 
-    expect(selected.filter((q) => q.type === QuestionType.MultipleChoice)).toHaveLength(6);
-    expect(selected.filter((q) => q.type === QuestionType.Logic)).toHaveLength(6);
-    expect(selected.filter((q) => q.type === QuestionType.Estimate)).toHaveLength(6);
-    expect(selected.filter((q) => q.type === QuestionType.MajorityGuess)).toHaveLength(6);
-    expect(selected.filter((q) => q.type === QuestionType.Ranking)).toHaveLength(6);
+    expect(selected.filter((q) => q.type === QuestionType.MultipleChoice)).toHaveLength(14);
+    expect(selected.filter((q) => q.type === QuestionType.Estimate)).toHaveLength(12);
+    expect(selected.filter((q) => q.type === QuestionType.Ranking)).toHaveLength(4);
   });
 
   it("does not produce duplicate question IDs", () => {
@@ -178,17 +199,18 @@ describe("getEveningQuestions", () => {
     expect(questions.every((q) => q.durationMs === 10_000)).toBe(true);
   });
 
-  it("uses all available questions when fewer than six exist per type", () => {
+  it("uses all available questions when fewer exist than requested", () => {
     const questions = [
-      ...Array.from({ length: 3 }, (_, i) => makeQuestion(`mc-${i}`, QuestionType.MultipleChoice)),
-      ...Array.from({ length: 2 }, (_, i) => makeQuestion(`logic-${i}`, QuestionType.Logic)),
+      ...Array.from({ length: 2 }, (_, i) => makeQuestion(`mc-${i}`, QuestionType.MultipleChoice)),
+      ...Array.from({ length: 1 }, (_, i) => makeQuestion(`estimate-${i}`, QuestionType.Estimate)),
+      ...Array.from({ length: 1 }, (_, i) => makeQuestion(`ranking-${i}`, QuestionType.Ranking)),
     ];
 
     const selected = getEveningQuestions(questions);
 
-    expect(selected.filter((q) => q.type === QuestionType.MultipleChoice)).toHaveLength(3);
-    expect(selected.filter((q) => q.type === QuestionType.Logic)).toHaveLength(2);
-    expect(selected.filter((q) => q.type === QuestionType.Estimate)).toHaveLength(0);
+    expect(selected.filter((q) => q.type === QuestionType.MultipleChoice)).toHaveLength(2);
+    expect(selected.filter((q) => q.type === QuestionType.Estimate)).toHaveLength(1);
+    expect(selected.filter((q) => q.type === QuestionType.Ranking)).toHaveLength(1);
   });
 
   it("produces a deterministic result with a fixed random function", () => {
@@ -206,5 +228,16 @@ describe("getEveningQuestions", () => {
     const run2 = getEveningQuestions(questions, seededRandom);
 
     expect(run1.map((q) => q.id)).toEqual(run2.map((q) => q.id));
+  });
+});
+
+describe("getDefaultQuiz", () => {
+  it("loads the JSON question bank", () => {
+    const quiz = getDefaultQuiz();
+
+    expect(quiz.id).toBe("geburtstagsquiz-millennials-v2-engine-v2");
+    expect(quiz.questions).toHaveLength(520);
+    expect(new Set(quiz.questions.map((q) => q.id)).size).toBe(520);
+    expect(quiz.questions.every((q) => q.durationMs === 15_000)).toBe(true);
   });
 });

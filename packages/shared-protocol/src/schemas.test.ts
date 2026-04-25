@@ -66,6 +66,23 @@ describe("parseClientToServerEnvelope", () => {
     }
   });
 
+  it("accepts a valid answer:submit payload (text)", () => {
+    const envelope = serializeEnvelope(EVENTS.ANSWER_SUBMIT, {
+      roomId: "room-1",
+      questionId: "q-text-01",
+      playerId: "p1",
+      answer: { type: "text", value: "Karl Klammer" },
+      requestId: "req-4",
+    });
+
+    const result = parseClientToServerEnvelope(envelope);
+
+    expect(result.success).toBe(true);
+    if (result.success && result.data.event === EVENTS.ANSWER_SUBMIT) {
+      expect(result.data.payload.answer.type).toBe("text");
+    }
+  });
+
   it("accepts a valid room:join payload", () => {
     const envelope = serializeEnvelope(EVENTS.ROOM_JOIN, {
       joinCode: "ABC234",
@@ -206,6 +223,48 @@ describe("parseServerToClientEnvelope", () => {
     }
   });
 
+  it("accepts a majority question:controller payload with options", () => {
+    const envelope = JSON.stringify({
+      event: EVENTS.QUESTION_CONTROLLER,
+      payload: {
+        roomId: "room-1",
+        questionId: "q-majority-01",
+        questionIndex: 2,
+        totalQuestionCount: 10,
+        type: "majority_guess",
+        options: [
+          { id: "A", label: "A" },
+          { id: "B", label: "B" },
+        ],
+        durationMs: 15000,
+        gameState: "question_active",
+      },
+    });
+
+    const result = parseServerToClientEnvelope(envelope);
+
+    expect(result.success).toBe(true);
+  });
+
+  it("accepts an open text question:controller payload", () => {
+    const envelope = JSON.stringify({
+      event: EVENTS.QUESTION_CONTROLLER,
+      payload: {
+        roomId: "room-1",
+        questionId: "q-text-01",
+        questionIndex: 2,
+        totalQuestionCount: 10,
+        type: "open_text",
+        durationMs: 15000,
+        gameState: "question_active",
+      },
+    });
+
+    const result = parseServerToClientEnvelope(envelope);
+
+    expect(result.success).toBe(true);
+  });
+
   it("rejects question:controller payloads that include full question text", () => {
     const envelope = JSON.stringify({
       event: EVENTS.QUESTION_CONTROLLER,
@@ -323,6 +382,47 @@ describe("parseServerToClientEnvelope", () => {
     }
   });
 
+  it("accepts question:reveal payloads with multiple correct options", () => {
+    const envelope = JSON.stringify({
+      event: EVENTS.QUESTION_REVEAL,
+      payload: {
+        roomId: "room-1",
+        questionId: "q-majority-01",
+        correctAnswer: { type: "options", value: ["A", "B"] },
+        playerResults: [],
+        gameState: "revealing",
+      },
+    });
+
+    const result = parseServerToClientEnvelope(envelope);
+
+    expect(result.success).toBe(true);
+  });
+
+  it("accepts question:reveal payloads with text answers", () => {
+    const envelope = JSON.stringify({
+      event: EVENTS.QUESTION_REVEAL,
+      payload: {
+        roomId: "room-1",
+        questionId: "q-text-01",
+        correctAnswer: { type: "text", value: "Karl Klammer" },
+        playerResults: [
+          {
+            playerId: "p1",
+            answer: { type: "text", value: "Clippy" },
+            isCorrect: true,
+            pointsEarned: 1,
+          },
+        ],
+        gameState: "revealing",
+      },
+    });
+
+    const result = parseServerToClientEnvelope(envelope);
+
+    expect(result.success).toBe(true);
+  });
+
   it("accepts an in-game connection:resumed payload with current answer", () => {
     const envelope = JSON.stringify({
       event: EVENTS.CONNECTION_RESUMED,
@@ -404,6 +504,26 @@ describe("parseServerToClientEnvelope", () => {
     if (result.success && result.data.event === EVENTS.QUESTION_SHOW) {
       expect(result.data.payload.type).toBe("ranking");
     }
+  });
+
+  it("accepts a valid open text question:show payload", () => {
+    const envelope = JSON.stringify({
+      event: EVENTS.QUESTION_SHOW,
+      payload: {
+        roomId: "room-1",
+        questionId: "q-text-01",
+        questionIndex: 5,
+        totalQuestionCount: 10,
+        type: "open_text",
+        text: "Was war Karl Klammer?",
+        durationMs: 30000,
+        gameState: "question_active",
+      },
+    });
+
+    const result = parseServerToClientEnvelope(envelope);
+
+    expect(result.success).toBe(true);
   });
 
   it("rejects unknown events", () => {

@@ -43,9 +43,7 @@ export interface MajorityGuessQuestion {
   id: string;
   type: QuestionType.MajorityGuess;
   text: string;
-  correctValue: number;
-  unit: string;
-  context: string;
+  options: QuestionOption[];
   durationMs: number;
   points: number;
   explanation?: string;
@@ -62,9 +60,21 @@ export interface RankingQuestion {
   explanation?: string;
 }
 
+export interface OpenTextQuestion {
+  id: string;
+  type: QuestionType.OpenText;
+  text: string;
+  correctText: string;
+  aliases: string[];
+  durationMs: number;
+  points: number;
+  explanation?: string;
+}
+
 export type Question =
   | MultipleChoiceQuestion
   | LogicQuestion
   | EstimateQuestion
   | MajorityGuessQuestion
-  | RankingQuestion;
+  | RankingQuestion
+  | OpenTextQuestion;

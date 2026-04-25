@@ -30,4 +30,5 @@ export enum QuestionType {
   MajorityGuess = "majority_guess",
   Ranking = "ranking",
   Logic = "logic",
+  OpenText = "open_text",
 }

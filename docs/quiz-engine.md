@@ -16,15 +16,19 @@ Der Server entscheidet, wann ausgewertet wird, validiert Antworten vorher und me
 Die Typen kommen aus `packages/shared-types`.
 
 - `multiple_choice` und `logic`: Optionsantwort, richtig bei passender `correctOptionId`
-- `estimate` und `majority_guess`: Zahlenantwort, Punkte fuer die naechste Antwort
+- `estimate`: Zahlenantwort, Punkte fuer die naechste Antwort
+- `majority_guess`: Optionsantwort, Punkte fuer die meistgewaehlte Option; bei Gleichstand zaehlen alle Top-Optionen
 - `ranking`: Reihenfolgeantwort, Punkte nur bei exakt richtiger Reihenfolge
+- `open_text`: Textantwort, Punkte bei normalisiert exakter Uebereinstimmung mit `correctText` oder `aliases`
 
 ## API
 
 ```typescript
 function evaluateMultipleChoice(question, answers): RoundResult;
 function evaluateEstimate(question, answers): RoundResult;
+function evaluateMajorityGuess(question, answers): RoundResult;
 function evaluateRanking(question, answers): RoundResult;
+function evaluateOpenText(question, answers): RoundResult;
 ```
 
 Die Funktionen erwarten bereits deduplizierte und zum Fragetyp passende Antworten. Sie liefern `RoundResult` mit `correctAnswer` und `playerResults` fuer Spieler, die eine Antwort gesendet haben.

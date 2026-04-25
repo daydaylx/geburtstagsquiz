@@ -101,13 +101,34 @@ export const RankingAnswerSchema = z
   })
   .strict();
 
+export const TextAnswerSchema = z
+  .object({
+    type: z.literal("text"),
+    value: z.string().min(1),
+  })
+  .strict();
+
 export const AnswerSchema = z.discriminatedUnion("type", [
   OptionAnswerSchema,
   NumberAnswerSchema,
   RankingAnswerSchema,
+  TextAnswerSchema,
 ]);
 
-export const CorrectAnswerSchema = AnswerSchema;
+export const OptionsCorrectAnswerSchema = z
+  .object({
+    type: z.literal("options"),
+    value: z.array(idSchema),
+  })
+  .strict();
+
+export const CorrectAnswerSchema = z.discriminatedUnion("type", [
+  OptionAnswerSchema,
+  NumberAnswerSchema,
+  RankingAnswerSchema,
+  TextAnswerSchema,
+  OptionsCorrectAnswerSchema,
+]);
 
 export const LobbyPlayerSchema = z
   .object({
@@ -295,8 +316,7 @@ export const QuestionShowPayloadSchema = z.discriminatedUnion("type", [
     .object({
       ...questionShowBaseFields,
       type: z.literal(QuestionType.MajorityGuess),
-      unit: z.string().min(1),
-      context: z.string().min(1),
+      options: z.array(QuestionOptionSchema),
     })
     .strict(),
   z
@@ -304,6 +324,12 @@ export const QuestionShowPayloadSchema = z.discriminatedUnion("type", [
       ...questionShowBaseFields,
       type: z.literal(QuestionType.Ranking),
       items: z.array(QuestionOptionSchema),
+    })
+    .strict(),
+  z
+    .object({
+      ...questionShowBaseFields,
+      type: z.literal(QuestionType.OpenText),
     })
     .strict(),
 ]);
@@ -337,14 +363,9 @@ export const QuestionControllerPayloadSchema = z.discriminatedUnion("type", [
     .strict(),
   z
     .object({
-      roomId: idSchema,
-      questionId: idSchema,
-      questionIndex: z.number().int().nonnegative(),
-      totalQuestionCount: z.number().int().nonnegative(),
+      ...questionControllerBaseFields,
       type: z.literal(QuestionType.MajorityGuess),
-      unit: z.string().min(1),
-      durationMs: z.number().int().positive(),
-      gameState: QuestionDisplayGameStateSchema,
+      options: z.array(QuestionControllerOptionSchema),
     })
     .strict(),
   z
@@ -352,6 +373,12 @@ export const QuestionControllerPayloadSchema = z.discriminatedUnion("type", [
       ...questionControllerBaseFields,
       type: z.literal(QuestionType.Ranking),
       items: z.array(QuestionControllerOptionSchema),
+    })
+    .strict(),
+  z
+    .object({
+      ...questionControllerBaseFields,
+      type: z.literal(QuestionType.OpenText),
     })
     .strict(),
 ]);

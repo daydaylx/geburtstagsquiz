@@ -487,7 +487,8 @@ export function App() {
           </div>
           <h3 className="host-question-text">{question.text}</h3>
           {(question.type === QuestionType.MultipleChoice ||
-            question.type === QuestionType.Logic) && (
+            question.type === QuestionType.Logic ||
+            question.type === QuestionType.MajorityGuess) && (
             <div className="host-options-grid">
               {question.options.map((opt) => (
                 <div className="host-option-card" key={opt.id}>
@@ -497,11 +498,13 @@ export function App() {
               ))}
             </div>
           )}
-          {(question.type === QuestionType.Estimate ||
-            question.type === QuestionType.MajorityGuess) && (
+          {question.type === QuestionType.Estimate && (
             <div className="host-estimate-display">
               Schätzungen laufen... ({question.unit} · {question.context})
             </div>
+          )}
+          {question.type === QuestionType.OpenText && (
+            <div className="host-estimate-display">Texteingaben laufen...</div>
           )}
           {question.type === QuestionType.Ranking && (
             <div className="host-ranking-list">
@@ -534,11 +537,13 @@ export function App() {
           <p className="host-section-label">Auflösung</p>
           <h3 className="host-question-text">{question.text}</h3>
           {(question.type === QuestionType.MultipleChoice ||
-            question.type === QuestionType.Logic) && (
+            question.type === QuestionType.Logic ||
+            question.type === QuestionType.MajorityGuess) && (
             <div className="host-options-grid host-options-grid--reveal">
               {question.options.map((opt) => {
                 const isCorrectAnswer =
-                  revealedAnswer?.type === "option" && revealedAnswer.value === opt.id;
+                  (revealedAnswer?.type === "option" && revealedAnswer.value === opt.id) ||
+                  (revealedAnswer?.type === "options" && revealedAnswer.value.includes(opt.id));
                 return (
                   <div
                     className="host-option-card"
@@ -552,9 +557,7 @@ export function App() {
               })}
             </div>
           )}
-          {(question.type === QuestionType.Estimate ||
-            question.type === QuestionType.MajorityGuess) &&
-            revealedAnswer?.type === "number" && (
+          {question.type === QuestionType.Estimate && revealedAnswer?.type === "number" && (
               <div className="host-estimate-display host-estimate-display--reveal">
                 <span>Richtig: </span>
                 <strong className="host-estimate-correct-value">
@@ -563,6 +566,12 @@ export function App() {
                 <span className="host-estimate-context">({question.context})</span>
               </div>
             )}
+          {question.type === QuestionType.OpenText && revealedAnswer?.type === "text" && (
+            <div className="host-estimate-display host-estimate-display--reveal">
+              <span>Richtig: </span>
+              <strong className="host-estimate-correct-value">{revealedAnswer.value}</strong>
+            </div>
+          )}
           {question.type === QuestionType.Ranking && revealedAnswer?.type === "ranking" && (
             <div className="host-ranking-list">
               {revealedAnswer.value.map((id, i) => {

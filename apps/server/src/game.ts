@@ -1,5 +1,11 @@
 import { EVENTS, type QuestionShowPayload } from "@quiz/shared-protocol";
-import { evaluateEstimate, evaluateMultipleChoice, evaluateRanking } from "@quiz/quiz-engine";
+import {
+  evaluateEstimate,
+  evaluateMajorityGuess,
+  evaluateMultipleChoice,
+  evaluateOpenText,
+  evaluateRanking,
+} from "@quiz/quiz-engine";
 import { GameState, PlayerState, QuestionType, RoomState } from "@quiz/shared-types";
 import type { Question, SubmittedAnswer } from "@quiz/shared-types";
 
@@ -12,13 +18,14 @@ import { QUESTION_DURATION_MS, REVEAL_DURATION_MS } from "./config.js";
 import { isAnswerValidForQuestion } from "./answer-validation.js";
 import { toQuestionControllerPayload, toQuestionShowPayload } from "./question-payloads.js";
 
-const EVENING_QUESTION_COUNT_PER_TYPE = 6;
+const EVENING_QUESTION_COUNT = 30;
 const EVENING_QUESTION_TYPE_ORDER = [
   QuestionType.MultipleChoice,
   QuestionType.Logic,
   QuestionType.Estimate,
   QuestionType.MajorityGuess,
   QuestionType.Ranking,
+  QuestionType.OpenText,
 ] as const;
 
 function shuffleArray<T>(array: T[], random: () => number = Math.random): T[] {
@@ -34,12 +41,58 @@ export function getEveningQuestions(
   questions: Question[],
   random: () => number = Math.random,
 ): Question[] {
-  return EVENING_QUESTION_TYPE_ORDER.flatMap((questionType) => {
-    const ofType = questions.filter((q) => q.type === questionType);
-    return shuffleArray(ofType, random)
-      .slice(0, EVENING_QUESTION_COUNT_PER_TYPE)
-      .map((q) => ({ ...q, durationMs: QUESTION_DURATION_MS }));
+  const targetCount = Math.min(EVENING_QUESTION_COUNT, questions.length);
+  const groups = EVENING_QUESTION_TYPE_ORDER.map((type) => ({
+    type,
+    questions: questions.filter((q) => q.type === type),
+  })).filter((group) => group.questions.length > 0);
+
+  if (targetCount === 0 || groups.length === 0) {
+    return [];
+  }
+
+  const totalAvailable = groups.reduce((sum, group) => sum + group.questions.length, 0);
+  const allocations = groups.map((group) => {
+    const exactCount = (group.questions.length / totalAvailable) * targetCount;
+    return {
+      type: group.type,
+      questions: group.questions,
+      count: Math.min(group.questions.length, Math.floor(exactCount)),
+      remainder: exactCount % 1,
+    };
   });
+
+  if (targetCount >= allocations.length) {
+    for (const allocation of allocations) {
+      if (allocation.count === 0) {
+        allocation.count = 1;
+      }
+    }
+  }
+
+  while (allocations.reduce((sum, allocation) => sum + allocation.count, 0) > targetCount) {
+    const allocation = [...allocations]
+      .filter((candidate) => candidate.count > 1)
+      .sort((a, b) => a.remainder - b.remainder)[0];
+
+    if (!allocation) break;
+    allocation.count -= 1;
+  }
+
+  while (allocations.reduce((sum, allocation) => sum + allocation.count, 0) < targetCount) {
+    const allocation = [...allocations]
+      .filter((candidate) => candidate.count < candidate.questions.length)
+      .sort((a, b) => b.remainder - a.remainder)[0];
+
+    if (!allocation) break;
+    allocation.count += 1;
+  }
+
+  return allocations.flatMap((allocation) =>
+    shuffleArray(allocation.questions, random)
+      .slice(0, allocation.count)
+      .map((q) => ({ ...q, durationMs: QUESTION_DURATION_MS })),
+  );
 }
 
 function sendQuestionForCurrentRole(
@@ -635,11 +688,14 @@ function evaluateQuestion(room: RoomRecord, question: Question): void {
       case QuestionType.MultipleChoice:
       case QuestionType.Logic:
         return evaluateMultipleChoice(question, answers);
-      case QuestionType.Estimate:
       case QuestionType.MajorityGuess:
+        return evaluateMajorityGuess(question, answers);
+      case QuestionType.Estimate:
         return evaluateEstimate(question, answers);
       case QuestionType.Ranking:
         return evaluateRanking(question, answers);
+      case QuestionType.OpenText:
+        return evaluateOpenText(question, answers);
     }
   })();
 

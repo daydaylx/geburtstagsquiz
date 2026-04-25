@@ -20,7 +20,11 @@ export function toQuestionShowPayload(
     gameState,
   };
 
-  if (question.type === QuestionType.MultipleChoice || question.type === QuestionType.Logic) {
+  if (
+    question.type === QuestionType.MultipleChoice ||
+    question.type === QuestionType.Logic ||
+    question.type === QuestionType.MajorityGuess
+  ) {
     return {
       ...baseShowFields,
       type: question.type,
@@ -28,12 +32,19 @@ export function toQuestionShowPayload(
     };
   }
 
-  if (question.type === QuestionType.Estimate || question.type === QuestionType.MajorityGuess) {
+  if (question.type === QuestionType.Estimate) {
     return {
       ...baseShowFields,
       type: question.type,
       unit: question.unit,
       context: question.context,
+    };
+  }
+
+  if (question.type === QuestionType.OpenText) {
+    return {
+      ...baseShowFields,
+      type: question.type,
     };
   }
 
@@ -66,7 +77,11 @@ export function toQuestionControllerPayload(
     ...(showText ? { text: option.label } : {}),
   });
 
-  if (question.type === QuestionType.MultipleChoice || question.type === QuestionType.Logic) {
+  if (
+    question.type === QuestionType.MultipleChoice ||
+    question.type === QuestionType.Logic ||
+    question.type === QuestionType.MajorityGuess
+  ) {
     return {
       ...baseControllerFields,
       type: question.type,
@@ -74,11 +89,18 @@ export function toQuestionControllerPayload(
     };
   }
 
-  if (question.type === QuestionType.Estimate || question.type === QuestionType.MajorityGuess) {
+  if (question.type === QuestionType.Estimate) {
     return {
       ...baseControllerFields,
       type: question.type,
       unit: question.unit,
+    };
+  }
+
+  if (question.type === QuestionType.OpenText) {
+    return {
+      ...baseControllerFields,
+      type: question.type,
     };
   }
 

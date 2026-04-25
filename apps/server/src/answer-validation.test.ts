@@ -27,6 +27,18 @@ const estimateQuestion = {
   points: 3,
 } satisfies Question;
 
+const majorityQuestion = {
+  id: "q-majority",
+  type: QuestionType.MajorityGuess,
+  text: "Majority?",
+  options: [
+    { id: "A", label: "A" },
+    { id: "B", label: "B" },
+  ],
+  durationMs: 15_000,
+  points: 2,
+} satisfies Question;
+
 const rankingQuestion = {
   id: "q-ranking",
   type: QuestionType.Ranking,
@@ -39,6 +51,16 @@ const rankingQuestion = {
   correctOrder: ["A", "B", "C"],
   durationMs: 20_000,
   points: 4,
+} satisfies Question;
+
+const openTextQuestion = {
+  id: "q-text",
+  type: QuestionType.OpenText,
+  text: "Text?",
+  correctText: "Antwort",
+  aliases: ["Alias"],
+  durationMs: 15_000,
+  points: 2,
 } satisfies Question;
 
 describe("isAnswerValidForQuestion", () => {
@@ -54,6 +76,12 @@ describe("isAnswerValidForQuestion", () => {
       false,
     );
     expect(isAnswerValidForQuestion(estimateQuestion, { type: "option", value: "A" })).toBe(false);
+  });
+
+  it("accepts only existing option IDs for majority questions", () => {
+    expect(isAnswerValidForQuestion(majorityQuestion, { type: "option", value: "A" })).toBe(true);
+    expect(isAnswerValidForQuestion(majorityQuestion, { type: "option", value: "X" })).toBe(false);
+    expect(isAnswerValidForQuestion(majorityQuestion, { type: "number", value: 1 })).toBe(false);
   });
 
   it("requires every ranking item exactly once", () => {
@@ -77,6 +105,14 @@ describe("isAnswerValidForQuestion", () => {
       true,
     );
     expect(isAnswerValidForQuestion(estimateQuestion, { type: "number", value: -10 })).toBe(true);
+  });
+
+  it("accepts non-empty text for open text questions", () => {
+    expect(isAnswerValidForQuestion(openTextQuestion, { type: "text", value: "Antwort" })).toBe(
+      true,
+    );
+    expect(isAnswerValidForQuestion(openTextQuestion, { type: "text", value: "   " })).toBe(false);
+    expect(isAnswerValidForQuestion(openTextQuestion, { type: "option", value: "A" })).toBe(false);
   });
 
   it("rejects mismatched answer types", () => {

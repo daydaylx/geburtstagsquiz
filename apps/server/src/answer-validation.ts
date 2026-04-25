@@ -4,13 +4,13 @@ export function isAnswerValidForQuestion(question: Question, answer: Answer): bo
   switch (question.type) {
     case QuestionType.MultipleChoice:
     case QuestionType.Logic:
+    case QuestionType.MajorityGuess:
       return (
         answer.type === "option" &&
         question.options.some((option) => option.id === answer.value)
       );
 
     case QuestionType.Estimate:
-    case QuestionType.MajorityGuess:
       return answer.type === "number" && Number.isFinite(answer.value);
 
     case QuestionType.Ranking: {
@@ -27,5 +27,8 @@ export function isAnswerValidForQuestion(question: Question, answer: Answer): bo
         answer.value.every((id) => expectedIds.has(id))
       );
     }
+
+    case QuestionType.OpenText:
+      return answer.type === "text" && answer.value.trim().length > 0;
   }
 }

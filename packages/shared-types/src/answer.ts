@@ -13,9 +13,19 @@ export interface RankingAnswer {
   value: string[];
 }
 
-export type Answer = OptionAnswer | NumberAnswer | RankingAnswer;
+export interface TextAnswer {
+  type: "text";
+  value: string;
+}
 
-export type CorrectAnswer = OptionAnswer | NumberAnswer | RankingAnswer;
+export interface OptionsCorrectAnswer {
+  type: "options";
+  value: string[];
+}
+
+export type Answer = OptionAnswer | NumberAnswer | RankingAnswer | TextAnswer;
+
+export type CorrectAnswer = Answer | OptionsCorrectAnswer;
 
 export interface SubmittedAnswer {
   playerId: string;

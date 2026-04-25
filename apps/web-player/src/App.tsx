@@ -103,6 +103,8 @@ function getQuestionKindLabel(type: QuestionType): string {
       return "Reihenfolge";
     case QuestionType.Logic:
       return "Denkfrage";
+    case QuestionType.OpenText:
+      return "Textfrage";
     default:
       return "Frage";
   }
@@ -115,7 +117,9 @@ function formatControllerAnswer(
   if (!answer) return "-";
   if (answer.type === "option") return answer.value;
   if (answer.type === "number") return `${answer.value}${unit ? ` ${unit}` : ""}`;
-  return answer.value.join(" > ");
+  if (answer.type === "ranking") return answer.value.join(" > ");
+  if (answer.type === "options") return answer.value.join(" / ");
+  return answer.value;
 }
 
 export function App() {
@@ -134,6 +138,7 @@ export function App() {
   const [remainingMs, setRemainingMs] = useState<number>(0);
   const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
   const [estimateValue, setEstimateValue] = useState<string>("");
+  const [textAnswerValue, setTextAnswerValue] = useState<string>("");
   const [rankingOrder, setRankingOrder] = useState<string[]>([]);
   const [answerStatus, setAnswerStatus] = useState<AnswerStatus>("idle");
   const [correctAnswer, setCorrectAnswer] = useState<QuestionRevealPayload["correctAnswer"] | null>(
@@ -184,6 +189,7 @@ export function App() {
     setNextQuestionReadyProgress(null);
     setFinalResult(null);
     setEstimateValue("");
+    setTextAnswerValue("");
     setRankingOrder([]);
   });
 
@@ -258,6 +264,25 @@ export function App() {
       questionId: question.questionId,
       playerId: session.playerId,
       answer: { type: "ranking", value: order },
+      requestId: crypto.randomUUID(),
+    });
+
+    if (!sent) {
+      setAnswerStatus("idle");
+      setNotice({ kind: "error", text: "Keine Verbindung zum Server." });
+    }
+  });
+
+  const handleSubmitText = useEffectEvent((value: string) => {
+    const session = playerSessionRef.current;
+    if (!session || !question || answerStatus !== "idle") return;
+    setNotice(null);
+    setAnswerStatus("submitting");
+    const sent = sendClientEvent(EVENTS.ANSWER_SUBMIT, {
+      roomId: session.roomId,
+      questionId: question.questionId,
+      playerId: session.playerId,
+      answer: { type: "text", value },
       requestId: crypto.randomUUID(),
     });
 
@@ -349,6 +374,7 @@ export function App() {
         setRemainingMs(parsedEnvelope.data.payload.durationMs);
         setSelectedOptionId(resumedAnswer?.type === "option" ? resumedAnswer.value : null);
         setEstimateValue(resumedAnswer?.type === "number" ? String(resumedAnswer.value) : "");
+        setTextAnswerValue(resumedAnswer?.type === "text" ? resumedAnswer.value : "");
         setRankingOrder(resumedAnswer?.type === "ranking" ? resumedAnswer.value : []);
         setAnswerStatus(resumedAnswer ? "accepted" : "idle");
         setCorrectAnswer(null);
@@ -629,10 +655,11 @@ export function App() {
                   {!selectedOptionId && estimateValue && (
                     <span>
                       Deine Schätzung: {estimateValue}{" "}
-                      {(question.type === QuestionType.Estimate ||
-                        question.type === QuestionType.MajorityGuess) &&
-                        question.unit}
+                      {question.type === QuestionType.Estimate && question.unit}
                     </span>
+                  )}
+                  {!selectedOptionId && textAnswerValue && (
+                    <span>Deine Antwort: {textAnswerValue}</span>
                   )}
                   {!selectedOptionId && rankingOrder.length > 0 && (
                     <span>Deine Reihenfolge: {rankingOrder.join(" > ")}</span>
@@ -652,7 +679,8 @@ export function App() {
             </div>
 
             {(question.type === QuestionType.MultipleChoice ||
-              question.type === QuestionType.Logic) && (
+              question.type === QuestionType.Logic ||
+              question.type === QuestionType.MajorityGuess) && (
               <div className="player-controller-options" data-status={answerStatus}>
                 {question.options.map((opt) => (
                   <button
@@ -670,8 +698,7 @@ export function App() {
               </div>
             )}
 
-            {(question.type === QuestionType.Estimate ||
-              question.type === QuestionType.MajorityGuess) && (
+            {question.type === QuestionType.Estimate && (
               <div className="player-estimate-area">
                 <input
                   className="player-estimate-input"
@@ -689,6 +716,27 @@ export function App() {
                   type="button"
                 >
                   Schätzen
+                </button>
+              </div>
+            )}
+
+            {question.type === QuestionType.OpenText && (
+              <div className="player-estimate-area">
+                <input
+                  className="player-estimate-input"
+                  disabled={answerStatus !== "idle"}
+                  onChange={(e) => setTextAnswerValue(e.target.value)}
+                  placeholder="Antwort eingeben..."
+                  type="text"
+                  value={textAnswerValue}
+                />
+                <button
+                  className="player-primary-button"
+                  disabled={answerStatus !== "idle" || textAnswerValue.trim() === ""}
+                  onClick={() => handleSubmitText(textAnswerValue)}
+                  type="button"
+                >
+                  Antworten
                 </button>
               </div>
             )}
@@ -772,11 +820,7 @@ export function App() {
                   <strong>
                     {formatControllerAnswer(
                       ownRoundResult?.answer ?? null,
-                      question &&
-                        (question.type === QuestionType.Estimate ||
-                          question.type === QuestionType.MajorityGuess)
-                        ? question.unit
-                        : undefined,
+                      question && question.type === QuestionType.Estimate ? question.unit : undefined,
                     )}
                   </strong>
                 </div>
@@ -785,11 +829,7 @@ export function App() {
                   <strong>
                     {formatControllerAnswer(
                       correctAnswer,
-                      question &&
-                        (question.type === QuestionType.Estimate ||
-                          question.type === QuestionType.MajorityGuess)
-                        ? question.unit
-                        : undefined,
+                      question && question.type === QuestionType.Estimate ? question.unit : undefined,
                     )}
                   </strong>
                 </div>
