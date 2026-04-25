@@ -47,7 +47,7 @@
     },
     "stats": {
       "total_categories": 10,
-      "total_questions": 282,
+      "total_questions": 332,
       "engine_question_type": "multiple_choice",
       "generated_options_per_question": 4
     },
@@ -770,7 +770,7 @@
         "slug": "sex-liebe-expliziter-bullshit",
         "name": "Sex, Liebe & expliziter Bullshit",
         "intro": "Jetzt wird’s erwachsen. Also pseudo-erwachsen: genug Halbwissen, um bei Tinder arrogant zu wirken, aber zu wenig, um peinliche Gespräche wirklich zu überleben. Millennial-Dating ist ein Schlachtfeld.",
-        "question_count": 29,
+        "question_count": 79,
         "difficulty": "medium_hard",
         "questions": [
           {
