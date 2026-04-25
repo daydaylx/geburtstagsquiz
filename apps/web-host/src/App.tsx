@@ -428,6 +428,7 @@ export function App() {
   const latestScoreboard = finalResult?.finalScoreboard ?? scoreboard?.scoreboard ?? [];
   const correctRoundCount = roundResults.filter((r) => r.isCorrect).length;
   const wrongRoundCount = roundResults.filter((r) => !r.isCorrect && r.answer !== null).length;
+  const missingRoundCount = roundResults.filter((r) => r.answer === null).length;
   const nextReadyLabel = nextQuestionReadyProgress
     ? `${nextQuestionReadyProgress.readyCount} / ${nextQuestionReadyProgress.totalEligiblePlayers} bereit`
     : "Warte auf Bereitmeldungen";
@@ -631,6 +632,19 @@ export function App() {
                 }}
               >
                 {wrongRoundCount}
+              </p>
+            </div>
+            <div className="host-card" style={{ flex: 1, textAlign: "center" }}>
+              <p className="host-control-label">Keine Antwort</p>
+              <p
+                style={{
+                  fontSize: "2rem",
+                  fontWeight: 800,
+                  color: "var(--host-ink-soft)",
+                  margin: "8px 0 0",
+                }}
+              >
+                {missingRoundCount}
               </p>
             </div>
           </div>

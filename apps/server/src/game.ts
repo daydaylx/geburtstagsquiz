@@ -8,7 +8,7 @@ import type { RoomRecord, TrackedWebSocket } from "./server-types.js";
 import { roomsById, sessionsById, logRoomEvent } from "./state.js";
 import { broadcastToRoom } from "./connection.js";
 import { getDefaultQuiz } from "./quiz-data.js";
-import { REVEAL_DURATION_MS } from "./config.js";
+import { QUESTION_DURATION_MS, REVEAL_DURATION_MS } from "./config.js";
 import { isAnswerValidForQuestion } from "./answer-validation.js";
 import { toQuestionControllerPayload, toQuestionShowPayload } from "./question-payloads.js";
 
@@ -25,7 +25,8 @@ export function getEveningQuestions(questions: Question[]): Question[] {
   return EVENING_QUESTION_TYPE_ORDER.flatMap((questionType) =>
     questions
       .filter((question) => question.type === questionType)
-      .slice(0, EVENING_QUESTION_COUNT_PER_TYPE),
+      .slice(0, EVENING_QUESTION_COUNT_PER_TYPE)
+      .map((question) => ({ ...question, durationMs: QUESTION_DURATION_MS })),
   );
 }
 

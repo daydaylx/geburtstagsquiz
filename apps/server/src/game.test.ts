@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { PlayerState, QuestionType, type Player, type Question } from "@quiz/shared-types";
 
 import { getAnswerProgress, getEveningQuestions } from "./game.js";
+import { QUESTION_DURATION_MS } from "./config.js";
 
 function makePlayer(id: string, state: PlayerState): Player {
   return {
@@ -128,6 +129,8 @@ describe("getEveningQuestions", () => {
     const selected = getEveningQuestions(questions);
 
     expect(selected).toHaveLength(30);
+    expect(selected.every((question) => question.durationMs === QUESTION_DURATION_MS)).toBe(true);
+    expect(questions.every((question) => question.durationMs === 10_000)).toBe(true);
     expect(selected.map((question) => question.id)).toEqual([
       "mc-0",
       "mc-1",

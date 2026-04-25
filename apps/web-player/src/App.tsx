@@ -497,7 +497,17 @@ export function App() {
   const ownPlayerId = playerSession?.playerId ?? "";
   const timerSeconds = Math.ceil((remainingMs ?? 0) / 1000);
   const ownRoundResult = roundResults.find((r) => r.playerId === ownPlayerId) ?? null;
-  const isSelfCorrect = ownRoundResult?.isCorrect ?? false;
+  const selfRevealState = ownRoundResult?.isCorrect
+    ? "correct"
+    : ownRoundResult?.answer
+      ? "wrong"
+      : "missing";
+  const selfRevealLabel =
+    selfRevealState === "correct"
+      ? "RICHTIG!"
+      : selfRevealState === "wrong"
+        ? "LEIDER FALSCH"
+        : "KEINE ANTWORT GEWERTET";
 
   const ownScoreboardPlacement = scoreboard
     ? scoreboard.scoreboard.findIndex((e) => e.playerId === ownPlayerId)
@@ -733,8 +743,8 @@ export function App() {
 
         {screen === "reveal" && (
           <>
-            <div className="player-feedback" data-state={isSelfCorrect ? "correct" : "wrong"}>
-              {isSelfCorrect ? "RICHTIG!" : "LEIDER FALSCH"}
+            <div className="player-feedback" data-state={selfRevealState}>
+              {selfRevealLabel}
             </div>
             <div className="player-card">
               <span className="player-kicker">Auflösung</span>

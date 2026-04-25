@@ -321,6 +321,11 @@ body {
   color: #fff; 
   box-shadow: 0 0 30px rgba(255, 51, 51, 0.3);
 }
+.player-feedback[data-state="missing"] {
+  background: #ffaa44;
+  color: #1a1000;
+  box-shadow: 0 0 30px rgba(255, 170, 68, 0.3);
+}
 
 .player-input {
   width: 100%;
