@@ -18,6 +18,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "A",
       durationMs: 15_000,
       points: 2,
+      explanation:
+        "Caput Draconis bedeutet auf Latein 'Drachenkopf'. Im Buch ist das Passwort dasselbe. Später im ersten Buch wird es zu 'Feindabwehr' geändert – also falls jemand zugehört hat.",
     },
     {
       id: "q-hp-02",
@@ -74,6 +76,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "B",
       durationMs: 12_000,
       points: 3,
+      explanation:
+        "Snapes Patronus ist eine Hirschkuh – dieselbe Form wie Lilys Patronus, Harrys Mutter. 'Always.' ist einer der bekanntesten Momente der gesamten Serie. Harrys Patronus ist ein Hirsch – nach seinem Vater James.",
     },
     {
       id: "q-hp-06",
@@ -88,6 +92,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "C",
       durationMs: 15_000,
       points: 2,
+      explanation:
+        "Sectumsempra wurde von Snape selbst erfunden – er schrieb es als Halbblutprinz in sein Zaubertrank-Buch. Bedeutet so viel wie 'immer schneiden'. Harry kannte die Konsequenzen nicht und war danach erschrocken.",
     },
     {
       id: "q-hp-07",
@@ -116,6 +122,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "B",
       durationMs: 15_000,
       points: 2,
+      explanation:
+        "Drei unverzeihliche Flüche: Crucio (Schmerz), Imperius (Gedankenkontrolle) und Avada Kedavra (Tod). Alle drei zu benutzen führt zu lebenslanger Gefängnisstrafe in Askaban.",
     },
     {
       id: "q-hp-09",
@@ -130,6 +138,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "C",
       durationMs: 12_000,
       points: 3,
+      explanation:
+        "Harry James Potter – James ist der Name seines Vaters. Ein Mittename als stille Hommage. Hermines Mittename Jean ist übrigens auch ein Tribut – J.K. Rowling benannte es nach ihrem Vater.",
     },
     {
       id: "q-hp-10",
@@ -144,20 +154,24 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "B",
       durationMs: 15_000,
       points: 2,
+      explanation:
+        "Fluffy – bekommen von Hagrid von einem 'griechischen Typen'. Die Schwäche: Musik schläfert ihn ein, genau wie den mythologischen Kerberos. Rowling nannte den Kerberos nie direkt, ließ aber die Parallele offen.",
     },
     {
       id: "q-hp-11",
       type: QuestionType.MultipleChoice,
-      text: "Welche weltbekannte Schauspielerin wurde für die Rolle der Helena Ravenclaw angefragt, bevor Kelly Macdonald sie spielte?",
+      text: "Wie lautet der vollständige Geburtsname von Hermine Granger?",
       options: [
-        { id: "A", label: "Keira Knightley" },
-        { id: "B", label: "Cate Blanchett" },
-        { id: "C", label: "Emma Thompson" },
-        { id: "D", label: "Kate Winslet" },
+        { id: "A", label: "Hermine Jean Granger" },
+        { id: "B", label: "Hermine Rose Granger" },
+        { id: "C", label: "Hermine Jane Granger" },
+        { id: "D", label: "Hermine Alice Granger" },
       ],
-      correctOptionId: "D",
+      correctOptionId: "A",
       durationMs: 12_000,
       points: 3,
+      explanation:
+        "Hermine Jean Granger – 'Jean' wurde in 'Harry Potter and the Deathly Hallows' enthüllt. J.K. Rowling wählte 'Jean' zu Ehren ihres Vaters. Der zweite Vorname taucht im Buch kaum auf.",
     },
     // Millennial-Slang & Internet-Fossilien
     {
@@ -173,6 +187,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "C",
       durationMs: 20_000,
       points: 1,
+      explanation:
+        "Das 'Uh-oh!' ist für Millennials purer Pavlov-Reflex. Wer es hört, will sofort antworten. ICQ hatte auch ein Geräusch für ausgehende Nachrichten ('Uh-oh!' rückwärts fast) – beide klingen heute absurd nostalgisch.",
     },
     {
       id: "q-sl-02",
@@ -187,6 +203,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "D",
       durationMs: 15_000,
       points: 2,
+      explanation:
+        "SchülerVZ war die Schüler-Version des deutschen StudiVZ – beides Ableger des Hasso-Plattner-Instituts. Als Facebook kam, brach alles zusammen. Holtzbrinck hatte das VZ-Netzwerk 2007 für 85 Mio. Euro gekauft. Falscher Zeitpunkt.",
     },
     {
       id: "q-sl-03",
@@ -201,6 +219,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "D",
       durationMs: 15_000,
       points: 2,
+      explanation:
+        "Gruscheln = grüßen + kuscheln. Ein Klick, kein Text, maximale Cringe. Wurde tausendfach als unverbindlicher Flirt eingesetzt. Die Antwort: ignorieren oder zurückgruscheln. Eine vergessene Kunst.",
     },
     {
       id: "q-sl-04",
@@ -243,6 +263,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "B",
       durationMs: 15_000,
       points: 2,
+      explanation:
+        "Der Nudge ließ das Chatfenster und den Bildschirm kurz schütteln – kombiniert mit einem Geräusch. Wurde hauptsächlich benutzt, wenn jemand nicht antwortete. Und dann immer wieder. Bis zur Sperrung.",
     },
     {
       id: "q-sl-07",
@@ -285,6 +307,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "C",
       durationMs: 15_000,
       points: 2,
+      explanation:
+        "HTTP 404 = 'Not Found' – der Browser-Fehler, wenn eine Seite nicht existiert. Im Netz-Jargon wurde daraus 'Gehirn 404: nicht gefunden'. Noch heute ein guter Nerd-Witz.",
     },
     {
       id: "q-sl-10",
@@ -299,6 +323,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "B",
       durationMs: 15_000,
       points: 2,
+      explanation:
+        "1337 = 'leet' = 'elite'. In Leet-Speak wird jeder Buchstabe durch ähnlich aussehende Zahlen ersetzt: 3=E, 1=L, 7=T. '1337 h4x0r' = 'elite hacker'. Entstand in frühen Hacker-Foren der 80er.",
     },
     // Dating-Slang & Beziehungs-Bullshit
     {
@@ -416,6 +442,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "A",
       durationMs: 20_000,
       points: 1,
+      explanation:
+        "Jamba war Europas größter Klingelton-Anbieter und der Crazy Frog war seine Cashcow – Eltern beschwerten sich massenhaft über die nicht enden wollenden Werbespots. Ein Klingelton kostete damals bis zu 3 Euro. Jamba schefflte damit hunderte Millionen.",
     },
     {
       id: "q-tv-03",
@@ -430,6 +458,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "C",
       durationMs: 15_000,
       points: 2,
+      explanation:
+        "Schnuffel Bunny und sein 'Kuschel Song' (2008) war auf jedem zweiten Handy als Klingelton. Jamster (der internationale Name für Jamba) ließ ganze Tier-Charakter-Linien entwickeln. Schnuffel war eine echte Marke mit Merchandise.",
     },
     {
       id: "q-tv-04",
@@ -444,6 +474,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "C",
       durationMs: 15_000,
       points: 2,
+      explanation:
+        "Der Nescafé-Cappuccino-Werbespot mit Angelo und seiner Oma lief Ende der 90er gefühlt in einer Dauerschleife. Die Oma ruft aus dem Fenster, Angelo kommt angelaufen – der Akzent und die Szene wurden zum kollektiven deutschen Meme.",
     },
     {
       id: "q-tv-05",
@@ -514,6 +546,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "B",
       durationMs: 15_000,
       points: 2,
+      explanation:
+        "9Live zeigte nachts Moderatoren, die bei Rätseln wie 'Was hat vier Buchstaben und ist ein Tier?' minutenlang falsche Antworten akzeptierten – damit mehr Leute für 50 Cent pro Anruf einriefen. 2012 wegen Irreführung der Zuschauer eingestellt.",
     },
     {
       id: "q-tv-10",
@@ -556,6 +590,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "B",
       durationMs: 12_000,
       points: 3,
+      explanation:
+        "Costa Cordalis gewann 2004 die allererste Staffel des deutschen Dschungelcamps. Bekannt für seinen Schlager 'Anita'. Sein Sohn Lucas Cordalis zog später auch ins Camp ein – und wurde 2023 ebenfalls Dschungelkönig.",
     },
     // Saufen, Feiern & Jugend-Drinks
     {
@@ -670,6 +706,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "C",
       durationMs: 20_000,
       points: 1,
+      explanation:
+        "Britney Spears betrat 2007 einen Friseursalon in Tarzana und rasierte sich selbst den Kopf – live von Paparazzi fotografiert. Es war der Höhepunkt einer persönlichen Krise, die medial komplett ausgeschlachtet wurde.",
     },
     {
       id: "q-sk-02",
@@ -684,6 +722,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "C",
       durationMs: 20_000,
       points: 1,
+      explanation:
+        "Kanye stieg auf die Bühne und sagte 'Imma let you finish, but Beyoncé had one of the best videos of all time.' Beyoncé stand sichtlich peinlich berührt daneben. Taylor Swift war 19 Jahre alt. Der Moment läuft heute noch als Meme.",
     },
     {
       id: "q-sk-03",
@@ -698,6 +738,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "B",
       durationMs: 15_000,
       points: 2,
+      explanation:
+        "Tom Cruise sprang auf Oprahs Sofa und schrie seine Liebe zu Katie Holmes – zum kollektiven Fremdschämen der TV-Nation. Später zeigte sich, dass das Scientology-PR-Strategie war. Das Sofa wurde danach Teil der Popkultur.",
     },
     {
       id: "q-sk-04",
@@ -712,6 +754,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "C",
       durationMs: 20_000,
       points: 1,
+      explanation:
+        "Amy Winehouse starb 2011 mit 27 Jahren – Alkoholvergiftung. 'Rehab' (2006) ist bittere Ironie: Sie singt, dass sie keine Reha braucht. 5 Grammys, eine der größten Stimmen ihrer Generation.",
     },
     {
       id: "q-sk-05",
@@ -726,6 +770,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "D",
       durationMs: 15_000,
       points: 2,
+      explanation:
+        "Lance Armstrong gewann 7x die Tour de France – und verlor alle Titel 2012 nach einer Doping-Untersuchung. Er gestand 2013 bei Oprah. Jan Ullrich war übrigens auch gedopt – aber Armstrong war der Größere.",
     },
     {
       id: "q-sk-06",
@@ -740,6 +786,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "B",
       durationMs: 15_000,
       points: 2,
+      explanation:
+        "Britney performte 'I'm a Slave 4 U' mit einer echten Albino-Burmesen-Python auf den Schultern. Die Schlange hieß angeblich Banana. Der Auftritt gilt als einer der ikonischsten VMA-Moments aller Zeiten.",
     },
     {
       id: "q-sk-07",
@@ -754,6 +802,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "A",
       durationMs: 12_000,
       points: 3,
+      explanation:
+        "Jason Lee (bekannt aus 'My Name Is Earl') nannte seinen 2003 geborenen Sohn Pilot Inspektor – inspiriert von einem Song der Band Grand Royal. Nicolas Cage benannte seinen Sohn Kal-El (Superman) und Bob Geldof hat Töchter namens Fifi Trixibelle und Peaches.",
     },
     // Gaming
     {
@@ -769,6 +819,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "D",
       durationMs: 20_000,
       points: 1,
+      explanation:
+        "Der blaue Panzer (offiziell: Stachi-Panzer) sucht sich automatisch den Erstplatzierten und explodiert über ihm. Wurde in Mario Kart 64 (1996) eingeführt und verursacht seitdem Freundschaftsbrüche.",
     },
     {
       id: "q-gm-02",
@@ -783,6 +835,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "B",
       durationMs: 20_000,
       points: 1,
+      explanation:
+        "Ohne Leiter konnte der Sim nicht aus dem Pool klettern und erschöpfte sich irgendwann zu Tode. Das war kein Bug – EA entfernte die 'Poolmord'-Methode in Die Sims 4 absichtlich, brachte sie aber nach Fan-Protest zurück.",
     },
     {
       id: "q-gm-03",
@@ -797,6 +851,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "C",
       durationMs: 15_000,
       points: 2,
+      explanation:
+        "Das Tamagotchi starb wenn man es vergaß. Das verursachte echte Schuldgefühle bei Kindern – und Lehrer verboten sie im Unterricht, weil alle ständig reingeschaut haben. Viele japanische Kinder hielten Beerdigungen ab.",
     },
     {
       id: "q-gm-04",
@@ -825,6 +881,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "C",
       durationMs: 15_000,
       points: 2,
+      explanation:
+        "Den Helden steuert man – er heißt Link. Zelda ist die Prinzessin (und oft in Not). Das Spiel heißt aber nach ihr. Viele Leute spielen jahrelang 'Zelda' und nennen den Helden versehentlich Zelda.",
     },
     {
       id: "q-gm-06",
@@ -839,6 +897,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "C",
       durationMs: 15_000,
       points: 2,
+      explanation:
+        "Simsala (Alakazam) entstand nur durch Tausch – was auf dem Game Boy bedeutete: du brauchtest einen Freund mit Link-Kabel. Wer keinen hatte, spielte ewig mit Kadabra. Ein echtes Sozialexperiment.",
     },
     {
       id: "q-gm-07",
@@ -853,6 +913,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "B",
       durationMs: 15_000,
       points: 2,
+      explanation:
+        "Drei rote Ringe = Konsole kaputt. Überhitzung durch schlechtes Design. Microsoft gab 1,15 Milliarden Dollar für Garantiereparaturen aus – die teuerste Hardware-Panne der Spielgeschichte.",
     },
     {
       id: "q-gm-08",
@@ -867,6 +929,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "C",
       durationMs: 15_000,
       points: 2,
+      explanation:
+        "'rosebud' gab 1.000 Simoleons. Dann entdeckte jemand: 'rosebud;!;!;!;!;!;!;!;!' für vielfaches Geld. Das war keine offizielle Funktion, sondern ein Bug im Befehlsparser – und wurde trotzdem Legende.",
     },
     {
       id: "q-gm-09",
@@ -909,6 +973,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "C",
       durationMs: 12_000,
       points: 3,
+      explanation:
+        "HESOYAM: Gesundheit, Rüstung, 250.000 Dollar. GTA San Andreas (2004) hatte eine ganze Bibliothek solcher Codes – BAGUVIX für unbegrenzte Leben, ROCKETMAN für Jetpack. Jedes Kind hatte sie auswendig.",
     },
     // Musik
     {
@@ -924,6 +990,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "A",
       durationMs: 20_000,
       points: 1,
+      explanation:
+        "Tokio Hotel wurden mit 'Durch den Monsun' über Nacht berühmt – Sänger Bill und Gitarrist Tom Kaulitz sind Zwillinge aus Magdeburg. Bill war damals 16. Die Band verkaufte Millionen Alben weltweit und wurde zu DEM Teenie-Phänomen der 2000er.",
     },
     {
       id: "q-mu-02",
@@ -938,6 +1006,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "C",
       durationMs: 12_000,
       points: 3,
+      explanation:
+        "My Chemical Romance schrieben 'Welcome to the Black Parade' (2006) als bombastisches Konzept-Stück über einen sterbenden Jungen und seinen Vater. Wurde zur Hymne einer ganzen Emo-Generation – und läuft noch heute auf Spotify in den Charts.",
     },
     {
       id: "q-mu-03",
@@ -952,6 +1022,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "B",
       durationMs: 15_000,
       points: 2,
+      explanation:
+        "Crazy Frog ist eigentlich ein animiertes Motorrad-Geräusch eines Schweden namens Daniel Malmedahl – der Frosch kam erst später. Das 'Axel F'-Remix verkaufte sich millionenfach als Klingelton und Jamba machte damit ein Vermögen.",
     },
     {
       id: "q-mu-04",
@@ -966,6 +1038,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "C",
       durationMs: 12_000,
       points: 3,
+      explanation:
+        "O-Zone kommen aus Moldau – kein Land das man mit einem Welthit assoziiert. Berühmt wurde der Song 2004 durch Gary Brolsma, der sich dabei filmte wie er lip-synct und dabei so aussieht als hätte er zu viel Spaß. Eines der ersten viralen Videos der Geschichte.",
     },
     {
       id: "q-mu-05",
@@ -1008,6 +1082,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "C",
       durationMs: 15_000,
       points: 2,
+      explanation:
+        "*NSYNC und Backstreet Boys waren Erzfeinde – beide von Manager Lou Pearlman aufgebaut, der beide finanziell betrog. Justin Timberlake war bei *NSYNC, bevor er Solokarriere machte. 'Bye Bye Bye' war ihr letzter großer Hit bevor die Band sich 2002 trennte.",
     },
     {
       id: "q-mu-08",
@@ -1036,6 +1112,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "D",
       durationMs: 15_000,
       points: 2,
+      explanation:
+        "'In the End' (2001) war Linkin Parks erster Mega-Hit. Chester Bennington, der Sänger mit der unverwechselbaren Schreierstimme, starb 2017 mit 41 Jahren. Der Song läuft bis heute täglich millionenfach auf Spotify.",
     },
     {
       id: "q-mu-10",
@@ -1064,6 +1142,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "A",
       durationMs: 12_000,
       points: 3,
+      explanation:
+        "Cher und ihre Produzenten setzten Autotune in 'Believe' (1998) erstmals bewusst als Effekt ein – damals so ungewohnt, dass das Produktionsteam das Programm zunächst nicht verriet. Vorher galt Autotune als reine Korrekturtechnik, die kein Mensch hören sollte.",
     },
     {
       id: "q-mu-12",
@@ -1078,6 +1158,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "B",
       durationMs: 12_000,
       points: 3,
+      explanation:
+        "Lou Pearlman erschuf Backstreet Boys und *NSYNC – und betrog beide um Millionen. Er betrieb nebenbei ein 300-Millionen-Dollar-Ponzi-Schema, eines der größten in der US-Geschichte. 2007 verhaftet, 2016 im Gefängnis gestorben.",
     },
     {
       id: "q-mu-13",
@@ -1092,6 +1174,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "A",
       durationMs: 15_000,
       points: 2,
+      explanation:
+        "Chester Bennington und Mike Shinoda teilten sich den Gesang – Shinoda rappte, Chester sang und schrie. Dave Grohl ist bei Foo Fighters, Billy Joe bei Green Day. Chester starb 2017 – Linkin Park machten 2024 mit einer neuen Sängerin weiter.",
     },
     // Adulting Fails
     {
@@ -1121,6 +1205,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "B",
       durationMs: 20_000,
       points: 1,
+      explanation:
+        "Wasser auf brennendem Fett verursacht eine explosive Dampfreaktion – der Fettbrand schießt als Feuerball in die Höhe. Richtig: Deckel drauf, Herd aus, und abwarten. Feuerlöscher nur wenn vorhanden und geeignet (Fettbrandlöscher).",
     },
     {
       id: "q-ad-03",
@@ -1248,6 +1334,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "C",
       durationMs: 15_000,
       points: 2,
+      explanation:
+        "LimeWire war der Ort wo man entweder Musik oder einen Trojaner herunterlud – meistens beides. Die RIAA verklagte LimeWire auf 75 Billionen Dollar (mehr als das US-BIP). 2010 gerichtlich abgeschaltet. Napster war der Erste, LimeWire der Schlimmste.",
     },
     {
       id: "q-te-06",
@@ -1262,6 +1350,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "D",
       durationMs: 12_000,
       points: 3,
+      explanation:
+        "1,44 MB – damit hat ein durchschnittlicher WhatsApp-Sprachclip mehr Speicher als eine komplette Diskette. Windows 95 benötigte 13 Disketten zur Installation. Eine HD-Urlaubsfoto von heute wäre auf über 3.000 Disketten verteilt.",
     },
     {
       id: "q-te-07",
@@ -1290,6 +1380,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "A",
       durationMs: 15_000,
       points: 2,
+      explanation:
+        "Fake-Songs auf Kazaa/LimeWire hatten oft die Endung .exe – wer sie öffnete, installierte einen Virus statt Musik zu hören. Eltern verstanden das nicht. Die Musikindustrie lud auch bewusst Fake-Dateien hoch, die bei Abspielen nur eine Anti-Piracy-Botschaft abspielten.",
     },
     {
       id: "q-te-09",
@@ -1333,6 +1425,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "D",
       durationMs: 15_000,
       points: 2,
+      explanation:
+        "Heath Ledger erhielt postum den Oscar als bester Nebendarsteller – er starb 2008 während der Postproduktion an einer versehentlichen Medikamenten-Überdosis. Sein Joker gilt bis heute als eine der besten Schauspielerleistungen aller Zeiten.",
     },
     {
       id: "q-fi-03",
@@ -1347,6 +1441,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "C",
       durationMs: 15_000,
       points: 2,
+      explanation:
+        "Toy Story (1995) war der erste vollständig computeranimierte Spielfilm der Geschichte. Pixar hatte davor nur Kurzfilme gemacht. A Bug's Life kam 1998, Monsters Inc. 2001, Nemo 2003.",
     },
     {
       id: "q-fi-04",
@@ -1460,6 +1556,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       context: "weltweit, Meta-Studie BJU International 2015",
       durationMs: 25_000,
       points: 5,
+      explanation:
+        "Die Studie mit über 15.500 Männern aus 20 Ländern kam auf 13,12 cm. Die meisten Männer überschätzen den Durchschnitt deutlich – und unterschätzen dabei ihre eigene Länge.",
     },
     {
       id: "q-est-02",
@@ -1470,6 +1568,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       context: "Deutschland, BZgA-Studie 2010",
       durationMs: 20_000,
       points: 5,
+      explanation:
+        "17,1 Jahre – dieser Wert ist seit den 1990ern relativ stabil. In den 1960ern lag er noch bei über 18. Mehr als die Hälfte der Deutschen hatten ihren ersten Sex vor dem 18. Geburtstag.",
     },
     {
       id: "q-est-03",
@@ -1480,6 +1580,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       context: "Deutschland, Statista 2023",
       durationMs: 20_000,
       points: 5,
+      explanation:
+        "3,7 Stunden aktive Nutzung – das sind über 56 Tage pro Jahr, nur Handy. Bei 18–24-Jährigen liegt der Wert oft bei 5–6 Stunden. Die Stunden schlafen ist kürzer.",
     },
     {
       id: "q-est-04",
@@ -1490,6 +1592,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       context: "Deutschland, Statista 2022",
       durationMs: 20_000,
       points: 5,
+      explanation:
+        "80 Liter – das sind ~228 Flaschen à 0,33l, also eine alle 1,6 Tage. Der Spitzenwert war Anfang der 90er bei ~145 Litern. Millennial-Deutschland trinkt deutlich weniger als Boomer-Deutschland.",
     },
     {
       id: "q-est-05",
@@ -1500,6 +1604,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       context: "Deutschland, ca. 2012",
       durationMs: 25_000,
       points: 5,
+      explanation:
+        "Auf dem SMS-Höhepunkt 2012 wurden in Deutschland täglich ~175 Millionen SMS verschickt. Heute sind es fast nur noch 2-Faktor-Codes und Paketbenachrichtigungen.",
     },
     {
       id: "q-est-06",
@@ -1510,6 +1616,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       context: "McDonald's Deutschland, 2024",
       durationMs: 20_000,
       points: 5,
+      explanation:
+        "503 kcal – etwa ein Viertel des Tagesbedarfs. Mit Pommes und Cola sind es locker 1.000+ kcal. Der Big Mac wurde 1968 von Jim Delligatti in Pennsylvania erfunden und kostet heute weltweit sehr unterschiedlich.",
     },
     {
       id: "q-est-07",
@@ -1520,6 +1628,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       context: "Deutschland, Statistisches Bundesamt 2022",
       durationMs: 20_000,
       points: 5,
+      explanation:
+        "30 Jahre – Deutschland gehört damit zu den Ländern mit dem ältesten Erstgebär-Alter weltweit. In den 1970ern lag es noch bei ~24 Jahren. Bildung, Karriere und Wohnkosten schieben es weiter nach hinten.",
     },
     {
       id: "q-est-08",
@@ -1530,6 +1640,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       context: "Deutschland, Statista 2023",
       durationMs: 20_000,
       points: 5,
+      explanation:
+        "89 Minuten – fast 1,5 Stunden täglich. Das sind über 540 Stunden pro Jahr – mehr als 22 komplette Tage. Hauptsächlich Instagram, TikTok und YouTube. Tendenz steigend.",
     },
     {
       id: "q-est-09",
@@ -1540,6 +1652,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       context: "Deutschland, ca. 2015, Bundeszentrale für gesundheitliche Aufklärung",
       durationMs: 25_000,
       points: 5,
+      explanation:
+        "190 Millionen – das sind ~2,3 Kondome pro Kopf (gesamte Bevölkerung). Nach dem HIV-Kampagnen-Peak der 1980er und 90er sank der Verbrauch. Deutschland ist nach wie vor einer der größten Kondom-Märkte Europas.",
     },
     {
       id: "q-est-10",
@@ -1550,6 +1664,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       context: "Berlin, BVG 2024",
       durationMs: 20_000,
       points: 4,
+      explanation:
+        "86 Euro für die reguläre BVG-Monatskarte. Mit dem Deutschlandticket (49 Euro) lohnt sich für viele Berliner der Wechsel. Das 49-Euro-Ticket war einer der größten Erfolge der Verkehrspolitik der letzten Jahre.",
     },
     {
       id: "q-est-11",
@@ -1560,6 +1676,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       context: "Deutschland, DAK-Gesundheitsreport 2022",
       durationMs: 20_000,
       points: 4,
+      explanation:
+        "7,1 Stunden – die WHO empfiehlt 7–9 Stunden. Vor 100 Jahren schliefen Menschen im Schnitt noch ~9 Stunden. Kunstlicht und Bildschirme verschieben unsere innere Uhr nach hinten.",
     },
     {
       id: "q-est-12",
@@ -1570,6 +1688,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       context: "Deutschland, Süßwaren-Industrie Jahresbericht 2022",
       durationMs: 20_000,
       points: 5,
+      explanation:
+        "9,4 kg – das sind fast zwei Tafeln à 100g pro Woche. Deutschland ist einer der weltweit höchsten Schokoladen-Konsumenten pro Kopf. Die Schweiz liegt knapp davor.",
     },
     {
       id: "q-est-13",
@@ -1580,6 +1700,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       context: "Deutschland, GWI 2023",
       durationMs: 20_000,
       points: 5,
+      explanation:
+        "28 Minuten täglich – über 170 Stunden pro Jahr. YouTube erreicht fast 90% der deutschen Internetnutzer und ist die beliebteste Videoplattform, noch vor Netflix und TikTok.",
     },
     {
       id: "q-est-14",
@@ -1590,16 +1712,20 @@ const MILLENNIALS_QUIZ: Quiz = {
       context: "Deutschland, YouGov-Umfrage 2019",
       durationMs: 20_000,
       points: 5,
+      explanation:
+        "42% – fast jeder Zweite. Bei 18–29-Jährigen ist der Wert deutlich höher. Männer geben häufiger 'ja' an als Frauen – was statistisch nicht aufgeht, also mindestens eine Gruppe untertreibt.",
     },
     {
       id: "q-est-15",
       type: QuestionType.Estimate,
       text: "Wie viele Terabyte Daten werden täglich im weltweiten Internet übertragen?",
-      correctValue: 5_000_000,
+      correctValue: 1_000_000,
       unit: "TB",
-      context: "weltweit, Cisco Annual Internet Report 2022",
+      context: "weltweit, Cisco Annual Internet Report 2022 (~396 EB/Jahr ≈ 1 EB/Tag)",
       durationMs: 25_000,
       points: 5,
+      explanation:
+        "1 Exabyte täglich – das sind 1 Million Terabyte oder 1 Milliarde Gigabyte. Die gesamte gedruckte Geschichte der Menschheit wird auf ~150 Exabyte geschätzt. Das Internet überträgt das in 5 Monaten.",
     },
     {
       id: "q-est-16",
@@ -1610,6 +1736,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       context: "Apple, iPhone 1. Generation 2007",
       durationMs: 20_000,
       points: 4,
+      explanation:
+        "Das erste iPhone gab es in 4 GB und 8 GB. Steve Jobs nannte es 'ein iPod, ein Telefon und ein Internet-Gerät' – damals revolutionär. Heute haben Einsteiger-Smartphones 128 GB.",
     },
     {
       id: "q-est-17",
@@ -1620,6 +1748,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       context: "weltweit, dscout Research 2016",
       durationMs: 25_000,
       points: 5,
+      explanation:
+        "2.617 Mal – das sind fast 2 Berührungen pro Minute bei 22 Wachstunden. Heavy User kommen auf über 5.000 Taps und Swipes täglich. Die Studie zählte jeden einzelnen Finger-Kontakt.",
     },
     {
       id: "q-est-18",
@@ -1630,6 +1760,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       context: "Deutschland, Statistisches Bundesamt 2022",
       durationMs: 20_000,
       points: 5,
+      explanation:
+        "2.240 Euro Netto – der Median liegt etwas darunter, Topverdiener ziehen den Durchschnitt hoch. In Ostdeutschland bis zu 400 Euro weniger, in München und Frankfurt deutlich mehr.",
     },
     {
       id: "q-est-19",
@@ -1640,6 +1772,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       context: "WHO-Definition",
       durationMs: 15_000,
       points: 3,
+      explanation:
+        "Ab BMI 25 gilt man als übergewichtig, ab 30 als adipös. Der BMI ignoriert Muskelmasse – Arnold Schwarzenegger hätte auf seinem Höhepunkt einen BMI von ~31 gehabt und wäre offiziell 'adipös' eingestuft worden.",
     },
     {
       id: "q-est-20",
@@ -1650,6 +1784,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       context: "Deutschland, Robert Koch-Institut 2021",
       durationMs: 20_000,
       points: 5,
+      explanation:
+        "Mehr als die Hälfte. Männer häufiger als Frauen (60% vs. 46%). Deutschland liegt damit im EU-Mittelfeld. Österreich und die Schweiz haben ähnliche Werte.",
     },
     {
       id: "q-est-21",
@@ -1660,6 +1796,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       context: "weltweit, Journal of Sexual Medicine 2005",
       durationMs: 25_000,
       points: 5,
+      explanation:
+        "5,4 Minuten – deutlich kürzer als die meisten erwarten. Die Studie nutzte Stoppuhren in 5 Ländern. Die Forscher definierten 3–7 Minuten als 'adequate'. Türkei war am kürzesten, UK am längsten.",
     },
     {
       id: "q-est-22",
@@ -1670,6 +1808,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       context: "Deutschland, November 1995",
       durationMs: 20_000,
       points: 5,
+      explanation:
+        "499 DM – inflationsbereinigt heute ~700 Euro. Die PS1 erschien in Deutschland im September 1995 und ließ Segas Saturn-Dominanz zusammenbrechen. Killer-App: Ridge Racer und später Tekken.",
     },
     {
       id: "q-est-23",
@@ -1680,6 +1820,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       context: "Deutschland, ca. 2000–2001",
       durationMs: 20_000,
       points: 5,
+      explanation:
+        "499 DM – zufällig der gleiche Preis wie die PlayStation! Das Nokia 3310 war das Handy der Jahrtausendwende: unzerstörbar, wochenlange Akkulaufzeit, Snake. Heute ein Kultobjekt.",
     },
     {
       id: "q-est-24",
@@ -1690,6 +1832,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       context: "Deutschland, Statistisches Bundesamt 2022",
       durationMs: 20_000,
       points: 5,
+      explanation:
+        "34,6 Jahre – in den 1970ern heirateten Männer noch mit ~25. Frauen heiraten im Schnitt ~1,5 Jahre früher. Der Trend zeigt klar: erst Bildung, dann Karriere, dann Standesamt.",
     },
     {
       id: "q-est-25",
@@ -1700,6 +1844,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       context: "Spotify, Stand 2024",
       durationMs: 25_000,
       points: 5,
+      explanation:
+        "100 Millionen Songs – täglich kommen ~60.000 neue Tracks dazu. Die Top-0,3% der Künstler bekommen 99% der Streams. Die meisten Songs auf Spotify wurden weniger als 100-mal gespielt.",
     },
 
     // ─── MEHRHEITSFRAGEN (majority_guess) ─────────────────────────────────────
@@ -1713,6 +1859,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       context: "Deutschland, YouGov-Umfrage 2021",
       durationMs: 20_000,
       points: 5,
+      explanation:
+        "34% gaben es offen zu – der echte Wert dürfte höher liegen. Interessant: fast genauso viele finden es inakzeptabel, wenn der andere dasselbe mit ihrem Handy täte.",
     },
     {
       id: "q-mg-02",
@@ -1723,6 +1871,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       context: "Deutschland, Statista 2023",
       durationMs: 20_000,
       points: 4,
+      explanation:
+        "77% – und nach COVID noch mehr. Amazon dominiert mit ~55% Marktanteil im deutschen E-Commerce. Die meisten kaufen mindestens einmal pro Monat online ein.",
     },
     {
       id: "q-mg-03",
@@ -1733,6 +1883,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       context: "Deutschland, DAK 2021",
       durationMs: 20_000,
       points: 5,
+      explanation:
+        "55% – und die meisten nehmen das verlorene Gewicht innerhalb von 5 Jahren wieder zu. Der Jo-Jo-Effekt ist real: Crash-Diäten machen den Körper langfristig schwieriger zu managen.",
     },
     {
       id: "q-mg-04",
@@ -1743,6 +1895,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       context: "Deutschland, Statista 2023",
       durationMs: 20_000,
       points: 4,
+      explanation:
+        "87% täglich – praktisch alle. WhatsApp hat SMS so vollständig ersetzt, dass viele Deutsche ihr Datenvolumen nie ausschöpfen. Deutschland ist weltweit eines der WhatsApp-abhängigsten Länder.",
     },
     {
       id: "q-mg-05",
@@ -1753,6 +1907,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       context: "Deutschland, YouGov-Umfrage 2020",
       durationMs: 20_000,
       points: 5,
+      explanation:
+        "28% – und das nur unter denjenigen, die es zugeben. Beliebteste Drunk-Purchases: Fast Food, zufällige Amazon-Artikel, Konzerttickets für Bands, die man dann doch nicht mag.",
     },
     {
       id: "q-mg-06",
@@ -1763,6 +1919,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       context: "Deutschland, Bitkom 2022",
       durationMs: 20_000,
       points: 5,
+      explanation:
+        "72% auf dem Nachttisch – viele mit eingeschaltetem Display. Blaues Licht und Benachrichtigungen stören den Schlaf nachweislich. Empfehlung: Handy ins andere Zimmer. Klappt selten.",
     },
     {
       id: "q-mg-07",
@@ -1773,6 +1931,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       context: "Deutschland, Statistisches Bundesamt 2022",
       durationMs: 20_000,
       points: 5,
+      explanation:
+        "37% – war früher noch höher (~50% in den 1990ern). Die Scheidungsrate sinkt, weil weniger Paare heiraten. Die, die es noch tun, entscheiden sich bewusster dafür.",
     },
     {
       id: "q-mg-08",
@@ -1783,6 +1943,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       context: "Deutschland, YouGov-Umfrage 2022",
       durationMs: 20_000,
       points: 5,
+      explanation:
+        "Fast jeder Zweite – und das sagten nur die Ehrlichen. Das nennt sich 'orbiting': in der digitalen Umlaufbahn des Ex bleiben, ohne Kontakt aufzunehmen.",
     },
     {
       id: "q-mg-09",
@@ -1793,6 +1955,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       context: "Deutschland, Stepstone-Umfrage 2021",
       durationMs: 20_000,
       points: 4,
+      explanation:
+        "63% gaben das zu – das bedeutet, 37% sagen, sie hätten das nie getan. Einer von beiden Gruppen ist wahrscheinlich nicht ehrlich. Gedanken sind zollfrei.",
     },
     {
       id: "q-mg-10",
@@ -1803,6 +1967,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       context: "Deutschland, DKV 2022",
       durationMs: 15_000,
       points: 4,
+      explanation:
+        "77% täglich – Deutschland ist einer der größten Kaffeekonsumenten Europas mit 3–4 Tassen pro Kopf pro Tag. Kaffee hat Bier als beliebtestes Getränk der Deutschen längst überholt.",
     },
     {
       id: "q-mg-11",
@@ -1813,6 +1979,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       context: "Deutschland, Forsa-Umfrage 2021",
       durationMs: 20_000,
       points: 4,
+      explanation:
+        "82% glücklich – wobei der 'Ja-Sage'-Bias bei Umfragen über das eigene Leben real ist. Trotzdem: bei 37% Scheidungsrate und 82% Glücksrate stimmt die Mathematik irgendwie nicht ganz.",
     },
     {
       id: "q-mg-12",
@@ -1823,6 +1991,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       context: "Deutschland, Allensbach 2019",
       durationMs: 20_000,
       points: 5,
+      explanation:
+        "Nur 41% – überraschend wenig. Mehr Angst haben Deutsche vor Pflegebedürftigkeit (76%) und vor dem Verlust geliebter Menschen (68%). Der Tod selbst ist weniger beängstigend als der Weg dahin.",
     },
     {
       id: "q-mg-13",
@@ -1833,6 +2003,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       context: "Deutschland, Yougov-Spaßumfrage 2020",
       durationMs: 20_000,
       points: 5,
+      explanation:
+        "44% – und die anderen 56% sind entweder ehrliche Sportmuffel oder lügen. Die beliebteste Strategie beim Sport-Bluffing: nicken und das letzte Wort des anderen wiederholen.",
     },
     {
       id: "q-mg-14",
@@ -1843,6 +2015,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       context: "Deutschland, Yougov 2021",
       durationMs: 20_000,
       points: 5,
+      explanation:
+        "31% – Weihnachtsfeste und Familiengeburtstage führen die Liste der umgangenen Events an. Die häufigste Ausrede: 'Ich bin leider krank.' Ein echter Millennial-Survival-Skill.",
     },
     {
       id: "q-mg-15",
@@ -1853,6 +2027,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       context: "Deutschland, Statista 2023",
       durationMs: 20_000,
       points: 4,
+      explanation:
+        "43% wöchentlich – nach der COVID-Abo-Explosion hat Netflix Nutzer verloren (2021 waren es ~60%). Amazon Prime Video und die Mediatheken der öffentlich-rechtlichen Sender holen auf.",
     },
 
     // ─── RANKING-FRAGEN ────────────────────────────────────────────────────────
@@ -1870,6 +2046,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOrder: ["B", "A", "C", "D"],
       durationMs: 30_000,
       points: 6,
+      explanation:
+        "ICQ (1996) war das erste große Internet-Messaging-System – 'I seek you'. Der Klingelton ist bis heute unvergessen. WhatsApp übernahm 2009 und machte ICQ bedeutungslos. Facebook kaufte WhatsApp 2014 für 19 Milliarden Dollar.",
     },
     {
       id: "q-rank-02",
@@ -1884,6 +2062,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOrder: ["B", "D", "A", "C"],
       durationMs: 30_000,
       points: 6,
+      explanation:
+        "SNES (1992) → N64 (1997) → PS2 (2000) → Xbox 360 (2005). Welche war deine erste? Das ist ein guter Alterstest. Der N64 kam in Deutschland ein ganzes Jahr nach Japan – damals eine Ewigkeit.",
     },
     {
       id: "q-rank-03",
@@ -1898,6 +2078,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOrder: ["B", "D", "C", "A"],
       durationMs: 25_000,
       points: 5,
+      explanation:
+        "Sekt (11%) kommt vor Wein (12%) – das überrascht oft. Der Unterschied ist minimal, aber eindeutig. Vodka mit 40% schlägt alle anderen haushoch.",
     },
     {
       id: "q-rank-04",
@@ -1912,6 +2094,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOrder: ["B", "D", "C", "A"],
       durationMs: 25_000,
       points: 5,
+      explanation:
+        "Von Floppy (1,44 MB) zur Blu-ray (25 GB) ist ein Faktor von ~17.000. Eine einzelne 4K-Filmdatei passt heute kaum mehr auf eine Blu-ray. Eine microSD-Karte für 10 Euro ersetzt heute das 1.000-fache einer Blu-ray.",
     },
     {
       id: "q-rank-05",
@@ -1926,6 +2110,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOrder: ["B", "C", "D", "A"],
       durationMs: 30_000,
       points: 6,
+      explanation:
+        "Big Brother (1999) startete das Reality-TV-Zeitalter in Deutschland. DSDS (2002) und Dschungelcamp (2004) folgten dem Muster: Menschen in Extremsituationen = Einschaltquoten.",
     },
     {
       id: "q-rank-06",
@@ -1940,6 +2126,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOrder: ["B", "D", "C", "A"],
       durationMs: 30_000,
       points: 6,
+      explanation:
+        "Spice Girls ('Wannabe', 1996) → Rihanna ('Pon de Replay', 2005) → Lady Gaga ('Just Dance', 2008) → Billie Eilish ('Ocean Eyes', 2016). Vier Generationen Pop in einer Frage.",
     },
     {
       id: "q-rank-07",
@@ -1954,6 +2142,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOrder: ["D", "B", "A", "C"],
       durationMs: 30_000,
       points: 6,
+      explanation:
+        "KFC hat in Deutschland deutlich weniger Filialen als in den USA. McDonald's ist mit ~1.500 Standorten klarer Marktführer – fast doppelt so viele wie Burger King. Subway überrascht: mehr als Burger King.",
     },
     {
       id: "q-rank-08",
@@ -1968,6 +2158,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOrder: ["B", "D", "A", "C"],
       durationMs: 30_000,
       points: 6,
+      explanation:
+        "Facebook (2004) startete als Harvard-exklusiv, Twitter (2006) brachte Microblogging, Instagram (2010) machte Fotos zum sozialen Kapital, TikTok (2016) erfand den Algorithmus-Feed.",
     },
     {
       id: "q-rank-09",
@@ -1982,6 +2174,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOrder: ["B", "C", "D", "A"],
       durationMs: 25_000,
       points: 5,
+      explanation:
+        "Berlin (3,7 Mio.) ist fast doppelt so groß wie Hamburg (1,8 Mio.). Frankfurt (750.000) überrascht mit nur 750.000 Einwohnern – für eine globale Finanzmetropole recht klein.",
     },
     {
       id: "q-rank-10",
@@ -1996,6 +2190,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOrder: ["B", "C", "A", "D"],
       durationMs: 30_000,
       points: 5,
+      explanation:
+        "Titanic (1997) blieb 12 Jahre weltweiter Kassenrekord – bis Avatar (2009) ihn brach. Dark Knight (2008) und Avatar (2009) lagen nur ein Jahr auseinander, wirken aber wie verschiedene Zeitalter.",
     },
     {
       id: "q-rank-11",
@@ -2010,6 +2206,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOrder: ["B", "C", "A", "D"],
       durationMs: 30_000,
       points: 6,
+      explanation:
+        "Nokia 3310 (2000) – unzerstörbar. Razr V3 (2004) – das stylishste Klapphandy. iPhone (2007) – alles änderte sich. Galaxy S1 (2010) – Android holte auf. Vier Handys, ein Jahrzehnt Geschichte.",
     },
     {
       id: "q-rank-12",
@@ -2024,6 +2222,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOrder: ["B", "C", "A", "D"],
       durationMs: 30_000,
       points: 6,
+      explanation:
+        "Spotify hat mehr Nutzer als alle drei Video-Dienste zusammen. Disney+ überholte Amazon kurz nach Launch – dank Disney, Marvel und Star Wars. Netflix kämpft seit 2022 um Marktanteile.",
     },
     {
       id: "q-rank-13",
@@ -2038,6 +2238,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOrder: ["A", "C", "B", "D"],
       durationMs: 30_000,
       points: 6,
+      explanation:
+        "Tamagotchi (1996) war das erste digitale Haustier – wer es sterben ließ, hat Schuldgefühle bis heute. Napster (1999) revolutionierte Musik und wurde von der Industrie zerstört. MySpace kam vor Facebook, YouTube 2005.",
     },
     {
       id: "q-rank-14",
@@ -2047,11 +2249,13 @@ const MILLENNIALS_QUIZ: Quiz = {
         { id: "A", label: "Beck's (4,9%)" },
         { id: "B", label: "Warsteiner (4,8%)" },
         { id: "C", label: "Paulaner Weißbier (5,5%)" },
-        { id: "D", label: "Bitburger (4,8%)" },
+        { id: "D", label: "Oettinger Pils (4,7%)" },
       ],
-      correctOrder: ["B", "D", "A", "C"],
+      correctOrder: ["D", "B", "A", "C"],
       durationMs: 30_000,
       points: 6,
+      explanation:
+        "0,1% trennen Oettinger (4,7%), Warsteiner (4,8%) und Beck's (4,9%). Paulaner Weißbier mit 5,5% ist klar vorne. Deutsche nehmen Bier-Promille erstaunlich ernst.",
     },
     {
       id: "q-rank-15",
@@ -2066,20 +2270,24 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOrder: ["A", "B", "D", "C"],
       durationMs: 30_000,
       points: 6,
+      explanation:
+        "Der Orden des Phönix (1.019 Seiten) ist das dickste HP-Buch – inhaltlich auch manchmal etwas zäh. Die ersten beiden Bücher sind fast gleich lang; der Sprung zum 4. Buch (761 S.) ist dramatisch.",
     },
     {
       id: "q-rank-16",
       type: QuestionType.Ranking,
       text: "Sortiere diese Länder nach Einwohnerzahl (kleinste zuerst, 2023).",
       items: [
-        { id: "A", label: "Indien (~1,4 Mrd.)" },
+        { id: "A", label: "Indien (~1,44 Mrd.)" },
         { id: "B", label: "USA (~330 Mio.)" },
         { id: "C", label: "Deutschland (~84 Mio.)" },
-        { id: "D", label: "China (~1,4 Mrd.)" },
+        { id: "D", label: "China (~1,41 Mrd.)" },
       ],
       correctOrder: ["C", "B", "D", "A"],
       durationMs: 25_000,
       points: 5,
+      explanation:
+        "2023 überholte Indien China als bevölkerungsreichstes Land der Welt – der Unterschied: ~30 Millionen Menschen. Deutschland mit 84 Mio. wirkt im Vergleich winzig.",
     },
     {
       id: "q-rank-17",
@@ -2094,6 +2302,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOrder: ["B", "A", "C", "D"],
       durationMs: 25_000,
       points: 5,
+      explanation:
+        "Haribo Goldbären haben überraschend 'wenig' Kalorien im Vergleich zu Chips und Schokolade. Pringles, Milka und Nutella liegen alle zwischen 520 und 540 kcal – kaum zu unterscheiden.",
     },
     {
       id: "q-rank-18",
@@ -2108,6 +2318,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOrder: ["B", "D", "C", "A"],
       durationMs: 30_000,
       points: 6,
+      explanation:
+        "Deutschrap ist 2022 das meistgestreamte Genre in Deutschland – vor Pop. Klassik hat nur 3%, obwohl Deutschland als 'Klassik-Nation' gilt. Streaming hat Hitparaden und Genres radikal neu sortiert.",
     },
     {
       id: "q-rank-19",
@@ -2122,6 +2334,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOrder: ["B", "D", "C", "A"],
       durationMs: 25_000,
       points: 5,
+      explanation:
+        "Bremen ist das kleinste Bundesland – kaum größer als eine mittlere Großstadt. Bayern ist mit ~70.000 km² größer als Österreich. Überraschung: NRW (Platz 3) kommt vor Bayern.",
     },
     {
       id: "q-rank-20",
@@ -2136,6 +2350,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOrder: ["A", "B", "D", "C"],
       durationMs: 30_000,
       points: 6,
+      explanation:
+        "Die Sims (2000) erfand Lebens-Simulation. GTA Vice City (2002) war der Schulhof-Talk. WoW (2004) tötete für viele die Produktivität. Minecraft (2011) machte das dann für die Generation danach.",
     },
     {
       id: "q-rank-21",
@@ -2150,6 +2366,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOrder: ["C", "A", "D", "B"],
       durationMs: 30_000,
       points: 6,
+      explanation:
+        "Espresso überrascht: pro Schuss (30ml) hat er weniger Koffein als ein 200ml Filterkaffee. Pro Milliliter ist er aber viel stärker – man trinkt halt deutlich weniger. Red Bull liegt zwischen den beiden.",
     },
     {
       id: "q-rank-22",
@@ -2164,6 +2382,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOrder: ["B", "A", "D", "C"],
       durationMs: 30_000,
       points: 5,
+      explanation:
+        "The Office US startete 2005, Breaking Bad folgte 2008, GoT kam 2011 und Stranger Things 2016. Fühlen sich alle jünger an, als sie sind.",
     },
     {
       id: "q-rank-23",
@@ -2178,6 +2398,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOrder: ["B", "A", "C", "D"],
       durationMs: 25_000,
       points: 5,
+      explanation:
+        "iPhone 3G (2008) war das erste mit dem App Store – der wichtigste Wendepunkt. iPhone 5 (2012) brachte das größere Display. iPhone X (2017) entfernte die Home-Taste für immer.",
     },
     {
       id: "q-rank-24",
@@ -2192,6 +2414,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOrder: ["A", "B", "C", "D"],
       durationMs: 30_000,
       points: 5,
+      explanation:
+        "Die 1960er waren Deutschlands Baby-Boom-Peak: ~1,4 Mio. Geburten pro Jahr. 2023 gab es nur noch ~700.000 – halb so viele. Millennial-Geburtstage gibt es weniger als Boomer-Geburtstage.",
     },
     {
       id: "q-rank-25",
@@ -2206,6 +2430,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOrder: ["D", "B", "A", "C"],
       durationMs: 30_000,
       points: 6,
+      explanation:
+        "Fußball ist mit 6,7 Millionen Vereinsmitgliedern unangefochtener Spitzenreiter. Turnen auf Platz 2 überrascht – fast jede Kleinstgemeinde hat einen Turnverein. Handball ist Fernsehsport, weniger Breitensport.",
     },
     {
       id: "q-rank-26",
@@ -2217,9 +2443,11 @@ const MILLENNIALS_QUIZ: Quiz = {
         { id: "C", label: "iPhone-Launch in Deutschland (2007)" },
         { id: "D", label: "Euro-Einführung als Bargeld (2002)" },
       ],
-      correctOrder: ["B", "A", "D", "C"],
+      correctOrder: ["B", "D", "A", "C"],
       durationMs: 30_000,
       points: 5,
+      explanation:
+        "1989 → 2002 → 2004 → 2007: 18 turbulente Jahre. Mauerfall veränderte Deutschland, der Euro veränderte Europa, Facebook veränderte Beziehungen, und das iPhone veränderte alles andere.",
     },
     {
       id: "q-rank-27",
@@ -2234,6 +2462,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOrder: ["B", "C", "D", "A"],
       durationMs: 25_000,
       points: 5,
+      explanation:
+        "Russland ist 17 Mio. km² groß – 48-mal größer als Deutschland (357.000 km²). Kanada ist Platz 2 weltweit, Australien Platz 6. Deutschland im Vergleich: ein Staubkorn auf der Weltkarte.",
     },
     {
       id: "q-rank-28",
@@ -2242,12 +2472,14 @@ const MILLENNIALS_QUIZ: Quiz = {
       items: [
         { id: "A", label: "💀 (2010)" },
         { id: "B", label: "🥑 (2016)" },
-        { id: "C", label: "😂 (2010)" },
+        { id: "C", label: "🤗 (2015)" },
         { id: "D", label: "🫠 (2021)" },
       ],
       correctOrder: ["A", "C", "B", "D"],
       durationMs: 30_000,
       points: 6,
+      explanation:
+        "Der Totenkopf 💀 ist einer der ersten Standard-Emojis (2010). Das Avocado-Emoji 🥑 kam 2016 – exakt als Avocado-Toast viral ging. Das schmelzende Gesicht 🫠 ist von 2021 und beschreibt den Gefühlszustand von Corona-Zoom-Calls.",
     },
     {
       id: "q-rank-29",
@@ -2262,6 +2494,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOrder: ["C", "B", "D", "A"],
       durationMs: 30_000,
       points: 5,
+      explanation:
+        "Das Rindfl…gesetz (63 Buchstaben) war ein echtes deutsches Gesetz bis 2013 – es regelte BSE-Fleischkontrolle. Das 'kurze' Wort hier ist 'Kraftfahrzeug' mit nur 13 Buchstaben. Typisch Deutsch.",
     },
     {
       id: "q-rank-30",
@@ -2276,6 +2510,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOrder: ["B", "D", "C", "A"],
       durationMs: 25_000,
       points: 6,
+      explanation:
+        "Long Island Iced Tea (22%) enthält Vodka, Tequila, Rum, Triple Sec und Gin – 5 Hochprozente in einem Glas. Sieht aus wie Eistee, haut aber zu wie ein Kurzstreckenflug.",
     },
     {
       id: "q-rank-31",
@@ -2290,6 +2526,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOrder: ["B", "D", "C", "A"],
       durationMs: 30_000,
       points: 6,
+      explanation:
+        "PewDiePie vs. T-Series war 2019 der größte YouTube-Krieg aller Zeiten. MrBeast überholte beide. Cocomelon ist ein Kinder-Nursery-Rhyme-Kanal – und hat mehr Subscriber als PewDiePie.",
     },
     {
       id: "q-rank-32",
@@ -2304,6 +2542,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOrder: ["D", "C", "A", "B"],
       durationMs: 30_000,
       points: 6,
+      explanation:
+        "Die A7 (963 km) ist die längste Autobahn Deutschlands – von Flensburg bis Füssen. Die A9 (München–Berlin) fühlt sich lang an, ist aber die kürzeste der vier. Deutschland hat das drittgrößte Autobahnnetz der Welt.",
     },
     {
       id: "q-rank-33",
@@ -2318,6 +2558,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOrder: ["C", "D", "A", "B"],
       durationMs: 30_000,
       points: 6,
+      explanation:
+        "Bolt's 9,58 Sekunden ist die kleinste Zahl – kleiner als das Alter der ältesten Person aller Zeiten (Jeanne Calment, 122 Jahre). Der Mariannengraben (11.034 m) ist sogar tiefer als der Everest hoch ist.",
     },
     {
       id: "q-rank-34",
@@ -2332,6 +2574,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOrder: ["C", "D", "B", "A"],
       durationMs: 30_000,
       points: 6,
+      explanation:
+        "Herzkreislauf-Erkrankungen (35%) sind die häufigste Todesursache – mehr als Krebs (25%) und Demenz (8%) zusammen. Überraschend: Demenz ist häufiger als Atemwegserkrankungen.",
     },
     {
       id: "q-rank-35",
@@ -2346,6 +2590,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOrder: ["B", "A", "C", "D"],
       durationMs: 30_000,
       points: 6,
+      explanation:
+        "Tamagotchi (1996) startete die digitale Spielzeug-Ära. Beyblade (1999) war Schulhof-Pflicht. Bratz-Puppen (2001) waren Barbies Konkurrenz. Webkinz (2005) kombinierte Plüschtier mit Onlinewelt.",
     },
 
     // ─── LOGIK- UND ÜBERRASCHUNGSFRAGEN (logic) ────────────────────────────────
@@ -2363,6 +2609,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "B",
       durationMs: 20_000,
       points: 4,
+      explanation:
+        "Pille 1 sofort (Minute 0), Pille 2 nach 30 Minuten, Pille 3 nach 60 Minuten. Das macht genau 1 Stunde – nicht 1,5. Der Trick: die erste wird sofort gezählt.",
     },
     {
       id: "q-logic-02",
@@ -2377,6 +2625,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "C",
       durationMs: 20_000,
       points: 4,
+      explanation:
+        "Kanada hat über 60% aller natürlichen Seen der Welt – das ist keine Übertreibung. Die Gletscher der letzten Eiszeit haben das Land förmlich durchlöchert. Allein im Norden gibt es Millionen namenloser Seen.",
     },
     {
       id: "q-logic-03",
@@ -2391,6 +2641,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "A",
       durationMs: 20_000,
       points: 4,
+      explanation:
+        "Tetris läuft seit 1984 auf praktisch jedem Gerät, das je existiert hat – Game Boy, Nokia-Handy, NASA-Computer, Taschenrechner. Bis 2012 über 170 Millionen Kopien. Heute gibt es sogar eine DNA-Version.",
     },
     {
       id: "q-logic-04",
@@ -2405,6 +2657,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "B",
       durationMs: 20_000,
       points: 3,
+      explanation:
+        "Du nimmst den Platz des Zweiten ein – also Platz 2. Den Ersten hast du noch nicht überholt. Klassische Denk-Falle: das Gehirn springt zu 'Erster', weil Überholen sich nach Gewinnen anfühlt.",
     },
     {
       id: "q-logic-05",
@@ -2419,13 +2673,15 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "B",
       durationMs: 15_000,
       points: 3,
+      explanation:
+        "Insekten haben immer 6 Beine und 3 Körperabschnitte. Spinnen haben 8 Beine und 2 Körperabschnitte – sie sind Spinnentiere (Arachniden), eine komplett andere Klasse.",
     },
     {
       id: "q-logic-06",
       type: QuestionType.Logic,
       text: "Was passiert mit dem Leergewicht eines Flugzeugs, wenn es tankt – bevor es startet?",
       options: [
-        { id: "A", label: "Es bleibt gleich" },
+        { id: "A", label: "Das Startgewicht bleibt gleich" },
         { id: "B", label: "Es wird schwerer" },
         { id: "C", label: "Es wird leichter" },
         { id: "D", label: "Leergewicht ändert sich nicht" },
@@ -2433,6 +2689,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "D",
       durationMs: 20_000,
       points: 4,
+      explanation:
+        "Das 'Leergewicht' ist eine fixe technische Größe – das Gewicht des leeren Flugzeugs ohne Treibstoff. Wenn getankt wird, steigt das Betriebsgewicht, aber das Leergewicht bleibt per Definition gleich.",
     },
     {
       id: "q-logic-07",
@@ -2447,6 +2705,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "C",
       durationMs: 20_000,
       points: 5,
+      explanation:
+        "Ein perfekter Spiegel wäre silberweiß – aber echte Glas-Spiegel reflektieren grünes Licht minimal stärker als andere Wellenlängen. Hält man zwei Spiegel gegeneinander ('Infinity Mirror'), sieht man den Grünstich deutlich.",
     },
     {
       id: "q-logic-08",
@@ -2461,6 +2721,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "A",
       durationMs: 20_000,
       points: 4,
+      explanation:
+        "193 UN-Mitgliedstaaten plus Vatikan und Palästina als Beobachterstaaten = 195. Taiwan, Kosovo und andere sind politisch umstritten und zählen nicht offiziell. Die 204 beim Sport kommen daher, dass Olympia und FIFA eigene Regeln haben.",
     },
     {
       id: "q-logic-09",
@@ -2475,6 +2737,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "B",
       durationMs: 15_000,
       points: 3,
+      explanation:
+        "Alle Monate haben mindestens 28 Tage – die Frage fragt nicht 'nur 28 Tage'. Der Februar hat genau 28 (oder 29), alle anderen haben 28 plus mehr. Typische Wortlaut-Falle.",
     },
     {
       id: "q-logic-10",
@@ -2489,6 +2753,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "C",
       durationMs: 15_000,
       points: 3,
+      explanation:
+        "'Alle bis auf 9' bedeutet: 9 überleben. Der Trick ist, dass das Gehirn sofort 17 - 9 = 8 rechnet, statt 'bis auf' zu lesen. 8 wäre die Anzahl der Toten – nicht der Überlebenden.",
     },
     {
       id: "q-logic-11",
@@ -2503,6 +2769,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "D",
       durationMs: 20_000,
       points: 5,
+      explanation:
+        "China und Russland teilen sich tatsächlich Platz 1 mit je 14 Nachbarn. Russland reicht von Norwegen im Westen bis Nordkorea im Osten, China von Kasachstan bis Vietnam.",
     },
     {
       id: "q-logic-12",
@@ -2517,6 +2785,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "C",
       durationMs: 20_000,
       points: 4,
+      explanation:
+        "Die Deutsche Bundesbank tauscht beschädigte Scheine um – solange mehr als die Hälfte vorhanden ist oder die Seriennummer erkennbar ist. Zwei Hälften sind also zusammen 10 Euro wert.",
     },
     {
       id: "q-logic-13",
@@ -2531,6 +2801,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "A",
       durationMs: 15_000,
       points: 3,
+      explanation:
+        "Jedes Jahr auf Platz 1 der 'worst passwords'-Listen: 123456. Laut NordPass wurde es 2023 über 4 Millionen Mal in Datenlecks gefunden. 'password' ist meist Platz 2.",
     },
     {
       id: "q-logic-14",
@@ -2545,6 +2817,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "B",
       durationMs: 20_000,
       points: 5,
+      explanation:
+        "Der Karamell-Farbstoff E150d macht Coke braun. Ohne ihn ist der Sirup leicht grünlich-gelblich. Anfang des 20. Jahrhunderts war das Getränk tatsächlich heller – das Braun wurde zugefügt, damit's appetitlicher wirkt.",
     },
     {
       id: "q-logic-15",
@@ -2559,6 +2833,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "B",
       durationMs: 12_000,
       points: 2,
+      explanation:
+        "Alle Insekten haben exakt 6 Beine – das ist das Hauptmerkmal der Klasse Insecta. Spinnen (8 Beine) und Milben (8 Beine) sind keine Insekten. Bienen: eindeutig Insekten.",
     },
     {
       id: "q-logic-16",
@@ -2573,20 +2849,24 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "B",
       durationMs: 20_000,
       points: 3,
+      explanation:
+        "Die ISS kreist in ~400 km Höhe – das ist ungefähr die Distanz München–Wien. Der Mond ist 384.000 km entfernt, also fast 1.000-mal weiter. Bei klarem Himmel könnte man die ISS mit bloßem Auge sehen.",
     },
     {
       id: "q-logic-17",
       type: QuestionType.Logic,
-      text: "In welcher deutschen Stadt steht der Kölner Dom?",
+      text: "Welcher Planet in unserem Sonnensystem dreht sich anders herum als die Erde – von Ost nach West?",
       options: [
-        { id: "A", label: "Düsseldorf" },
-        { id: "B", label: "Köln" },
-        { id: "C", label: "Aachen" },
-        { id: "D", label: "Bonn" },
+        { id: "A", label: "Mars" },
+        { id: "B", label: "Saturn" },
+        { id: "C", label: "Venus" },
+        { id: "D", label: "Neptun" },
       ],
-      correctOptionId: "B",
-      durationMs: 8_000,
-      points: 1,
+      correctOptionId: "C",
+      durationMs: 20_000,
+      points: 4,
+      explanation:
+        "Venus dreht sich rückwärts – auf der Venus geht die Sonne im Westen auf. Außerdem dreht sie sich extrem langsam: ein Venustag (243 Erdtage) dauert länger als ein Venusjahr (225 Erdtage).",
     },
     {
       id: "q-logic-18",
@@ -2601,6 +2881,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "C",
       durationMs: 20_000,
       points: 5,
+      explanation:
+        "Straßenverkehrs- und andere Unfälle sind bei Jugendlichen und jungen Erwachsenen die häufigste Todesursache in Deutschland – noch vor Suizid (Platz 2) und Krebs. Bei über 65-Jährigen dominieren Herz-Kreislauf-Erkrankungen.",
     },
     {
       id: "q-logic-19",
@@ -2615,6 +2897,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "C",
       durationMs: 20_000,
       points: 4,
+      explanation:
+        "Airspeed (400 km/h) minus Gegenwind (100 km/h) = Groundspeed (300 km/h). Das ist warum Flüge gegen den Wind länger dauern – und warum Rückflüge über den Atlantik kürzer sind als Hinflüge.",
     },
     {
       id: "q-logic-20",
@@ -2629,6 +2913,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "C",
       durationMs: 10_000,
       points: 2,
+      explanation:
+        "Ein Kilogramm ist ein Kilogramm – egal woraus. Federn brauchen nur viel mehr Platz. Das Gehirn stolpert über die Vorstellung von einem Sack Federn vs. einem kleinen Stahlblock.",
     },
     {
       id: "q-logic-21",
@@ -2643,6 +2929,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "B",
       durationMs: 20_000,
       points: 4,
+      explanation:
+        "Das Knorpelgewebe in Ohren und Nase wächst ein Leben lang weiter. Haare und Nägel wachsen zwar nach, aber das ist kein echtes Körperwachstum – sie sind abgestorbene Zellen.",
     },
     {
       id: "q-logic-22",
@@ -2657,6 +2945,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "B",
       durationMs: 20_000,
       points: 4,
+      explanation:
+        "Neuseeland gab Frauen 1893 als erstes Land der Welt das Wahlrecht – 25 Jahre vor Deutschland. Kate Sheppard sammelte über 30.000 Unterschriften für die Petition. Die Suffragetten in Großbritannien kämpften noch bis 1918.",
     },
     {
       id: "q-logic-23",
@@ -2671,6 +2961,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "B",
       durationMs: 15_000,
       points: 3,
+      explanation:
+        "Die Mona Lisa hängt hinter Panzerglas im Louvre und ist das meistbesuchte Gemälde der Welt. Viele sind überrascht, wie klein sie ist: nur 77 × 53 cm. 2017 zog sie kurz in ihr eigenes Zimmer – der Andrang war zu groß.",
     },
     {
       id: "q-logic-24",
@@ -2685,6 +2977,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "A",
       durationMs: 12_000,
       points: 2,
+      explanation:
+        "Tim Berners-Lee erfand das World Wide Web 1989 am CERN – und 'www' ist technisch gesehen nur eine Subdomain. Moderne Browser brauchen es kaum noch; www.google.com und google.com sind oft identisch.",
     },
     {
       id: "q-logic-25",
@@ -2699,6 +2993,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "B",
       durationMs: 20_000,
       points: 5,
+      explanation:
+        "Das Auge unter der Klappe ist bereits dunkeladaptiert. Wenn Piraten (und Soldaten) unter Deck gingen – bei Dunkelheit kämpfen mussten – nahmen sie die Klappe ab und konnten sofort sehen. Dunkeladaptation dauert sonst 20–30 Minuten.",
     },
     {
       id: "q-logic-26",
@@ -2713,6 +3009,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "C",
       durationMs: 15_000,
       points: 3,
+      explanation:
+        "Das ARPANET wurde 1969 vom US-Verteidigungsministerium entwickelt – erster Test: 'lo' (geplant war 'login', aber das System crashte). Tim Berners-Lee (Brite) erfand 1989 das World Wide Web – aber das ist nicht dasselbe wie das Internet.",
     },
     {
       id: "q-logic-27",
@@ -2727,6 +3025,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "B",
       durationMs: 20_000,
       points: 5,
+      explanation:
+        "Der Mythos 'Haie kriegen keinen Krebs' ist schlichtweg falsch – Tumoren bei Haien wurden vielfach dokumentiert. Elefanten hingegen bekommen überraschend selten Krebs, weil sie extra Kopien des Tumorsuppressorgens p53 haben.",
     },
     {
       id: "q-logic-28",
@@ -2748,6 +3048,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "B",
       durationMs: 25_000,
       points: 5,
+      explanation:
+        "Das 'Wahnsinn ist...'-Zitat taucht erstmals in einem Selbsthilfe-Buch der 1980er auf – kein Einstein. 'Gott würfelt nicht' hat er tatsächlich geschrieben. Sein Name wird auf hunderte Zitate gesetzt, weil es sie klüger klingen lässt.",
     },
     {
       id: "q-logic-29",
@@ -2762,6 +3064,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "D",
       durationMs: 20_000,
       points: 4,
+      explanation:
+        "Augenbrauen leiten Schweiß vom Auge ab, sind essenziell für Mimik und Gesichtserkennung – Studien zeigen, dass Menschen ohne Augenbrauen schwerer erkannt werden als ohne Augen. Als UV-Schutz taugen sie kaum.",
     },
     {
       id: "q-logic-30",
@@ -2776,6 +3080,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "C",
       durationMs: 20_000,
       points: 4,
+      explanation:
+        "Italien führt die UNESCO-Liste mit 58 Welterbestätten an – knapp vor China (57). Von den Dolomiten über Pompeji bis Venedig: kaum ein Land hat auf so kleiner Fläche so viel Geschichte.",
     },
     {
       id: "q-logic-31",
@@ -2790,6 +3096,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "C",
       durationMs: 20_000,
       points: 4,
+      explanation:
+        "Fast 40% aller Hausbrände beginnen in der Küche – vergessene Töpfe auf dem Herd sind laut deutschen Feuerwehr-Statistiken die häufigste Ursache, noch vor Elektrogeräten und Kerzen.",
     },
     {
       id: "q-logic-32",
@@ -2807,6 +3115,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "D",
       durationMs: 20_000,
       points: 4,
+      explanation:
+        "Nach Merkel wurde Olaf Scholz (SPD) Bundeskanzler. Deutschland hatte bisher genau eine Bundeskanzlerin. Die Frage ist eine Fangfrage: 'erste nach Merkel' impliziert eine Frau – aber das stimmt nicht.",
     },
     {
       id: "q-logic-33",
@@ -2821,6 +3131,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "B",
       durationMs: 20_000,
       points: 5,
+      explanation:
+        "Giraffen schlafen nur ~30 Minuten täglich, verteilt auf kurze Nickerchen von 5 Minuten. Als Fluchttier können sie es sich kaum leisten, sich hinzulegen – ein schlafende Giraffe ist eine leichte Beute.",
     },
     {
       id: "q-logic-34",
@@ -2835,6 +3147,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "C",
       durationMs: 20_000,
       points: 5,
+      explanation:
+        "Im freien Fall befindest du dich im gleichen Bezugssystem wie der Aufzug. Ein Sprung relativ zum Aufzugsboden ist physikalisch möglich – aber du und der Aufzug fallen mit gleicher Beschleunigung. Dein Sprung hilft rein gar nichts.",
     },
     {
       id: "q-logic-35",
@@ -2849,6 +3163,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "B",
       durationMs: 20_000,
       points: 4,
+      explanation:
+        "Pflicht: Warndreieck aufstellen, Warnweste anlegen (bevor man aussteigt!), Erste Hilfe leisten. Die Polizei muss nicht bei Blechschäden gerufen werden – Datenaustausch reicht. Aber Erste Hilfe zu verweigern ist strafbar.",
     },
     {
       id: "q-logic-36",
@@ -2863,20 +3179,27 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "C",
       durationMs: 20_000,
       points: 4,
+      explanation:
+        "Zu viel Druck schleift Zahnschmelz ab und schädigt das Zahnfleisch. Laut Zahnärzten ist das der häufigste Fehler – noch vor zu kurzem Putzen. Elektrische Zahnbürsten mit Drucksensor sind deshalb so populär.",
     },
     {
       id: "q-logic-37",
       type: QuestionType.Logic,
-      text: "Warum schmeckt Saft nach einer Reise zum Zahnarzt komisch?",
+      text: "Warum schmeckt Orangensaft direkt nach dem Zähneputzen so schrecklich bitter?",
       options: [
-        { id: "A", label: "Das Betäubungsmittel betäubt auch die Geschmacksnerven" },
-        { id: "B", label: "Die Fluoridbehandlung verändert den Speichel" },
-        { id: "C", label: "Zahnpasta-Reste neutralisieren die Süße" },
-        { id: "D", label: "Stress verändert die Geschmackswahrnehmung" },
+        { id: "A", label: "Die Fluoride im Wasser verändern den Speichel" },
+        { id: "B", label: "Der Geschmack ist psychologisch – man erwartet es so" },
+        {
+          id: "C",
+          label: "Zahnpasta-Inhaltsstoffe blockieren Süßrezeptoren und verstärken Bitterstoffe",
+        },
+        { id: "D", label: "Zitronensäure reagiert chemisch mit dem Fluor in der Zahnpasta" },
       ],
       correctOptionId: "C",
       durationMs: 20_000,
       points: 5,
+      explanation:
+        "SLS (Natriumlaurylsulfat) und andere Schaummittel in Zahnpasta blockieren vorübergehend die Süßrezeptoren auf der Zunge. Ohne die Süße fühlen die Bitterstoffe der Zitrusfrüchte doppelt intensiv an.",
     },
     {
       id: "q-logic-38",
@@ -2891,6 +3214,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "C",
       durationMs: 20_000,
       points: 4,
+      explanation:
+        "Mücken übertragen Malaria, Dengue, Zika und Gelbfieber – zusammen ~750.000 Tode pro Jahr. Zum Vergleich: Schlangen ~100.000, Nilpferde ~500, Löwen ~100. Der Mensch selbst ist übrigens Platz 2 mit ~475.000.",
     },
     {
       id: "q-logic-39",
@@ -2905,6 +3230,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "B",
       durationMs: 15_000,
       points: 3,
+      explanation:
+        "Fingernägel wachsen ~3–4 mm pro Monat, Zehennägel nur ~1–2 mm. Der Mittelfinger wächst am schnellsten, der kleine Zeh am langsamsten. Warum? Vermutlich Durchblutung und mechanische Belastung.",
     },
     {
       id: "q-logic-40",
@@ -2919,6 +3246,8 @@ const MILLENNIALS_QUIZ: Quiz = {
       correctOptionId: "D",
       durationMs: 15_000,
       points: 3,
+      explanation:
+        "Helmut Kohl war von 1982 bis 1998 genau 16 Jahre im Amt – hauchdünn länger als Angela Merkel (16 Jahre, aber einige Wochen kürzer). Kohl verlor 1998 gegen Schröder – nach 16 Jahren Amtszeit und der deutschen Wiedervereinigung.",
     },
   ],
 };

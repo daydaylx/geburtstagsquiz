@@ -425,6 +425,7 @@ export const QuestionRevealPayloadSchema = z
     correctAnswer: CorrectAnswerSchema,
     playerResults: z.array(PlayerRoundResultSchema),
     gameState: z.literal(GameState.Revealing),
+    explanation: z.string().optional(),
   })
   .strict();
 

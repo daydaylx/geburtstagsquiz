@@ -60,8 +60,24 @@ function makeQuestion(id: string, type: QuestionType): Question {
 describe("getAnswerProgress", () => {
   it("counts answers only from currently connected players", () => {
     const currentAnswers = new Map([
-      ["p1", { playerId: "p1", questionId: "q1", answer: { type: "option" as const, value: "A" }, submittedAtMs: 1 }],
-      ["p2", { playerId: "p2", questionId: "q1", answer: { type: "option" as const, value: "A" }, submittedAtMs: 1 }],
+      [
+        "p1",
+        {
+          playerId: "p1",
+          questionId: "q1",
+          answer: { type: "option" as const, value: "A" },
+          submittedAtMs: 1,
+        },
+      ],
+      [
+        "p2",
+        {
+          playerId: "p2",
+          questionId: "q1",
+          answer: { type: "option" as const, value: "A" },
+          submittedAtMs: 1,
+        },
+      ],
     ]);
 
     expect(
@@ -109,59 +125,86 @@ describe("getEveningQuestions", () => {
     expect(getEveningQuestions([])).toEqual([]);
   });
 
-  it("keeps the first six questions per supported question type", () => {
+  it("selects six questions per type and sets QUESTION_DURATION_MS", () => {
     const questions = [
-      ...Array.from({ length: 8 }, (_, index) =>
-        makeQuestion(`mc-${index}`, QuestionType.MultipleChoice),
+      ...Array.from({ length: 8 }, (_, i) => makeQuestion(`mc-${i}`, QuestionType.MultipleChoice)),
+      ...Array.from({ length: 7 }, (_, i) => makeQuestion(`logic-${i}`, QuestionType.Logic)),
+      ...Array.from({ length: 6 }, (_, i) => makeQuestion(`estimate-${i}`, QuestionType.Estimate)),
+      ...Array.from({ length: 6 }, (_, i) =>
+        makeQuestion(`majority-${i}`, QuestionType.MajorityGuess),
       ),
-      ...Array.from({ length: 7 }, (_, index) => makeQuestion(`logic-${index}`, QuestionType.Logic)),
-      ...Array.from({ length: 6 }, (_, index) =>
-        makeQuestion(`estimate-${index}`, QuestionType.Estimate),
-      ),
-      ...Array.from({ length: 6 }, (_, index) =>
-        makeQuestion(`majority-${index}`, QuestionType.MajorityGuess),
-      ),
-      ...Array.from({ length: 9 }, (_, index) =>
-        makeQuestion(`ranking-${index}`, QuestionType.Ranking),
-      ),
+      ...Array.from({ length: 9 }, (_, i) => makeQuestion(`ranking-${i}`, QuestionType.Ranking)),
     ];
 
     const selected = getEveningQuestions(questions);
 
     expect(selected).toHaveLength(30);
-    expect(selected.every((question) => question.durationMs === QUESTION_DURATION_MS)).toBe(true);
-    expect(questions.every((question) => question.durationMs === 10_000)).toBe(true);
-    expect(selected.map((question) => question.id)).toEqual([
-      "mc-0",
-      "mc-1",
-      "mc-2",
-      "mc-3",
-      "mc-4",
-      "mc-5",
-      "logic-0",
-      "logic-1",
-      "logic-2",
-      "logic-3",
-      "logic-4",
-      "logic-5",
-      "estimate-0",
-      "estimate-1",
-      "estimate-2",
-      "estimate-3",
-      "estimate-4",
-      "estimate-5",
-      "majority-0",
-      "majority-1",
-      "majority-2",
-      "majority-3",
-      "majority-4",
-      "majority-5",
-      "ranking-0",
-      "ranking-1",
-      "ranking-2",
-      "ranking-3",
-      "ranking-4",
-      "ranking-5",
-    ]);
+    expect(selected.every((q) => q.durationMs === QUESTION_DURATION_MS)).toBe(true);
+    expect(questions.every((q) => q.durationMs === 10_000)).toBe(true);
+
+    expect(selected.filter((q) => q.type === QuestionType.MultipleChoice)).toHaveLength(6);
+    expect(selected.filter((q) => q.type === QuestionType.Logic)).toHaveLength(6);
+    expect(selected.filter((q) => q.type === QuestionType.Estimate)).toHaveLength(6);
+    expect(selected.filter((q) => q.type === QuestionType.MajorityGuess)).toHaveLength(6);
+    expect(selected.filter((q) => q.type === QuestionType.Ranking)).toHaveLength(6);
+  });
+
+  it("does not produce duplicate question IDs", () => {
+    const questions = [
+      ...Array.from({ length: 10 }, (_, i) => makeQuestion(`mc-${i}`, QuestionType.MultipleChoice)),
+      ...Array.from({ length: 10 }, (_, i) => makeQuestion(`logic-${i}`, QuestionType.Logic)),
+      ...Array.from({ length: 10 }, (_, i) => makeQuestion(`estimate-${i}`, QuestionType.Estimate)),
+      ...Array.from({ length: 10 }, (_, i) =>
+        makeQuestion(`majority-${i}`, QuestionType.MajorityGuess),
+      ),
+      ...Array.from({ length: 10 }, (_, i) => makeQuestion(`ranking-${i}`, QuestionType.Ranking)),
+    ];
+
+    const selected = getEveningQuestions(questions);
+    const ids = selected.map((q) => q.id);
+
+    expect(new Set(ids).size).toBe(ids.length);
+  });
+
+  it("does not mutate the original question array", () => {
+    const questions = Array.from({ length: 8 }, (_, i) =>
+      makeQuestion(`mc-${i}`, QuestionType.MultipleChoice),
+    );
+    const originalOrder = questions.map((q) => q.id);
+
+    getEveningQuestions(questions);
+
+    expect(questions.map((q) => q.id)).toEqual(originalOrder);
+    expect(questions.every((q) => q.durationMs === 10_000)).toBe(true);
+  });
+
+  it("uses all available questions when fewer than six exist per type", () => {
+    const questions = [
+      ...Array.from({ length: 3 }, (_, i) => makeQuestion(`mc-${i}`, QuestionType.MultipleChoice)),
+      ...Array.from({ length: 2 }, (_, i) => makeQuestion(`logic-${i}`, QuestionType.Logic)),
+    ];
+
+    const selected = getEveningQuestions(questions);
+
+    expect(selected.filter((q) => q.type === QuestionType.MultipleChoice)).toHaveLength(3);
+    expect(selected.filter((q) => q.type === QuestionType.Logic)).toHaveLength(2);
+    expect(selected.filter((q) => q.type === QuestionType.Estimate)).toHaveLength(0);
+  });
+
+  it("produces a deterministic result with a fixed random function", () => {
+    const questions = Array.from({ length: 10 }, (_, i) =>
+      makeQuestion(`mc-${i}`, QuestionType.MultipleChoice),
+    );
+    let seed = 42;
+    const seededRandom = () => {
+      seed = (seed * 1664525 + 1013904223) & 0xffffffff;
+      return (seed >>> 0) / 0xffffffff;
+    };
+
+    const run1 = getEveningQuestions(questions, seededRandom);
+    seed = 42;
+    const run2 = getEveningQuestions(questions, seededRandom);
+
+    expect(run1.map((q) => q.id)).toEqual(run2.map((q) => q.id));
   });
 });

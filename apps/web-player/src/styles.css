@@ -557,6 +557,17 @@ body {
   text-transform: uppercase;
 }
 
+.player-explanation {
+  margin: 14px 0 0;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border-left: 2px solid rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
 /* Ranking */
 .player-ranking-area {
   display: flex;
@@ -919,7 +930,8 @@ body {
   opacity: 0.36;
 }
 
-.player-controller-options[data-status="accepted"] .player-controller-option:not([data-state="selected"]) {
+.player-controller-options[data-status="accepted"]
+  .player-controller-option:not([data-state="selected"]) {
   filter: saturate(0.72);
 }
 
@@ -976,22 +988,19 @@ body {
 }
 
 .player-feedback[data-state="correct"] {
-  background:
-    linear-gradient(135deg, rgba(0, 255, 102, 0.96), rgba(246, 199, 106, 0.84));
+  background: linear-gradient(135deg, rgba(0, 255, 102, 0.96), rgba(246, 199, 106, 0.84));
   color: #031006;
   box-shadow: 0 0 30px rgba(0, 255, 102, 0.28);
 }
 
 .player-feedback[data-state="wrong"] {
-  background:
-    linear-gradient(135deg, rgba(126, 22, 32, 0.96), rgba(217, 54, 131, 0.72));
+  background: linear-gradient(135deg, rgba(126, 22, 32, 0.96), rgba(217, 54, 131, 0.72));
   color: #fff;
   box-shadow: 0 0 26px rgba(255, 51, 51, 0.18);
 }
 
 .player-feedback[data-state="missing"] {
-  background:
-    linear-gradient(135deg, rgba(255, 159, 63, 0.96), rgba(246, 199, 106, 0.76));
+  background: linear-gradient(135deg, rgba(255, 159, 63, 0.96), rgba(246, 199, 106, 0.76));
   color: #1a1000;
   box-shadow: 0 0 26px rgba(255, 159, 63, 0.18);
 }

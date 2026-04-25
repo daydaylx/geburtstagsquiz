@@ -21,13 +21,25 @@ const EVENING_QUESTION_TYPE_ORDER = [
   QuestionType.Ranking,
 ] as const;
 
-export function getEveningQuestions(questions: Question[]): Question[] {
-  return EVENING_QUESTION_TYPE_ORDER.flatMap((questionType) =>
-    questions
-      .filter((question) => question.type === questionType)
+function shuffleArray<T>(array: T[], random: () => number = Math.random): T[] {
+  const result = [...array];
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+}
+
+export function getEveningQuestions(
+  questions: Question[],
+  random: () => number = Math.random,
+): Question[] {
+  return EVENING_QUESTION_TYPE_ORDER.flatMap((questionType) => {
+    const ofType = questions.filter((q) => q.type === questionType);
+    return shuffleArray(ofType, random)
       .slice(0, EVENING_QUESTION_COUNT_PER_TYPE)
-      .map((question) => ({ ...question, durationMs: QUESTION_DURATION_MS })),
-  );
+      .map((q) => ({ ...q, durationMs: QUESTION_DURATION_MS }));
+  });
 }
 
 function sendQuestionForCurrentRole(
@@ -669,6 +681,7 @@ function evaluateQuestion(room: RoomRecord, question: Question): void {
     correctAnswer: roundResult.correctAnswer,
     playerResults: roundResult.playerResults,
     gameState: GameState.Revealing,
+    explanation: question.explanation,
   });
 
   room.revealTimer = setTimeout(() => {

@@ -296,6 +296,30 @@ describe("parseServerToClientEnvelope", () => {
     if (result.success && result.data.event === EVENTS.QUESTION_REVEAL) {
       expect(result.data.payload.playerResults).toHaveLength(2);
       expect(result.data.payload.playerResults[0].isCorrect).toBe(true);
+      expect(result.data.payload.explanation).toBeUndefined();
+    }
+  });
+
+  it("passes explanation through in question:reveal payload", () => {
+    const envelope = JSON.stringify({
+      event: EVENTS.QUESTION_REVEAL,
+      payload: {
+        roomId: "room-1",
+        questionId: "q1",
+        correctAnswer: { type: "option", value: "A" },
+        playerResults: [],
+        gameState: "revealing",
+        explanation: "Die erste Pille nimmst du sofort – macht genau 1 Stunde.",
+      },
+    });
+
+    const result = parseServerToClientEnvelope(envelope);
+
+    expect(result.success).toBe(true);
+    if (result.success && result.data.event === EVENTS.QUESTION_REVEAL) {
+      expect(result.data.payload.explanation).toBe(
+        "Die erste Pille nimmst du sofort – macht genau 1 Stunde.",
+      );
     }
   });
 

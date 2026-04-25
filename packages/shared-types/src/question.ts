@@ -13,6 +13,7 @@ export interface MultipleChoiceQuestion {
   correctOptionId: string;
   durationMs: number;
   points: number;
+  explanation?: string;
 }
 
 export interface LogicQuestion {
@@ -23,6 +24,7 @@ export interface LogicQuestion {
   correctOptionId: string;
   durationMs: number;
   points: number;
+  explanation?: string;
 }
 
 export interface EstimateQuestion {
@@ -34,6 +36,7 @@ export interface EstimateQuestion {
   context: string;
   durationMs: number;
   points: number;
+  explanation?: string;
 }
 
 export interface MajorityGuessQuestion {
@@ -45,6 +48,7 @@ export interface MajorityGuessQuestion {
   context: string;
   durationMs: number;
   points: number;
+  explanation?: string;
 }
 
 export interface RankingQuestion {
@@ -55,6 +59,7 @@ export interface RankingQuestion {
   correctOrder: string[];
   durationMs: number;
   points: number;
+  explanation?: string;
 }
 
 export type Question =

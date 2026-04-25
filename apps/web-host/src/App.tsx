@@ -124,6 +124,7 @@ export function App() {
   const [revealedAnswer, setRevealedAnswer] = useState<
     QuestionRevealPayload["correctAnswer"] | null
   >(null);
+  const [revealExplanation, setRevealExplanation] = useState<string | null>(null);
   const [roundResults, setRoundResults] = useState<QuestionRevealPayload["playerResults"]>([]);
   const [scoreboard, setScoreboard] = useState<ScoreUpdatePayload | null>(null);
   const [nextQuestionReadyProgress, setNextQuestionReadyProgress] =
@@ -179,6 +180,7 @@ export function App() {
     setRemainingMs(0);
     setAnswerProgress(null);
     setRevealedAnswer(null);
+    setRevealExplanation(null);
     setRoundResults([]);
     setScoreboard(null);
     setNextQuestionReadyProgress(null);
@@ -283,6 +285,7 @@ export function App() {
         setTotalQuestionCount(parsedEnvelope.data.payload.totalQuestionCount);
         setScreen("question");
         setAnswerProgress(null);
+        setRevealExplanation(null);
         return;
 
       case EVENTS.QUESTION_TIMER:
@@ -295,6 +298,7 @@ export function App() {
 
       case EVENTS.QUESTION_REVEAL:
         setRevealedAnswer(parsedEnvelope.data.payload.correctAnswer);
+        setRevealExplanation(parsedEnvelope.data.payload.explanation ?? null);
         setRoundResults(parsedEnvelope.data.payload.playerResults);
         setScreen("reveal");
         return;
@@ -573,6 +577,7 @@ export function App() {
               })}
             </div>
           )}
+          {revealExplanation && <p className="host-explanation">{revealExplanation}</p>}
           <div className="host-round-summary">
             <div className="host-round-summary-card" data-state="correct">
               <p className="host-control-label">Richtig</p>
@@ -597,7 +602,10 @@ export function App() {
           <p className="host-section-label">
             {screen === "finished" ? "Endstand" : `Zwischenstand (${nextReadyLabel})`}
           </p>
-          <div className="host-scoreboard-list" data-final={screen === "finished" ? "true" : undefined}>
+          <div
+            className="host-scoreboard-list"
+            data-final={screen === "finished" ? "true" : undefined}
+          >
             {latestScoreboard.map((entry, index) => (
               <article
                 className="host-scoreboard-item"

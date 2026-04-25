@@ -139,6 +139,7 @@ export function App() {
   const [correctAnswer, setCorrectAnswer] = useState<QuestionRevealPayload["correctAnswer"] | null>(
     null,
   );
+  const [revealExplanation, setRevealExplanation] = useState<string | null>(null);
   const [roundResults, setRoundResults] = useState<QuestionRevealPayload["playerResults"]>([]);
   const [scoreboard, setScoreboard] = useState<ScoreUpdatePayload | null>(null);
   const [nextQuestionReadyProgress, setNextQuestionReadyProgress] =
@@ -177,6 +178,7 @@ export function App() {
     setSelectedOptionId(null);
     setAnswerStatus("idle");
     setCorrectAnswer(null);
+    setRevealExplanation(null);
     setRoundResults([]);
     setScoreboard(null);
     setNextQuestionReadyProgress(null);
@@ -350,6 +352,7 @@ export function App() {
         setRankingOrder(resumedAnswer?.type === "ranking" ? resumedAnswer.value : []);
         setAnswerStatus(resumedAnswer ? "accepted" : "idle");
         setCorrectAnswer(null);
+        setRevealExplanation(null);
         setRoundResults([]);
         setScoreboard(null);
         setNextQuestionReadyProgress(null);
@@ -395,6 +398,7 @@ export function App() {
 
       case EVENTS.QUESTION_REVEAL:
         setCorrectAnswer(parsedEnvelope.data.payload.correctAnswer);
+        setRevealExplanation(parsedEnvelope.data.payload.explanation ?? null);
         setRoundResults(parsedEnvelope.data.payload.playerResults);
         setScreen("reveal");
         return;
@@ -759,7 +763,9 @@ export function App() {
             <div className="player-card">
               <span className="player-kicker">Auflösung</span>
               <h2 className="player-title">Schau auf den Host-Bildschirm</h2>
-              <p className="player-points-earned">{ownRoundResult?.pointsEarned ?? 0} Punkte verdient.</p>
+              <p className="player-points-earned">
+                {ownRoundResult?.pointsEarned ?? 0} Punkte verdient.
+              </p>
               <div className="player-result-lines">
                 <div>
                   <span>Deine Antwort</span>
@@ -788,6 +794,7 @@ export function App() {
                   </strong>
                 </div>
               </div>
+              {revealExplanation && <p className="player-explanation">{revealExplanation}</p>}
             </div>
           </>
         )}
