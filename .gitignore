@@ -9,3 +9,6 @@ dist/
 .DS_Store
 .serena/
 .claude/
+.codex
+.kilo/
+sqlite_mcp_server.db
