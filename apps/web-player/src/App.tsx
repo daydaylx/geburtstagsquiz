@@ -496,6 +496,8 @@ export function App() {
   const playerSession = playerSessionRef.current;
   const ownPlayerId = playerSession?.playerId ?? "";
   const timerSeconds = Math.ceil((remainingMs ?? 0) / 1000);
+  const isTimerWarning = remainingMs > 0 && timerSeconds <= 10;
+  const isTimerUrgent = remainingMs > 0 && timerSeconds <= 5;
   const ownRoundResult = roundResults.find((r) => r.playerId === ownPlayerId) ?? null;
   const selfRevealState = ownRoundResult?.isCorrect
     ? "correct"
@@ -523,13 +525,17 @@ export function App() {
     !!ownPlayerId && !!nextQuestionReadyProgress?.readyPlayerIds.includes(ownPlayerId);
 
   return (
-    <main className="player-shell" data-screen={screen}>
+    <main className="player-shell" data-answer-status={answerStatus} data-screen={screen}>
       <header className="player-header">
         <div className="player-status" data-state={connectionState}>
           {getConnectionLabel(connectionState)}
         </div>
         {screen === "question" && remainingMs > 0 && (
-          <div className="player-timer-mini" data-urgent={timerSeconds <= 5}>
+          <div
+            className="player-timer-mini"
+            data-urgent={isTimerUrgent ? "true" : undefined}
+            data-warning={isTimerWarning ? "true" : undefined}
+          >
             {timerSeconds}s
           </div>
         )}
@@ -546,13 +552,13 @@ export function App() {
           <div className="player-card">
             <span className="player-kicker">Willkommen</span>
             <h1 className="player-title">Mitspielen</h1>
-            <div style={{ marginTop: "24px", display: "grid", gap: "16px" }}>
+            <div className="player-join-form">
               <input
                 autoCapitalize="characters"
                 className="player-input"
                 maxLength={6}
                 onChange={(e) => setJoinCode(normalizeJoinCode(e.target.value))}
-                placeholder="Raumcode (z.B. ABC123)"
+                placeholder="Raumcode"
                 value={joinCode}
               />
               <input
@@ -580,7 +586,7 @@ export function App() {
             <div className="player-card">
               <span className="player-kicker">Lobby</span>
               <h1 className="player-title">{playerName || "Spieler"}</h1>
-              <p style={{ color: "var(--player-ink-soft)", marginTop: "8px" }}>
+              <p className="player-muted-copy">
                 Warte auf den Host. Sobald das Quiz startet, geht es hier automatisch weiter.
               </p>
             </div>
@@ -595,7 +601,7 @@ export function App() {
 
         {screen === "question" && question && (
           <>
-            <div className="player-card player-controller-card">
+            <div className="player-card player-controller-card" data-status={answerStatus}>
               <span className="player-kicker">
                 {getQuestionKindLabel(question.type)} · Frage {question.questionIndex + 1} /{" "}
                 {question.totalQuestionCount}
@@ -643,7 +649,7 @@ export function App() {
 
             {(question.type === QuestionType.MultipleChoice ||
               question.type === QuestionType.Logic) && (
-              <div className="player-controller-options">
+              <div className="player-controller-options" data-status={answerStatus}>
                 {question.options.map((opt) => (
                   <button
                     key={opt.id}
@@ -685,8 +691,8 @@ export function App() {
 
             {question.type === QuestionType.Ranking && (
               <div className="player-ranking-area">
-                <p className="player-ranking-hint">
-                  Tippe die IDs in der Reihenfolge vom Host-Bildschirm.
+                <p className="player-ranking-section-label">
+                  Einordnen – tippe in der richtigen Reihenfolge an
                 </p>
                 <div className="player-ranking-pool">
                   {question.items
@@ -705,33 +711,37 @@ export function App() {
                     ))}
                 </div>
                 {rankingOrder.length > 0 && (
-                  <div className="player-ranking-chosen">
-                    {rankingOrder.map((id, i) => {
-                      const item = question.items.find((x) => x.id === id)!;
-                      return (
-                        <div key={id} className="player-ranking-slot">
-                          <span className="player-ranking-pos">{i + 1}.</span>
-                          <span>{item.label}</span>
-                          {item.text && <small>{item.text}</small>}
-                          {answerStatus === "idle" && (
-                            <button
-                              className="player-ranking-remove"
-                              onClick={() => setRankingOrder(rankingOrder.filter((x) => x !== id))}
-                              type="button"
-                            >
-                              ✕
-                            </button>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </div>
+                  <>
+                    <p className="player-ranking-section-label">Deine Reihenfolge</p>
+                    <div className="player-ranking-chosen">
+                      {rankingOrder.map((id, i) => {
+                        const item = question.items.find((x) => x.id === id)!;
+                        return (
+                          <div key={id} className="player-ranking-slot">
+                            <span className="player-ranking-pos">{i + 1}.</span>
+                            <span>{item.label}</span>
+                            {item.text && <small>{item.text}</small>}
+                            {answerStatus === "idle" && (
+                              <button
+                                className="player-ranking-remove"
+                                onClick={() =>
+                                  setRankingOrder(rankingOrder.filter((x) => x !== id))
+                                }
+                                type="button"
+                              >
+                                ✕
+                              </button>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </>
                 )}
                 <button
-                  className="player-primary-button"
+                  className="player-primary-button player-ranking-submit"
                   disabled={rankingOrder.length < question.items.length || answerStatus !== "idle"}
                   onClick={() => handleSubmitRanking(rankingOrder)}
-                  style={{ marginTop: "12px" }}
                   type="button"
                 >
                   Reihenfolge bestätigen
@@ -749,9 +759,7 @@ export function App() {
             <div className="player-card">
               <span className="player-kicker">Auflösung</span>
               <h2 className="player-title">Schau auf den Host-Bildschirm</h2>
-              <p style={{ margin: 0, fontWeight: 700 }}>
-                {ownRoundResult?.pointsEarned ?? 0} Punkte verdient.
-              </p>
+              <p className="player-points-earned">{ownRoundResult?.pointsEarned ?? 0} Punkte verdient.</p>
               <div className="player-result-lines">
                 <div>
                   <span>Deine Antwort</span>
@@ -790,22 +798,21 @@ export function App() {
               <div className="player-my-rank">
                 <div className="player-my-rank-label">Dein Platz</div>
                 <div className="player-my-rank-value">{ownScoreboardPlacement + 1}.</div>
-                <div style={{ fontWeight: 700 }}>{ownScoreboardEntry.score} Punkte</div>
+                <div className="player-my-rank-score">{ownScoreboardEntry.score} Punkte</div>
               </div>
             )}
             <div className="player-card">
               <span className="player-kicker">Zwischenstand</span>
               <h2 className="player-title">Gesamtrangliste vorne</h2>
-              <p style={{ color: "var(--player-ink-soft)", marginBottom: 0 }}>
+              <p className="player-muted-copy player-muted-copy--compact">
                 Warte auf die nächste Frage und schau auf den Host-Bildschirm.
               </p>
             </div>
             <button
-              className="player-primary-button"
+              className="player-primary-button player-ready-button"
               disabled={isReadyForNext}
               onClick={handleReadyForNextQuestion}
               type="button"
-              style={{ marginTop: "12px" }}
             >
               {isReadyForNext ? "Warten auf andere..." : "Bereit für nächste Frage"}
             </button>
@@ -813,13 +820,10 @@ export function App() {
         )}
 
         {screen === "finished" && (
-          <div className="player-card" style={{ textAlign: "center" }}>
+          <div className="player-card player-finished-card">
             <span className="player-kicker">Quiz beendet</span>
             <h1 className="player-title">Vielen Dank!</h1>
-            <div
-              className="player-my-rank-value"
-              style={{ color: "var(--player-teal)", margin: "24px 0" }}
-            >
+            <div className="player-my-rank-value player-final-rank">
               {ownFinalPlacement >= 0 ? `#${ownFinalPlacement + 1}` : "-"}
             </div>
             <button className="player-primary-button" onClick={() => window.location.reload()}>

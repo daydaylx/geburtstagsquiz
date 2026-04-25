@@ -365,7 +365,7 @@ export function App() {
       setQrCodeDataUrl(null);
       return;
     }
-    QRCode.toDataURL(getPlayerJoinUrl(roomInfo.joinCode), { margin: 1, width: 280 })
+    QRCode.toDataURL(getPlayerJoinUrl(roomInfo.joinCode), { margin: 1, width: 400 })
       .then(setQrCodeDataUrl)
       .catch(() => setQrCodeDataUrl(null));
   }, [roomInfo?.joinCode]);
@@ -417,9 +417,10 @@ export function App() {
   });
 
   const loopback = isLoopbackHostname(getPublicHost());
-  const joinUrl = roomInfo?.joinCode ? getPlayerJoinUrl(roomInfo.joinCode) : "";
   const connectedPlayerCount = lobby?.players.filter((p) => p.connected).length ?? 0;
   const timerSeconds = Math.ceil((remainingMs ?? 0) / 1000);
+  const isTimerWarning = remainingMs > 0 && timerSeconds <= 10;
+  const isTimerUrgent = remainingMs > 0 && timerSeconds <= 5;
   const answerProgressPercent =
     answerProgress && answerProgress.totalEligiblePlayers > 0
       ? (answerProgress.answeredCount / answerProgress.totalEligiblePlayers) * 100
@@ -442,9 +443,6 @@ export function App() {
     ? (visibleQuestionNumber / effectiveTotalQuestionCount) * 100
     : 0;
 
-  const selectedCategories = HOST_CATEGORY_OPTIONS.filter((category) =>
-    selectedCategoryIds.includes(category.id),
-  );
   const currentFlowStepIndex =
     screen === "finished"
       ? 4
@@ -457,31 +455,15 @@ export function App() {
   const renderStagePanel = () => {
     if (screen === "lobby" && roomInfo) {
       return (
-        <div className="host-panel-content">
-          <p className="host-section-label">Lobby / Join</p>
-          <div className="host-start-container">
-            <div className="host-card host-card--dark host-start-card pulse">
-              <p className="host-control-label">Raumcode</p>
-              <p className="host-join-code">{roomInfo.joinCode}</p>
-              {!loopback && qrCodeDataUrl && (
-                <div className="host-qr-mini">
-                  <img alt="QR-Code" src={qrCodeDataUrl} />
-                </div>
-              )}
+        <div className="host-panel-content host-lobby-stage">
+          <p className="host-section-label host-section-label--compact">Jetzt beitreten</p>
+          <p className="host-join-code host-join-code--hero">{roomInfo.joinCode}</p>
+          {!loopback && qrCodeDataUrl && (
+            <div className="host-qr-large">
+              <img alt="QR-Code" src={qrCodeDataUrl} />
             </div>
-            <div className="host-card">
-              <p className="host-section-label">Player Link</p>
-              <code
-                style={{
-                  fontSize: "0.85rem",
-                  wordBreak: "break-all",
-                  color: "var(--host-neon-cyan)",
-                }}
-              >
-                {joinUrl}
-              </code>
-            </div>
-          </div>
+          )}
+          <p className="host-lobby-hint">QR-Code scannen oder Code eingeben</p>
         </div>
       );
     }
@@ -489,15 +471,14 @@ export function App() {
     if (screen === "question" && question) {
       return (
         <div className="host-panel-content">
-          <div
-            className="host-stage-head"
-            style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}
-          >
+          <div className="host-stage-head">
             <p className="host-section-label">Frage {currentQuestionNumber}</p>
-            <div className="host-timer-shell" data-urgent={timerSeconds <= 5 ? "true" : undefined}>
-              <div className="host-timer" style={{ fontSize: "1.5rem", padding: "8px 16px" }}>
-                {timerSeconds}s
-              </div>
+            <div
+              className="host-timer-shell"
+              data-urgent={isTimerUrgent ? "true" : undefined}
+              data-warning={isTimerWarning ? "true" : undefined}
+            >
+              <div className="host-timer">{timerSeconds}s</div>
             </div>
           </div>
           <h3 className="host-question-text">{question.text}</h3>
@@ -528,19 +509,9 @@ export function App() {
               ))}
             </div>
           )}
-          <div className="host-progress-block" style={{ marginTop: "32px" }}>
-            <div
-              className="host-bar-meta"
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                fontSize: "0.9rem",
-                marginBottom: "8px",
-              }}
-            >
-              <span className="host-section-label" style={{ marginBottom: 0 }}>
-                Antworten
-              </span>
+          <div className="host-progress-block">
+            <div className="host-bar-meta">
+              <span className="host-section-label host-section-label--compact">Antworten</span>
               <strong>
                 {answerProgress?.answeredCount || 0} / {answerProgress?.totalEligiblePlayers || 0}
               </strong>
@@ -560,34 +531,32 @@ export function App() {
           <h3 className="host-question-text">{question.text}</h3>
           {(question.type === QuestionType.MultipleChoice ||
             question.type === QuestionType.Logic) && (
-            <div className="host-options-grid">
-              {question.options.map((opt) => (
-                <div
-                  className="host-option-card"
-                  data-correct={
-                    revealedAnswer?.type === "option" && revealedAnswer.value === opt.id
-                      ? "true"
-                      : undefined
-                  }
-                  key={opt.id}
-                >
-                  <span className="host-option-id">{opt.id}</span>
-                  <span className="host-option-label">{opt.label}</span>
-                </div>
-              ))}
+            <div className="host-options-grid host-options-grid--reveal">
+              {question.options.map((opt) => {
+                const isCorrectAnswer =
+                  revealedAnswer?.type === "option" && revealedAnswer.value === opt.id;
+                return (
+                  <div
+                    className="host-option-card"
+                    data-state={isCorrectAnswer ? "correct" : "dimmed"}
+                    key={opt.id}
+                  >
+                    <span className="host-option-id">{opt.id}</span>
+                    <span className="host-option-label">{opt.label}</span>
+                  </div>
+                );
+              })}
             </div>
           )}
           {(question.type === QuestionType.Estimate ||
             question.type === QuestionType.MajorityGuess) &&
             revealedAnswer?.type === "number" && (
-              <div className="host-estimate-display">
+              <div className="host-estimate-display host-estimate-display--reveal">
                 <span>Richtig: </span>
                 <strong className="host-estimate-correct-value">
                   {revealedAnswer.value} {question.unit}
                 </strong>
-                <span style={{ color: "var(--host-ink-soft)", marginLeft: "8px" }}>
-                  ({question.context})
-                </span>
+                <span className="host-estimate-context">({question.context})</span>
               </div>
             )}
           {question.type === QuestionType.Ranking && revealedAnswer?.type === "ranking" && (
@@ -595,8 +564,8 @@ export function App() {
               {revealedAnswer.value.map((id, i) => {
                 const item = question.items.find((x) => x.id === id);
                 return (
-                  <div className="host-ranking-item" key={id}>
-                    <span style={{ fontWeight: 700, marginRight: "8px" }}>{i + 1}.</span>
+                  <div className="host-ranking-item host-ranking-item--reveal" key={id}>
+                    <span className="host-ranking-position">{i + 1}.</span>
                     <span className="host-option-id">{id}</span>
                     <span>{item?.label ?? id}</span>
                   </div>
@@ -604,48 +573,18 @@ export function App() {
               })}
             </div>
           )}
-          <div
-            className="host-round-summary"
-            style={{ display: "flex", gap: "16px", marginTop: "32px" }}
-          >
-            <div className="host-card" style={{ flex: 1, textAlign: "center" }}>
+          <div className="host-round-summary">
+            <div className="host-round-summary-card" data-state="correct">
               <p className="host-control-label">Richtig</p>
-              <p
-                style={{
-                  fontSize: "2rem",
-                  fontWeight: 800,
-                  color: "var(--host-green)",
-                  margin: "8px 0 0",
-                }}
-              >
-                {correctRoundCount}
-              </p>
+              <p>{correctRoundCount}</p>
             </div>
-            <div className="host-card" style={{ flex: 1, textAlign: "center" }}>
+            <div className="host-round-summary-card" data-state="wrong">
               <p className="host-control-label">Falsch</p>
-              <p
-                style={{
-                  fontSize: "2rem",
-                  fontWeight: 800,
-                  color: "var(--host-red)",
-                  margin: "8px 0 0",
-                }}
-              >
-                {wrongRoundCount}
-              </p>
+              <p>{wrongRoundCount}</p>
             </div>
-            <div className="host-card" style={{ flex: 1, textAlign: "center" }}>
+            <div className="host-round-summary-card" data-state="missing">
               <p className="host-control-label">Keine Antwort</p>
-              <p
-                style={{
-                  fontSize: "2rem",
-                  fontWeight: 800,
-                  color: "var(--host-ink-soft)",
-                  margin: "8px 0 0",
-                }}
-              >
-                {missingRoundCount}
-              </p>
+              <p>{missingRoundCount}</p>
             </div>
           </div>
         </div>
@@ -658,15 +597,15 @@ export function App() {
           <p className="host-section-label">
             {screen === "finished" ? "Endstand" : `Zwischenstand (${nextReadyLabel})`}
           </p>
-          <div className="host-scoreboard-list">
+          <div className="host-scoreboard-list" data-final={screen === "finished" ? "true" : undefined}>
             {latestScoreboard.map((entry, index) => (
               <article
                 className="host-scoreboard-item"
                 data-placement={index < 3 ? String(index + 1) : undefined}
                 key={entry.playerId}
               >
-                <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-                  <span style={{ fontWeight: 800, width: "24px" }}>{index + 1}.</span>
+                <div className="host-scoreboard-main">
+                  <span className="host-scoreboard-rank">{index + 1}.</span>
                   <span className="host-scoreboard-name">{entry.name}</span>
                 </div>
                 <div className="host-scoreboard-score">{entry.score}</div>
@@ -712,19 +651,9 @@ export function App() {
       </header>
 
       {screen === "start" && !roomInfo ? (
-        <section
-          className="host-panel"
-          style={{
-            height: "100%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
+        <section className="host-panel host-start-panel">
           <div className="host-start-container">
-            <h2 className="host-stage-title" style={{ fontSize: "3.5rem", fontWeight: 900, marginBottom: "32px" }}>
-              Bereit für das Quiz?
-            </h2>
+            <h2 className="host-stage-title host-stage-title--hero">Bereit für das Quiz?</h2>
             <button
               className="host-primary-button pulse"
               disabled={connectionState !== "connected" || isCreatingRoom}
@@ -740,9 +669,7 @@ export function App() {
           <section className="host-dashboard">
             <aside className="host-sidebar-col">
               <div className="host-card host-card--dark">
-                <p className="host-section-label" style={{ color: "rgba(255,255,255,0.6)" }}>
-                  Raum
-                </p>
+                <p className="host-section-label host-section-label--muted">Raum</p>
                 <p className="host-join-code">{roomInfo.joinCode}</p>
                 {!loopback && qrCodeDataUrl && (
                   <div className="host-qr-mini">
@@ -750,7 +677,7 @@ export function App() {
                   </div>
                 )}
               </div>
-              <div className="host-panel" style={{ flex: 1 }}>
+              <div className="host-panel host-side-panel">
                 <div className="host-panel-content">
                   <p className="host-section-label">Ablauf</p>
                   <div className="host-flow-list">
@@ -778,26 +705,16 @@ export function App() {
             <section className="host-panel host-stage-panel">{renderStagePanel()}</section>
 
             <aside className="host-sidebar-col">
-              <div className="host-panel" style={{ flex: 1 }}>
+              <div className="host-panel host-side-panel">
                 <div className="host-panel-content">
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "baseline",
-                    }}
-                  >
+                  <div className="host-section-head">
                     <p className="host-section-label">Spieler</p>
-                    <span
-                      style={{ fontSize: "0.8rem", fontWeight: 800, color: "var(--host-green)" }}
-                    >
-                      {connectedPlayerCount} online
-                    </span>
+                    <span className="host-online-count">{connectedPlayerCount} online</span>
                   </div>
                   <div className="host-player-list">
                     {(lobby?.players ?? []).map((p) => (
                       <div className="host-player-item" key={p.playerId}>
-                        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                        <div className="host-player-meta">
                           <div className="host-player-status-dot" data-connected={p.connected} />
                           <span className="host-player-name">{p.name}</span>
                         </div>
@@ -823,20 +740,6 @@ export function App() {
                   </span>
                 </label>
               </div>
-              <div className="host-card">
-                <p className="host-section-label">Kategorien</p>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
-                  {selectedCategories.map((c) => (
-                    <span
-                      key={c.id}
-                      className="host-chip"
-                      style={{ fontSize: "0.7rem", padding: "4px 8px" }}
-                    >
-                      {c.label}
-                    </span>
-                  ))}
-                </div>
-              </div>
             </aside>
           </section>
 
@@ -859,7 +762,7 @@ export function App() {
                     ? `Frage ${visibleQuestionNumber} / ${effectiveTotalQuestionCount}`
                     : "Warten..."}
                 </span>
-                <div className="host-progress-bar" style={{ width: "100px", marginTop: "4px" }}>
+                <div className="host-progress-bar host-progress-bar--compact">
                   <div
                     className="host-progress-fill"
                     style={{ width: `${questionProgressPercent}%` }}
