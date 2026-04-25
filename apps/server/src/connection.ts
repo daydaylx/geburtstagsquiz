@@ -1,14 +1,7 @@
 import { WebSocket } from "ws";
 
 import { EVENTS, type QuestionShowPayload } from "@quiz/shared-protocol";
-import {
-  GameState,
-  PlayerState,
-  QuestionType,
-  RoomState,
-  type CorrectAnswer,
-  type Question,
-} from "@quiz/shared-types";
+import { GameState, PlayerState, RoomState, type Question } from "@quiz/shared-types";
 import type { ServerToClientEventName, ServerToClientEventPayloadMap } from "@quiz/shared-protocol";
 
 import type { RoomRecord, SessionRecord, TrackedWebSocket } from "./server-types.js";
@@ -63,38 +56,8 @@ function getSortedScoreboard(room: RoomRecord) {
     .sort((a, b) => b.score - a.score);
 }
 
-function getRevealResultPayload(room: RoomRecord, question: Question) {
-  if (room.lastRoundResult) {
-    return room.lastRoundResult;
-  }
-
-  const correctAnswer: CorrectAnswer = (() => {
-    if (question.type === QuestionType.MultipleChoice || question.type === QuestionType.Logic) {
-      return { type: "option" as const, value: question.correctOptionId };
-    }
-    if (question.type === QuestionType.Estimate || question.type === QuestionType.MajorityGuess) {
-      return { type: "number" as const, value: question.correctValue };
-    }
-    return { type: "ranking" as const, value: question.correctOrder };
-  })();
-
-  return {
-    questionId: question.id,
-    correctAnswer,
-    playerResults: getConnectedPlayers(room).map((player) => {
-      const submittedAnswer = room.currentAnswers.get(player.id);
-      const isCorrect =
-        submittedAnswer?.answer.type === "option" &&
-        correctAnswer.type === "option" &&
-        submittedAnswer.answer.value === correctAnswer.value;
-      return {
-        playerId: player.id,
-        answer: submittedAnswer?.answer ?? null,
-        isCorrect,
-        pointsEarned: isCorrect ? question.points : 0,
-      };
-    }),
-  };
+function getRevealResultPayload(room: RoomRecord) {
+  return room.lastRoundResult;
 }
 
 function sendQuestionForSession(
@@ -235,7 +198,8 @@ export function syncSessionToRoomState(session: SessionRecord, room: RoomRecord)
 
     case GameState.Revealing:
       {
-        const roundResult = getRevealResultPayload(room, question);
+        const roundResult = getRevealResultPayload(room);
+        if (!roundResult) return;
 
         sendQuestionForSession(socket, session, room, question, GameState.Revealing);
         sendEvent(socket, EVENTS.QUESTION_CLOSE, {
@@ -255,7 +219,8 @@ export function syncSessionToRoomState(session: SessionRecord, room: RoomRecord)
 
     case GameState.Scoreboard:
       {
-        const roundResult = getRevealResultPayload(room, question);
+        const roundResult = getRevealResultPayload(room);
+        if (!roundResult) return;
 
         sendQuestionForSession(socket, session, room, question, GameState.Scoreboard);
         sendEvent(socket, EVENTS.QUESTION_CLOSE, {

@@ -5,12 +5,20 @@ import { GameState, PlayerState, RoomState, type Player } from "@quiz/shared-typ
 import { normalizePlayerName } from "@quiz/shared-utils";
 
 import type { RoomRecord, SessionRecord, TrackedWebSocket } from "./server-types.js";
-import { PROTOCOL_ERROR_CODES, sendEvent, sendProtocolError, toLobbyUpdatePayload } from "./protocol.js";
+import {
+  PROTOCOL_ERROR_CODES,
+  sendEvent,
+  sendProtocolError,
+  toLobbyUpdatePayload,
+} from "./protocol.js";
 import { roomsById, sessionsById, getRoomByJoinCode, logRoomEvent } from "./state.js";
 import { attachSocketToSession } from "./room.js";
 import { broadcastToRoom, syncSessionToRoomState } from "./connection.js";
 
-export function handleRoomJoin(socket: TrackedWebSocket, payload: import("@quiz/shared-protocol").RoomJoinPayload): void {
+export function handleRoomJoin(
+  socket: TrackedWebSocket,
+  payload: import("@quiz/shared-protocol").RoomJoinPayload,
+): void {
   if (socket.sessionId) {
     sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "Socket is already assigned", {
       event: EVENTS.ROOM_JOIN,
@@ -43,7 +51,11 @@ export function handleRoomJoin(socket: TrackedWebSocket, payload: import("@quiz/
   if (payload.sessionId) {
     const existingSession = sessionsById.get(payload.sessionId);
 
-    if (existingSession && existingSession.role === "player" && existingSession.roomId === room.id) {
+    if (
+      existingSession &&
+      existingSession.role === "player" &&
+      existingSession.roomId === room.id
+    ) {
       resumeSession(socket, existingSession, room, EVENTS.ROOM_JOIN);
       return;
     }
@@ -54,7 +66,7 @@ export function handleRoomJoin(socket: TrackedWebSocket, payload: import("@quiz/
 
   const player: Player = {
     id: playerId,
-    name: normalizePlayerName(payload.playerName),
+    name: normalizePlayerName(payload.playerName) || "Spieler",
     sessionId,
     state: PlayerState.Ready,
     score: 0,
@@ -145,7 +157,9 @@ export function resumeSession(
   if (room.state === RoomState.Waiting) {
     player.state = PlayerState.Ready;
   } else if (room.gameState === GameState.QuestionActive) {
-    player.state = room.currentAnswers.has(player.id) ? PlayerState.Answered : PlayerState.Answering;
+    player.state = room.currentAnswers.has(player.id)
+      ? PlayerState.Answered
+      : PlayerState.Answering;
   } else if (room.currentAnswers.has(player.id)) {
     player.state = PlayerState.Answered;
   } else {

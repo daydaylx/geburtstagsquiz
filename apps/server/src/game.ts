@@ -467,6 +467,14 @@ function startQuestion(room: RoomRecord): void {
   )
     return;
 
+  if (room.questionTimer) {
+    clearTimeout(room.questionTimer);
+    room.questionTimer = null;
+  }
+  if (room.timerTickInterval) {
+    clearInterval(room.timerTickInterval);
+    room.timerTickInterval = null;
+  }
   if (room.revealTimer) {
     clearTimeout(room.revealTimer);
     room.revealTimer = null;
