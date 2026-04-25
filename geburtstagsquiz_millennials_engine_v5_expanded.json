@@ -1636,7 +1636,1608 @@
             "difficulty": "medium",
             "points": 1,
             "category_id": "cat-02"
+          },
+          {
+            "id": "q-02-new-01-pegging",
+            "prompt": "Was versteht man in der Sexualität unter dem Begriff „Pegging“?",
+            "options": [
+              {
+                "id": "q-02-new-01-opt-1",
+                "text": "Wenn eine Frau einen Mann mit einem Umgeschnalldildo (Strap-on) anal penetriert",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-01-opt-2",
+                "text": "Das Befestigen des Partners mit Wäscheklammern (Pegs) am Bettgestell",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-01-opt-3",
+                "text": "Das systematische Bewerten von Sex-Dates auf einer Skala von 1 bis 10",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-01-opt-4",
+                "text": "Ein Fetisch für Holzbeine und Piratenkostüme",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-01-opt-1",
+            "explanation": "Ein wunderbarer Rollentausch, der toxische Männlichkeit in Sekundenbruchteilen zum Einsturz bringt. Männer entdecken plötzlich am eigenen Leib, warum Entspannung wichtig ist und dass Vorbereitung im Bett vielleicht doch keine so schlechte Idee ist.",
+            "difficulty": "medium",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-02-edging",
+            "prompt": "Was genau ist das Ziel beim sogenannten „Edging“?",
+            "options": [
+              {
+                "id": "q-02-new-02-opt-1",
+                "text": "Den Orgasmus absichtlich immer wieder hinauszuzögern, indem man kurz vor dem Höhepunkt stoppt",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-02-opt-2",
+                "text": "Sich während des Sex extrem nah an die Bettkante (Edge) zu legen, um den Nervenkitzel zu erhöhen",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-02-opt-3",
+                "text": "Scharfkantige Gegenstände als Fetisch-Objekte zu nutzen",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-02-opt-4",
+                "text": "Sex in gefährlichen oder extremen Situationen, z. B. auf Hausdächern",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-02-opt-1",
+            "explanation": "Perfekt für Millennials: Wir zögern den Höhepunkt immer weiter hinaus, genau wie den Hauskauf, die finanzielle Unabhängigkeit und die Rente. Irgendwann platzt man entweder vor Frustration oder man findet sich einfach damit ab, dass man ewig warten muss.",
+            "difficulty": "medium",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-03-glory-hole",
+            "prompt": "Worum handelt es sich bei einem „Glory Hole“?",
+            "options": [
+              {
+                "id": "q-02-new-03-opt-1",
+                "text": "Ein Loch in einer Wand oder Trennwand, durch das anonymer Sex praktiziert wird",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-03-opt-2",
+                "text": "Eine besonders leuchtende, glitzernde Art von Intimpiercing",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-03-opt-3",
+                "text": "Der finale, alles entscheidende Move beim Strip-Golf",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-03-opt-4",
+                "text": "Ein sakrales Fensterglas, vor dem Paare gerne intim werden",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-03-opt-1",
+            "explanation": "Der ultimative introvertierte Dating-Traum. Kein Smalltalk über den neuen Wes-Anderson-Film, kein peinlicher Augenkontakt, einfach nur effiziente Abfertigung. Im Grunde genommen wie Tinder, nur dass man sich das mühsame Texten spart.",
+            "difficulty": "easy",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-04-barebacking",
+            "prompt": "Wenn im Schlafzimmer-Slang vom „Barebacking“ die Rede ist, was passiert dann?",
+            "options": [
+              {
+                "id": "q-02-new-04-opt-1",
+                "text": "Analverkehr ohne die Verwendung eines Kondoms",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-04-opt-2",
+                "text": "Sex auf dem blanken Fußboden, ohne Kissen oder Decke",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-04-opt-3",
+                "text": "Einen Partner huckepack durch das Zimmer tragen",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-04-opt-4",
+                "text": "Sich vor dem Sex rituell den gesamten Rücken wachsen zu lassen",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-04-opt-1",
+            "explanation": "Für Leute, die nach Pandemie, Inflation und Klimakrise denken: 'Was soll jetzt eigentlich noch schiefgehen?' Spoiler-Alarm: Chlamydien, Tripper und eine sehr unangenehme Erklärung beim Urologen. Verhütet, Kinder!",
+            "difficulty": "medium",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-05-teabagging",
+            "prompt": "Was versteht man unter dem charmanten Ausdruck „Teabagging“?",
+            "options": [
+              {
+                "id": "q-02-new-05-opt-1",
+                "text": "Das wiederholte Eintauchen oder Auflegen der Hoden auf Gesicht, Mund oder Körper einer anderen Person",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-05-opt-2",
+                "text": "Ein britisches Vorspiel, bei dem Earl Grey Tee über den Körper gegossen wird",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-05-opt-3",
+                "text": "Das Aufbewahren von benutzten Kondomen als bizarre Trophäensammlung",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-05-opt-4",
+                "text": "Eine Entspannungstechnik, bei dem man warme Kompressen auf die Augen legt",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-05-opt-1",
+            "explanation": "Wurde berühmt durch 12-jährige Kids im Voice-Chat von 'Halo 3', die ihre virtuellen Gegner demütigen wollten. Heute ist es eine reale Schlafzimmer-Tätigkeit. Die menschliche Evolution ist wirklich ein Mysterium.",
+            "difficulty": "medium",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-06-shibari",
+            "prompt": "Was verbirgt sich hinter der traditionellen japanischen Kunst „Shibari“?",
+            "options": [
+              {
+                "id": "q-02-new-06-opt-1",
+                "text": "Ästhetische und komplexe Seilfesselspiele (Bondage)",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-06-opt-2",
+                "text": "Das Essen von Sushi von nackten Körpern",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-06-opt-3",
+                "text": "Eine Massagetechnik mit heißen Bambusstäben",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-06-opt-4",
+                "text": "Sex in hängenden Origami-Konstruktionen",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-06-opt-1",
+            "explanation": "Weil es sich offensichtlich besser anfühlt, von komplizierten Hanfseilen physisch eingeschnürt zu werden, als von der emotionalen Unverfügbarkeit deines aktuellen Bumble-Matches erdrückt zu werden. Sehr ästhetisch, bis jemand dringend aufs Klo muss.",
+            "difficulty": "medium",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-07-bukkake",
+            "prompt": "Was beschreibt der Begriff „Bukkake“?",
+            "options": [
+              {
+                "id": "q-02-new-07-opt-1",
+                "text": "Eine Sexpraktik, bei der mehrere Männer auf eine einzelne Person ejakulieren",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-07-opt-2",
+                "text": "Eine japanische Nudelsuppe, die oft beim Vorspiel verwendet wird",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-07-opt-3",
+                "text": "Ein Fetisch für traditionelle japanische Geisha-Masken",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-07-opt-4",
+                "text": "Das gemeinsame Anschauen von Pornografie in großen Gruppen",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-07-opt-1",
+            "explanation": "Abgesehen von der Sauerei ist das ein logistischer Albtraum. Hast du mal versucht, sechs Millennials rechtzeitig an einem Ort zu versammeln? Mindestens drei flaken in letzter Minute wegen 'Mental Health', einer ist laktoseintolerant und der Rest starrt aufs Handy.",
+            "difficulty": "hard",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-08-cuckolding",
+            "prompt": "Beim „Cuckolding“ (Cuckold) liegt der sexuelle Reiz für die Person darin,...",
+            "options": [
+              {
+                "id": "q-02-new-08-opt-1",
+                "text": "den eigenen Partner dabei zu beobachten oder zu wissen, dass dieser Sex mit jemand anderem hat",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-08-opt-2",
+                "text": "sich wie ein Kuckuck in das gemachte Bett fremder Paare zu schleichen",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-08-opt-3",
+                "text": "mittelalterliche Keuschheitsgürtel zu sammeln und zu tragen",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-08-opt-4",
+                "text": "den Partner stundenlang beim Schlafen zu beobachten",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-08-opt-1",
+            "explanation": "Das nennt man Outsourcing der Beziehungsarbeit. Ein klassisches Start-up-Mindset: Du holst dir einen hochmotivierten Freelancer für die harte körperliche Arbeit, lehnst dich zurück, übernimmst das Management und genießt die Show. CEO des Schlafzimmers.",
+            "difficulty": "medium",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-09-fisting",
+            "prompt": "Was wird bei der Praktik des „Fisting“ gemacht?",
+            "options": [
+              {
+                "id": "q-02-new-09-opt-1",
+                "text": "Das Einführen der gesamten Hand bis zur Faust in Vagina oder Anus",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-09-opt-2",
+                "text": "Ein aggressives, abklatschendes Vorspiel aus dem Boxsport",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-09-opt-3",
+                "text": "Sex, während beide Partner dicke Lederhandschuhe tragen",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-09-opt-4",
+                "text": "Das rhythmische Schlagen gegen die Matratze zur Taktgebung",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-09-opt-1",
+            "explanation": "Ein bisschen wie das verzweifelte Gefühl, wenn dir das Feuerzeug ganz tief in die Sofaritze gefallen ist und du bis zur Schulter graben musst. Nur dass das Sofa in diesem Fall eine person ist und man für dieses Vorhaben mehr Gleitgel braucht als für eine Wasserrutsche.",
+            "difficulty": "hard",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-10-vanilla-sex",
+            "prompt": "Was versteht man unter dem Begriff „Vanilla Sex“?",
+            "options": [
+              {
+                "id": "q-02-new-10-opt-1",
+                "text": "Ganz gewöhnlichen, konventionellen Sex ohne Kinks oder BDSM-Elemente",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-10-opt-2",
+                "text": "Sex, der ausschließlich mit Speiseeis oder Lebensmittelaromen stattfindet",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-10-opt-3",
+                "text": "Sex bei grellem, hellem Licht und steriler Umgebung",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-10-opt-4",
+                "text": "Wenn beide Partner blonde Haare haben",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-10-opt-1",
+            "explanation": "Die Missionarstellung der Seele. Aufregend wie ein Mittwochabend im leeren IKEA, aber hey – es funktioniert, niemand verletzt sich aus Versehen mit einem Lederriemen und man kann danach direkt einschlafen.",
+            "difficulty": "easy",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-11-snowballing",
+            "prompt": "Wenn jemand „Snowballing“ vorschlägt, was hat er dann vor?",
+            "options": [
+              {
+                "id": "q-02-new-11-opt-1",
+                "text": "Samenflüssigkeit (Sperma) aus dem Mund in den Mund des Partners weiterzugeben",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-11-opt-2",
+                "text": "Eiswürfel während des Oralsex in den Mund zu nehmen",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-11-opt-3",
+                "text": "Ein Schneeballsystem, bei dem man immer mehr Freunde zum Gruppensex einlädt",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-11-opt-4",
+                "text": "Sich mit weißer Körperfarbe oder Mehl einzureiben",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-11-opt-1",
+            "explanation": "Wirkt ein bisschen wie das Fütterungsritual grotesker Vogelbabys auf dem Discovery Channel. Sharing is caring, sagen die Leute. Manche Dinge sollte man aber vielleicht einfach runterschlucken oder weggurgeln, statt sie weiterzureichen.",
+            "difficulty": "hard",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-12-spitroast",
+            "prompt": "Was passiert bei einem „Spitroast“ (Spießbraten)?",
+            "options": [
+              {
+                "id": "q-02-new-12-opt-1",
+                "text": "Eine Person wird gleichzeitig vaginal/anal und oral von zwei Personen penetriert",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-12-opt-2",
+                "text": "Sex über offenem Feuer oder in sehr heißen Räumen",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-12-opt-3",
+                "text": "Ein Fetisch für starkes Schwitzen und Grillgeruch",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-12-opt-4",
+                "text": "Das aggressive, abwechselnde Anspucken als Dominanzgeste",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-12-opt-1",
+            "explanation": "Man fühlt sich vermutlich wie ein menschlicher Dönerkebab in der Mache. Immerhin ist man der absolute Mittelpunkt der Aufmerksamkeit. Wer Multi-Tasking liebt und keine Platzangst hat, ist hier genau richtig.",
+            "difficulty": "medium",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-13-pearl-necklace",
+            "prompt": "Was ist eine „Pearl Necklace“ (Perlenkette) im sexuellen Kontext?",
+            "options": [
+              {
+                "id": "q-02-new-13-opt-1",
+                "text": "Die Ejakulation von Sperma auf den Hals oder die Brust des Partners",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-13-opt-2",
+                "text": "Das Platzieren von Liebesbissen (Knutschflecken) ringförmig um den Hals",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-13-opt-3",
+                "text": "Ein Würgespiel (Choking) mit einer echten Perlenkette",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-13-opt-4",
+                "text": "Das teure Bezahlen von Luxusgeschenken im Austausch gegen Sex",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-13-opt-1",
+            "explanation": "Endlich mal Schmuck, den sich in dieser Wirtschaftslage wirklich jeder leisten kann! Ein funkelndes Statement-Piece für die Ewigkeit... oder zumindest bis zur nächsten heißen Dusche.",
+            "difficulty": "medium",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-14-queefing",
+            "prompt": "Worum handelt es sich beim sogenannten „Queefing“?",
+            "options": [
+              {
+                "id": "q-02-new-14-opt-1",
+                "text": "Vaginale Flatulenz – das Ausstoßen von Luft aus der Vagina, meist während des Sex",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-14-opt-2",
+                "text": "Ein lautes, froschartiges Stöhnen kurz vor dem Orgasmus",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-14-opt-3",
+                "text": "Ein Fetisch für britische Adelige (Queen-ing)",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-14-opt-4",
+                "text": "Das heimliche Verlassen des Bettes, direkt nachdem der Partner eingeschlafen ist",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-14-opt-1",
+            "explanation": "Die körpereigene Trompete, die eine erfolgreiche Penetrations-Pumparbeit feiert. Tötet die dramatische, romantische Spannung ungefähr so schnell, wie wenn mitten im Vorspiel der Chef auf dem Handy anruft. Passiert den Besten.",
+            "difficulty": "easy",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-15-scissoring",
+            "prompt": "Was praktiziert man beim „Tribadismus“ (umgangssprachlich oft „Scissoring“ genannt)?",
+            "options": [
+              {
+                "id": "q-02-new-15-opt-1",
+                "text": "Das aneinanderreiben der weiblichen Genitalien zur sexuellen Stimulation",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-15-opt-2",
+                "text": "Das synchrone, gemeinsame Trimmen der Schambehaarung als Vorspiel",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-15-opt-3",
+                "text": "Das Aufschneiden der Kleidung des Partners mit einer stumpfen Schere",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-15-opt-4",
+                "text": "Ein Dominanzspiel, bei dem einem Partner die Haare abgeschnitten werden",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-15-opt-1",
+            "explanation": "Genau das, was männliche Porno-Regisseure denken, was Lesben 100% der Zeit im Bett tun. In der Realität besprechen queere Paare meistens, welche Pflanze sie als nächstes kaufen oder wer den Müll runterbringt. Aber hey, Reibung erzeugt Wärme.",
+            "difficulty": "medium",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-16-squirting",
+            "prompt": "Was bezeichnet man umgangssprachlich als „Squirting“?",
+            "options": [
+              {
+                "id": "q-02-new-16-opt-1",
+                "text": "Das plötzliche Ausstoßen größerer Mengen Flüssigkeit aus den weiblichen Skene-Drüsen/Harnröhre während des Orgasmus",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-16-opt-2",
+                "text": "Ein Wasserpistolen-Fetisch für heiße Sommertage im Schlafzimmer",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-16-opt-3",
+                "text": "Extremes, angstbedingtes Schwitzen während eines BDSM-Spiels",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-16-opt-4",
+                "text": "Das Verwenden von Sprühsahne auf dem Körper des Partners",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-16-opt-1",
+            "explanation": "Der Heilige Gral der männlichen Ego-Bestätigung. Kerle sehen das wie den Gewinn einer olympischen Goldmedaille. Am Ende des Tages bedeutet es aber meistens nur, dass jemand mitten in der Nacht mürrisch ein nasses Handtuch auf die Matratze legen muss.",
+            "difficulty": "easy",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-17-docking",
+            "prompt": "Welches nautisch klingende Manöver beschreibt das „Docking“ unter Männern?",
+            "options": [
+              {
+                "id": "q-02-new-17-opt-1",
+                "text": "Das Überziehen der eigenen Vorhaut über die Eichel eines anderen Penis",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-17-opt-2",
+                "text": "Wenn beide Partner versuchen, gleichzeitig in eine Parklücke einzuparken",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-17-opt-3",
+                "text": "Das synchrone Verbinden von zwei Apple Watches vor dem Sex",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-17-opt-4",
+                "text": "Sex auf dem hölzernen Steg eines Bootshafens",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-17-opt-1",
+            "explanation": "Der ultimative Handshake für die Vorhaut. Da können sich beschchnittene Männer nur kopfschüttelnd abwenden. Astronauten im Weltall koppeln Sojus-Kapseln so ähnlich an die ISS.",
+            "difficulty": "medium_hard",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-18-frottage",
+            "prompt": "Was versteht man unter „Frottage“?",
+            "options": [
+              {
+                "id": "q-02-new-18-opt-1",
+                "text": "Das sexuell erregende Aneinanderreiben von Körpern, oft auch in bekleidetem Zustand",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-18-opt-2",
+                "text": "Das Ablecken von süßen Verzierungen (Frosting) von einem Körper",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-18-opt-3",
+                "text": "Eine französische Zungenkuss-Technik mit kreisenden Bewegungen",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-18-opt-4",
+                "text": "Das aggressive Abrubbeln des Partners mit einem Frottee-Handtuch",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-18-opt-1",
+            "explanation": "Flashbacks in die Zeit, als man 15 war und sich verzweifelt durch drei Schichten Jeansstoff auf dem Sofa der Eltern humpte, während diese unten 'Wetten, dass..?' schauten. Pure Nostalgie und schmerzende Leisten.",
+            "difficulty": "medium",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-19-swinging",
+            "prompt": "Was genau tun Paare, wenn sie sich in der „Swinging“-Szene bewegen?",
+            "options": [
+              {
+                "id": "q-02-new-19-opt-1",
+                "text": "Sie tauschen einvernehmlich ihre Partner für sexuelle Kontakte, meist auf speziellen Partys oder in Clubs",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-19-opt-2",
+                "text": "Sie haben ausschließlich Sex auf Schaukeln oder freischwebenden Möbeln",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-19-opt-3",
+                "text": "Sie tanzen aggressiv Swing-Tänze aus den 20er Jahren als Vorspiel",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-19-opt-4",
+                "text": "Sie schwingen Pendel oder Taschenuhren, um den Partner hypnotisch gefügig zu machen",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-19-opt-1",
+            "explanation": "Der klassische Vorstadt-Traum. Wenn der Rasen gemäht ist, der Bausparvertrag läuft und einem im Doppelhaus so unfassbar langweilig wird, dass man entscheidet, zur Abwechslung mal die Ehe des Nachbarn zu ruinieren – man nennt das dann 'aufgeschlossen'.",
+            "difficulty": "easy",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-20-dogging",
+            "prompt": "Eine sehr britische Freizeitbeschäftigung ist das „Dogging“. Worum geht es dabei?",
+            "options": [
+              {
+                "id": "q-02-new-20-opt-1",
+                "text": "Das Beobachten oder Durchführen von sexuellen Handlungen im Freien, oft auf abgelegenen Parkplätzen",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-20-opt-2",
+                "text": "Sex in der Doggy-Style-Position, während im Hintergrund Hunde bellen",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-20-opt-3",
+                "text": "Das Tragen von Hundehalsbändern und das Apportieren von Sexspielzeug",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-20-opt-4",
+                "text": "Sich tagelang totzustellen wie ein Hund, der einen Trick aufführt",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-20-opt-1",
+            "explanation": "Für Menschen, die die Gefahr einer Anzeige wegen Erregung öffentlichen Ärgernisses bei 8 Grad Nieselregen auf einem Autobahn-Rastplatz anscheinend heißer finden als ein warmes Bett. Sehr nischig, extrem britisch.",
+            "difficulty": "medium",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-21-eiffel-tower",
+            "prompt": "Bei welchem Dreier-Manöver spricht man vom „Eiffel Tower“ (Eiffelturm)?",
+            "options": [
+              {
+                "id": "q-02-new-21-opt-1",
+                "text": "Wenn zwei Personen jemanden gleichzeitig penetrieren und sich dabei über der Person abklatschen (High Five)",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-21-opt-2",
+                "text": "Wenn jemand nackt mit Baguettes beworfen wird, während er französische Lieder singt",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-21-opt-3",
+                "text": "Eine Akrobatik-Figur, bei der sich drei Partner übereinander stapeln",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-21-opt-4",
+                "text": "Sex auf der Aussichtsplattform einer sehr bekannten europäischen Touristenattraktion",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-21-opt-1",
+            "explanation": "Teamwork makes the dream work! Weil nichts mehr 'Romantik' schreit, als den Partner temporär in eine menschliche Brückenkonstruktion zu verwandeln und das Ganze mit einem sportlichen High Five zu zelebrieren.",
+            "difficulty": "medium_hard",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-22-atm",
+            "prompt": "Wofür steht in der Porno-Industrie und im Schlafzimmer-Slang das Akronym „ATM“?",
+            "options": [
+              {
+                "id": "q-02-new-22-opt-1",
+                "text": "Ass to Mouth (Der direkte Wechsel von analer zu oraler Penetration)",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-22-opt-2",
+                "text": "Automated Teller Machine (Ein Fetisch, bei dem man Geld während des Aktes in den Mund gesteckt bekommt)",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-22-opt-3",
+                "text": "All Time Missionary (Ein Versprechen, niemals die Stellung zu wechseln)",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-22-opt-4",
+                "text": "Aggressive Tongue Movements (Sehr hartes, wildes Zungenküssen)",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-22-opt-1",
+            "explanation": "Eine Express-Eintrittskarte für schlimmste Magen-Darm-Erkrankungen. Erinnert ihr euch an die Zeit, in der uns beigebracht wurde, sich vor dem Essen die Hände zu waschen? Offenbar haben einige diese Lektion im Eifer des Gefechts komplett vergessen.",
+            "difficulty": "hard",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-23-gfe",
+            "prompt": "Was bucht man bei einer Escort-Agentur, wenn man eine „GFE“ verlangt?",
+            "options": [
+              {
+                "id": "q-02-new-23-opt-1",
+                "text": "Girlfriend Experience – eine Dienstleistung, die Intimität, Küssen und emotionale Nähe wie in einer Beziehung simuliert",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-23-opt-2",
+                "text": "Gluten Free Eating – Ein Date, bei dem garantiert nur laktose- und glutenfreie Produkte gegessen werden",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-23-opt-3",
+                "text": "Giant Foot Exhibition – Ein Fußfetisch-Angebot mit besonders großen Schuhen",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-23-opt-4",
+                "text": "Girlfriend Fight Experience – Jemand wird bezahlt, um einen grundlosen Eifersuchtsstreit in der Öffentlichkeit zu inszenieren",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-23-opt-1",
+            "explanation": "Man bezahlt sprichwörtlich dafür, dass einem jemand verliebt in die Augen schaut, Händchen hält und so tut, als ob ihn deine ausführliche Erklärung zu Krypto-Investments brennend interessiert. Ist unterm Strich vermutlich immer noch billiger als eine Scheidung.",
+            "difficulty": "medium",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-24-booty-call",
+            "prompt": "Ein „Booty Call“ ist ein bekannter Popkultur-Begriff für...",
+            "options": [
+              {
+                "id": "q-02-new-24-opt-1",
+                "text": "einen spontanen, späten Anruf oder eine Nachricht mit dem alleinigen Zweck, sofort Sex zu haben",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-24-opt-2",
+                "text": "das versehentliche Anrufen einer Nummer, weil das Handy in der Gesäßtasche eingeklemmt war (Butt Dial)",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-24-opt-3",
+                "text": "eine Massagetechnik zur Straffung der Gesäßmuskulatur",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-24-opt-4",
+                "text": "einen alten Piraten-Ausruf, wenn Schätze (Booty) gefunden wurden",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-24-opt-1",
+            "explanation": "Die moderne Romantik in ihrer reinsten Form. Eine 'U up?'-Nachricht um 02:13 Uhr via Snapchat. Shakespeare würde bei so viel Poesie im Grab rotieren, aber immerhin spart man sich das stundenlange Getratsche über den eigenen Arbeitsalltag.",
+            "difficulty": "easy",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-25-walk-of-shame",
+            "prompt": "Was versteht man nach einer durchfeierten Nacht unter dem „Walk of Shame“?",
+            "options": [
+              {
+                "id": "q-02-new-25-opt-1",
+                "text": "Den morgendlichen Heimweg in der zerknitterten Partykleidung des Vorabends nach einem One-Night-Stand",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-25-opt-2",
+                "text": "Das reumütige Zurückbringen von geklauten Gläsern in eine Bar",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-25-opt-3",
+                "text": "Der nackte Gang über den Flur, wenn man vergessen hat, ein Handtuch mit ins Bad zu nehmen",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-25-opt-4",
+                "text": "Wenn man beim Sex aus Versehen aus dem Bett rollt und sich wieder aufrappeln muss",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-25-opt-1",
+            "explanation": "Wurde von Feministen glücklicherweise in den 'Stride of Pride' umbenannt. Realistisch gesehen besteht er trotzdem meist daraus, geblendet in die Morgensonne zu blinzeln, in der U-Bahn von Rentnern verurteilt zu werden und jeden Tequila von gestern zu bereuen.",
+            "difficulty": "easy",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-26-netflix-and-chill",
+            "prompt": "Welche versteckte Bedeutung hat die Einladung zu „Netflix and Chill“?",
+            "options": [
+              {
+                "id": "q-02-new-26-opt-1",
+                "text": "Es ist ein weit verbreiteter Code-Satz für ein Date, das zwangsläufig auf Sex hinauslaufen soll",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-26-opt-2",
+                "text": "Das Anschauen einer True-Crime-Doku, bei der man aus Angst Schüttelfrost (Chill) bekommt",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-26-opt-3",
+                "text": "Gemeinsames Binge-Watching, während man die Klimaanlage auf 16 Grad stellt",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-26-opt-4",
+                "text": "Das Essen von massiv viel Eiscreme, während man Serien schaut",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-26-opt-1",
+            "explanation": "Unsere Generation hat das klischeehafte 'Willst du noch auf einen Kaffee mit hochkommen?' in etwas verwandelt, das uns gleichzeitig zwingt, 20 Minuten unentschlossen durch Serien-Thumbnails zu scrollen, bevor man endlich peinlich auf dem Ikeasofa übereinander herfällt.",
+            "difficulty": "easy",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-27-french-tickler",
+            "prompt": "Wer sich für einen „French Tickler“ entscheidet, holt sich was ins Bett?",
+            "options": [
+              {
+                "id": "q-02-new-27-opt-1",
+                "text": "Ein Kondom mit Gumminoppen, Fransen oder kleinen Tentakeln zur zusätzlichen Stimulation",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-27-opt-2",
+                "text": "Einen flauschigen Staubwedel aus Straußenfedern zum Kitzeln",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-27-opt-3",
+                "text": "Eine person, die während des Aktes ununterbrochen mit französischem Akzent flüstert",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-27-opt-4",
+                "text": "Einen falschen Schnurrbart zum Aufkleben für das Vorspiel",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-27-opt-1",
+            "explanation": "Diese Dinger sehen oft eher aus wie farbenfrohe Tiefsee-Aliens oder mutierte Raupen. Sie versprechen himmlische Stimulation, fühlen sich aber oft so an, als würde man innerlich mit einer kleinen Toilettenbürste gereinigt.",
+            "difficulty": "medium",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-28-golden-shower",
+            "prompt": "Worum geht es in der Praxis beim Fetisch der „Golden Shower“ (Natursekt)?",
+            "options": [
+              {
+                "id": "q-02-new-28-opt-1",
+                "text": "Das Urinieren auf den Partner",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-28-opt-2",
+                "text": "Das Einreiben des Körpers mit teurer, goldener Bodylotion oder Blattgold",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-28-opt-3",
+                "text": "Sex unter einem prunkvollen, goldfarbenen Kronleuchter",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-28-opt-4",
+                "text": "Das Baden in schäumendem, extrem teurem Champagner",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-28-opt-1",
+            "explanation": "Wer braucht schon teure Spa-Aufenthalte, wenn man einfach die Wasserrechnung sparen und sich auf die urigste, menschlichste Weise gegenseitig benässen kann? Kleiner Tipp: Danach unbedingt das Bettlaken wechseln. Das riecht sonst nach Hauptbahnhof.",
+            "difficulty": "medium",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-29-sounding",
+            "prompt": "Warnung für Empfindliche: Was genau versteht man unter dem Begriff „Sounding“?",
+            "options": [
+              {
+                "id": "q-02-new-29-opt-1",
+                "text": "Das Einführen von medizinischen Stäben oder Sonden in die Harnröhre",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-29-opt-2",
+                "text": "Das Abspielen von extrem lauter Musik, um den Herzschlag und die Erregung zu pushen",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-29-opt-3",
+                "text": "Sich gegenseitig die Penislänge mit einem Echolot auszumessen",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-29-opt-4",
+                "text": "Sex beim Zuhören von Walgesängen",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-29-opt-1",
+            "explanation": "Lässt eine gewöhnliche Blasenentzündung plötzlich wie einen entspannten Wellness-Retreat wirken. Bitte keine Experimente mit Wattestäbchen oder Kugelschreibern zu Hause machen – die Notaufnahme hat samstagnachts ohnehin genug zu tun.",
+            "difficulty": "hard",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-30-figging",
+            "prompt": "Bei der historischen Praktik des „Figging“ dreht sich alles um...",
+            "options": [
+              {
+                "id": "q-02-new-30-opt-1",
+                "text": "das Einführen eines geschälten Ingwerstücks in den Anus, was ein brennendes Gefühl erzeugt",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-30-opt-2",
+                "text": "das Bedecken der Genitalien mit einem klassischen Feigenblatt wie Adam und Eva",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-30-opt-3",
+                "text": "das Verzehren von klebrigen Feigen als aphrotisierendes Vorspiel",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-30-opt-4",
+                "text": "eine Stellung, bei der man in einer Yoga-ähnlichen, verschränkten Position verharrt",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-30-opt-1",
+            "explanation": "Eine Bestrafungsmethode aus dem viktorianischen Zeitalter, die sich in einen Fetisch verwandelt hat. Beweist endgültig, dass die Menschheit schon immer komplett irre war und dass Ingwer-Shots eigentlich harmlos sind.",
+            "difficulty": "hard",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-31-cbt",
+            "prompt": "Wofür steht in bestimmten dunkleren Ecken des Internets die Abkürzung „CBT“?",
+            "options": [
+              {
+                "id": "q-02-new-31-opt-1",
+                "text": "Cock and Ball Torture – Die absichtliche, schmerzhafte Behandlung der männlichen Genitalien",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-31-opt-2",
+                "text": "Cognitive Behavioral Therapy – Eine Verhaltenstherapie für Sexsucht",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-31-opt-3",
+                "text": "Climax Before Touching – Ein Fetisch, bei dem man vor der ersten Berührung kommen muss",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-31-opt-4",
+                "text": "Choking By Thighs – Wenn man vom Partner mit den Oberschenkeln gewürgt wird",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-31-opt-1",
+            "explanation": "Die doppelte Bedeutung des Akronyms ruiniert die psychologische Verhaltenstherapie für jeden, der zu tief im Internet gegraben hat. Und ganz ehrlich: Wer redet schon gern über Kindheitstraumata, wenn er stattdessen einfach einen gepflegten Tritt in die Nüsse haben kann?",
+            "difficulty": "medium",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-32-creampie",
+            "prompt": "Der Begriff „Creampie“ beschreibt in der Erotiksprache...",
+            "options": [
+              {
+                "id": "q-02-new-32-opt-1",
+                "text": "das Ejakulieren in die Vagina oder den Anus ohne Verwendung eines Kondoms",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-32-opt-2",
+                "text": "das Einreiben des Körpers mit Sprühsahne oder Schlagsahne",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-32-opt-3",
+                "text": "einen Slapstick-Fetisch, bei dem man sich gegenseitig Torten ins Gesicht wirft",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-32-opt-4",
+                "text": "eine extrem glatte und cremige Rasur der Schambehaarung",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-32-opt-1",
+            "explanation": "Klingt unschuldig nach einer himmlischen Bäcker-Köstlichkeit aus dem englischen Tearoom, endet im echten Leben aber meist in einem panischen Pinguin-Watschelgang zum Badezimmer, um die teure 600-Euro-Matratze vor dem Ruin zu bewahren.",
+            "difficulty": "medium",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-33-milf",
+            "prompt": "Wofür steht das weithin bekannte Akronym „MILF“?",
+            "options": [
+              {
+                "id": "q-02-new-33-opt-1",
+                "text": "Mother I'd Like to F*** – Eine sexuell attraktive Frau im mittleren Alter, oft Mutter",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-33-opt-2",
+                "text": "Man In Leather Fetish – Ein Herr, der ausschließlich Lederkleidung beim Sex trägt",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-33-opt-3",
+                "text": "More Intimacy, Less Foreplay – Eine Anweisung für ungeduldige Liebhaber",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-33-opt-4",
+                "text": "Married Independent Ladies Front – Eine politische Emanzipationsbewegung im Schlafzimmer",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-33-opt-1",
+            "explanation": "Dank dem Film 'American Pie' (1999) für immer in unseren Wortschatz eingebrannt. Heute hauptsächlich ein Kampfbegriff von 14-jährigen Fortnite-Spielern, die dir im Voicechat drohen, genau diese Aktivität mit deiner Mutter durchzuführen.",
+            "difficulty": "easy",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-34-dilf",
+            "prompt": "Analog zur MILF – wer oder was ist ein „DILF“?",
+            "options": [
+              {
+                "id": "q-02-new-34-opt-1",
+                "text": "Dad I'd Like to F*** – Ein sexuell sehr attraktiver, älterer Mann oder Vater",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-34-opt-2",
+                "text": "Double Insert Length Fetish – Wenn extra lange Sexspielzeuge verwendet werden",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-34-opt-3",
+                "text": "Doing It Like French – Sehr ausgiebiges Küssen vor dem eigentlichen Sex",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-34-opt-4",
+                "text": "Dumb Idiot Lacking Foreplay – Eine abwertende Bezeichnung für egoistische Liebhaber",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-34-opt-1",
+            "explanation": "Zwei Worte: Pedro. Pascal. Hollywood hat längst verstanden, dass unsere Generation kollektive Daddy-Issues mit sich herumträgt und melkt diese Tatsache nun hemmungslos an den Kinokassen. Wir lassen es gerne geschehen.",
+            "difficulty": "easy",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-35-sugar-daddy",
+            "prompt": "Was zeichnet einen klassischen „Sugar Daddy“ aus?",
+            "options": [
+              {
+                "id": "q-02-new-35-opt-1",
+                "text": "Ein wohlhabender, älterer Mann, der einer jüngeren person Geld und Geschenke im Tausch für intime Gesellschaft gibt",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-35-opt-2",
+                "text": "Ein Typ, der bei Dates konsequent nur für sich selbst bezahlt",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-35-opt-3",
+                "text": "Ein partner, der einen Bäuchlein hat (Dad Bod) und gerne süße Snacks im Bett isst",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-35-opt-4",
+                "text": "Ein Fetischist, der seinen Körper mit Zuckerguss bedecken lässt",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-35-opt-1",
+            "explanation": "In Zeiten von Studienkrediten, astronomischen Mieten in Berlin und chronischer Inflation ist das mittlerweile für viele Kunstgeschichte-Studentinnen der einzig verbliebene solide Altersvorsorge-Plan.",
+            "difficulty": "easy",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-36-bdsm",
+            "prompt": "Wofür stehen die Buchstaben im Akronym „BDSM“?",
+            "options": [
+              {
+                "id": "q-02-new-36-opt-1",
+                "text": "Bondage & Discipline, Dominance & Submission, Sadism & Masochism",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-36-opt-2",
+                "text": "Biting, Domination, Spanking, Moaning",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-36-opt-3",
+                "text": "British Dental Society Members (als Metapher für schmerzhafte Prozeduren)",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-36-opt-4",
+                "text": "Boys Doing Some Mischief",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-36-opt-1",
+            "explanation": "Das, was der Hausfrauen-Roman 'Fifty Shades of Grey' versucht hat dem Mainstream zu erklären. Dabei wurde uns vor allem beigebracht: Wenn ein reicher Milliardär einen unheimlichen Folterkeller hat, ist das romantisch. Wenn es der Typ aus der WG nebenan tut, ruft man die Polizei.",
+            "difficulty": "medium",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-37-safe-word",
+            "prompt": "Wozu dient ein „Safe Word“ im Schlafzimmer?",
+            "options": [
+              {
+                "id": "q-02-new-37-opt-1",
+                "text": "Es ist ein vorher vereinbartes Codewort, das BDSM-Praktiken oder intensiven Sex sofort stoppt",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-37-opt-2",
+                "text": "Es ist das Passwort, um das WLAN-Netzwerk des Partners nach dem Sex nutzen zu dürfen",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-37-opt-3",
+                "text": "Ein Zauberspruch, den man aufsagt, um einen Krampf im Bein zu lösen",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-37-opt-4",
+                "text": "Ein Wort, das man ruft, wenn das Kondom gerissen ist",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-37-opt-1",
+            "explanation": "Meistens ist es etwas völlig Unsexyes wie 'Ananas', 'Flugzeugträger' oder 'Bausparvertrag'. Das normale Wort 'Stopp' wird nämlich im Eifer des Gefechts oft nur als sanfte Ermutigung weiterzumachen interpretiert.",
+            "difficulty": "easy",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-38-strap-on",
+            "prompt": "Was genau ist ein „Strap-on“?",
+            "options": [
+              {
+                "id": "q-02-new-38-opt-1",
+                "text": "Ein Dildo, der an einem Geschirr (Harness) getragen wird, meist von Frauen, um andere zu penetrieren",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-38-opt-2",
+                "text": "Gurte, mit denen man den Partner am Bettgestell fesselt",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-38-opt-3",
+                "text": "Ein Keuschheitsgürtel für Männer, der mit Riemen verschlossen wird",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-38-opt-4",
+                "text": "Ein tragbares Kamerasystem, um Point-of-View-Videos zu filmen",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-38-opt-1",
+            "explanation": "Der große Gleichmacher der Moderne. Verleiht der phrase 'Lass uns mal die Rollen tauschen' eine völlig neue, sehr physische Bedeutung. Plötzlich merken Männer, dass 20 Zentimeter Kunststoff doch ziemlich furchteinflößend aussehen können.",
+            "difficulty": "easy",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-39-cameltoe",
+            "prompt": "Was umschreibt der umgangssprachliche Begriff „Cameltoe“ (Kamelfuß)?",
+            "options": [
+              {
+                "id": "q-02-new-39-opt-1",
+                "text": "Die deutliche Abzeichnung der weiblichen Schamlippen durch zu enge Hosen (z.B. Leggings)",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-39-opt-2",
+                "text": "Eine Fußfehlstellung, die nach exzessivem Tragen von High Heels beim Sex entsteht",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-39-opt-3",
+                "text": "Ein bestimmtes Sex-Spielzeug, das Sand und Wüstenklima simuliert",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-39-opt-4",
+                "text": "Die Hornhaut an den Knien, die durch viel Doggy-Style entsteht",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-39-opt-1",
+            "explanation": "Die logische Konsequenz davon, dass Yogapants zur absoluten Alltagsuniform mutiert sind. Wir haben als Gesellschaft irgendwann einfach akzeptiert, dass man im Supermarkt nun Anatomie-Studien betreiben kann.",
+            "difficulty": "easy",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-40-moose-knuckle",
+            "prompt": "Was ist das männliche Gegenstück zum Cameltoe, bekannt als „Moose Knuckle“ (Elchknöchel)?",
+            "options": [
+              {
+                "id": "q-02-new-40-opt-1",
+                "text": "Die sichtbare Abzeichnung von Penis und Hoden in extrem enger Kleidung, wie Radlerhosen",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-40-opt-2",
+                "text": "Das schmerzhafte Zusammenstoßen von Knie und Hoden während eines wilden Stellungswechsels",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-40-opt-3",
+                "text": "Ein massiver Knutschfleck am Hals, der aussieht wie ein Hufabdruck",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-40-opt-4",
+                "text": "Besonders starke Körperbehaarung auf den Fingerknöcheln",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-40-opt-1",
+            "explanation": "Ein visueller Angriff, um den niemand je gebeten hat. Oft zu beobachten bei übereifrigen Joggern mittleren Alters, die denken, aerodynamisches Lycra würde ihre Bierplauze auf dem Fahrrad irgendwie kompensieren.",
+            "difficulty": "medium",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-41-blue-balls",
+            "prompt": "Worum handelt es sich bei den sagenumwobenen „Blue Balls“ (Kavaliersschmerzen)?",
+            "options": [
+              {
+                "id": "q-02-new-41-opt-1",
+                "text": "Das schmerzhafte, dumpfe Ziehen in den Hoden nach langanhaltender Erregung ohne Orgasmus",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-41-opt-2",
+                "text": "Die Folgen von unterkühltem Sex im Winter",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-41-opt-3",
+                "text": "Eine Geschlechtskrankheit, die die Haut blau verfärbt",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-41-opt-4",
+                "text": "Der Frust, wenn der Partner kurz vor dem Ziel einschläft",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-41-opt-1",
+            "explanation": "Die historische biologische Geheimwaffe, mit der 16-jährige Jungs ihre Freundinnen im Kino oder auf dem Rücksitz eines VW Golf emotional erpresst haben, um doch noch 'etwas weiter zu gehen'. Klassiker.",
+            "difficulty": "medium",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-42-morning-wood",
+            "prompt": "Was bezeichnet man im englischen Slang charmant als „Morning Wood“?",
+            "options": [
+              {
+                "id": "q-02-new-42-opt-1",
+                "text": "Die morgendliche Erektion des Penis",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-42-opt-2",
+                "text": "Der fiese Katerkopfschmerz am Morgen nach einer party",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-42-opt-3",
+                "text": "Sehr steife Gelenke und Rückenprobleme nach dem Aufstehen",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-42-opt-4",
+                "text": "Das Stück Brennholz, an dem man sich beim Gang aufs Klo stößt",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-42-opt-1",
+            "explanation": "Mutter Naturs eigener, völlig sinnfreier Wecker. Kommt garantiert immer dann vor, wenn man einfach nur todmüde und dringend pinkeln muss, die Anatomie aber zielsicheres Zielen unmöglich macht.",
+            "difficulty": "easy",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-43-gag-reflex",
+            "prompt": "Was passiert, wenn beim Oralsex der „Würgereflex“ (Gag Reflex) ausgelöst wird?",
+            "options": [
+              {
+                "id": "q-02-new-43-opt-1",
+                "text": "Ein unwillkürliches Zusammenziehen des Rachens, um das Ersticken zu verhindern",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-43-opt-2",
+                "text": "Man muss unkontrolliert anfangen, über schlechte Witze (Gags) zu lachen",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-43-opt-3",
+                "text": "Die Kiefermuskulatur verkrampft sich und lässt nicht mehr los",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-43-opt-4",
+                "text": "Eine reflexartige Abwehrbewegung mit den Händen",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-43-opt-1",
+            "explanation": "Die rein biologische Hürde, die jeder Amateur-Pornostar wegzutrainieren versucht. Führt meistens zu hochgradig unsexy Hustenanfällen, tränenden Augen und dem Gefühl, gleich sein Leben auszuhauchen.",
+            "difficulty": "easy",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-44-roleplay",
+            "prompt": "Worum geht es beim sexuellen „Roleplay“ (Rollenspiel)?",
+            "options": [
+              {
+                "id": "q-02-new-44-opt-1",
+                "text": "Beide Partner schlüpfen beim Sex in fiktive Charaktere oder Szenarien (z.B. Arzt/Patient, Lehrer/Schüler)",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-44-opt-2",
+                "text": "Das Ausspielen des gesamten Aktes auf einem großen Dungeons & Dragons Spielbrett",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-44-opt-3",
+                "text": "Sich abwechselnd über den Boden zu rollen",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-44-opt-4",
+                "text": "Das Nachspielen von Trennungs-Gesprächen, um emotionale Schmerzen zu simulieren",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-44-opt-1",
+            "explanation": "'Oh ja, du warst ein sehr unartiger Finanzbeamter... jetzt fass mich an und erklär mir meine Steuerfreibeträge.' Hochgradig immersiv, bis jemand versehentlich aus der Rolle fällt und über die Abwasch-Aufteilung redet.",
+            "difficulty": "easy",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-45-quickie",
+            "prompt": "Was charakterisiert einen sogenannten „Quickie“?",
+            "options": [
+              {
+                "id": "q-02-new-45-opt-1",
+                "text": "Ein kurzer, spontaner und oft hastiger sexueller Akt, der meist ohne langes Vorspiel auskommt",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-45-opt-2",
+                "text": "Sex, der in einem Schnellrestaurant oder Drive-In stattfindet",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-45-opt-3",
+                "text": "Ein Zustand krankhafter vorzeitiger Ejakulation (Premature Ejaculation)",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-45-opt-4",
+                "text": "Sich nach dem Geschlechtsverkehr blitzschnell aus dem Staub zu machen",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-45-opt-1",
+            "explanation": "Maximale Effizienz in der modernen Schlafzimmer-Dienstleistungsgesellschaft. Wer hat schon 45 Minuten Zeit für sanfte Romantik, wenn der Lieferando-Fahrer laut App schon in sechs Minuten klingelt?",
+            "difficulty": "easy",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-46-mile-high-club",
+            "prompt": "Wie qualifiziert man sich formell für die Aufnahme in den „Mile High Club“?",
+            "options": [
+              {
+                "id": "q-02-new-46-opt-1",
+                "text": "Indem man während eines Fluges in einem Flugzeug Sex hat",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-46-opt-2",
+                "text": "Indem man den Mount Everest besteigt und oben nackt posiert",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-46-opt-3",
+                "text": "Wenn man auf einer extrem hohen Rooftop-Party mit einem Fremden knutscht",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-46-opt-4",
+                "text": "Sex unter dem Einfluss von massiv viel Cannabis (High sein)",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-46-opt-1",
+            "explanation": "Klingt in Hollywood-Filmen wahnsinnig glamourös und verrucht. In der Realität zwängt man sich auf einen Quadratmeter Toilette, atmet blaue Desinfektionschemikalien ein und hofft, dass keine Turbulenzen kommen, während draußen fünf Rentner wütend anklopfen.",
+            "difficulty": "medium",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-47-v-card",
+            "prompt": "Wenn Teenager amerikanischer Serien davon sprechen, ihre „V-Card“ zu verlieren, was meinen sie?",
+            "options": [
+              {
+                "id": "q-02-new-47-opt-1",
+                "text": "Sie meinen ihre Jungfräulichkeit (Virginity)",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-47-opt-2",
+                "text": "Ihre Valentinstag-Grußkarten",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-47-opt-3",
+                "text": "Den Verzicht auf eine streng vegane Ernährung nach dem ersten Steak",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-47-opt-4",
+                "text": "Den Club-Ausweis für die örtliche Disco abgeben zu müssen",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-47-opt-1",
+            "explanation": "Ein sozial konstruiertes Konzept, um das wir uns in der Mittelstufe unfassbare, lebensverändernde Sorgen gemacht haben, nur um mit Mitte 20 festzustellen, dass es absolut niemanden auf diesem Planeten auch nur ansatzweise interessiert.",
+            "difficulty": "easy",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-48-g-spot",
+            "prompt": "Wo nach sucht man (manchmal verzweifelt), wenn man den „G-Punkt“ (G-Spot) finden will?",
+            "options": [
+              {
+                "id": "q-02-new-48-opt-1",
+                "text": "Nach einer besonders empfindlichen erogenen Zone an der vorderen Wand im Inneren der Vagina",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-48-opt-2",
+                "text": "Nach der perfekten, versteckten Position für die GoPro-Kamera im Schlafzimmer",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-48-opt-3",
+                "text": "Nach der geheimsten Etage in einem Fetisch-Club",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-48-opt-4",
+                "text": "Nach einer tiefen Stelle im Rachen, die keinen Würgereflex auslöst",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-48-opt-1",
+            "explanation": "Die verlorene Stadt Atlantis für viele Hetero-Männer. Manche behaupten stolz, sie hätten sie entdeckt, aber die meisten irren einfach planlos mit verbundenen Augen im Dunkeln herum und hoffen das Beste.",
+            "difficulty": "medium",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-49-kegels",
+            "prompt": "Was trainiert man, wenn man im Geheimen „Kegel-Übungen“ macht?",
+            "options": [
+              {
+                "id": "q-02-new-49-opt-1",
+                "text": "Die Beckenbodenmuskulatur (für intensivere Orgasmen und bessere Kontrolle)",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-49-opt-2",
+                "text": "Die Präzision beim Bowling-Spielen mit schweren Kugeln",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-49-opt-3",
+                "text": "Die Halsmuskulatur, um Bisse besser abzufedern",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-49-opt-4",
+                "text": "Ein deutsches Trinkspiel, bei dem man sehr viel Bier trinken muss",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-49-opt-1",
+            "explanation": "Unsichtbare Fitnessübungen, die man machen kann, während man an der Supermarktkasse steht oder passiv-aggressive Mails an den Chef formuliert. Ein starker Beckenboden macht alles besser. Gern geschehen für den Life-Hack.",
+            "difficulty": "medium",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
+          },
+          {
+            "id": "q-02-new-50-aftercare",
+            "prompt": "Was gehört zur extrem wichtigen phase der „Aftercare“?",
+            "options": [
+              {
+                "id": "q-02-new-50-opt-1",
+                "text": "Das emotionale und physische Kümmern um den Partner (z.B. Kuscheln, Trösten) nach intensivem Sex oder BDSM-Praktiken",
+                "is_correct": true
+              },
+              {
+                "id": "q-02-new-50-opt-2",
+                "text": "Das gemeinsame Waschen der Bettlaken und des benutzten Spielzeugs am nächsten Morgen",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-50-opt-3",
+                "text": "Eine spezielle Hautpflege-Routine mit Cremes gegen Liebesbisse",
+                "is_correct": false
+              },
+              {
+                "id": "q-02-new-50-opt-4",
+                "text": "Der klärende Besuch beim Therapeuten nach einem Seitensprung",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-02-new-50-opt-1",
+            "explanation": "Eigentlich das absolute Minimum an menschlichem Anstand. Wenn du jemanden eine Stunde lang ausgepeitscht, gefesselt oder wie eine menschliche Piñata behandelt hast, dann kriegt die person danach gefälligst eine Kuscheldecke, Wasser und emotionale Bestätigung. Punkt.",
+            "difficulty": "medium",
+            "category_id": "cat-02",
+            "type": "multiple_choice",
+            "points": 1
           }
+
         ],
         "id": "cat-02"
       },
