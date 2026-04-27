@@ -14,7 +14,7 @@ import {
   type GameFinishedPayload,
   type ConnectionResumedPayload,
 } from "@quiz/shared-protocol";
-import { GameState, QuestionType } from "@quiz/shared-types";
+import { GameState, QuestionType, type CorrectAnswer } from "@quiz/shared-types";
 import {
   getReconnectDelay,
   getWebSocketProtocol,
@@ -111,15 +111,31 @@ function getQuestionKindLabel(type: QuestionType): string {
 }
 
 function formatControllerAnswer(
-  answer: QuestionRevealPayload["correctAnswer"] | null | undefined,
+  answer: CorrectAnswer | null | undefined,
+  question?: QuestionControllerPayload | null,
   unit?: string,
 ): string {
   if (!answer) return "-";
-  if (answer.type === "option") return answer.value;
+  if (answer.type === "option") return getOptionAnswerLabel(answer.value, question);
   if (answer.type === "number") return `${answer.value}${unit ? ` ${unit}` : ""}`;
-  if (answer.type === "ranking") return answer.value.join(" > ");
-  if (answer.type === "options") return answer.value.join(" / ");
+  if (answer.type === "ranking") {
+    return answer.value.map((id) => getOptionAnswerLabel(id, question)).join(" > ");
+  }
+  if (answer.type === "options") {
+    return answer.value.map((id) => getOptionAnswerLabel(id, question)).join(" / ");
+  }
   return answer.value;
+}
+
+function getOptionAnswerLabel(id: string, question?: QuestionControllerPayload | null): string {
+  const entries =
+    question && "options" in question
+      ? question.options
+      : question && "items" in question
+        ? question.items
+        : [];
+  const entry = entries.find((option) => option.id === id);
+  return entry?.text ? `${entry.label}: ${entry.text}` : (entry?.label ?? id);
 }
 
 export function App() {
@@ -651,7 +667,9 @@ export function App() {
               )}
               {answerStatus === "accepted" && (
                 <div className="player-controller-status" data-state="saved">
-                  {selectedOptionId && <span>Du hast {selectedOptionId} gewählt.</span>}
+                  {selectedOptionId && (
+                    <span>Du hast {getOptionAnswerLabel(selectedOptionId, question)} gewählt.</span>
+                  )}
                   {!selectedOptionId && estimateValue && (
                     <span>
                       Deine Schätzung: {estimateValue}{" "}
@@ -662,7 +680,10 @@ export function App() {
                     <span>Deine Antwort: {textAnswerValue}</span>
                   )}
                   {!selectedOptionId && rankingOrder.length > 0 && (
-                    <span>Deine Reihenfolge: {rankingOrder.join(" > ")}</span>
+                    <span>
+                      Deine Reihenfolge:{" "}
+                      {rankingOrder.map((id) => getOptionAnswerLabel(id, question)).join(" > ")}
+                    </span>
                   )}
                 </div>
               )}
@@ -820,6 +841,7 @@ export function App() {
                   <strong>
                     {formatControllerAnswer(
                       ownRoundResult?.answer ?? null,
+                      question,
                       question && question.type === QuestionType.Estimate ? question.unit : undefined,
                     )}
                   </strong>
@@ -829,6 +851,7 @@ export function App() {
                   <strong>
                     {formatControllerAnswer(
                       correctAnswer,
+                      question,
                       question && question.type === QuestionType.Estimate ? question.unit : undefined,
                     )}
                   </strong>

@@ -67,6 +67,7 @@ stop_hotspot() {
   created="$(cat "$PROFILE_CREATED_FILE" 2>/dev/null || printf "0")"
 
   info "Stoppe Hotspot-Profil $profile"
+  nmcli connection modify "$profile" connection.autoconnect no >/dev/null 2>&1 || true
   nmcli connection down "$profile" >/dev/null 2>&1 || true
 
   if [[ "$created" == "1" ]]; then

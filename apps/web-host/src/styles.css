@@ -223,6 +223,24 @@ button {
   filter: contrast(1.1);
 }
 
+.host-join-url {
+  margin: 12px 0 0;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(5, 8, 16, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--host-ink-soft);
+  font-size: 0.9rem;
+  line-height: 1.4;
+  word-break: break-all;
+  text-align: center;
+}
+
+.host-join-url--sidebar {
+  font-size: 0.82rem;
+  margin-top: 14px;
+}
+
 /* Center: Stage */
 .host-stage-panel {
   min-width: 0;

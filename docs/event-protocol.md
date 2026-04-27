@@ -125,7 +125,7 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 - Der Server sendet `question:timer`.
 - Die Client-Anzeige darf weich laufen, ist aber nicht die Wahrheitsquelle.
 - `question:close` ist das massgebliche Signal fuer "zu spaet".
-- Die aktive Antwortzeit ist aktuell `60s` pro Frage.
+- Die aktive Antwortzeit ist aktuell `30s` pro Frage.
 
 ### Bereit fuer die naechste Frage
 

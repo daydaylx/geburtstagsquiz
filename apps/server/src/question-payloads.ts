@@ -3,6 +3,10 @@ import { QuestionType, type Question } from "@quiz/shared-types";
 
 import type { RoomRecord } from "./server-types.js";
 
+function getAnswerDisplayLabel(index: number): string {
+  return index < 26 ? String.fromCharCode(65 + index) : `${index + 1}`;
+}
+
 export function toQuestionShowPayload(
   room: RoomRecord,
   question: Question,
@@ -71,9 +75,9 @@ export function toQuestionControllerPayload(
     gameState,
   };
   const showText = room.settings.showAnswerTextOnPlayerDevices;
-  const toControllerOption = (option: { id: string; label: string }) => ({
+  const toControllerOption = (option: { id: string; label: string }, index: number) => ({
     id: option.id,
-    label: option.id,
+    label: getAnswerDisplayLabel(index),
     ...(showText ? { text: option.label } : {}),
   });
 

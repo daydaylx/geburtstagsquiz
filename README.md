@@ -85,6 +85,34 @@ Der Server-Dev-Start nutzt `node --watch --import tsx`, damit kein separater `ts
 corepack pnpm --filter @quiz/server run dev:tsx
 ```
 
+Fuer den Abendbetrieb gibt es ein Startskript, das alte Projektprozesse auf den Ports `3001`, `5173` und `5174` zuerst sauber stoppt und dann Hotspot, Server, Host-UI und Player-UI neu hochzieht:
+
+```bash
+./start_local_game_host.sh
+```
+
+Der Hotspot startet als `Geburtstagsquiz-Offen` ohne Passwort. Das Skript deaktiviert WLAN-Powersave im Hotspot-Profil und startet einen Watchdog, der das Hotspot-Profil automatisch neu verbindet, falls NetworkManager es verliert. Wenn auf einem der Zielports ein fremder Prozess haengt, bricht das Skript standardmaessig ab. Fuer einen harten Neustart kann man es mit `--force-port-cleanup` starten.
+
+Wenn der Hotspot in einem vollen 2.4-GHz-Umfeld trotzdem wackelt, kann ein anderer Kanal helfen:
+
+```bash
+HOTSPOT_CHANNEL=6 ./start_quiz.sh
+```
+
+Fuer den einfachsten Abend-Start gibt es einen Wrapper mit sinnvollen Defaults:
+
+```bash
+./start_quiz.sh
+```
+
+Der Wrapper oeffnet den Host-Browser und macht die Zielports vorab frei.
+
+Stoppen geht dann genauso einfach:
+
+```bash
+./stop_quiz.sh
+```
+
 Standard-URLs:
 
 - Server: `ws://localhost:3001`

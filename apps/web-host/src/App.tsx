@@ -103,6 +103,10 @@ function getConnectionLabel(connectionState: ConnectionState): string {
   }
 }
 
+function getAnswerDisplayLabel(index: number): string {
+  return index < 26 ? String.fromCharCode(65 + index) : `${index + 1}`;
+}
+
 function createHostClientInfo() {
   return { deviceType: "browser", appVersion: "0.0.1" };
 }
@@ -446,6 +450,7 @@ export function App() {
   const questionProgressPercent = effectiveTotalQuestionCount
     ? (visibleQuestionNumber / effectiveTotalQuestionCount) * 100
     : 0;
+  const playerJoinUrl = roomInfo?.joinCode ? getPlayerJoinUrl(roomInfo.joinCode) : null;
 
   const currentFlowStepIndex =
     screen === "finished"
@@ -467,6 +472,7 @@ export function App() {
               <img alt="QR-Code" src={qrCodeDataUrl} />
             </div>
           )}
+          {playerJoinUrl && <p className="host-join-url">{playerJoinUrl}</p>}
           <p className="host-lobby-hint">QR-Code scannen oder Code eingeben</p>
         </div>
       );
@@ -490,9 +496,9 @@ export function App() {
             question.type === QuestionType.Logic ||
             question.type === QuestionType.MajorityGuess) && (
             <div className="host-options-grid">
-              {question.options.map((opt) => (
+              {question.options.map((opt, index) => (
                 <div className="host-option-card" key={opt.id}>
-                  <span className="host-option-id">{opt.id}</span>
+                  <span className="host-option-id">{getAnswerDisplayLabel(index)}</span>
                   <span className="host-option-label">{opt.label}</span>
                 </div>
               ))}
@@ -508,9 +514,9 @@ export function App() {
           )}
           {question.type === QuestionType.Ranking && (
             <div className="host-ranking-list">
-              {question.items.map((item) => (
+              {question.items.map((item, index) => (
                 <div className="host-ranking-item" key={item.id}>
-                  <span className="host-option-id">{item.id}</span>
+                  <span className="host-option-id">{getAnswerDisplayLabel(index)}</span>
                   <span>{item.label}</span>
                 </div>
               ))}
@@ -540,7 +546,7 @@ export function App() {
             question.type === QuestionType.Logic ||
             question.type === QuestionType.MajorityGuess) && (
             <div className="host-options-grid host-options-grid--reveal">
-              {question.options.map((opt) => {
+              {question.options.map((opt, index) => {
                 const isCorrectAnswer =
                   (revealedAnswer?.type === "option" && revealedAnswer.value === opt.id) ||
                   (revealedAnswer?.type === "options" && revealedAnswer.value.includes(opt.id));
@@ -550,7 +556,7 @@ export function App() {
                     data-state={isCorrectAnswer ? "correct" : "dimmed"}
                     key={opt.id}
                   >
-                    <span className="host-option-id">{opt.id}</span>
+                    <span className="host-option-id">{getAnswerDisplayLabel(index)}</span>
                     <span className="host-option-label">{opt.label}</span>
                   </div>
                 );
@@ -575,11 +581,14 @@ export function App() {
           {question.type === QuestionType.Ranking && revealedAnswer?.type === "ranking" && (
             <div className="host-ranking-list">
               {revealedAnswer.value.map((id, i) => {
-                const item = question.items.find((x) => x.id === id);
+                const itemIndex = question.items.findIndex((x) => x.id === id);
+                const item = itemIndex >= 0 ? question.items[itemIndex] : undefined;
                 return (
                   <div className="host-ranking-item host-ranking-item--reveal" key={id}>
                     <span className="host-ranking-position">{i + 1}.</span>
-                    <span className="host-option-id">{id}</span>
+                    <span className="host-option-id">
+                      {itemIndex >= 0 ? getAnswerDisplayLabel(itemIndex) : id}
+                    </span>
                     <span>{item?.label ?? id}</span>
                   </div>
                 );
@@ -693,6 +702,7 @@ export function App() {
                     <img alt="Join QR" src={qrCodeDataUrl} />
                   </div>
                 )}
+                {playerJoinUrl && <p className="host-join-url host-join-url--sidebar">{playerJoinUrl}</p>}
               </div>
               <div className="host-panel host-side-panel">
                 <div className="host-panel-content">

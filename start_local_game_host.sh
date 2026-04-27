@@ -4,10 +4,12 @@ set -Eeuo pipefail
 PROJECT_DIR="${PROJECT_DIR:-$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)}"
 PROJECT_DIR="$(cd "$PROJECT_DIR" && pwd -P)"
 
-HOTSPOT_SSID="${HOTSPOT_SSID:-Geburtstagsquiz}"
-HOTSPOT_PASSWORD="${HOTSPOT_PASSWORD:-geburtstag}"
+HOTSPOT_SSID="${HOTSPOT_SSID:-Geburtstagsquiz-Offen}"
 HOTSPOT_PROFILE="${HOTSPOT_PROFILE:-geburtstagsquiz-hotspot}"
 WIFI_IFACE="${WIFI_IFACE:-}"
+HOTSPOT_CHANNEL="${HOTSPOT_CHANNEL:-1}"
+HOTSPOT_IPV4_ADDR="${HOTSPOT_IPV4_ADDR:-10.42.0.1}"
+HOTSPOT_WATCHDOG_INTERVAL_SECONDS="${HOTSPOT_WATCHDOG_INTERVAL_SECONDS:-5}"
 
 PORT="${PORT:-3001}"
 HOST_WEB_PORT="${HOST_WEB_PORT:-5173}"
@@ -16,6 +18,13 @@ PLAYER_WEB_PORT="${PLAYER_WEB_PORT:-5174}"
 START_COMMAND="${START_COMMAND:-}"
 OPEN_HOST_BROWSER="${OPEN_HOST_BROWSER:-1}"
 STOP_CONFLICTING_PROJECT_PROCESSES="${STOP_CONFLICTING_PROJECT_PROCESSES:-1}"
+FORCE_PORT_CLEANUP="${FORCE_PORT_CLEANUP:-0}"
+
+for arg in "$@"; do
+  case "$arg" in
+    --force-port-cleanup) FORCE_PORT_CLEANUP="1" ;;
+  esac
+done
 
 STATE_DIR="${STATE_DIR:-${XDG_RUNTIME_DIR:-/tmp}/geburtstagsquiz-local-game-host}"
 LOG_DIR="$STATE_DIR/logs"
@@ -28,9 +37,73 @@ UFW_RULES_FILE="$STATE_DIR/ufw-rules"
 
 HOTSPOT_IP=""
 
+sudo() {
+  if [[ -n "${SUDO_ASKPASS:-}" ]]; then
+    command sudo -A "$@"
+  else
+    command sudo "$@"
+  fi
+}
+
 info() { printf "\n==> %s\n" "$*"; }
 warn() { printf "WARNUNG: %s\n" "$*" >&2; }
 die() { printf "FEHLER: %s\n" "$*" >&2; exit 1; }
+
+is_private_ipv4() {
+  local ip="$1"
+
+  [[ "$ip" =~ ^10\. ]] && return 0
+  [[ "$ip" =~ ^192\.168\. ]] && return 0
+  [[ "$ip" =~ ^172\.(1[6-9]|2[0-9]|3[01])\. ]] && return 0
+
+  return 1
+}
+
+detect_hotspot_ip() {
+  local addr
+  local -a candidates=()
+  local hotspot_prefix="${HOTSPOT_IPV4_ADDR%.*}."
+
+  while IFS= read -r addr; do
+    [[ -n "$addr" ]] || continue
+    candidates+=("$addr")
+  done < <(nmcli -g IP4.ADDRESS device show "$WIFI_IFACE" 2>/dev/null | cut -d/ -f1)
+
+  if [[ ${#candidates[@]} -eq 0 ]]; then
+    while IFS= read -r addr; do
+      [[ -n "$addr" ]] || continue
+      candidates+=("$addr")
+    done < <(ip -4 -o addr show dev "$WIFI_IFACE" scope global 2>/dev/null | awk '{ split($4,a,"/"); print a[1] }')
+  fi
+
+  for addr in "${candidates[@]}"; do
+    if [[ "$addr" == "$HOTSPOT_IPV4_ADDR" ]]; then
+      printf "%s\n" "$addr"
+      return 0
+    fi
+  done
+
+  for addr in "${candidates[@]}"; do
+    if [[ "$addr" == "$hotspot_prefix"* ]]; then
+      printf "%s\n" "$addr"
+      return 0
+    fi
+  done
+
+  for addr in "${candidates[@]}"; do
+    if is_private_ipv4 "$addr"; then
+      printf "%s\n" "$addr"
+      return 0
+    fi
+  done
+
+  if [[ ${#candidates[@]} -gt 0 ]]; then
+    printf "%s\n" "${candidates[0]}"
+    return 0
+  fi
+
+  return 1
+}
 
 need_cmd() {
   command -v "$1" >/dev/null 2>&1 || die "$1 fehlt. Bitte installieren oder Pfad pruefen."
@@ -64,9 +137,6 @@ check_prerequisites() {
   systemctl is-active --quiet NetworkManager 2>/dev/null ||
     die "NetworkManager ist nicht aktiv. Bitte NetworkManager starten."
 
-  [[ ${#HOTSPOT_PASSWORD} -ge 8 && ${#HOTSPOT_PASSWORD} -le 63 ]] ||
-    die "HOTSPOT_PASSWORD muss 8 bis 63 Zeichen lang sein."
-
   [[ -f "$PROJECT_DIR/package.json" ]] ||
     die "Kein package.json in PROJECT_DIR=$PROJECT_DIR gefunden."
 
@@ -90,7 +160,23 @@ detect_wifi_iface() {
       awk -F: -v dev="$WIFI_IFACE" '$1 == dev && $2 == "wifi" { found=1 } END { exit !found }' ||
       die "WIFI_IFACE=$WIFI_IFACE ist kein NetworkManager-WLAN-Geraet."
   else
-    WIFI_IFACE="$(nmcli -t -f DEVICE,TYPE device status | awk -F: '$2 == "wifi" { print $1; exit }')"
+    WIFI_IFACE="$(
+      nmcli -t -f DEVICE,TYPE,STATE device status |
+        awk -F: '
+          $2 == "wifi" && $3 == "disconnected" { disconnected = $1; exit }
+          $2 == "wifi" && $3 == "unavailable" { fallback = fallback ? fallback : $1 }
+          $2 == "wifi" && $3 == "connected" { connected = connected ? connected : $1 }
+          END {
+            if (disconnected) {
+              print disconnected
+            } else if (fallback) {
+              print fallback
+            } else if (connected) {
+              print connected
+            }
+          }
+        '
+    )"
   fi
 
   [[ -n "$WIFI_IFACE" ]] || die "Kein WLAN-Adapter gefunden."
@@ -152,8 +238,11 @@ ensure_ports_free() {
       if [[ "$STOP_CONFLICTING_PROJECT_PROCESSES" == "1" ]] && pid_belongs_to_project "$pid"; then
         warn "Stoppe vorhandenen Projektprozess PID $pid auf Port $port"
         stop_pid "$pid"
+      elif [[ "$FORCE_PORT_CLEANUP" == "1" ]]; then
+        warn "Stoppe Prozess PID $pid auf Port $port wegen --force-port-cleanup"
+        stop_pid "$pid"
       else
-        die "Port $port ist belegt durch PID $pid. Prozess stoppen oder Port-Variable anpassen."
+        die "Port $port ist belegt durch PID $pid. Stoppe den Prozess oder starte mit --force-port-cleanup."
       fi
     done
   done
@@ -169,35 +258,46 @@ start_hotspot() {
 
   nmcli radio wifi on >/dev/null 2>&1 || true
 
-  local created="0"
-  if ! nmcli -t -f NAME connection show | grep -Fxq "$HOTSPOT_PROFILE"; then
-    nmcli connection add type wifi ifname "$WIFI_IFACE" con-name "$HOTSPOT_PROFILE" autoconnect no ssid "$HOTSPOT_SSID" >/dev/null
-    created="1"
+  if nmcli -t -f NAME connection show | grep -Fxq "$HOTSPOT_PROFILE"; then
+    info "Erzeuge Hotspot-Profil $HOTSPOT_PROFILE sauber neu"
+    nmcli connection down "$HOTSPOT_PROFILE" >/dev/null 2>&1 || true
+    nmcli connection delete "$HOTSPOT_PROFILE" >/dev/null ||
+      die "Altes Hotspot-Profil $HOTSPOT_PROFILE konnte nicht geloescht werden."
   fi
 
+  nmcli connection add type wifi ifname "$WIFI_IFACE" con-name "$HOTSPOT_PROFILE" autoconnect no ssid "$HOTSPOT_SSID" >/dev/null
+
   printf "%s\n" "$HOTSPOT_PROFILE" > "$PROFILE_FILE"
-  printf "%s\n" "$created" > "$PROFILE_CREATED_FILE"
+  printf "%s\n" "1" > "$PROFILE_CREATED_FILE"
 
   nmcli connection modify "$HOTSPOT_PROFILE" \
-    connection.autoconnect no \
+    connection.autoconnect yes \
+    connection.autoconnect-priority 100 \
     connection.interface-name "$WIFI_IFACE" \
     802-11-wireless.mode ap \
     802-11-wireless.band bg \
+    802-11-wireless.channel "$HOTSPOT_CHANNEL" \
+    802-11-wireless.hidden no \
     802-11-wireless.ssid "$HOTSPOT_SSID" \
     ipv4.method shared \
-    ipv6.method disabled \
-    wifi-sec.key-mgmt wpa-psk \
-    wifi-sec.psk "$HOTSPOT_PASSWORD"
+    ipv4.addresses "$HOTSPOT_IPV4_ADDR/24" \
+    ipv6.method disabled
 
+  nmcli connection modify "$HOTSPOT_PROFILE" remove 802-11-wireless-security >/dev/null 2>&1 || true
+
+  nmcli connection modify "$HOTSPOT_PROFILE" 802-11-wireless.powersave 2 >/dev/null 2>&1 ||
+    warn "Konnte WLAN-Powersave im NetworkManager-Profil nicht deaktivieren."
+
+  nmcli connection down "$HOTSPOT_PROFILE" >/dev/null 2>&1 || true
   nmcli connection up "$HOTSPOT_PROFILE" >/dev/null ||
     die "Hotspot konnte nicht gestartet werden."
 
   local ip_addr=""
   for _ in {1..40}; do
-    ip_addr="$(nmcli -g IP4.ADDRESS device show "$WIFI_IFACE" 2>/dev/null | head -n1 | cut -d/ -f1)"
+    ip_addr="$(detect_hotspot_ip 2>/dev/null || true)"
     [[ -n "$ip_addr" ]] && break
 
-    ip_addr="$(ip -4 -o addr show dev "$WIFI_IFACE" 2>/dev/null | awk '{ split($4,a,"/"); print a[1]; exit }')"
+    ip_addr="$(ip -4 -o addr show dev "$WIFI_IFACE" scope global 2>/dev/null | awk '{ split($4,a,"/"); print a[1]; exit }')"
     [[ -n "$ip_addr" ]] && break
 
     sleep 0.5
@@ -205,6 +305,34 @@ start_hotspot() {
 
   [[ -n "$ip_addr" ]] || die "Keine lokale Hotspot-IP auf $WIFI_IFACE erhalten."
   HOTSPOT_IP="$ip_addr"
+}
+
+start_hotspot_watchdog() {
+  info "Starte Hotspot-Watchdog"
+
+  (
+    while true; do
+      sleep "$HOTSPOT_WATCHDOG_INTERVAL_SECONDS"
+
+      if ! nmcli -t -f NAME,DEVICE connection show --active |
+        awk -F: -v profile="$HOTSPOT_PROFILE" -v iface="$WIFI_IFACE" '$1 == profile && $2 == iface { found=1 } END { exit !found }'; then
+        printf "%s Hotspot-Profil nicht aktiv; starte neu.\n" "$(date -Is)"
+        nmcli radio wifi on >/dev/null 2>&1 || true
+        nmcli connection up "$HOTSPOT_PROFILE" >/dev/null 2>&1 ||
+          printf "%s Hotspot-Neustart fehlgeschlagen.\n" "$(date -Is)"
+        continue
+      fi
+
+      if ! ip -4 -o addr show dev "$WIFI_IFACE" scope global 2>/dev/null |
+        awk -v expected="$HOTSPOT_IPV4_ADDR" '{ split($4, addr, "/"); if (addr[1] == expected) found=1 } END { exit !found }'; then
+        printf "%s Hotspot-IP fehlt; erneuere Verbindung.\n" "$(date -Is)"
+        nmcli connection up "$HOTSPOT_PROFILE" >/dev/null 2>&1 ||
+          printf "%s Hotspot-IP-Erneuerung fehlgeschlagen.\n" "$(date -Is)"
+      fi
+    done
+  ) > "$LOG_DIR/hotspot-watchdog.log" 2>&1 &
+
+  printf "%s %s\n" "$!" "hotspot-watchdog" >> "$PID_FILE"
 }
 
 ufw_active() {
@@ -326,11 +454,23 @@ wait_http() {
 
 print_qr_if_available() {
   local player_url="$1"
-  local qrcode_bin="$PROJECT_DIR/apps/web-host/node_modules/.bin/qrcode"
+  local qrcode_pkg="$PROJECT_DIR/apps/web-host/node_modules/qrcode/lib/index.js"
 
-  if [[ -x "$qrcode_bin" ]]; then
+  if [[ -f "$qrcode_pkg" ]]; then
     printf "\nQR fuer Spieler-URL:\n"
-    "$qrcode_bin" -t utf8 --small "$player_url" || true
+    QRCODE_PKG_PATH="$qrcode_pkg" PLAYER_URL="$player_url" node --input-type=module <<'NODE' || true
+import process from "node:process";
+import { pathToFileURL } from "node:url";
+
+const qrcodeModuleUrl = pathToFileURL(process.env.QRCODE_PKG_PATH ?? "");
+const qrcode = (await import(qrcodeModuleUrl.href)).default;
+const qr = await qrcode.toString(process.env.PLAYER_URL ?? "", {
+  type: "utf8",
+  small: true,
+});
+
+process.stdout.write(`${qr}\n`);
+NODE
   else
     warn "QR-Code-CLI nicht gefunden; Link wird nur als Text ausgegeben."
   fi
@@ -350,6 +490,7 @@ main() {
   start_hotspot
   configure_ufw
   start_game_servers
+  start_hotspot_watchdog
 
   local host_url="http://$HOTSPOT_IP:$HOST_WEB_PORT"
   local player_url="http://$HOTSPOT_IP:$PLAYER_WEB_PORT"
@@ -367,7 +508,7 @@ main() {
   printf " GEBURTSTAGSQUIZ LAEUFT\n"
   printf "============================================================\n"
   printf "Hotspot-Name:      %s\n" "$HOTSPOT_SSID"
-  printf "Hotspot-Passwort:  %s\n" "$HOTSPOT_PASSWORD"
+  printf "Hotspot-Passwort:  keines (offen)\n"
   printf "WLAN-Interface:    %s\n" "$WIFI_IFACE"
   printf "Lokale IP:         %s\n" "$HOTSPOT_IP"
   printf "Server-Port:       %s\n" "$PORT"
