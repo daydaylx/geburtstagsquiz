@@ -175,12 +175,11 @@ describe("getEveningQuestions", () => {
     // 5. Est (5->4), counts: MC 12, Est 10, Rank 3
     // 6. MC (4->3), counts: MC 13, Est 10, Rank 3 (or Est again, they tie)
     // At the end they will be balanced.
-    // MC: 12 + approx 4 = 16
-    // Est: 5 + approx 4 = 9
+    // MC: 12 + approx 3 = 15
+    // Est: 5 + approx 5 = 10
     // Rank: 3 + approx 2 = 5
-    // Actually the fill logic will take all from MC (16) and all from Rank (5) and 9 from Est.
-    expect(selected.filter((q) => q.type === QuestionType.MultipleChoice)).toHaveLength(16);
-    expect(selected.filter((q) => q.type === QuestionType.Estimate)).toHaveLength(9);
+    expect(selected.filter((q) => q.type === QuestionType.MultipleChoice)).toHaveLength(15);
+    expect(selected.filter((q) => q.type === QuestionType.Estimate)).toHaveLength(10);
     expect(selected.filter((q) => q.type === QuestionType.Ranking)).toHaveLength(5);
   });
 

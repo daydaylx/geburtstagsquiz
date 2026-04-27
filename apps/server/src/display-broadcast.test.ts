@@ -101,7 +101,6 @@ describe("Display Broadcast Logic", () => {
 
   it("sends answer:progress to display when player submits answer", () => {
     handleRoomJoin(playerSocket, { joinCode: room.joinCode, playerName: "Player 1" });
-    const playerSessionId = sessionsById.values().next().value.sessionId; // This is actually host or display, need to be careful
     const playerSession = [...sessionsById.values()].find(s => s.role === 'player')!;
 
     // Host starts game
@@ -109,15 +108,27 @@ describe("Display Broadcast Logic", () => {
     handleGameStart(hostSocket, room.id);
 
     // Clear events
-    (displaySocket as any)._sent = [];
+    (displaySocket as any)._sent.length = 0;
+
+    const question = room.quiz!.questions[0];
+    let answer: any = { type: "option", value: "invalid" };
+    if (question.type === QuestionType.MultipleChoice || question.type === QuestionType.Logic || question.type === QuestionType.MajorityGuess) {
+      answer = { type: "option", value: question.options[0].id };
+    } else if (question.type === QuestionType.Estimate) {
+      answer = { type: "number", value: 42 };
+    } else if (question.type === QuestionType.Ranking) {
+      answer = { type: "ranking", value: question.items.map(i => i.id) };
+    } else if (question.type === QuestionType.OpenText) {
+      answer = { type: "text", value: "some text" };
+    }
 
     // Player submits answer
     playerSocket.sessionId = playerSession.sessionId;
     handleAnswerSubmit(playerSocket, {
       roomId: room.id,
-      questionId: room.quiz!.questions[0].id,
+      questionId: question.id,
       playerId: playerSession.playerId!,
-      answer: { type: "option", value: "A" },
+      answer,
       requestId: "req-1"
     });
 
@@ -126,6 +137,7 @@ describe("Display Broadcast Logic", () => {
     const payload = getSentPayload(displaySocket, EVENTS.ANSWER_PROGRESS);
     expect(payload.answeredCount).toBe(1);
   });
+
 
   it("includes explanation in reveal snapshot during reconnect", () => {
     const question: Question = {

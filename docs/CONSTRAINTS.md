@@ -47,6 +47,12 @@ Auch fuer ein Einmalprojekt sollten diese Punkte nicht aufgeweicht werden:
 - Fehler werden nicht still verschluckt
 - der Kernfluss wird auf echten Geraeten ausprobiert
 
+## Bekannte Altlasten und Architektur-Übergänge
+
+| Thema | Status | Risiko |
+| --- | --- | --- |
+| Legacy Room Create | `room:create` existiert parallel zu `display:create-room` | Verwirrung in der Code-Wartung; es gibt zwei Wege einen Raum zu eröffnen. Der Display-Flow ist der primäre Pfad. |
+
 ## Praktische Empfehlungen vor dem Abend
 
 - Hostgeraet ans Ladegeraet
