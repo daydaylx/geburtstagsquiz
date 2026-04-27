@@ -12,7 +12,7 @@ import type { Question, SubmittedAnswer } from "@quiz/shared-types";
 import { PROTOCOL_ERROR_CODES, sendEvent, sendProtocolError } from "./protocol.js";
 import type { RoomRecord, TrackedWebSocket } from "./server-types.js";
 import { roomsById, sessionsById, logRoomEvent } from "./state.js";
-import { broadcastToRoom } from "./connection.js";
+import { broadcastToRoom, broadcastToPublicScreens } from "./connection.js";
 import { getDefaultQuiz } from "./quiz-data.js";
 import { QUESTION_DURATION_MS, REVEAL_DURATION_MS } from "./config.js";
 import { isAnswerValidForQuestion } from "./answer-validation.js";
@@ -137,12 +137,12 @@ export function getEveningQuestions(
 
 function sendQuestionForCurrentRole(
   sessionSocket: TrackedWebSocket | null | undefined,
-  role: "host" | "player",
+  role: "host" | "player" | "display",
   room: RoomRecord,
   question: Question,
   gameState: QuestionShowPayload["gameState"],
 ): void {
-  if (role === "host") {
+  if (role === "host" || role === "display") {
     sendEvent(
       sessionSocket,
       EVENTS.QUESTION_SHOW,
@@ -163,6 +163,9 @@ function sendQuestionToRoom(
   question: Question,
   gameState: QuestionShowPayload["gameState"],
 ): void {
+  const displaySession = room.displaySessionId ? sessionsById.get(room.displaySessionId) : null;
+  sendQuestionForCurrentRole(displaySession?.socket, "display", room, question, gameState);
+
   const hostSession = sessionsById.get(room.hostSessionId);
   sendQuestionForCurrentRole(hostSession?.socket, "host", room, question, gameState);
 
@@ -327,141 +330,159 @@ export function handleAnswerSubmit(
   socket: TrackedWebSocket,
   payload: import("@quiz/shared-protocol").AnswerSubmitPayload,
 ): void {
-  const room = roomsById.get(payload.roomId);
+  try {
+    console.log("handleAnswerSubmit called", payload);
+    const room = roomsById.get(payload.roomId);
 
-  if (!room) {
-    sendProtocolError(socket, PROTOCOL_ERROR_CODES.ROOM_NOT_FOUND, "Room not found", {
-      event: EVENTS.ANSWER_SUBMIT,
-      roomId: payload.roomId,
-      questionId: payload.questionId,
-    });
-    return;
-  }
+    if (!room) {
+      console.log("handleAnswerSubmit: room not found", payload.roomId);
+      sendProtocolError(socket, PROTOCOL_ERROR_CODES.ROOM_NOT_FOUND, "Room not found", {
+        event: EVENTS.ANSWER_SUBMIT,
+        roomId: payload.roomId,
+        questionId: payload.questionId,
+      });
+      return;
+    }
 
-  if (
-    !room.quiz ||
-    room.currentQuestionIndex === null ||
-    room.currentQuestionIndex >= room.quiz.questions.length
-  ) {
-    sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "No active question", {
-      event: EVENTS.ANSWER_SUBMIT,
-      roomId: room.id,
-      questionId: payload.questionId,
-    });
-    return;
-  }
-
-  const currentQuestion = room.quiz.questions[room.currentQuestionIndex];
-
-  if (payload.questionId !== currentQuestion.id) {
-    sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "Wrong question id", {
-      event: EVENTS.ANSWER_SUBMIT,
-      roomId: room.id,
-      questionId: payload.questionId,
-    });
-    return;
-  }
-
-  const session = socket.sessionId ? sessionsById.get(socket.sessionId) : null;
-
-  if (!session || session.role !== "player" || session.roomId !== room.id) {
-    sendProtocolError(socket, PROTOCOL_ERROR_CODES.NOT_AUTHORIZED, "Not a player in this room", {
-      event: EVENTS.ANSWER_SUBMIT,
-      roomId: room.id,
-      questionId: payload.questionId,
-    });
-    return;
-  }
-
-  if (session.playerId !== payload.playerId) {
-    sendProtocolError(socket, PROTOCOL_ERROR_CODES.NOT_AUTHORIZED, "Player ID mismatch", {
-      event: EVENTS.ANSWER_SUBMIT,
-      roomId: room.id,
-      questionId: payload.questionId,
-    });
-    return;
-  }
-
-  const player = room.players.find((p) => p.id === session.playerId);
-
-  if (!player || player.state === PlayerState.Disconnected) {
-    sendProtocolError(
-      socket,
-      PROTOCOL_ERROR_CODES.PLAYER_NOT_FOUND,
-      "Player not found or disconnected",
-      {
+    if (
+      !room.quiz ||
+      room.currentQuestionIndex === null ||
+      room.currentQuestionIndex >= room.quiz.questions.length
+    ) {
+      console.log("handleAnswerSubmit: no active question", room.currentQuestionIndex);
+      sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "No active question", {
         event: EVENTS.ANSWER_SUBMIT,
         roomId: room.id,
         questionId: payload.questionId,
-      },
-    );
-    return;
-  }
+      });
+      return;
+    }
 
-  if (room.gameState !== GameState.QuestionActive) {
-    sendEvent(socket, EVENTS.ANSWER_REJECTED, {
+    const currentQuestion = room.quiz.questions[room.currentQuestionIndex];
+
+    if (payload.questionId !== currentQuestion.id) {
+      console.log("handleAnswerSubmit: wrong question id", payload.questionId, currentQuestion.id);
+      sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "Wrong question id", {
+        event: EVENTS.ANSWER_SUBMIT,
+        roomId: room.id,
+        questionId: payload.questionId,
+      });
+      return;
+    }
+
+    const session = socket.sessionId ? sessionsById.get(socket.sessionId) : null;
+
+    if (!session || session.role !== "player" || session.roomId !== room.id) {
+      console.log("handleAnswerSubmit: session invalid", {
+        hasSession: !!session,
+        role: session?.role,
+        roomMatch: session?.roomId === room.id
+      });
+      sendProtocolError(socket, PROTOCOL_ERROR_CODES.NOT_AUTHORIZED, "Not a player in this room", {
+        event: EVENTS.ANSWER_SUBMIT,
+        roomId: room.id,
+        questionId: payload.questionId,
+      });
+      return;
+    }
+
+    if (session.playerId !== payload.playerId) {
+      console.log("handleAnswerSubmit: player id mismatch", session.playerId, payload.playerId);
+      sendProtocolError(socket, PROTOCOL_ERROR_CODES.NOT_AUTHORIZED, "Player ID mismatch", {
+        event: EVENTS.ANSWER_SUBMIT,
+        roomId: room.id,
+        questionId: payload.questionId,
+      });
+      return;
+    }
+
+    const player = room.players.find((p) => p.id === session.playerId);
+
+    if (!player || player.state === PlayerState.Disconnected) {
+      console.log("handleAnswerSubmit: player not found or disconnected", {
+        hasPlayer: !!player,
+        state: player?.state
+      });
+      sendProtocolError(
+        socket,
+        PROTOCOL_ERROR_CODES.PLAYER_NOT_FOUND,
+        "Player not found or disconnected",
+        {
+          event: EVENTS.ANSWER_SUBMIT,
+          roomId: room.id,
+          questionId: payload.questionId,
+        },
+      );
+      return;
+    }
+
+    if (room.gameState !== GameState.QuestionActive) {
+      sendEvent(socket, EVENTS.ANSWER_REJECTED, {
+        roomId: room.id,
+        questionId: payload.questionId,
+        playerId: player.id,
+        status: "rejected",
+        reason:
+          room.gameState === GameState.AnswerLocked ||
+          room.gameState === GameState.Revealing ||
+          room.gameState === GameState.Scoreboard ||
+          room.gameState === GameState.Completed
+            ? "late"
+            : "invalid_state",
+      });
+      return;
+    }
+
+    if (room.currentAnswers.has(player.id)) {
+      sendEvent(socket, EVENTS.ANSWER_REJECTED, {
+        roomId: room.id,
+        questionId: payload.questionId,
+        playerId: player.id,
+        status: "rejected",
+        reason: "duplicate",
+      });
+      return;
+    }
+
+    if (!isAnswerValidForQuestion(currentQuestion, payload.answer)) {
+      sendEvent(socket, EVENTS.ANSWER_REJECTED, {
+        roomId: room.id,
+        questionId: payload.questionId,
+        playerId: player.id,
+        status: "rejected",
+        reason: "invalid_payload",
+      });
+      return;
+    }
+
+    const now = Date.now();
+    const submittedAnswer: SubmittedAnswer = {
+      playerId: player.id,
+      questionId: payload.questionId,
+      answer: payload.answer,
+      submittedAtMs: Math.max(0, now - (room.questionStartedAt ?? now)),
+      requestId: payload.requestId,
+    };
+
+    room.currentAnswers.set(player.id, submittedAnswer);
+    player.state = PlayerState.Answered;
+
+    logRoomEvent("answer:submit", room, {
+      playerId: player.id,
+      questionId: payload.questionId,
+    });
+
+    sendEvent(socket, EVENTS.ANSWER_ACCEPTED, {
       roomId: room.id,
       questionId: payload.questionId,
       playerId: player.id,
-      status: "rejected",
-      reason:
-        room.gameState === GameState.AnswerLocked ||
-        room.gameState === GameState.Revealing ||
-        room.gameState === GameState.Scoreboard ||
-        room.gameState === GameState.Completed
-          ? "late"
-          : "invalid_state",
+      status: "accepted",
     });
-    return;
+
+    handleAnswerEligibilityChanged(room);
+  } catch (error) {
+    console.error("handleAnswerSubmit CRITICAL ERROR", error);
   }
-
-  if (room.currentAnswers.has(player.id)) {
-    sendEvent(socket, EVENTS.ANSWER_REJECTED, {
-      roomId: room.id,
-      questionId: payload.questionId,
-      playerId: player.id,
-      status: "rejected",
-      reason: "duplicate",
-    });
-    return;
-  }
-
-  if (!isAnswerValidForQuestion(currentQuestion, payload.answer)) {
-    sendEvent(socket, EVENTS.ANSWER_REJECTED, {
-      roomId: room.id,
-      questionId: payload.questionId,
-      playerId: player.id,
-      status: "rejected",
-      reason: "invalid_payload",
-    });
-    return;
-  }
-
-  const now = Date.now();
-  const submittedAnswer: SubmittedAnswer = {
-    playerId: player.id,
-    questionId: payload.questionId,
-    answer: payload.answer,
-    submittedAtMs: Math.max(0, now - (room.questionStartedAt ?? now)),
-    requestId: payload.requestId,
-  };
-
-  room.currentAnswers.set(player.id, submittedAnswer);
-  player.state = PlayerState.Answered;
-
-  logRoomEvent("answer:submit", room, {
-    playerId: player.id,
-    questionId: payload.questionId,
-  });
-
-  sendEvent(socket, EVENTS.ANSWER_ACCEPTED, {
-    roomId: room.id,
-    questionId: payload.questionId,
-    playerId: player.id,
-    status: "accepted",
-  });
-
-  handleAnswerEligibilityChanged(room);
 }
 
 export function handleNextQuestionReady(
@@ -639,7 +660,9 @@ function startQuestion(room: RoomRecord): void {
 }
 
 export function handleAnswerEligibilityChanged(room: RoomRecord): void {
+  console.log("handleAnswerEligibilityChanged", { roomId: room.id, gameState: room.gameState });
   if (room.gameState !== GameState.QuestionActive) {
+    console.log("handleAnswerEligibilityChanged: NOT ACTIVE", room.gameState);
     return;
   }
 
@@ -653,9 +676,8 @@ export function handleAnswerEligibilityChanged(room: RoomRecord): void {
 
   const question = room.quiz.questions[room.currentQuestionIndex];
   const progress = getAnswerProgress(room);
-  const hostSession = sessionsById.get(room.hostSessionId);
 
-  sendEvent(hostSession?.socket, EVENTS.ANSWER_PROGRESS, {
+  broadcastToPublicScreens(room, EVENTS.ANSWER_PROGRESS, {
     roomId: room.id,
     questionId: question.id,
     answeredCount: progress.answeredCount,

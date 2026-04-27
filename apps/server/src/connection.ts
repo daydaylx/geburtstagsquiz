@@ -62,6 +62,11 @@ export function broadcastToRoom<TEvent extends ServerToClientEventName>(
 ): void {
   const excludedSessions = options?.excludeSessionIds ?? new Set<string>();
 
+  if (room.displaySessionId && !excludedSessions.has(room.displaySessionId)) {
+    const displaySession = sessionsById.get(room.displaySessionId);
+    sendEvent(displaySession?.socket, event, payload);
+  }
+
   if (room.hostSessionId && !excludedSessions.has(room.hostSessionId)) {
     const hostSession = sessionsById.get(room.hostSessionId);
     sendEvent(hostSession?.socket, event, payload);
@@ -256,6 +261,7 @@ export function syncSessionToRoomState(session: SessionRecord, room: RoomRecord)
           correctAnswer: roundResult.correctAnswer,
           playerResults: roundResult.playerResults,
           gameState: GameState.Revealing,
+          explanation: question.explanation,
         });
       }
       return;
@@ -277,6 +283,7 @@ export function syncSessionToRoomState(session: SessionRecord, room: RoomRecord)
           correctAnswer: roundResult.correctAnswer,
           playerResults: roundResult.playerResults,
           gameState: GameState.Revealing,
+          explanation: question.explanation,
         });
         sendEvent(socket, EVENTS.SCORE_UPDATE, {
           roomId: room.id,
