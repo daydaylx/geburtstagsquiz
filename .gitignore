@@ -12,3 +12,4 @@ dist/
 .codex
 .kilo/
 sqlite_mcp_server.db
+cloudflared binary

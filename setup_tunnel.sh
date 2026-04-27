@@ -4,14 +4,21 @@ set -Eeuo pipefail
 # ==============================================================================
 # setup_tunnel.sh — Cloudflare Tunnel fuer disaai.de einrichten (einmalig)
 # ==============================================================================
-# Erstellt Tunnel, konfiguriert DNS, schreibt Config.
-# Vorher: cloudflared muss installiert und eingeloggt sein.
-#   Install: siehe https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/downloads/
-#   Login:   cloudflared tunnel login
-# ==============================================================================
 
 PROJECT_DIR="${PROJECT_DIR:-$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)}"
 PROJECT_DIR="$(cd "$PROJECT_DIR" && pwd -P)"
+
+# cloudflared finden: System-Install > Projekt-lokale Binary
+CLOUDFLARED=""
+if command -v cloudflared >/dev/null 2>&1; then
+  CLOUDFLARED="cloudflared"
+elif [[ -x "$PROJECT_DIR/cloudflared" ]]; then
+  CLOUDFLARED="$PROJECT_DIR/cloudflared"
+else
+  echo "FEHLER: cloudflared nicht gefunden." >&2
+  echo "  Entweder systemweit installieren oder nach $PROJECT_DIR/cloudflared kopieren." >&2
+  exit 1
+fi
 
 DOMAIN="${DOMAIN:-disaai.de}"
 TUNNEL_NAME="${TUNNEL_NAME:-quiz}"
@@ -29,24 +36,17 @@ info() { printf "\n==> %s\n" "$*"; }
 warn() { printf "WARNUNG: %s\n" "$*" >&2; }
 die() { printf "FEHLER: %s\n" "$*" >&2; exit 1; }
 
-need_cmd() {
-  command -v "$1" >/dev/null 2>&1 || die "$1 fehlt. Bitte installieren."
-}
-
 # ---- Voraussetzungen pruefen ----
 
 check_prerequisites() {
-  need_cmd cloudflared
-  need_cmd yq
-
-  cloudflared tunnel list >/dev/null 2>&1 ||
-    die "cloudflared ist nicht eingeloggt. Bitte zuerst: cloudflared tunnel login"
+  "$CLOUDFLARED" tunnel list >/dev/null 2>&1 \
+    || die "cloudflared ist nicht eingeloggt. Bitte zuerst: $CLOUDFLARED tunnel login"
 }
 
 # ---- Pruefen ob Tunnel bereits existiert ----
 
 tunnel_exists() {
-  cloudflared tunnel list 2>/dev/null | grep -q "$TUNNEL_NAME"
+  "$CLOUDFLARED" tunnel list 2>/dev/null | grep -q "$TUNNEL_NAME"
 }
 
 # ---- Tunnel erstellen ----
@@ -56,14 +56,14 @@ create_tunnel() {
     info "Tunnel '$TUNNEL_NAME' existiert bereits — ueberspringe Erstellung"
   else
     info "Erstelle Tunnel '$TUNNEL_NAME'"
-    cloudflared tunnel create "$TUNNEL_NAME"
+    "$CLOUDFLARED" tunnel create "$TUNNEL_NAME"
   fi
 }
 
 # ---- Tunnel-UUID holen ----
 
 get_tunnel_uuid() {
-  cloudflared tunnel list 2>/dev/null | awk -v name="$TUNNEL_NAME" '$2 == name { print $1; exit }'
+  "$CLOUDFLARED" tunnel list 2>/dev/null | awk -v name="$TUNNEL_NAME" '$2 == name { print $1; exit }'
 }
 
 # ---- DNS-Eintraege erstellen ----
@@ -78,7 +78,7 @@ setup_dns() {
   for sub in "${subdomains[@]}"; do
     local fqdn="$sub.$DOMAIN"
 
-    if cloudflared tunnel route dns --overwrite-dns "$TUNNEL_NAME" "$fqdn" 2>/dev/null; then
+    if "$CLOUDFLARED" tunnel route dns --overwrite-dns "$TUNNEL_NAME" "$fqdn" 2>/dev/null; then
       info "DNS: $fqdn -> CNAME $uuid.cfargotunnel.com (erstellt/aktualisiert)"
     else
       warn "DNS-Eintrag fuer $fqdn konnte nicht erstellt werden. Pruefe manuell im Cloudflare Dashboard."
@@ -193,7 +193,7 @@ main() {
   printf "Naechste Schritte:\n"
   printf "  1. Quiz lokal starten:  ./start_quiz.sh\n"
   printf "  2. Tunnel starten:      ./start_tunnel.sh\n"
-  printf "  3. Offne https://tv.%s im TV-Browser\n" "$DOMAIN"
+  printf "  3. Offne https://tv.%s im TV-Browser\n" "${DOMAIN}"
   printf "============================================================\n"
 }
 
