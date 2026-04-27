@@ -2,6 +2,7 @@ import type { RoomRecord, SessionRecord, TrackedWebSocket } from "./server-types
 
 export const roomsById = new Map<string, RoomRecord>();
 export const roomIdByJoinCode = new Map<string, string>();
+export const roomIdByHostToken = new Map<string, string>();
 export const sessionsById = new Map<string, SessionRecord>();
 
 export function getRoomByJoinCode(joinCode: string): RoomRecord | undefined {

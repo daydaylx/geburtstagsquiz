@@ -1,7 +1,11 @@
 import { EVENTS } from "@quiz/shared-protocol";
 import { PlayerState, RoomState } from "@quiz/shared-types";
 
-import { HOST_DISCONNECT_GRACE_MS, PLAYER_DISCONNECT_GRACE_MS } from "./config.js";
+import {
+  DISPLAY_DISCONNECT_GRACE_MS,
+  HOST_DISCONNECT_GRACE_MS,
+  PLAYER_DISCONNECT_GRACE_MS,
+} from "./config.js";
 import { PROTOCOL_ERROR_CODES, sendProtocolError } from "./protocol.js";
 import type { RoomRecord, TrackedWebSocket } from "./server-types.js";
 import { roomsById, sessionsById, logRoomEvent } from "./state.js";
@@ -31,6 +35,31 @@ export function handleSocketClose(socket: TrackedWebSocket): void {
   }
 
   room.lastActivityAt = Date.now();
+
+  if (session.role === "display") {
+    if (room.state === RoomState.Closed) {
+      return;
+    }
+
+    room.displayConnected = false;
+
+    if (room.displayDisconnectTimer) {
+      clearTimeout(room.displayDisconnectTimer);
+    }
+
+    room.displayDisconnectTimer = setTimeout(() => {
+      room.displayConnected = false;
+      room.displayDisconnectTimer = null;
+      broadcastLobbyUpdate(room);
+    }, DISPLAY_DISCONNECT_GRACE_MS);
+
+    logRoomEvent("display:disconnected", room, {
+      sessionId: session.sessionId,
+    });
+
+    broadcastLobbyUpdate(room);
+    return;
+  }
 
   if (session.role === "host") {
     if (room.state === RoomState.Closed) {

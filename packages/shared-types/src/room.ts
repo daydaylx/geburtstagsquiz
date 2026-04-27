@@ -13,6 +13,7 @@ export interface Room {
   hostName: string;
   hostSessionId: string;
   hostConnected: boolean;
+  displayConnected: boolean;
   settings: RoomSettings;
   players: Player[];
   quiz: Quiz | null;

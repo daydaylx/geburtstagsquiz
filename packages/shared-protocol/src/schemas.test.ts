@@ -551,3 +551,139 @@ describe("serializeEnvelope roundtrip", () => {
     }
   });
 });
+
+describe("display and host events – schema validation", () => {
+  it("accepts display:create-room with empty payload", () => {
+    const envelope = serializeEnvelope(EVENTS.DISPLAY_CREATE_ROOM, {});
+    const result = parseClientToServerEnvelope(envelope);
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.event).toBe(EVENTS.DISPLAY_CREATE_ROOM);
+    }
+  });
+
+  it("accepts display:create-room with optional clientInfo", () => {
+    const envelope = serializeEnvelope(EVENTS.DISPLAY_CREATE_ROOM, {
+      clientInfo: { deviceType: "tv", appVersion: "0.0.1" },
+    });
+    const result = parseClientToServerEnvelope(envelope);
+    expect(result.success).toBe(true);
+  });
+
+  it("accepts host:connect with valid hostToken", () => {
+    const envelope = serializeEnvelope(EVENTS.HOST_CONNECT, {
+      hostToken: "abc123def456",
+    });
+    const result = parseClientToServerEnvelope(envelope);
+    expect(result.success).toBe(true);
+    if (result.success && result.data.event === EVENTS.HOST_CONNECT) {
+      expect(result.data.payload.hostToken).toBe("abc123def456");
+    }
+  });
+
+  it("rejects host:connect with empty hostToken", () => {
+    const raw = JSON.stringify({ event: EVENTS.HOST_CONNECT, payload: { hostToken: "" } });
+    const result = parseClientToServerEnvelope(raw);
+    expect(result.success).toBe(false);
+  });
+
+  it("accepts display:room-created payload", () => {
+    const envelope = JSON.stringify({
+      event: EVENTS.DISPLAY_ROOM_CREATED,
+      payload: {
+        roomId: "room-1",
+        displaySessionId: "sess-display-1",
+        displayToken: "tok-display-1",
+        joinCode: "ABC234",
+        hostToken: "long-host-token-abc",
+      },
+    });
+    const result = parseServerToClientEnvelope(envelope);
+    expect(result.success).toBe(true);
+    if (result.success && result.data.event === EVENTS.DISPLAY_ROOM_CREATED) {
+      expect(result.data.payload.joinCode).toBe("ABC234");
+    }
+  });
+
+  it("accepts host:connected payload", () => {
+    const envelope = JSON.stringify({
+      event: EVENTS.HOST_CONNECTED,
+      payload: {
+        roomId: "room-1",
+        hostSessionId: "sess-host-1",
+        joinCode: "ABC234",
+        roomState: "waiting",
+        gameState: null,
+      },
+    });
+    const result = parseServerToClientEnvelope(envelope);
+    expect(result.success).toBe(true);
+    if (result.success && result.data.event === EVENTS.HOST_CONNECTED) {
+      expect(result.data.payload.hostSessionId).toBe("sess-host-1");
+    }
+  });
+
+  it("accepts display:host-paired payload", () => {
+    const envelope = JSON.stringify({
+      event: EVENTS.DISPLAY_HOST_PAIRED,
+      payload: { hostConnected: true },
+    });
+    const result = parseServerToClientEnvelope(envelope);
+    expect(result.success).toBe(true);
+  });
+
+  it("accepts connection:resumed with role display", () => {
+    const envelope = JSON.stringify({
+      event: EVENTS.CONNECTION_RESUMED,
+      payload: {
+        role: "display",
+        roomId: "room-1",
+        roomState: "waiting",
+        sessionId: "sess-display-1",
+        joinCode: "ABC234",
+        gameState: null,
+      },
+    });
+    const result = parseServerToClientEnvelope(envelope);
+    expect(result.success).toBe(true);
+    if (result.success && result.data.event === EVENTS.CONNECTION_RESUMED) {
+      expect(result.data.payload.role).toBe("display");
+    }
+  });
+
+  it("accepts lobby:update with displayConnected field", () => {
+    const envelope = JSON.stringify({
+      event: EVENTS.LOBBY_UPDATE,
+      payload: {
+        roomId: "room-1",
+        roomState: "waiting",
+        hostConnected: false,
+        displayConnected: true,
+        settings: { showAnswerTextOnPlayerDevices: false },
+        players: [],
+        playerCount: 0,
+      },
+    });
+    const result = parseServerToClientEnvelope(envelope);
+    expect(result.success).toBe(true);
+    if (result.success && result.data.event === EVENTS.LOBBY_UPDATE) {
+      expect(result.data.payload.displayConnected).toBe(true);
+    }
+  });
+
+  it("rejects lobby:update missing displayConnected", () => {
+    const raw = JSON.stringify({
+      event: EVENTS.LOBBY_UPDATE,
+      payload: {
+        roomId: "room-1",
+        roomState: "waiting",
+        hostConnected: false,
+        settings: { showAnswerTextOnPlayerDevices: false },
+        players: [],
+        playerCount: 0,
+      },
+    });
+    const result = parseServerToClientEnvelope(raw);
+    expect(result.success).toBe(false);
+  });
+});

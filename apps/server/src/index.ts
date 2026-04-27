@@ -3,14 +3,20 @@ import { createServer } from "node:http";
 
 import { WebSocketServer } from "ws";
 
-import { EVENTS, parseClientToServerEnvelope } from "@quiz/shared-protocol";
+import { EVENTS, parseClientToServerEnvelope, type EventName } from "@quiz/shared-protocol";
+import { type ClientRole } from "@quiz/shared-types";
 
 import { HEARTBEAT_INTERVAL_MS, HOST, PORT } from "./config.js";
 import { PROTOCOL_ERROR_CODES, sendEvent, sendProtocolError } from "./protocol.js";
 import type { TrackedWebSocket } from "./server-types.js";
 import { roomsById, sessionsById } from "./state.js";
-import { toKnownEventName, createRoom, closeRoom } from "./room.js";
-import { handleRoomJoin, handleConnectionResume, handleRoomSettingsUpdate } from "./lobby.js";
+import { toKnownEventName, createRoom, closeRoom, handleDisplayCreateRoom } from "./room.js";
+import {
+  handleRoomJoin,
+  handleConnectionResume,
+  handleRoomSettingsUpdate,
+  handleHostConnect,
+} from "./lobby.js";
 import { handleSocketClose } from "./session.js";
 import {
   handleGameStart,
@@ -113,24 +119,63 @@ if (HOST) {
   server.listen(PORT, logServerStarted);
 }
 
+export function isEventAllowedForRole(event: EventName, role: ClientRole | null): boolean {
+  const hostOnlyEvents: EventName[] = [
+    EVENTS.GAME_START,
+    EVENTS.GAME_NEXT_QUESTION,
+    EVENTS.ROOM_SETTINGS_UPDATE,
+    EVENTS.ROOM_CLOSE,
+  ];
+  const playerOnlyEvents: EventName[] = [EVENTS.ANSWER_SUBMIT, EVENTS.NEXT_QUESTION_READY];
+  const displayOnlyEvents: EventName[] = [EVENTS.DISPLAY_CREATE_ROOM];
+
+  if (role === "display") {
+    return ![...hostOnlyEvents, ...playerOnlyEvents].includes(event);
+  }
+  if (role === "host") {
+    return ![...playerOnlyEvents, ...displayOnlyEvents].includes(event);
+  }
+  if (role === "player") {
+    return ![...hostOnlyEvents, ...displayOnlyEvents, EVENTS.HOST_CONNECT].includes(event);
+  }
+  return true;
+}
+
 function handleSocketMessage(socket: TrackedWebSocket, rawMessage: string): void {
   const parsedEnvelope = parseClientToServerEnvelope(rawMessage);
 
   if (!parsedEnvelope.success) {
+    sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_PAYLOAD, parsedEnvelope.error, {
+      event: toKnownEventName(parsedEnvelope.event),
+      roomId: null,
+      questionId: null,
+    });
+    return;
+  }
+
+  const event = parsedEnvelope.data.event;
+  const session = socket.sessionId ? sessionsById.get(socket.sessionId) : null;
+  const role = session?.role ?? null;
+
+  if (!isEventAllowedForRole(event, role)) {
     sendProtocolError(
       socket,
-      PROTOCOL_ERROR_CODES.INVALID_PAYLOAD,
-      parsedEnvelope.error,
-      {
-        event: toKnownEventName(parsedEnvelope.event),
-        roomId: null,
-        questionId: null,
-      },
+      PROTOCOL_ERROR_CODES.NOT_AUTHORIZED,
+      `Event '${event}' is not allowed for role '${role ?? "none"}'`,
+      { event, roomId: null, questionId: null },
     );
     return;
   }
 
-  switch (parsedEnvelope.data.event) {
+  switch (event) {
+    case EVENTS.DISPLAY_CREATE_ROOM:
+      handleDisplayCreateRoom(socket, parsedEnvelope.data.payload);
+      return;
+
+    case EVENTS.HOST_CONNECT:
+      handleHostConnect(socket, parsedEnvelope.data.payload);
+      return;
+
     case EVENTS.ROOM_CREATE:
       createRoom(socket, parsedEnvelope.data.payload);
       return;
@@ -184,11 +229,16 @@ function handleRoomClose(socket: TrackedWebSocket, roomId: string): void {
   const session = socket.sessionId ? sessionsById.get(socket.sessionId) : null;
 
   if (!session || session.role !== "host" || session.roomId !== room.id) {
-    sendProtocolError(socket, PROTOCOL_ERROR_CODES.NOT_AUTHORIZED, "Only the host can close a room", {
-      event: EVENTS.ROOM_CLOSE,
-      roomId,
-      questionId: null,
-    });
+    sendProtocolError(
+      socket,
+      PROTOCOL_ERROR_CODES.NOT_AUTHORIZED,
+      "Only the host can close a room",
+      {
+        event: EVENTS.ROOM_CLOSE,
+        roomId,
+        questionId: null,
+      },
+    );
     return;
   }
 

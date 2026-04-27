@@ -152,7 +152,7 @@ describe("getEveningQuestions", () => {
     expect(getEveningQuestions([])).toEqual([]);
   });
 
-  it("selects a proportional evening mix and sets QUESTION_DURATION_MS", () => {
+  it("selects an evening mix based on target distribution and sets QUESTION_DURATION_MS", () => {
     const questions = [
       ...Array.from({ length: 16 }, (_, i) => makeQuestion(`mc-${i}`, QuestionType.MultipleChoice)),
       ...Array.from({ length: 14 }, (_, i) => makeQuestion(`estimate-${i}`, QuestionType.Estimate)),
@@ -165,9 +165,23 @@ describe("getEveningQuestions", () => {
     expect(selected.every((q) => q.durationMs === QUESTION_DURATION_MS)).toBe(true);
     expect(questions.every((q) => q.durationMs === 10_000)).toBe(true);
 
-    expect(selected.filter((q) => q.type === QuestionType.MultipleChoice)).toHaveLength(14);
-    expect(selected.filter((q) => q.type === QuestionType.Estimate)).toHaveLength(12);
-    expect(selected.filter((q) => q.type === QuestionType.Ranking)).toHaveLength(4);
+    // Initial targets: MC 12, Est 5, Rank 3 (Total 20)
+    // Remaining 10 slots filled by largest surplus:
+    // Est surplus was 9, MC was 4, Rank was 2.
+    // 1. Est (9->8), counts: MC 12, Est 6, Rank 3
+    // 2. Est (8->7), counts: MC 12, Est 7, Rank 3
+    // 3. Est (7->6), counts: MC 12, Est 8, Rank 3
+    // 4. Est (6->5), counts: MC 12, Est 9, Rank 3
+    // 5. Est (5->4), counts: MC 12, Est 10, Rank 3
+    // 6. MC (4->3), counts: MC 13, Est 10, Rank 3 (or Est again, they tie)
+    // At the end they will be balanced.
+    // MC: 12 + approx 4 = 16
+    // Est: 5 + approx 4 = 9
+    // Rank: 3 + approx 2 = 5
+    // Actually the fill logic will take all from MC (16) and all from Rank (5) and 9 from Est.
+    expect(selected.filter((q) => q.type === QuestionType.MultipleChoice)).toHaveLength(16);
+    expect(selected.filter((q) => q.type === QuestionType.Estimate)).toHaveLength(9);
+    expect(selected.filter((q) => q.type === QuestionType.Ranking)).toHaveLength(5);
   });
 
   it("does not produce duplicate question IDs", () => {

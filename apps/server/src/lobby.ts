@@ -11,9 +11,15 @@ import {
   sendProtocolError,
   toLobbyUpdatePayload,
 } from "./protocol.js";
-import { roomsById, sessionsById, getRoomByJoinCode, logRoomEvent } from "./state.js";
+import {
+  roomsById,
+  roomIdByHostToken,
+  sessionsById,
+  getRoomByJoinCode,
+  logRoomEvent,
+} from "./state.js";
 import { attachSocketToSession } from "./room.js";
-import { broadcastToRoom, syncSessionToRoomState } from "./connection.js";
+import { broadcastToRoom, sendToDisplay, syncSessionToRoomState } from "./connection.js";
 
 export function handleRoomJoin(
   socket: TrackedWebSocket,
@@ -101,12 +107,112 @@ export function handleRoomJoin(
   broadcastLobbyUpdate(room);
 }
 
+export function handleHostConnect(
+  socket: TrackedWebSocket,
+  payload: import("@quiz/shared-protocol").HostConnectPayload,
+): void {
+  if (socket.sessionId) {
+    sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "Socket is already assigned", {
+      event: EVENTS.HOST_CONNECT,
+      roomId: null,
+      questionId: null,
+    });
+    return;
+  }
+
+  const roomId = roomIdByHostToken.get(payload.hostToken);
+  const room = roomId ? roomsById.get(roomId) : undefined;
+
+  if (!room) {
+    sendProtocolError(socket, PROTOCOL_ERROR_CODES.NOT_AUTHORIZED, "Invalid host token", {
+      event: EVENTS.HOST_CONNECT,
+      roomId: null,
+      questionId: null,
+    });
+    return;
+  }
+
+  if (room.hostTokenUsed) {
+    sendProtocolError(socket, PROTOCOL_ERROR_CODES.NOT_AUTHORIZED, "Host token already used", {
+      event: EVENTS.HOST_CONNECT,
+      roomId: room.id,
+      questionId: null,
+    });
+    return;
+  }
+
+  const hostSessionId = randomUUID();
+
+  const session: SessionRecord = {
+    sessionId: hostSessionId,
+    role: "host",
+    roomId: room.id,
+    socket,
+  };
+
+  room.hostSessionId = hostSessionId;
+  room.hostTokenUsed = true;
+  room.hostConnected = true;
+  room.lastActivityAt = Date.now();
+
+  sessionsById.set(hostSessionId, session);
+  attachSocketToSession(socket, session);
+
+  logRoomEvent("host:connect", room, {
+    hostSessionId,
+    clientInfo: payload.clientInfo,
+  });
+
+  sendEvent(socket, EVENTS.HOST_CONNECTED, {
+    roomId: room.id,
+    hostSessionId,
+    joinCode: room.joinCode,
+    roomState: room.state,
+    gameState: room.gameState,
+  });
+
+  if (room.displaySessionId && room.displayConnected) {
+    sendToDisplay(room, EVENTS.DISPLAY_HOST_PAIRED, { hostConnected: true });
+  }
+
+  broadcastLobbyUpdate(room);
+}
+
 export function resumeSession(
   socket: TrackedWebSocket,
   session: SessionRecord,
   room: RoomRecord,
   sourceEvent: typeof EVENTS.CONNECTION_RESUME | typeof EVENTS.ROOM_JOIN,
 ): void {
+  if (session.role === "display") {
+    if (room.displayDisconnectTimer) {
+      clearTimeout(room.displayDisconnectTimer);
+      room.displayDisconnectTimer = null;
+    }
+
+    room.displayConnected = true;
+    room.lastActivityAt = Date.now();
+    attachSocketToSession(socket, session);
+
+    logRoomEvent("connection:resume:display", room, {
+      sessionId: session.sessionId,
+      sourceEvent,
+    });
+
+    sendEvent(socket, EVENTS.CONNECTION_RESUMED, {
+      role: "display",
+      roomId: room.id,
+      roomState: room.state,
+      sessionId: session.sessionId,
+      joinCode: room.joinCode,
+      gameState: room.gameState,
+    });
+
+    syncSessionToRoomState(session, room);
+    broadcastLobbyUpdate(room);
+    return;
+  }
+
   if (session.role === "host") {
     if (room.hostDisconnectTimer) {
       clearTimeout(room.hostDisconnectTimer);

@@ -1,4 +1,4 @@
-export const CLIENT_ROLES = ["host", "player"] as const;
+export const CLIENT_ROLES = ["host", "display", "player"] as const;
 
 export type ClientRole = (typeof CLIENT_ROLES)[number];
 

@@ -50,6 +50,9 @@ function getPublicHost(): string {
 }
 
 function getServerSocketUrl(): string {
+  const envUrl = getViteEnv("VITE_SERVER_SOCKET_URL");
+  if (envUrl) return envUrl;
+
   const url = new URL(window.location.href);
   url.hostname = getPublicHost();
   url.protocol = getWebSocketProtocol(window.location.protocol);
@@ -633,7 +636,7 @@ export function App() {
               <span className="player-kicker">Lobby</span>
               <h1 className="player-title">{playerName || "Spieler"}</h1>
               <p className="player-muted-copy">
-                Warte auf den Host. Sobald das Quiz startet, geht es hier automatisch weiter.
+                Warte auf das Quiz. Sobald es startet, geht es hier automatisch weiter.
               </p>
             </div>
             <div className="player-scoreboard-list">
@@ -655,7 +658,7 @@ export function App() {
               <h2 className="player-controller-title">
                 {answerStatus === "accepted"
                   ? "Antwort gespeichert"
-                  : "Schau auf den Host-Bildschirm"}
+                  : "Schau auf den Bildschirm vorne"}
               </h2>
               <p className="player-controller-copy">
                 {answerStatus === "accepted"
@@ -831,7 +834,7 @@ export function App() {
             </div>
             <div className="player-card">
               <span className="player-kicker">Auflösung</span>
-              <h2 className="player-title">Schau auf den Host-Bildschirm</h2>
+              <h2 className="player-title">Schau auf den Bildschirm vorne</h2>
               <p className="player-points-earned">
                 {ownRoundResult?.pointsEarned ?? 0} Punkte verdient.
               </p>
@@ -875,7 +878,7 @@ export function App() {
               <span className="player-kicker">Zwischenstand</span>
               <h2 className="player-title">Gesamtrangliste vorne</h2>
               <p className="player-muted-copy player-muted-copy--compact">
-                Warte auf die nächste Frage und schau auf den Host-Bildschirm.
+                Warte auf die nächste Frage und schau auf den Bildschirm vorne.
               </p>
             </div>
             <button

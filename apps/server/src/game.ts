@@ -19,14 +19,14 @@ import { isAnswerValidForQuestion } from "./answer-validation.js";
 import { toQuestionControllerPayload, toQuestionShowPayload } from "./question-payloads.js";
 
 const EVENING_QUESTION_COUNT = 30;
-const EVENING_QUESTION_TYPE_ORDER = [
-  QuestionType.MultipleChoice,
-  QuestionType.Logic,
-  QuestionType.Estimate,
-  QuestionType.MajorityGuess,
-  QuestionType.Ranking,
-  QuestionType.OpenText,
-] as const;
+const TARGET_ALLOCATION: Record<QuestionType, number> = {
+  [QuestionType.MultipleChoice]: 12,
+  [QuestionType.Estimate]: 5,
+  [QuestionType.Logic]: 4,
+  [QuestionType.Ranking]: 3,
+  [QuestionType.MajorityGuess]: 3,
+  [QuestionType.OpenText]: 3,
+};
 
 function shuffleArray<T>(array: T[], random: () => number = Math.random): T[] {
   const result = [...array];
@@ -41,58 +41,98 @@ export function getEveningQuestions(
   questions: Question[],
   random: () => number = Math.random,
 ): Question[] {
-  const targetCount = Math.min(EVENING_QUESTION_COUNT, questions.length);
-  const groups = EVENING_QUESTION_TYPE_ORDER.map((type) => ({
-    type,
-    questions: questions.filter((q) => q.type === type),
-  })).filter((group) => group.questions.length > 0);
+  if (questions.length === 0) return [];
+  
+  const targetTotal = Math.min(EVENING_QUESTION_COUNT, questions.length);
+  const poolByType: Record<QuestionType, Question[]> = {
+    [QuestionType.MultipleChoice]: [],
+    [QuestionType.Logic]: [],
+    [QuestionType.Estimate]: [],
+    [QuestionType.MajorityGuess]: [],
+    [QuestionType.Ranking]: [],
+    [QuestionType.OpenText]: [],
+  };
 
-  if (targetCount === 0 || groups.length === 0) {
-    return [];
-  }
-
-  const totalAvailable = groups.reduce((sum, group) => sum + group.questions.length, 0);
-  const allocations = groups.map((group) => {
-    const exactCount = (group.questions.length / totalAvailable) * targetCount;
-    return {
-      type: group.type,
-      questions: group.questions,
-      count: Math.min(group.questions.length, Math.floor(exactCount)),
-      remainder: exactCount % 1,
-    };
-  });
-
-  if (targetCount >= allocations.length) {
-    for (const allocation of allocations) {
-      if (allocation.count === 0) {
-        allocation.count = 1;
-      }
+  for (const q of questions) {
+    if (poolByType[q.type]) {
+      poolByType[q.type].push(q);
     }
   }
 
-  while (allocations.reduce((sum, allocation) => sum + allocation.count, 0) > targetCount) {
-    const allocation = [...allocations]
-      .filter((candidate) => candidate.count > 1)
-      .sort((a, b) => a.remainder - b.remainder)[0];
+  const result: Question[] = [];
+  const typeOrder = [
+    QuestionType.MultipleChoice,
+    QuestionType.Estimate,
+    QuestionType.Logic,
+    QuestionType.Ranking,
+    QuestionType.MajorityGuess,
+    QuestionType.OpenText,
+  ];
 
-    if (!allocation) break;
-    allocation.count -= 1;
+  // 1. Initial allocation based on targets
+  const counts: Record<QuestionType, number> = {
+    [QuestionType.MultipleChoice]: 0,
+    [QuestionType.Logic]: 0,
+    [QuestionType.Estimate]: 0,
+    [QuestionType.MajorityGuess]: 0,
+    [QuestionType.Ranking]: 0,
+    [QuestionType.OpenText]: 0,
+  };
+
+  for (const type of typeOrder) {
+    const target = TARGET_ALLOCATION[type];
+    counts[type] = Math.min(poolByType[type].length, target);
   }
 
-  while (allocations.reduce((sum, allocation) => sum + allocation.count, 0) < targetCount) {
-    const allocation = [...allocations]
-      .filter((candidate) => candidate.count < candidate.questions.length)
-      .sort((a, b) => b.remainder - a.remainder)[0];
+  // 2. Fill remaining slots if targets couldn't be met (from types with surplus)
+  let currentTotal = Object.values(counts).reduce((a, b) => a + b, 0);
+  while (currentTotal < targetTotal) {
+    let bestType: QuestionType | null = null;
+    let maxSurplus = -1;
 
-    if (!allocation) break;
-    allocation.count += 1;
+    for (const type of typeOrder) {
+      const surplus = poolByType[type].length - counts[type];
+      if (surplus > maxSurplus) {
+        maxSurplus = surplus;
+        bestType = type;
+      }
+    }
+
+    if (!bestType || maxSurplus <= 0) break;
+    counts[bestType]++;
+    currentTotal++;
   }
 
-  return allocations.flatMap((allocation) =>
-    shuffleArray(allocation.questions, random)
-      .slice(0, allocation.count)
-      .map((q) => ({ ...q, durationMs: QUESTION_DURATION_MS })),
-  );
+  // 3. Trim if we somehow exceeded targetTotal (shouldn't happen here but for safety)
+  while (currentTotal > targetTotal) {
+    let worstType: QuestionType | null = null;
+    let minSurplus = Infinity;
+
+    for (const type of typeOrder) {
+      if (counts[type] > 0) {
+        const surplus = poolByType[type].length - counts[type];
+        if (surplus < minSurplus) {
+          minSurplus = surplus;
+          worstType = type;
+        }
+      }
+    }
+
+    if (!worstType) break;
+    counts[worstType]--;
+    currentTotal--;
+  }
+
+  // 4. Collect and shuffle
+  for (const type of typeOrder) {
+    const shuffled = shuffleArray(poolByType[type], random);
+    result.push(...shuffled.slice(0, counts[type]));
+  }
+
+  return shuffleArray(result, random).map((q) => ({
+    ...q,
+    durationMs: QUESTION_DURATION_MS,
+  }));
 }
 
 function sendQuestionForCurrentRole(

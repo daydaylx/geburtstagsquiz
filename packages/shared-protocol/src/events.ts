@@ -2,6 +2,11 @@ export const EVENTS = {
   CONNECTION_ACK: "connection:ack",
   CONNECTION_RESUME: "connection:resume",
   CONNECTION_RESUMED: "connection:resumed",
+  DISPLAY_CREATE_ROOM: "display:create-room",
+  DISPLAY_ROOM_CREATED: "display:room-created",
+  DISPLAY_HOST_PAIRED: "display:host-paired",
+  HOST_CONNECT: "host:connect",
+  HOST_CONNECTED: "host:connected",
   ROOM_CREATE: "room:create",
   ROOM_CREATED: "room:created",
   ROOM_SETTINGS_UPDATE: "room:settings:update",
@@ -33,7 +38,13 @@ export const EVENTS = {
 
 export type EventName = (typeof EVENTS)[keyof typeof EVENTS];
 
+export const DISPLAY_TO_SERVER_EVENT_NAMES = [
+  EVENTS.DISPLAY_CREATE_ROOM,
+  EVENTS.CONNECTION_RESUME,
+] as const;
+
 export const HOST_TO_SERVER_EVENT_NAMES = [
+  EVENTS.HOST_CONNECT,
   EVENTS.CONNECTION_RESUME,
   EVENTS.ROOM_CREATE,
   EVENTS.ROOM_SETTINGS_UPDATE,
@@ -50,11 +61,32 @@ export const PLAYER_TO_SERVER_EVENT_NAMES = [
 ] as const;
 
 export const CLIENT_TO_SERVER_EVENT_NAMES = [
+  ...DISPLAY_TO_SERVER_EVENT_NAMES,
   ...HOST_TO_SERVER_EVENT_NAMES,
   ...PLAYER_TO_SERVER_EVENT_NAMES,
 ] as const;
 
+export const SERVER_TO_DISPLAY_EVENT_NAMES = [
+  EVENTS.DISPLAY_ROOM_CREATED,
+  EVENTS.DISPLAY_HOST_PAIRED,
+  EVENTS.CONNECTION_ACK,
+  EVENTS.CONNECTION_RESUMED,
+  EVENTS.LOBBY_UPDATE,
+  EVENTS.GAME_STARTED,
+  EVENTS.QUESTION_SHOW,
+  EVENTS.QUESTION_TIMER,
+  EVENTS.ANSWER_PROGRESS,
+  EVENTS.QUESTION_CLOSE,
+  EVENTS.QUESTION_REVEAL,
+  EVENTS.SCORE_UPDATE,
+  EVENTS.NEXT_QUESTION_READY_PROGRESS,
+  EVENTS.GAME_FINISHED,
+  EVENTS.ROOM_CLOSED,
+  EVENTS.ERROR_PROTOCOL,
+] as const;
+
 export const SERVER_TO_HOST_EVENT_NAMES = [
+  EVENTS.HOST_CONNECTED,
   EVENTS.CONNECTION_ACK,
   EVENTS.CONNECTION_RESUMED,
   EVENTS.ROOM_CREATED,
@@ -96,6 +128,9 @@ export const SERVER_TO_PLAYER_EVENT_NAMES = [
 ] as const;
 
 export const SERVER_TO_CLIENT_EVENT_NAMES = [
+  EVENTS.DISPLAY_ROOM_CREATED,
+  EVENTS.DISPLAY_HOST_PAIRED,
+  EVENTS.HOST_CONNECTED,
   EVENTS.CONNECTION_ACK,
   EVENTS.CONNECTION_RESUMED,
   EVENTS.ROOM_CREATED,
@@ -119,9 +154,11 @@ export const SERVER_TO_CLIENT_EVENT_NAMES = [
   EVENTS.ERROR_PROTOCOL,
 ] as const;
 
+export type DisplayToServerEventName = (typeof DISPLAY_TO_SERVER_EVENT_NAMES)[number];
 export type HostToServerEventName = (typeof HOST_TO_SERVER_EVENT_NAMES)[number];
 export type PlayerToServerEventName = (typeof PLAYER_TO_SERVER_EVENT_NAMES)[number];
 export type ClientToServerEventName = (typeof CLIENT_TO_SERVER_EVENT_NAMES)[number];
+export type ServerToDisplayEventName = (typeof SERVER_TO_DISPLAY_EVENT_NAMES)[number];
 export type ServerToHostEventName = (typeof SERVER_TO_HOST_EVENT_NAMES)[number];
 export type ServerToPlayerEventName = (typeof SERVER_TO_PLAYER_EVENT_NAMES)[number];
 export type ServerToClientEventName = (typeof SERVER_TO_CLIENT_EVENT_NAMES)[number];

@@ -18,6 +18,11 @@ export interface SessionRecord {
 export interface RoomRecord extends Room {
   createdAt: number;
   lastActivityAt: number;
+  hostToken: string;
+  hostTokenUsed: boolean;
+  displayToken: string;
+  displaySessionId: string | null;
+  displayDisconnectTimer: ReturnType<typeof setTimeout> | null;
   hostDisconnectTimer: ReturnType<typeof setTimeout> | null;
   playerDisconnectTimers: Map<string, ReturnType<typeof setTimeout>>;
   questionTimer: ReturnType<typeof setTimeout> | null;

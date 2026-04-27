@@ -73,6 +73,9 @@ function getPublicHost(): string {
 }
 
 function getServerSocketUrl(): string {
+  const envUrl = getViteEnv("VITE_SERVER_SOCKET_URL");
+  if (envUrl) return envUrl;
+
   const url = new URL(window.location.href);
   url.hostname = getPublicHost();
   url.protocol = getWebSocketProtocol(window.location.protocol);
@@ -82,6 +85,13 @@ function getServerSocketUrl(): string {
 }
 
 function getPlayerJoinUrl(joinCode: string): string {
+  const envUrl = getViteEnv("VITE_PLAYER_JOIN_BASE_URL");
+  if (envUrl) {
+    const url = new URL(envUrl);
+    url.searchParams.set("joinCode", joinCode);
+    return url.toString();
+  }
+
   const url = new URL(window.location.href);
   url.hostname = getPublicHost();
   url.port = getViteEnv("VITE_PLAYER_PORT") ?? "5174";
@@ -113,13 +123,15 @@ function createHostClientInfo() {
 
 export function App() {
   const initialSession = loadHostStoredSession();
+  const urlParams = new URLSearchParams(window.location.search);
+  const hostToken = urlParams.get("hostToken");
 
   const [connectionState, setConnectionState] = useState<ConnectionState>("connecting");
   const [notice, setNotice] = useState<HostNotice | null>(null);
   const [roomInfo, setRoomInfo] = useState<HostRoomInfo | null>(null);
   const [lobby, setLobby] = useState<LobbyUpdatePayload | null>(null);
   const [qrCodeDataUrl, setQrCodeDataUrl] = useState<string | null>(null);
-  const [isCreatingRoom, setIsCreatingRoom] = useState(false);
+  const [isConnectingHost, setIsConnectingHost] = useState(false);
 
   const [screen, setScreen] = useState<HostScreen>("start");
   const [question, setQuestion] = useState<QuestionShowPayload | null>(null);
@@ -147,7 +159,7 @@ export function App() {
   const hostSessionRef = useRef<HostStoredSession | null>(initialSession);
   const shouldReconnectRef = useRef(true);
   const intentionalReconnectRef = useRef(false);
-  const pendingRoomCreateRef = useRef(false);
+  const pendingHostConnectRef = useRef(false);
 
   const clearReconnectTimer = useEffectEvent(() => {
     if (reconnectTimerRef.current !== null) {
@@ -178,7 +190,7 @@ export function App() {
     setRoomInfo(null);
     setLobby(null);
     setQrCodeDataUrl(null);
-    setIsCreatingRoom(false);
+    setIsConnectingHost(false);
     setScreen("start");
     setQuestion(null);
     setRemainingMs(0);
@@ -194,16 +206,24 @@ export function App() {
     setShowAnswerTextOnPlayerDevices(false);
   });
 
-  const createRoomOnCurrentSocket = useEffectEvent(() => {
-    setIsCreatingRoom(true);
+  const connectHostOnCurrentSocket = useEffectEvent(() => {
+    if (!hostToken) {
+      setNotice({ 
+        kind: "error", 
+        text: "Kein Host-Token vorhanden. Bitte QR-Code auf dem TV scannen." 
+      });
+      return;
+    }
+
+    setIsConnectingHost(true);
     setNotice(null);
-    const sent = sendClientEvent(EVENTS.ROOM_CREATE, {
-      hostName: "Host",
+    const sent = sendClientEvent(EVENTS.HOST_CONNECT, {
+      hostToken,
       clientInfo: createHostClientInfo(),
     });
 
     if (!sent) {
-      setIsCreatingRoom(false);
+      setIsConnectingHost(false);
       setNotice({ kind: "error", text: "Server ist nicht verbunden. Bitte kurz warten." });
     }
   });
@@ -232,14 +252,13 @@ export function App() {
             roomId: hostSessionRef.current.roomId,
             sessionId: hostSessionRef.current.sessionId,
           });
-        } else if (pendingRoomCreateRef.current) {
-          pendingRoomCreateRef.current = false;
-          createRoomOnCurrentSocket();
+        } else if (pendingHostConnectRef.current || hostToken) {
+          pendingHostConnectRef.current = false;
+          connectHostOnCurrentSocket();
         }
         return;
 
-      case EVENTS.ROOM_CREATED:
-        pendingRoomCreateRef.current = false;
+      case EVENTS.HOST_CONNECTED:
         updateStoredSession({
           roomId: parsedEnvelope.data.payload.roomId,
           sessionId: parsedEnvelope.data.payload.hostSessionId,
@@ -250,7 +269,7 @@ export function App() {
         });
         setShowAnswerTextOnPlayerDevices(false);
         setScreen("lobby");
-        setIsCreatingRoom(false);
+        setIsConnectingHost(false);
         setNotice(null);
         return;
 
@@ -327,14 +346,14 @@ export function App() {
         return;
 
       case EVENTS.ERROR_PROTOCOL:
-        setIsCreatingRoom(false);
+        setIsConnectingHost(false);
         if (
           parsedEnvelope.data.payload.code === PROTOCOL_ERROR_CODES.SESSION_NOT_FOUND ||
           parsedEnvelope.data.payload.code === PROTOCOL_ERROR_CODES.ROOM_NOT_FOUND
         ) {
           updateStoredSession(null);
           resetLobbyState();
-          if (pendingRoomCreateRef.current) {
+          if (pendingHostConnectRef.current) {
             socketRef.current?.close();
           }
         }
@@ -378,22 +397,11 @@ export function App() {
       .catch(() => setQrCodeDataUrl(null));
   }, [roomInfo?.joinCode]);
 
-  const handleCreateRoom = useEffectEvent(() => {
-    if (screen === "finished" && roomInfo) {
-      pendingRoomCreateRef.current = true;
-      setIsCreatingRoom(true);
-      setNotice(null);
-      updateStoredSession(null);
-      const sent = sendClientEvent(EVENTS.ROOM_CLOSE, { roomId: roomInfo.roomId });
-
-      if (!sent) {
-        resetLobbyState();
-        socketRef.current?.close();
-      }
-      return;
-    }
-
-    createRoomOnCurrentSocket();
+  const handleRestartInfo = useEffectEvent(() => {
+    setNotice({
+      kind: "info",
+      text: "Um ein neues Spiel zu starten, klicke bitte am TV-Bildschirm auf 'Neues Quiz'.",
+    });
   });
 
   const handleStartGame = useEffectEvent(() => {
@@ -465,15 +473,17 @@ export function App() {
     if (screen === "lobby" && roomInfo) {
       return (
         <div className="host-panel-content host-lobby-stage">
-          <p className="host-section-label host-section-label--compact">Jetzt beitreten</p>
-          <p className="host-join-code host-join-code--hero">{roomInfo.joinCode}</p>
-          {!loopback && qrCodeDataUrl && (
-            <div className="host-qr-large">
-              <img alt="QR-Code" src={qrCodeDataUrl} />
+          <p className="host-section-label host-section-label--compact">Status</p>
+          <h2 className="host-stage-title">Verbunden mit TV-Display</h2>
+          <p className="host-lobby-hint">
+            Warte auf Spieler... Die Spieler können über den QR-Code am Fernseher beitreten.
+          </p>
+          <div className="host-lobby-stats">
+            <div className="host-stat-card">
+              <span className="host-stat-value">{connectedPlayerCount}</span>
+              <span className="host-stat-label">Spieler bereit</span>
             </div>
-          )}
-          {playerJoinUrl && <p className="host-join-url">{playerJoinUrl}</p>}
-          <p className="host-lobby-hint">QR-Code scannen oder Code eingeben</p>
+          </div>
         </div>
       );
     }
@@ -679,15 +689,14 @@ export function App() {
       {screen === "start" && !roomInfo ? (
         <section className="host-panel host-start-panel">
           <div className="host-start-container">
-            <h2 className="host-stage-title host-stage-title--hero">Bereit für das Quiz?</h2>
-            <button
-              className="host-primary-button pulse"
-              disabled={connectionState !== "connected" || isCreatingRoom}
-              onClick={handleCreateRoom}
-              type="button"
-            >
-              {isCreatingRoom ? "Erstelle Raum..." : "Neues Quiz starten"}
-            </button>
+            <h2 className="host-stage-title host-stage-title--hero">
+              {isConnectingHost ? "Verbindung wird hergestellt..." : "Warte auf Host-Verbindung"}
+            </h2>
+            <p className="host-start-hint">
+              {hostToken 
+                ? "Der Server koppelt dein Gerät gerade als Spielleiter." 
+                : "Bitte scanne den Host-QR-Code auf dem TV-Display, um das Quiz zu steuern."}
+            </p>
           </div>
         </section>
       ) : roomInfo ? (
@@ -805,7 +814,7 @@ export function App() {
                   ? handleStartGame
                   : screen === "scoreboard"
                     ? handleAdvanceQuestion
-                    : handleCreateRoom
+                    : handleRestartInfo
               }
               type="button"
             >

@@ -225,11 +225,51 @@ export const PlayerJoinedPayloadSchema = z
   })
   .strict();
 
+export const DisplayCreateRoomPayloadSchema = z
+  .object({
+    clientInfo: ClientInfoSchema.optional(),
+  })
+  .strict();
+
+export const DisplayRoomCreatedPayloadSchema = z
+  .object({
+    roomId: idSchema,
+    displaySessionId: idSchema,
+    displayToken: idSchema,
+    joinCode: joinCodeSchema,
+    hostToken: idSchema,
+  })
+  .strict();
+
+export const DisplayHostPairedPayloadSchema = z
+  .object({
+    hostConnected: z.boolean(),
+  })
+  .strict();
+
+export const HostConnectPayloadSchema = z
+  .object({
+    hostToken: z.string().min(1),
+    clientInfo: ClientInfoSchema.optional(),
+  })
+  .strict();
+
+export const HostConnectedPayloadSchema = z
+  .object({
+    roomId: idSchema,
+    hostSessionId: idSchema,
+    joinCode: joinCodeSchema,
+    roomState: RoomStateSchema,
+    gameState: GameStateSchema.nullable().optional(),
+  })
+  .strict();
+
 export const LobbyUpdatePayloadSchema = z
   .object({
     roomId: idSchema,
     roomState: RoomStateSchema,
     hostConnected: z.boolean(),
+    displayConnected: z.boolean(),
     settings: RoomSettingsSchema,
     players: z.array(LobbyPlayerSchema),
     playerCount: z.number().int().nonnegative(),
@@ -529,7 +569,13 @@ export const ErrorPayloadSchema = z
   })
   .strict();
 
+export const DISPLAY_TO_SERVER_EVENT_SCHEMAS = {
+  [EVENTS.DISPLAY_CREATE_ROOM]: DisplayCreateRoomPayloadSchema,
+  [EVENTS.CONNECTION_RESUME]: ConnectionResumePayloadSchema,
+} as const;
+
 export const HOST_TO_SERVER_EVENT_SCHEMAS = {
+  [EVENTS.HOST_CONNECT]: HostConnectPayloadSchema,
   [EVENTS.CONNECTION_RESUME]: ConnectionResumePayloadSchema,
   [EVENTS.ROOM_CREATE]: RoomCreatePayloadSchema,
   [EVENTS.ROOM_SETTINGS_UPDATE]: RoomSettingsUpdatePayloadSchema,
@@ -546,11 +592,32 @@ export const PLAYER_TO_SERVER_EVENT_SCHEMAS = {
 } as const;
 
 export const CLIENT_TO_SERVER_EVENT_SCHEMAS = {
+  ...DISPLAY_TO_SERVER_EVENT_SCHEMAS,
   ...HOST_TO_SERVER_EVENT_SCHEMAS,
   ...PLAYER_TO_SERVER_EVENT_SCHEMAS,
 } as const;
 
+export const SERVER_TO_DISPLAY_EVENT_SCHEMAS = {
+  [EVENTS.DISPLAY_ROOM_CREATED]: DisplayRoomCreatedPayloadSchema,
+  [EVENTS.DISPLAY_HOST_PAIRED]: DisplayHostPairedPayloadSchema,
+  [EVENTS.CONNECTION_ACK]: ConnectionAckPayloadSchema,
+  [EVENTS.CONNECTION_RESUMED]: ConnectionResumedPayloadSchema,
+  [EVENTS.LOBBY_UPDATE]: LobbyUpdatePayloadSchema,
+  [EVENTS.GAME_STARTED]: GameStartedPayloadSchema,
+  [EVENTS.QUESTION_SHOW]: QuestionShowPayloadSchema,
+  [EVENTS.QUESTION_TIMER]: QuestionTimerPayloadSchema,
+  [EVENTS.ANSWER_PROGRESS]: AnswerProgressPayloadSchema,
+  [EVENTS.QUESTION_CLOSE]: QuestionClosePayloadSchema,
+  [EVENTS.QUESTION_REVEAL]: QuestionRevealPayloadSchema,
+  [EVENTS.SCORE_UPDATE]: ScoreUpdatePayloadSchema,
+  [EVENTS.NEXT_QUESTION_READY_PROGRESS]: NextQuestionReadyProgressPayloadSchema,
+  [EVENTS.GAME_FINISHED]: GameFinishedPayloadSchema,
+  [EVENTS.ROOM_CLOSED]: RoomClosedPayloadSchema,
+  [EVENTS.ERROR_PROTOCOL]: ErrorPayloadSchema,
+} as const;
+
 export const SERVER_TO_HOST_EVENT_SCHEMAS = {
+  [EVENTS.HOST_CONNECTED]: HostConnectedPayloadSchema,
   [EVENTS.CONNECTION_ACK]: ConnectionAckPayloadSchema,
   [EVENTS.CONNECTION_RESUMED]: ConnectionResumedPayloadSchema,
   [EVENTS.ROOM_CREATED]: RoomCreatedPayloadSchema,
@@ -592,6 +659,7 @@ export const SERVER_TO_PLAYER_EVENT_SCHEMAS = {
 } as const;
 
 export const SERVER_TO_CLIENT_EVENT_SCHEMAS = {
+  ...SERVER_TO_DISPLAY_EVENT_SCHEMAS,
   ...SERVER_TO_HOST_EVENT_SCHEMAS,
   ...SERVER_TO_PLAYER_EVENT_SCHEMAS,
 } as const;
@@ -599,6 +667,11 @@ export const SERVER_TO_CLIENT_EVENT_SCHEMAS = {
 export type ConnectionAckPayload = z.infer<typeof ConnectionAckPayloadSchema>;
 export type ConnectionResumePayload = z.infer<typeof ConnectionResumePayloadSchema>;
 export type ConnectionResumedPayload = z.infer<typeof ConnectionResumedPayloadSchema>;
+export type DisplayCreateRoomPayload = z.infer<typeof DisplayCreateRoomPayloadSchema>;
+export type DisplayRoomCreatedPayload = z.infer<typeof DisplayRoomCreatedPayloadSchema>;
+export type DisplayHostPairedPayload = z.infer<typeof DisplayHostPairedPayloadSchema>;
+export type HostConnectPayload = z.infer<typeof HostConnectPayloadSchema>;
+export type HostConnectedPayload = z.infer<typeof HostConnectedPayloadSchema>;
 export type RoomCreatePayload = z.infer<typeof RoomCreatePayloadSchema>;
 export type RoomCreatedPayload = z.infer<typeof RoomCreatedPayloadSchema>;
 export type RoomSettingsUpdatePayload = z.infer<typeof RoomSettingsUpdatePayloadSchema>;
@@ -629,9 +702,11 @@ export type RoomClosePayload = z.infer<typeof RoomClosePayloadSchema>;
 export type RoomClosedPayload = z.infer<typeof RoomClosedPayloadSchema>;
 export type ErrorPayload = z.infer<typeof ErrorPayloadSchema>;
 
+export type DisplayToServerEventPayloadMap = InferSchemaMap<typeof DISPLAY_TO_SERVER_EVENT_SCHEMAS>;
 export type HostToServerEventPayloadMap = InferSchemaMap<typeof HOST_TO_SERVER_EVENT_SCHEMAS>;
 export type PlayerToServerEventPayloadMap = InferSchemaMap<typeof PLAYER_TO_SERVER_EVENT_SCHEMAS>;
 export type ClientToServerEventPayloadMap = InferSchemaMap<typeof CLIENT_TO_SERVER_EVENT_SCHEMAS>;
+export type ServerToDisplayEventPayloadMap = InferSchemaMap<typeof SERVER_TO_DISPLAY_EVENT_SCHEMAS>;
 export type ServerToHostEventPayloadMap = InferSchemaMap<typeof SERVER_TO_HOST_EVENT_SCHEMAS>;
 export type ServerToPlayerEventPayloadMap = InferSchemaMap<typeof SERVER_TO_PLAYER_EVENT_SCHEMAS>;
 export type ServerToClientEventPayloadMap = InferSchemaMap<typeof SERVER_TO_CLIENT_EVENT_SCHEMAS>;
