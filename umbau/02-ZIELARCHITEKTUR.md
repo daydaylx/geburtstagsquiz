@@ -5,41 +5,52 @@
 Das Ziel ist kein Plattformumbau, sondern ein stabiler Abendbetrieb mit drei getrennten Browseroberflaechen:
 
 ```text
-apps/web-display  -> TV / Beamer / oeffentliche Anzeige
-apps/web-host     -> Host Controller
+apps/web-display  -> TV / Beamer / oeffentliche Anzeige (erstellt Raum)
+apps/web-host     -> Host Controller (koppelt per hostToken)
 apps/web-player   -> Spieler-Handys
 apps/server       -> authoritative WebSocket-Server
 ```
 
+## Kanonischer Startablauf (Display-first)
+
+Der Ablauf beginnt immer auf dem TV, nicht auf dem Host-Handy:
+
+```text
+1. TV/Laptop oeffnet tv.<domain>
+2. Display zeigt Button "Quizraum erstellen"
+3. Nach Klick: Server erstellt Raum und gibt joinCode, hostToken, displayToken zurueck
+4. TV zeigt Player-QR (play.<domain>?joinCode=XXX) und Host-QR (host.<domain>?hostToken=YYY)
+5. Spieler scannen Player-QR -> joinen per joinCode
+6. Host scannt Host-QR mit Handy -> koppelt sich per hostToken -> bekommt hostSessionId
+7. Nach Host-Kopplung: Host-QR auf TV ausblenden oder minimieren
+8. TV bleibt reine Anzeige (read-only)
+9. Host-Handy steuert das Spiel
+10. Player-Handys beantworten Fragen
+```
+
+**Bewusste Entscheidung:** Display zeigt Button "Quizraum erstellen", nicht Auto-Create bei Seitenlade.
+Begruendung: Auto-Create wuerde bei jedem Reload einen neuen Raum erzeugen. Ein Button verhindert das und ist trotzdem fast genauso bequem.
+
 ## Rollenmodell
 
 ```text
-host     -> darf steuern
-display  -> darf nur anzeigen
+display  -> initialisiert Raum, darf danach nur anzeigen
+host     -> koppelt sich per hostToken, darf steuern
 player   -> darf antworten
 ```
 
-### Host
-
-Der Host darf:
-
-- Raum erstellen.
-- Player-Link und Display-Link sehen.
-- Lobby-Einstellungen setzen.
-- Spiel starten.
-- Nach Scoreboard manuell weiterschalten.
-- Raum schliessen.
-- Spielerstatus und Antwortfortschritt sehen.
-
 ### Display
 
-Das Display darf:
+Das Display:
 
-- Lobby anzeigen.
-- Frage, Antwortoptionen, Timer und Antwortfortschritt anzeigen.
-- Reveal mit Erklaerung anzeigen.
-- Scoreboard und Endstand anzeigen.
-- Verbindungsstatus anzeigen.
+- Oeffnet `tv.<domain>` ohne Parameter.
+- Zeigt Button "Quizraum erstellen".
+- Sendet nach Klick `display:create-room`.
+- Bekommt `display:room-created` mit `joinCode`, `hostToken`, `displayToken`, `displaySessionId`.
+- Zeigt Player-QR und Host-QR.
+- Zeigt Status "Host verbunden" oder "Host noch nicht verbunden".
+- Blendet Host-QR aus, nachdem Host sich gekoppelt hat.
+- Zeigt danach: Lobby, Frage, Timer, Antwortfortschritt, Reveal, Erklaerung, Scoreboard, Endstand.
 
 Das Display darf nicht:
 
@@ -49,94 +60,129 @@ Das Display darf nicht:
 - Antworten senden.
 - Spieler entfernen.
 - Raum schliessen.
-- Host-Session wiederaufnehmen.
+- Host-Session verwenden oder verdraengen.
+
+### Host
+
+Der Host:
+
+- Oeffnet `host.<domain>?hostToken=YYY` (Link aus Host-QR).
+- Sendet `host:connect` mit `hostToken`.
+- Bekommt `host:connected` mit `hostSessionId`.
+- Speichert `hostSessionId` fuer Reconnect.
+- Steuert das Spiel: Start, Settings, Naechste Frage, Raum schliessen.
+- Sieht Spielerstatus, Antwortfortschritt, Display-Verbindungsstatus.
+
+Der Host darf nicht:
+
+- Einen neuen Raum erstellen (das macht Display).
+- Display-Session verwenden oder verdraengen.
 
 ### Player
 
-Player duerfen:
+Player:
 
-- Per Join-Code beitreten.
-- Eine Antwort pro aktiver Frage senden.
-- Nach Scoreboard Ready senden.
-- Eigene Session wiederaufnehmen.
+- Scannen Player-QR -> landen auf `play.<domain>?joinCode=XXX`.
+- Senden `room:join` mit `joinCode` und Namen.
+- Antworten, Ready senden, Resume nutzen.
 
-Player duerfen keine Host- oder Display-Rechte bekommen.
+Player haben keine Host- oder Display-Rechte.
 
-## Datenfluss
+## Token- und Session-Konzept
+
+Alle Tokens und Sessions haben unterschiedliche Zwecke und duerfen nicht verwechselt werden:
 
 ```text
-Host Controller -> Server: create/start/settings/next/close
-Display         -> Server: display:connect oder connection:resume fuer Display-Session
-Player          -> Server: join/answer/ready/resume
+joinCode        kurzer Code (z.B. "ABC12") fuer Player-Join
+                enthalten im Player-QR
+                nicht fuer Host- oder Display-Rechte verwendbar
 
-Server -> Host: Controller-Snapshot, Spielerstatus, Antwortfortschritt, Fehler
-Server -> Display: Public-Snapshot, Frage, Timer, Reveal, Scoreboard
-Server -> Player: Controller-Payload, Antwortstatus, eigenes Reveal, Scoreboard
+hostToken       langer, kryptografisch zufaelliger Token
+                enthalten im Host-QR
+                nur fuer initiales Host-Pairing (einmalige Verwendung)
+                nach Pairing optional invalidieren oder Host-QR ausblenden
+                NICHT identisch mit hostSessionId
+
+hostSessionId   UUID, entsteht nach erfolgreichem Host-Pairing
+                wird vom Host fuer Reconnect gespeichert
+                einziges Mittel fuer Host-Reconnect
+
+displayToken    UUID oder langer Token, dient Display-Reconnect
+                nicht fuer Host-Steuerung verwendbar
+
+displaySessionId eigene Session-ID fuer das TV-Display
+                darf Host-Session nicht verdraengen
 ```
 
 ## Sessionmodell
 
-Empfohlen fuer den ersten Umbau:
-
 ```ts
 RoomRecord {
-  hostSessionId: string;
-  displaySessionId?: string;
-  displayToken: string;
+  roomId: string;
+  joinCode: string;
+  hostToken: string;           // nur fuer initiales Pairing
+  hostSessionId: string;       // nach Host-Pairing gesetzt
+  hostConnected: boolean;
+  hostDisconnectTimer?: ...;
+  displayToken: string;        // fuer Display-Reconnect
+  displaySessionId?: string;   // nach Display-Connect gesetzt
   displayConnected: boolean;
+  displayDisconnectTimer?: ...;
   players: Player[];
+  gameState: ...;
 }
 ```
 
-Nur ein Display ist fuer den Abend ausreichend. Mehrere Displays werden nicht gebaut, solange es keinen konkreten Bedarf gibt.
-
-## Display-Token
-
-Der Server erzeugt beim Erstellen des Raums:
-
-- `joinCode` fuer Player.
-- `displayToken` fuer Display.
-- `hostSessionId` fuer Host.
-
-Der Host bekommt beide Links:
-
-```text
-Player-Link:  https://play.<domain>?joinCode=ABC234
-Display-Link: https://tv.<domain>?displayToken=...
-```
-
-Der Join-Code darf nicht reichen, um ein Display zu oeffnen. Das Display nutzt ein separates Token.
+Nur ein Display und ein Host sind vorgesehen. Mehrere Displays oder Hosts werden nicht gebaut.
 
 ## Reconnect-Konzept
 
-### Host
+### Host-Reconnect
 
-- Host speichert `roomId` und `hostSessionId`.
-- Resume bleibt wie heute ueber `connection:resume`.
-- Host-Disconnect schliesst den Raum erst nach Grace-Zeit.
+- Host hat keine Session vor dem Pairing.
+- Erstverbindung ueber `host:connect` mit `hostToken`.
+- Nach Pairing wird `hostSessionId` gespeichert.
+- Reconnect ueber `connection:resume` mit `hostSessionId` und `roomId`.
+- Host-Disconnect schliesst den Raum erst nach Grace-Zeit (5 min).
 - Display darf Host-Session niemals ersetzen.
 
-### Display
+### Display-Reconnect
 
 - Display speichert `roomId`, `displaySessionId` und optional `displayToken`.
-- Erstverbindung ueber `display:connect`.
-- Danach Resume ueber `connection:resume`.
+- Erstverbindung: Display sendet `display:create-room`.
+- Reconnect: Display sendet `connection:resume` mit `displaySessionId` und `roomId`.
 - Display-Disconnect setzt `displayConnected=false`, schliesst aber keinen Raum.
 - Display-Reconnect muss den aktuellen Public-Snapshot bekommen.
+- Host-Session wird dabei nicht beeinflusst.
 
-### Player
+### Player-Reconnect
 
-- Player-Resume bleibt mit `sessionId`, `roomId`, `playerId`.
-- Player duerfen weiterhin nur Controller-Daten bekommen.
-- Disconnectete Player blockieren den naechsten Fragenwechsel nicht.
+- Unveraendert: `connection:resume` mit `sessionId`, `roomId`, `playerId`.
+- Player bekommen weiterhin nur Controller-Daten.
+
+## Datenfluss
+
+```text
+Display         -> Server: display:create-room (Rauminitialisierung)
+Display         -> Server: connection:resume (Reconnect)
+Host            -> Server: host:connect (Kopplung per hostToken)
+Host            -> Server: connection:resume (Reconnect per hostSessionId)
+Host            -> Server: game:start, game:next-question, room:settings:update, room:close
+Player          -> Server: room:join, answer:submit, next-question:ready, connection:resume
+
+Server -> Display: display:room-created (joinCode, hostToken, displayToken, displaySessionId)
+Server -> Display: lobby:update, question:show, question:timer, answer:progress, question:reveal, score:update, game:finished
+Server -> Host:   host:connected (hostSessionId), Controller-Snapshots, Spielerstatus, Antwortfortschritt
+Server -> Player: question:controller, Antwortstatus, Reveal, Scoreboard
+```
 
 ## Public State vs Controller State
 
-Display und Host duerfen nicht einfach dieselbe Payload bekommen.
+Display und Host bekommen unterschiedliche Payloads:
 
 Display bekommt Public State:
 
-- Join-Code und Player-Anzahl.
+- joinCode und Spieleranzahl.
 - Frage mit Antwortoptionen.
 - Timer.
 - Antwortfortschritt als Zahlen.
@@ -145,7 +191,7 @@ Display bekommt Public State:
 
 Host bekommt Controller State:
 
-- Alle Display-relevanten Kompaktinfos.
+- Alle Display-kompakten Infos.
 - Spielerstatus.
 - Display-Verbindungsstatus.
 - Steuerbare Aktionen.
@@ -154,7 +200,7 @@ Host bekommt Controller State:
 Player bekommt Player State:
 
 - Join/Resume.
-- Frage als Controller-Payload.
+- Frage als Controller-Payload (ohne versteckte Antworten).
 - Antwortstatus.
 - Eigene Runde.
 - Scoreboard und Ready-Fortschritt.
@@ -164,9 +210,9 @@ Player bekommt Player State:
 Ziel:
 
 ```text
-tv.<domain>    -> Display UI
-host.<domain>  -> Host Controller UI
-play.<domain>  -> Player UI
+tv.<domain>    -> Display UI (oeffnet ohne Parameter)
+host.<domain>  -> Host Controller UI (braucht ?hostToken=YYY)
+play.<domain>  -> Player UI (braucht ?joinCode=XXX)
 api.<domain>   -> WebSocket/API Backend
 ```
 
@@ -187,4 +233,4 @@ web-display  5175
 - Keine Durable Objects im ersten Umbau.
 - Keine neuen Spielmodi.
 - Keine Design-/Animationsphase vor Rollen- und Sessionstabilitaet.
-
+- Kein zweites Display oder zweiter Host.

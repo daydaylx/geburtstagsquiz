@@ -7,9 +7,9 @@ Domain/Cloudflare kommt nach lokaler 3-UI-Stabilitaet. Vorher wuerde jeder Rolle
 ## Ziel-Domainstruktur
 
 ```text
-tv.<domain>    -> Display UI
-host.<domain>  -> Host Controller UI
-play.<domain>  -> Player UI
+tv.<domain>    -> Display UI (oeffnet ohne Parameter, erstellt Raum per Button)
+host.<domain>  -> Host Controller UI (braucht ?hostToken=YYY aus Host-QR)
+play.<domain>  -> Player UI (braucht ?joinCode=XXX aus Player-QR)
 api.<domain>   -> WebSocket/API Backend
 ```
 
@@ -22,6 +22,37 @@ web-player   5174
 web-display  5175
 ```
 
+## QR-Code-Konzept
+
+**Player-QR** (groß auf TV sichtbar, fuer alle Spieler):
+
+```text
+https://play.<domain>?joinCode=ABC234
+```
+
+**Host-QR** (auf TV sichtbar bis Kopplung, dann ausgeblendet):
+
+```text
+https://host.<domain>?hostToken=<langer-zufaelliger-token>
+```
+
+Wichtig:
+
+- `hostToken` ist lang und nicht erratbar (kryptografisch zufaellig).
+- Der `hostToken` in der URL ist nur fuer initiales Pairing.
+- Nach erfolgreichem Host-Pairing blendet das TV den Host-QR aus.
+- QR-Codes duerfen NIEMALS auf `localhost` zeigen (auch nicht bei lokalem Test mit Handys).
+- Bei Hotspot-Betrieb muessen die QR-Codes auf die Hotspot-IP zeigen.
+- Bei Domainbetrieb zeigen QR-Codes auf die Subdomains.
+
+**Display-Link** (intern, nicht als QR auf dem TV):
+
+```text
+https://tv.<domain>
+```
+
+Der Display-Link braucht keinen Token in der URL, weil das TV den Raum selbst erstellt. Ein `displayToken` fuer Reconnect wird vom Server vergeben und im Browser-Storage des TV gespeichert, nicht in der URL.
+
 ## Env-Variablen lokal
 
 Ziel fuer alle Vite-Apps:
@@ -33,7 +64,7 @@ VITE_HOST_URL=http://localhost:5173
 VITE_PLAYER_JOIN_BASE_URL=http://localhost:5174
 ```
 
-Fuer Hotspot-Betrieb:
+Fuer Hotspot-Betrieb (Handys koennen localhost nicht erreichen):
 
 ```env
 VITE_SERVER_SOCKET_URL=ws://<hotspot-ip>:3001
@@ -42,7 +73,7 @@ VITE_HOST_URL=http://<hotspot-ip>:5173
 VITE_PLAYER_JOIN_BASE_URL=http://<hotspot-ip>:5174
 ```
 
-Die alten Variablen `VITE_PUBLIC_HOST`, `VITE_SERVER_PORT`, `VITE_PLAYER_PORT` koennen in einer Migrationsphase noch unterstuetzt werden, sollten aber nicht das Zielmodell bleiben.
+Die alten Variablen `VITE_PUBLIC_HOST`, `VITE_SERVER_PORT`, `VITE_PLAYER_PORT` koennen in einer Migrationsphase noch unterstuetzt werden, sind aber nicht das Zielmodell.
 
 ## Env-Variablen Domain
 
@@ -53,26 +84,21 @@ VITE_HOST_URL=https://host.<domain>
 VITE_PLAYER_JOIN_BASE_URL=https://play.<domain>
 ```
 
-## QR-Code-Verhalten
+## Verwendung der Env-Variablen
 
-Player-QR:
-
-```text
-https://play.<domain>?joinCode=ABC234
-```
-
-Display-Link:
+Display-App baut QR-Inhalte:
 
 ```text
-https://tv.<domain>?displayToken=<token>
+Player-QR:  ${VITE_PLAYER_JOIN_BASE_URL}?joinCode=${joinCode}
+Host-QR:    ${VITE_HOST_URL}?hostToken=${hostToken}
 ```
 
-Host zeigt beide Links. Display zeigt nur Player-Join-Daten, nicht seinen eigenen Token.
+Die Display-App baut die QR-Inhalte aus dem Env und den Tokens, die vom Server in `display:room-created` kommen. Der Server selbst sendet nur Tokens und Codes, keine vollstaendigen URLs.
 
 ## WebSocket-URL-Regeln
 
 - Apps verwenden zuerst `VITE_SERVER_SOCKET_URL`.
-- Wenn nicht gesetzt, darf lokal aus `window.location` plus Port gefolgert werden.
+- Wenn nicht gesetzt, darf lokal aus `window.location` plus Port gefolgert werden (Fallback nur fuer lokale Entwicklung).
 - In Domainumgebung darf nicht auf `localhost` oder Vite-Port geraten werden.
 - HTTPS-Seiten verbinden nur ueber `wss://`.
 - `api.<domain>` muss WebSocket-Upgrades erlauben.
@@ -90,7 +116,7 @@ api.<domain>   -> localhost:3001
 
 Vorteile:
 
-- Schnell.
+- Schnell einzurichten.
 - Kein Router-Portforwarding.
 - Node-Server bleibt unveraendert.
 - Gut fuer privaten Abend und Tests.
@@ -128,26 +154,6 @@ Empfehlung: Beste mittelfristige Variante, wenn nach dem lokalen Umbau noch Zeit
 
 ## Variante C: Worker + Durable Objects
 
-Aufbau:
-
-```text
-tv/host/play -> Cloudflare Pages
-api/ws       -> Cloudflare Worker
-Room-State   -> Durable Object pro Raum
-```
-
-Vorteile:
-
-- Echte Cloud-Raumlogik.
-- Kein lokaler Rechner.
-- WebSocket-State pro Raum langfristig sauber.
-
-Nachteile:
-
-- Aktueller Node-WebSocket-Server muesste stark umgebaut werden.
-- Timer, Sessions, Reconnect und In-Memory-State muessen neu gedacht werden.
-- Hoher Testaufwand.
-
 Entscheidung: Nicht im ersten Umbau.
 
 ## Startskripte
@@ -163,10 +169,14 @@ Spaeter anpassen:
 
 ## Abnahme fuer Domain-Test
 
-- Host erstellt Raum ueber `host.<domain>`.
-- Display oeffnet Link ueber `tv.<domain>`.
-- Player scannt QR und landet auf `play.<domain>`.
+Voraussetzung: Lokaler 3-UI-E2E-Test bestanden.
+
+- TV oeffnet `tv.<domain>`, klickt "Quizraum erstellen".
+- TV zeigt Player-QR (zeigt auf `play.<domain>`) und Host-QR (zeigt auf `host.<domain>`).
+- Host scannt Host-QR, landet auf `host.<domain>?hostToken=YYY`, koppelt sich.
+- Spieler scannen Player-QR, landen auf `play.<domain>?joinCode=XXX`.
 - Alle Clients verbinden zu `wss://api.<domain>`.
 - Mindestens eine komplette Runde funktioniert.
 - Reconnect fuer Host, Display und Player wurde getestet.
-
+- Keine App verbindet sich zu `localhost`.
+- QR zeigt nie auf `localhost`.
