@@ -45,19 +45,12 @@ function getViteEnv(name: string): string | undefined {
   return (import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env?.[name];
 }
 
-function getPublicHost(): string {
-  return getViteEnv("VITE_PUBLIC_HOST") ?? window.location.hostname;
-}
-
 function getServerSocketUrl(): string {
   const envUrl = getViteEnv("VITE_SERVER_SOCKET_URL");
   if (envUrl) return envUrl;
 
-  const url = new URL(window.location.href);
-  url.hostname = getPublicHost();
+  const url = new URL("/ws", window.location.href);
   url.protocol = getWebSocketProtocol(window.location.protocol);
-  url.port = getViteEnv("VITE_SERVER_PORT") ?? "3001";
-  url.pathname = "/";
   return url.toString();
 }
 

@@ -6,7 +6,7 @@ import { WebSocketServer } from "ws";
 import { EVENTS, parseClientToServerEnvelope, type EventName } from "@quiz/shared-protocol";
 import { type ClientRole } from "@quiz/shared-types";
 
-import { HEARTBEAT_INTERVAL_MS, HOST, PORT } from "./config.js";
+import { HEARTBEAT_INTERVAL_MS, HOST, PORT, isOriginAllowed } from "./config.js";
 import { PROTOCOL_ERROR_CODES, sendEvent, sendProtocolError } from "./protocol.js";
 import type { TrackedWebSocket } from "./server-types.js";
 import { roomsById, sessionsById } from "./state.js";
@@ -25,14 +25,53 @@ import {
   handleNextQuestionReady,
 } from "./game.js";
 
-const server = createServer((_request, response) => {
-  response.writeHead(200, { "Content-Type": "text/plain; charset=utf-8" });
-  response.end("Quiz Server – Lobby Phase");
+const server = createServer((request, response) => {
+  const origin = request.headers.origin;
+  const originAllowed = isOriginAllowed(origin);
+
+  if (origin && originAllowed) {
+    response.setHeader("Access-Control-Allow-Origin", origin);
+    response.setHeader("Vary", "Origin");
+  }
+  response.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
+  response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+  if (request.method === "OPTIONS") {
+    response.writeHead(originAllowed ? 204 : 403);
+    response.end();
+    return;
+  }
+
+  if (request.url === "/health") {
+    response.writeHead(originAllowed ? 200 : 403, {
+      "Content-Type": "application/json; charset=utf-8",
+    });
+    response.end(
+      JSON.stringify({
+        ok: originAllowed,
+        status: originAllowed ? "ok" : "forbidden",
+        service: "geburtstagsquiz-server",
+        time: new Date().toISOString(),
+      }),
+    );
+    return;
+  }
+
+  response.writeHead(originAllowed ? 200 : 403, {
+    "Content-Type": "text/plain; charset=utf-8",
+  });
+  response.end(originAllowed ? "Quiz Server – Lobby Phase" : "Forbidden origin");
 });
 
 const websocketServer = new WebSocketServer({ noServer: true });
 
 server.on("upgrade", (request, socket, head) => {
+  if (!isOriginAllowed(request.headers.origin)) {
+    socket.write("HTTP/1.1 403 Forbidden\r\nConnection: close\r\n\r\n");
+    socket.destroy();
+    return;
+  }
+
   websocketServer.handleUpgrade(request, socket, head, (websocket) => {
     const trackedSocket = websocket as TrackedWebSocket;
     trackedSocket.connectionId = randomUUID();

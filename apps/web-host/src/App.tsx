@@ -72,15 +72,33 @@ function getPublicHost(): string {
   return getViteEnv("VITE_PUBLIC_HOST") ?? window.location.hostname;
 }
 
+function applyFallbackPlayerOrigin(url: URL): void {
+  url.hostname = getPublicHost();
+
+  const explicitPort = getViteEnv("VITE_PLAYER_PORT");
+  if (explicitPort) {
+    url.port = explicitPort;
+    return;
+  }
+
+  if (isLoopbackHostname(url.hostname)) {
+    url.port = "5174";
+    return;
+  }
+
+  const labels = url.hostname.split(".");
+  if (labels.length > 2 && ["tv", "host", "play"].includes(labels[0])) {
+    url.hostname = ["play", ...labels.slice(1)].join(".");
+  }
+  url.port = "";
+}
+
 function getServerSocketUrl(): string {
   const envUrl = getViteEnv("VITE_SERVER_SOCKET_URL");
   if (envUrl) return envUrl;
 
-  const url = new URL(window.location.href);
-  url.hostname = getPublicHost();
+  const url = new URL("/ws", window.location.href);
   url.protocol = getWebSocketProtocol(window.location.protocol);
-  url.port = getViteEnv("VITE_SERVER_PORT") ?? "3001";
-  url.pathname = "/";
   return url.toString();
 }
 
@@ -93,8 +111,7 @@ function getPlayerJoinUrl(joinCode: string): string {
   }
 
   const url = new URL(window.location.href);
-  url.hostname = getPublicHost();
-  url.port = getViteEnv("VITE_PLAYER_PORT") ?? "5174";
+  applyFallbackPlayerOrigin(url);
   url.pathname = "/";
   url.search = new URLSearchParams({ joinCode }).toString();
   return url.toString();

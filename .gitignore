@@ -1,10 +1,16 @@
 node_modules/
 dist/
+.cloudflared/
 .env
 .env.local
 .env.development.local
 .env.production.local
 .env.test.local
+*.pem
+*.cert
+*.crt
+*.key
+*credentials*.json
 *.log
 .DS_Store
 .serena/
@@ -12,4 +18,4 @@ dist/
 .codex
 .kilo/
 sqlite_mcp_server.db
-cloudflared binary
+/cloudflared

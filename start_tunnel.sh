@@ -10,8 +10,8 @@ set -Eeuo pipefail
 PROJECT_DIR="${PROJECT_DIR:-$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)}"
 PROJECT_DIR="$(cd "$PROJECT_DIR" && pwd -P)"
 
-DOMAIN="${DOMAIN:-disaai.de}"
-TUNNEL_NAME="${TUNNEL_NAME:-quiz}"
+DOMAIN="${DOMAIN:-quiz.disaai.de}"
+TUNNEL_NAME="${TUNNEL_NAME:-geburtstagsquiz}"
 
 STATE_DIR="${STATE_DIR:-${XDG_RUNTIME_DIR:-/tmp}/geburtstagsquiz-tunnel}"
 CONFIG_FILE="$PROJECT_DIR/.cloudflared/config.yml"
@@ -24,6 +24,20 @@ die() { printf "FEHLER: %s\n" "$*" >&2; exit 1; }
 
 need_cmd() {
   command -v "$1" >/dev/null 2>&1 || die "$1 fehlt. Bitte installieren."
+}
+
+find_cloudflared() {
+  if command -v cloudflared >/dev/null 2>&1; then
+    command -v cloudflared
+    return 0
+  fi
+
+  if [[ -x "$PROJECT_DIR/cloudflared" ]]; then
+    printf "%s\n" "$PROJECT_DIR/cloudflared"
+    return 0
+  fi
+
+  return 1
 }
 
 cleanup() {
@@ -43,7 +57,11 @@ cleanup() {
 
 check_config() {
   if [[ ! -f "$CONFIG_FILE" ]]; then
-    die "Tunnel-Config nicht gefunden: $CONFIG_FILE\nBitte zuerst: ./setup_tunnel.sh"
+    die "Tunnel-Config nicht gefunden: $CONFIG_FILE\nKopiere deploy/cloudflare-tunnel.example.yml nach $CONFIG_FILE und ersetze Platzhalter lokal."
+  fi
+
+  if ! grep -q "quiz.disaai.de" "$CONFIG_FILE"; then
+    warn "Tunnel-Config enthaelt nicht quiz.disaai.de. Bitte gegen deploy/cloudflare-tunnel.example.yml pruefen."
   fi
 }
 
@@ -59,7 +77,8 @@ check_already_running() {
 }
 
 main() {
-  need_cmd cloudflared
+  local cloudflared_bin
+  cloudflared_bin="$(find_cloudflared)" || die "cloudflared fehlt. Bitte installieren oder als $PROJECT_DIR/cloudflared ablegen."
   check_config
   check_already_running
 
@@ -68,7 +87,7 @@ main() {
 
   info "Starte Cloudflare Tunnel '$TUNNEL_NAME'"
 
-  cloudflared tunnel --config "$CONFIG_FILE" run "$TUNNEL_NAME" \
+  "$cloudflared_bin" tunnel --config "$CONFIG_FILE" run "$TUNNEL_NAME" \
     > "$LOG_DIR/tunnel.log" 2>&1 &
 
   local pid=$!

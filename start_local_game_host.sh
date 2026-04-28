@@ -11,12 +11,15 @@ HOTSPOT_CHANNEL="${HOTSPOT_CHANNEL:-1}"
 HOTSPOT_IPV4_ADDR="${HOTSPOT_IPV4_ADDR:-10.42.0.1}"
 HOTSPOT_WATCHDOG_INTERVAL_SECONDS="${HOTSPOT_WATCHDOG_INTERVAL_SECONDS:-5}"
 
-PORT="${PORT:-3001}"
+PORT="${SERVER_PORT:-${PORT:-3001}}"
+SERVER_PORT="$PORT"
+DISPLAY_WEB_PORT="${DISPLAY_WEB_PORT:-5175}"
 HOST_WEB_PORT="${HOST_WEB_PORT:-5173}"
 PLAYER_WEB_PORT="${PLAYER_WEB_PORT:-5174}"
 
 START_COMMAND="${START_COMMAND:-}"
-OPEN_HOST_BROWSER="${OPEN_HOST_BROWSER:-1}"
+OPEN_DISPLAY_BROWSER="${OPEN_DISPLAY_BROWSER:-1}"
+OPEN_HOST_BROWSER="${OPEN_HOST_BROWSER:-0}"
 STOP_CONFLICTING_PROJECT_PROCESSES="${STOP_CONFLICTING_PROJECT_PROCESSES:-1}"
 FORCE_PORT_CLEANUP="${FORCE_PORT_CLEANUP:-0}"
 
@@ -48,6 +51,13 @@ sudo() {
 info() { printf "\n==> %s\n" "$*"; }
 warn() { printf "WARNUNG: %s\n" "$*" >&2; }
 die() { printf "FEHLER: %s\n" "$*" >&2; exit 1; }
+
+is_enabled() {
+  case "${1:-}" in
+    1|true|TRUE|yes|YES|on|ON) return 0 ;;
+    *) return 1 ;;
+  esac
+}
 
 is_private_ipv4() {
   local ip="$1"
@@ -148,9 +158,10 @@ check_prerequisites() {
 
   if [[ -z "$START_COMMAND" ]]; then
     [[ -f "$PROJECT_DIR/apps/server/package.json" &&
+       -f "$PROJECT_DIR/apps/web-display/package.json" &&
        -f "$PROJECT_DIR/apps/web-host/package.json" &&
        -f "$PROJECT_DIR/apps/web-player/package.json" ]] ||
-      die "Projektstruktur fuer Server/Web-Host/Web-Player nicht gefunden."
+      die "Projektstruktur fuer Server/Web-Display/Web-Host/Web-Player nicht gefunden."
   fi
 }
 
@@ -226,7 +237,7 @@ stop_pid() {
 }
 
 ensure_ports_free() {
-  local ports=("$PORT" "$HOST_WEB_PORT" "$PLAYER_WEB_PORT")
+  local ports=("$PORT" "$DISPLAY_WEB_PORT" "$HOST_WEB_PORT" "$PLAYER_WEB_PORT")
   local port pid
   local -a pids
 
@@ -374,7 +385,7 @@ configure_ufw() {
   info "UFW ist aktiv; gebe nur die Spielports auf $WIFI_IFACE frei"
 
   local port output
-  for port in "$PORT" "$HOST_WEB_PORT" "$PLAYER_WEB_PORT"; do
+  for port in "$PORT" "$DISPLAY_WEB_PORT" "$HOST_WEB_PORT" "$PLAYER_WEB_PORT"; do
     output="$(sudo ufw allow in on "$WIFI_IFACE" proto tcp to any port "$port" comment "geburtstagsquiz local" 2>&1)" ||
       die "UFW-Regel fuer Port $port konnte nicht gesetzt werden: $output"
 
@@ -408,14 +419,18 @@ start_game_servers() {
 
   export HOST="0.0.0.0"
   export PORT
+  export SERVER_PORT
   export VITE_PUBLIC_HOST="$HOTSPOT_IP"
   export VITE_SERVER_PORT="$PORT"
+  export VITE_HOST_PORT="$HOST_WEB_PORT"
   export VITE_PLAYER_PORT="$PLAYER_WEB_PORT"
+  export ALLOWED_ORIGINS="${ALLOWED_ORIGINS:-http://localhost:$HOST_WEB_PORT,http://localhost:$PLAYER_WEB_PORT,http://localhost:$DISPLAY_WEB_PORT,http://127.0.0.1:$HOST_WEB_PORT,http://127.0.0.1:$PLAYER_WEB_PORT,http://127.0.0.1:$DISPLAY_WEB_PORT,http://$HOTSPOT_IP:$HOST_WEB_PORT,http://$HOTSPOT_IP:$PLAYER_WEB_PORT,http://$HOTSPOT_IP:$DISPLAY_WEB_PORT,https://tv.quiz.disaai.de,https://host.quiz.disaai.de,https://play.quiz.disaai.de}"
 
   if [[ -n "$START_COMMAND" ]]; then
     start_one "game" "$START_COMMAND"
   else
     start_one "server" "corepack pnpm --filter @quiz/server run dev"
+    start_one "web-display" "corepack pnpm --filter @quiz/web-display run dev -- --host 0.0.0.0 --port $DISPLAY_WEB_PORT --strictPort"
     start_one "web-host" "corepack pnpm --filter @quiz/web-host run dev -- --host 0.0.0.0 --port $HOST_WEB_PORT --strictPort"
     start_one "web-player" "corepack pnpm --filter @quiz/web-player run dev -- --host 0.0.0.0 --port $PLAYER_WEB_PORT --strictPort"
   fi
@@ -492,15 +507,21 @@ main() {
   start_game_servers
   start_hotspot_watchdog
 
+  local display_url="http://$HOTSPOT_IP:$DISPLAY_WEB_PORT"
   local host_url="http://$HOTSPOT_IP:$HOST_WEB_PORT"
   local player_url="http://$HOTSPOT_IP:$PLAYER_WEB_PORT"
   local server_url="http://$HOTSPOT_IP:$PORT"
 
   wait_http "Server" "$server_url"
+  wait_http "Display-UI" "$display_url"
   wait_http "Host-UI" "$host_url"
   wait_http "Player-UI" "$player_url"
 
-  if [[ "$OPEN_HOST_BROWSER" == "1" ]] && command -v xdg-open >/dev/null 2>&1; then
+  if is_enabled "$OPEN_DISPLAY_BROWSER" && command -v xdg-open >/dev/null 2>&1; then
+    xdg-open "$display_url" >/dev/null 2>&1 || true
+  fi
+
+  if is_enabled "$OPEN_HOST_BROWSER" && command -v xdg-open >/dev/null 2>&1; then
     xdg-open "$host_url" >/dev/null 2>&1 || true
   fi
 
@@ -512,6 +533,7 @@ main() {
   printf "WLAN-Interface:    %s\n" "$WIFI_IFACE"
   printf "Lokale IP:         %s\n" "$HOTSPOT_IP"
   printf "Server-Port:       %s\n" "$PORT"
+  printf "Display-URL:       %s\n" "$display_url"
   printf "Host-URL:          %s\n" "$host_url"
   printf "Spieler-URL:       %s\n" "$player_url"
   printf "Healthcheck:       curl %s\n" "$server_url"
@@ -521,7 +543,7 @@ main() {
 
   print_qr_if_available "$player_url"
 
-  printf "\nHinweis: Raum im Host-Browser erstellen; der Hostscreen zeigt danach den Join-QR mit Raumcode.\n"
+  printf "\nHinweis: Raum im Display-Browser erstellen; das Display zeigt danach Host- und Spieler-QRs.\n"
   printf "Terminal offen lassen. Ctrl+C stoppt Server und Hotspot sauber.\n"
 
   while true; do

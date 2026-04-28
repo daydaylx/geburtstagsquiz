@@ -15,7 +15,7 @@ import {
   type ScoreUpdatePayload,
 } from "@quiz/shared-protocol";
 import { GameState, QuestionType, RoomState } from "@quiz/shared-types";
-import { getReconnectDelay, getWebSocketProtocol } from "@quiz/shared-utils";
+import { getReconnectDelay, getWebSocketProtocol, isLoopbackHostname } from "@quiz/shared-utils";
 
 import {
   clearDisplayStoredSession,
@@ -43,15 +43,38 @@ function getPublicHost(): string {
   return getViteEnv("VITE_PUBLIC_HOST") ?? window.location.hostname;
 }
 
+function applyFallbackUiOrigin(
+  url: URL,
+  targetSubdomain: "host" | "play",
+  portEnvName: string,
+  defaultLocalPort: string,
+): void {
+  url.hostname = getPublicHost();
+
+  const explicitPort = getViteEnv(portEnvName);
+  if (explicitPort) {
+    url.port = explicitPort;
+    return;
+  }
+
+  if (isLoopbackHostname(url.hostname)) {
+    url.port = defaultLocalPort;
+    return;
+  }
+
+  const labels = url.hostname.split(".");
+  if (labels.length > 2 && ["tv", "host", "play"].includes(labels[0])) {
+    url.hostname = [targetSubdomain, ...labels.slice(1)].join(".");
+  }
+  url.port = "";
+}
+
 function getServerSocketUrl(): string {
   const envUrl = getViteEnv("VITE_SERVER_SOCKET_URL");
   if (envUrl) return envUrl;
 
-  const url = new URL(window.location.href);
-  url.hostname = getPublicHost();
+  const url = new URL("/ws", window.location.href);
   url.protocol = getWebSocketProtocol(window.location.protocol);
-  url.port = getViteEnv("VITE_SERVER_PORT") ?? "3001";
-  url.pathname = "/";
   return url.toString();
 }
 
@@ -64,8 +87,7 @@ function getPlayerJoinUrl(joinCode: string): string {
   }
 
   const url = new URL(window.location.href);
-  url.hostname = getPublicHost();
-  url.port = getViteEnv("VITE_PLAYER_PORT") ?? "5174";
+  applyFallbackUiOrigin(url, "play", "VITE_PLAYER_PORT", "5174");
   url.pathname = "/";
   url.search = new URLSearchParams({ joinCode }).toString();
   return url.toString();
@@ -80,8 +102,7 @@ function getHostJoinUrl(hostToken: string): string {
   }
 
   const url = new URL(window.location.href);
-  url.hostname = getPublicHost();
-  url.port = getViteEnv("VITE_HOST_PORT") ?? "5173";
+  applyFallbackUiOrigin(url, "host", "VITE_HOST_PORT", "5173");
   url.pathname = "/";
   url.search = new URLSearchParams({ hostToken }).toString();
   return url.toString();

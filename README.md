@@ -51,7 +51,8 @@ Wenn etwas technisch schoen klingt, aber fuer den Abend keinen direkten Nutzen h
 geburtstagsquiz/
 |- apps/
 |  |- server/       # Raum, Spielstatus, Timer, Auswertung
-|  |- web-host/     # Hostscreen auf Laptop/TV
+|  |- web-display/  # Display/TV-Screen fuer Publikum und QR-Codes
+|  |- web-host/     # Host-Controller
 |  `- web-player/   # Spieleroberflaeche auf dem Handy
 |- packages/
 |  |- quiz-engine/      # Auswertung und Score-Logik
@@ -85,7 +86,7 @@ Der Server-Dev-Start nutzt `node --watch --import tsx`, damit kein separater `ts
 corepack pnpm --filter @quiz/server run dev:tsx
 ```
 
-Fuer den Abendbetrieb gibt es ein Startskript, das alte Projektprozesse auf den Ports `3001`, `5173` und `5174` zuerst sauber stoppt und dann Hotspot, Server, Host-UI und Player-UI neu hochzieht:
+Fuer den Abendbetrieb gibt es ein Startskript, das alte Projektprozesse auf den Ports `3001`, `5173`, `5174` und `5175` zuerst sauber stoppt und dann Hotspot, Server, Display-UI, Host-UI und Player-UI neu hochzieht:
 
 ```bash
 ./start_local_game_host.sh
@@ -105,7 +106,7 @@ Fuer den einfachsten Abend-Start gibt es einen Wrapper mit sinnvollen Defaults:
 ./start_quiz.sh
 ```
 
-Der Wrapper oeffnet den Host-Browser und macht die Zielports vorab frei.
+Der Wrapper oeffnet standardmaessig den Display-Browser und macht die Zielports vorab frei.
 
 Stoppen geht dann genauso einfach:
 
@@ -115,9 +116,30 @@ Stoppen geht dann genauso einfach:
 
 Standard-URLs:
 
-- Server: `ws://localhost:3001`
+- Server/Health: `http://localhost:3001/health`
+- WebSocket direkt: `ws://localhost:3001`
+- Display/TV: `http://localhost:5175`
 - Host: `http://localhost:5173`
 - Player: `http://localhost:5174`
+
+Fuer einen lokalen Protokoll-Smoke-Test bei laufendem Server:
+
+```bash
+corepack pnpm run smoke:local
+```
+
+Der Test erstellt einen Display-Raum, koppelt den Host, joined zwei Player, startet eine Runde, sendet Antworten und wartet auf Reveal, Scoreboard und Resume-Snapshots.
+
+## Cloudflare Tunnel
+
+Der Laptop bleibt der Server. Cloudflare Tunnel ist nur die oeffentliche Verbindung fuer feste Subdomains:
+
+- `https://tv.quiz.disaai.de` -> `localhost:5175`
+- `https://host.quiz.disaai.de` -> `localhost:5173`
+- `https://play.quiz.disaai.de` -> `localhost:5174`
+- `wss://api.quiz.disaai.de` -> `localhost:3001`
+
+Details stehen in `docs/DEPLOYMENT-CLOUDFLARE-TUNNEL.md`. Die Beispielconfig liegt in `deploy/cloudflare-tunnel.example.yml`; echte `.cloudflared/`-Configs und Credentials gehoeren nicht ins Repo.
 
 ## Quizfragen lokal reviewen
 
@@ -143,6 +165,7 @@ Das Original-JSON wird nicht veraendert. Der Review-Zustand wird als `review_sta
 ## Relevante Doku
 
 - `docs/architecture.md` fuer die pragmatische Zielarchitektur
+- `docs/DEPLOYMENT-CLOUDFLARE-TUNNEL.md` fuer lokalen Betrieb mit Cloudflare Tunnel
 - `docs/event-protocol.md` fuer die aktiven WebSocket-Events
 - `docs/state-machine.md` fuer die tatsaechlich genutzten Zustaende
 - `docs/IMPLEMENTATION.md` fuer den realistischen Bau- und Testplan

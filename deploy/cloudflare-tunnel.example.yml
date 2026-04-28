@@ -1,0 +1,17 @@
+tunnel: <TUNNEL_ID>
+credentials-file: /home/<user>/.cloudflared/<TUNNEL_ID>.json
+
+ingress:
+  - hostname: tv.quiz.disaai.de
+    service: http://localhost:5175
+
+  - hostname: host.quiz.disaai.de
+    service: http://localhost:5173
+
+  - hostname: play.quiz.disaai.de
+    service: http://localhost:5174
+
+  - hostname: api.quiz.disaai.de
+    service: http://localhost:3001
+
+  - service: http_status:404

@@ -2,11 +2,13 @@
   "name": "quiz-dual-screen",
   "private": true,
   "type": "module",
+  "packageManager": "pnpm@10.33.1",
   "scripts": {
     "dev": "corepack pnpm -r --parallel run dev",
     "build": "corepack pnpm -r run build",
     "typecheck": "corepack pnpm -r run typecheck",
     "review:questions": "node tools/question-review/server.mjs",
+    "smoke:local": "node scripts/smoke-local-game.mjs",
     "test": "vitest run"
   },
   "devDependencies": {
