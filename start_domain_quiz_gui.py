@@ -9,6 +9,7 @@ import signal
 import sys
 import threading
 import time
+import queue
 
 # --- Konfiguration ---
 DOMAIN = "quiz.disaai.de"
@@ -29,9 +30,13 @@ class QuizGui:
 
         self.processes = []
         self.is_running = True
+        self.log_queue = queue.Queue()
 
         self.setup_ui()
-        self.start_all()
+        self.check_queue()
+        
+        # Starten in einem separaten Thread, damit die GUI sofort da ist
+        threading.Thread(target=self.start_all, daemon=True).start()
 
     def setup_ui(self):
         # Header
@@ -42,8 +47,6 @@ class QuizGui:
         qr_container = ttk.Frame(self.root)
         qr_container.pack(fill=tk.BOTH, expand=True, padx=20, pady=10)
 
-        self.qr_labels = {}
-        
         # TV QR
         self.create_qr_widget(qr_container, "TV / Display", f"https://tv.{DOMAIN}", 0)
         # Host QR
@@ -71,22 +74,32 @@ class QuizGui:
 
         ttk.Label(frame, text=label_text, font=("Helvetica", 11, "bold")).pack()
         
-        # QR Code generieren
         qr = qrcode.QRCode(version=1, box_size=6, border=2)
         qr.add_data(url)
         qr.make(fit=True)
         img = qr.make_image(fill_color="black", back_color="white")
         
-        # PIL Image zu Tkinter PhotoImage konvertieren
         photo = ImageTk.PhotoImage(img)
-        
         lbl = ttk.Label(frame, image=photo)
-        lbl.image = photo # Referenz behalten!
+        lbl.image = photo 
         lbl.pack(pady=5)
         
-        ttk.Label(frame, text=url, font=("Helvetica", 8), foreground="blue", cursor="hand2").pack()
+        ttk.Label(frame, text=url, font=("Helvetica", 8), foreground="blue").pack()
 
     def log(self, message):
+        self.log_queue.put(message)
+
+    def check_queue(self):
+        try:
+            while True:
+                msg = self.log_queue.get_nowait()
+                self._do_log(msg)
+        except queue.Empty:
+            pass
+        if self.is_running:
+            self.root.after(100, self.check_queue)
+
+    def _do_log(self, message):
         self.log_text.configure(state='normal')
         self.log_text.insert(tk.END, f"[{time.strftime('%H:%M:%S')}] {message}\n")
         self.log_text.see(tk.END)
@@ -95,7 +108,6 @@ class QuizGui:
     def start_all(self):
         env = os.environ.copy()
         
-        # Vorher aufräumen: Bestehende Prozesse auf den Ports killen
         self.log("Bereinige Ports (3001, 5173, 5174, 5175)...")
         try:
             subprocess.run(["fuser", "-k", "3001/tcp", "5173/tcp", "5174/tcp", "5175/tcp"], 
@@ -104,60 +116,83 @@ class QuizGui:
             pass
         time.sleep(1)
 
-        # .env.production laden falls vorhanden
         if os.path.exists(".env.production"):
             with open(".env.production", "r") as f:
                 for line in f:
-                    if line.strip() and not line.startswith("#"):
-                        key, value = line.strip().split("=", 1)
+                    line = line.strip()
+                    if line and not line.startswith("#") and "=" in line:
+                        key, value = line.split("=", 1)
                         env[key] = value
 
         self.log("Starte Dienste...")
         for svc in SERVICES:
-            p = subprocess.Popen(svc["cmd"].split(), 
-                               stdout=subprocess.PIPE, 
-                               stderr=subprocess.STDOUT, 
-                               env=env,
-                               text=True,
-                               bufsize=1)
-            self.processes.append((svc["name"], p))
-            threading.Thread(target=self.pipe_output, args=(svc["name"], p), daemon=True).start()
+            try:
+                p = subprocess.Popen(svc["cmd"].split(), 
+                                   stdout=subprocess.PIPE, 
+                                   stderr=subprocess.STDOUT, 
+                                   env=env,
+                                   text=True,
+                                   bufsize=1)
+                self.processes.append((svc["name"], p))
+                threading.Thread(target=self.pipe_output, args=(svc["name"], p), daemon=True).start()
+            except Exception as e:
+                self.log(f"Fehler beim Starten von {svc['name']}: {e}")
 
-        # Tunnel separat starten
         self.log(f"Starte Tunnel '{TUNNEL_NAME}'...")
-        tp = subprocess.Popen(["cloudflared", "tunnel", "run", TUNNEL_NAME],
-                            stdout=subprocess.PIPE,
-                            stderr=subprocess.STDOUT,
-                            env=env,
-                            text=True,
-                            bufsize=1)
-        self.processes.append(("Tunnel", tp))
-        threading.Thread(target=self.pipe_output, args=("Tunnel", tp), daemon=True).start()
+        try:
+            config_path = os.path.join(os.getcwd(), ".cloudflared", "config.yml")
+            cmd = ["cloudflared", "tunnel", "--config", config_path, "run", TUNNEL_NAME]
+            if not os.path.exists(config_path):
+                self.log(f"WARNUNG: Tunnel-Config nicht gefunden unter {config_path}")
+                cmd = ["cloudflared", "tunnel", "run", TUNNEL_NAME] # Fallback
+            
+            tp = subprocess.Popen(cmd,
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.STDOUT,
+                                env=env,
+                                text=True,
+                                bufsize=1)
+            self.processes.append(("Tunnel", tp))
+            threading.Thread(target=self.pipe_output, args=("Tunnel", tp), daemon=True).start()
+        except Exception as e:
+            self.log(f"Fehler beim Starten des Tunnels: {e}")
 
     def pipe_output(self, name, process):
-        for line in iter(process.stdout.readline, ""):
-            if not self.is_running: break
-            # Filtere etwas Rauschen aus den Logs
-            if any(x in line.lower() for x in ["ready", "started", "connected", "error", "inf"]):
-                self.log(f"{name}: {line.strip()}")
-        process.stdout.close()
+        try:
+            for line in iter(process.stdout.readline, ""):
+                if not self.is_running: break
+                line = line.strip()
+                if any(x in line.lower() for x in ["ready", "started", "connected", "error", "inf", "failed", "wrn"]):
+                    self.log(f"{name}: {line}")
+            process.stdout.close()
+        except:
+            pass
 
     def on_closing(self):
         self.is_running = False
         self.log("Stoppe alle Prozesse...")
         for name, p in self.processes:
-            p.terminate()
+            try:
+                p.terminate()
+            except:
+                pass
         
-        # Kurz warten auf sauberes Ende, dann hart killen falls nötig
         time.sleep(1)
         for name, p in self.processes:
             if p.poll() is None:
-                p.kill()
+                try:
+                    p.kill()
+                except:
+                    pass
         
         self.root.destroy()
         sys.exit(0)
 
 if __name__ == "__main__":
-    root = tk.Tk()
-    app = QuizGui(root)
-    root.mainloop()
+    try:
+        root = tk.Tk()
+        app = QuizGui(root)
+        root.mainloop()
+    except Exception as e:
+        print(f"FATAL ERROR: {e}")
+        sys.exit(1)

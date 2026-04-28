@@ -16,9 +16,12 @@ export function sendToDisplay<TEvent extends ServerToClientEventName>(
   event: TEvent,
   payload: ServerToClientEventPayloadMap[TEvent],
 ): void {
-  if (!room.displaySessionId) return;
-  const displaySession = sessionsById.get(room.displaySessionId);
-  sendEvent(displaySession?.socket, event, payload);
+  if (room.displaySessionId) {
+    const displaySession = sessionsById.get(room.displaySessionId);
+    if (displaySession?.socket) {
+      sendEvent(displaySession.socket, event, payload);
+    }
+  }
 }
 
 export function sendToHost<TEvent extends ServerToClientEventName>(
@@ -26,9 +29,12 @@ export function sendToHost<TEvent extends ServerToClientEventName>(
   event: TEvent,
   payload: ServerToClientEventPayloadMap[TEvent],
 ): void {
-  if (!room.hostSessionId) return;
-  const hostSession = sessionsById.get(room.hostSessionId);
-  sendEvent(hostSession?.socket, event, payload);
+  if (room.hostSessionId) {
+    const hostSession = sessionsById.get(room.hostSessionId);
+    if (hostSession?.socket) {
+      sendEvent(hostSession.socket, event, payload);
+    }
+  }
 }
 
 export function sendToPlayers<TEvent extends ServerToClientEventName>(
@@ -41,7 +47,9 @@ export function sendToPlayers<TEvent extends ServerToClientEventName>(
   for (const player of room.players) {
     if (excludedSessions.has(player.sessionId)) continue;
     const session = sessionsById.get(player.sessionId);
-    sendEvent(session?.socket, event, payload);
+    if (session?.socket) {
+      sendEvent(session.socket, event, payload);
+    }
   }
 }
 
@@ -63,23 +71,14 @@ export function broadcastToAllRoomClients<TEvent extends ServerToClientEventName
   const excludedSessions = options?.excludeSessionIds ?? new Set<string>();
 
   if (room.hostSessionId && !excludedSessions.has(room.hostSessionId)) {
-    const hostSession = sessionsById.get(room.hostSessionId);
-    sendEvent(hostSession?.socket, event, payload);
+    sendToHost(room, event, payload);
   }
 
   if (room.displaySessionId && !excludedSessions.has(room.displaySessionId)) {
-    const displaySession = sessionsById.get(room.displaySessionId);
-    sendEvent(displaySession?.socket, event, payload);
+    sendToDisplay(room, event, payload);
   }
 
-  for (const player of room.players) {
-    if (excludedSessions.has(player.sessionId)) {
-      continue;
-    }
-
-    const session = sessionsById.get(player.sessionId);
-    sendEvent(session?.socket, event, payload);
-  }
+  sendToPlayers(room, event, payload, options);
 }
 
 function getCurrentQuestion(room: RoomRecord): Question | null {

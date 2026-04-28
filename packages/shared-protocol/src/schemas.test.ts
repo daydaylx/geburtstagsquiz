@@ -536,17 +536,16 @@ describe("parseServerToClientEnvelope", () => {
 });
 
 describe("serializeEnvelope roundtrip", () => {
-  it("roundtrips a room:create payload through serialize and parse", () => {
+  it("roundtrips a display:create-room payload through serialize and parse", () => {
     const payload = {
-      hostName: "Host",
       clientInfo: { deviceType: "browser", appVersion: "0.0.1" },
     };
-    const serialized = serializeEnvelope(EVENTS.ROOM_CREATE, payload);
+    const serialized = serializeEnvelope(EVENTS.DISPLAY_CREATE_ROOM, payload);
     const result = parseClientToServerEnvelope(serialized);
 
     expect(result.success).toBe(true);
     if (result.success) {
-      expect(result.data.event).toBe(EVENTS.ROOM_CREATE);
+      expect(result.data.event).toBe(EVENTS.DISPLAY_CREATE_ROOM);
       expect(result.data.payload).toEqual(payload);
     }
   });

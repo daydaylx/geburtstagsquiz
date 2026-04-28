@@ -10,7 +10,7 @@ import { HEARTBEAT_INTERVAL_MS, HOST, PORT, isOriginAllowed } from "./config.js"
 import { PROTOCOL_ERROR_CODES, sendEvent, sendProtocolError } from "./protocol.js";
 import type { TrackedWebSocket } from "./server-types.js";
 import { roomsById, sessionsById } from "./state.js";
-import { toKnownEventName, createRoom, closeRoom, handleDisplayCreateRoom } from "./room.js";
+import { toKnownEventName, closeRoom, handleDisplayCreateRoom } from "./room.js";
 import {
   handleRoomJoin,
   handleConnectionResume,
@@ -213,10 +213,6 @@ function handleSocketMessage(socket: TrackedWebSocket, rawMessage: string): void
 
     case EVENTS.HOST_CONNECT:
       handleHostConnect(socket, parsedEnvelope.data.payload);
-      return;
-
-    case EVENTS.ROOM_CREATE:
-      createRoom(socket, parsedEnvelope.data.payload);
       return;
 
     case EVENTS.ROOM_JOIN:

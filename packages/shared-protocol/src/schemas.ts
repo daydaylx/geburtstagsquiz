@@ -184,22 +184,6 @@ export const ConnectionResumedPayloadSchema = z
   })
   .strict();
 
-export const RoomCreatePayloadSchema = z
-  .object({
-    hostName: displayNameSchema,
-    clientInfo: ClientInfoSchema,
-  })
-  .strict();
-
-export const RoomCreatedPayloadSchema = z
-  .object({
-    roomId: idSchema,
-    joinCode: joinCodeSchema,
-    roomState: z.literal(RoomState.Waiting),
-    hostSessionId: idSchema,
-  })
-  .strict();
-
 export const RoomSettingsUpdatePayloadSchema = z
   .object({
     roomId: idSchema,
@@ -577,7 +561,6 @@ export const DISPLAY_TO_SERVER_EVENT_SCHEMAS = {
 export const HOST_TO_SERVER_EVENT_SCHEMAS = {
   [EVENTS.HOST_CONNECT]: HostConnectPayloadSchema,
   [EVENTS.CONNECTION_RESUME]: ConnectionResumePayloadSchema,
-  [EVENTS.ROOM_CREATE]: RoomCreatePayloadSchema,
   [EVENTS.ROOM_SETTINGS_UPDATE]: RoomSettingsUpdatePayloadSchema,
   [EVENTS.GAME_START]: GameStartPayloadSchema,
   [EVENTS.GAME_NEXT_QUESTION]: GameNextQuestionPayloadSchema,
@@ -620,7 +603,6 @@ export const SERVER_TO_HOST_EVENT_SCHEMAS = {
   [EVENTS.HOST_CONNECTED]: HostConnectedPayloadSchema,
   [EVENTS.CONNECTION_ACK]: ConnectionAckPayloadSchema,
   [EVENTS.CONNECTION_RESUMED]: ConnectionResumedPayloadSchema,
-  [EVENTS.ROOM_CREATED]: RoomCreatedPayloadSchema,
   [EVENTS.LOBBY_UPDATE]: LobbyUpdatePayloadSchema,
   [EVENTS.PLAYER_RECONNECTED]: PlayerReconnectedPayloadSchema,
   [EVENTS.PLAYER_DISCONNECTED]: PlayerDisconnectedPayloadSchema,
@@ -672,8 +654,6 @@ export type DisplayRoomCreatedPayload = z.infer<typeof DisplayRoomCreatedPayload
 export type DisplayHostPairedPayload = z.infer<typeof DisplayHostPairedPayloadSchema>;
 export type HostConnectPayload = z.infer<typeof HostConnectPayloadSchema>;
 export type HostConnectedPayload = z.infer<typeof HostConnectedPayloadSchema>;
-export type RoomCreatePayload = z.infer<typeof RoomCreatePayloadSchema>;
-export type RoomCreatedPayload = z.infer<typeof RoomCreatedPayloadSchema>;
 export type RoomSettingsUpdatePayload = z.infer<typeof RoomSettingsUpdatePayloadSchema>;
 export type RoomJoinPayload = z.infer<typeof RoomJoinPayloadSchema>;
 export type PlayerJoinedPayload = z.infer<typeof PlayerJoinedPayloadSchema>;
