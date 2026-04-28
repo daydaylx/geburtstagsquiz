@@ -9,7 +9,7 @@ import {
 import { PROTOCOL_ERROR_CODES, sendProtocolError } from "./protocol.js";
 import type { RoomRecord, TrackedWebSocket } from "./server-types.js";
 import { roomsById, sessionsById, logRoomEvent } from "./state.js";
-import { broadcastToRoom } from "./connection.js";
+import { sendToHost, sendToPlayers } from "./connection.js";
 import { closeRoom, removePlayerFromRoom } from "./room.js";
 import { broadcastLobbyUpdate } from "./lobby.js";
 import { handleAnswerEligibilityChanged, handleScoreboardReadinessChanged } from "./game.js";
@@ -110,12 +110,14 @@ export function handleSocketClose(socket: TrackedWebSocket): void {
     playerId: player.id,
   });
 
-  broadcastToRoom(room, EVENTS.PLAYER_DISCONNECTED, {
+  const disconnectedPayload = {
     roomId: room.id,
     playerId: player.id,
     playerState: PlayerState.Disconnected,
     connected: false,
-  });
+  } as const;
+  sendToHost(room, EVENTS.PLAYER_DISCONNECTED, disconnectedPayload);
+  sendToPlayers(room, EVENTS.PLAYER_DISCONNECTED, disconnectedPayload);
 
   broadcastLobbyUpdate(room);
   handleAnswerEligibilityChanged(room);

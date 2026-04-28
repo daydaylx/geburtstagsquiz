@@ -8,15 +8,15 @@ Es geht nicht um Produkt-Compliance, Cloud-Betrieb oder grosse Lastszenarien, so
 
 ## Wichtige Risiken und pragmatische Entscheidungen
 
-| Thema | Was praktisch schiefgehen kann | Entscheidung fuer dieses Repo |
-| --- | --- | --- |
-| Server-Neustart | Raum und Spielstand sind weg | akzeptiert; kein Persistenzsystem bauen, Server vor dem Abend nicht neu starten |
-| Schlechtes WLAN | Spieler verlieren kurz die Verbindung | Session-Resume und Grace-Zeiten nutzen, aber stabiles WLAN bevorzugen |
-| Host-Tab geht zu | gemeinsamer Ablauf steht | Host bekommt Grace-Zeit, aber kein grosses Pause-/Recovery-System |
-| Doppeltes Absenden | gleiche Antwort kommt mehrfach | Client sperrt nach Send, Server wertet nur die erste gueltige Antwort |
-| Spaete Antworten | Antwort kommt nach Timerende | Server sperrt bei `question:close`, spaete Antworten zaehlen nicht |
-| Mobile Browser | kleine Displays, Sleep, wechselnde Netzqualitaet | UI schlicht halten, echte Handytests wichtiger als mehr CSS-Effekte |
-| Zu grosser Scope | Zusatzideen verursachen neue Fehler | vor dem Abend Scope einfrieren und keine neuen Systeme beginnen |
+| Thema              | Was praktisch schiefgehen kann                   | Entscheidung fuer dieses Repo                                                   |
+| ------------------ | ------------------------------------------------ | ------------------------------------------------------------------------------- |
+| Server-Neustart    | Raum und Spielstand sind weg                     | akzeptiert; kein Persistenzsystem bauen, Server vor dem Abend nicht neu starten |
+| Schlechtes WLAN    | Spieler verlieren kurz die Verbindung            | Session-Resume und Grace-Zeiten nutzen, aber stabiles WLAN bevorzugen           |
+| Host-Tab geht zu   | gemeinsamer Ablauf steht                         | Host bekommt Grace-Zeit, aber kein grosses Pause-/Recovery-System               |
+| Doppeltes Absenden | gleiche Antwort kommt mehrfach                   | Client sperrt nach Send, Server wertet nur die erste gueltige Antwort           |
+| Spaete Antworten   | Antwort kommt nach Timerende                     | Server sperrt bei `question:close`, spaete Antworten zaehlen nicht              |
+| Mobile Browser     | kleine Displays, Sleep, wechselnde Netzqualitaet | UI schlicht halten, echte Handytests wichtiger als mehr CSS-Effekte             |
+| Zu grosser Scope   | Zusatzideen verursachen neue Fehler              | vor dem Abend Scope einfrieren und keine neuen Systeme beginnen                 |
 
 ## Was bewusst klein bleibt
 
@@ -49,9 +49,16 @@ Auch fuer ein Einmalprojekt sollten diese Punkte nicht aufgeweicht werden:
 
 ## Bekannte Altlasten und Architektur-Übergänge
 
-| Thema | Status | Risiko |
-| --- | --- | --- |
+| Thema              | Status                                                    | Risiko                                                                                                           |
+| ------------------ | --------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | Legacy Room Create | `room:create` existiert parallel zu `display:create-room` | Verwirrung in der Code-Wartung; es gibt zwei Wege einen Raum zu eröffnen. Der Display-Flow ist der primäre Pfad. |
+
+## Bewusste Sicherheitsentscheidungen (MVP-Kontext)
+
+| Thema                        | Verhalten                                                                                                                                                                                                                                      | Begründung                                                                                                                                             |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| hostToken im Display-Browser | `DISPLAY_ROOM_CREATED` gibt den `hostToken` an den Display-Client zurück. Der Token wird im Browser-State gehalten und in den QR-Code-URL eingebettet. Wer Zugriff auf den Display-Browser hat (DevTools, localStorage), kann den Token lesen. | Fuer einen Abendabend mit Vertrauenspersonen akzeptiert. Der QR-Code wird nur kurz sichtbar. Kein zusaetzlicher Schutz nötig fuer diesen Einsatzzweck. |
+| Reconnect ohne Secret        | `connection:resume` authentifiziert nur per `sessionId` + `roomId`. Kein zusaetzliches Secret oder Bearer-Token. Wer eine fremde `sessionId` kennt, kann die Session uebernehmen.                                                              | SessionIds sind zufaellige UUIDs. In einem lokalen WLAN ohne externe Angreifer ist dieses Risiko minimal. Fuer einen isolierten Abendabend akzeptiert. |
 
 ## Praktische Empfehlungen vor dem Abend
 

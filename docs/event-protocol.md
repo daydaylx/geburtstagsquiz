@@ -64,19 +64,24 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 | `connection:ack` | Server -> Client | Technische Socket-Bestaetigung | `connectionId`, `serverTime` |
 | `connection:resume` | Client -> Server | Bestehende Sitzung wieder aufnehmen | `sessionId`, `roomId` |
 | `connection:resumed` | Server -> Client | Resume bestaetigt | `role`, `roomId`, `roomState`, optional `gameState`, `sessionId`, `joinCode`, optional `playerId`, optional `playerState`, optional `currentAnswer` |
+| `display:create-room` | Display -> Server | Primaeren 3-UI-Raum anlegen | optional `clientInfo` |
+| `display:room-created` | Server -> Display | Display-Raum wurde erstellt | `roomId`, `displaySessionId`, `displayToken`, `joinCode`, `hostToken` |
+| `display:host-paired` | Server -> Display | Host wurde mit Display-Raum verbunden | `hostConnected` |
+| `host:connect` | Host -> Server | Host per Display-Token verbinden | `hostToken`, optional `clientInfo` |
+| `host:connected` | Server -> Host | Host-Verbindung bestaetigt | `roomId`, `hostSessionId`, `joinCode`, `roomState`, optional `gameState` |
 | `room:create` | Host -> Server | Neuen Raum anlegen | `hostName`, `clientInfo` |
 | `room:created` | Server -> Host | Raum wurde erstellt | `roomId`, `joinCode`, `roomState`, `hostSessionId` |
 | `room:settings:update` | Host -> Server | Lobby-Einstellungen setzen | `roomId`, `showAnswerTextOnPlayerDevices` |
 | `room:join` | Player -> Server | Raum per Join-Code betreten | `joinCode`, `playerName`, optional `sessionId` |
 | `player:joined` | Server -> Player | Join bestaetigt | `roomId`, `playerId`, `sessionId`, `playerState`, `roomState` |
 | `room:close` | Host -> Server | Raum beenden | `roomId` |
-| `room:closed` | Server -> Host/Player | Raum ist endgueltig zu | `roomId`, `roomState` |
+| `room:closed` | Server -> Display/Host/Player | Raum ist endgueltig zu | `roomId`, `roomState` |
 
 ### Lobby und Verbindungssicht
 
 | Event | Richtung | Zweck | Kernfelder |
 | --- | --- | --- | --- |
-| `lobby:update` | Server -> Host/Player | Autoritativer Lobby-Snapshot | `roomId`, `roomState`, `hostConnected`, `settings`, `players`, `playerCount` |
+| `lobby:update` | Server -> Display/Host/Player | Autoritativer Lobby-Snapshot ohne Tokens | `roomId`, `roomState`, `hostConnected`, `displayConnected`, `settings`, `players`, `playerCount` |
 | `player:reconnected` | Server -> Host/Player | Bisheriger Spieler ist wieder da | `roomId`, `playerId`, `playerState`, `connected` |
 | `player:disconnected` | Server -> Host/Player | Spieler ist temporaer weg | `roomId`, `playerId`, `playerState`, `connected` |
 
@@ -85,21 +90,21 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 | Event | Richtung | Zweck | Kernfelder |
 | --- | --- | --- | --- |
 | `game:start` | Host -> Server | Quiz starten | `roomId` |
-| `game:started` | Server -> Host/Player | Spiel ist gestartet | `roomId`, `roomState`, `gameState`, `questionIndex`, `totalQuestionCount` |
-| `question:show` | Server -> Host | Vollstaendige Frage freigeben | `roomId`, `questionId`, `questionIndex`, `totalQuestionCount`, `type`, `text`, je nach Typ `options`/`items`/`unit`/`context`, `durationMs`, `gameState` |
+| `game:started` | Server -> Display/Host/Player | Spiel ist gestartet | `roomId`, `roomState`, `gameState`, `questionIndex`, `totalQuestionCount` |
+| `question:show` | Server -> Display/Host | Vollstaendige Frage freigeben | `roomId`, `questionId`, `questionIndex`, `totalQuestionCount`, `type`, `text`, je nach Typ `options`/`items`/`unit`/`context`, `durationMs`, `gameState` |
 | `question:controller` | Server -> Player | Reduzierte Controller-Daten freigeben | `roomId`, `questionId`, `questionIndex`, `totalQuestionCount`, `type`, je nach Typ Options-/Item-IDs, optional Antworttexte oder `unit`, `durationMs`, `gameState` |
-| `question:timer` | Server -> Host/Player | Verbleibende Fragezeit anzeigen | `roomId`, `questionId`, `remainingMs` |
+| `question:timer` | Server -> Display/Host/Player | Verbleibende Fragezeit anzeigen | `roomId`, `questionId`, `remainingMs` |
 | `answer:submit` | Player -> Server | Antwort auf aktive Frage senden | `roomId`, `questionId`, `playerId`, `answer`, `requestId` |
 | `answer:accepted` | Server -> Player | Antwort wurde gespeichert | `roomId`, `questionId`, `playerId`, `status` |
 | `answer:rejected` | Server -> Player | Antwort wurde nicht gewertet | `roomId`, `questionId`, `playerId`, `status`, `reason` |
-| `answer:progress` | Server -> Host | Anzahl eingegangener Antworten | `roomId`, `questionId`, `answeredCount`, `totalEligiblePlayers` |
-| `question:close` | Server -> Host/Player | Frage ist gesperrt | `roomId`, `questionId`, `gameState` |
-| `question:reveal` | Server -> Host/Player | Richtige Antwort und Rundenergebnisse zeigen | `roomId`, `questionId`, `correctAnswer`, `playerResults`, `gameState` |
-| `score:update` | Server -> Host/Player | Punktestand nach der Runde | `roomId`, `questionId`, `scoreboard`, `gameState` |
+| `answer:progress` | Server -> Display/Host | Anzahl eingegangener Antworten | `roomId`, `questionId`, `answeredCount`, `totalEligiblePlayers` |
+| `question:close` | Server -> Display/Host/Player | Frage ist gesperrt | `roomId`, `questionId`, `gameState` |
+| `question:reveal` | Server -> Display/Host/Player | Richtige Antwort und Rundenergebnisse zeigen | `roomId`, `questionId`, `correctAnswer`, `playerResults`, `gameState`, optional `explanation` |
+| `score:update` | Server -> Display/Host/Player | Punktestand nach der Runde | `roomId`, `questionId`, `scoreboard`, `gameState` |
 | `next-question:ready` | Player -> Server | Spieler ist nach der Rangliste bereit fuer die naechste Frage | `roomId`, `questionId`, `playerId` |
-| `next-question:ready-progress` | Server -> Host/Player | Bereitschaft fuer die naechste Frage anzeigen | `roomId`, `questionId`, `readyCount`, `totalEligiblePlayers`, `readyPlayerIds`, `gameState` |
+| `next-question:ready-progress` | Server -> Display/Host/Player | Bereitschaft fuer die naechste Frage anzeigen | `roomId`, `questionId`, `readyCount`, `totalEligiblePlayers`, `readyPlayerIds`, `gameState` |
 | `game:next-question` | Host -> Server | Host-Override zum Wechseln nach der Rangliste | `roomId` |
-| `game:finished` | Server -> Host/Player | Quiz ist zu Ende | `roomId`, `roomState`, `gameState`, `totalQuestionCount`, `finalScoreboard` |
+| `game:finished` | Server -> Display/Host/Player | Quiz ist zu Ende | `roomId`, `roomState`, `gameState`, `totalQuestionCount`, `finalScoreboard` |
 
 ### Fehler
 
@@ -152,17 +157,19 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 ### Raum erstellen und joinen
 
 1. Server sendet `connection:ack`
-2. Host sendet `room:create`
-3. Server sendet `room:created`
-4. Player sendet `room:join`
-5. Server sendet `player:joined`
-6. Server verteilt `lobby:update`
+2. Display sendet `display:create-room`
+3. Server sendet `display:room-created`
+4. Host sendet `host:connect`
+5. Server sendet `host:connected`
+6. Player sendet `room:join`
+7. Server sendet `player:joined`
+8. Server verteilt `lobby:update`
 
 ### Spielrunde
 
 1. Host sendet `game:start`
 2. Server sendet `game:started`
-3. Server sendet `question:show` an den Host und `question:controller` an Player
+3. Server sendet `question:show` an Display und Host und `question:controller` an Player
 4. Server sendet waehrenddessen `question:timer`
 5. Player senden `answer:submit`
 6. Server antwortet mit `answer:accepted` oder `answer:rejected`

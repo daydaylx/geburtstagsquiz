@@ -47,7 +47,7 @@
     },
     "stats": {
       "total_categories": 10,
-      "total_questions": 282,
+      "total_questions": 220,
       "engine_question_type": "multiple_choice",
       "generated_options_per_question": 4
     },
@@ -68,7 +68,7 @@
         "slug": "harry-potter-nur-filme-harter-schwierigkeitsgrad",
         "name": "Harry Potter (Nur Filme, harter Schwierigkeitsgrad)",
         "intro": "Ihr habt die Filme natürlich „alle oft gesehen“. Klar. Und trotzdem werdet ihr gleich mit dem Gesicht zuerst in euren eigenen Butterbier-Eimer fallen. Zeit für ein bisschen Realitätscheck.",
-        "question_count": 28,
+        "question_count": 25,
         "difficulty": "hard",
         "default_question_type": "multiple_choice",
         "default_points": 1,
@@ -530,31 +530,31 @@
           },
           {
             "id": "q-01-18-3959fe77b5",
-            "prompt": "Was ruft Hermine, als sie Draco in 'Der Gefangene von Askaban' eine verpasst?",
+            "prompt": "Was tut Hermine in 'Der Gefangene von Askaban', nachdem Draco sie und ihre Freunde provoziert?",
             "options": [
               {
                 "id": "q-01-18-3959fe77b5-opt-1",
-                "text": "„Das ist dafür, dass du so ein widerlicher...“",
+                "text": "Sie verpasst ihm eine Ohrfeige",
                 "is_correct": true
               },
               {
                 "id": "q-01-18-3959fe77b5-opt-2",
-                "text": "„Verschwinde aus meinem Sichtfeld!“",
+                "text": "Sie verhext ihn mit Stupor",
                 "is_correct": false
               },
               {
                 "id": "q-01-18-3959fe77b5-opt-3",
-                "text": "„Stupor!“",
+                "text": "Sie ruft Professor McGonagall",
                 "is_correct": false
               },
               {
                 "id": "q-01-18-3959fe77b5-opt-4",
-                "text": "„Das war für Buckbeak!“",
+                "text": "Sie zerbricht seinen Zauberstab",
                 "is_correct": false
               }
             ],
             "correct_option_id": "q-01-18-3959fe77b5-opt-1",
-            "explanation": "„...widerlicher, verlogener, feiger, kleiner Schabenfänger!“ (sinngemäß). Der befriedigendste Moment der Filmgeschichte. Endlich mal kein Zauberstab, sondern eine ehrliche Millennial-Backpfeife.",
+            "explanation": "Hermine droht Draco erst mit dem Zauberstab und gibt ihm dann eine Ohrfeige. Einer der seltenen Hogwarts-Momente ganz ohne Zauberspruch.",
             "difficulty": "hard",
             "category_id": "cat-01",
             "type": "multiple_choice",
@@ -840,874 +840,9 @@
         "slug": "sex-liebe-expliziter-bullshit",
         "name": "Sex, Liebe & expliziter Bullshit",
         "intro": "Jetzt wird’s erwachsen. Also pseudo-erwachsen: genug Halbwissen, um bei Tinder arrogant zu wirken, aber zu wenig, um peinliche Gespräche wirklich zu überleben. Millennial-Dating ist ein Schlachtfeld.",
-        "question_count": 29,
+        "question_count": 0,
         "difficulty": "medium_hard",
-        "questions": [
-          {
-            "id": "q-02-01-c95a802a2d",
-            "prompt": "Wofür steht BDSM im ersten Buchstabenpaar?",
-            "options": [
-              {
-                "id": "q-02-01-c95a802a2d-opt-1",
-                "text": "Bondage und Disziplin",
-                "is_correct": true
-              },
-              {
-                "id": "q-02-01-c95a802a2d-opt-2",
-                "text": "Brot und Dinkel-Sauerteig-Mischung",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-01-c95a802a2d-opt-3",
-                "text": "Baden und Duschen mit Seife",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-01-c95a802a2d-opt-4",
-                "text": "Besonders Dumme Sexuelle Momente",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-02-01-c95a802a2d-opt-1",
-            "explanation": "Es steht für Bondage & Discipline. Die Dinkel-Sauerteig-Mischung ist eher was für die Millennial-Sonntage in der Bio-Bäckerei, hat aber meist weniger Fesseln.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-02",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
-            "id": "q-02-02-fd211561d2",
-            "prompt": "Was bedeutet „Netflix & Chill“ im Internet-Slang meistens wirklich?",
-            "options": [
-              {
-                "id": "q-02-02-fd211561d2-opt-1",
-                "text": "Sexuelle Annäherung statt ernsthaft Serien schauen",
-                "is_correct": true
-              },
-              {
-                "id": "q-02-02-fd211561d2-opt-2",
-                "text": "Tatsächlich die komplette 5. Staffel 'The Crown' analysieren",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-02-fd211561d2-opt-3",
-                "text": "Einschlafen vor dem ersten Werbeblock",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-02-fd211561d2-opt-4",
-                "text": "Einen Streit darüber, wer das Passwort geändert hat",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-02-02-fd211561d2-opt-1",
-            "explanation": "Es ist der Code für 'Komm vorbei, wir tun so als würden wir einen Film gucken, aber eigentlich wollen wir Sex'. Wer wirklich chillen will, sollte das explizit sagen, sonst wird's peinlich.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-02",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
-            "id": "q-02-03-aa25aa79ee",
-            "prompt": "Was ist anatomisch gesehen die Klitoris hauptsächlich?",
-            "options": [
-              {
-                "id": "q-02-03-aa25aa79ee-opt-1",
-                "text": "Ein komplexes Schwellkörperorgan im Inneren",
-                "is_correct": true
-              },
-              {
-                "id": "q-02-03-aa25aa79ee-opt-2",
-                "text": "Nur der kleine sichtbare Punkt oben",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-03-aa25aa79ee-opt-3",
-                "text": "Ein Mythos aus alten Internetforen",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-03-aa25aa79ee-opt-4",
-                "text": "Ein Teil des Blinddarms",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-02-03-aa25aa79ee-opt-1",
-            "explanation": "Die Klitoris ist ein riesiges Organ, das sich weit ins Innere verzweigt. Wer sie nur auf die 'Eichel' reduziert, hat im Biologie-Unterricht (oder im Schlafzimmer) nicht aufgepasst.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-02",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
-            "id": "q-02-04-fd223c4ade",
-            "prompt": "Was bedeutet „WAP“ im Song von Cardi B?",
-            "options": [
-              {
-                "id": "q-02-04-fd223c4ade-opt-1",
-                "text": "Wet-Ass Pussy",
-                "is_correct": true
-              },
-              {
-                "id": "q-02-04-fd223c4ade-opt-2",
-                "text": "Wireless Access Protocol",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-04-fd223c4ade-opt-3",
-                "text": "Worship And Prayer",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-04-fd223c4ade-opt-4",
-                "text": "Wings And Pizza",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-02-04-fd223c4ade-opt-1",
-            "explanation": "Cardi B meinte definitiv nicht das Internetprotokoll der 90er. Es geht um... nun ja, Feuchtigkeit. Ben Shapiro fand's gar nicht witzig, was es nur noch besser macht.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-02",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
-            "id": "q-02-05-6d6cca2547",
-            "prompt": "Was ist der Unterschied zwischen Libido und Potenz?",
-            "options": [
-              {
-                "id": "q-02-05-6d6cca2547-opt-1",
-                "text": "Libido ist das Wollen, Potenz das Können",
-                "is_correct": true
-              },
-              {
-                "id": "q-02-05-6d6cca2547-opt-2",
-                "text": "Libido ist eine italienische Eissorte",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-05-6d6cca2547-opt-3",
-                "text": "Potenz beschreibt nur mathematische Exponenten",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-05-6d6cca2547-opt-4",
-                "text": "Es gibt keinen, beides bedeutet 'geil sein'",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-02-05-6d6cca2547-opt-1",
-            "explanation": "Libido ist die psychische Lust, Potenz die körperliche Funktionsfähigkeit. Wenn beides nicht zusammenpasst, nennt man das meistens 'Montag'.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-02",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
-            "id": "q-02-06-5956ed1b1a",
-            "prompt": "Was bezeichnet „vanilla“ im sexuellen Slang?",
-            "options": [
-              {
-                "id": "q-02-06-5956ed1b1a-opt-1",
-                "text": "Konventionellen Sex ohne Kinks",
-                "is_correct": true
-              },
-              {
-                "id": "q-02-06-5956ed1b1a-opt-2",
-                "text": "Sex nur im Eisladen",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-06-5956ed1b1a-opt-3",
-                "text": "Eine Vorliebe für Duftkerzen beim Akt",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-06-5956ed1b1a-opt-4",
-                "text": "Sex, bei dem man Socken anbehält",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-02-06-5956ed1b1a-opt-1",
-            "explanation": "Vanilla ist der Standard – sicher, lecker, aber für manche halt langweilig. Wie die Sorte im Kühlregal: man macht nichts falsch, aber man wird auch nicht davon auf Twitter berichten.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-02",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
-            "id": "q-02-07-280829032d",
-            "prompt": "Was bedeutet „Ghosting“?",
-            "options": [
-              {
-                "id": "q-02-07-280829032d-opt-1",
-                "text": "Sich ohne Erklärung komplett totstellen",
-                "is_correct": true
-              },
-              {
-                "id": "q-02-07-280829032d-opt-2",
-                "text": "Ein Date in einem Spukhaus",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-07-280829032d-opt-3",
-                "text": "Nur noch mit Emojis antworten",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-07-280829032d-opt-4",
-                "text": "Den Ex-Partner auf Google Maps verfolgen",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-02-07-280829032d-opt-1",
-            "explanation": "Die feige Kunst, einfach nicht mehr zu antworten. Ein Klassiker in der Millennial-Dating-Hölle. Wer das macht, kommt in die visuelle Dauerschleife der Hölle.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-02",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
-            "id": "q-02-08-3773194093",
-            "prompt": "Was ist ein „Strap-on“?",
-            "options": [
-              {
-                "id": "q-02-08-3773194093-opt-1",
-                "text": "Ein umschnallbarer Dildo",
-                "is_correct": true
-              },
-              {
-                "id": "q-02-08-3773194093-opt-2",
-                "text": "Ein besonders sicheres Kondom",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-08-3773194093-opt-3",
-                "text": "Eine Halterung für das Smartphone im Bett",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-08-3773194093-opt-4",
-                "text": "Ein Fitness-Gürtel für das Beckentraining",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-02-08-3773194093-opt-1",
-            "explanation": "Ein Spielzeug zum Umschnallen. Bringt Dynamik in die Bude und lässt Rollenbilder schneller schmelzen als ein Milka-Schokofrosch in der Sonne.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-02",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
-            "id": "q-02-09-588235213d",
-            "prompt": "Was meint man mit „Dirty Talk“?",
-            "options": [
-              {
-                "id": "q-02-09-588235213d-opt-1",
-                "text": "Erotisches Flüstern oder explizite Sprache beim Sex",
-                "is_correct": true
-              },
-              {
-                "id": "q-02-09-588235213d-opt-2",
-                "text": "Über den Abwasch streiten",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-09-588235213d-opt-3",
-                "text": "Sich über den Schlamm beim Wacken beschweren",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-09-588235213d-opt-4",
-                "text": "Fluchen, wenn die Internetverbindung abbricht",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-02-09-588235213d-opt-1",
-            "explanation": "Verbale Stimulation. Wenn man's kann: super. Wenn nicht: Es klingt schnell wie ein schlechter Porno aus den 70ern. Absolute Fremdscham-Gefahr.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-02",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
-            "id": "q-02-10-9933523472",
-            "prompt": "Was ist „Consens“ (Konsens) in einer Beziehung?",
-            "options": [
-              {
-                "id": "q-02-10-9933523472-opt-1",
-                "text": "Freiwillige, informierte Zustimmung aller Beteiligten",
-                "is_correct": true
-              },
-              {
-                "id": "q-02-10-9933523472-opt-2",
-                "text": "Dass der Mann immer entscheidet",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-10-9933523472-opt-3",
-                "text": "Ein stillschweigendes Einverständnis ohne Worte",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-10-9933523472-opt-4",
-                "text": "Der Name eines neuen Verhütungsmittels",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-02-10-9933523472-opt-1",
-            "explanation": "Ohne Konsens ist alles nichts. Ein 'Vielleicht' ist kein 'Ja'. Das sollte eigentlich Adulting-Basiswissen sein, ist aber für manche immer noch Raketenwissenschaft.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-02",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
-            "id": "q-02-11-22edecee21",
-            "prompt": "Was ist medizinisch eine „Dyspareunie“?",
-            "options": [
-              {
-                "id": "q-02-11-22edecee21-opt-1",
-                "text": "Schmerzen beim Geschlechtsverkehr",
-                "is_correct": true
-              },
-              {
-                "id": "q-02-11-22edecee21-opt-2",
-                "text": "Eine Allergie gegen Latex",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-11-22edecee21-opt-3",
-                "text": "Ein hormonelles Ungleichgewicht",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-11-22edecee21-opt-4",
-                "text": "Eine seltene Form der Lustlosigkeit",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-02-11-22edecee21-opt-1",
-            "explanation": "Schmerzen beim Sex. Nichts, was man einfach ignorieren sollte. Gehört in die Kategorie: 'Dinge, über die man beim ersten Date eher nicht spricht'.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-02",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
-            "id": "q-02-12-339adddbeb",
-            "prompt": "Wofür steht STI?",
-            "options": [
-              {
-                "id": "q-02-12-339adddbeb-opt-1",
-                "text": "Sexually Transmitted Infection",
-                "is_correct": true
-              },
-              {
-                "id": "q-02-12-339adddbeb-opt-2",
-                "text": "Sexual Touch Indicator",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-12-339adddbeb-opt-3",
-                "text": "Super Toll Informiert",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-12-339adddbeb-opt-4",
-                "text": "Sicher Trotz Infektion",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-02-12-339adddbeb-opt-1",
-            "explanation": "Sexuell übertragbare Infektionen. Früher nannte man das STD (Disease), aber Infection klingt wohl weniger nach 'Endstation'. Testen lassen ist das neue Cool.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-02",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
-            "id": "q-02-13-eda519290d",
-            "prompt": "Welches Verhütungsmittel schützt auch vor den meisten STIs?",
-            "options": [
-              {
-                "id": "q-02-13-eda519290d-opt-1",
-                "text": "Das Kondom",
-                "is_correct": true
-              },
-              {
-                "id": "q-02-13-eda519290d-opt-2",
-                "text": "Die Pille",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-13-eda519290d-opt-3",
-                "text": "Die Spirale",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-13-eda519290d-opt-4",
-                "text": "Stoßgebete",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-02-13-eda519290d-opt-1",
-            "explanation": "Nur Barrieren helfen gegen Keime. Die Pille schützt vor Babys, aber nicht vor dem Brennen beim Wasserlassen. Merkste selber, ne?",
-            "difficulty": "medium_hard",
-            "category_id": "cat-02",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
-            "id": "q-02-14-9bf5fe9590",
-            "prompt": "Was meint „Aftercare“ nach einer BDSM-Session?",
-            "options": [
-              {
-                "id": "q-02-14-9bf5fe9590-opt-1",
-                "text": "Emotionale und körperliche Nachsorge",
-                "is_correct": true
-              },
-              {
-                "id": "q-02-14-9bf5fe9590-opt-2",
-                "text": "Das Aufräumen der Fesseln",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-14-9bf5fe9590-opt-3",
-                "text": "Das Bezahlen der Rechnung",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-14-9bf5fe9590-opt-4",
-                "text": "Das Löschen der Browserverläufe",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-02-14-9bf5fe9590-opt-1",
-            "explanation": "Kuscheln, Tee trinken, runterkommen. Wer danach sofort zum Dönerladen rennt, ohne den Partner zu fragen wie's geht, ist ein Arschloch. Fact.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-02",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
-            "id": "q-02-15-23bfa11944",
-            "prompt": "Was bedeutet „Catfishing“?",
-            "options": [
-              {
-                "id": "q-02-15-23bfa11944-opt-1",
-                "text": "Online eine komplett falsche Identität vortäuschen",
-                "is_correct": true
-              },
-              {
-                "id": "q-02-15-23bfa11944-opt-2",
-                "text": "Sich als Katzenliebhaber ausgeben",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-15-23bfa11944-opt-3",
-                "text": "Bilder von seinem Haustier bei Tinder nutzen",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-15-23bfa11944-opt-4",
-                "text": "Jemanden an der Angel haben und dann fallen lassen",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-02-15-23bfa11944-opt-1",
-            "explanation": "Wenn das Date 20 Jahre älter und 30 Kilo schwerer ist als auf dem Profilbild. Danke, Photoshop. Ein wahrer Albtraum für jeden Millennial.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-02",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
-            "id": "q-02-16-f7d3e9aaf0",
-            "prompt": "Was bezeichnet eine „Situationship“?",
-            "options": [
-              {
-                "id": "q-02-16-f7d3e9aaf0-opt-1",
-                "text": "Etwas zwischen Freundschaft Plus und Beziehung",
-                "is_correct": true
-              },
-              {
-                "id": "q-02-16-f7d3e9aaf0-opt-2",
-                "text": "Eine Beziehung, die nur im Urlaub hält",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-16-f7d3e9aaf0-opt-3",
-                "text": "Wenn man zusammenzieht, um Miete zu sparen",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-16-f7d3e9aaf0-opt-4",
-                "text": "Sex nur in Notsituationen",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-02-16-f7d3e9aaf0-opt-1",
-            "explanation": "Man macht alles, was Paare tun, will sich aber nicht festlegen. Das ultimative Commitment-Problem unserer Generation. Cringe-Faktor: hoch.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-02",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
-            "id": "q-02-17-712f7d0b39",
-            "prompt": "Was ist „Sexting“?",
-            "options": [
-              {
-                "id": "q-02-17-712f7d0b39-opt-1",
-                "text": "Versenden von expliziten Texten oder Bildern",
-                "is_correct": true
-              },
-              {
-                "id": "q-02-17-712f7d0b39-opt-2",
-                "text": "Sex während man eine SMS schreibt",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-17-712f7d0b39-opt-3",
-                "text": "Eine Dating-App für Texter",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-17-712f7d0b39-opt-4",
-                "text": "Statistiken über das Liebesleben führen",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-02-17-712f7d0b39-opt-1",
-            "explanation": "Digitale Vorlust. Aber Vorsicht: Einmal verschickt, ist es im Netz. Und niemand will sein bestes Stück auf der Weihnachtsfeier an der Beamer-Wand sehen.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-02",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
-            "id": "q-02-18-ed01d44678",
-            "prompt": "Wo liegt der G-Punkt bei der Frau (laut populärer Theorie)?",
-            "options": [
-              {
-                "id": "q-02-18-ed01d44678-opt-1",
-                "text": "An der vorderen Vaginalwand",
-                "is_correct": true
-              },
-              {
-                "id": "q-02-18-ed01d44678-opt-2",
-                "text": "Direkt am Gebärmutterhals",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-18-ed01d44678-opt-3",
-                "text": "Hinter den Ohren",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-18-ed01d44678-opt-4",
-                "text": "Es gibt ihn gar nicht, er ist eine Erfindung von IKEA",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-02-18-ed01d44678-opt-1",
-            "explanation": "Er ist eher eine Zone als ein Punkt. Wer ihn sucht wie den Ausgang im Labyrinth, sollte vielleicht mal nachfragen. Kommunikation hilft!",
-            "difficulty": "medium_hard",
-            "category_id": "cat-02",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
-            "id": "q-02-19-9a4055c1e7",
-            "prompt": "Was bedeutet „Pegging“?",
-            "options": [
-              {
-                "id": "q-02-19-9a4055c1e7-opt-1",
-                "text": "Anale Penetration eines Mannes durch eine Frau mit Strap-on",
-                "is_correct": true
-              },
-              {
-                "id": "q-02-19-9a4055c1e7-opt-2",
-                "text": "Das Aufhängen von Wäsche nach dem Sex",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-19-9a4055c1e7-opt-3",
-                "text": "Eine besonders harte Form des Ghostings",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-19-9a4055c1e7-opt-4",
-                "text": "Das Markieren von Revieren beim Outdoor-Sex",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-02-19-9a4055c1e7-opt-1",
-            "explanation": "Rollenwechsel extrem. Gut für die Prostatagesundheit und das Aufbrechen von patriarchalen Strukturen. Win-win!",
-            "difficulty": "medium_hard",
-            "category_id": "cat-02",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
-            "id": "q-02-20-61e1d822ed",
-            "prompt": "Was ist der Unterschied zwischen Orientierung und Identität?",
-            "options": [
-              {
-                "id": "q-02-20-61e1d822ed-opt-1",
-                "text": "Orientierung: Wen man liebt. Identität: Wer man ist.",
-                "is_correct": true
-              },
-              {
-                "id": "q-02-20-61e1d822ed-opt-2",
-                "text": "Identität ist nur für den Pass wichtig",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-20-61e1d822ed-opt-3",
-                "text": "Orientierung hat man nur mit Kompass",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-20-61e1d822ed-opt-4",
-                "text": "Es gibt keinen, das ist alles 'Modern Talk'",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-02-20-61e1d822ed-opt-1",
-            "explanation": "Identität ist dein eigenes Geschlechtsempfinden. Orientierung ist das Ziel deiner Begierde. Eigentlich ganz einfach, wenn man nicht gerade bei der AfD arbeitet.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-02",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
-            "id": "q-02-21-48c6d948d1",
-            "prompt": "Was beschreibt „Demisexualität“?",
-            "options": [
-              {
-                "id": "q-02-21-48c6d948d1-opt-1",
-                "text": "Sexuelle Anziehung erst nach emotionaler Bindung",
-                "is_correct": true
-              },
-              {
-                "id": "q-02-21-48c6d948d1-opt-2",
-                "text": "Eine Vorliebe für Halbgötter",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-21-48c6d948d1-opt-3",
-                "text": "Lust nur an jedem zweiten Dienstag",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-21-48c6d948d1-opt-4",
-                "text": "Sexuelle Anziehung nur zu Demi Moore",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-02-21-48c6d948d1-opt-1",
-            "explanation": "Erst die Deep Talks, dann das Bett. Das Gegenteil von Tinder-Fastfood. Sehr entschleunigt und sehr millennial-kompatibel.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-02",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
-            "id": "q-02-22-31bfe51bdc",
-            "prompt": "Wofür ist der Beckenboden gut?",
-            "options": [
-              {
-                "id": "q-02-22-31bfe51bdc-opt-1",
-                "text": "Stützt Organe und verbessert das Empfinden beim Sex",
-                "is_correct": true
-              },
-              {
-                "id": "q-02-22-31bfe51bdc-opt-2",
-                "text": "Nur wichtig nach einer Schwangerschaft",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-22-31bfe51bdc-opt-3",
-                "text": "Dient als Ablage für die Prostata",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-22-31bfe51bdc-opt-4",
-                "text": "Erhöht die Laufgeschwindigkeit beim Marathon",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-02-22-31bfe51bdc-opt-1",
-            "explanation": "Ein trainierter Beckenboden macht alles besser – von der Kontinenz bis zum Orgasmus. Also: Anspannen, Ladies and Gents!",
-            "difficulty": "medium_hard",
-            "category_id": "cat-02",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
-            "id": "q-02-23-782fdd4a71",
-            "prompt": "Was ist „Love Bombing“?",
-            "options": [
-              {
-                "id": "q-02-23-782fdd4a71-opt-1",
-                "text": "Übertriebene Zuneigung am Anfang, um zu manipulieren",
-                "is_correct": true
-              },
-              {
-                "id": "q-02-23-782fdd4a71-opt-2",
-                "text": "Das Werfen von Herz-Konfetti auf Hochzeiten",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-23-782fdd4a71-opt-3",
-                "text": "Ein besonders intensiver erster Kuss",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-23-782fdd4a71-opt-4",
-                "text": "Das Senden von 100 Rosen per Lieferdienst",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-02-23-782fdd4a71-opt-1",
-            "explanation": "Erst wirst du mit Komplimenten überschüttet, dann kommt die emotionale Erpressung. Eine klassische Red Flag. Lauf, Forrest, lauf!",
-            "difficulty": "medium_hard",
-            "category_id": "cat-02",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
-            "id": "q-02-24-2bde876a21",
-            "prompt": "Was bedeutet „NSFW“?",
-            "options": [
-              {
-                "id": "q-02-24-2bde876a21-opt-1",
-                "text": "Not Safe For Work",
-                "is_correct": true
-              },
-              {
-                "id": "q-02-24-2bde876a21-opt-2",
-                "text": "New Sex For Winners",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-24-2bde876a21-opt-3",
-                "text": "Never Sleep For Weeks",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-24-2bde876a21-opt-4",
-                "text": "No Sexual Feelings Weekly",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-02-24-2bde876a21-opt-1",
-            "explanation": "Alles, was du nicht willst, dass dein Chef es über deine Schulter sieht. Pornos, Gore oder einfach nur extrem peinliche Memes.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-02",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
-            "id": "q-02-25-383eae8441",
-            "prompt": "Was ist beim BDSM die wichtigste Regel?",
-            "options": [
-              {
-                "id": "q-02-25-383eae8441-opt-1",
-                "text": "SSC (Safe, Sane, Consensual)",
-                "is_correct": true
-              },
-              {
-                "id": "q-02-25-383eae8441-opt-2",
-                "text": "Immer eine Maske tragen",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-25-383eae8441-opt-3",
-                "text": "Niemals den echten Namen sagen",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-25-383eae8441-opt-4",
-                "text": "Wer fesselt, muss auch kochen",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-02-25-383eae8441-opt-1",
-            "explanation": "Sicher, vernünftig, einvernehmlich. Wer das bricht, spielt nicht – er begeht eine Straftat. Ein bisschen Disziplin muss sein, auch beim Auspeitschen.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-02",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
-            "id": "q-02-e01-e7a5eeddc0",
-            "type": "estimate",
-            "prompt": "Wie lang ist der durchschnittliche erigierte Penis in Deutschland laut einer großen Statista-Erhebung?",
-            "answer": {
-              "canonical": "14.5 cm",
-              "reference_value": 14.5,
-              "unit": "cm",
-              "context": "Deutschland, Durchschnitt"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "14,5 cm. Die meisten Männer geben bei Umfragen mehr an, aber das Lineal lügt nicht. Sorry, Jungs.",
-            "difficulty": "medium",
-            "points": 1,
-            "category_id": "cat-02"
-          },
-          {
-            "id": "q-02-e02-3c8467882a",
-            "type": "estimate",
-            "prompt": "Wie alt sind Deutsche im Durchschnitt bei ihrem 'ersten Mal'?",
-            "answer": {
-              "canonical": "17.3 Jahre",
-              "reference_value": 17.3,
-              "unit": "Jahre",
-              "context": "Deutschland, BZgA Studie 2020"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "Im Durchschnitt sind es 17,3 Jahre. Die Zeitspanne zwischen 'ich will unbedingt' und 'was mache ich hier eigentlich' ist meistens sehr kurz.",
-            "difficulty": "medium",
-            "points": 1,
-            "category_id": "cat-02"
-          },
-          {
-            "id": "q-02-e03-eb38c27ac1",
-            "type": "estimate",
-            "prompt": "Wie viele verschiedene Sexualpartner hat ein Deutscher im Durchschnitt im Laufe seines Lebens?",
-            "answer": {
-              "canonical": "7.0 Partner",
-              "reference_value": 7.0,
-              "unit": "Partner",
-              "context": "Deutschland, Durchschnittswert"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "Statistisch gesehen sind es 7 Partner. Manche haben 70, manche 0, aber in der Mitte trifft man sich beim Durchschnitts-Abenteuer.",
-            "difficulty": "medium",
-            "points": 1,
-            "category_id": "cat-02"
-          },
-          {
-            "id": "q-02-m76538ddcab",
-            "type": "estimate",
-            "prompt": "Wie viel Prozent der Deutschen haben laut Umfrage schon mal ihren Partner beim Handy beschnüffelt?",
-            "answer": {
-              "canonical": "34 %",
-              "reference_value": 34,
-              "unit": "%",
-              "context": "Deutschland, YouGov 2021"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "Jeder Dritte! Vertrauen ist gut, PIN-Code-Ändern ist offensichtlich besser.",
-            "difficulty": "medium",
-            "points": 1,
-            "category_id": "cat-02"
-          }
-        ],
+        "questions": [],
         "id": "cat-02"
       },
       {
@@ -2384,7 +1519,7 @@
               }
             ],
             "correct_option_id": "q-03-21-9abc66630b-opt-1",
-            "explanation": "Knuddels war der Ort, an dem man 'James' (den Bot) um Hilfe bat und hoffte, dass das 14-jährige Mädel nicht eigentlich ein 50-jähriger Herbert war. Düstere Zeiten.",
+            "explanation": "Knuddels war ein deutsches Chatportal mit Bot 'James', vielen Raeumen und einem Ruf, bei dem Datenschutz und Jugendschutz nicht gerade wie Zukunftsmusik klangen.",
             "difficulty": "medium_hard",
             "category_id": "cat-03",
             "type": "multiple_choice",
@@ -2424,31 +1559,31 @@
           },
           {
             "id": "q-03-23-681bfb03e4",
-            "prompt": "Was bedeutet 'Ditzer' oder 'Ditz' im regionalen Slang der 2000er oft?",
+            "prompt": "Was bedeutete 'AFK' in Chats und Online-Games der 2000er?",
             "options": [
               {
                 "id": "q-03-23-681bfb03e4-opt-1",
-                "text": "Ein kleiner Klaps oder Anstupser",
+                "text": "Away from keyboard",
                 "is_correct": true
               },
               {
                 "id": "q-03-23-681bfb03e4-opt-2",
-                "text": "Ein dummer Mensch",
+                "text": "Always fast kill",
                 "is_correct": false
               },
               {
                 "id": "q-03-23-681bfb03e4-opt-3",
-                "text": "Eine Art Nachtisch",
+                "text": "Account fuer Kinder",
                 "is_correct": false
               },
               {
                 "id": "q-03-23-681bfb03e4-opt-4",
-                "text": "Ein technischer Defekt",
+                "text": "Automatischer Freundschaftsklick",
                 "is_correct": false
               }
             ],
             "correct_option_id": "q-03-23-681bfb03e4-opt-1",
-            "explanation": "Regional unterschiedlich, aber oft war es dieses nervige Antippen. Heute würde man sagen: 'Lass mich einfach in Ruhe'.",
+            "explanation": "AFK steht fuer 'away from keyboard': Man war kurz weg vom Rechner, meist weil Eltern, Telefon oder Tiefkuehlpizza wichtiger wurden.",
             "difficulty": "medium_hard",
             "category_id": "cat-03",
             "type": "multiple_choice",
@@ -2556,7 +1691,7 @@
             "prompt": "Wie viele aktive Nutzer hatte Facebook am Ende seines Gründungsjahres 2004?",
             "answer": {
               "canonical": "1.0 Millionen",
-              "reference_value": 1.0,
+              "reference_value": 1,
               "unit": "Millionen",
               "context": "Facebook History"
             },
@@ -2607,73 +1742,9 @@
         "slug": "90er-00er-trash-tv-kollektives-trauma",
         "name": "90er/00er Trash-TV & kollektives Trauma",
         "intro": "Fernsehen war damals kein Medium, sondern ein Gewaltverbrechen an Würde und Geschmack. Und natürlich habt ihr es trotzdem geguckt wie religiöse Pflichtveranstaltungen. Zeit für eine Runde kollektives Fremdschämen.",
-        "question_count": 28,
+        "question_count": 13,
         "difficulty": "medium_hard",
         "questions": [
-          {
-            "id": "q-04-01-275ee72c42",
-            "prompt": "Welche MTV-Show durchleuchtete Schlafzimmer mit UV-Licht, um Dates bloßzustellen?",
-            "options": [
-              {
-                "id": "q-04-01-275ee72c42-opt-1",
-                "text": "Room Raiders",
-                "is_correct": true
-              },
-              {
-                "id": "q-04-01-275ee72c42-opt-2",
-                "text": "Cribs",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-01-275ee72c42-opt-3",
-                "text": "Pimp My Life",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-01-275ee72c42-opt-4",
-                "text": "Date My Mom",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-04-01-275ee72c42-opt-1",
-            "explanation": "Room Raiders. Wer erinnert sich nicht an die verzweifelten Gesichter, wenn unter UV-Licht die Flecken auf der Bettwäsche sichtbar wurden? Hygiene-Horror pur.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-04",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
-            "id": "q-04-02-c5be5cbd7c",
-            "prompt": "Bei welcher Dating-Show saß eine Person im Bus und rief bei Nichtgefallen einfach 'Next!'?",
-            "options": [
-              {
-                "id": "q-04-02-c5be5cbd7c-opt-1",
-                "text": "Next",
-                "is_correct": true
-              },
-              {
-                "id": "q-04-02-c5be5cbd7c-opt-2",
-                "text": "The Bus",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-02-c5be5cbd7c-opt-3",
-                "text": "Dismissed",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-02-c5be5cbd7c-opt-4",
-                "text": "Flavor of Love",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-04-02-c5be5cbd7c-opt-1",
-            "explanation": "Next. Das ultimative Symbol für die Wegwerfgesellschaft. Nach 2 Sekunden und einem falschen Satz wurde man zurück in den Bus der Schande geschickt.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-04",
-            "type": "multiple_choice",
-            "points": 1
-          },
           {
             "id": "q-04-03-b91d0aec59",
             "prompt": "Welche Reality-Show ließ Eltern ein alternatives Date für ihr Kind aussuchen?",
@@ -2804,11 +1875,11 @@
           },
           {
             "id": "q-04-07-2a1f4b82bc",
-            "prompt": "Welcher Talkshow-Moderator brüllte seine Gäste regelmäßig mit 'HALT STOP!' an? (Oder war das Scripted Reality?)",
+            "prompt": "Aus welcher deutschen TV-Sendung stammt das Meme-Zitat 'Halt Stop!' von Andreas?",
             "options": [
               {
                 "id": "q-04-07-2a1f4b82bc-opt-1",
-                "text": "Andreas bei 'Frauentausch'",
+                "text": "Frauentausch",
                 "is_correct": true
               },
               {
@@ -2828,39 +1899,7 @@
               }
             ],
             "correct_option_id": "q-04-07-2a1f4b82bc-opt-1",
-            "explanation": "Psycho-Andreas von 'Frauentausch'. Sein Wutanfall über Obst und Ordnung ist deutsches Kulturgut der unangenehmen Sorte.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-04",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
-            "id": "q-04-08-36f4d1e2a0",
-            "prompt": "Welche Talkshow war bekannt für den Lügendetektor-Test und Vaterschaftstests?",
-            "options": [
-              {
-                "id": "q-04-08-36f4d1e2a0-opt-1",
-                "text": "Britt – Der Talk um eins",
-                "is_correct": true
-              },
-              {
-                "id": "q-04-08-36f4d1e2a0-opt-2",
-                "text": "Bärbel Schäfer",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-08-36f4d1e2a0-opt-3",
-                "text": "Vera am Mittag",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-08-36f4d1e2a0-opt-4",
-                "text": "Ricky!",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-04-08-36f4d1e2a0-opt-1",
-            "explanation": "Britt Hagedorn. Die Frau, die mehr Familien zerstört (oder widerwillig zusammengeführt) hat als jeder Scheidungsanwalt.",
+            "explanation": "Das Zitat stammt aus einer 'Frauentausch'-Folge mit Andreas und wurde spaeter zum Internet-Meme.",
             "difficulty": "medium_hard",
             "category_id": "cat-04",
             "type": "multiple_choice",
@@ -2931,54 +1970,22 @@
             "points": 1
           },
           {
-            "id": "q-04-11-6591ed9193",
-            "prompt": "Welche Gerichtsshow-Richterin war für ihre knallharte Art und die bunten Brillen bekannt?",
-            "options": [
-              {
-                "id": "q-04-11-6591ed9193-opt-1",
-                "text": "Barbara Salesch",
-                "is_correct": true
-              },
-              {
-                "id": "q-04-11-6591ed9193-opt-2",
-                "text": "Ruth Herz",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-11-6591ed9193-opt-3",
-                "text": "Angelika Kallwass",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-11-6591ed9193-opt-4",
-                "text": "Sabine Christiansen",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-04-11-6591ed9193-opt-1",
-            "explanation": "Barbara Salesch. Sie hat uns beigebracht, dass man im deutschen Fernsehen für Nachbarschaftsstreitigkeiten lebenslänglich bekommen kann (gefühlt).",
-            "difficulty": "medium_hard",
-            "category_id": "cat-04",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
             "id": "q-04-12-a015ede7fc",
-            "prompt": "In welcher Show 'kämpften' Frauen um einen Junggesellen, der oft gar nicht so reich war wie behauptet?",
+            "prompt": "In welcher Reality-Show dateten Frauen einen angeblichen Millionaer, der in Wahrheit gar nicht reich war?",
             "options": [
               {
                 "id": "q-04-12-a015ede7fc-opt-1",
-                "text": "Der Bachelor",
+                "text": "Joe Millionaire",
                 "is_correct": true
               },
               {
                 "id": "q-04-12-a015ede7fc-opt-2",
-                "text": "The Swan",
+                "text": "Der Bachelor",
                 "is_correct": false
               },
               {
                 "id": "q-04-12-a015ede7fc-opt-3",
-                "text": "Joe Millionaire",
+                "text": "Temptation Island",
                 "is_correct": false
               },
               {
@@ -2988,7 +1995,7 @@
               }
             ],
             "correct_option_id": "q-04-12-a015ede7fc-opt-1",
-            "explanation": "Der Bachelor. Eine Rose für ein bisschen Sendezeit und die Aussicht auf eine Karriere als Influencer (damals hieß das noch 'Teilnahme am Dschungelcamp').",
+            "explanation": "Bei 'Joe Millionaire' war genau die vorgetaeuschte Millionaersrolle der Twist. 'Der Bachelor' verteilt Rosen, behauptet aber nicht automatisch, reich zu sein.",
             "difficulty": "medium_hard",
             "category_id": "cat-04",
             "type": "multiple_choice",
@@ -3059,134 +2066,6 @@
             "points": 1
           },
           {
-            "id": "q-04-15-41f1ae9ced",
-            "prompt": "Wie hieß die Show, in der Stefan Raab nach dem 'Superstar' suchte, aber eigentlich nur die Musikindustrie trollte?",
-            "options": [
-              {
-                "id": "q-04-15-41f1ae9ced-opt-1",
-                "text": "SSDSGPS",
-                "is_correct": true
-              },
-              {
-                "id": "q-04-15-41f1ae9ced-opt-2",
-                "text": "DSDS",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-15-41f1ae9ced-opt-3",
-                "text": "Popstars",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-15-41f1ae9ced-opt-4",
-                "text": "X-Factor",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-04-15-41f1ae9ced-opt-1",
-            "explanation": "Stefan sucht den Super-Grand-Prix-Star. Daraus ging Max Mutzke hervor. Raab war der Endgegner für Bohlen.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-04",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
-            "id": "q-04-16-ea4e2ea010",
-            "prompt": "Welcher Jamba-Klingelton war 2005 wochenlang auf Platz 1 der Charts?",
-            "options": [
-              {
-                "id": "q-04-16-ea4e2ea010-opt-1",
-                "text": "Crazy Frog (Axel F)",
-                "is_correct": true
-              },
-              {
-                "id": "q-04-16-ea4e2ea010-opt-2",
-                "text": "Schnuffel",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-16-ea4e2ea010-opt-3",
-                "text": "Sweety das Küken",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-16-ea4e2ea010-opt-4",
-                "text": "Das bekloppte Nilpferd",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-04-16-ea4e2ea010-opt-1",
-            "explanation": "Crazy Frog. Ein nackter, blauer Frosch mit sichtbarem Gemächt (später zensiert), der Motorradgeräusche macht. Das war unser kultureller Höhepunkt.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-04",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
-            "id": "q-04-17-fa43d01a4d",
-            "prompt": "Wie hieß die Sendung mit den 'Super-Nannys'?",
-            "options": [
-              {
-                "id": "q-04-17-fa43d01a4d-opt-1",
-                "text": "Die Super Nanny (Katia Saalfrank)",
-                "is_correct": true
-              },
-              {
-                "id": "q-04-17-fa43d01a4d-opt-2",
-                "text": "Zuhause im Glück",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-17-fa43d01a4d-opt-3",
-                "text": "Vermisst",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-17-fa43d01a4d-opt-4",
-                "text": "Einsatz in 4 Wänden",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-04-17-fa43d01a4d-opt-1",
-            "explanation": "Katia Saalfrank und die 'Stille Treppe'. Wenn das Kind nicht pariert: Ab in die Ecke und über die Sünden nachdenken. Pädagogik der 2000er.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-04",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
-            "id": "q-04-18-397c18dfae",
-            "prompt": "Wer war das Gesicht von 'Einsatz in 4 Wänden'?",
-            "options": [
-              {
-                "id": "q-04-18-397c18dfae-opt-1",
-                "text": "Tine Wittler",
-                "is_correct": true
-              },
-              {
-                "id": "q-04-18-397c18dfae-opt-2",
-                "text": "Enie van de Meiklokjes",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-18-397c18dfae-opt-3",
-                "text": "Vera Int-Veen",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-18-397c18dfae-opt-4",
-                "text": "Bärbel Schäfer",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-04-18-397c18dfae-opt-1",
-            "explanation": "Tine Wittler. Sie kam, sah und stellte eine lila Wand vor ein braunes Sofa. Wir haben es geliebt.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-04",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
             "id": "q-04-19-bf1675c548",
             "prompt": "Wie hieß der legendäre Schiedsrichter bei 'Takeshi's Castle'?",
             "options": [
@@ -3219,160 +2098,32 @@
             "points": 1
           },
           {
-            "id": "q-04-20-e8d767902d",
-            "prompt": "Welche Serie handelte von einer Gruppe reicher Teenager in Kalifornien und startete 2003?",
-            "options": [
-              {
-                "id": "q-04-20-e8d767902d-opt-1",
-                "text": "O.C., California",
-                "is_correct": true
-              },
-              {
-                "id": "q-04-20-e8d767902d-opt-2",
-                "text": "Dawson's Creek",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-20-e8d767902d-opt-3",
-                "text": "Beverly Hills, 90210",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-20-e8d767902d-opt-4",
-                "text": "Gossip Girl",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-04-20-e8d767902d-opt-1",
-            "explanation": "O.C., California. Ryan, Seth, Summer und Marissa. Wer bei Marissas Tod nicht geweint hat, hat kein Herz (oder war Team Taylor).",
-            "difficulty": "medium_hard",
-            "category_id": "cat-04",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
-            "id": "q-04-21-ebc05de3f6",
-            "prompt": "Was passierte bei 'Jackass' regelmäßig?",
-            "options": [
-              {
-                "id": "q-04-21-ebc05de3f6-opt-1",
-                "text": "Sinnlose und gefährliche Stunts",
-                "is_correct": true
-              },
-              {
-                "id": "q-04-21-ebc05de3f6-opt-2",
-                "text": "Tiefgründige philosophische Gespräche",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-21-ebc05de3f6-opt-3",
-                "text": "Wohnungsrenovierungen",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-21-ebc05de3f6-opt-4",
-                "text": "Kochwettbewerbe",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-04-21-ebc05de3f6-opt-1",
-            "explanation": "Johnny Knoxville und seine Crew haben Schmerz zu Kunst gemacht. Don't try this at home – aber wir haben's natürlich trotzdem versucht.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-04",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
-            "id": "q-04-22-803f4a54d8",
-            "prompt": "Wie hieß der fiktive Assistent von Joko und Klaas bei 'MTV Home'?",
-            "options": [
-              {
-                "id": "q-04-22-803f4a54d8-opt-1",
-                "text": "Palina Rojinski",
-                "is_correct": true
-              },
-              {
-                "id": "q-04-22-803f4a54d8-opt-2",
-                "text": "Olli Schulz",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-22-803f4a54d8-opt-3",
-                "text": "Gülcan Kamps",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-22-803f4a54d8-opt-4",
-                "text": "Collien Ulmen-Fernandes",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-04-22-803f4a54d8-opt-1",
-            "explanation": "Palina Rojinski. Sie war der Ruhepol im Chaos zwischen Joko und Klaas, bevor sie selbst zum Star wurde.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-04",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
-            "id": "q-04-23-b038fa9207",
-            "prompt": "Welcher Reality-TV-Star wurde durch die Show 'The Simple Life' berühmt?",
-            "options": [
-              {
-                "id": "q-04-23-b038fa9207-opt-1",
-                "text": "Paris Hilton",
-                "is_correct": true
-              },
-              {
-                "id": "q-04-23-b038fa9207-opt-2",
-                "text": "Kim Kardashian",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-23-b038fa9207-opt-3",
-                "text": "Lindsay Lohan",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-23-b038fa9207-opt-4",
-                "text": "Britney Spears",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-04-23-b038fa9207-opt-1",
-            "explanation": "Paris Hilton und Nicole Richie. 'That's hot.' Die Erfindung des 'Berühmt-seins fürs Berühmt-sein'.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-04",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
             "id": "q-04-24-97d8e651ce",
-            "prompt": "Wie hieß die Sendung, in der Leute nachts bei 9Live anrufen mussten?",
+            "prompt": "Welcher Sender war in Deutschland besonders fuer naechtliche Call-in-Gewinnspiele wie 'quiz fire' beruechtigt?",
             "options": [
               {
                 "id": "q-04-24-97d8e651ce-opt-1",
-                "text": "quiz fire",
+                "text": "9Live",
                 "is_correct": true
               },
               {
                 "id": "q-04-24-97d8e651ce-opt-2",
-                "text": "Geldregen",
+                "text": "VIVA",
                 "is_correct": false
               },
               {
                 "id": "q-04-24-97d8e651ce-opt-3",
-                "text": "Anrufer-Lotto",
+                "text": "KiKA",
                 "is_correct": false
               },
               {
                 "id": "q-04-24-97d8e651ce-opt-4",
-                "text": "Nachtfalke",
+                "text": "arte",
                 "is_correct": false
               }
             ],
             "correct_option_id": "q-04-24-97d8e651ce-opt-1",
-            "explanation": "Eigentlich egal wie sie hieß, es war Abzocke. Aber 'quiz fire' war einer der Namen, bei denen man Geld für das Suchen von Fehlern in Bildern verbrannte.",
+            "explanation": "9Live wurde zum Synonym fuer Call-in-Quizsendungen mit teuren Anrufen und sehr viel Nachtprogramm.",
             "difficulty": "medium_hard",
             "category_id": "cat-04",
             "type": "multiple_choice",
@@ -3409,54 +2160,6 @@
             "category_id": "cat-04",
             "type": "multiple_choice",
             "points": 1
-          },
-          {
-            "id": "q-04-e01-b137796e03",
-            "type": "estimate",
-            "prompt": "Wie viele Tage verbrachte der Kult-Kandidat Zlatko in der allerersten Big-Brother-Staffel im Haus?",
-            "answer": {
-              "canonical": "41 Tage",
-              "reference_value": 41,
-              "unit": "Tage",
-              "context": "RTL II, Big Brother Staffel 1 (2000)"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "Nach 41 Tagen wurde er rausgewählt. Es fühlte sich an wie ein ganzes Jahrzehnt Fernsehgeschichte.",
-            "difficulty": "medium",
-            "points": 1,
-            "category_id": "cat-04"
-          },
-          {
-            "id": "q-04-e02-adddcf4169",
-            "type": "estimate",
-            "prompt": "Wie viele Zuschauer (in Millionen) sahen das Finale der ersten 'Deutschland sucht den Superstar'-Staffel (Sieg von Alexander Klaws)?",
-            "answer": {
-              "canonical": "12.8 Millionen",
-              "reference_value": 12.8,
-              "unit": "Millionen",
-              "context": "Deutschland, Finale 2003"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "Unglaubliche 12,8 Millionen Menschen sahen zu. Das war noch vor der Zeit, in der Streaming alles kaputt gemacht hat.",
-            "difficulty": "medium",
-            "points": 1,
-            "category_id": "cat-04"
-          },
-          {
-            "id": "q-04-e03-5dc7eb08d2",
-            "type": "estimate",
-            "prompt": "Wie viele Staffeln von 'Germany's Next Topmodel' (GNTM) wurden bis einschließlich 2024 ausgestrahlt?",
-            "answer": {
-              "canonical": "19 Staffeln",
-              "reference_value": 19,
-              "unit": "Staffeln",
-              "context": "ProSieben, GNTM Historie"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "19 Staffeln. Seit 2006 sucht Heidi jedes Jahr ein neues Meedchen. Nur einer hat sie alle gesehen: Du wahrscheinlich nicht.",
-            "difficulty": "medium",
-            "points": 1,
-            "category_id": "cat-04"
           }
         ],
         "id": "cat-04"
@@ -3815,7 +2518,7 @@
               }
             ],
             "correct_option_id": "q-05-11-a587148d2a-opt-1",
-            "explanation": "Bier und Cola. Sieht aus wie Altöl, schmeckt wie... naja. In Bayern heißt es oft 'Neger' (politisch unkorrekt), im Norden 'Krefelder'. Ein ewiger Streit.",
+            "explanation": "Bier und Cola. Je nach Region heisst das auch Krefelder oder einfach Colabier; die Bestellung ist weniger kompliziert als die Namensdebatte.",
             "difficulty": "medium",
             "category_id": "cat-05",
             "type": "multiple_choice",
@@ -4071,7 +2774,7 @@
               }
             ],
             "correct_option_id": "q-05-19-3c5b30cb20-opt-1",
-            "explanation": "Himbeere. Wurde meistens mit Sprite gemischt und schmeckte so süß, dass man die Diabetes fast schon im Glas kommen sah. Trotzdem: Geiler Scheiß.",
+            "explanation": "Bacardi Razz steht fuer Himbeere. Meistens wurde er mit Sprite gemischt und war so suess, dass man den Jahrgang sofort wieder schmeckt.",
             "difficulty": "medium",
             "category_id": "cat-05",
             "type": "multiple_choice",
@@ -4272,15 +2975,15 @@
           {
             "id": "q-05-e01-17bf04c35b",
             "type": "estimate",
-            "prompt": "Wie viel Liter Bier trinkt ein Deutscher durchschnittlich pro Jahr (Stand 2022)?",
+            "prompt": "Wie viele Halbe Bier stecken in einem 5-Liter-Partyfass?",
             "answer": {
-              "canonical": "87.2 Liter",
-              "reference_value": 87.2,
-              "unit": "Liter",
-              "context": "Deutschland, Pro-Kopf-Verbrauch"
+              "canonical": "10 Halbe",
+              "reference_value": 10,
+              "unit": "Halbe",
+              "context": "5 Liter geteilt durch 0,5 Liter pro Glas"
             },
             "scoring_rule": "closest_wins",
-            "explanation": "87,2 Liter. Das ist zwar viel, aber der Wert sinkt seit Jahren. Früher waren wir mal bei über 140 Litern – Legenden.",
+            "explanation": "Ein 5-Liter-Fass reicht rechnerisch fuer zehn 0,5-Liter-Glaeser. Praktisch verschwindet trotzdem immer irgendwo ein Rest im Schaum.",
             "difficulty": "medium",
             "points": 1,
             "category_id": "cat-05"
@@ -4307,7 +3010,7 @@
             "prompt": "Welchen Alkoholgehalt (in Vol-%) hatte das Kult-Getränk 'Smirnoff Ice' bei seiner Einführung in Deutschland?",
             "answer": {
               "canonical": "5.0 Vol-%",
-              "reference_value": 5.0,
+              "reference_value": 5,
               "unit": "Vol-%",
               "context": "Produktspezifikation"
             },
@@ -4459,7 +3162,7 @@
               }
             ],
             "correct_option_id": "q-06-04-09a502d726-opt-1",
-            "explanation": "Ein blauer Frosch mit sichtbarem Gemächt (ja, echt!), der Motorradgeräusche macht. Und wir haben dafür 4,99 € im Sparabo bezahlt. Wir verdienen den Klimawandel eigentlich.",
+            "explanation": "Crazy Frog machte 2005 mit 'Axel F' und Jamba-Spots die Charts und Wohnzimmer unsicher. Der Klingelton war kaum zu ueberhoeren.",
             "difficulty": "medium_hard",
             "category_id": "cat-06",
             "type": "multiple_choice",
@@ -4723,31 +3426,31 @@
           },
           {
             "id": "q-06-13-ef29db8405",
-            "prompt": "Welcher Paparazzi-Skandal um Heidi Klum und einen „Seal“ sorgte für Schlagzeilen?",
+            "prompt": "Womit waren Heidi Klum und Seal in der Klatschpresse regelmaessig praesent?",
             "options": [
               {
                 "id": "q-06-13-ef29db8405-opt-1",
-                "text": "Ihre jährliche Erneuerung des Ehegelübdes",
+                "text": "Mit jaehrlichen Erneuerungen ihres Ehegeluebdes",
                 "is_correct": true
               },
               {
                 "id": "q-06-13-ef29db8405-opt-2",
-                "text": "Ein Streit im Supermarkt",
+                "text": "Mit einem Streit im Supermarkt",
                 "is_correct": false
               },
               {
                 "id": "q-06-13-ef29db8405-opt-3",
-                "text": "Sie wurden beim Klauen erwischt",
+                "text": "Mit einem gemeinsamen ESC-Auftritt",
                 "is_correct": false
               },
               {
                 "id": "q-06-13-ef29db8405-opt-4",
-                "text": "Es gab nie einen Skandal",
+                "text": "Mit einer heimlichen Castingshow",
                 "is_correct": false
               }
             ],
             "correct_option_id": "q-06-13-ef29db8405-opt-1",
-            "explanation": "Jedes Jahr eine neue Hochzeit – wir haben es gehasst und trotzdem in der 'Gala' gelesen. Das ultimative 'Cringe'-Level der Promi-Liebe.",
+            "explanation": "Die beiden erneuerten ihr Ehegeluebde jahrelang regelmaessig und lieferten damit verlaesslich Stoff fuer die Klatschspalten.",
             "difficulty": "medium_hard",
             "category_id": "cat-06",
             "type": "multiple_choice",
@@ -5177,7 +3880,7 @@
         "slug": "gaming-frust-pixel-nostalgie",
         "name": "Gaming-Frust & Pixel-Nostalgie",
         "intro": "Hier liegt der wahre Schaden eurer Kindheit: blaue Panzer, tote Tamagotchis und Speicherstände, die auf wundersame Weise „aus Versehen“ weg waren. Charakterbildung durch Frust, nennt man das wohl.",
-        "question_count": 30,
+        "question_count": 12,
         "difficulty": "medium_hard",
         "default_question_type": "multiple_choice",
         "default_points": 1,
@@ -5189,250 +3892,6 @@
           "frust"
         ],
         "questions": [
-          {
-            "id": "q-07-01-0c637ee4c1",
-            "legacy_question_id": 1,
-            "category_id": "cat-07",
-            "order_in_category": 1,
-            "order_global": 151,
-            "type": "multiple_choice",
-            "difficulty": "medium_hard",
-            "difficulty_score": 3,
-            "points": 1,
-            "prompt": "Welcher Gegenstand ist in Mario Kart berüchtigt dafür, den Erstplatzierten gezielt zu ruinieren?",
-            "options": [
-              {
-                "id": "q-07-01-0c637ee4c1-opt-4",
-                "text": "Der blaue Panzer",
-                "is_correct": true
-              },
-              {
-                "id": "q-07-01-0c637ee4c1-opt-2",
-                "text": "Der goldene Stern",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-01-0c637ee4c1-opt-3",
-                "text": "Die rote Schildkröte",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-01-0c637ee4c1-opt-4",
-                "text": "Der Blitz",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-07-01-0c637ee4c1-opt-4",
-            "answer": {
-              "canonical": "Der blaue Panzer",
-              "aliases": [
-                "Der blaue Panzer",
-                "der blaue panzer"
-              ],
-              "alternatives": [],
-              "case_sensitive": false,
-              "match_strategy": "alias_or_option_id"
-            },
-            "explanation": "Der Albtraum jedes Führenden. Er bestraft Erfolg mit purer, blauer Willkür und hat vermutlich mehr Freundschaften zerstört als jede Erbschaftsstreitigkeit.",
-            "tags": [
-              "gaming",
-              "retro",
-              "videospiele",
-              "nostalgie",
-              "frust"
-            ],
-            "source": {
-              "imported_from_category_name": "Gaming-Frust & Pixel-Nostalgie"
-            },
-            "validation": {
-              "auto_generated_options": true,
-              "needs_manual_review": false,
-              "review_flags": []
-            }
-          },
-          {
-            "id": "q-07-02-e9bfa106f6",
-            "legacy_question_id": 2,
-            "category_id": "cat-07",
-            "order_in_category": 2,
-            "order_global": 152,
-            "type": "multiple_choice",
-            "difficulty": "medium_hard",
-            "difficulty_score": 3,
-            "points": 1,
-            "prompt": "Was passierte klassisch in *Die Sims*, wenn man die Poolleiter entfernte?",
-            "options": [
-              {
-                "id": "q-07-02-e9bfa106f6-opt-2",
-                "text": "Sims konnten ertrinken",
-                "is_correct": true
-              },
-              {
-                "id": "q-07-02-e9bfa106f6-opt-2",
-                "text": "Sims verweigerten das Verlassen des Hauses",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-02-e9bfa106f6-opt-3",
-                "text": "Sims fingen an zu kochen und setzten die Küche in Brand",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-02-e9bfa106f6-opt-4",
-                "text": "Sims weigerten sich, zur Arbeit zu gehen",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-07-02-e9bfa106f6-opt-2",
-            "answer": {
-              "canonical": "Sims konnten ertrinken",
-              "aliases": [
-                "Sims konnten ertrinken",
-                "sims konnten ertrinken"
-              ],
-              "alternatives": [],
-              "case_sensitive": false,
-              "match_strategy": "alias_or_option_id"
-            },
-            "explanation": "Leiter weg, Schicksal besiegelt. Es war der erste Moment, in dem wir alle unsere dunkle, gottgleiche Seite im Kinderzimmer entdeckten. RIP Sim-Hausmann.",
-            "tags": [
-              "gaming",
-              "retro",
-              "videospiele",
-              "nostalgie",
-              "frust"
-            ],
-            "source": {
-              "imported_from_category_name": "Gaming-Frust & Pixel-Nostalgie"
-            },
-            "validation": {
-              "auto_generated_options": true,
-              "needs_manual_review": false,
-              "review_flags": []
-            }
-          },
-          {
-            "id": "q-07-03-318ac3d650",
-            "legacy_question_id": 3,
-            "category_id": "cat-07",
-            "order_in_category": 3,
-            "order_global": 153,
-            "type": "multiple_choice",
-            "difficulty": "medium_hard",
-            "difficulty_score": 3,
-            "points": 1,
-            "prompt": "Welcher Cheatcode in *GTA: San Andreas* gibt Waffenpakete?",
-            "options": [
-              {
-                "id": "q-07-03-318ac3d650-opt-2",
-                "text": "LXGIWYL",
-                "is_correct": true
-              },
-              {
-                "id": "q-07-03-318ac3d650-opt-2",
-                "text": "HESOYAM (aus GTA: Vice City)",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-03-318ac3d650-opt-3",
-                "text": "IDDQD (aus Doom)",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-03-318ac3d650-opt-4",
-                "text": "ROSEBUD (aus Die Sims)",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-07-03-318ac3d650-opt-2",
-            "answer": {
-              "canonical": "LXGIWYL",
-              "aliases": [
-                "LXGIWYL",
-                "lxgiwyl"
-              ],
-              "alternatives": [],
-              "case_sensitive": false,
-              "match_strategy": "alias_or_option_id"
-            },
-            "explanation": "Der Klassiker unter den San Andreas Cheats. Wer das heute noch blind in die Tastatur hacken kann, hatte definitiv keine Hausaufgaben gemacht.",
-            "tags": [
-              "gaming",
-              "retro",
-              "videospiele",
-              "nostalgie",
-              "frust"
-            ],
-            "source": {
-              "imported_from_category_name": "Gaming-Frust & Pixel-Nostalgie"
-            },
-            "validation": {
-              "auto_generated_options": true,
-              "needs_manual_review": false,
-              "review_flags": []
-            }
-          },
-          {
-            "id": "q-07-04-5a7daee1ee",
-            "legacy_question_id": 4,
-            "category_id": "cat-07",
-            "order_in_category": 4,
-            "order_global": 154,
-            "type": "multiple_choice",
-            "difficulty": "medium_hard",
-            "difficulty_score": 3,
-            "points": 1,
-            "prompt": "Wofür war das Link-Kabel beim Game Boy da?",
-            "options": [
-              {
-                "id": "q-07-04-5a7daee1ee-opt-3",
-                "text": "Zum Verbinden zweier Geräte für Datenaustausch oder Multiplayer",
-                "is_correct": true
-              },
-              {
-                "id": "q-07-04-5a7daee1ee-opt-2",
-                "text": "Zum Aufladen des Game Boy über den seriellen Port",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-04-5a7daee1ee-opt-3",
-                "text": "Zum Überspielen von TV-Signalen auf den Game Boy",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-04-5a7daee1ee-opt-4",
-                "text": "Zum Anschließen eines zweiten Joysticks für Zwei-Spieler-Modus am selben Gerät",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-07-04-5a7daee1ee-opt-3",
-            "answer": {
-              "canonical": "Zum Verbinden zweier Geräte für Datenaustausch oder Multiplayer",
-              "aliases": [
-                "Zum Verbinden zweier Geräte für Datenaustausch oder Multiplayer",
-                "zum verbinden zweier geräte für datenaustausch oder multiplayer"
-              ],
-              "alternatives": [],
-              "case_sensitive": false,
-              "match_strategy": "alias_or_option_id"
-            },
-            "explanation": "Das Kabel der Hoffnung. Stundenlanges Gefummel, nur um dann doch festzustellen, dass einer 'Pokémon Rot' und der andere 'Blau' hat.",
-            "tags": [
-              "gaming",
-              "retro",
-              "videospiele",
-              "nostalgie",
-              "frust"
-            ],
-            "source": {
-              "imported_from_category_name": "Gaming-Frust & Pixel-Nostalgie"
-            },
-            "validation": {
-              "auto_generated_options": true,
-              "needs_manual_review": false,
-              "review_flags": []
-            }
-          },
           {
             "id": "q-07-05-658e3a665d",
             "legacy_question_id": 5,
@@ -5490,67 +3949,6 @@
             },
             "validation": {
               "auto_generated_options": false,
-              "needs_manual_review": false,
-              "review_flags": []
-            }
-          },
-          {
-            "id": "q-07-06-259485ee09",
-            "legacy_question_id": 6,
-            "category_id": "cat-07",
-            "order_in_category": 6,
-            "order_global": 156,
-            "type": "multiple_choice",
-            "difficulty": "medium_hard",
-            "difficulty_score": 3,
-            "points": 1,
-            "prompt": "Was war der größte psychologische Terror beim Tamagotchi?",
-            "options": [
-              {
-                "id": "q-07-06-259485ee09-opt-3",
-                "text": "Dass es sterben konnte, wenn man es vernachlässigte",
-                "is_correct": true
-              },
-              {
-                "id": "q-07-06-259485ee09-opt-2",
-                "text": "Dass es nur im Dunkeln aufwachte und permanently piepte",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-06-259485ee09-opt-3",
-                "text": "Dass es nach drei Tagen automatisch weglief und nie wiederkehrte",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-06-259485ee09-opt-4",
-                "text": "Dass es nur mit echtem Kleingeld aus dem Spielzeugladen gefüttert werden konnte",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-07-06-259485ee09-opt-3",
-            "answer": {
-              "canonical": "Dass es sterben konnte, wenn man es vernachlässigte",
-              "aliases": [
-                "Dass es sterben konnte, wenn man es vernachlässigte",
-                "dass es sterben konnte, wenn man es vernachlässigte"
-              ],
-              "alternatives": [],
-              "case_sensitive": false,
-              "match_strategy": "alias_or_option_id"
-            },
-            "explanation": "Ein digitaler Haufen Pixel, der uns mehr unter Druck gesetzt hat als unser späteres Berufsleben. Und wehe, man hat in der Mathestunde nicht heimlich gefüttert.",
-            "tags": [
-              "gaming",
-              "retro",
-              "videospiele",
-              "nostalgie",
-              "frust"
-            ],
-            "source": {
-              "imported_from_category_name": "Gaming-Frust & Pixel-Nostalgie"
-            },
-            "validation": {
-              "auto_generated_options": true,
               "needs_manual_review": false,
               "review_flags": []
             }
@@ -5617,372 +4015,6 @@
             }
           },
           {
-            "id": "q-07-08-c7db983b5b",
-            "legacy_question_id": 8,
-            "category_id": "cat-07",
-            "order_in_category": 8,
-            "order_global": 158,
-            "type": "multiple_choice",
-            "difficulty": "medium_hard",
-            "difficulty_score": 3,
-            "points": 1,
-            "prompt": "Was war eine LAN-Party?",
-            "options": [
-              {
-                "id": "q-07-08-c7db983b5b-opt-4",
-                "text": "Ein lokales Netzwerk-Treffen zum gemeinsamen Zocken mit eigenen PCs/Konsolen",
-                "is_correct": true
-              },
-              {
-                "id": "q-07-08-c7db983b5b-opt-2",
-                "text": "Eine Online-Gruppenchat-Session über ICQ",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-08-c7db983b5b-opt-3",
-                "text": "Ein Wettbewerb im Computer-Zusammenbau auf Zeit",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-08-c7db983b5b-opt-4",
-                "text": "Ein Internet-Café mit Flatrate-Zugang",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-07-08-c7db983b5b-opt-4",
-            "answer": {
-              "canonical": "Ein lokales Netzwerk-Treffen zum gemeinsamen Zocken mit eigenen PCs/Konsolen",
-              "aliases": [
-                "Ein lokales Netzwerk-Treffen zum gemeinsamen Zocken mit eigenen PCs/Konsolen",
-                "ein lokales netzwerk-treffen zum gemeinsamen zocken mit eigenen pcs/konsolen"
-              ],
-              "alternatives": [],
-              "case_sensitive": false,
-              "match_strategy": "alias_or_option_id"
-            },
-            "explanation": "Drei Tage ohne Schlaf, stapelweise Pizzakartons und der Geruch von 15 schwitzenden Teenagern in einem Keller. Die Geburtsstunde des modernen E-Sports.",
-            "tags": [
-              "gaming",
-              "retro",
-              "videospiele",
-              "nostalgie",
-              "frust"
-            ],
-            "source": {
-              "imported_from_category_name": "Gaming-Frust & Pixel-Nostalgie"
-            },
-            "validation": {
-              "auto_generated_options": true,
-              "needs_manual_review": false,
-              "review_flags": []
-            }
-          },
-          {
-            "id": "q-07-09-aef9b7b2b3",
-            "legacy_question_id": 9,
-            "category_id": "cat-07",
-            "order_in_category": 9,
-            "order_global": 159,
-            "type": "multiple_choice",
-            "difficulty": "medium_hard",
-            "difficulty_score": 3,
-            "points": 1,
-            "prompt": "Welches Spiel ist für den Satz „Finish him!“ bekannt?",
-            "options": [
-              {
-                "id": "q-07-09-aef9b7b2b3-opt-2",
-                "text": "Mortal Kombat",
-                "is_correct": true
-              },
-              {
-                "id": "q-07-09-aef9b7b2b3-opt-2",
-                "text": "Street Fighter",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-09-aef9b7b2b3-opt-3",
-                "text": "Tekken",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-09-aef9b7b2b3-opt-4",
-                "text": "Doom",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-07-09-aef9b7b2b3-opt-2",
-            "answer": {
-              "canonical": "Mortal Kombat",
-              "aliases": [
-                "Mortal Kombat",
-                "mortal kombat"
-              ],
-              "alternatives": [],
-              "case_sensitive": false,
-              "match_strategy": "alias_or_option_id"
-            },
-            "explanation": "Der Grund, warum unsere Eltern dachten, wir würden alle zu Gewaltverbrechern werden. Dabei wollten wir nur sehen, wie Sub-Zero die Wirbelsäule zieht.",
-            "tags": [
-              "gaming",
-              "retro",
-              "videospiele",
-              "nostalgie",
-              "frust"
-            ],
-            "source": {
-              "imported_from_category_name": "Gaming-Frust & Pixel-Nostalgie"
-            },
-            "validation": {
-              "auto_generated_options": true,
-              "needs_manual_review": false,
-              "review_flags": []
-            }
-          },
-          {
-            "id": "q-07-10-db40f9e03c",
-            "legacy_question_id": 10,
-            "category_id": "cat-07",
-            "order_in_category": 10,
-            "order_global": 160,
-            "type": "multiple_choice",
-            "difficulty": "medium_hard",
-            "difficulty_score": 3,
-            "points": 1,
-            "prompt": "Was war bei frühen PlayStation-Memory-Cards das Grauen?",
-            "options": [
-              {
-                "id": "q-07-10-db40f9e03c-opt-2",
-                "text": "Dass Speicherstände verloren gehen oder die Karte fehlte/kaputtging",
-                "is_correct": true
-              },
-              {
-                "id": "q-07-10-db40f9e03c-opt-2",
-                "text": "Dass man vor jedem Level ein 20-stelliges Passwort notieren musste",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-10-db40f9e03c-opt-3",
-                "text": "Dass Speichern nur an Feiertagen möglich war",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-10-db40f9e03c-opt-4",
-                "text": "Dass man die Konsole beim Speichern auf keinen Fall berühren durfte",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-07-10-db40f9e03c-opt-2",
-            "answer": {
-              "canonical": "Dass Speicherstände verloren gehen oder die Karte fehlte/kaputtging",
-              "aliases": [
-                "Dass Speicherstände verloren gehen oder die Karte fehlte/kaputtging",
-                "dass speicherstände verloren gehen oder die karte fehlte/kaputtging"
-              ],
-              "alternatives": [],
-              "case_sensitive": false,
-              "match_strategy": "alias_or_option_id"
-            },
-            "explanation": "Der Moment, in dem dein 80-Stunden-Final-Fantasy-Savegame einfach verschwindet. Eines der prägendsten Traumata unserer Generation.",
-            "tags": [
-              "gaming",
-              "retro",
-              "videospiele",
-              "nostalgie",
-              "frust"
-            ],
-            "source": {
-              "imported_from_category_name": "Gaming-Frust & Pixel-Nostalgie"
-            },
-            "validation": {
-              "auto_generated_options": true,
-              "needs_manual_review": false,
-              "review_flags": []
-            }
-          },
-          {
-            "id": "q-07-11-b38e1360c1",
-            "legacy_question_id": 11,
-            "category_id": "cat-07",
-            "order_in_category": 11,
-            "order_global": 161,
-            "type": "multiple_choice",
-            "difficulty": "medium_hard",
-            "difficulty_score": 3,
-            "points": 1,
-            "prompt": "In welchem Spiel war „rosebud“ ein bekannter Geld-Cheat?",
-            "options": [
-              {
-                "id": "q-07-11-b38e1360c1-opt-4",
-                "text": "Die Sims",
-                "is_correct": true
-              },
-              {
-                "id": "q-07-11-b38e1360c1-opt-2",
-                "text": "SimCity",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-11-b38e1360c1-opt-3",
-                "text": "Age of Empires",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-11-b38e1360c1-opt-4",
-                "text": "Warcraft",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-07-11-b38e1360c1-opt-4",
-            "answer": {
-              "canonical": "Die Sims",
-              "aliases": [
-                "Die Sims",
-                "die sims"
-              ],
-              "alternatives": [],
-              "case_sensitive": false,
-              "match_strategy": "alias_or_option_id"
-            },
-            "explanation": "Eine Lebenssimulation, in der wir Häuser bauten, die wir uns im echten Leben niemals leisten können. Rosebud war unser einziger Ausweg aus der Armut.",
-            "tags": [
-              "gaming",
-              "retro",
-              "videospiele",
-              "nostalgie",
-              "frust"
-            ],
-            "source": {
-              "imported_from_category_name": "Gaming-Frust & Pixel-Nostalgie"
-            },
-            "validation": {
-              "auto_generated_options": true,
-              "needs_manual_review": false,
-              "review_flags": []
-            }
-          },
-          {
-            "id": "q-07-12-4d0ca5ac04",
-            "legacy_question_id": 12,
-            "category_id": "cat-07",
-            "order_in_category": 12,
-            "order_global": 162,
-            "type": "multiple_choice",
-            "difficulty": "medium_hard",
-            "difficulty_score": 3,
-            "points": 1,
-            "prompt": "Welche Serie ist für brutale Rubberbanding-KI und Hass auf Items im Freundeskreis bekannt?",
-            "options": [
-              {
-                "id": "q-07-12-4d0ca5ac04-opt-3",
-                "text": "Mario Kart",
-                "is_correct": true
-              },
-              {
-                "id": "q-07-12-4d0ca5ac04-opt-2",
-                "text": "Need for Speed",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-12-4d0ca5ac04-opt-3",
-                "text": "Gran Turismo",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-12-4d0ca5ac04-opt-4",
-                "text": "Forza Motorsport",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-07-12-4d0ca5ac04-opt-3",
-            "answer": {
-              "canonical": "Mario Kart",
-              "aliases": [
-                "Mario Kart",
-                "mario kart"
-              ],
-              "alternatives": [],
-              "case_sensitive": false,
-              "match_strategy": "alias_or_option_id"
-            },
-            "explanation": "Das Spiel, das den blauen Panzer erfand, um uns daran zu erinnern, dass man im Leben niemals zu sicher sein sollte.",
-            "tags": [
-              "gaming",
-              "retro",
-              "videospiele",
-              "nostalgie",
-              "frust"
-            ],
-            "source": {
-              "imported_from_category_name": "Gaming-Frust & Pixel-Nostalgie"
-            },
-            "validation": {
-              "auto_generated_options": true,
-              "needs_manual_review": false,
-              "review_flags": []
-            }
-          },
-          {
-            "id": "q-07-13-8ba183d620",
-            "legacy_question_id": 13,
-            "category_id": "cat-07",
-            "order_in_category": 13,
-            "order_global": 163,
-            "type": "multiple_choice",
-            "difficulty": "medium_hard",
-            "difficulty_score": 3,
-            "points": 1,
-            "prompt": "Wofür stand „RPG“ im Gaming-Kontext?",
-            "options": [
-              {
-                "id": "q-07-13-8ba183d620-opt-4",
-                "text": "Role-Playing Game",
-                "is_correct": true
-              },
-              {
-                "id": "q-07-13-8ba183d620-opt-2",
-                "text": "Really Popular Game",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-13-8ba183d620-opt-3",
-                "text": "Rapid Pixel Graphics",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-13-8ba183d620-opt-4",
-                "text": "Random Player Generator",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-07-13-8ba183d620-opt-4",
-            "answer": {
-              "canonical": "Role-Playing Game",
-              "aliases": [
-                "Role-Playing Game",
-                "role-playing game"
-              ],
-              "alternatives": [],
-              "case_sensitive": false,
-              "match_strategy": "alias_or_option_id"
-            },
-            "explanation": "RPG. Der Modus, in dem wir hunderte Stunden in Welten investierten, die wesentlich interessanter waren als der Schulhof.",
-            "tags": [
-              "gaming",
-              "retro",
-              "videospiele",
-              "nostalgie",
-              "frust"
-            ],
-            "source": {
-              "imported_from_category_name": "Gaming-Frust & Pixel-Nostalgie"
-            },
-            "validation": {
-              "auto_generated_options": true,
-              "needs_manual_review": false,
-              "review_flags": []
-            }
-          },
-          {
             "id": "q-07-14-7f1b532775",
             "legacy_question_id": 14,
             "category_id": "cat-07",
@@ -6027,67 +4059,6 @@
               "match_strategy": "alias_or_option_id"
             },
             "explanation": "Camping. Die feigeste aller Taktiken, die in jedem Online-Chat der 2000er zu sofortigen Beleidigungen führte.",
-            "tags": [
-              "gaming",
-              "retro",
-              "videospiele",
-              "nostalgie",
-              "frust"
-            ],
-            "source": {
-              "imported_from_category_name": "Gaming-Frust & Pixel-Nostalgie"
-            },
-            "validation": {
-              "auto_generated_options": true,
-              "needs_manual_review": false,
-              "review_flags": []
-            }
-          },
-          {
-            "id": "q-07-15-7600cc63d8",
-            "legacy_question_id": 15,
-            "category_id": "cat-07",
-            "order_in_category": 15,
-            "order_global": 165,
-            "type": "multiple_choice",
-            "difficulty": "medium_hard",
-            "difficulty_score": 3,
-            "points": 1,
-            "prompt": "Welche Konsole war für das rote Ring-des-Todes-Problem berüchtigt?",
-            "options": [
-              {
-                "id": "q-07-15-7600cc63d8-opt-4",
-                "text": "Xbox 360",
-                "is_correct": true
-              },
-              {
-                "id": "q-07-15-7600cc63d8-opt-2",
-                "text": "PlayStation 3 (Yellow Light of Death)",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-15-7600cc63d8-opt-3",
-                "text": "Nintendo Wii (Wiimote durch den Fernseher)",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-15-7600cc63d8-opt-4",
-                "text": "Xbox One (Disc-Drive-Failure)",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-07-15-7600cc63d8-opt-4",
-            "answer": {
-              "canonical": "Xbox 360",
-              "aliases": [
-                "Xbox 360",
-                "xbox 360"
-              ],
-              "alternatives": [],
-              "case_sensitive": false,
-              "match_strategy": "alias_or_option_id"
-            },
-            "explanation": "Der 'Red Ring of Death' war das Todesurteil für jede Gaming-Session. Ein Designfehler, der uns lehrte, dass Technik nicht ewig hält.",
             "tags": [
               "gaming",
               "retro",
@@ -6227,250 +4198,6 @@
             }
           },
           {
-            "id": "q-07-18-fa5a993568",
-            "legacy_question_id": 18,
-            "category_id": "cat-07",
-            "order_in_category": 18,
-            "order_global": 168,
-            "type": "multiple_choice",
-            "difficulty": "medium_hard",
-            "difficulty_score": 3,
-            "points": 1,
-            "prompt": "Was bedeutete „1v1 me“ in toxischen Online-Lobbys?",
-            "options": [
-              {
-                "id": "q-07-18-fa5a993568-opt-2",
-                "text": "Die Aufforderung zu einem direkten Duell gegen eine Person",
-                "is_correct": true
-              },
-              {
-                "id": "q-07-18-fa5a993568-opt-2",
-                "text": "Eine Entschuldigung für schlechtes Gameplay im Team",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-18-fa5a993568-opt-3",
-                "text": "Die Einladung zu einer Coop-Mission zu zweit",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-18-fa5a993568-opt-4",
-                "text": "Der höfliche Hinweis, dass man gleich offline geht",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-07-18-fa5a993568-opt-2",
-            "answer": {
-              "canonical": "Die Aufforderung zu einem direkten Duell gegen eine Person",
-              "aliases": [
-                "Die Aufforderung zu einem direkten Duell gegen eine Person",
-                "die aufforderung zu einem direkten duell gegen eine person"
-              ],
-              "alternatives": [],
-              "case_sensitive": false,
-              "match_strategy": "alias_or_option_id"
-            },
-            "explanation": "1vs1 me bro! Die universelle Antwort auf jede Beleidigung in Counter-Strike oder Quake. Ort: Meistens Map 'Pool_day'.",
-            "tags": [
-              "gaming",
-              "retro",
-              "videospiele",
-              "nostalgie",
-              "frust"
-            ],
-            "source": {
-              "imported_from_category_name": "Gaming-Frust & Pixel-Nostalgie"
-            },
-            "validation": {
-              "auto_generated_options": true,
-              "needs_manual_review": false,
-              "review_flags": []
-            }
-          },
-          {
-            "id": "q-07-19-4738126552",
-            "legacy_question_id": 19,
-            "category_id": "cat-07",
-            "order_in_category": 19,
-            "order_global": 169,
-            "type": "multiple_choice",
-            "difficulty": "medium_hard",
-            "difficulty_score": 3,
-            "points": 1,
-            "prompt": "Welche Firma veröffentlichte den Game Boy?",
-            "options": [
-              {
-                "id": "q-07-19-4738126552-opt-2",
-                "text": "Nintendo",
-                "is_correct": true
-              },
-              {
-                "id": "q-07-19-4738126552-opt-2",
-                "text": "Sega",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-19-4738126552-opt-3",
-                "text": "Sony",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-19-4738126552-opt-4",
-                "text": "Bandai",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-07-19-4738126552-opt-2",
-            "answer": {
-              "canonical": "Nintendo",
-              "aliases": [
-                "Nintendo",
-                "nintendo"
-              ],
-              "alternatives": [],
-              "case_sensitive": false,
-              "match_strategy": "alias_or_option_id"
-            },
-            "explanation": "Die Firma, die uns lehrte, dass man Probleme lösen kann, indem man einfach kräftig in den Modulschlitz pustet. Funktioniert heute leider nicht mehr bei Laptops.",
-            "tags": [
-              "gaming",
-              "retro",
-              "videospiele",
-              "nostalgie",
-              "frust"
-            ],
-            "source": {
-              "imported_from_category_name": "Gaming-Frust & Pixel-Nostalgie"
-            },
-            "validation": {
-              "auto_generated_options": true,
-              "needs_manual_review": false,
-              "review_flags": []
-            }
-          },
-          {
-            "id": "q-07-20-d840db0acf",
-            "legacy_question_id": 20,
-            "category_id": "cat-07",
-            "order_in_category": 20,
-            "order_global": 170,
-            "type": "multiple_choice",
-            "difficulty": "medium_hard",
-            "difficulty_score": 3,
-            "points": 1,
-            "prompt": "Welches Spielprinzip steckt hinter Tetris?",
-            "options": [
-              {
-                "id": "q-07-20-d840db0acf-opt-2",
-                "text": "Fallende Blöcke passend anordnen, um vollständige Linien zu bilden",
-                "is_correct": true
-              },
-              {
-                "id": "q-07-20-d840db0acf-opt-2",
-                "text": "Einen Charakter durch ein Labyrinth navigieren und Geister fressen",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-20-d840db0acf-opt-3",
-                "text": "Springende Plattformen nach oben klettern und Hindernissen ausweichen",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-20-d840db0acf-opt-4",
-                "text": "Räumliche Rätsel durch Lichtreflexion lösen",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-07-20-d840db0acf-opt-2",
-            "answer": {
-              "canonical": "Fallende Blöcke passend anordnen, um vollständige Linien zu bilden",
-              "aliases": [
-                "Fallende Blöcke passend anordnen, um vollständige Linien zu bilden",
-                "fallende blöcke passend anordnen, um vollständige linien zu bilden"
-              ],
-              "alternatives": [],
-              "case_sensitive": false,
-              "match_strategy": "alias_or_option_id"
-            },
-            "explanation": "Tetris. Das Spiel, das uns bis in die Träume verfolgte und uns lehrte, dass Fehler sich stapeln, während Erfolge sofort verschwinden.",
-            "tags": [
-              "gaming",
-              "retro",
-              "videospiele",
-              "nostalgie",
-              "frust"
-            ],
-            "source": {
-              "imported_from_category_name": "Gaming-Frust & Pixel-Nostalgie"
-            },
-            "validation": {
-              "auto_generated_options": true,
-              "needs_manual_review": false,
-              "review_flags": []
-            }
-          },
-          {
-            "id": "q-07-21-dcb4598b78",
-            "legacy_question_id": 21,
-            "category_id": "cat-07",
-            "order_in_category": 21,
-            "order_global": 171,
-            "type": "multiple_choice",
-            "difficulty": "medium_hard",
-            "difficulty_score": 3,
-            "points": 1,
-            "prompt": "Welche Figur aus *The Legend of Zelda* ist trotz der Verwirrung nicht Zelda?",
-            "options": [
-              {
-                "id": "q-07-21-dcb4598b78-opt-3",
-                "text": "Link",
-                "is_correct": true
-              },
-              {
-                "id": "q-07-21-dcb4598b78-opt-2",
-                "text": "Ganon",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-21-dcb4598b78-opt-3",
-                "text": "Navi",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-21-dcb4598b78-opt-4",
-                "text": "Epona",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-07-21-dcb4598b78-opt-3",
-            "answer": {
-              "canonical": "Link",
-              "aliases": [
-                "Link",
-                "link"
-              ],
-              "alternatives": [],
-              "case_sensitive": false,
-              "match_strategy": "alias_or_option_id"
-            },
-            "explanation": "NEIN, ER HEISST NICHT ZELDA. Zelda ist die Prinzessin. Wie oft müssen wir das eigentlich noch klären? Generationen-Frust pur.",
-            "tags": [
-              "gaming",
-              "retro",
-              "videospiele",
-              "nostalgie",
-              "frust"
-            ],
-            "source": {
-              "imported_from_category_name": "Gaming-Frust & Pixel-Nostalgie"
-            },
-            "validation": {
-              "auto_generated_options": true,
-              "needs_manual_review": false,
-              "review_flags": []
-            }
-          },
-          {
             "id": "q-07-22-d683609ad9",
             "legacy_question_id": 22,
             "category_id": "cat-07",
@@ -6593,134 +4320,12 @@
             }
           },
           {
-            "id": "q-07-24-b021710fea",
-            "legacy_question_id": 24,
-            "category_id": "cat-07",
-            "order_in_category": 24,
-            "order_global": 174,
-            "type": "multiple_choice",
-            "difficulty": "medium_hard",
-            "difficulty_score": 3,
-            "points": 1,
-            "prompt": "Was war ein „No-Scope“ in Shootern?",
-            "options": [
-              {
-                "id": "q-07-24-b021710fea-opt-2",
-                "text": "Ein Schuss ohne das Visier/Fernrohr zu benutzen, meist mit Sniper",
-                "is_correct": true
-              },
-              {
-                "id": "q-07-24-b021710fea-opt-2",
-                "text": "Ein Treffer durch eine Wand hindurch (Wallbang)",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-24-b021710fea-opt-3",
-                "text": "Ein Kill ohne einen einzigen Schuss abzugeben (Knife-only)",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-24-b021710fea-opt-4",
-                "text": "Ein Schuss quer über die gesamte Karte mit Glitch (Trickshot)",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-07-24-b021710fea-opt-2",
-            "answer": {
-              "canonical": "Ein Schuss ohne das Visier/Fernrohr zu benutzen, meist mit Sniper",
-              "aliases": [
-                "Ein Schuss ohne das Visier/Fernrohr zu benutzen, meist mit Sniper",
-                "ein schuss ohne das visier/fernrohr zu benutzen, meist mit sniper"
-              ],
-              "alternatives": [],
-              "case_sensitive": false,
-              "match_strategy": "alias_or_option_id"
-            },
-            "explanation": "No-Scope. Die höchste Form der Demütigung für das Opfer. Meistens gefolgt von einem übertriebenen Jubelschrei im Teamspeak.",
-            "tags": [
-              "gaming",
-              "retro",
-              "videospiele",
-              "nostalgie",
-              "frust"
-            ],
-            "source": {
-              "imported_from_category_name": "Gaming-Frust & Pixel-Nostalgie"
-            },
-            "validation": {
-              "auto_generated_options": true,
-              "needs_manual_review": false,
-              "review_flags": []
-            }
-          },
-          {
-            "id": "q-07-25-a7b458cf6c",
-            "legacy_question_id": 25,
-            "category_id": "cat-07",
-            "order_in_category": 25,
-            "order_global": 175,
-            "type": "multiple_choice",
-            "difficulty": "medium_hard",
-            "difficulty_score": 3,
-            "points": 1,
-            "prompt": "Warum war der blaue Panzer in Mario Kart so verhasst?",
-            "options": [
-              {
-                "id": "q-07-25-a7b458cf6c-opt-3",
-                "text": "Weil er gezielt den Führenden trifft und gute Leistung mit willkürlichem Leid bestraft",
-                "is_correct": true
-              },
-              {
-                "id": "q-07-25-a7b458cf6c-opt-2",
-                "text": "Weil er zufällige Spieler ausschaltet, völlig unabhängig vom Platz",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-25-a7b458cf6c-opt-3",
-                "text": "Weil er den Letztplatzierten bevorzugt und das Russen künstlich verlängert",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-25-a7b458cf6c-opt-4",
-                "text": "Weil er die Grafikkarte für drei Sekunden zum Absturz bringt",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-07-25-a7b458cf6c-opt-3",
-            "answer": {
-              "canonical": "Weil er gezielt den Führenden trifft und gute Leistung mit willkürlichem Leid bestraft",
-              "aliases": [
-                "Weil er gezielt den Führenden trifft und gute Leistung mit willkürlichem Leid bestraft",
-                "weil er gezielt den führenden trifft und gute leistung mit willkürlichem leid bestraft"
-              ],
-              "alternatives": [],
-              "case_sensitive": false,
-              "match_strategy": "alias_or_option_id"
-            },
-            "explanation": "Richtig ist: Weil er gezielt den Führenden trifft und gute Leistung mit willkürlichem Leid bestraft. Diese Antwort ist in der vorhandenen Quizbasis als eindeutige Ziellösung hinterlegt.",
-            "tags": [
-              "gaming",
-              "retro",
-              "videospiele",
-              "nostalgie",
-              "frust"
-            ],
-            "source": {
-              "imported_from_category_name": "Gaming-Frust & Pixel-Nostalgie"
-            },
-            "validation": {
-              "auto_generated_options": true,
-              "needs_manual_review": false,
-              "review_flags": []
-            }
-          },
-          {
             "id": "q-07-e01-9ce9e570a8",
             "type": "estimate",
             "prompt": "Wie viel Megabyte (MB) Speicherplatz bot eine offizielle Memory Card für die erste PlayStation (PS1)?",
             "answer": {
               "canonical": "1.0 MB",
-              "reference_value": 1.0,
+              "reference_value": 1,
               "unit": "MB",
               "context": "Hardware Specs, 15 Speicherblöcke"
             },
@@ -6752,7 +4357,7 @@
             "prompt": "Wie viele Millionen Tamagotchis wurden in den ersten drei Jahren (1996-1999) weltweit verkauft?",
             "answer": {
               "canonical": "40.0 Millionen",
-              "reference_value": 40.0,
+              "reference_value": 40,
               "unit": "Millionen",
               "context": "Weltweit, Bandai Statistik"
             },
@@ -10036,7 +7641,7 @@
             "prompt": "Wie viel Prozent ihres Netto-Einkommens gibt ein durchschnittlicher Millennial in Deutschland für Miete aus?",
             "answer": {
               "canonical": "30.0 %",
-              "reference_value": 30.0,
+              "reference_value": 30,
               "unit": "%",
               "context": "Statistisches Bundesamt, Durchschnitt"
             },

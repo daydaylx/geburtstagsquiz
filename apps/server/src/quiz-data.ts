@@ -4,6 +4,8 @@ import { fileURLToPath } from "node:url";
 
 import { QuestionType, type Question, type QuestionOption, type Quiz } from "@quiz/shared-types";
 
+import { QUESTION_DURATION_MS } from "./config.js";
+
 type RawQuizFile = {
   quiz: {
     quiz_id: string;
@@ -51,7 +53,6 @@ const QUIZ_SOURCE_FILES = [
   "geburtstagsquiz_millennials_engine_v4_release_candidate.json",
   "geburtstagsquiz_millennials_engine_v5_expanded.json",
 ] as const;
-const DEFAULT_QUESTION_DURATION_MS = 15_000;
 const moduleDir = path.dirname(fileURLToPath(import.meta.url));
 
 function findQuizSourceFile(fileName: string): string {
@@ -152,7 +153,7 @@ function hasCorrectOption(question: RawQuestion): boolean {
     question.options.length > 0 &&
     Boolean(
       question.correct_option_id ||
-        question.options.some((option) => typeof option !== "string" && option.is_correct),
+      question.options.some((option) => typeof option !== "string" && option.is_correct),
     )
   );
 }
@@ -177,7 +178,7 @@ function toOptionQuestion(question: RawQuestion): Question {
     text: question.prompt,
     options,
     correctOptionId,
-    durationMs: DEFAULT_QUESTION_DURATION_MS,
+    durationMs: QUESTION_DURATION_MS,
     points: toPoints(question.points),
     ...(getExplanation(question) ? { explanation: getExplanation(question) } : {}),
   };
@@ -208,7 +209,7 @@ function toEstimateQuestion(question: RawQuestion): Question {
     correctValue: answer.reference_value,
     unit: requireText(answer.unit, "answer.unit", question.id),
     context: answer.context || answer.canonical || "Referenzwert",
-    durationMs: DEFAULT_QUESTION_DURATION_MS,
+    durationMs: QUESTION_DURATION_MS,
     points: toPoints(question.points),
     ...(getExplanation(question) ? { explanation: getExplanation(question) } : {}),
   };
@@ -241,7 +242,7 @@ function toRankingQuestion(question: RawQuestion): Question {
       text: question.prompt,
       items,
       correctOrder,
-      durationMs: DEFAULT_QUESTION_DURATION_MS,
+      durationMs: QUESTION_DURATION_MS,
       points: toPoints(question.points),
       ...(getExplanation(question) ? { explanation: getExplanation(question) } : {}),
     };
@@ -263,7 +264,7 @@ function toRankingQuestion(question: RawQuestion): Question {
     text: question.prompt,
     items: rotateOptions(orderedItems),
     correctOrder: orderedItems.map((item) => item.id),
-    durationMs: DEFAULT_QUESTION_DURATION_MS,
+    durationMs: QUESTION_DURATION_MS,
     points: toPoints(question.points),
     ...(getExplanation(question) ? { explanation: getExplanation(question) } : {}),
   };
@@ -275,7 +276,7 @@ function toMajorityGuessQuestion(question: RawQuestion): Question {
     type: QuestionType.MajorityGuess,
     text: question.prompt,
     options: toQuestionOptions(question.options, question.id),
-    durationMs: DEFAULT_QUESTION_DURATION_MS,
+    durationMs: QUESTION_DURATION_MS,
     points: toPoints(question.points),
     ...(getExplanation(question) ? { explanation: getExplanation(question) } : {}),
   };
@@ -290,7 +291,7 @@ function toOpenTextQuestion(question: RawQuestion): Question {
     text: question.prompt,
     correctText,
     aliases: (question.answer?.aliases ?? []).filter((alias) => alias.trim().length > 0),
-    durationMs: DEFAULT_QUESTION_DURATION_MS,
+    durationMs: QUESTION_DURATION_MS,
     points: toPoints(question.points),
     ...(getExplanation(question) ? { explanation: getExplanation(question) } : {}),
   };

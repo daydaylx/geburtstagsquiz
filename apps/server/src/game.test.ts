@@ -173,14 +173,14 @@ describe("getEveningQuestions", () => {
     // 3. Est (7->6), counts: MC 12, Est 8, Rank 3
     // 4. Est (6->5), counts: MC 12, Est 9, Rank 3
     // 5. Est (5->4), counts: MC 12, Est 10, Rank 3
-    // 6. MC (4->3), counts: MC 13, Est 10, Rank 3 (or Est again, they tie)
-    // At the end they will be balanced.
-    // MC: 12 + approx 3 = 15
-    // Est: 5 + approx 5 = 10
-    // Rank: 3 + approx 2 = 5
+    // 6. MC (4->3), counts: MC 13, Est 10, Rank 3
+    // 7. Est (4->3), counts: MC 13, Est 11, Rank 3
+    // 8. MC (3->2), counts: MC 14, Est 11, Rank 3
+    // 9. Est (3->2), counts: MC 14, Est 12, Rank 3
+    // 10. MC wins the final tie by type order, counts: MC 15, Est 12, Rank 3
     expect(selected.filter((q) => q.type === QuestionType.MultipleChoice)).toHaveLength(15);
-    expect(selected.filter((q) => q.type === QuestionType.Estimate)).toHaveLength(10);
-    expect(selected.filter((q) => q.type === QuestionType.Ranking)).toHaveLength(5);
+    expect(selected.filter((q) => q.type === QuestionType.Estimate)).toHaveLength(12);
+    expect(selected.filter((q) => q.type === QuestionType.Ranking)).toHaveLength(3);
   });
 
   it("does not produce duplicate question IDs", () => {
@@ -249,8 +249,8 @@ describe("getDefaultQuiz", () => {
     const quiz = getDefaultQuiz();
 
     expect(quiz.id).toBe("geburtstagsquiz-millennials-v2-engine-v2");
-    expect(quiz.questions).toHaveLength(520);
-    expect(new Set(quiz.questions.map((q) => q.id)).size).toBe(520);
-    expect(quiz.questions.every((q) => q.durationMs === 15_000)).toBe(true);
+    expect(quiz.questions).toHaveLength(502);
+    expect(new Set(quiz.questions.map((q) => q.id)).size).toBe(502);
+    expect(quiz.questions.every((q) => q.durationMs === QUESTION_DURATION_MS)).toBe(true);
   });
 });

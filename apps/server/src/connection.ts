@@ -1,5 +1,3 @@
-import { WebSocket } from "ws";
-
 import { EVENTS, type QuestionShowPayload } from "@quiz/shared-protocol";
 import { GameState, PlayerState, RoomState, type Question } from "@quiz/shared-types";
 import type { ServerToClientEventName, ServerToClientEventPayloadMap } from "@quiz/shared-protocol";
@@ -8,6 +6,10 @@ import type { RoomRecord, SessionRecord, TrackedWebSocket } from "./server-types
 import { sendEvent, toLobbyUpdatePayload } from "./protocol.js";
 import { sessionsById } from "./state.js";
 import { toQuestionControllerPayload, toQuestionShowPayload } from "./question-payloads.js";
+
+type BroadcastOptions = {
+  excludeSessionIds?: Set<string>;
+};
 
 export function sendToDisplay<TEvent extends ServerToClientEventName>(
   room: RoomRecord,
@@ -33,7 +35,7 @@ export function sendToPlayers<TEvent extends ServerToClientEventName>(
   room: RoomRecord,
   event: TEvent,
   payload: ServerToClientEventPayloadMap[TEvent],
-  options?: { excludeSessionIds?: Set<string> },
+  options?: BroadcastOptions,
 ): void {
   const excludedSessions = options?.excludeSessionIds ?? new Set<string>();
   for (const player of room.players) {
@@ -43,33 +45,31 @@ export function sendToPlayers<TEvent extends ServerToClientEventName>(
   }
 }
 
-export function broadcastToPublicScreens<TEvent extends ServerToClientEventName>(
+export function broadcastToHostAndDisplay<TEvent extends ServerToClientEventName>(
   room: RoomRecord,
   event: TEvent,
   payload: ServerToClientEventPayloadMap[TEvent],
 ): void {
-  sendToDisplay(room, event, payload);
   sendToHost(room, event, payload);
+  sendToDisplay(room, event, payload);
 }
 
-export function broadcastToRoom<TEvent extends ServerToClientEventName>(
+export function broadcastToAllRoomClients<TEvent extends ServerToClientEventName>(
   room: RoomRecord,
   event: TEvent,
   payload: ServerToClientEventPayloadMap[TEvent],
-  options?: {
-    excludeSessionIds?: Set<string>;
-  },
+  options?: BroadcastOptions,
 ): void {
   const excludedSessions = options?.excludeSessionIds ?? new Set<string>();
-
-  if (room.displaySessionId && !excludedSessions.has(room.displaySessionId)) {
-    const displaySession = sessionsById.get(room.displaySessionId);
-    sendEvent(displaySession?.socket, event, payload);
-  }
 
   if (room.hostSessionId && !excludedSessions.has(room.hostSessionId)) {
     const hostSession = sessionsById.get(room.hostSessionId);
     sendEvent(hostSession?.socket, event, payload);
+  }
+
+  if (room.displaySessionId && !excludedSessions.has(room.displaySessionId)) {
+    const displaySession = sessionsById.get(room.displaySessionId);
+    sendEvent(displaySession?.socket, event, payload);
   }
 
   for (const player of room.players) {
@@ -106,6 +106,17 @@ function getSortedScoreboard(room: RoomRecord) {
 
 function getRevealResultPayload(room: RoomRecord) {
   return room.lastRoundResult;
+}
+
+function getAnswerProgressPayload(room: RoomRecord, questionId: string) {
+  const connectedPlayers = getConnectedPlayers(room);
+
+  return {
+    roomId: room.id,
+    questionId,
+    answeredCount: connectedPlayers.filter((player) => room.currentAnswers.has(player.id)).length,
+    totalEligiblePlayers: connectedPlayers.length,
+  };
 }
 
 function sendQuestionForSession(
@@ -185,7 +196,6 @@ export function syncSessionToRoomState(session: SessionRecord, room: RoomRecord)
     return;
   }
 
-  const connectedPlayers = getConnectedPlayers(room);
   const scoreboard = getSortedScoreboard(room);
   const totalQuestionCount = room.quiz.questions.length;
   const playerAnswer = session.playerId
@@ -225,12 +235,7 @@ export function syncSessionToRoomState(session: SessionRecord, room: RoomRecord)
       });
 
       if (session.role === "host" || session.role === "display") {
-        sendEvent(socket, EVENTS.ANSWER_PROGRESS, {
-          roomId: room.id,
-          questionId: question.id,
-          answeredCount: room.currentAnswers.size,
-          totalEligiblePlayers: connectedPlayers.length,
-        });
+        sendEvent(socket, EVENTS.ANSWER_PROGRESS, getAnswerProgressPayload(room, question.id));
       }
       return;
     }
@@ -250,6 +255,8 @@ export function syncSessionToRoomState(session: SessionRecord, room: RoomRecord)
         if (!roundResult) return;
 
         sendQuestionForSession(socket, session, room, question, GameState.Revealing);
+        // AnswerLocked is correct here: the schema constrains QUESTION_CLOSE to AnswerLocked,
+        // and clients need this transition before receiving QUESTION_REVEAL.
         sendEvent(socket, EVENTS.QUESTION_CLOSE, {
           roomId: room.id,
           questionId: question.id,
@@ -272,6 +279,8 @@ export function syncSessionToRoomState(session: SessionRecord, room: RoomRecord)
         if (!roundResult) return;
 
         sendQuestionForSession(socket, session, room, question, GameState.Scoreboard);
+        // AnswerLocked is correct here: the schema constrains QUESTION_CLOSE to AnswerLocked,
+        // and clients need this transition before QUESTION_REVEAL and SCORE_UPDATE.
         sendEvent(socket, EVENTS.QUESTION_CLOSE, {
           roomId: room.id,
           questionId: question.id,

@@ -47,7 +47,7 @@
     },
     "stats": {
       "total_categories": 10,
-      "total_questions": 332,
+      "total_questions": 282,
       "engine_question_type": "multiple_choice",
       "generated_options_per_question": 4
     },
@@ -107,7 +107,7 @@
               }
             ],
             "correct_option_id": "q-01-01-opt-1",
-            "explanation": "Es ist 'Caput Draconis' (Drachenkopf). Percy Weasley führt die Erstklässler an, als wäre er der CEO von Gryffindor. Später gab es Passwörter wie 'Banane', was die Sicherheit in Hogwarts perfekt zusammenfassst.",
+            "explanation": "Es ist 'Caput Draconis' (Drachenkopf). Percy Weasley fuehrt die Erstklaessler an, als waere er der CEO von Gryffindor. Spaeter gab es Passwoerter wie 'Banane', was die Sicherheit in Hogwarts perfekt zusammenfasst.",
             "difficulty": "hard",
             "points": 1
           },
@@ -343,31 +343,31 @@
           {
             "id": "q-01-10",
             "type": "common_mistake",
-            "prompt": "Was ist die versteckte Bedeutung von Snapes ersten Worten an Harry ('Asphodel' und 'Wormwood')?",
+            "prompt": "Welche Fan-Deutung steckt hinter Snapes ersten Zaubertrank-Worten an Harry ('Asphodel' und 'Wormwood')?",
             "options": [
               {
                 "id": "q-01-10-opt-1",
-                "text": "Er sagt verschlüsselt: 'Ich bereue Lilys Tod zutiefst'",
+                "text": "Sie lassen sich als Trauer und Reue um Lily lesen",
                 "is_correct": true
               },
               {
                 "id": "q-01-10-opt-2",
-                "text": "Er will nur Harrys Unwissenheit vor der Klasse bloßstellen",
+                "text": "Sie verraten die Zutaten des Vielsafttranks",
                 "is_correct": false
               },
               {
                 "id": "q-01-10-opt-3",
-                "text": "Es ist ein Hinweis auf die Zutaten des Vielsafttranks",
+                "text": "Sie sind ein Code fuer den Stein der Weisen",
                 "is_correct": false
               },
               {
                 "id": "q-01-10-opt-4",
-                "text": "Es gibt keine Bedeutung, Rowling hat einfach Kräuter gewürfelt",
+                "text": "Sie nennen heimlich den Aufenthaltsort von Sirius",
                 "is_correct": false
               }
             ],
             "correct_option_id": "q-01-10-opt-1",
-            "explanation": "Blumensprache! Asphodel (eine Lilienart) steht für Tod/Trauer, Wormwood (Wermut) für Reue/Bitterkeit. Er sagt wortwörtlich 'Ich bereue Lilys Tod'. Snape hat uns 7 Filme lang getrollt.",
+            "explanation": "Das ist eine bekannte Fan-Deutung ueber Blumensprache: Asphodel wird mit Trauer verbunden, Wormwood mit Bitterkeit. Im Film wird diese Bedeutung aber nicht ausdruecklich erklaert.",
             "difficulty": "hard",
             "points": 2
           },
@@ -462,10 +462,20 @@
                 "id": "q-01-14-opt-2",
                 "text": "George",
                 "is_correct": false
+              },
+              {
+                "id": "q-01-14-opt-3",
+                "text": "Beide",
+                "is_correct": false
+              },
+              {
+                "id": "q-01-14-opt-4",
+                "text": "Keiner von beiden",
+                "is_correct": false
               }
             ],
             "correct_option_id": "q-01-14-opt-1",
-            "explanation": "Es ist Fred. George verliert 'nur' ein Ohr und wird 'o-hr-ent-lich'. Der Moment, in dem man realisiert, dass man die beiden nie wieder zusammen lachen sieht, ist der emotionale Nullpunkt der Generation.",
+            "explanation": "Fred stirbt in der Schlacht von Hogwarts. George ueberlebt, hatte aber vorher bereits ein Ohr verloren.",
             "difficulty": "medium",
             "points": 1
           },
@@ -698,7 +708,7 @@
               }
             ],
             "correct_option_id": "q-01-22-opt-1",
-            "explanation": "Molly Weasley! 'Nicht meine Tochter, du Schlampe!' – Der Moment, in dem wir alle gelernt haben: Leg dich nie mit einer Millennial-Mutter an, die ihr Kind beschützt.",
+            "explanation": "Molly Weasley besiegt Bellatrix in der finalen Schlacht. Der Moment funktioniert, weil Molly nicht nur Mutter, sondern eine ernstzunehmende Hexe ist.",
             "difficulty": "medium",
             "points": 1
           },
@@ -1247,7 +1257,7 @@
               }
             ],
             "correct_option_id": "q-02-15-23bfa11944-opt-1",
-            "explanation": "Wenn das Date 20 Jahre älter und 30 Kilo schwerer ist als auf dem Profilbild. Danke, Photoshop. Ein wahrer Albtraum für jeden Millennial.",
+            "explanation": "Catfishing bedeutet, online mit Fotos, Namen oder Lebensgeschichte eine falsche Identitaet vorzutaeuschen. Der Schock liegt im Vertrauensbruch, nicht im Aussehen.",
             "difficulty": "medium_hard",
             "category_id": "cat-02",
             "type": "multiple_choice",
@@ -1407,7 +1417,7 @@
               }
             ],
             "correct_option_id": "q-02-20-61e1d822ed-opt-1",
-            "explanation": "Identität ist dein eigenes Geschlechtsempfinden. Orientierung ist das Ziel deiner Begierde. Eigentlich ganz einfach, wenn man nicht gerade bei der AfD arbeitet.",
+            "explanation": "Identitaet beschreibt, wer man selbst ist; Orientierung beschreibt, zu wem man sich hingezogen fuehlt. Beides sind unterschiedliche Ebenen.",
             "difficulty": "medium_hard",
             "category_id": "cat-02",
             "type": "multiple_choice",
@@ -1611,7 +1621,7 @@
             "prompt": "Wie viele verschiedene Sexualpartner hat ein Deutscher im Durchschnitt im Laufe seines Lebens?",
             "answer": {
               "canonical": "7.0 Partner",
-              "reference_value": 7.0,
+              "reference_value": 7,
               "unit": "Partner",
               "context": "Deutschland, Durchschnittswert"
             },
@@ -1727,7 +1737,7 @@
               }
             ],
             "correct_option_id": "q-02-new-03-opt-1",
-            "explanation": "Der ultimative introvertierte Dating-Traum. Kein Smalltalk über den neuen Wes-Anderson-Film, kein peinlicher Augenkontakt, einfach nur effiziente Abfertigung. Im Grunde genommen wie Tinder, nur dass man sich das mühsame Texten spart.",
+            "explanation": "Der Begriff bezeichnet eine anonyme sexuelle Situation durch eine Trennwand. Wichtig ist dabei wie immer: erwachsene Beteiligte, klare Einvernehmlichkeit und Grenzen.",
             "difficulty": "easy",
             "category_id": "cat-02",
             "type": "multiple_choice",
@@ -1759,7 +1769,7 @@
               }
             ],
             "correct_option_id": "q-02-new-04-opt-1",
-            "explanation": "Für Leute, die nach Pandemie, Inflation und Klimakrise denken: 'Was soll jetzt eigentlich noch schiefgehen?' Spoiler-Alarm: Chlamydien, Tripper und eine sehr unangenehme Erklärung beim Urologen. Verhütet, Kinder!",
+            "explanation": "Barebacking bedeutet Sex ohne Kondom. Der Begriff ist deshalb eng mit STI-Risiko, Verhuetung und klarer Absprache verbunden.",
             "difficulty": "medium",
             "category_id": "cat-02",
             "type": "multiple_choice",
@@ -1791,7 +1801,7 @@
               }
             ],
             "correct_option_id": "q-02-new-05-opt-1",
-            "explanation": "Wurde berühmt durch 12-jährige Kids im Voice-Chat von 'Halo 3', die ihre virtuellen Gegner demütigen wollten. Heute ist es eine reale Schlafzimmer-Tätigkeit. Die menschliche Evolution ist wirklich ein Mysterium.",
+            "explanation": "Der Begriff kommt auch als Gaming-Taunt vor, beschreibt im sexuellen Kontext aber eine konkrete Koerperhandlung. Als reale Praktik gilt sie nur einvernehmlich und mit klaren Grenzen.",
             "difficulty": "medium",
             "category_id": "cat-02",
             "type": "multiple_choice",
@@ -1855,7 +1865,7 @@
               }
             ],
             "correct_option_id": "q-02-new-07-opt-1",
-            "explanation": "Abgesehen von der Sauerei ist das ein logistischer Albtraum. Hast du mal versucht, sechs Millennials rechtzeitig an einem Ort zu versammeln? Mindestens drei flaken in letzter Minute wegen 'Mental Health', einer ist laktoseintolerant und der Rest starrt aufs Handy.",
+            "explanation": "Der Begriff stammt aus der Pornosprache und beschreibt eine Gruppensituation. Fuers Quiz reicht die Definition; Romantikpunkte gibt es dafuer eher selten.",
             "difficulty": "hard",
             "category_id": "cat-02",
             "type": "multiple_choice",
@@ -1919,7 +1929,7 @@
               }
             ],
             "correct_option_id": "q-02-new-09-opt-1",
-            "explanation": "Ein bisschen wie das verzweifelte Gefühl, wenn dir das Feuerzeug ganz tief in die Sofaritze gefallen ist und du bis zur Schulter graben musst. Nur dass das Sofa in diesem Fall eine person ist und man für dieses Vorhaben mehr Gleitgel braucht als für eine Wasserrutsche.",
+            "explanation": "Der Begriff beschreibt eine sehr intensive sexuelle Praktik. Ohne Erfahrung, Kommunikation und klare Zustimmung ist das kein Thema fuer Experimente.",
             "difficulty": "hard",
             "category_id": "cat-02",
             "type": "multiple_choice",
@@ -1983,7 +1993,7 @@
               }
             ],
             "correct_option_id": "q-02-new-11-opt-1",
-            "explanation": "Wirkt ein bisschen wie das Fütterungsritual grotesker Vogelbabys auf dem Discovery Channel. Sharing is caring, sagen die Leute. Manche Dinge sollte man aber vielleicht einfach runterschlucken oder weggurgeln, statt sie weiterzureichen.",
+            "explanation": "Snowballing ist Slang aus der Pornografie und meint das Weitergeben von Samenfluessigkeit von Mund zu Mund. Als Quizbegriff reicht die sachliche Definition voellig aus.",
             "difficulty": "hard",
             "category_id": "cat-02",
             "type": "multiple_choice",
@@ -2015,7 +2025,7 @@
               }
             ],
             "correct_option_id": "q-02-new-12-opt-1",
-            "explanation": "Man fühlt sich vermutlich wie ein menschlicher Dönerkebab in der Mache. Immerhin ist man der absolute Mittelpunkt der Aufmerksamkeit. Wer Multi-Tasking liebt und keine Platzangst hat, ist hier genau richtig.",
+            "explanation": "Der Begriff beschreibt eine Mehrpersonen-Konstellation. Entscheidend ist, dass alle Beteiligten erwachsen sind und vorher klar zustimmen.",
             "difficulty": "medium",
             "category_id": "cat-02",
             "type": "multiple_choice",
@@ -2047,7 +2057,7 @@
               }
             ],
             "correct_option_id": "q-02-new-13-opt-1",
-            "explanation": "Endlich mal Schmuck, den sich in dieser Wirtschaftslage wirklich jeder leisten kann! Ein funkelndes Statement-Piece für die Ewigkeit... oder zumindest bis zur nächsten heißen Dusche.",
+            "explanation": "Die 'Perlenkette' ist hier kein Schmuck aus dem Juwelierladen, sondern Pornoslang. Der Witz funktioniert vor allem ueber die bewusst harmlose Metapher.",
             "difficulty": "medium",
             "category_id": "cat-02",
             "type": "multiple_choice",
@@ -2143,7 +2153,7 @@
               }
             ],
             "correct_option_id": "q-02-new-16-opt-1",
-            "explanation": "Der Heilige Gral der männlichen Ego-Bestätigung. Kerle sehen das wie den Gewinn einer olympischen Goldmedaille. Am Ende des Tages bedeutet es aber meistens nur, dass jemand mitten in der Nacht mürrisch ein nasses Handtuch auf die Matratze legen muss.",
+            "explanation": "Squirting bezeichnet das Austreten von Fluessigkeit bei sexueller Erregung. Es ist kein Leistungsnachweis, sondern schlicht ein koerperliches Phaenomen.",
             "difficulty": "easy",
             "category_id": "cat-02",
             "type": "multiple_choice",
@@ -2175,7 +2185,7 @@
               }
             ],
             "correct_option_id": "q-02-new-17-opt-1",
-            "explanation": "Der ultimative Handshake für die Vorhaut. Da können sich beschchnittene Männer nur kopfschüttelnd abwenden. Astronauten im Weltall koppeln Sojus-Kapseln so ähnlich an die ISS.",
+            "explanation": "Der nautische Name ist auffaelliger als die Definition. Wie bei allen intimen Praktiken gilt: nur mit erwachsenen, einverstandenen Beteiligten.",
             "difficulty": "medium_hard",
             "category_id": "cat-02",
             "type": "multiple_choice",
@@ -2207,7 +2217,7 @@
               }
             ],
             "correct_option_id": "q-02-new-18-opt-1",
-            "explanation": "Flashbacks in die Zeit, als man 15 war und sich verzweifelt durch drei Schichten Jeansstoff auf dem Sofa der Eltern humpte, während diese unten 'Wetten, dass..?' schauten. Pure Nostalgie und schmerzende Leisten.",
+            "explanation": "Frottage bezeichnet erregendes Reiben, oft auch bekleidet. Der Begriff klingt akademischer, als sich die Situation meistens anfuehlt.",
             "difficulty": "medium",
             "category_id": "cat-02",
             "type": "multiple_choice",
@@ -2247,31 +2257,31 @@
           },
           {
             "id": "q-02-new-20-dogging",
-            "prompt": "Eine sehr britische Freizeitbeschäftigung ist das „Dogging“. Worum geht es dabei?",
+            "prompt": "Was bedeutet 'Aftercare' im BDSM- oder Kink-Kontext?",
             "options": [
               {
-                "id": "q-02-new-20-opt-1",
-                "text": "Das Beobachten oder Durchführen von sexuellen Handlungen im Freien, oft auf abgelegenen Parkplätzen",
+                "id": "q-02-new-20-dogging-opt-1",
+                "text": "Die einvernehmliche Nachsorge nach einer intensiven Szene",
                 "is_correct": true
               },
               {
-                "id": "q-02-new-20-opt-2",
-                "text": "Sex in der Doggy-Style-Position, während im Hintergrund Hunde bellen",
+                "id": "q-02-new-20-dogging-opt-2",
+                "text": "Das heimliche Filmen einer Begegnung",
                 "is_correct": false
               },
               {
-                "id": "q-02-new-20-opt-3",
-                "text": "Das Tragen von Hundehalsbändern und das Apportieren von Sexspielzeug",
+                "id": "q-02-new-20-dogging-opt-3",
+                "text": "Ein Codewort fuer Sex im Freien",
                 "is_correct": false
               },
               {
-                "id": "q-02-new-20-opt-4",
-                "text": "Sich tagelang totzustellen wie ein Hund, der einen Trick aufführt",
+                "id": "q-02-new-20-dogging-opt-4",
+                "text": "Das Bezahlen per Dating-App nach dem Treffen",
                 "is_correct": false
               }
             ],
-            "correct_option_id": "q-02-new-20-opt-1",
-            "explanation": "Für Menschen, die die Gefahr einer Anzeige wegen Erregung öffentlichen Ärgernisses bei 8 Grad Nieselregen auf einem Autobahn-Rastplatz anscheinend heißer finden als ein warmes Bett. Sehr nischig, extrem britisch.",
+            "correct_option_id": "q-02-new-20-dogging-opt-1",
+            "explanation": "Aftercare meint die abgesprochene Nachsorge danach: runterkommen, reden, Wasser, Naehe oder Abstand. Das macht intensive Situationen sicherer und respektvoller.",
             "difficulty": "medium",
             "category_id": "cat-02",
             "type": "multiple_choice",
@@ -2303,7 +2313,7 @@
               }
             ],
             "correct_option_id": "q-02-new-21-opt-1",
-            "explanation": "Teamwork makes the dream work! Weil nichts mehr 'Romantik' schreit, als den Partner temporär in eine menschliche Brückenkonstruktion zu verwandeln und das Ganze mit einem sportlichen High Five zu zelebrieren.",
+            "explanation": "Der Begriff beschreibt eine Dreier-Konstellation aus der Pornosprache. Als Partyquiz-Antwort ist die Metapher wichtiger als jedes Detail.",
             "difficulty": "medium_hard",
             "category_id": "cat-02",
             "type": "multiple_choice",
@@ -2335,7 +2345,7 @@
               }
             ],
             "correct_option_id": "q-02-new-22-opt-1",
-            "explanation": "Eine Express-Eintrittskarte für schlimmste Magen-Darm-Erkrankungen. Erinnert ihr euch an die Zeit, in der uns beigebracht wurde, sich vor dem Essen die Hände zu waschen? Offenbar haben einige diese Lektion im Eifer des Gefechts komplett vergessen.",
+            "explanation": "ATM ist ein sehr expliziter Pornoslang-Begriff. Falls das im echten Leben ueberhaupt Thema wird, sind Grenzen, Gesundheit und Einverstaendnis nicht verhandelbar.",
             "difficulty": "hard",
             "category_id": "cat-02",
             "type": "multiple_choice",
@@ -2527,7 +2537,7 @@
               }
             ],
             "correct_option_id": "q-02-new-28-opt-1",
-            "explanation": "Wer braucht schon teure Spa-Aufenthalte, wenn man einfach die Wasserrechnung sparen und sich auf die urigste, menschlichste Weise gegenseitig benässen kann? Kleiner Tipp: Danach unbedingt das Bettlaken wechseln. Das riecht sonst nach Hauptbahnhof.",
+            "explanation": "Golden Shower ist Slang fuer Urinspiele. Der Begriff ist deutlich, aber als Quizfrage reicht die knappe Definition ohne Mutprobe.",
             "difficulty": "medium",
             "category_id": "cat-02",
             "type": "multiple_choice",
@@ -2535,31 +2545,31 @@
           },
           {
             "id": "q-02-new-29-sounding",
-            "prompt": "Warnung für Empfindliche: Was genau versteht man unter dem Begriff „Sounding“?",
+            "prompt": "Wofuer steht das BDSM-Prinzip 'SSC'?",
             "options": [
               {
-                "id": "q-02-new-29-opt-1",
-                "text": "Das Einführen von medizinischen Stäben oder Sonden in die Harnröhre",
+                "id": "q-02-new-29-sounding-opt-1",
+                "text": "Safe, Sane, Consensual",
                 "is_correct": true
               },
               {
-                "id": "q-02-new-29-opt-2",
-                "text": "Das Abspielen von extrem lauter Musik, um den Herzschlag und die Erregung zu pushen",
+                "id": "q-02-new-29-sounding-opt-2",
+                "text": "Sexy, Silent, Complicated",
                 "is_correct": false
               },
               {
-                "id": "q-02-new-29-opt-3",
-                "text": "Sich gegenseitig die Penislänge mit einem Echolot auszumessen",
+                "id": "q-02-new-29-sounding-opt-3",
+                "text": "Single, Searching, Curious",
                 "is_correct": false
               },
               {
-                "id": "q-02-new-29-opt-4",
-                "text": "Sex beim Zuhören von Walgesängen",
+                "id": "q-02-new-29-sounding-opt-4",
+                "text": "Soft, Slow, Chaotic",
                 "is_correct": false
               }
             ],
-            "correct_option_id": "q-02-new-29-opt-1",
-            "explanation": "Lässt eine gewöhnliche Blasenentzündung plötzlich wie einen entspannten Wellness-Retreat wirken. Bitte keine Experimente mit Wattestäbchen oder Kugelschreibern zu Hause machen – die Notaufnahme hat samstagnachts ohnehin genug zu tun.",
+            "correct_option_id": "q-02-new-29-sounding-opt-1",
+            "explanation": "SSC steht fuer safe, sane, consensual: sicher, vernuenftig und einvernehmlich. Es ist eine der klassischen Kurzformeln fuer verantwortungsvolle Kink-Kommunikation.",
             "difficulty": "hard",
             "category_id": "cat-02",
             "type": "multiple_choice",
@@ -2567,31 +2577,31 @@
           },
           {
             "id": "q-02-new-30-figging",
-            "prompt": "Bei der historischen Praktik des „Figging“ dreht sich alles um...",
+            "prompt": "Was bedeutet 'RACK' im BDSM-Kontext?",
             "options": [
               {
-                "id": "q-02-new-30-opt-1",
-                "text": "das Einführen eines geschälten Ingwerstücks in den Anus, was ein brennendes Gefühl erzeugt",
+                "id": "q-02-new-30-figging-opt-1",
+                "text": "Risk-aware consensual kink",
                 "is_correct": true
               },
               {
-                "id": "q-02-new-30-opt-2",
-                "text": "das Bedecken der Genitalien mit einem klassischen Feigenblatt wie Adam und Eva",
+                "id": "q-02-new-30-figging-opt-2",
+                "text": "Random anonymous couple kink",
                 "is_correct": false
               },
               {
-                "id": "q-02-new-30-opt-3",
-                "text": "das Verzehren von klebrigen Feigen als aphrotisierendes Vorspiel",
+                "id": "q-02-new-30-figging-opt-3",
+                "text": "Romantic aftercare comfort kit",
                 "is_correct": false
               },
               {
-                "id": "q-02-new-30-opt-4",
-                "text": "eine Stellung, bei der man in einer Yoga-ähnlichen, verschränkten Position verharrt",
+                "id": "q-02-new-30-figging-opt-4",
+                "text": "Rules against chaotic kissing",
                 "is_correct": false
               }
             ],
-            "correct_option_id": "q-02-new-30-opt-1",
-            "explanation": "Eine Bestrafungsmethode aus dem viktorianischen Zeitalter, die sich in einen Fetisch verwandelt hat. Beweist endgültig, dass die Menschheit schon immer komplett irre war und dass Ingwer-Shots eigentlich harmlos sind.",
+            "correct_option_id": "q-02-new-30-figging-opt-1",
+            "explanation": "RACK betont, dass Beteiligte Risiken kennen, bewusst abwaegen und einvernehmlich handeln. Das ist trockener als viele Begriffe, aber deutlich nuetzlicher.",
             "difficulty": "hard",
             "category_id": "cat-02",
             "type": "multiple_choice",
@@ -2599,31 +2609,31 @@
           },
           {
             "id": "q-02-new-31-cbt",
-            "prompt": "Wofür steht in bestimmten dunkleren Ecken des Internets die Abkürzung „CBT“?",
+            "prompt": "Was bedeutet 'Hard Limit' beim Dating, Sex oder Kink?",
             "options": [
               {
-                "id": "q-02-new-31-opt-1",
-                "text": "Cock and Ball Torture – Die absichtliche, schmerzhafte Behandlung der männlichen Genitalien",
+                "id": "q-02-new-31-cbt-opt-1",
+                "text": "Eine Grenze, die nicht ueberschritten wird",
                 "is_correct": true
               },
               {
-                "id": "q-02-new-31-opt-2",
-                "text": "Cognitive Behavioral Therapy – Eine Verhaltenstherapie für Sexsucht",
+                "id": "q-02-new-31-cbt-opt-2",
+                "text": "Eine besonders schwierige Stellung",
                 "is_correct": false
               },
               {
-                "id": "q-02-new-31-opt-3",
-                "text": "Climax Before Touching – Ein Fetisch, bei dem man vor der ersten Berührung kommen muss",
+                "id": "q-02-new-31-cbt-opt-3",
+                "text": "Ein Zeitlimit fuer das erste Date",
                 "is_correct": false
               },
               {
-                "id": "q-02-new-31-opt-4",
-                "text": "Choking By Thighs – Wenn man vom Partner mit den Oberschenkeln gewürgt wird",
+                "id": "q-02-new-31-cbt-opt-4",
+                "text": "Ein Fitnessziel vor dem Sommer",
                 "is_correct": false
               }
             ],
-            "correct_option_id": "q-02-new-31-opt-1",
-            "explanation": "Die doppelte Bedeutung des Akronyms ruiniert die psychologische Verhaltenstherapie für jeden, der zu tief im Internet gegraben hat. Und ganz ehrlich: Wer redet schon gern über Kindheitstraumata, wenn er stattdessen einfach einen gepflegten Tritt in die Nüsse haben kann?",
+            "correct_option_id": "q-02-new-31-cbt-opt-1",
+            "explanation": "Ein Hard Limit ist eine klare Grenze. Sie wird nicht verhandelt, nicht getestet und nicht als Herausforderung verstanden.",
             "difficulty": "medium",
             "category_id": "cat-02",
             "type": "multiple_choice",
@@ -2631,31 +2641,31 @@
           },
           {
             "id": "q-02-new-32-creampie",
-            "prompt": "Der Begriff „Creampie“ beschreibt in der Erotiksprache...",
+            "prompt": "Was meint 'Safer Sex' im Kern?",
             "options": [
               {
-                "id": "q-02-new-32-opt-1",
-                "text": "das Ejakulieren in die Vagina oder den Anus ohne Verwendung eines Kondoms",
+                "id": "q-02-new-32-creampie-opt-1",
+                "text": "Risiken fuer STI und ungewollte Schwangerschaft bewusst senken",
                 "is_correct": true
               },
               {
-                "id": "q-02-new-32-opt-2",
-                "text": "das Einreiben des Körpers mit Sprühsahne oder Schlagsahne",
+                "id": "q-02-new-32-creampie-opt-2",
+                "text": "Nur bei eingeschaltetem Licht Sex haben",
                 "is_correct": false
               },
               {
-                "id": "q-02-new-32-opt-3",
-                "text": "einen Slapstick-Fetisch, bei dem man sich gegenseitig Torten ins Gesicht wirft",
+                "id": "q-02-new-32-creampie-opt-3",
+                "text": "Ausschliesslich bekannte Stellungen verwenden",
                 "is_correct": false
               },
               {
-                "id": "q-02-new-32-opt-4",
-                "text": "eine extrem glatte und cremige Rasur der Schambehaarung",
+                "id": "q-02-new-32-creampie-opt-4",
+                "text": "Nach dem Date sofort den Chat loeschen",
                 "is_correct": false
               }
             ],
-            "correct_option_id": "q-02-new-32-opt-1",
-            "explanation": "Klingt unschuldig nach einer himmlischen Bäcker-Köstlichkeit aus dem englischen Tearoom, endet im echten Leben aber meist in einem panischen Pinguin-Watschelgang zum Badezimmer, um die teure 600-Euro-Matratze vor dem Ruin zu bewahren.",
+            "correct_option_id": "q-02-new-32-creampie-opt-1",
+            "explanation": "Safer Sex heisst nicht null Risiko, sondern bewusster Umgang mit Schutz, Tests, Verhuetung und Kommunikation. Trockenes Thema, aber erwachsener als jedes Angeberei-Wort.",
             "difficulty": "medium",
             "category_id": "cat-02",
             "type": "multiple_choice",
@@ -2687,7 +2697,7 @@
               }
             ],
             "correct_option_id": "q-02-new-33-opt-1",
-            "explanation": "Dank dem Film 'American Pie' (1999) für immer in unseren Wortschatz eingebrannt. Heute hauptsächlich ein Kampfbegriff von 14-jährigen Fortnite-Spielern, die dir im Voicechat drohen, genau diese Aktivität mit deiner Mutter durchzuführen.",
+            "explanation": "Populaer wurde der Begriff durch 'American Pie' (1999). Heute ist er vor allem ein sehr bekannter, ziemlich plumper Internet- und Pornoslang-Ausdruck.",
             "difficulty": "easy",
             "category_id": "cat-02",
             "type": "multiple_choice",
@@ -2815,7 +2825,7 @@
               }
             ],
             "correct_option_id": "q-02-new-37-opt-1",
-            "explanation": "Meistens ist es etwas völlig Unsexyes wie 'Ananas', 'Flugzeugträger' oder 'Bausparvertrag'. Das normale Wort 'Stopp' wird nämlich im Eifer des Gefechts oft nur als sanfte Ermutigung weiterzumachen interpretiert.",
+            "explanation": "Ein Safe Word ist ein vorher vereinbartes Stoppsignal. Unabhaengig davon gilt: Wenn jemand ernsthaft 'Stopp' sagt oder nicht mehr mitmachen will, wird sofort aufgehoert.",
             "difficulty": "easy",
             "category_id": "cat-02",
             "type": "multiple_choice",
@@ -2943,7 +2953,7 @@
               }
             ],
             "correct_option_id": "q-02-new-41-opt-1",
-            "explanation": "Die historische biologische Geheimwaffe, mit der 16-jährige Jungs ihre Freundinnen im Kino oder auf dem Rücksitz eines VW Golf emotional erpresst haben, um doch noch 'etwas weiter zu gehen'. Klassiker.",
+            "explanation": "Der Begriff beschreibt koerperliches Ziehen nach laengerer Erregung. Er ist niemals ein Argument, um jemanden zu irgendetwas zu draengen.",
             "difficulty": "medium",
             "category_id": "cat-02",
             "type": "multiple_choice",
@@ -3007,7 +3017,7 @@
               }
             ],
             "correct_option_id": "q-02-new-43-opt-1",
-            "explanation": "Die rein biologische Hürde, die jeder Amateur-Pornostar wegzutrainieren versucht. Führt meistens zu hochgradig unsexy Hustenanfällen, tränenden Augen und dem Gefühl, gleich sein Leben auszuhauchen.",
+            "explanation": "Der Wurgereflex ist ein Schutzreflex des Koerpers. Wenn er ausgeloest wird, ist das ein klares Signal, Tempo und Situation zu stoppen.",
             "difficulty": "easy",
             "category_id": "cat-02",
             "type": "multiple_choice",
@@ -3018,28 +3028,28 @@
             "prompt": "Worum geht es beim sexuellen „Roleplay“ (Rollenspiel)?",
             "options": [
               {
-                "id": "q-02-new-44-opt-1",
-                "text": "Beide Partner schlüpfen beim Sex in fiktive Charaktere oder Szenarien (z.B. Arzt/Patient, Lehrer/Schüler)",
+                "id": "q-02-new-44-roleplay-opt-1",
+                "text": "Beide Partner schlüpfen beim Sex in abgesprochene fiktive Erwachsenenrollen oder Szenarien",
                 "is_correct": true
               },
               {
-                "id": "q-02-new-44-opt-2",
-                "text": "Das Ausspielen des gesamten Aktes auf einem großen Dungeons & Dragons Spielbrett",
+                "id": "q-02-new-44-roleplay-opt-2",
+                "text": "Das Ausspielen des gesamten Aktes auf einem grossen Dungeons-&-Dragons-Spielbrett",
                 "is_correct": false
               },
               {
-                "id": "q-02-new-44-opt-3",
-                "text": "Sich abwechselnd über den Boden zu rollen",
+                "id": "q-02-new-44-roleplay-opt-3",
+                "text": "Sich abwechselnd ueber den Boden zu rollen",
                 "is_correct": false
               },
               {
-                "id": "q-02-new-44-opt-4",
-                "text": "Das Nachspielen von Trennungs-Gesprächen, um emotionale Schmerzen zu simulieren",
+                "id": "q-02-new-44-roleplay-opt-4",
+                "text": "Das Nachspielen von Trennungsgespraechen, um emotionale Schmerzen zu simulieren",
                 "is_correct": false
               }
             ],
-            "correct_option_id": "q-02-new-44-opt-1",
-            "explanation": "'Oh ja, du warst ein sehr unartiger Finanzbeamter... jetzt fass mich an und erklär mir meine Steuerfreibeträge.' Hochgradig immersiv, bis jemand versehentlich aus der Rolle fällt und über die Abwasch-Aufteilung redet.",
+            "correct_option_id": "q-02-new-44-roleplay-opt-1",
+            "explanation": "Rollenspiel bedeutet, bewusst in eine vereinbarte Fantasierolle zu schluepfen. Gute Szenarien sind klar abgesprochen und bleiben bei erwachsenen Rollen.",
             "difficulty": "easy",
             "category_id": "cat-02",
             "type": "multiple_choice",
@@ -3237,7 +3247,6 @@
             "type": "multiple_choice",
             "points": 1
           }
-
         ],
         "id": "cat-02"
       },
@@ -3431,31 +3440,31 @@
           {
             "id": "q-03-08",
             "type": "logic",
-            "prompt": "Du bist im ICQ auf 'Invisible' gestellt. Wer kann dich trotzdem als 'Online' sehen?",
+            "prompt": "Wer konnte dich bei ICQ trotz 'Invisible'-Status weiterhin online sehen?",
             "options": [
               {
                 "id": "q-03-08-opt-1",
-                "text": "Niemand (außer du schreibst jemanden an)",
+                "text": "Kontakte auf deiner Visible List",
                 "is_correct": true
               },
               {
                 "id": "q-03-08-opt-2",
-                "text": "Jeder, der dich auf seiner 'Visible List' hat",
+                "text": "alle mit niedriger ICQ-Nummer",
                 "is_correct": false
               },
               {
                 "id": "q-03-08-opt-3",
-                "text": "Nur Leute mit einer ICQ-Nummer unter 1 Mio",
+                "text": "nur deine Top-Kontakte",
                 "is_correct": false
               },
               {
                 "id": "q-03-08-opt-4",
-                "text": "Deine Top-Kontakte automatisch",
+                "text": "niemand jemals",
                 "is_correct": false
               }
             ],
             "correct_option_id": "q-03-08-opt-1",
-            "explanation": "Invisible hieß wirklich totstellen. Sobald du eine Nachricht schicktest, warst du enttarnt.",
+            "explanation": "ICQ kannte Sichtbarkeitslisten: Bestimmte Kontakte konnten dich trotz Invisible-Status sehen. Invisible war also eher Tarnmodus als echte Unsichtbarkeit.",
             "difficulty": "medium",
             "points": 1
           },
@@ -3623,7 +3632,8 @@
             "difficulty": "hard",
             "points": 2
           }
-        ]
+        ],
+        "question_count": 15
       },
       {
         "category_id": "cat-04",
@@ -3740,7 +3750,7 @@
               "Ich bin ein Star – Holt mich hier raus! (RTL)",
               "Germany’s Next Topmodel (ProSieben)"
             ],
-            "explanation": "Big Brother (2000), DSDS (2002), Dschungelcamp (2004) und GNTM (2006). Ein perfekter Zeitstrahl der kollektiven Verblödung.",
+            "explanation": "Big Brother startete 2000, DSDS 2002, das Dschungelcamp 2004 und GNTM 2006. Die Reihenfolge ist ein sauberer Zeitstrahl deutscher Reality-TV-Geschichte.",
             "difficulty": "medium_hard",
             "points": 2
           },
@@ -4380,7 +4390,8 @@
             "difficulty": "medium",
             "points": 1
           }
-        ]
+        ],
+        "question_count": 28
       },
       {
         "category_id": "cat-05",
@@ -4441,7 +4452,7 @@
           {
             "id": "q-05-03",
             "type": "ranking",
-            "prompt": "Sortiere diese 'Kult-Getränke' nach ihrem Zuckergehalt pro 100ml – von 'fast gesund' bis 'Diabetes im Glas'!",
+            "prompt": "Sortiere diese Kult-Getraenke nach ihrem Zuckergehalt pro 100 ml, von wenig zu viel.",
             "items": [
               {
                 "id": "q-05-03-item-1",
@@ -4466,7 +4477,7 @@
               "q-05-03-item-3",
               "q-05-03-item-4"
             ],
-            "explanation": "Bier hat fast keinen Zucker (~0,1g), Schorle (~3g), Tonic Water ist eine Zuckerbombe (~9g) und Alkopops sprengen alles (~12g).",
+            "explanation": "Bier hat fast keinen Zucker, Weinschorle liegt hoeher, Tonic Water bringt deutlich mehr mit und Alkopops waren oft echte Zuckerbomben.",
             "difficulty": "hard",
             "category_id": "cat-05",
             "points": 2
@@ -4696,36 +4707,30 @@
           },
           {
             "id": "q-05-12",
-            "type": "ranking",
-            "prompt": "Sortiere diese Orte nach der 'Millennial-Wahrscheinlichkeit', dort am nächsten Morgen nach einer harten Party aufzuwachen!",
-            "items": [
+            "type": "majority_guess",
+            "prompt": "Wo ist man nach einer harten Party am wahrscheinlichsten aufgewacht?",
+            "explanation": "Das ist Erfahrungs- und Gruppendynamik, keine objektiv sortierbare Wahrheit. Deshalb entscheidet hier die Mehrheit der Runde.",
+            "difficulty": "medium",
+            "category_id": "cat-05",
+            "points": 1,
+            "options": [
               {
-                "id": "q-05-12-item-1",
-                "text": "Auf der Couch (der Klassiker)"
+                "id": "q-05-12-opt-1",
+                "text": "Auf der Couch"
               },
               {
-                "id": "q-05-12-item-2",
+                "id": "q-05-12-opt-2",
                 "text": "In der Badewanne"
               },
               {
-                "id": "q-05-12-item-3",
-                "text": "Unter dem Küchentisch"
+                "id": "q-05-12-opt-3",
+                "text": "Unter dem Kuechentisch"
               },
               {
-                "id": "q-05-12-item-4",
-                "text": "In einem fremden Gartenhäuschen"
+                "id": "q-05-12-opt-4",
+                "text": "In einem fremden Gartenhaeuschen"
               }
-            ],
-            "correct_order": [
-              "q-05-12-item-1",
-              "q-05-12-item-2",
-              "q-05-12-item-3",
-              "q-05-12-item-4"
-            ],
-            "explanation": "Couch ist Standard, Wanne ist Luxus-Absturz, Tisch ist Verzweiflung, Gartenhaus ist 'Project X' Level.",
-            "difficulty": "medium",
-            "category_id": "cat-05",
-            "points": 2
+            ]
           },
           {
             "id": "q-05-13",
@@ -5065,15 +5070,15 @@
           {
             "id": "q-05-24",
             "type": "estimate",
-            "prompt": "Wie viele Liter Wasser verliert der Körper etwa durch den Abbau von 50 Gramm reinem Alkohol (ca. 2 Liter Bier)?",
+            "prompt": "Wie viele 2-cl-Shots passen rechnerisch in eine 0,7-Liter-Flasche?",
             "answer": {
-              "reference_value": 1.0,
-              "unit": "Liter",
-              "canonical": "ca. 1 Liter",
-              "context": "Dehydrierungseffekt"
+              "canonical": "35 Shots",
+              "reference_value": 35,
+              "unit": "Shots",
+              "context": "0,7 Liter sind 70 cl; geteilt durch 2 cl ergibt das 35"
             },
             "scoring_rule": "closest_wins",
-            "explanation": "Alkohol hemmt das Hormon ADH, wodurch die Nieren mehr Wasser ausscheiden. Du trinkst 2 Liter, verlierst aber massiv Flüssigkeit – daher der Brand am Morgen.",
+            "explanation": "0,7 Liter sind 70 cl. Bei 2 cl pro Shot landet man bei 35 kleinen Glaesern, bevor Eis, Kleckern und schlechte Entscheidungen dazwischenfunken.",
             "difficulty": "hard",
             "category_id": "cat-05",
             "points": 2
@@ -5850,7 +5855,7 @@
               "context": "Jamba & Co Jahresumsatz"
             },
             "scoring_rule": "closest_wins",
-            "explanation": "Es waren weit über 300 Millionen Euro in der Hochphase. Wir haben buchstäblich unser Tasgeld für verpixelte Frösche verbrannt.",
+            "explanation": "Es waren weit ueber 300 Millionen Euro in der Hochphase. Wir haben buchstaeblich unser Taschengeld fuer verpixelte Klingeltoene verbrannt.",
             "difficulty": "hard",
             "points": 2
           }
@@ -5994,34 +5999,33 @@
           },
           {
             "id": "q-07-05",
-            "type": "ranking",
-            "prompt": "Sortiere diese Handhelds nach ihrem Gewicht (schwerstes zuerst).",
-            "items": [
+            "type": "multiple_choice",
+            "prompt": "Welcher Handheld war als Batteriefresser bekannt und brauchte sechs AA-Batterien?",
+            "explanation": "Der Sega Game Gear hatte Farbdisplay und Hintergrundbeleuchtung, bezahlte das aber mit sechs AA-Batterien und kurzer Laufzeit.",
+            "difficulty": "hard",
+            "options": [
               {
-                "id": "A",
-                "label": "Atari Lynx (Riesiger 'Ziegel')"
+                "id": "q-07-05-opt-1",
+                "text": "Sega Game Gear",
+                "is_correct": true
               },
               {
-                "id": "B",
-                "label": "Sega Game Gear (Batteriefresser)"
+                "id": "q-07-05-opt-2",
+                "text": "Game Boy Advance",
+                "is_correct": false
               },
               {
-                "id": "C",
-                "label": "Original Game Boy (Classic)"
+                "id": "q-07-05-opt-3",
+                "text": "Nintendo DS Lite",
+                "is_correct": false
               },
               {
-                "id": "D",
-                "label": "Game Boy Advance (Kompakt)"
+                "id": "q-07-05-opt-4",
+                "text": "PlayStation Portable",
+                "is_correct": false
               }
             ],
-            "correct_order": [
-              "A",
-              "B",
-              "C",
-              "D"
-            ],
-            "explanation": "Der Atari Lynx war fast so groß wie ein Unterarm. Der Game Gear brauchte 6 Batterien für 2 Stunden Spielzeit und war entsprechend wuchtig.",
-            "difficulty": "hard"
+            "correct_option_id": "q-07-05-opt-1"
           },
           {
             "id": "q-07-06",
@@ -6158,31 +6162,31 @@
           {
             "id": "q-07-11",
             "type": "logic",
-            "prompt": "Snake-Geometrie: Wenn dein Schlangenkopf nach rechts schaut, wie viele 90-Grad-Abbiegungen musst du mindestens machen, um dich selbst in den Schwanz zu beißen?",
+            "prompt": "Minesweeper-Logik: Ein geoeffnetes Feld zeigt eine '3' und hat genau drei ungeoeffnete Nachbarfelder. Was folgt sicher?",
             "options": [
               {
                 "id": "q-07-11-opt-1",
-                "text": "3",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-11-opt-2",
-                "text": "4",
+                "text": "Alle drei ungeoeffneten Nachbarn sind Minen",
                 "is_correct": true
               },
               {
+                "id": "q-07-11-opt-2",
+                "text": "Genau ein Nachbar ist eine Mine",
+                "is_correct": false
+              },
+              {
                 "id": "q-07-11-opt-3",
-                "text": "2",
+                "text": "Keiner der Nachbarn ist eine Mine",
                 "is_correct": false
               },
               {
                 "id": "q-07-11-opt-4",
-                "text": "5",
+                "text": "Es ist grundsaetzlich nicht entscheidbar",
                 "is_correct": false
               }
             ],
-            "correct_option_id": "q-07-11-opt-2",
-            "explanation": "Um 180 Grad zu wenden, braucht man zwei 90-Grad-Kurven. Aber um den eigenen Körper zu treffen, muss man ein Rechteck schließen – also 4 Kurven.",
+            "correct_option_id": "q-07-11-opt-1",
+            "explanation": "Die Zahl gibt an, wie viele Minen in den Nachbarfeldern liegen. Wenn bei einer 3 nur noch drei verdeckte Nachbarn uebrig sind, muessen alle drei Minen sein.",
             "difficulty": "medium"
           },
           {
@@ -6306,28 +6310,38 @@
           },
           {
             "id": "q-07-16",
-            "type": "estimate_duel",
-            "prompt": "Was ist schwerer: Ein originaler Game Boy Classic (ohne Batterien) oder ein modernes iPhone 15 Pro Max?",
+            "type": "multiple_choice",
+            "prompt": "Welches dieser Geraete ist ohne Batterien am schwersten?",
             "options": [
               {
                 "id": "q-07-16-opt-1",
-                "text": "iPhone 15 Pro Max (ca. 221g)",
+                "text": "Sega Game Gear (ca. 400 g)",
                 "is_correct": true
               },
               {
                 "id": "q-07-16-opt-2",
-                "text": "Game Boy Classic (ca. 220g)",
+                "text": "iPhone 15 Pro Max (ca. 221 g)",
+                "is_correct": false
+              },
+              {
+                "id": "q-07-16-opt-3",
+                "text": "Game Boy Classic (ca. 220 g)",
+                "is_correct": false
+              },
+              {
+                "id": "q-07-16-opt-4",
+                "text": "Game Boy Advance (ca. 140 g)",
                 "is_correct": false
               }
             ],
             "correct_option_id": "q-07-16-opt-1",
-            "explanation": "Es ist ein Kopf-an-Kopf-Rennen, aber das moderne High-Tech-Handy ist tatsächlich minimal schwerer als der klobige Plastikklotz von 1989.",
+            "explanation": "Der Sega Game Gear war schon ohne Batterien ein ordentlicher Klotz. Mit sechs AA-Batterien wurde er erst recht zum Handgelenk-Training.",
             "difficulty": "medium"
           },
           {
             "id": "q-07-17",
             "type": "ranking",
-            "prompt": "Sortiere diese Konsolen nach ihrer Rechenpower (Bits) – von der kleinsten zur größten.",
+            "prompt": "Sortiere diese Konsolen nach Europa-Release, aelteste zuerst.",
             "items": [
               {
                 "id": "A",
@@ -6352,7 +6366,7 @@
               "C",
               "D"
             ],
-            "explanation": "8-Bit (NES), 16-Bit (Mega Drive), 64-Bit (N64), 128-Bit (PS2 - 'Emotion Engine').",
+            "explanation": "NES, Mega Drive, Nintendo 64 und PlayStation 2 liegen in dieser Release-Reihenfolge. Das ist sauberer als Bit-Marketing, das ab der 32/64/128-Bit-Aera stark verwischt.",
             "difficulty": "medium"
           },
           {
@@ -6474,7 +6488,7 @@
               },
               {
                 "id": "q-07-22-opt-3",
-                "text": "Es wurde zum Teufelchen und fraf alle Vorräte",
+                "text": "Es wurde zum Teufelchen und frass alle Vorraete",
                 "is_correct": false
               },
               {
@@ -7148,28 +7162,28 @@
             "prompt": "Backstreet Boys - 'I Want It That Way': Warum antworten sie auf die Frage 'Tell me why' eigentlich mit 'Ain't nothin' but a heartache', obwohl das textlich in den Strophen davor kaum Sinn ergibt?",
             "options": [
               {
-                "id": "opt-1",
-                "text": "Weil der schwedische Songschreiber damals kaum Englisch konnte",
+                "id": "q-08-14-opt-1",
+                "text": "Weil Klang und Phrasierung wichtiger waren als ein lupenreiner Textsinn",
                 "is_correct": true
               },
               {
-                "id": "opt-2",
-                "text": "Es ist eine tiefgründige Metapher für Depression",
+                "id": "q-08-14-opt-2",
+                "text": "Es ist eine tiefgruendige Metapher fuer Depression",
                 "is_correct": false
               },
               {
-                "id": "opt-3",
+                "id": "q-08-14-opt-3",
                 "text": "Es war ein Fehler im Mischpult",
                 "is_correct": false
               },
               {
-                "id": "opt-4",
-                "text": "Sie singen über einen verlorenen Hund",
+                "id": "q-08-14-opt-4",
+                "text": "Sie singen ueber einen verlorenen Hund",
                 "is_correct": false
               }
             ],
-            "correct_option_id": "opt-1",
-            "explanation": "Max Martin gab später zu, dass er Worte wählte, die phonetisch gut klangen, auch wenn sie im Kontext der Strophen völlig widersprüchlich waren.",
+            "correct_option_id": "q-08-14-opt-1",
+            "explanation": "Max Martin beschrieb spaeter, dass bei solchen Popzeilen Klang, Betonung und Mitsingbarkeit oft wichtiger waren als vollkommen logische Strophen.",
             "tags": [
               "bsb",
               "lyrics",
@@ -7207,14 +7221,26 @@
           {
             "id": "q-09-01",
             "type": "majority_guess",
-            "prompt": "Adulting-Realitätscheck: Wie viel Prozent der Deutschen geben zu, beim Staubsaugen einfach 'um Dinge herum' zu saugen, statt sie kurz hochzuheben?",
-            "answer": {
-              "canonical": "72%",
-              "reference_value": 72,
-              "unit": "%",
-              "context": "Laut einer Haushaltsstudie von 2022. Wir sind alle faul."
-            },
-            "scoring_rule": "closest_wins"
+            "prompt": "Adulting-Realitaetscheck: Wie saugst du meistens Staub?",
+            "options": [
+              {
+                "id": "q-09-01-opt-1",
+                "text": "Ich raeume vorher ordentlich frei"
+              },
+              {
+                "id": "q-09-01-opt-2",
+                "text": "Ich sauge um Dinge herum"
+              },
+              {
+                "id": "q-09-01-opt-3",
+                "text": "Ich hebe nur sichtbare Hindernisse hoch"
+              },
+              {
+                "id": "q-09-01-opt-4",
+                "text": "Ich delegiere das Problem an spaeter"
+              }
+            ],
+            "explanation": "Das ist keine belastbare Studie, sondern eine Mehrheitsfrage ueber ehrliches Haushaltsverhalten. Die Gruppe entscheidet, welche Ausrede gewinnt."
           },
           {
             "id": "q-09-02",
@@ -7332,14 +7358,26 @@
           {
             "id": "q-09-08",
             "type": "majority_guess",
-            "prompt": "Millennial-Angstschweiß: Wie viel Prozent der 25- bis 35-Jährigen geben zu, dass sie bei komplizierten Briefen (Versicherung, Amt) erst mal ihre Eltern um Hilfe bitten?",
-            "answer": {
-              "canonical": "38%",
-              "reference_value": 38,
-              "unit": "%",
-              "context": "Laut einer Umfrage von 2021. 'Papa, was wollen die von mir?!'"
-            },
-            "scoring_rule": "closest_wins"
+            "prompt": "Bei welchem Adulting-Brief wuerdest du am ehesten erst mal jemanden um Hilfe bitten?",
+            "options": [
+              {
+                "id": "q-09-08-opt-1",
+                "text": "Steuerbescheid"
+              },
+              {
+                "id": "q-09-08-opt-2",
+                "text": "Versicherungsschreiben"
+              },
+              {
+                "id": "q-09-08-opt-3",
+                "text": "Nebenkostenabrechnung"
+              },
+              {
+                "id": "q-09-08-opt-4",
+                "text": "Renteninformation"
+              }
+            ],
+            "explanation": "Das ist bewusst eine Mehrheitsfrage. Amtssprache ist der Endgegner, aber jede Runde hat ihren eigenen Angstgegner."
           },
           {
             "id": "q-09-09",
@@ -7374,15 +7412,16 @@
           },
           {
             "id": "q-09-10",
-            "type": "estimate_duel",
-            "prompt": "Was kostet ein Kasten Markenbier (20x0,5l, z.B. Krombacher oder Warsteiner) im Standardsortiment aktuell im Durchschnitt OHNE Pfand?",
+            "type": "estimate",
+            "prompt": "Wie viel Pfand zahlst du typischerweise fuer einen Bierkasten mit 20 Mehrwegflaschen plus Kasten?",
             "answer": {
-              "canonical": "ca. 16,99 €",
-              "reference_value": 16.99,
+              "canonical": "3,10 Euro",
+              "reference_value": 3.1,
               "unit": "Euro",
-              "context": "Preise schwanken, aber das ist der typische 'Nicht-Angebot'-Preis."
+              "context": "20 x 0,08 Euro Flaschenpfand plus 1,50 Euro Kastenpfand"
             },
-            "scoring_rule": "closest_wins"
+            "scoring_rule": "closest_wins",
+            "explanation": "Bei vielen Bierkaesten sind es 20 Mehrwegflaschen zu je 8 Cent plus 1,50 Euro fuer den Kasten. Macht zusammen 3,10 Euro Pfand."
           },
           {
             "id": "q-09-11",
@@ -7420,8 +7459,15 @@
             "type": "standard",
             "prompt": "Was verbirgt sich hinter dem Akronym ELSTER, das viele Deutsche einmal im Jahr zum Weinen bringt?",
             "answer": {
-              "canonical": "Elektronische Steuererklärung",
-              "context": "Kein Vogel, sondern die Software für die Steuer."
+              "canonical": "Elektronische Steuererklaerung",
+              "aliases": [
+                "ELSTER",
+                "Elektronische Steuererklärung",
+                "elektronische steuererklaerung",
+                "Elektronische Steuer-Erklaerung",
+                "Elektronische Steuer-Erklärung"
+              ],
+              "context": "ELSTER steht im Alltag fuer die elektronische Steuererklaerung und das zugehoerige Online-Portal."
             }
           },
           {
@@ -7441,15 +7487,32 @@
           },
           {
             "id": "q-09-14",
-            "type": "estimate",
-            "prompt": "Wie viele Versicherungen hat der Durchschnittsdeutsche laut Gesamtverband der Deutschen Versicherungswirtschaft (GDV)?",
-            "answer": {
-              "canonical": "6,5 Versicherungen",
-              "reference_value": 6.5,
-              "unit": "Versicherungen",
-              "context": "Wir sind Weltmeister im Absichern gegen alles – außer gegen Langeweile."
-            },
-            "scoring_rule": "closest_wins"
+            "type": "multiple_choice",
+            "prompt": "Welche Versicherung ist in Deutschland Pflicht, sobald du ein Auto auf oeffentlichen Strassen zulaesst?",
+            "options": [
+              {
+                "id": "q-09-14-opt-1",
+                "text": "Kfz-Haftpflichtversicherung",
+                "is_correct": true
+              },
+              {
+                "id": "q-09-14-opt-2",
+                "text": "Vollkaskoversicherung",
+                "is_correct": false
+              },
+              {
+                "id": "q-09-14-opt-3",
+                "text": "Rechtsschutzversicherung",
+                "is_correct": false
+              },
+              {
+                "id": "q-09-14-opt-4",
+                "text": "Private Unfallversicherung",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-09-14-opt-1",
+            "explanation": "Ohne Kfz-Haftpflicht bekommst du kein Auto legal zugelassen. Vollkasko und Rechtsschutz koennen sinnvoll sein, sind aber nicht die Pflichtbasis."
           },
           {
             "id": "q-09-15",
@@ -7485,14 +7548,26 @@
           {
             "id": "q-09-16",
             "type": "majority_guess",
-            "prompt": "Wie viel Prozent der Smartphone-Nutzer geben zu, ihr Handy regelmäßig auf der Toilette zu benutzen?",
-            "answer": {
-              "canonical": "85%",
-              "reference_value": 85,
-              "unit": "%",
-              "context": "Und die restlichen 15% lügen wahrscheinlich."
-            },
-            "scoring_rule": "closest_wins"
+            "prompt": "Wie ehrlich ist deine Smartphone-Nutzung auf der Toilette?",
+            "options": [
+              {
+                "id": "q-09-16-opt-1",
+                "text": "Regelmaessig, ohne Scham"
+              },
+              {
+                "id": "q-09-16-opt-2",
+                "text": "Nur bei laengeren Sitzungen"
+              },
+              {
+                "id": "q-09-16-opt-3",
+                "text": "Selten und dann mit schlechtem Gewissen"
+              },
+              {
+                "id": "q-09-16-opt-4",
+                "text": "Nie, mein Handy bleibt draussen"
+              }
+            ],
+            "explanation": "Als Prozentwert waere das Quellenlotterie. Als Mehrheitsfrage ist es genau die Art Wahrheit, die eine Runde selbst liefern kann."
           },
           {
             "id": "q-09-17",
@@ -7509,62 +7584,101 @@
           {
             "id": "q-09-18",
             "type": "estimate",
-            "prompt": "Wie viele Liter Bier trinkt der Deutsche durchschnittlich pro Jahr (Stand 2022)?",
+            "prompt": "Wie viele Liter Bier stecken in einem Kasten mit 20 Flaschen à 0,5 Liter?",
             "answer": {
-              "canonical": "91,8 Liter",
-              "reference_value": 91.8,
+              "canonical": "10 Liter",
+              "reference_value": 10,
               "unit": "Liter",
-              "context": "Früher war es mehr, aber wir halten uns wacker."
+              "context": "20 Flaschen mal 0,5 Liter"
             },
-            "scoring_rule": "closest_wins"
+            "scoring_rule": "closest_wins",
+            "explanation": "20 mal 0,5 Liter ergibt 10 Liter. Das ist die seltene Adulting-Mathe, die sogar nach zwei Runden noch fair bleibt."
           },
           {
             "id": "q-09-19",
             "type": "ranking",
-            "prompt": "Sortiere diese Fleischsorten nach ihrem CO2-Fußabdruck pro Kilogramm (von klimafreundlich bis Klimasünder).",
+            "prompt": "Sortiere diese Lebensmittel nach grobem CO2-Fussabdruck pro Kilogramm, von niedriger zu hoeher.",
             "answer": {
               "canonical_order": [
-                "Hähnchen",
+                "Haehnchen",
                 "Schwein",
-                "Käse (ja, zählt hier als Vergleich)",
+                "Kaese",
                 "Rindfleisch"
               ],
-              "context": "Rindfleisch ist mit ca. 13kg CO2 pro kg Fleisch der Spitzenreiter. Käse folgt mit ca. 8kg."
+              "context": "Rindfleisch liegt typischerweise deutlich hoeher als Schwein oder Haehnchen; Kaese ist als tierisches Produkt ebenfalls relevant, aber kein Fleisch."
             },
             "scoring_rule": "exact_order"
           },
           {
             "id": "q-09-20",
-            "type": "sudden_death_estimate",
-            "prompt": "Ab welchem monatlichen Netto-Einkommen gehört ein Single in Deutschland statistisch gesehen zu den reichsten 10%?",
-            "answer": {
-              "canonical": "3.700 €",
-              "reference_value": 3700,
-              "unit": "Euro",
-              "context": "Viele schätzen diesen Wert viel höher ein, aber mit 3.700 € Netto bist du bereits im Top-Zehntel."
-            },
-            "scoring_rule": "closest_wins"
+            "type": "multiple_choice",
+            "prompt": "Was bedeutet 'Netto' beim Gehalt?",
+            "options": [
+              {
+                "id": "q-09-20-opt-1",
+                "text": "Das Geld, das nach Steuern und Sozialabgaben ausgezahlt wird",
+                "is_correct": true
+              },
+              {
+                "id": "q-09-20-opt-2",
+                "text": "Das Gehalt vor allen Abzuegen",
+                "is_correct": false
+              },
+              {
+                "id": "q-09-20-opt-3",
+                "text": "Nur der Bonus am Jahresende",
+                "is_correct": false
+              },
+              {
+                "id": "q-09-20-opt-4",
+                "text": "Der Arbeitgeberanteil zur Krankenversicherung",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-09-20-opt-1",
+            "explanation": "Brutto ist vor den Abzuegen, netto ist das, was auf dem Konto landet. Leider ist genau diese zweite Zahl meistens die kleinere."
           },
           {
             "id": "q-09-21",
             "type": "standard",
             "prompt": "Was ist der Hauptzweck eines FI-Schalters im Sicherungskasten?",
             "answer": {
-              "canonical": "Schutz vor Stromschlägen bei Fehlern",
-              "context": "Er erkennt, wenn Strom 'fremdgeht' (z.B. durch dich hindurch) und schaltet in Millisekunden ab."
+              "canonical": "Schutz vor Stromschlaegen bei Fehlern",
+              "aliases": [
+                "FI-Schalter",
+                "FI",
+                "RCD",
+                "Fehlerstromschutzschalter",
+                "Schutz vor Stromschlaegen",
+                "Schutz vor Stromschlägen",
+                "Personenschutz bei Fehlerstrom"
+              ],
+              "context": "Ein FI-Schalter erkennt Fehlerstrom und schaltet sehr schnell ab. Er schuetzt Menschen, wenn Strom einen falschen Weg nimmt."
             }
           },
           {
             "id": "q-09-22",
             "type": "majority_guess",
-            "prompt": "Wie viele Menschen geben zu, schon einmal eine Zimmerpflanze 'zu Tode geliebt' (also durch Übergießen getötet) zu haben?",
-            "answer": {
-              "canonical": "64%",
-              "reference_value": 64,
-              "unit": "%",
-              "context": "Ertrinken ist die häufigste Todesursache für Sukkulenten in deutschen Wohnzimmern."
-            },
-            "scoring_rule": "closest_wins"
+            "prompt": "Welche Zimmerpflanzen-Suende passiert dir am ehesten?",
+            "options": [
+              {
+                "id": "q-09-22-opt-1",
+                "text": "Zu viel giessen"
+              },
+              {
+                "id": "q-09-22-opt-2",
+                "text": "Zu wenig giessen"
+              },
+              {
+                "id": "q-09-22-opt-3",
+                "text": "Falscher Standort"
+              },
+              {
+                "id": "q-09-22-opt-4",
+                "text": "Pflanze kaufen und sofort vergessen"
+              }
+            ],
+            "explanation": "Das ist als Mehrheitsfrage fairer als ein unbelegter Prozentwert. Pflanzen sterben selten dramatisch, aber fast immer mit schlechtem Gewissen."
           },
           {
             "id": "q-09-23",
@@ -7640,7 +7754,8 @@
               "context": "Willkommen beim Altern. Dein Kissen ist jetzt dein größter Feind."
             }
           }
-        ]
+        ],
+        "question_count": 25
       },
       {
         "category_id": "cat-10",
@@ -7651,17 +7766,20 @@
           {
             "id": "q-10-01",
             "type": "standard",
-            "prompt": "Du bist 14, es ist 23:00 Uhr und du willst heimlich im Web nach 'Nacktbildern' suchen. Welches Geräusch ist dein Endgegner und verrät dich gnadenlos an deine Eltern?",
+            "prompt": "Es ist 23:00 Uhr, du willst heimlich ins Internet und niemand soll merken, dass die Telefonleitung blockiert ist. Welches Geraeusch verraet dich?",
             "answer": {
-              "canonical": "Das Einwahlgeräusch des Modems",
+              "canonical": "Das Einwahlgeraeusch des Modems",
               "aliases": [
                 "Modem-Sound",
+                "Modemgeraeusch",
+                "Modemgeräusch",
+                "Einwahlgeraeusch",
+                "Einwahlgeräusch",
                 "Pfeifen und Kratzen",
-                "Handshaking",
-                "Modemgeräusch"
+                "Handshaking"
               ]
             },
-            "explanation": "Dieses orchestrale Chaos aus Piepen und Rauschen war das Tor zur Freiheit – und der sicherste Weg, Hausarrest zu bekommen, wenn man nicht schnell genug ein Kissen über das Modem drückte."
+            "explanation": "Das Piepen und Rauschen des Modems war unverkennbar und machte heimliches Surfen fast unmoeglich."
           },
           {
             "id": "q-10-02",
@@ -7700,7 +7818,8 @@
                 "Zip-Disk (100 MB)",
                 "CD-ROM (700 MB)",
                 "DVD (4,7 GB)"
-              ]
+              ],
+              "context": "Typische Groessenordnung: Diskette 1,44 MB, Zip-Disk 100 MB, CD-ROM rund 700 MB und DVD 4,7 GB."
             },
             "scoring_rule": "exact_order"
           },
@@ -7722,14 +7841,26 @@
           {
             "id": "q-10-06",
             "type": "majority_guess",
-            "prompt": "Wie viel Prozent der Tauschbörsen-Nutzer gaben an, beim Download eines vermeintlichen Hits bei LimeWire oder Kazaa mindestens einmal eine Fake-Datei (z.B. Viren oder Gestöhne statt Musik) erhalten zu haben?",
-            "answer": {
-              "canonical": "92%",
-              "reference_value": 92,
-              "unit": "Prozent",
-              "context": "Man wollte Linkin Park und bekam 'I_am_not_a_virus.exe'. Das Internet war damals ein digitaler Wilder Westen ohne Sheriff."
-            },
-            "scoring_rule": "closest_wins"
+            "prompt": "Was war dein typischstes Tauschboersen-Problem bei LimeWire, Kazaa und Co.?",
+            "options": [
+              {
+                "id": "q-10-06-opt-1",
+                "text": "Fake-Datei statt Song"
+              },
+              {
+                "id": "q-10-06-opt-2",
+                "text": "Virus oder seltsame EXE"
+              },
+              {
+                "id": "q-10-06-opt-3",
+                "text": "Falscher Songtitel"
+              },
+              {
+                "id": "q-10-06-opt-4",
+                "text": "Download dauerte laenger als die Pubertaet"
+              }
+            ],
+            "explanation": "Als harte Prozentzahl waere das kaum sauber belegbar. Als Mehrheitsfrage trifft es die Erinnerung an Tauschboersen-Chaos deutlich besser."
           },
           {
             "id": "q-10-07",
@@ -7815,44 +7946,75 @@
           {
             "id": "q-10-13",
             "type": "common_mistake",
-            "prompt": "Was war der Grund, warum wir alle dachten, dass wir unsere alten Röhrenfernseher oder Monitore kaputt machen, wenn wir einen Magneten zu nah ans Bild halten?",
+            "prompt": "Warum machten Magnete bei alten Roehrenfernsehern oder CRT-Monitoren ploetzlich bunte Flecken ins Bild?",
             "answer": {
-              "canonical": "Die Farben verbogen sich dauerhaft (Farbfehler)",
+              "canonical": "Der Magnet stoerte die Elektronenstrahlen bzw. magnetisierte Teile der Bildroehre",
               "aliases": [
-                "Farbbildfehler",
-                "Bildverzerrung",
-                "Magnetflecken"
+                "Magnet stoerte Elektronenstrahl",
+                "Elektronenstrahl wurde abgelenkt",
+                "Magnetisierung der Bildroehre",
+                "Farbverzerrung durch Magnet",
+                "Magnetflecken",
+                "Farbflecken"
               ]
             },
-            "explanation": "Der Magnet lenkte den Elektronenstrahl ab. Wenn man Pech hatte, blieben lila Flecken zurück, die man nur mit der 'Degauss'-Funktion (dem lauten 'Boing'-Geräusch) wieder weg bekam."
+            "explanation": "Ein Magnet konnte die Elektronenstrahlen ablenken oder Teile der Roehre magnetisieren. Viele Geraete konnten solche Farbflecken per Degauss-Funktion wieder reduzieren."
           },
           {
             "id": "q-10-14",
-            "type": "ranking",
-            "prompt": "Generation SMS: Sortiere diese Eingabemethoden danach, wie schnell man (mit Übung) eine Nachricht tippen konnte – von der langsamsten zur schnellsten.",
-            "answer": {
-              "canonical_order": [
-                "Zifferntasten ohne T9 (Mehrfachtippen)",
-                "T9-Texteingabe",
-                "Physische QWERTZ-Tastatur (Blackberry)",
-                "Moderner Touchscreen"
-              ]
-            },
-            "scoring_rule": "exact_order"
+            "type": "multiple_choice",
+            "prompt": "Was war der eigentliche Trick von T9 auf alten Handys?",
+            "options": [
+              {
+                "id": "q-10-14-opt-1",
+                "text": "Eine Taste pro Buchstabe druecken, das Woerterbuch raet das Wort",
+                "is_correct": true
+              },
+              {
+                "id": "q-10-14-opt-2",
+                "text": "Jeden Buchstaben mehrfach antippen, bis er erscheint",
+                "is_correct": false
+              },
+              {
+                "id": "q-10-14-opt-3",
+                "text": "Mit dem Steuerkreuz Buchstaben aus einer Tabelle auswaehlen",
+                "is_correct": false
+              },
+              {
+                "id": "q-10-14-opt-4",
+                "text": "Sprache aufnehmen und automatisch als SMS versenden",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-10-14-opt-1",
+            "explanation": "T9 nutzte ein Woerterbuch: Fuer 'Hallo' drueckte man die passenden Zahlentasten nur einmal pro Buchstabe. Das war fuer geuebte Nutzer deutlich schneller als Mehrfachtippen."
           },
           {
             "id": "q-10-15",
             "type": "majority_guess",
-            "prompt": "Dein Gehirn spielt dir einen Streich: Wie viel Prozent der Handy-Nutzer leiden laut Studien unter dem 'Phantom-Vibrations-Syndrom' (man spürt das Handy vibrieren, obwohl nichts ist)?",
-            "answer": {
-              "canonical": "89%",
-              "reference_value": 89,
-              "unit": "Prozent",
-              "context": "Wir sind so konditioniert auf digitale Bestätigung, dass unsere Nerven uns einfach Halluzinationen schicken, wenn es mal zu lange ruhig ist."
-            },
-            "scoring_rule": "closest_wins"
+            "prompt": "Wann glaubst du am ehesten, dein Handy habe vibriert, obwohl nichts war?",
+            "options": [
+              {
+                "id": "q-10-15-opt-1",
+                "text": "In der Hosentasche"
+              },
+              {
+                "id": "q-10-15-opt-2",
+                "text": "Nachts im Bett"
+              },
+              {
+                "id": "q-10-15-opt-3",
+                "text": "Beim Arbeiten am Schreibtisch"
+              },
+              {
+                "id": "q-10-15-opt-4",
+                "text": "Nie, ich bin innerlich frei"
+              }
+            ],
+            "explanation": "Phantom-Vibrationen sind ein bekanntes Alltagsphaenomen. Statt eine wackelige Prozentzahl zu raten, entscheidet hier die Erfahrung der Runde."
           }
-        ]
+        ],
+        "question_count": 15
       }
     ],
     "question_index": [

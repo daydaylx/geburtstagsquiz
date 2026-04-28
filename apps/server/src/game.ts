@@ -12,7 +12,7 @@ import type { Question, SubmittedAnswer } from "@quiz/shared-types";
 import { PROTOCOL_ERROR_CODES, sendEvent, sendProtocolError } from "./protocol.js";
 import type { RoomRecord, TrackedWebSocket } from "./server-types.js";
 import { roomsById, sessionsById, logRoomEvent } from "./state.js";
-import { broadcastToRoom, broadcastToPublicScreens } from "./connection.js";
+import { broadcastToAllRoomClients, broadcastToHostAndDisplay } from "./connection.js";
 import { getDefaultQuiz } from "./quiz-data.js";
 import { QUESTION_DURATION_MS, REVEAL_DURATION_MS } from "./config.js";
 import { isAnswerValidForQuestion } from "./answer-validation.js";
@@ -244,7 +244,7 @@ export function handleGameStart(socket: TrackedWebSocket, roomId: string): void 
 
   logRoomEvent("game:started", room, {});
 
-  broadcastToRoom(room, EVENTS.GAME_STARTED, {
+  broadcastToAllRoomClients(room, EVENTS.GAME_STARTED, {
     roomId: room.id,
     roomState: RoomState.InGame,
     gameState: GameState.Idle,
@@ -618,7 +618,7 @@ function startQuestion(room: RoomRecord): void {
 
   room.timerTickInterval = setInterval(() => {
     const ms = remainingMs();
-    broadcastToRoom(room, EVENTS.QUESTION_TIMER, {
+    broadcastToAllRoomClients(room, EVENTS.QUESTION_TIMER, {
       roomId: room.id,
       questionId: question.id,
       remainingMs: ms,
@@ -657,7 +657,7 @@ export function handleAnswerEligibilityChanged(room: RoomRecord): void {
   const question = room.quiz.questions[room.currentQuestionIndex];
   const progress = getAnswerProgress(room);
 
-  broadcastToPublicScreens(room, EVENTS.ANSWER_PROGRESS, {
+  broadcastToHostAndDisplay(room, EVENTS.ANSWER_PROGRESS, {
     roomId: room.id,
     questionId: question.id,
     answeredCount: progress.answeredCount,
@@ -714,7 +714,7 @@ function closeQuestion(room: RoomRecord): void {
     answerCount: room.currentAnswers.size,
   });
 
-  broadcastToRoom(room, EVENTS.QUESTION_CLOSE, {
+  broadcastToAllRoomClients(room, EVENTS.QUESTION_CLOSE, {
     roomId: room.id,
     questionId: question.id,
     gameState: GameState.AnswerLocked,
@@ -773,7 +773,7 @@ function evaluateQuestion(room: RoomRecord, question: Question): void {
     missing: roundResult.playerResults.filter((result) => !result.answer).length,
   });
 
-  broadcastToRoom(room, EVENTS.QUESTION_REVEAL, {
+  broadcastToAllRoomClients(room, EVENTS.QUESTION_REVEAL, {
     roomId: room.id,
     questionId: question.id,
     correctAnswer: roundResult.correctAnswer,
@@ -820,7 +820,7 @@ function showScoreboard(room: RoomRecord, questionId: string): void {
     }))
     .sort((a, b) => b.score - a.score);
 
-  broadcastToRoom(room, EVENTS.SCORE_UPDATE, {
+  broadcastToAllRoomClients(room, EVENTS.SCORE_UPDATE, {
     roomId: room.id,
     questionId,
     scoreboard,
@@ -866,7 +866,7 @@ function broadcastNextQuestionReadyProgress(room: RoomRecord, questionId: string
     .filter((player) => room.nextQuestionReadyPlayerIds.has(player.id))
     .map((player) => player.id);
 
-  broadcastToRoom(room, EVENTS.NEXT_QUESTION_READY_PROGRESS, {
+  broadcastToAllRoomClients(room, EVENTS.NEXT_QUESTION_READY_PROGRESS, {
     roomId: room.id,
     questionId,
     readyCount: readyPlayerIds.length,
@@ -921,7 +921,7 @@ function finishGame(room: RoomRecord): void {
 
   logRoomEvent("game:finished", room, {});
 
-  broadcastToRoom(room, EVENTS.GAME_FINISHED, {
+  broadcastToAllRoomClients(room, EVENTS.GAME_FINISHED, {
     roomId: room.id,
     roomState: RoomState.Completed,
     gameState: GameState.Completed,

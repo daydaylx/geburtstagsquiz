@@ -19,7 +19,13 @@ import {
   logRoomEvent,
 } from "./state.js";
 import { attachSocketToSession } from "./room.js";
-import { broadcastToRoom, sendToDisplay, syncSessionToRoomState } from "./connection.js";
+import {
+  broadcastToAllRoomClients,
+  sendToDisplay,
+  sendToHost,
+  sendToPlayers,
+  syncSessionToRoomState,
+} from "./connection.js";
 
 export function handleRoomJoin(
   socket: TrackedWebSocket,
@@ -293,17 +299,16 @@ export function resumeSession(
   });
 
   syncSessionToRoomState(session, room);
-  broadcastToRoom(
-    room,
-    EVENTS.PLAYER_RECONNECTED,
-    {
-      roomId: room.id,
-      playerId: player.id,
-      playerState: player.state,
-      connected: true,
-    },
-    { excludeSessionIds: new Set([session.sessionId]) },
-  );
+  const reconnectedPayload = {
+    roomId: room.id,
+    playerId: player.id,
+    playerState: player.state,
+    connected: true,
+  } as const;
+  sendToHost(room, EVENTS.PLAYER_RECONNECTED, reconnectedPayload);
+  sendToPlayers(room, EVENTS.PLAYER_RECONNECTED, reconnectedPayload, {
+    excludeSessionIds: new Set([session.sessionId]),
+  });
 
   broadcastLobbyUpdate(room);
 }
@@ -408,5 +413,5 @@ export function broadcastLobbyUpdate(room: RoomRecord): void {
     return;
   }
 
-  broadcastToRoom(room, EVENTS.LOBBY_UPDATE, toLobbyUpdatePayload(room));
+  broadcastToAllRoomClients(room, EVENTS.LOBBY_UPDATE, toLobbyUpdatePayload(room));
 }
