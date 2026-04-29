@@ -345,6 +345,14 @@ body {
   text-align: center;
 }
 
+.display-host-url {
+  font-size: 0.75rem;
+  color: var(--display-ink-soft);
+  word-break: break-all;
+  text-align: center;
+  line-height: 1.5;
+}
+
 .display-host-connected {
   display: flex;
   align-items: center;

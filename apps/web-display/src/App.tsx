@@ -551,6 +551,9 @@ export function App() {
               <div className="display-qr-block display-qr-block--host">
                 <h2>Host scannen</h2>
                 {hostQrUrl && <img src={hostQrUrl} alt="Host-QR-Code" />}
+                {roomInfo.hostToken && (
+                  <code className="display-host-url">{getHostJoinUrl(roomInfo.hostToken)}</code>
+                )}
                 <p className="display-host-pending">Host noch nicht verbunden</p>
               </div>
             )}
