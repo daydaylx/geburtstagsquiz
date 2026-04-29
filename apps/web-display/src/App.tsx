@@ -26,6 +26,7 @@ import {
 
 type ConnectionState = "connecting" | "connected" | "reconnecting";
 type DisplayScreen = "setup" | "lobby" | "question" | "reveal" | "scoreboard" | "finished";
+type DisplayShowLevel = "minimal" | "normal" | "high";
 
 interface DisplayRoomInfo {
   roomId: string;
@@ -34,6 +35,8 @@ interface DisplayRoomInfo {
   displaySessionId: string;
   displayToken: string;
 }
+
+const CONFETTI_COLORS = ["#ff6b6b", "#ffd500", "#00d4ff", "#00e676", "#c061cb"];
 
 function getViteEnv(name: string): string | undefined {
   return (import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env?.[name];
@@ -119,6 +122,25 @@ function getConnectionLabel(state: ConnectionState): string {
   }
 }
 
+function getQuestionTypeLabel(type: QuestionType): string {
+  switch (type) {
+    case QuestionType.MultipleChoice:
+      return "Auswahlfrage";
+    case QuestionType.Logic:
+      return "Logikfrage";
+    case QuestionType.Estimate:
+      return "Schätzfrage";
+    case QuestionType.MajorityGuess:
+      return "Mehrheitsfrage";
+    case QuestionType.Ranking:
+      return "Reihenfrage";
+    case QuestionType.OpenText:
+      return "Freitextfrage";
+    default:
+      return "";
+  }
+}
+
 export function App() {
   const initialSession = loadDisplayStoredSession();
 
@@ -141,15 +163,19 @@ export function App() {
   const [revealExplanation, setRevealExplanation] = useState<string | null>(null);
   const [roundResults, setRoundResults] = useState<QuestionRevealPayload["playerResults"]>([]);
   const [scoreboard, setScoreboard] = useState<ScoreUpdatePayload | null>(null);
+  const [scoreChanges, setScoreChanges] = useState<ScoreUpdatePayload["scoreChanges"]>([]);
   const [nextQuestionReadyProgress, setNextQuestionReadyProgress] =
     useState<NextQuestionReadyProgressPayload | null>(null);
   const [finalResult, setFinalResult] = useState<GameFinishedPayload | null>(null);
+  const [preCountdown, setPreCountdown] = useState<number | null>(null);
+  const [displayShowLevel, setDisplayShowLevel] = useState<DisplayShowLevel>("high");
 
   const socketRef = useRef<WebSocket | null>(null);
   const reconnectTimerRef = useRef<number | null>(null);
   const reconnectAttemptRef = useRef(0);
   const shouldReconnectRef = useRef(true);
   const displaySessionRef = useRef<DisplayStoredSession | null>(initialSession);
+  const preCountdownTimerRef = useRef<number | null>(null);
 
   const clearReconnectTimer = useEffectEvent(() => {
     if (reconnectTimerRef.current !== null) {
@@ -165,6 +191,11 @@ export function App() {
   });
 
   const resetToSetup = useEffectEvent(() => {
+    if (preCountdownTimerRef.current !== null) {
+      clearInterval(preCountdownTimerRef.current);
+      preCountdownTimerRef.current = null;
+    }
+    setPreCountdown(null);
     setScreen("setup");
     setRoomInfo(null);
     setHostPaired(false);
@@ -179,8 +210,10 @@ export function App() {
     setRevealExplanation(null);
     setRoundResults([]);
     setScoreboard(null);
+    setScoreChanges([]);
     setNextQuestionReadyProgress(null);
     setFinalResult(null);
+    setDisplayShowLevel("high");
     displaySessionRef.current = null;
   });
 
@@ -303,17 +336,48 @@ export function App() {
       }
 
       case EVENTS.GAME_STARTED: {
+        const payload = parsedEnvelope.data.payload;
+        setDisplayShowLevel(payload.resolvedGamePlan.displayShowLevel);
         setQuestion(null);
         setAnswerProgress(null);
         setRevealedAnswer(null);
         setRevealExplanation(null);
         setRoundResults([]);
         setScoreboard(null);
+        setScoreChanges([]);
         setNextQuestionReadyProgress(null);
         return;
       }
 
+      case EVENTS.QUESTION_COUNTDOWN: {
+        const { countdownMs } = parsedEnvelope.data.payload;
+        const startSeconds = Math.min(3, Math.round(countdownMs / 1000));
+        if (startSeconds < 1) return;
+        if (preCountdownTimerRef.current !== null) {
+          clearInterval(preCountdownTimerRef.current);
+        }
+        setPreCountdown(startSeconds);
+        let current = startSeconds - 1;
+        const id = window.setInterval(() => {
+          if (current > 0) {
+            setPreCountdown(current);
+            current -= 1;
+          } else {
+            setPreCountdown(0);
+            clearInterval(id);
+            preCountdownTimerRef.current = null;
+          }
+        }, 1000);
+        preCountdownTimerRef.current = id;
+        return;
+      }
+
       case EVENTS.QUESTION_SHOW: {
+        if (preCountdownTimerRef.current !== null) {
+          clearInterval(preCountdownTimerRef.current);
+          preCountdownTimerRef.current = null;
+        }
+        setPreCountdown(null);
         setQuestion(parsedEnvelope.data.payload);
         setRemainingMs(parsedEnvelope.data.payload.durationMs);
         setAnswerProgress(null);
@@ -321,6 +385,7 @@ export function App() {
         setRevealExplanation(null);
         setRoundResults([]);
         setScoreboard(null);
+        setScoreChanges([]);
         setNextQuestionReadyProgress(null);
         setScreen("question");
         return;
@@ -351,7 +416,9 @@ export function App() {
       }
 
       case EVENTS.SCORE_UPDATE: {
-        setScoreboard(parsedEnvelope.data.payload);
+        const payload = parsedEnvelope.data.payload;
+        setScoreboard(payload);
+        setScoreChanges(payload.scoreChanges);
         setScreen("scoreboard");
         return;
       }
@@ -403,6 +470,9 @@ export function App() {
     return () => {
       shouldReconnectRef.current = false;
       clearReconnectTimer();
+      if (preCountdownTimerRef.current !== null) {
+        clearInterval(preCountdownTimerRef.current);
+      }
       socketRef.current?.close();
     };
   }, []);
@@ -420,6 +490,18 @@ export function App() {
 
   const timerSeconds = Math.ceil(remainingMs / 1000);
   const isTimerUrgent = remainingMs > 0 && timerSeconds <= 5;
+  const isTimerWarning = remainingMs > 0 && timerSeconds <= 10 && timerSeconds > 5;
+
+  const correctCount = roundResults.filter((r) => r.isCorrect).length;
+  const wrongCount = roundResults.filter((r) => !r.isCorrect && r.answer !== null).length;
+  const noneCount = roundResults.filter((r) => r.answer === null).length;
+
+  const optionCounts = new Map<string, number>();
+  for (const r of roundResults) {
+    if (r.answer?.type === "option") {
+      optionCounts.set(r.answer.value, (optionCounts.get(r.answer.value) ?? 0) + 1);
+    }
+  }
 
   return (
     <div className="display-shell">
@@ -431,6 +513,15 @@ export function App() {
       </div>
 
       <div className="display-main">
+        {/* Pre-question countdown overlay */}
+        {preCountdown !== null && displayShowLevel === "high" && (
+          <div className="display-pre-countdown" aria-live="assertive">
+            <div className="display-countdown-number" key={preCountdown}>
+              {preCountdown === 0 ? "Los!" : preCountdown}
+            </div>
+          </div>
+        )}
+
         {screen === "setup" && (
           <div className="display-setup">
             <h1>Quiz Display</h1>
@@ -464,9 +555,16 @@ export function App() {
               </div>
             )}
 
-            {hostPaired && <div className="display-host-connected">Host verbunden</div>}
+            {hostPaired && (
+              <div className="display-host-connected">
+                <span className="display-host-connected-dot" aria-hidden="true" />
+                Host verbunden
+              </div>
+            )}
 
-            <div className="display-player-count">{lobby?.playerCount ?? 0} Spieler</div>
+            <div className="display-player-count">
+              <span className="display-player-count-number">{lobby?.playerCount ?? 0}</span> Spieler
+            </div>
           </div>
         )}
 
@@ -474,6 +572,10 @@ export function App() {
           <div className="display-question">
             <div className="display-question-meta">
               Frage {question.questionIndex + 1} / {question.totalQuestionCount}
+              <span className="display-question-type">
+                {" · "}
+                {getQuestionTypeLabel(question.type)}
+              </span>
             </div>
             <h2 className="display-question-text">{question.text}</h2>
 
@@ -508,97 +610,242 @@ export function App() {
             )}
 
             <div className="display-footer">
-              <div className="display-timer" data-urgent={isTimerUrgent ? "true" : undefined}>
+              <div
+                className="display-timer"
+                data-urgent={isTimerUrgent ? "true" : undefined}
+                data-warning={isTimerWarning ? "true" : undefined}
+              >
                 {remainingMs > 0 ? `${timerSeconds}s` : "—"}
               </div>
               {answerProgress && (
                 <div className="display-answer-progress">
-                  {answerProgress.answeredCount} / {answerProgress.totalEligiblePlayers} geantwortet
+                  <span>
+                    {answerProgress.answeredCount} / {answerProgress.totalEligiblePlayers}{" "}
+                    geantwortet
+                  </span>
+                  {answerProgress.totalEligiblePlayers > 0 && (
+                    <div className="display-progress-bar">
+                      <div
+                        className="display-progress-fill"
+                        style={{
+                          width: `${(answerProgress.answeredCount / answerProgress.totalEligiblePlayers) * 100}%`,
+                        }}
+                      />
+                    </div>
+                  )}
                 </div>
               )}
             </div>
           </div>
         )}
 
-        {screen === "reveal" && (
+        {screen === "reveal" && question && (
           <div className="display-reveal">
-            <h3 className="display-reveal-question">{question?.text}</h3>
+            <h3 className="display-reveal-question">{question.text}</h3>
 
-            {"options" in (question ?? {}) && question && (
+            {/* MultipleChoice / Logic / MajorityGuess */}
+            {"options" in question && (
               <div className="display-reveal-options">
-                {"options" in question &&
-                  question.options.map((opt) => (
+                {question.options.map((opt) => {
+                  const ans = revealedAnswer;
+                  const isCorrect =
+                    ans !== null &&
+                    ((ans.type === "option" && ans.value === opt.id) ||
+                      (ans.type === "options" && ans.value.includes(opt.id)));
+                  return (
                     <div
                       key={opt.id}
                       className="display-reveal-option"
-                      data-correct={
-                        revealedAnswer?.type === "option" && revealedAnswer.value === opt.id
-                          ? "true"
-                          : undefined
-                      }
+                      data-correct={ans !== null ? (isCorrect ? "true" : "false") : undefined}
                     >
                       <span className="display-reveal-option-label">{opt.label}</span>
                     </div>
-                  ))}
+                  );
+                })}
+              </div>
+            )}
+
+            {/* Antwort-Heatmap für Options-Fragen */}
+            {"options" in question && roundResults.length > 0 && (
+              <div className="display-heatmap">
+                {question.options.map((opt) => {
+                  const ans = revealedAnswer;
+                  const count = optionCounts.get(opt.id) ?? 0;
+                  const pct =
+                    roundResults.length > 0 ? Math.round((count / roundResults.length) * 100) : 0;
+                  const isCorrect =
+                    ans !== null &&
+                    ((ans.type === "option" && ans.value === opt.id) ||
+                      (ans.type === "options" && ans.value.includes(opt.id)));
+                  return (
+                    <div key={opt.id} className="display-heatmap-row">
+                      <span className="display-heatmap-label">{opt.label}</span>
+                      <div className="display-heatmap-track">
+                        <div
+                          className="display-heatmap-fill"
+                          data-correct={isCorrect ? "true" : undefined}
+                          style={{ width: `${pct}%` }}
+                        />
+                      </div>
+                      <span className="display-heatmap-count">{count}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+
+            {/* Ranking — correct order */}
+            {"items" in question && revealedAnswer?.type === "ranking" && (
+              <ol className="display-reveal-ranking">
+                {revealedAnswer.value.map((itemId, pos) => {
+                  const item = question.items.find((it) => it.id === itemId);
+                  return (
+                    <li key={itemId} className="display-reveal-ranking-item">
+                      <span className="display-reveal-rank-pos">{pos + 1}.</span>
+                      <span>{item?.label ?? itemId}</span>
+                    </li>
+                  );
+                })}
+              </ol>
+            )}
+
+            {/* Estimate — correct value */}
+            {question.type === QuestionType.Estimate && revealedAnswer?.type === "number" && (
+              <div className="display-reveal-estimate">
+                <div className="display-reveal-estimate-main">
+                  <span className="display-reveal-estimate-value">{revealedAnswer.value}</span>
+                  <span className="display-reveal-estimate-unit">{question.unit}</span>
+                </div>
+                <p className="display-reveal-estimate-context">{question.context}</p>
+              </div>
+            )}
+
+            {/* OpenText — correct text */}
+            {question.type === QuestionType.OpenText && (
+              <div className="display-reveal-text-answer">
+                {revealedAnswer?.type === "text"
+                  ? revealedAnswer.value
+                  : revealedAnswer?.type === "options"
+                    ? revealedAnswer.value[0]
+                    : ""}
               </div>
             )}
 
             {revealExplanation && <p className="display-explanation">{revealExplanation}</p>}
 
             <div className="display-reveal-stats">
-              <span>{roundResults.filter((r) => r.isCorrect).length} richtig</span>
-              <span>
-                {roundResults.filter((r) => !r.isCorrect && r.answer !== null).length} falsch
+              <span className="display-reveal-stat display-reveal-stat--correct">
+                ✓ {correctCount} richtig
               </span>
-              <span>{roundResults.filter((r) => r.answer === null).length} keine Antwort</span>
+              <span className="display-reveal-stat display-reveal-stat--wrong">
+                ✗ {wrongCount} falsch
+              </span>
+              <span className="display-reveal-stat">— {noneCount} keine</span>
             </div>
           </div>
         )}
 
-        {screen === "scoreboard" && (
+        {screen === "scoreboard" && scoreboard && (
           <div className="display-scoreboard">
             <h2>Zwischenstand</h2>
             <ol className="display-scoreboard-list">
-              {scoreboard?.scoreboard.slice(0, 8).map((entry, i) => (
-                <li key={entry.playerId} className="display-scoreboard-entry" data-rank={i + 1}>
-                  <span className="display-rank">{i + 1}.</span>
-                  <span className="display-name">{entry.name}</span>
-                  <span className="display-score">{entry.score}</span>
-                </li>
-              ))}
+              {scoreboard.scoreboard.slice(0, 8).map((entry, i) => {
+                const change = scoreChanges.find((c) => c.playerId === entry.playerId);
+                const rankDelta = change ? change.previousRank - change.rank : 0;
+                return (
+                  <li key={entry.playerId} className="display-scoreboard-entry" data-rank={i + 1}>
+                    <span className="display-rank">{i + 1}.</span>
+                    {rankDelta !== 0 && (
+                      <span
+                        className="display-rank-change"
+                        data-direction={rankDelta > 0 ? "up" : "down"}
+                      >
+                        {rankDelta > 0 ? `▲${rankDelta}` : `▼${Math.abs(rankDelta)}`}
+                      </span>
+                    )}
+                    <span className="display-name">{entry.name}</span>
+                    {change && change.delta > 0 && (
+                      <span className="display-score-delta">+{change.delta}</span>
+                    )}
+                    <span className="display-score">{entry.score}</span>
+                  </li>
+                );
+              })}
             </ol>
-            {nextQuestionReadyProgress && (
-              <div className="display-ready-progress">
-                {nextQuestionReadyProgress.readyCount} /{" "}
-                {nextQuestionReadyProgress.totalEligiblePlayers} bereit
-              </div>
-            )}
+            {nextQuestionReadyProgress &&
+              (() => {
+                const { readyCount, totalEligiblePlayers } = nextQuestionReadyProgress;
+                const allReady = totalEligiblePlayers > 0 && readyCount >= totalEligiblePlayers;
+                const pct =
+                  totalEligiblePlayers > 0
+                    ? Math.round((readyCount / totalEligiblePlayers) * 100)
+                    : 0;
+                return (
+                  <div
+                    className="display-ready-block"
+                    data-all-ready={allReady ? "true" : undefined}
+                  >
+                    <div className="display-ready-label">
+                      {allReady ? "Alle bereit!" : `${readyCount} / ${totalEligiblePlayers} bereit`}
+                    </div>
+                    <div className="display-ready-track">
+                      <div className="display-ready-fill" style={{ width: `${pct}%` }} />
+                    </div>
+                  </div>
+                );
+              })()}
           </div>
         )}
 
         {screen === "finished" && finalResult && (
           <div className="display-finished">
             <h1>Quiz beendet!</h1>
-            {finalResult.finalScoreboard[0] && (
-              <div className="display-winner">
-                <div>
-                  <p className="display-winner-label">Gewinner</p>
-                  <h2 className="display-winner-name">{finalResult.finalScoreboard[0].name}</h2>
-                  <p className="display-winner-score">
-                    {finalResult.finalScoreboard[0].score} Punkte
-                  </p>
-                </div>
+
+            <div className="display-podium">
+              {[1, 0, 2].map((rankIndex) => {
+                const entry = finalResult.finalScoreboard[rankIndex];
+                if (!entry) return null;
+                return (
+                  <div
+                    key={rankIndex}
+                    className={`display-podium-entry display-podium-entry--${rankIndex + 1}`}
+                  >
+                    <div className="display-podium-rank-badge">{rankIndex + 1}</div>
+                    <div className="display-podium-name">{entry.name}</div>
+                    <div className="display-podium-score">{entry.score} Pkt</div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {finalResult.finalScoreboard.length > 3 && (
+              <ol className="display-scoreboard-list">
+                {finalResult.finalScoreboard.slice(3, 8).map((entry, i) => (
+                  <li key={entry.playerId} className="display-scoreboard-entry" data-rank={i + 4}>
+                    <span className="display-rank">{i + 4}.</span>
+                    <span className="display-name">{entry.name}</span>
+                    <span className="display-score">{entry.score}</span>
+                  </li>
+                ))}
+              </ol>
+            )}
+
+            {displayShowLevel === "high" && (
+              <div className="display-confetti" aria-hidden="true">
+                {Array.from({ length: 30 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="display-confetti-piece"
+                    style={{
+                      left: `${(i * 3.37) % 100}%`,
+                      animationDelay: `${(i * 0.12) % 1.8}s`,
+                      animationDuration: `${2.8 + ((i * 0.07) % 1.5)}s`,
+                      background: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
+                    }}
+                  />
+                ))}
               </div>
             )}
-            <ol className="display-scoreboard-list">
-              {finalResult.finalScoreboard.slice(0, 5).map((entry, i) => (
-                <li key={entry.playerId} className="display-scoreboard-entry" data-rank={i + 1}>
-                  <span className="display-rank">{i + 1}.</span>
-                  <span className="display-name">{entry.name}</span>
-                  <span className="display-score">{entry.score}</span>
-                </li>
-              ))}
-            </ol>
           </div>
         )}
       </div>
