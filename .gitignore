@@ -20,3 +20,6 @@ dist/
 .kilo/
 sqlite_mcp_server.db
 /cloudflared
+/yarn.lock
+/package-lock.json
+/bunfig.toml
