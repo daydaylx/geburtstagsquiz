@@ -521,6 +521,13 @@ export function App() {
         }
         return;
 
+      case EVENTS.PLAYER_DISCONNECTED: {
+        const { playerId } = parsedEnvelope.data.payload;
+        const name = lobby?.players.find((p) => p.playerId === playerId)?.name ?? "Spieler";
+        setNotice({ kind: "info", text: `${name} hat die Verbindung verloren (30s Grace-Period)` });
+        return;
+      }
+
       case EVENTS.GAME_STARTED:
         setGamePlanDraft(parsedEnvelope.data.payload.resolvedGamePlan);
         setSelectedPlanMode(
@@ -1000,10 +1007,11 @@ export function App() {
       return (
         <div className="host-panel-content">
           <div className="host-stage-head">
-            <p className="host-section-label">Frage {currentQuestionNumber}</p>
-            {question.isDemoQuestion && (
-              <p className="host-section-label host-section-label--compact">Demo</p>
-            )}
+            <p className="host-section-label">
+              {question.isDemoQuestion
+                ? "Testfrage"
+                : `Frage ${currentQuestionNumber}${effectiveTotalQuestionCount ? ` / ${effectiveTotalQuestionCount}` : ""}`}
+            </p>
             <div
               className="host-timer-shell"
               data-urgent={isTimerUrgent ? "true" : undefined}
@@ -1048,6 +1056,14 @@ export function App() {
               <span className="host-section-label host-section-label--compact">Antworten</span>
               <strong>
                 {answerProgress?.answeredCount || 0} / {answerProgress?.totalEligiblePlayers || 0}
+                {answerProgress &&
+                  answerProgress.totalEligiblePlayers - answerProgress.answeredCount > 0 && (
+                    <span className="host-pending-count">
+                      {" "}
+                      · {answerProgress.totalEligiblePlayers - answerProgress.answeredCount} noch
+                      offen
+                    </span>
+                  )}
               </strong>
             </div>
             <div className="host-progress-bar">
@@ -1145,19 +1161,26 @@ export function App() {
             className="host-scoreboard-list"
             data-final={screen === "finished" ? "true" : undefined}
           >
-            {latestScoreboard.map((entry, index) => (
-              <article
-                className="host-scoreboard-item"
-                data-placement={index < 3 ? String(index + 1) : undefined}
-                key={entry.playerId}
-              >
-                <div className="host-scoreboard-main">
-                  <span className="host-scoreboard-rank">{index + 1}.</span>
-                  <span className="host-scoreboard-name">{entry.name}</span>
-                </div>
-                <div className="host-scoreboard-score">{entry.score}</div>
-              </article>
-            ))}
+            {latestScoreboard.map((entry, index) => {
+              const gap =
+                index > 0 && latestScoreboard[0] ? latestScoreboard[0].score - entry.score : 0;
+              return (
+                <article
+                  className="host-scoreboard-item"
+                  data-placement={index < 3 ? String(index + 1) : undefined}
+                  key={entry.playerId}
+                >
+                  <div className="host-scoreboard-main">
+                    <span className="host-scoreboard-rank">{index + 1}.</span>
+                    <span className="host-scoreboard-name">{entry.name}</span>
+                  </div>
+                  <div className="host-scoreboard-score">
+                    {entry.score}
+                    {gap > 0 && <span className="host-score-gap">−{gap}</span>}
+                  </div>
+                </article>
+              );
+            })}
           </div>
           {screen === "scoreboard" && latestScoreChanges.length > 0 && (
             <div className="host-score-change-list">
@@ -1250,7 +1273,17 @@ export function App() {
                   </div>
                 )}
                 {playerJoinUrl && (
-                  <p className="host-join-url host-join-url--sidebar">{playerJoinUrl}</p>
+                  <div className="host-join-url-row">
+                    <p className="host-join-url host-join-url--sidebar">{playerJoinUrl}</p>
+                    <button
+                      className="host-copy-url-button"
+                      onClick={() => navigator.clipboard.writeText(playerJoinUrl)}
+                      title="Link kopieren"
+                      type="button"
+                    >
+                      📋
+                    </button>
+                  </div>
                 )}
               </div>
               <div className="host-panel host-side-panel">

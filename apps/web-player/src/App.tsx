@@ -230,6 +230,7 @@ export function App() {
   const handleSubmitAnswer = useEffectEvent((optionId: string) => {
     const session = playerSessionRef.current;
     if (!session || !question || answerStatus !== "idle") return;
+    navigator.vibrate?.(50);
     setNotice(null);
     setSelectedOptionId(optionId);
     setAnswerStatus("submitting");
@@ -250,6 +251,7 @@ export function App() {
   const handleSubmitEstimate = useEffectEvent((value: number) => {
     const session = playerSessionRef.current;
     if (!session || !question || answerStatus !== "idle") return;
+    navigator.vibrate?.(50);
     setNotice(null);
     setAnswerStatus("submitting");
     const sent = sendClientEvent(EVENTS.ANSWER_SUBMIT, {
@@ -269,6 +271,7 @@ export function App() {
   const handleSubmitRanking = useEffectEvent((order: string[]) => {
     const session = playerSessionRef.current;
     if (!session || !question || answerStatus !== "idle") return;
+    navigator.vibrate?.(50);
     setNotice(null);
     setAnswerStatus("submitting");
     const sent = sendClientEvent(EVENTS.ANSWER_SUBMIT, {
@@ -288,6 +291,7 @@ export function App() {
   const handleSubmitText = useEffectEvent((value: string) => {
     const session = playerSessionRef.current;
     if (!session || !question || answerStatus !== "idle") return;
+    navigator.vibrate?.(50);
     setNotice(null);
     setAnswerStatus("submitting");
     const sent = sendClientEvent(EVENTS.ANSWER_SUBMIT, {
@@ -663,7 +667,9 @@ export function App() {
                   : "Die Frage und Antworttexte stehen vorne auf dem Hauptbildschirm."}
               </p>
               {answerStatus === "submitting" && (
-                <div className="player-controller-status">Sende Antwort...</div>
+                <div className="player-controller-status" data-state="submitting">
+                  Sende Antwort...
+                </div>
               )}
               {answerStatus === "accepted" && (
                 <div className="player-controller-status" data-state="saved">
@@ -851,7 +857,9 @@ export function App() {
                     {formatControllerAnswer(
                       ownRoundResult?.answer ?? null,
                       question,
-                      question && question.type === QuestionType.Estimate ? question.unit : undefined,
+                      question && question.type === QuestionType.Estimate
+                        ? question.unit
+                        : undefined,
                     )}
                   </strong>
                 </div>
@@ -861,7 +869,9 @@ export function App() {
                     {formatControllerAnswer(
                       correctAnswer,
                       question,
-                      question && question.type === QuestionType.Estimate ? question.unit : undefined,
+                      question && question.type === QuestionType.Estimate
+                        ? question.unit
+                        : undefined,
                     )}
                   </strong>
                 </div>
