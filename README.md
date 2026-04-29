@@ -4,24 +4,26 @@ Privates browserbasiertes Quiz fuer einen Geburtstag.
 
 Dieses Repo ist kein Produkt, keine Plattform und kein langfristiges System. Ziel ist ein stabiler Ablauf fuer einen Abend:
 
-- ein Host
-- ein gemeinsamer Bildschirm
+- ein Display/TV fuer Publikum und QR-Codes
+- ein Host-Controller fuer die Spielleitung
 - mehrere Handys
+- ein lokales WebSocket/API-Backend
 - einfacher Join per Code oder QR
-- Fragen auf dem gemeinsamen Bildschirm anzeigen
+- Fragen auf dem Display/TV anzeigen
 - Antworten einsammeln
 - Punkte und Rangliste zeigen
 
 ## Wofuer dieses Repo da ist
 
 - Host erstellt einen Raum
+- Display/TV zeigt Host- und Player-QRs
 - Spieler treten mit dem Handy bei
 - Lobby aktualisiert sich live
-- Host behaelt Status, Fortschritt und Spieler in einer uebersichtlichen Steueransicht im Blick
+- Host behaelt Status, Fortschritt, Einstellungen und Spieler in einer uebersichtlichen Steueransicht im Blick
 - Host startet das vorbereitete Abend-Quiz
 - Handys dienen waehrend aktiver Fragen als Antwort-Controller
 - Server nimmt Antworten an und wertet aus
-- Hostscreen zeigt Aufloesung und Rangliste
+- Display/TV zeigt Fragen, Aufloesung und Rangliste
 
 ## Wofuer dieses Repo nicht da ist
 
@@ -39,8 +41,8 @@ Wenn etwas technisch schoen klingt, aber fuer den Abend keinen direkten Nutzen h
 ## Praktische Leitlinien
 
 - Der Server bleibt die Wahrheit fuer Raumstatus, aktive Frage, Timer, gueltige Antworten und Punkte.
-- Der Hostscreen steuert und zeigt an, berechnet aber nichts als Wahrheitsquelle.
-- Die Host-UI darf Kategorien und Ablauf vorbereiten, verkauft lokale Vorschau aber nicht als serverseitige Spiellogik.
+- Die Display-UI zeigt den oeffentlichen Spielzustand, berechnet aber nichts als Wahrheitsquelle.
+- Die Host-UI steuert den Ablauf und darf Kategorien oder Ablauf vorbereiten, verkauft lokale Vorschau aber nicht als serverseitige Spiellogik.
 - Die Player-UI bleibt einfach: joinen, antworten, Status sehen; waehrend aktiver Fragen ohne vollstaendigen Fragetext.
 - Der Zustand lebt im Speicher. Wenn der Server neu startet, ist der Raum weg.
 - Die bestehende Monorepo-Struktur darf bleiben, soll aber nicht weiter aufgeblasen werden.
@@ -68,7 +70,7 @@ geburtstagsquiz/
    `- GAME-RULES.md
 ```
 
-## Lokal starten
+## Schnellstart Lokal
 
 Voraussetzungen:
 
@@ -79,6 +81,14 @@ Voraussetzungen:
 corepack pnpm install
 corepack pnpm dev
 ```
+
+Danach laufen die vier Services standardmaessig hier:
+
+- Server/Health: `http://localhost:3001/health`
+- WebSocket direkt: `ws://localhost:3001`
+- Display/TV: `http://localhost:5175`
+- Host: `http://localhost:5173`
+- Player: `http://localhost:5174`
 
 Der Server-Dev-Start nutzt `node --watch --import tsx`, damit kein separater `tsx watch`-IPC-Server noetig ist. Falls du explizit die alte `tsx`-Watch-CLI testen willst:
 
@@ -114,14 +124,6 @@ Stoppen geht dann genauso einfach:
 ./stop_quiz.sh
 ```
 
-Standard-URLs:
-
-- Server/Health: `http://localhost:3001/health`
-- WebSocket direkt: `ws://localhost:3001`
-- Display/TV: `http://localhost:5175`
-- Host: `http://localhost:5173`
-- Player: `http://localhost:5174`
-
 Fuer einen lokalen Protokoll-Smoke-Test bei laufendem Server:
 
 ```bash
@@ -139,7 +141,14 @@ Der Laptop bleibt der Server. Cloudflare Tunnel ist nur die oeffentliche Verbind
 - `https://play.quiz.disaai.de` -> `localhost:5174`
 - `wss://api.quiz.disaai.de` -> `localhost:3001`
 
+Die passenden Beispielwerte stehen in `.env.local.example` und `.env.tunnel.example`:
+
+- lokal: `VITE_DISPLAY_URL=http://localhost:5175`, `VITE_HOST_URL=http://localhost:5173`, `VITE_PLAYER_JOIN_BASE_URL=http://localhost:5174`, `VITE_SERVER_SOCKET_URL=ws://localhost:3001`
+- Tunnel: `VITE_DISPLAY_URL=https://tv.quiz.disaai.de`, `VITE_HOST_URL=https://host.quiz.disaai.de`, `VITE_PLAYER_JOIN_BASE_URL=https://play.quiz.disaai.de`, `VITE_SERVER_SOCKET_URL=wss://api.quiz.disaai.de`
+
 Details stehen in `docs/DEPLOYMENT-CLOUDFLARE-TUNNEL.md`. Die Beispielconfig liegt in `deploy/cloudflare-tunnel.example.yml`; echte `.cloudflared/`-Configs und Credentials gehoeren nicht ins Repo.
+
+Die Tunnel-Startskripte starten Cloudflare nur mit `CONFIRM_CLOUDFLARE_TUNNEL_START=1`. Ohne diese explizite lokale Bestaetigung brechen sie vor dem Tunnelstart ab.
 
 ## Quizfragen lokal reviewen
 

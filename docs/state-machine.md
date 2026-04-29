@@ -15,7 +15,7 @@ Es soll keine theoretische Vollmodellierung sein. Wenn es unklar wird, sind die 
 
 ## Grundsatz
 
-Der Server haelt die massgeblichen Zustaende. Host und Player reagieren darauf.
+Der Server haelt die massgeblichen Zustaende. Display, Host und Player reagieren darauf.
 
 ## Room State
 
@@ -63,7 +63,8 @@ Hinweise:
 
 ### Raum erstellen
 
-- Host erstellt einen Raum
+- Display erstellt den primaeren Raum per `display:create-room`
+- Host koppelt sich danach per `host:connect`
 - Raum landet direkt in `waiting`
 
 ### Spiel starten
@@ -76,7 +77,7 @@ Hinweise:
 ### Frage aktiv
 
 - alle verbundenen Spieler werden auf `answering` gesetzt
-- der Host bekommt die vollstaendige Frage, Player bekommen nur Controller-Daten
+- Display und Host bekommen die vollstaendige Frage, Player bekommen nur Controller-Daten
 - Antworten duerfen eingehen
 - Disconnects setzen einen Spieler auf `disconnected`
 
@@ -112,6 +113,12 @@ Hinweise:
 - Bei Host-Disconnect bleibt der Raum zunaechst bestehen.
 - Aktuelle Grace-Zeit im Code: `5min`.
 - Danach wird der Raum geschlossen.
+
+### Display
+
+- Bei Display-Disconnect bleibt der Raum kurz bestehen.
+- Aktuelle Grace-Zeit im Code: `45s`.
+- Kommt das Display nicht zurueck, wird der Raum geschlossen.
 
 ## Bewusste Vereinfachungen
 

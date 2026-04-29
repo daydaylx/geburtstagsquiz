@@ -17,6 +17,7 @@ Es geht nicht um Produkt-Compliance, Cloud-Betrieb oder grosse Lastszenarien, so
 | Spaete Antworten   | Antwort kommt nach Timerende                     | Server sperrt bei `question:close`, spaete Antworten zaehlen nicht              |
 | Mobile Browser     | kleine Displays, Sleep, wechselnde Netzqualitaet | UI schlicht halten, echte Handytests wichtiger als mehr CSS-Effekte             |
 | Zu grosser Scope   | Zusatzideen verursachen neue Fehler              | vor dem Abend Scope einfrieren und keine neuen Systeme beginnen                 |
+| Tunnel/DNS         | Domainarbeit kann bestehende Deployments stoeren | erst lokal stabil testen; keine Cloudflare-/DNS-Aktion ohne `[CONFIRM]`         |
 
 ## Was bewusst klein bleibt
 
@@ -24,6 +25,7 @@ Es geht nicht um Produkt-Compliance, Cloud-Betrieb oder grosse Lastszenarien, so
 - ein vorbereiteter Abendablauf statt Modussammlung
 - manuelles Vorbereiten des Quiz statt Editor-Ausbau
 - ein praktischer lokaler oder einfacher Serverbetrieb statt Infra-Setup
+- optionaler Cloudflare Tunnel nur als Verbindung zu lokalen Diensten
 - pragmatischer Snapshot-Resume statt komplexer Wiederherstellungslogik
 
 ## Was fuer dieses Repo nicht relevant ist
@@ -36,6 +38,7 @@ Es geht nicht um Produkt-Compliance, Cloud-Betrieb oder grosse Lastszenarien, so
 - globale Highscores
 - Lasttests fuer grosse Nutzerzahlen
 - Produkt-Roadmaps
+- Aenderungen an `disaai.de`, `www.disaai.de` oder bestehenden Disa-AI-Deployments
 
 ## Was trotzdem Pflicht bleibt
 
@@ -57,8 +60,9 @@ Auch fuer ein Einmalprojekt sollten diese Punkte nicht aufgeweicht werden:
 
 | Thema                        | Verhalten                                                                                                                                                                                                                                      | Begründung                                                                                                                                             |
 | ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| hostToken im Display-Browser | `DISPLAY_ROOM_CREATED` gibt den `hostToken` an den Display-Client zurück. Der Token wird im Browser-State gehalten und in den QR-Code-URL eingebettet. Wer Zugriff auf den Display-Browser hat (DevTools, localStorage), kann den Token lesen. | Fuer einen Abendabend mit Vertrauenspersonen akzeptiert. Der QR-Code wird nur kurz sichtbar. Kein zusaetzlicher Schutz nötig fuer diesen Einsatzzweck. |
-| Reconnect ohne Secret        | `connection:resume` authentifiziert nur per `sessionId` + `roomId`. Kein zusaetzliches Secret oder Bearer-Token. Wer eine fremde `sessionId` kennt, kann die Session uebernehmen.                                                              | SessionIds sind zufaellige UUIDs. In einem lokalen WLAN ohne externe Angreifer ist dieses Risiko minimal. Fuer einen isolierten Abendabend akzeptiert. |
+| hostToken im Display-Browser | `DISPLAY_ROOM_CREATED` gibt den `hostToken` an den Display-Client zurueck. Der Token wird im Browser-State gehalten und in den QR-Code-URL eingebettet. Wer Zugriff auf den Display-Browser hat (DevTools, localStorage), kann den Token lesen. | Fuer einen Abend mit Vertrauenspersonen akzeptiert. Der QR-Code wird nur kurz sichtbar. Kein zusaetzlicher Schutz noetig fuer diesen Einsatzzweck. |
+| Reconnect ohne Secret        | `connection:resume` authentifiziert nur per `sessionId` + `roomId`. Kein zusaetzliches Secret oder Bearer-Token. Wer eine fremde `sessionId` kennt, kann die Session uebernehmen.                                                              | SessionIds sind zufaellige UUIDs. In einem lokalen WLAN ohne externe Angreifer ist dieses Risiko minimal. Fuer einen isolierten Abend akzeptiert. |
+| Cloudflare-Credentials       | Tunnel-Credentials und Tokens waeren bei Commit direkt missbrauchbar.                                                                                                                                                                           | Keine echten Secrets ins Repo. Nur Beispiele wie `deploy/cloudflare-tunnel.example.yml` versionieren.                                          |
 
 ## Praktische Empfehlungen vor dem Abend
 

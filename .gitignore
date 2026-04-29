@@ -11,6 +11,7 @@ dist/
 *.crt
 *.key
 *credentials*.json
+*TUNNEL_ID*.json
 *.log
 .DS_Store
 .serena/

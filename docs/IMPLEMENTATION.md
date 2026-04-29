@@ -1,4 +1,4 @@
-# Praktischer Umsetzungsplan
+# Praktischer Umsetzungs- und Pruefplan
 
 ## Ziel
 
@@ -6,102 +6,160 @@ Gebaut wird kein grosses Quiz-System, sondern ein funktionierendes Geburtstagsqu
 
 Erfolg bedeutet:
 
-- Raum erstellen klappt
-- Spieler koennen einfach joinen
-- Fragen erscheinen vollstaendig auf dem Host, Handys dienen als Antwort-Controller
-- Antworten werden serverseitig angenommen
-- Punkte und Rangliste stimmen
-- der Ablauf bleibt auf echten Geraeten stabil genug
+- Display/TV kann einen Raum erstellen und QR-Codes anzeigen.
+- Host kann sich mit dem Display-Raum koppeln.
+- Spieler koennen einfach joinen.
+- Fragen erscheinen vollstaendig auf dem Display/TV.
+- Host sieht Status, Fortschritt und Fallback-Aktionen.
+- Handys dienen als Antwort-Controller.
+- Antworten werden serverseitig angenommen und ausgewertet.
+- Punkte und Rangliste stimmen.
+- der Ablauf bleibt auf echten Geraeten stabil genug.
 
-## Reihenfolge
-
-### 1. Basis lauffaehig halten
-
-Sicherstellen:
-
-- `pnpm dev` startet Server, Host und Player
-- ein vorgeladenes Quiz ist verfuegbar
-- Host und Player koennen sich mit demselben Server verbinden
-
-Abnahme:
-
-- Host laedt
-- Player laedt
-- Server startet ohne manuelles Nacharbeiten
-
-### 2. Lobby zuerst pruefen
+## Lokale Basis
 
 Sicherstellen:
 
-- Host erstellt einen Raum
-- Join-Code und QR sind sichtbar
-- Host zeigt Status, Fortschritt und Spieler in einer stabilen Uebersicht statt in losen Einzelscreens
-- Spieler joinen mit Namen
-- Lobby aktualisiert sich live
-- Disconnects werden sichtbar statt still ignoriert
+- `corepack pnpm dev` startet Server, Display, Host und Player.
+- Lokale Ports sind konsistent:
+  - Server/API: `3001`
+  - Display/TV: `5175`
+  - Host: `5173`
+  - Player: `5174`
+- ein vorgeladenes Quiz ist verfuegbar.
+- alle Frontends verbinden sich mit demselben Server.
 
 Abnahme:
 
-- mehrere Handys koennen nacheinander joinen
-- alle Namen erscheinen sauber
-- Host sieht, wer verbunden oder getrennt ist
+- `http://localhost:3001/health` antwortet.
+- `http://localhost:5175` laedt.
+- `http://localhost:5173` laedt.
+- `http://localhost:5174` laedt.
+- keine manuelle Nacharbeit an Ports oder Env ist fuer den Standardstart noetig.
 
-### 3. Eine Frage komplett durchziehen
+## Primaerer Spielablauf
+
+### 1. Display-Raum erstellen
 
 Sicherstellen:
 
-- Host startet das Spiel
-- Host behaltet aktuelle Frage und Gesamtfragen autoritativ im Blick
-- Frage erscheint vollstaendig auf dem Host
-- Player bekommen nur Controller-Daten und keinen vollstaendigen Fragetext
-- Timer kommt vom Server
-- pro Spieler zaehlt nur eine Antwort
-- Player sehen Antwort angenommen oder abgelehnt
-- nach Schliessen der Frage folgt Reveal und Score
+- Display sendet `display:create-room`.
+- Server erstellt Raum, Join-Code, Display-Session und Host-Token.
+- Display zeigt Host-QR und Player-QR.
 
 Abnahme:
 
-- eine komplette Frage laeuft ohne manuelle Eingriffe durch
-- spaete Antworten zaehlen nicht
-- doppelte Antworten veraendern den Spielstand nicht
-- unpassende Antworttypen werden nicht gespeichert
+- Display zeigt einen Join-Code.
+- Host-QR zeigt auf Host-UI.
+- Player-QR zeigt auf Player-UI.
 
-### 4. Mehrere Fragen und Spielende pruefen
+### 2. Host koppeln
 
 Sicherstellen:
 
-- Server wechselt automatisch weiter, wenn alle verbundenen Spieler bereit sind
-- Host kann nach der Rangliste manuell weiterschalten, falls ein Handy haengen bleibt
-- Scoreboard bleibt konsistent
-- letzte Frage fuehrt in einen Endstand
-- Raum kann am Ende sauber geschlossen werden
+- Host verbindet sich per `host:connect`.
+- Display erhaelt `display:host-paired`.
+- Host sieht Raumstatus, Join-Code, Spieler und Einstellungen.
 
 Abnahme:
 
-- kompletter Quizlauf geht durch
-- Rangliste wirkt plausibel
-- es gibt keinen haengenden Zwischenzustand nach der letzten Frage
+- Host kann den vom Display erstellten Raum steuern.
+- Kein zweiter Raum entsteht versehentlich.
 
-### 5. Vor dem Geburtstag haerten
+### 3. Spieler joinen
 
 Sicherstellen:
 
-- mindestens ein Test mit echten Handys
-- ein Test auf dem vorgesehenen Hostscreen
-- bewusst pruefen: WLAN-Aussetzer, Doppelklicks, versehentliches Reload
-- vor dem Abend keinen unnötigen Ausbau mehr anfangen
+- Player joinen per QR oder Code.
+- Lobby aktualisiert Display, Host und Player live.
+- Disconnects werden sichtbar statt still ignoriert.
 
 Abnahme:
 
-- Kernfluss wirkt auf echten Geraeten stabil
-- bekannte Schwachstellen sind benannt
-- Scope ist eingefroren
+- mehrere Handys koennen nacheinander joinen.
+- alle Namen erscheinen sauber.
+- Host und Display sehen, wer verbunden oder getrennt ist.
+
+### 4. Eine Frage komplett durchziehen
+
+Sicherstellen:
+
+- Host startet das Spiel.
+- Display und Host bekommen vollstaendige Fragedaten.
+- Player bekommen nur Controller-Daten.
+- Timer kommt vom Server.
+- pro Spieler zaehlt nur eine Antwort.
+- Player sehen Antwort angenommen oder abgelehnt.
+- nach Schliessen der Frage folgen Reveal und Score.
+
+Abnahme:
+
+- eine komplette Frage laeuft ohne manuelle Eingriffe durch.
+- spaete Antworten zaehlen nicht.
+- doppelte Antworten veraendern den Spielstand nicht.
+- unpassende Antworttypen werden nicht gespeichert.
+
+### 5. Mehrere Fragen und Spielende pruefen
+
+Sicherstellen:
+
+- Server wechselt automatisch weiter, wenn alle verbundenen Spieler bereit sind.
+- Host kann nach der Rangliste manuell weiterschalten, falls ein Handy haengen bleibt.
+- Scoreboard bleibt konsistent.
+- letzte Frage fuehrt in einen Endstand.
+- Raum kann am Ende sauber geschlossen werden.
+
+Abnahme:
+
+- kompletter Quizlauf geht durch.
+- Rangliste wirkt plausibel.
+- es gibt keinen haengenden Zwischenzustand nach der letzten Frage.
+
+## Validierung
+
+Bei laufendem Server:
+
+```bash
+corepack pnpm run smoke:local
+```
+
+Vor Abschluss:
+
+```bash
+corepack pnpm typecheck
+corepack pnpm test
+corepack pnpm build
+```
+
+Vor dem Geburtstag zusaetzlich:
+
+- mindestens ein Test mit echten Handys.
+- ein Test auf dem vorgesehenen Display/TV.
+- ein Test mit Host-Controller auf dem vorgesehenen Geraet.
+- bewusst pruefen: WLAN-Aussetzer, Doppelklicks, versehentliches Reload.
+- vor dem Abend keinen unnoetigen Ausbau mehr anfangen.
+
+## Tunnel- und Domainbetrieb
+
+Erst nach lokal stabiler Validierung pruefen.
+
+Ziel:
+
+- `tv.quiz.disaai.de` -> Display/TV
+- `host.quiz.disaai.de` -> Host-Controller
+- `play.quiz.disaai.de` -> Player-UI
+- `api.quiz.disaai.de` -> Server/API/WebSocket
+
+Details stehen in `docs/DEPLOYMENT-CLOUDFLARE-TUNNEL.md`.
+
+Keine echten Cloudflare-/DNS-Aktionen ohne `[CONFIRM]`. `disaai.de`, `www.disaai.de` und bestehende Disa-AI-Deployments bleiben unberuehrt.
 
 ## Was in diesem Plan bewusst nicht vorkommt
 
 - keine Roadmap fuer weitere Modi
 - keine Datenbankphase
-- keine Cloud- oder Deploy-Architektur
+- keine Durable Objects
+- keine Cloud-Hosting-Architektur
 - keine Editor-Plattform
 - keine Teams, Joker oder Buzzer als Ausbaustufen
 
@@ -113,6 +171,8 @@ Erst den bestehenden Quizablauf verlaesslich machen. Nicht das naechste System a
 
 Wenn eine geplante Aenderung nicht direkt einem dieser Punkte hilft,
 
+- Display/TV
+- Host-Kopplung
 - Join
 - Lobby
 - Frage

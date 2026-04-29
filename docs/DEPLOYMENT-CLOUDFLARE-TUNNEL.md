@@ -13,6 +13,8 @@ Subdomains unter disaai.de
 
 Keine Cloud-Migration: keine Workers, keine Durable Objects, keine Datenbank, keine Accounts, keine Cloud-Persistenz.
 
+Diese Datei ist Dokumentation und Beispielbetrieb. Sie ist keine Freigabe fuer echte Cloudflare- oder DNS-Aenderungen.
+
 ## Subdomains
 
 | Subdomain | Lokaler Dienst | Port |
@@ -31,6 +33,9 @@ Beispiel: [.env.local.example](../.env.local.example)
 ```env
 PORT=3001
 HOST=0.0.0.0
+VITE_PUBLIC_HOST=localhost
+VITE_HOST_PORT=5173
+VITE_PLAYER_PORT=5174
 VITE_DISPLAY_URL=http://localhost:5175
 VITE_HOST_URL=http://localhost:5173
 VITE_PLAYER_JOIN_BASE_URL=http://localhost:5174
@@ -53,6 +58,8 @@ http://192.168.x.x:5175
 Beispiel: [.env.tunnel.example](../.env.tunnel.example)
 
 ```env
+PORT=3001
+HOST=0.0.0.0
 VITE_DISPLAY_URL=https://tv.quiz.disaai.de
 VITE_HOST_URL=https://host.quiz.disaai.de
 VITE_PLAYER_JOIN_BASE_URL=https://play.quiz.disaai.de
@@ -103,12 +110,14 @@ Nur nach lokal stabilem Test:
 4. `disaai.de` und `www.disaai.de` nicht anfassen.
 5. Keine bestehenden Disa-AI-Deployments veraendern.
 
-CLI/API-Aenderungen brauchen explizites `[CONFIRM]`. Erlaubte reine Checks sind:
+DNS-, Tunnel-Routing-, Secret- und CLI/API-Aenderungen brauchen explizites `[CONFIRM]`. Erlaubte reine Checks sind:
 
 ```bash
 cloudflared --version
 cloudflared tunnel list
 ```
+
+Ohne `[CONFIRM]` duerfen keine DNS-Eintraege angelegt, geaendert, geloescht oder ueberschrieben werden.
 
 ## Startreihenfolge Lokal
 
@@ -159,7 +168,7 @@ cloudflared tunnel --config .cloudflared/config.yml run <tunnel-name>
 oder, wenn die lokale Config im Repo-Arbeitsverzeichnis liegt:
 
 ```bash
-./start_tunnel.sh
+CONFIRM_CLOUDFLARE_TUNNEL_START=1 ./start_tunnel.sh
 ```
 
 Dann oeffnen:
@@ -170,6 +179,8 @@ https://host.quiz.disaai.de
 https://play.quiz.disaai.de
 wss://api.quiz.disaai.de
 ```
+
+`start_tunnel.sh` und `start_domain_quiz.sh` brechen ohne `CONFIRM_CLOUDFLARE_TUNNEL_START=1` ab. Das ist Absicht: Der Tunnel darf erst nach stabilem lokalem Smoke-Test und expliziter Cloudflare-Freigabe gestartet werden.
 
 ## QR-Code-Test
 
@@ -198,6 +209,7 @@ Der Smoke-Test verbindet Display, Host und zwei Player, startet eine Runde, send
 | Subdomain nicht erreichbar | Laeuft der Laptop, der Tunnel und der lokale Zielport? |
 | WebSocket verbindet nicht | `VITE_SERVER_SOCKET_URL`, `ALLOWED_ORIGINS`, Tunnel-Mapping `api.quiz.disaai.de -> localhost:3001` pruefen |
 | QR zeigt falsche Domain | `VITE_HOST_URL` und `VITE_PLAYER_JOIN_BASE_URL` pruefen |
+| Display-Link zeigt falsche Domain | `VITE_DISPLAY_URL` pruefen |
 | Lokaler Port belegt | `ss -H -ltnp '( sport = :3001 or sport = :5173 or sport = :5174 or sport = :5175 )'` |
 | Browser-Origin abgelehnt | Origin in `ALLOWED_ORIGINS` aufnehmen |
 

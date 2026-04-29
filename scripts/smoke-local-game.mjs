@@ -114,6 +114,12 @@ function answerForQuestion(question) {
   }
 }
 
+function assertNonEmptyString(value, label) {
+  if (typeof value !== "string" || value.trim().length === 0) {
+    throw new Error(`${label} must be a non-empty string`);
+  }
+}
+
 async function resumeSession(label, sessionId, roomId) {
   const client = await new SmokeClient(label).connect();
   client.send("connection:resume", { sessionId, roomId });
@@ -159,6 +165,11 @@ try {
     (payload) => payload.questionId === displayQuestion.questionId,
   );
 
+  await display.waitFor(
+    "question:timer",
+    (payload) => payload.questionId === displayQuestion.questionId && payload.remainingMs > 0,
+  );
+
   player1.send("answer:submit", {
     roomId: room.roomId,
     questionId: playerQuestion1.questionId,
@@ -178,8 +189,16 @@ try {
   await player2.waitFor("answer:accepted");
   await display.waitFor("answer:progress", (payload) => payload.answeredCount === 2);
   await host.waitFor("answer:progress", (payload) => payload.answeredCount === 2);
-  await display.waitFor("question:reveal");
-  await host.waitFor("question:reveal");
+  const displayReveal = await display.waitFor(
+    "question:reveal",
+    (payload) => payload.questionId === displayQuestion.questionId,
+  );
+  const hostReveal = await host.waitFor(
+    "question:reveal",
+    (payload) => payload.questionId === displayQuestion.questionId,
+  );
+  assertNonEmptyString(displayReveal.explanation, "display reveal explanation");
+  assertNonEmptyString(hostReveal.explanation, "host reveal explanation");
   await player1.waitFor("question:reveal");
   await display.waitFor("score:update");
   await host.waitFor("score:update");
@@ -189,7 +208,7 @@ try {
   clients.push(await resumeSession("host-resume", hostConnected.hostSessionId, room.roomId));
   clients.push(await resumeSession("player-1-resume", joined1.sessionId, room.roomId));
 
-  console.log("smoke ok: display room, host pairing, 2 players, game:start, answer, reveal, score:update, reconnect");
+  console.log("smoke ok: display room, host pairing, 2 players, game:start, timer, answer, reveal explanation, score:update, reconnect");
 } finally {
   for (const client of clients.reverse()) {
     client.close();

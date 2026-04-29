@@ -1,173 +1,148 @@
-# Konzept & Produktidee
+# Konzept
 
 ## Ziel
 
-Ein browserbasiertes Quizspiel für Gruppen mit zwei Bildschirmen:
+Ein browserbasiertes Geburtstagsquiz fuer Gruppen mit getrennten Rollen:
 
-- **Hauptscreen (Laptop / TV / Monitor)**
+- **Display/TV**
   - Lobby
+  - Host- und Player-QRs
   - Fragen
   - Timer
-  - Auflösung
+  - Aufloesung
   - Rangliste
-  - Kontrolle durch Host
 
-- **Private Screens (Handys der Spieler)**
+- **Host-Controller**
+  - Host-Kopplung
+  - Spielstart
+  - Lobby-Einstellungen
+  - Fortschritt und Verbindungsstatus
+  - manuelle Fallbacks
+
+- **Player-Handys**
   - Beitritt
   - Namenseingabe
   - Antwort-Controller
   - Status und eigener Punktestand
+  - Bereitschaft fuer naechste Frage
 
-## Produktidee
+- **Server/API**
+  - Raum- und Sessionverwaltung
+  - WebSocket-Protokoll
+  - Timer
+  - Antwortannahme
+  - Auswertung und Scoreboard
 
-1. Host öffnet die Seite auf dem Laptop
-2. Host klickt auf „Spiel erstellen"
-3. Server erzeugt Room-ID, Join-Code und Join-URL
-4. Laptop zeigt QR-Code + Raumcode
-5. Spieler scannen QR-Code mit dem Handy
-6. Handy öffnet Join-Seite, Spieler geben Namen ein
-7. Server aktualisiert die Lobby live
-8. Host startet das Spiel
-9. Antworten laufen in Echtzeit
-10. Server wertet aus
-11. Hauptscreen zeigt Ergebnis und Punktestand
+## Standard-Ablauf
 
-## Zielgruppe
+1. Display/TV oeffnet `apps/web-display`.
+2. Display erstellt einen Raum.
+3. Server erzeugt Room-ID, Join-Code, Display-Session und Host-Token.
+4. Display zeigt Host-QR und Player-QR.
+5. Host koppelt sich ueber die Host-UI mit dem Raum.
+6. Spieler scannen den Player-QR oder geben den Join-Code ein.
+7. Server aktualisiert die Lobby live fuer Display, Host und Player.
+8. Host startet das Spiel.
+9. Display zeigt die Frage, Player antworten ueber Handys.
+10. Server wertet aus.
+11. Display, Host und Player sehen Reveal und Rangliste.
+12. Player melden sich bereit fuer die naechste Frage.
 
-- Freunde / Party
-- Familie
-- Spieleabend
-- kleine Events
-- später optional: Schule / Team-Event
+## Lokales Betriebsmodell
 
-## Anforderungen an das Produkt
+| Service | Port | Zweck |
+| --- | --- | --- |
+| `apps/server` | `3001` | WebSocket/API-Backend |
+| `apps/web-display` | `5175` | Display/TV |
+| `apps/web-host` | `5173` | Host-Controller |
+| `apps/web-player` | `5174` | Player-UI |
 
-### Was das Produkt sein soll
+## Ziel-Subdomains
 
-- **schnell startbar** – in Sekunden spielbereit
-- **sofort verständlich** – keine lange Einweisung nötig
-- **ohne App-Installation nutzbar** – browserbasiert
-- **mobil bedienbar** – auch auf kleinen Screens
-- **gruppentauglich** – stabil bei 3–20 Spielern
-- **klarer, sauberer Ablauf** – nachvollziehbar
-- **technisch stabil** – nicht crashanfällig
+- `tv.quiz.disaai.de`
+- `host.quiz.disaai.de`
+- `play.quiz.disaai.de`
+- `api.quiz.disaai.de`
 
-### Was es am Anfang nicht sein soll
+Diese Subdomains sind nur fuer den spaeteren Tunnelbetrieb gedacht. `disaai.de`, `www.disaai.de` und bestehende Disa-AI-Deployments bleiben unberuehrt.
 
-- **kein Account-System** – anonyme Sessions
-- **kein Shop** – keine Monetarisierung im MVP
-- **keine Profile / XP / Battlepass-Mechanik** – zu früh
-- **kein Community-System** – keine Freundeslisten, Chat, Foren
-- **keine überladene KI-Funktionalität** – später prüfen
-- **kein 20-Modi-Monster** – lieber ein Modus perfekt als 10 halbfertig
-- **keine Native-App-Pflicht** – Web reicht
+## Anforderungen
 
-## Verbindungsmodell
+### Was das Projekt sein soll
 
-### Standard-Ablauf
+- schnell lokal startbar
+- ohne App-Installation nutzbar
+- mobil bedienbar
+- stabil fuer eine kleine Gruppe
+- klarer Ablauf fuer einen Abend
+- serverseitige Wahrheit fuer Timer, Antworten und Punkte
 
-1. Host öffnet die Host-Seite
-2. Host klickt auf „Spiel erstellen"
-3. Server erzeugt:
-   - Room-ID
-   - Join-Code
-   - Join-URL
-4. Laptop zeigt QR-Code + Raumcode
-5. Spieler scannen QR-Code
-6. Handy öffnet Join-Seite
-7. Spieler geben Namen ein
-8. Server aktualisiert die Lobby live
-9. Host startet das Spiel
-10. Antworten laufen in Echtzeit über WebSocket
-11. Server wertet aus
-12. Hauptscreen zeigt Ergebnis und Punktestand
+### Was es nicht sein soll
 
-### Kommunikationsprinzip
+- kein SaaS
+- kein Account-System
+- keine Plattform fuer viele Events
+- keine Cloud-Persistenz
+- kein Adminsystem
+- keine neue Datenbank
+- keine Durable Objects
+- keine ueberladene Modus-Sammlung
 
-#### Host → Server
+## Kommunikationsprinzip
+
+### Display -> Server
 
 - Raum erstellen
-- Spiel starten
-- nächste Frage
-- Lobby-Einstellung fuer Antworttexte auf Handys
+- Verbindung wieder aufnehmen
 
-#### Spieler → Server
+### Host -> Server
+
+- Host koppeln
+- Spiel starten
+- Lobby-Einstellungen setzen
+- manuell weiterschalten, falls noetig
+- Raum schliessen
+
+### Player -> Server
 
 - Raum beitreten
-- Namen setzen
 - Antwort absenden
-- bereit fuer nächste Frage melden
+- bereit fuer naechste Frage melden
+- Verbindung wieder aufnehmen
 
-#### Server → Clients
+### Server -> Clients
 
-- Lobby-Update
-- vollständige Frage an Host
+- Lobby-Updates
+- vollstaendige Frage an Display und Host
 - reduzierte Controller-Daten an Player
 - Timerstatus
-- Antwort bestätigt
+- Antwort bestaetigt oder abgelehnt
 - Rundenende
 - Auswertung
 - Rangliste
-
-## MVP-Fokus
-
-Das MVP muss klein bleiben.
-
-### Host / Laptop
-
-- Spiel erstellen
-- QR-Code anzeigen
-- Lobby mit Spielern
-- Fragen anzeigen
-- Antworttexte sichtbar machen, falls der Host das fuer Handys einschaltet
-- Timer anzeigen
-- richtige Antwort anzeigen
-- Punktestand anzeigen
-- nächste Frage starten
-
-### Handy / Spieler
-
-- per QR-Code beitreten
-- Namen eingeben
-- während aktiver Fragen auf den Hauptscreen schauen
-- Antwort auswählen
-- Bestätigung sehen:
-  - „Antwort gesendet"
-  - „warte auf Auflösung"
-- Platzierung / Punktestand sehen
-
-### Fragetypen fuer den Abend
-
-Aktiv genutzt werden die vorbereiteten Fragetypen:
-
-1. **Multiple Choice** – Auswahl aus Optionen
-2. **Schätzfrage** – numerische Antwort
-3. **Mehrheitsfrage** – numerische Antwort nach Server-Auswertung
-4. **Ranking** – Reihenfolge
-5. **Logic** – Optionsfrage
-
-Buzzer, Teams und Joker bleiben ausserhalb des Abendumfangs.
 
 ## Erfolgskriterien
 
 ### Funktional
 
 - Join in wenigen Sekunden
+- Display, Host und Player verbinden sich mit demselben Raum
 - mehrere Spieler gleichzeitig stabil
-- Antworten kommen zuverlässig an
-- Hauptscreen aktualisiert sich live
+- Antworten kommen zuverlaessig an
+- Display aktualisiert sich live
 - Timer und Rundenstatus bleiben sauber
 
 ### UX
 
-- keine Erklärung nötig
-- sofort verständlich
-- Handy ist idiotensicher
-- Hauptscreen ist klar lesbar aus Distanz
+- Display ist aus Distanz lesbar
+- Host-Controller ist ruhig und eindeutig
+- Handy ist im Kernfluss einfach bedienbar
+- keine Erklaerung langer als der Join-Code noetig
 
 ### Technisch
 
-- serverseitige Wahrheit
-- keine doppelte Logik
+- Server bleibt authoritative
+- keine doppelte Spiellogik
 - saubere Event-Architektur
 - nachvollziehbares State-Handling
+- keine Secrets oder produktiven Cloudflare-Aenderungen im Repo

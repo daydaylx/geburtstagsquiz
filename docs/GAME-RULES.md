@@ -2,9 +2,10 @@
 
 ## Ziel
 
-Ein Host fuehrt ein simples Quiz mit den vorbereiteten Fragetypen durch.
+Ein Host fuehrt ein simples Quiz mit den vorbereiteten Fragetypen durch. Das oeffentliche Bild laeuft getrennt auf dem Display/TV.
 
-- Der Hauptscreen zeigt Frage, Aufloesung und Rangliste.
+- Das Display/TV zeigt Lobby, Frage, Aufloesung und Rangliste.
+- Der Host-Controller steuert Start, Einstellungen und Fallbacks.
 - Die Handys der Spieler dienen nur fuer Join, Antwort und Status.
 - Der Server entscheidet, was gueltig ist.
 
@@ -12,7 +13,7 @@ Ein Host fuehrt ein simples Quiz mit den vorbereiteten Fragetypen durch.
 
 1. Host startet das Spiel.
 2. Der Server oeffnet die naechste Frage.
-3. Der Host zeigt die vollstaendige Frage; Player sehen nur den Antwort-Controller.
+3. Das Display/TV zeigt die vollstaendige Frage; der Host sieht Kontrolldaten; Player sehen nur den Antwort-Controller.
 4. Der Timer laeuft serverseitig.
 5. Jeder Spieler kann eine Antwort absenden.
 6. Nach Timerende oder wenn alle geantwortet haben, wird die Frage geschlossen.
@@ -55,13 +56,24 @@ Im mitgelieferten Standard-Quiz sind die Fragen fest bepunktet. Fuer den Abend w
 
 ## Rollen
 
+### Display/TV
+
+Das Display/TV:
+
+- erstellt den primaeren Raum
+- zeigt Host- und Player-QRs
+- zeigt Join-Code und Lobby fuer den Raum
+- zeigt Fragen gross und lesbar
+- zeigt Aufloesung, Rangliste und Endstand
+- entscheidet keine Spielwahrheit
+
 ### Host
 
 Der Host:
 
-- erstellt den Raum
+- koppelt sich per Host-QR oder Host-Token mit dem Display-Raum
 - startet das Spiel
-- sieht den Join-Code und QR
+- sieht den Join-Code und Status
 - sieht Status, Fortschritt und Spieler in einer dauerhaften Uebersicht
 - kann Kategorien fuer den Host-Flow vorbereiten, ohne dass daraus schon serverseitige Regeln behauptet werden
 - sieht den Fortschritt der Antworten
@@ -83,7 +95,7 @@ Die Spieler:
 
 ## UI-Fokus
 
-### Hauptscreen
+### Display/TV
 
 - Frage gross und lesbar
 - Antwortoptionen beziehungsweise Ranking-Items mit Text klar sichtbar
@@ -91,6 +103,12 @@ Die Spieler:
 - Rangliste einfach zu erfassen
 - Status, Fortschritt und Spieleruebersicht bleiben klar gegliedert
 - kein ueberladenes Layout
+
+### Host-Controller
+
+- klare Steuerung fuer Start, Einstellungen und Fallbacks
+- Fortschritt und Verbindungsstatus jederzeit sichtbar
+- keine ablenkende Praesentationsrolle
 
 ### Handy
 

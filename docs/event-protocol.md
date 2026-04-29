@@ -19,7 +19,7 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 
 - Alle Nachrichten nutzen ein Envelope-Format mit `event` und `payload`.
 - Der Server entscheidet ueber gueltige Zustaende, Antworten, Timer und Punkte.
-- Host und Player senden Absichten, keine Wahrheiten.
+- Display, Host und Player senden Absichten, keine Wahrheiten.
 - Ungueltige oder unpassende Payloads werden abgewiesen.
 - Das Protokoll deckt nur Lobby und den vorbereiteten Quiz-Kernfluss ab.
 
@@ -27,17 +27,23 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 
 ```json
 {
-  "event": "room:create",
+  "event": "display:create-room",
   "payload": {}
 }
 ```
 
 ## Rollenrechte
 
+### Display darf senden
+
+- `connection:resume`
+- `display:create-room`
+
 ### Host darf senden
 
 - `connection:resume`
-- `room:create`
+- `host:connect`
+- `room:create` als Legacy-Pfad, nicht als primaerer 3-UI-Flow
 - `room:settings:update`
 - `game:start`
 - `game:next-question` als sichtbarer Host-Override nach der Rangliste
@@ -121,7 +127,7 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 - Spaetere oder doppelte Antworten werden abgelehnt oder ignoriert.
 - Erst `answer:accepted` bestaetigt, dass eine Antwort gespeichert wurde.
 - Ob eine Antwort richtig war und wie viele Punkte sie bringt, kommt erst mit `question:reveal`.
-- Player erhalten waehrend aktiver Fragen `question:controller` statt `question:show`; der vollstaendige Fragetext bleibt auf dem Host.
+- Player erhalten waehrend aktiver Fragen `question:controller` statt `question:show`; der vollstaendige Fragetext bleibt auf Display und Host.
 - Antworttexte auf Player-Geraeten sind eine Lobby-Einstellung und standardmaessig aus.
 - Antwortformen sind `option`, `number`, `ranking` und `text`; Mehrheits-Reveals koennen als `correctAnswer: { type: "options", value: [...] }` mehrere Gewinneroptionen enthalten.
 
@@ -134,9 +140,9 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 
 ### Bereit fuer die naechste Frage
 
-- Nach `score:update` bleiben Host und Player auf der Rangliste.
+- Nach `score:update` bleiben Display, Host und Player auf der Rangliste.
 - Jeder verbundene Spieler sendet `next-question:ready` ueber sein Handy.
-- Der Server sendet `next-question:ready-progress` an Host und Player.
+- Der Server sendet `next-question:ready-progress` an Display, Host und Player.
 - Sobald alle verbundenen Spieler bereit sind, startet der Server automatisch die naechste Frage oder beendet das Spiel.
 - Disconnectete Spieler blockieren den Wechsel nicht.
 - Der Host kann nach `score:update` manuell weiterschalten, falls ein Handy haengen bleibt.
