@@ -7,6 +7,7 @@ export default defineConfig({
     host: "0.0.0.0",
     port: 5174,
     strictPort: true,
+    allowedHosts: ["play.quiz.disaai.de"],
     proxy: {
       "/ws": {
         target: "ws://localhost:3001",
