@@ -120,6 +120,26 @@ function assertNonEmptyString(value, label) {
   }
 }
 
+function makeSmokeGamePlan(catalog) {
+  return {
+    mode: "custom",
+    questionCount: 5,
+    categoryIds: catalog.categories.map((category) => category.id),
+    questionTypes: catalog.questionTypes
+      .map((entry) => entry.type)
+      .filter((type) =>
+        ["multiple_choice", "logic", "majority_guess", "estimate"].includes(type),
+      ),
+    timerMs: 20000,
+    revealDurationMs: 3000,
+    revealMode: "auto",
+    showAnswerTextOnPlayerDevices: false,
+    enableDemoQuestion: false,
+    displayShowLevel: "minimal",
+    rankingScoringMode: "partial_with_bonus",
+  };
+}
+
 async function resumeSession(label, sessionId, roomId) {
   const client = await new SmokeClient(label).connect();
   client.send("connection:resume", { sessionId, roomId });
@@ -142,6 +162,7 @@ try {
     clientInfo: { deviceType: "smoke", appVersion: "local" },
   });
   const hostConnected = await host.waitFor("host:connected");
+  const catalog = await host.waitFor("catalog:summary");
 
   const player1 = await new SmokeClient("player-1").connect();
   clients.push(player1);
@@ -153,7 +174,7 @@ try {
   player2.send("room:join", { joinCode: room.joinCode, playerName: "Smoke 2" });
   const joined2 = await player2.waitFor("player:joined");
 
-  host.send("game:start", { roomId: room.roomId });
+  host.send("game:start", { roomId: room.roomId, gamePlan: makeSmokeGamePlan(catalog) });
 
   const displayQuestion = await display.waitFor("question:show");
   const playerQuestion1 = await player1.waitFor(
@@ -200,15 +221,18 @@ try {
   assertNonEmptyString(displayReveal.explanation, "display reveal explanation");
   assertNonEmptyString(hostReveal.explanation, "host reveal explanation");
   await player1.waitFor("question:reveal");
-  await display.waitFor("score:update");
-  await host.waitFor("score:update");
+  const displayScore = await display.waitFor("score:update");
+  const hostScore = await host.waitFor("score:update");
   await player1.waitFor("score:update");
+  if (!Array.isArray(displayScore.scoreChanges) || !Array.isArray(hostScore.scoreChanges)) {
+    throw new Error("score:update must include scoreChanges arrays");
+  }
 
   clients.push(await resumeSession("display-resume", room.displaySessionId, room.roomId));
   clients.push(await resumeSession("host-resume", hostConnected.hostSessionId, room.roomId));
   clients.push(await resumeSession("player-1-resume", joined1.sessionId, room.roomId));
 
-  console.log("smoke ok: display room, host pairing, 2 players, game:start, timer, answer, reveal explanation, score:update, reconnect");
+  console.log("smoke ok: display room, host pairing, catalog game plan, 2 players, timer, answer, reveal explanation, score:update, reconnect");
 } finally {
   for (const client of clients.reverse()) {
     client.close();

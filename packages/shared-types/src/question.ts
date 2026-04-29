@@ -5,7 +5,17 @@ export interface QuestionOption {
   label: string;
 }
 
-export interface MultipleChoiceQuestion {
+export interface QuestionMetadata {
+  categoryId?: string;
+  categoryName?: string;
+  categorySlug?: string;
+  categoryDifficulty?: string;
+  difficulty?: string;
+  tags?: string[];
+  isDemoQuestion?: boolean;
+}
+
+export interface MultipleChoiceQuestion extends QuestionMetadata {
   id: string;
   type: QuestionType.MultipleChoice;
   text: string;
@@ -16,7 +26,7 @@ export interface MultipleChoiceQuestion {
   explanation?: string;
 }
 
-export interface LogicQuestion {
+export interface LogicQuestion extends QuestionMetadata {
   id: string;
   type: QuestionType.Logic;
   text: string;
@@ -27,7 +37,7 @@ export interface LogicQuestion {
   explanation?: string;
 }
 
-export interface EstimateQuestion {
+export interface EstimateQuestion extends QuestionMetadata {
   id: string;
   type: QuestionType.Estimate;
   text: string;
@@ -39,7 +49,7 @@ export interface EstimateQuestion {
   explanation?: string;
 }
 
-export interface MajorityGuessQuestion {
+export interface MajorityGuessQuestion extends QuestionMetadata {
   id: string;
   type: QuestionType.MajorityGuess;
   text: string;
@@ -49,7 +59,7 @@ export interface MajorityGuessQuestion {
   explanation?: string;
 }
 
-export interface RankingQuestion {
+export interface RankingQuestion extends QuestionMetadata {
   id: string;
   type: QuestionType.Ranking;
   text: string;
@@ -60,7 +70,7 @@ export interface RankingQuestion {
   explanation?: string;
 }
 
-export interface OpenTextQuestion {
+export interface OpenTextQuestion extends QuestionMetadata {
   id: string;
   type: QuestionType.OpenText;
   text: string;

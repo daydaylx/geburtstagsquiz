@@ -47,6 +47,7 @@ function makeRoom(overrides: Partial<RoomRecord> = {}): RoomRecord {
     displayDisconnectTimer: null,
     hostDisconnectTimer: null,
     playerDisconnectTimers: new Map(),
+    countdownTimer: null,
     questionTimer: null,
     timerTickInterval: null,
     revealTimer: null,
@@ -54,6 +55,9 @@ function makeRoom(overrides: Partial<RoomRecord> = {}): RoomRecord {
     nextQuestionReadyPlayerIds: new Set(),
     questionStartedAt: null,
     lastRoundResult: null,
+    lastScoreChanges: [],
+    completedRoundResults: [],
+    completedAnswers: [],
     ...overrides,
   };
   return room;
@@ -74,6 +78,15 @@ describe("isEventAllowedForRole – authorization guards", () => {
 
   it("display cannot send room:close", () => {
     expect(isEventAllowedForRole(EVENTS.ROOM_CLOSE, "display")).toBe(false);
+  });
+
+  it.each([
+    EVENTS.QUESTION_FORCE_CLOSE,
+    EVENTS.GAME_SHOW_SCOREBOARD,
+    EVENTS.GAME_FINISH_NOW,
+    EVENTS.PLAYER_REMOVE,
+  ])("display cannot send host fallback event %s", (event) => {
+    expect(isEventAllowedForRole(event, "display")).toBe(false);
   });
 
   it("display cannot send answer:submit", () => {
@@ -104,6 +117,15 @@ describe("isEventAllowedForRole – authorization guards", () => {
     expect(isEventAllowedForRole(EVENTS.GAME_START, "host")).toBe(true);
   });
 
+  it.each([
+    EVENTS.QUESTION_FORCE_CLOSE,
+    EVENTS.GAME_SHOW_SCOREBOARD,
+    EVENTS.GAME_FINISH_NOW,
+    EVENTS.PLAYER_REMOVE,
+  ])("host can send fallback event %s", (event) => {
+    expect(isEventAllowedForRole(event, "host")).toBe(true);
+  });
+
   it("host can send host:connect", () => {
     expect(isEventAllowedForRole(EVENTS.HOST_CONNECT, "host")).toBe(true);
   });
@@ -122,6 +144,15 @@ describe("isEventAllowedForRole – authorization guards", () => {
 
   it("player cannot send room:settings:update", () => {
     expect(isEventAllowedForRole(EVENTS.ROOM_SETTINGS_UPDATE, "player")).toBe(false);
+  });
+
+  it.each([
+    EVENTS.QUESTION_FORCE_CLOSE,
+    EVENTS.GAME_SHOW_SCOREBOARD,
+    EVENTS.GAME_FINISH_NOW,
+    EVENTS.PLAYER_REMOVE,
+  ])("player cannot send host fallback event %s", (event) => {
+    expect(isEventAllowedForRole(event, "player")).toBe(false);
   });
 
   it("player can send answer:submit", () => {

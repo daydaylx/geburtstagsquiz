@@ -2,7 +2,14 @@ import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { QuestionType, type Question, type QuestionOption, type Quiz } from "@quiz/shared-types";
+import {
+  QuestionType,
+  type Question,
+  type QuestionMetadata,
+  type QuestionOption,
+  type Quiz,
+  type QuizCategory,
+} from "@quiz/shared-types";
 
 import { QUESTION_DURATION_MS } from "./config.js";
 
@@ -15,6 +22,13 @@ type RawQuizFile = {
 };
 
 type RawCategory = {
+  category_id?: string;
+  id?: string;
+  slug?: string;
+  name?: string;
+  difficulty?: string;
+  tags?: string[];
+  question_count?: number;
   questions: RawQuestion[];
 };
 
@@ -28,6 +42,7 @@ type RawQuestion = {
   correct_order?: string[];
   correct_option_id?: string;
   explanation?: string;
+  difficulty?: string;
   points?: number;
 };
 
@@ -169,11 +184,42 @@ function hasRankingAnswer(question: RawQuestion): boolean {
   );
 }
 
-function toOptionQuestion(question: RawQuestion): Question {
+function toQuestionMetadata(category: RawCategory, question: RawQuestion): QuestionMetadata {
+  const categoryId =
+    category.category_id ??
+    category.id ??
+    category.slug ??
+    `category-${question.id.split("-").slice(0, 2).join("-")}`;
+
+  return {
+    categoryId,
+    categoryName: category.name ?? categoryId,
+    categorySlug: category.slug ?? categoryId,
+    ...(category.difficulty ? { categoryDifficulty: category.difficulty } : {}),
+    ...(question.difficulty ? { difficulty: question.difficulty } : {}),
+    tags: category.tags ?? [],
+  };
+}
+
+function toQuizCategory(category: RawCategory): QuizCategory {
+  const id = category.category_id ?? category.id ?? category.slug ?? "unknown-category";
+
+  return {
+    id,
+    slug: category.slug ?? id,
+    name: category.name ?? id,
+    ...(category.difficulty ? { difficulty: category.difficulty } : {}),
+    tags: category.tags ?? [],
+    questionCount: category.questions.length,
+  };
+}
+
+function toOptionQuestion(question: RawQuestion, metadata: QuestionMetadata): Question {
   const rawOptions = requireRawOptions(question);
   const options = toQuestionOptions(rawOptions, question.id);
   const correctOptionId = getCorrectOptionId(question, rawOptions, options);
   const baseQuestion = {
+    ...metadata,
     id: question.id,
     text: question.prompt,
     options,
@@ -196,13 +242,14 @@ function toOptionQuestion(question: RawQuestion): Question {
   };
 }
 
-function toEstimateQuestion(question: RawQuestion): Question {
+function toEstimateQuestion(question: RawQuestion, metadata: QuestionMetadata): Question {
   const answer = question.answer;
   if (!answer || typeof answer.reference_value !== "number") {
     throw new Error(`Question ${question.id} is missing a numeric answer`);
   }
 
   return {
+    ...metadata,
     id: question.id,
     type: QuestionType.Estimate,
     text: question.prompt,
@@ -224,7 +271,7 @@ function rotateOptions<T>(items: T[]): T[] {
   return [...items.slice(offset), ...items.slice(0, offset)];
 }
 
-function toRankingQuestion(question: RawQuestion): Question {
+function toRankingQuestion(question: RawQuestion, metadata: QuestionMetadata): Question {
   if (question.items && question.correct_order) {
     const items = toQuestionOptions(question.items, question.id);
     const correctOrder = question.correct_order.map((entry) => {
@@ -237,6 +284,7 @@ function toRankingQuestion(question: RawQuestion): Question {
     });
 
     return {
+      ...metadata,
       id: question.id,
       type: QuestionType.Ranking,
       text: question.prompt,
@@ -259,6 +307,7 @@ function toRankingQuestion(question: RawQuestion): Question {
   }));
 
   return {
+    ...metadata,
     id: question.id,
     type: QuestionType.Ranking,
     text: question.prompt,
@@ -270,8 +319,9 @@ function toRankingQuestion(question: RawQuestion): Question {
   };
 }
 
-function toMajorityGuessQuestion(question: RawQuestion): Question {
+function toMajorityGuessQuestion(question: RawQuestion, metadata: QuestionMetadata): Question {
   return {
+    ...metadata,
     id: question.id,
     type: QuestionType.MajorityGuess,
     text: question.prompt,
@@ -282,10 +332,11 @@ function toMajorityGuessQuestion(question: RawQuestion): Question {
   };
 }
 
-function toOpenTextQuestion(question: RawQuestion): Question {
+function toOpenTextQuestion(question: RawQuestion, metadata: QuestionMetadata): Question {
   const correctText = requireText(question.answer?.canonical, "answer.canonical", question.id);
 
   return {
+    ...metadata,
     id: question.id,
     type: QuestionType.OpenText,
     text: question.prompt,
@@ -297,25 +348,27 @@ function toOpenTextQuestion(question: RawQuestion): Question {
   };
 }
 
-function transformQuestion(question: RawQuestion): Question {
+function transformQuestion(question: RawQuestion, category: RawCategory): Question {
+  const metadata = toQuestionMetadata(category, question);
+
   if (hasCorrectOption(question)) {
-    return toOptionQuestion(question);
+    return toOptionQuestion(question, metadata);
   }
 
   if (hasNumericAnswer(question)) {
-    return toEstimateQuestion(question);
+    return toEstimateQuestion(question, metadata);
   }
 
   if (hasRankingAnswer(question)) {
-    return toRankingQuestion(question);
+    return toRankingQuestion(question, metadata);
   }
 
   if (question.type === "majority_guess" && question.options?.length) {
-    return toMajorityGuessQuestion(question);
+    return toMajorityGuessQuestion(question, metadata);
   }
 
   if (question.answer?.canonical) {
-    return toOpenTextQuestion(question);
+    return toOpenTextQuestion(question, metadata);
   }
 
   throw new Error(`Unsupported question shape in quiz source: ${question.id} (${question.type})`);
@@ -323,6 +376,7 @@ function transformQuestion(question: RawQuestion): Question {
 
 function loadDefaultQuiz(): Quiz {
   const questionsById = new Map<string, Question>();
+  const categoriesById = new Map<string, QuizCategory>();
   let quizId = "geburtstagsquiz-millennials-combined";
   let quizTitle = "Geburtstagsquiz für Millennials";
 
@@ -334,8 +388,16 @@ function loadDefaultQuiz(): Quiz {
     quizTitle = rawQuiz.quiz.title;
 
     for (const category of rawQuiz.quiz.categories) {
+      const quizCategory = toQuizCategory(category);
+      const existingCategory = categoriesById.get(quizCategory.id);
+      categoriesById.set(quizCategory.id, {
+        ...quizCategory,
+        questionCount: (existingCategory?.questionCount ?? 0) + category.questions.length,
+        tags: [...new Set([...(existingCategory?.tags ?? []), ...quizCategory.tags])],
+      });
+
       for (const question of category.questions) {
-        questionsById.set(question.id, transformQuestion(question));
+        questionsById.set(question.id, transformQuestion(question, category));
       }
     }
   }
@@ -343,6 +405,7 @@ function loadDefaultQuiz(): Quiz {
   return {
     id: quizId,
     title: quizTitle,
+    categories: [...categoriesById.values()].filter((category) => category.questionCount > 0),
     questions: [...questionsById.values()],
   };
 }

@@ -26,6 +26,8 @@ import {
   sendToPlayers,
   syncSessionToRoomState,
 } from "./connection.js";
+import { buildCatalogSummary } from "./game-plan.js";
+import { getDefaultQuiz } from "./quiz-data.js";
 
 export function handleRoomJoin(
   socket: TrackedWebSocket,
@@ -176,6 +178,7 @@ export function handleHostConnect(
     roomState: room.state,
     gameState: room.gameState,
   });
+  sendEvent(socket, EVENTS.CATALOG_SUMMARY, buildCatalogSummary(getDefaultQuiz()));
 
   if (room.displaySessionId && room.displayConnected) {
     sendToDisplay(room, EVENTS.DISPLAY_HOST_PAIRED, { hostConnected: true });
@@ -242,6 +245,7 @@ export function resumeSession(
       joinCode: room.joinCode,
       gameState: room.gameState,
     });
+    sendEvent(socket, EVENTS.CATALOG_SUMMARY, buildCatalogSummary(getDefaultQuiz()));
 
     syncSessionToRoomState(session, room);
     broadcastLobbyUpdate(room);
@@ -398,6 +402,9 @@ export function handleRoomSettingsUpdate(
 
   room.settings = {
     showAnswerTextOnPlayerDevices: payload.showAnswerTextOnPlayerDevices,
+    ...(payload.gamePlanDraft ?? room.settings.gamePlanDraft
+      ? { gamePlanDraft: payload.gamePlanDraft ?? room.settings.gamePlanDraft }
+      : {}),
   };
   room.lastActivityAt = Date.now();
 

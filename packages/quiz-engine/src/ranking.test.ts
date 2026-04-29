@@ -100,4 +100,34 @@ describe("evaluateRanking", () => {
 
     expect(result.playerResults[0].pointsEarned).toBe(50);
   });
+
+  it("awards exact-position points plus bonus in partial_with_bonus mode", () => {
+    const question = makeQuestion({ points: 10 });
+    const answers = [makeAnswer("p1", ["A", "B", "C"])];
+
+    const result = evaluateRanking(question, answers, "partial_with_bonus");
+
+    expect(result.playerResults[0].isCorrect).toBe(true);
+    expect(result.playerResults[0].pointsEarned).toBe(4);
+    expect(result.playerResults[0].detail).toEqual({
+      exactPositions: 3,
+      totalPositions: 3,
+      bonusPoints: 1,
+    });
+  });
+
+  it("awards only exact-position points for imperfect partial rankings", () => {
+    const question = makeQuestion({ points: 10 });
+    const answers = [makeAnswer("p1", ["A", "C", "B"])];
+
+    const result = evaluateRanking(question, answers, "partial_with_bonus");
+
+    expect(result.playerResults[0].isCorrect).toBe(false);
+    expect(result.playerResults[0].pointsEarned).toBe(1);
+    expect(result.playerResults[0].detail).toEqual({
+      exactPositions: 1,
+      totalPositions: 3,
+      bonusPoints: 0,
+    });
+  });
 });

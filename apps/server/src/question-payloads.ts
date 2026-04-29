@@ -7,13 +7,32 @@ function getAnswerDisplayLabel(index: number): string {
   return index < 26 ? String.fromCharCode(65 + index) : `${index + 1}`;
 }
 
+export function getTotalQuestionCount(room: RoomRecord): number {
+  return room.quiz?.questions.filter((question) => !question.isDemoQuestion).length ?? 0;
+}
+
+export function getVisibleQuestionIndex(room: RoomRecord): number {
+  if (!room.quiz || room.currentQuestionIndex === null) {
+    return 0;
+  }
+
+  const currentQuestion = room.quiz.questions[room.currentQuestionIndex];
+  if (currentQuestion?.isDemoQuestion) {
+    return 0;
+  }
+
+  return room.quiz.questions
+    .slice(0, room.currentQuestionIndex)
+    .filter((question) => !question.isDemoQuestion).length;
+}
+
 export function toQuestionShowPayload(
   room: RoomRecord,
   question: Question,
   gameState: QuestionShowPayload["gameState"],
 ): QuestionShowPayload {
-  const questionIndex = room.currentQuestionIndex ?? 0;
-  const totalQuestionCount = room.quiz?.questions.length ?? 0;
+  const questionIndex = getVisibleQuestionIndex(room);
+  const totalQuestionCount = getTotalQuestionCount(room);
   const baseShowFields = {
     roomId: room.id,
     questionId: question.id,
@@ -22,6 +41,7 @@ export function toQuestionShowPayload(
     text: question.text,
     durationMs: question.durationMs,
     gameState,
+    ...(question.isDemoQuestion ? { isDemoQuestion: true } : {}),
   };
 
   if (
@@ -64,8 +84,8 @@ export function toQuestionControllerPayload(
   question: Question,
   gameState: QuestionControllerPayload["gameState"],
 ): QuestionControllerPayload {
-  const questionIndex = room.currentQuestionIndex ?? 0;
-  const totalQuestionCount = room.quiz?.questions.length ?? 0;
+  const questionIndex = getVisibleQuestionIndex(room);
+  const totalQuestionCount = getTotalQuestionCount(room);
   const baseControllerFields = {
     roomId: room.id,
     questionId: question.id,
@@ -73,6 +93,7 @@ export function toQuestionControllerPayload(
     totalQuestionCount,
     durationMs: question.durationMs,
     gameState,
+    ...(question.isDemoQuestion ? { isDemoQuestion: true } : {}),
   };
   const showText = room.settings.showAnswerTextOnPlayerDevices;
   const toControllerOption = (option: { id: string; label: string }, index: number) => ({

@@ -5,7 +5,12 @@ import type { ServerToClientEventName, ServerToClientEventPayloadMap } from "@qu
 import type { RoomRecord, SessionRecord, TrackedWebSocket } from "./server-types.js";
 import { sendEvent, toLobbyUpdatePayload } from "./protocol.js";
 import { sessionsById } from "./state.js";
-import { toQuestionControllerPayload, toQuestionShowPayload } from "./question-payloads.js";
+import {
+  getTotalQuestionCount,
+  getVisibleQuestionIndex,
+  toQuestionControllerPayload,
+  toQuestionShowPayload,
+} from "./question-payloads.js";
 
 type BroadcastOptions = {
   excludeSessionIds?: Set<string>;
@@ -175,7 +180,7 @@ export function syncSessionToRoomState(session: SessionRecord, room: RoomRecord)
       roomId: room.id,
       roomState: RoomState.Completed,
       gameState: GameState.Completed,
-      totalQuestionCount: room.quiz?.questions.length ?? 0,
+      totalQuestionCount: getTotalQuestionCount(room),
       finalScoreboard: getSortedScoreboard(room),
     });
     return;
@@ -196,7 +201,7 @@ export function syncSessionToRoomState(session: SessionRecord, room: RoomRecord)
   }
 
   const scoreboard = getSortedScoreboard(room);
-  const totalQuestionCount = room.quiz.questions.length;
+  const totalQuestionCount = getTotalQuestionCount(room);
   const playerAnswer = session.playerId
     ? (room.currentAnswers.get(session.playerId) ?? null)
     : null;
@@ -216,8 +221,9 @@ export function syncSessionToRoomState(session: SessionRecord, room: RoomRecord)
         roomId: room.id,
         roomState: RoomState.InGame,
         gameState: GameState.Idle,
-        questionIndex: room.currentQuestionIndex,
+        questionIndex: getVisibleQuestionIndex(room),
         totalQuestionCount,
+        resolvedGamePlan: room.resolvedGamePlan!,
       });
       return;
 
@@ -297,6 +303,7 @@ export function syncSessionToRoomState(session: SessionRecord, room: RoomRecord)
           roomId: room.id,
           questionId: question.id,
           scoreboard,
+          scoreChanges: room.lastScoreChanges,
           gameState: GameState.Scoreboard,
         });
         sendNextQuestionReadyProgress(socket, room, question.id);
@@ -308,7 +315,7 @@ export function syncSessionToRoomState(session: SessionRecord, room: RoomRecord)
         roomId: room.id,
         roomState: RoomState.Completed,
         gameState: GameState.Completed,
-        totalQuestionCount: room.quiz?.questions.length ?? 0,
+        totalQuestionCount: getTotalQuestionCount(room),
         finalScoreboard: scoreboard,
       });
       return;

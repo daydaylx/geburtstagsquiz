@@ -20,7 +20,7 @@ Dieses Repo ist kein Produkt, keine Plattform und kein langfristiges System. Zie
 - Spieler treten mit dem Handy bei
 - Lobby aktualisiert sich live
 - Host behaelt Status, Fortschritt, Einstellungen und Spieler in einer uebersichtlichen Steueransicht im Blick
-- Host startet das vorbereitete Abend-Quiz
+- Host waehlt Preset oder freie Auswahl und startet das Abend-Quiz
 - Handys dienen waehrend aktiver Fragen als Antwort-Controller
 - Server nimmt Antworten an und wertet aus
 - Display/TV zeigt Fragen, Aufloesung und Rangliste
@@ -42,7 +42,7 @@ Wenn etwas technisch schoen klingt, aber fuer den Abend keinen direkten Nutzen h
 
 - Der Server bleibt die Wahrheit fuer Raumstatus, aktive Frage, Timer, gueltige Antworten und Punkte.
 - Die Display-UI zeigt den oeffentlichen Spielzustand, berechnet aber nichts als Wahrheitsquelle.
-- Die Host-UI steuert den Ablauf und darf Kategorien oder Ablauf vorbereiten, verkauft lokale Vorschau aber nicht als serverseitige Spiellogik.
+- Die Host-UI steuert den Ablauf und sendet den finalen Spielplan an den Server; Kategorien, Fragetypen und Fragenanzahl wirken serverseitig.
 - Die Player-UI bleibt einfach: joinen, antworten, Status sehen; waehrend aktiver Fragen ohne vollstaendigen Fragetext.
 - Der Zustand lebt im Speicher. Wenn der Server neu startet, ist der Raum weg.
 - Die bestehende Monorepo-Struktur darf bleiben, soll aber nicht weiter aufgeblasen werden.
@@ -130,7 +130,7 @@ Fuer einen lokalen Protokoll-Smoke-Test bei laufendem Server:
 corepack pnpm run smoke:local
 ```
 
-Der Test erstellt einen Display-Raum, koppelt den Host, joined zwei Player, startet eine Runde, sendet Antworten und wartet auf Reveal, Scoreboard und Resume-Snapshots.
+Der Test erstellt einen Display-Raum, koppelt den Host, liest den Fragenkatalog, startet eine Runde mit Spielplan, sendet Antworten und wartet auf Reveal, Scoreboard und Resume-Snapshots.
 
 ## Cloudflare Tunnel
 
@@ -185,6 +185,6 @@ Das Original-JSON wird nicht veraendert. Der Review-Zustand wird als `review_sta
 
 Dieses Repo soll ein brauchbares Geburtstagsquiz liefern, nicht eine ausbaubare Quiz-Plattform. Deshalb gilt:
 
-- lieber ein sauberer Ablauf mit den vorbereiteten Fragetypen als mehrere halbe Modi
+- lieber wenige echte Spielplaene und eine praktische freie Auswahl als mehrere halbe Modi
 - lieber In-Memory und einfache lokale Bedienung als Persistenz und Deploy-Theater
 - lieber echte Tests auf Handy und gemeinsamem Bildschirm als Architektur-Rhetorik

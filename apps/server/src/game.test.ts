@@ -1,7 +1,20 @@
 import { describe, expect, it } from "vitest";
-import { PlayerState, QuestionType, type Player, type Question } from "@quiz/shared-types";
+import {
+  PlayerState,
+  QuestionType,
+  type GamePlan,
+  type Player,
+  type Question,
+  type Quiz,
+} from "@quiz/shared-types";
 
 import { getAnswerProgress, getEveningQuestions } from "./game.js";
+import {
+  buildCatalogSummary,
+  GamePlanValidationError,
+  resolveGamePlan,
+  selectQuestionsForGamePlan,
+} from "./game-plan.js";
 import { QUESTION_DURATION_MS } from "./config.js";
 import { getDefaultQuiz } from "./quiz-data.js";
 
@@ -81,6 +94,61 @@ function makeQuestion(id: string, type: QuestionType): Question {
     correctOptionId: "A",
     durationMs: 10_000,
     points: 1,
+  };
+}
+
+function withCategory(question: Question, categoryId: string): Question {
+  return {
+    ...question,
+    categoryId,
+    categoryName: categoryId === "cat-a" ? "Kategorie A" : "Kategorie B",
+    categorySlug: categoryId,
+  };
+}
+
+function makeTestQuiz(questions: Question[]): Quiz {
+  return {
+    id: "test-quiz",
+    title: "Test Quiz",
+    categories: [
+      {
+        id: "cat-a",
+        slug: "cat-a",
+        name: "Kategorie A",
+        tags: [],
+        questionCount: questions.filter((question) => question.categoryId === "cat-a").length,
+      },
+      {
+        id: "cat-b",
+        slug: "cat-b",
+        name: "Kategorie B",
+        tags: [],
+        questionCount: questions.filter((question) => question.categoryId === "cat-b").length,
+      },
+    ],
+    questions,
+  };
+}
+
+function makeCustomPlan(overrides: Partial<GamePlan> = {}): GamePlan {
+  return {
+    mode: "custom",
+    questionCount: 5,
+    categoryIds: ["cat-a", "cat-b"],
+    questionTypes: [
+      QuestionType.MultipleChoice,
+      QuestionType.Estimate,
+      QuestionType.MajorityGuess,
+      QuestionType.Ranking,
+    ],
+    timerMs: 30_000,
+    revealDurationMs: 5_000,
+    revealMode: "auto",
+    showAnswerTextOnPlayerDevices: false,
+    enableDemoQuestion: false,
+    displayShowLevel: "minimal",
+    rankingScoringMode: "partial_with_bonus",
+    ...overrides,
   };
 }
 
@@ -252,5 +320,80 @@ describe("getDefaultQuiz", () => {
     expect(quiz.questions).toHaveLength(502);
     expect(new Set(quiz.questions.map((q) => q.id)).size).toBe(502);
     expect(quiz.questions.every((q) => q.durationMs === QUESTION_DURATION_MS)).toBe(true);
+  });
+});
+
+describe("game plan selection", () => {
+  it("builds a catalog summary from real source categories", () => {
+    const quiz = getDefaultQuiz();
+    const catalog = buildCatalogSummary(quiz);
+
+    expect(catalog.totalQuestions).toBe(502);
+    expect(catalog.maxQuestionCount).toBe(502);
+    expect(catalog.categories.length).toBeGreaterThan(0);
+    expect(catalog.categories.some((category) => category.id === "cat-01")).toBe(true);
+    expect(catalog.questionTypes.some((entry) => entry.type === QuestionType.MultipleChoice)).toBe(
+      true,
+    );
+  });
+
+  it("rejects game plans when the filtered pool is too small", () => {
+    const questions = [
+      withCategory(makeQuestion("rank-1", QuestionType.Ranking), "cat-a"),
+      withCategory(makeQuestion("rank-2", QuestionType.Ranking), "cat-a"),
+      withCategory(makeQuestion("mc-1", QuestionType.MultipleChoice), "cat-b"),
+      withCategory(makeQuestion("mc-2", QuestionType.MultipleChoice), "cat-b"),
+      withCategory(makeQuestion("mc-3", QuestionType.MultipleChoice), "cat-b"),
+    ];
+    const quiz = makeTestQuiz(questions);
+    const catalog = buildCatalogSummary(quiz);
+    const plan = makeCustomPlan({
+      questionCount: 5,
+      categoryIds: ["cat-a"],
+      questionTypes: [QuestionType.Ranking],
+    });
+
+    expect(() => resolveGamePlan(plan, catalog, quiz)).toThrow(GamePlanValidationError);
+    expect(() => resolveGamePlan(plan, catalog, quiz)).toThrow(
+      "Nicht genug Fragen für diese Auswahl. Verfügbar: 2. Benötigt: 5.",
+    );
+  });
+
+  it("filters by category and question type and applies the configured timer", () => {
+    const questions = [
+      withCategory(makeQuestion("a-mc-1", QuestionType.MultipleChoice), "cat-a"),
+      withCategory(makeQuestion("a-mc-2", QuestionType.MultipleChoice), "cat-a"),
+      withCategory(makeQuestion("a-mc-3", QuestionType.MultipleChoice), "cat-a"),
+      withCategory(makeQuestion("a-est-1", QuestionType.Estimate), "cat-a"),
+      withCategory(makeQuestion("a-est-2", QuestionType.Estimate), "cat-a"),
+      withCategory(makeQuestion("a-rank-1", QuestionType.Ranking), "cat-a"),
+      withCategory(makeQuestion("b-mc-1", QuestionType.MultipleChoice), "cat-b"),
+      withCategory(makeQuestion("b-est-1", QuestionType.Estimate), "cat-b"),
+    ];
+    const quiz = makeTestQuiz(questions);
+    const catalog = buildCatalogSummary(quiz);
+    const resolvedPlan = resolveGamePlan(
+      makeCustomPlan({
+        questionCount: 5,
+        categoryIds: ["cat-a"],
+        questionTypes: [QuestionType.MultipleChoice, QuestionType.Estimate],
+        timerMs: 45_000,
+      }),
+      catalog,
+      quiz,
+    );
+
+    const selected = selectQuestionsForGamePlan(questions, resolvedPlan, () => 0.3);
+    const selectedIds = selected.map((question) => question.id);
+
+    expect(selected).toHaveLength(5);
+    expect(new Set(selectedIds).size).toBe(selectedIds.length);
+    expect(selected.every((question) => question.categoryId === "cat-a")).toBe(true);
+    expect(
+      selected.every((question) =>
+        [QuestionType.MultipleChoice, QuestionType.Estimate].includes(question.type),
+      ),
+    ).toBe(true);
+    expect(selected.every((question) => question.durationMs === 45_000)).toBe(true);
   });
 });

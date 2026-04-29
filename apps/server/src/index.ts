@@ -21,6 +21,10 @@ import { handleSocketClose } from "./session.js";
 import {
   handleGameStart,
   handleGameNextQuestion,
+  handleGameShowScoreboard,
+  handleGameFinishNow,
+  handlePlayerRemove,
+  handleQuestionForceClose,
   handleAnswerSubmit,
   handleNextQuestionReady,
 } from "./game.js";
@@ -162,6 +166,10 @@ export function isEventAllowedForRole(event: EventName, role: ClientRole | null)
   const hostOnlyEvents: EventName[] = [
     EVENTS.GAME_START,
     EVENTS.GAME_NEXT_QUESTION,
+    EVENTS.QUESTION_FORCE_CLOSE,
+    EVENTS.GAME_SHOW_SCOREBOARD,
+    EVENTS.GAME_FINISH_NOW,
+    EVENTS.PLAYER_REMOVE,
     EVENTS.ROOM_SETTINGS_UPDATE,
     EVENTS.ROOM_CLOSE,
   ];
@@ -232,11 +240,27 @@ function handleSocketMessage(socket: TrackedWebSocket, rawMessage: string): void
       return;
 
     case EVENTS.GAME_START:
-      handleGameStart(socket, parsedEnvelope.data.payload.roomId);
+      handleGameStart(socket, parsedEnvelope.data.payload);
       return;
 
     case EVENTS.GAME_NEXT_QUESTION:
       handleGameNextQuestion(socket, parsedEnvelope.data.payload.roomId);
+      return;
+
+    case EVENTS.QUESTION_FORCE_CLOSE:
+      handleQuestionForceClose(socket, parsedEnvelope.data.payload.roomId);
+      return;
+
+    case EVENTS.GAME_SHOW_SCOREBOARD:
+      handleGameShowScoreboard(socket, parsedEnvelope.data.payload.roomId);
+      return;
+
+    case EVENTS.GAME_FINISH_NOW:
+      handleGameFinishNow(socket, parsedEnvelope.data.payload.roomId);
+      return;
+
+    case EVENTS.PLAYER_REMOVE:
+      handlePlayerRemove(socket, parsedEnvelope.data.payload);
       return;
 
     case EVENTS.ANSWER_SUBMIT:

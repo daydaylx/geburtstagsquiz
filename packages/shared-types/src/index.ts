@@ -1,6 +1,7 @@
 export * from "./answer.js";
 export * from "./common.js";
 export * from "./enums.js";
+export * from "./game-plan.js";
 export * from "./player.js";
 export * from "./question.js";
 export * from "./quiz.js";

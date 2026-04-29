@@ -174,9 +174,11 @@ Alles darueber hinaus ist optional und fuer dieses Repo nicht vorrangig.
 - `room:settings:update`
 - `game:start`
 - `game:next-question` als Host-Override nach der Rangliste
+- `question:force-close`
+- `game:show-scoreboard`
+- `game:finish-now`
+- `player:remove`
 - `room:close`
-
-`room:create` existiert noch als Legacy-Pfad, ist aber nicht der primaere 3-UI-Flow.
 
 ### Player -> Server
 
@@ -188,9 +190,11 @@ Alles darueber hinaus ist optional und fuer dieses Repo nicht vorrangig.
 ### Server -> relevante Clients
 
 - Verbindungsbestaetigung
+- Fragenkatalog fuer Host-Spielplaene
 - Display-/Host-Kopplung
 - Lobby-Snapshots
 - Spielstart
+- optionaler Frage-Countdown
 - Display-/Host-Frage, Player-Controller und Timer
 - Antwortbestaetigung oder Ablehnung
 - Aufloesung

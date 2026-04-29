@@ -11,6 +11,8 @@ import { handleHostConnect, handleRoomJoin } from "./lobby.js";
 import { handleGameStart, handleAnswerSubmit, handleNextQuestionReady } from "./game.js";
 import { syncSessionToRoomState } from "./connection.js";
 import { QUESTION_DURATION_MS, REVEAL_DURATION_MS } from "./config.js";
+import { buildCatalogSummary, buildDefaultGamePlan } from "./game-plan.js";
+import { getDefaultQuiz } from "./quiz-data.js";
 import type { RoomRecord, TrackedWebSocket, SessionRecord } from "./server-types.js";
 
 function makeMockSocket(): TrackedWebSocket {
@@ -65,6 +67,17 @@ function makeAnswerForQuestion(question: Question): any {
   return { type: "text", value: "some text" };
 }
 
+function makeTestGamePlan() {
+  const catalog = buildCatalogSummary(getDefaultQuiz());
+
+  return {
+    ...buildDefaultGamePlan(catalog),
+    questionCount: 1,
+    enableDemoQuestion: false,
+    displayShowLevel: "minimal" as const,
+  };
+}
+
 function startGameWithOnePlayer(
   room: RoomRecord,
   hostSocket: TrackedWebSocket,
@@ -74,7 +87,7 @@ function startGameWithOnePlayer(
   const playerSession = getPlayerSession();
 
   hostSocket.sessionId = room.hostSessionId;
-  handleGameStart(hostSocket, room.id);
+  handleGameStart(hostSocket, { roomId: room.id, gamePlan: makeTestGamePlan() });
 
   const question = room.quiz!.questions[0];
   room.quiz!.questions = [question];
@@ -234,7 +247,7 @@ describe("Display Broadcast Logic", () => {
       points: 1,
       explanation: "This is the explanation",
     };
-    room.quiz = { id: "quiz1", title: "Quiz", questions: [question] };
+    room.quiz = { id: "quiz1", title: "Quiz", categories: [], questions: [question] };
     room.currentQuestionIndex = 0;
     room.state = RoomState.InGame;
     room.gameState = GameState.Revealing;
@@ -266,7 +279,7 @@ describe("Display Broadcast Logic", () => {
       points: 1,
       explanation: "Scoreboard explanation",
     };
-    room.quiz = { id: "quiz1", title: "Quiz", questions: [question] };
+    room.quiz = { id: "quiz1", title: "Quiz", categories: [], questions: [question] };
     room.currentQuestionIndex = 0;
     room.state = RoomState.InGame;
     room.gameState = GameState.Scoreboard;

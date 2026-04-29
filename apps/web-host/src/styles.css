@@ -829,6 +829,33 @@ body {
   font-weight: 700;
 }
 
+.host-lobby-stats {
+  display: flex;
+  gap: 12px;
+}
+
+.host-stat-card {
+  min-width: 120px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.host-stat-value {
+  display: block;
+  color: #fff;
+  font-size: 1.8rem;
+  font-weight: 1000;
+}
+
+.host-stat-label {
+  color: var(--host-ink-soft);
+  font-size: 0.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
 .host-join-code {
   letter-spacing: 0;
   text-shadow:
@@ -1373,4 +1400,190 @@ body {
   .host-option-card[data-correct="true"] {
     animation: none !important;
   }
+}
+
+.host-plan-builder {
+  margin-top: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.host-preset-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.host-preset-button,
+.host-segmented button,
+.host-secondary-button,
+.host-small-danger-button,
+.host-small-number-input,
+.host-checkbox-pill,
+.host-plan-summary span,
+.host-score-change {
+  border-radius: 8px;
+}
+
+.host-preset-button {
+  min-height: 86px;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--host-ink);
+  text-align: left;
+}
+
+.host-preset-button[data-active="true"] {
+  border-color: var(--host-show-gold);
+  background: var(--host-show-gold-soft);
+}
+
+.host-preset-button strong,
+.host-preset-button small {
+  display: block;
+}
+
+.host-preset-button small {
+  margin-top: 6px;
+  color: var(--host-ink-soft);
+  line-height: 1.25;
+}
+
+.host-custom-plan {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.host-choice-row {
+  display: grid;
+  grid-template-columns: 90px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  color: var(--host-ink-soft);
+  font-weight: 800;
+}
+
+.host-segmented {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.host-segmented button {
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--host-ink);
+  font-size: 0.85rem;
+  font-weight: 900;
+}
+
+.host-segmented button[data-active="true"] {
+  background: rgba(0, 240, 255, 0.16);
+  border-color: var(--host-neon-cyan);
+}
+
+.host-small-number-input {
+  width: 76px;
+  padding: 9px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--host-ink);
+  font-weight: 900;
+}
+
+.host-checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.host-checkbox-grid--types {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.host-checkbox-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--host-ink);
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.host-checkbox-pill--wide {
+  align-self: flex-start;
+}
+
+.host-plan-summary,
+.host-score-change-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.host-plan-summary span,
+.host-score-change {
+  padding: 8px 10px;
+  background: rgba(246, 199, 106, 0.12);
+  color: var(--host-show-gold);
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.host-countdown-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.host-countdown-number {
+  font-size: 7rem;
+  font-weight: 1000;
+  color: var(--host-show-gold);
+  text-shadow: 0 0 28px rgba(246, 199, 106, 0.3);
+}
+
+.host-score-change-list {
+  margin-top: 18px;
+}
+
+.host-player-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.host-small-danger-button {
+  padding: 6px 8px;
+  background: rgba(255, 51, 51, 0.12);
+  color: #ff9b9b;
+  border: 1px solid rgba(255, 51, 51, 0.22);
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+.host-fallback-actions {
+  margin-left: auto;
+  margin-right: 12px;
+}
+
+.host-secondary-button {
+  padding: 12px 18px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--host-ink);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  font-weight: 900;
 }

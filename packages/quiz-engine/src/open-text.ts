@@ -27,6 +27,9 @@ export function evaluateOpenText(
       answer: submittedAnswer.answer,
       isCorrect,
       pointsEarned: isCorrect ? question.points : 0,
+      ...(submittedAnswer.answer.type === "text"
+        ? { detail: { submittedText: submittedAnswer.answer.value } }
+        : {}),
     };
   });
 

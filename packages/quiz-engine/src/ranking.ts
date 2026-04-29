@@ -1,6 +1,7 @@
 import type {
   CorrectAnswer,
   PlayerRoundResult,
+  RankingScoringMode,
   RankingAnswer,
   RankingQuestion,
   RoundResult,
@@ -10,6 +11,7 @@ import type {
 export function evaluateRanking(
   question: RankingQuestion,
   answers: SubmittedAnswer[],
+  scoringMode: RankingScoringMode = "exact",
 ): RoundResult {
   const correctAnswer: CorrectAnswer = { type: "ranking", value: question.correctOrder };
   const correctKey = question.correctOrder.join(",");
@@ -20,6 +22,26 @@ export function evaluateRanking(
     }
     const submitted = sub.answer as RankingAnswer;
     const isCorrect = submitted.value.join(",") === correctKey;
+
+    if (scoringMode === "partial_with_bonus") {
+      const exactPositions = submitted.value.filter(
+        (itemId, index) => itemId === question.correctOrder[index],
+      ).length;
+      const bonusPoints = isCorrect ? 1 : 0;
+
+      return {
+        playerId: sub.playerId,
+        answer: sub.answer,
+        isCorrect,
+        pointsEarned: exactPositions + bonusPoints,
+        detail: {
+          exactPositions,
+          totalPositions: question.correctOrder.length,
+          bonusPoints,
+        },
+      };
+    }
+
     return {
       playerId: sub.playerId,
       answer: sub.answer,

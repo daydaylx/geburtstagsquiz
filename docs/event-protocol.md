@@ -43,10 +43,13 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 
 - `connection:resume`
 - `host:connect`
-- `room:create` als Legacy-Pfad, nicht als primaerer 3-UI-Flow
 - `room:settings:update`
 - `game:start`
 - `game:next-question` als sichtbarer Host-Override nach der Rangliste
+- `question:force-close`
+- `game:show-scoreboard`
+- `game:finish-now`
+- `player:remove`
 - `room:close`
 
 ### Player darf senden
@@ -75,11 +78,11 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 | `display:host-paired` | Server -> Display | Host wurde mit Display-Raum verbunden | `hostConnected` |
 | `host:connect` | Host -> Server | Host per Display-Token verbinden | `hostToken`, optional `clientInfo` |
 | `host:connected` | Server -> Host | Host-Verbindung bestaetigt | `roomId`, `hostSessionId`, `joinCode`, `roomState`, optional `gameState` |
-| `room:create` | Host -> Server | Neuen Raum anlegen | `hostName`, `clientInfo` |
-| `room:created` | Server -> Host | Raum wurde erstellt | `roomId`, `joinCode`, `roomState`, `hostSessionId` |
-| `room:settings:update` | Host -> Server | Lobby-Einstellungen setzen | `roomId`, `showAnswerTextOnPlayerDevices` |
+| `catalog:summary` | Server -> Host | Verfuegbare Kategorien und Fragetypen fuer Spielplaene | `totalQuestions`, `maxQuestionCount`, `categories`, `questionTypes` |
+| `room:settings:update` | Host -> Server | Lobby-Einstellungen setzen | `roomId`, `showAnswerTextOnPlayerDevices`, optional `gamePlanDraft` |
 | `room:join` | Player -> Server | Raum per Join-Code betreten | `joinCode`, `playerName`, optional `sessionId` |
 | `player:joined` | Server -> Player | Join bestaetigt | `roomId`, `playerId`, `sessionId`, `playerState`, `roomState` |
+| `player:remove` | Host -> Server | Spieler aus dem Raum entfernen | `roomId`, `playerId` |
 | `room:close` | Host -> Server | Raum beenden | `roomId` |
 | `room:closed` | Server -> Display/Host/Player | Raum ist endgueltig zu | `roomId`, `roomState` |
 
@@ -95,22 +98,26 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 
 | Event | Richtung | Zweck | Kernfelder |
 | --- | --- | --- | --- |
-| `game:start` | Host -> Server | Quiz starten | `roomId` |
-| `game:started` | Server -> Display/Host/Player | Spiel ist gestartet | `roomId`, `roomState`, `gameState`, `questionIndex`, `totalQuestionCount` |
-| `question:show` | Server -> Display/Host | Vollstaendige Frage freigeben | `roomId`, `questionId`, `questionIndex`, `totalQuestionCount`, `type`, `text`, je nach Typ `options`/`items`/`unit`/`context`, `durationMs`, `gameState` |
-| `question:controller` | Server -> Player | Reduzierte Controller-Daten freigeben | `roomId`, `questionId`, `questionIndex`, `totalQuestionCount`, `type`, je nach Typ Options-/Item-IDs, optional Antworttexte oder `unit`, `durationMs`, `gameState` |
+| `game:start` | Host -> Server | Quiz mit finalem Spielplan starten | `roomId`, `gamePlan` |
+| `game:started` | Server -> Display/Host/Player | Spiel ist gestartet | `roomId`, `roomState`, `gameState`, `questionIndex`, `totalQuestionCount`, `resolvedGamePlan` |
+| `question:countdown` | Server -> Display/Host/Player | Kurzer Show-Countdown vor einer Frage | `roomId`, `questionId`, `questionIndex`, `totalQuestionCount`, `countdownMs`, `gameState` |
+| `question:show` | Server -> Display/Host | Vollstaendige Frage freigeben | `roomId`, `questionId`, `questionIndex`, `totalQuestionCount`, `type`, `text`, je nach Typ `options`/`items`/`unit`/`context`, `durationMs`, `gameState`, optional `isDemoQuestion` |
+| `question:controller` | Server -> Player | Reduzierte Controller-Daten freigeben | `roomId`, `questionId`, `questionIndex`, `totalQuestionCount`, `type`, je nach Typ Options-/Item-IDs, optional Antworttexte oder `unit`, `durationMs`, `gameState`, optional `isDemoQuestion` |
 | `question:timer` | Server -> Display/Host/Player | Verbleibende Fragezeit anzeigen | `roomId`, `questionId`, `remainingMs` |
 | `answer:submit` | Player -> Server | Antwort auf aktive Frage senden | `roomId`, `questionId`, `playerId`, `answer`, `requestId` |
 | `answer:accepted` | Server -> Player | Antwort wurde gespeichert | `roomId`, `questionId`, `playerId`, `status` |
 | `answer:rejected` | Server -> Player | Antwort wurde nicht gewertet | `roomId`, `questionId`, `playerId`, `status`, `reason` |
 | `answer:progress` | Server -> Display/Host | Anzahl eingegangener Antworten | `roomId`, `questionId`, `answeredCount`, `totalEligiblePlayers` |
 | `question:close` | Server -> Display/Host/Player | Frage ist gesperrt | `roomId`, `questionId`, `gameState` |
+| `question:force-close` | Host -> Server | Aktive Frage sofort schliessen | `roomId` |
 | `question:reveal` | Server -> Display/Host/Player | Richtige Antwort und Rundenergebnisse zeigen | `roomId`, `questionId`, `correctAnswer`, `playerResults`, `gameState`, optional `explanation` |
-| `score:update` | Server -> Display/Host/Player | Punktestand nach der Runde | `roomId`, `questionId`, `scoreboard`, `gameState` |
+| `score:update` | Server -> Display/Host/Player | Punktestand nach der Runde | `roomId`, `questionId`, `scoreboard`, `scoreChanges`, `gameState` |
 | `next-question:ready` | Player -> Server | Spieler ist nach der Rangliste bereit fuer die naechste Frage | `roomId`, `questionId`, `playerId` |
 | `next-question:ready-progress` | Server -> Display/Host/Player | Bereitschaft fuer die naechste Frage anzeigen | `roomId`, `questionId`, `readyCount`, `totalEligiblePlayers`, `readyPlayerIds`, `gameState` |
 | `game:next-question` | Host -> Server | Host-Override zum Wechseln nach der Rangliste | `roomId` |
-| `game:finished` | Server -> Display/Host/Player | Quiz ist zu Ende | `roomId`, `roomState`, `gameState`, `totalQuestionCount`, `finalScoreboard` |
+| `game:show-scoreboard` | Host -> Server | Reveal ueberspringen und Rangliste zeigen | `roomId` |
+| `game:finish-now` | Host -> Server | Spiel mit aktuellem Stand beenden | `roomId` |
+| `game:finished` | Server -> Display/Host/Player | Quiz ist zu Ende | `roomId`, `roomState`, `gameState`, `totalQuestionCount`, `finalScoreboard`, optional `finalStats` |
 
 ### Fehler
 
@@ -136,7 +143,7 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 - Der Server sendet `question:timer`.
 - Die Client-Anzeige darf weich laufen, ist aber nicht die Wahrheitsquelle.
 - `question:close` ist das massgebliche Signal fuer "zu spaet".
-- Die aktive Antwortzeit ist aktuell `30s` pro Frage.
+- Die aktive Antwortzeit kommt aus dem serverseitig validierten `resolvedGamePlan`.
 
 ### Bereit fuer die naechste Frage
 
@@ -167,25 +174,27 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 3. Server sendet `display:room-created`
 4. Host sendet `host:connect`
 5. Server sendet `host:connected`
-6. Player sendet `room:join`
-7. Server sendet `player:joined`
-8. Server verteilt `lobby:update`
+6. Server sendet `catalog:summary` an den Host
+7. Player sendet `room:join`
+8. Server sendet `player:joined`
+9. Server verteilt `lobby:update`
 
 ### Spielrunde
 
-1. Host sendet `game:start`
+1. Host sendet `game:start` mit finalem `gamePlan`
 2. Server sendet `game:started`
-3. Server sendet `question:show` an Display und Host und `question:controller` an Player
-4. Server sendet waehrenddessen `question:timer`
-5. Player senden `answer:submit`
-6. Server antwortet mit `answer:accepted` oder `answer:rejected`
-7. Server sendet `question:close`
-8. Server sendet `question:reveal` mit richtiger Antwort und Rundenergebnissen
-9. Server zeigt die Aufloesung kurz an
-10. Server sendet `score:update`
-11. Player senden `next-question:ready`
-12. Server sendet `next-question:ready-progress`
-13. Sobald alle verbundenen Spieler bereit sind, sendet der Server entweder die naechste Frage (`question:show`/`question:controller`) oder `game:finished`
+3. Bei hohem Show-Level sendet der Server kurz `question:countdown`
+4. Server sendet `question:show` an Display und Host und `question:controller` an Player
+5. Server sendet waehrenddessen `question:timer`
+6. Player senden `answer:submit`
+7. Server antwortet mit `answer:accepted` oder `answer:rejected`
+8. Server sendet `question:close`
+9. Server sendet `question:reveal` mit richtiger Antwort und Rundenergebnissen
+10. Server zeigt die Aufloesung gemaess Spielplan kurz an
+11. Server sendet `score:update`
+12. Player senden `next-question:ready`
+13. Server sendet `next-question:ready-progress`
+14. Sobald alle verbundenen Spieler bereit sind, sendet der Server entweder die naechste Frage (`question:show`/`question:controller`) oder `game:finished`
 
 ## Ausdruecklich nicht Teil dieses Protokolls
 

@@ -1,4 +1,4 @@
-import { EVENTS, type QuestionShowPayload } from "@quiz/shared-protocol";
+import { EVENTS, type GameStartPayload, type QuestionShowPayload } from "@quiz/shared-protocol";
 import {
   evaluateEstimate,
   evaluateMajorityGuess,
@@ -7,7 +7,13 @@ import {
   evaluateRanking,
 } from "@quiz/quiz-engine";
 import { GameState, PlayerState, QuestionType, RoomState } from "@quiz/shared-types";
-import type { Question, SubmittedAnswer } from "@quiz/shared-types";
+import type {
+  GameFinalStats,
+  Question,
+  ResolvedGamePlan,
+  ScoreChange,
+  SubmittedAnswer,
+} from "@quiz/shared-types";
 
 import { PROTOCOL_ERROR_CODES, sendEvent, sendProtocolError } from "./protocol.js";
 import type { RoomRecord, TrackedWebSocket } from "./server-types.js";
@@ -16,7 +22,21 @@ import { broadcastToAllRoomClients, broadcastToHostAndDisplay } from "./connecti
 import { getDefaultQuiz } from "./quiz-data.js";
 import { QUESTION_DURATION_MS, REVEAL_DURATION_MS } from "./config.js";
 import { isAnswerValidForQuestion } from "./answer-validation.js";
-import { toQuestionControllerPayload, toQuestionShowPayload } from "./question-payloads.js";
+import { removePlayerFromRoom } from "./room.js";
+import {
+  getTotalQuestionCount,
+  getVisibleQuestionIndex,
+  toQuestionControllerPayload,
+  toQuestionShowPayload,
+} from "./question-payloads.js";
+import {
+  GamePlanValidationError,
+  buildCatalogSummary,
+  buildDefaultGamePlan,
+  createDemoQuestion,
+  resolveGamePlan,
+  selectQuestionsForGamePlan,
+} from "./game-plan.js";
 
 const EVENING_QUESTION_COUNT = 30;
 const TARGET_ALLOCATION: Record<QuestionType, number> = {
@@ -175,7 +195,8 @@ function sendQuestionToRoom(
   }
 }
 
-export function handleGameStart(socket: TrackedWebSocket, roomId: string): void {
+export function handleGameStart(socket: TrackedWebSocket, payload: GameStartPayload): void {
+  const { roomId } = payload;
   const session = socket.sessionId ? sessionsById.get(socket.sessionId) : null;
 
   if (!session || session.role !== "host") {
@@ -234,13 +255,47 @@ export function handleGameStart(socket: TrackedWebSocket, roomId: string): void 
   }
 
   const defaultQuiz = getDefaultQuiz();
+  const catalog = buildCatalogSummary(defaultQuiz);
+  const requestedGamePlan = payload.gamePlan ?? buildDefaultGamePlan(catalog);
+  let resolvedGamePlan: ResolvedGamePlan;
+  let selectedQuestions: Question[];
+
+  try {
+    resolvedGamePlan = resolveGamePlan(requestedGamePlan, catalog, defaultQuiz);
+    selectedQuestions = selectQuestionsForGamePlan(defaultQuiz.questions, resolvedGamePlan);
+  } catch (error) {
+    const message =
+      error instanceof GamePlanValidationError
+        ? error.message
+        : "Spielplan konnte nicht validiert werden.";
+    sendProtocolError(socket, PROTOCOL_ERROR_CODES.GAME_PLAN_INVALID, message, {
+      event: EVENTS.GAME_START,
+      roomId: room.id,
+      questionId: null,
+    });
+    return;
+  }
+
+  const questions = resolvedGamePlan.enableDemoQuestion
+    ? [createDemoQuestion(resolvedGamePlan), ...selectedQuestions]
+    : selectedQuestions;
+
   room.quiz = {
     ...defaultQuiz,
-    questions: getEveningQuestions(defaultQuiz.questions),
+    questions,
+  };
+  room.resolvedGamePlan = resolvedGamePlan;
+  room.settings = {
+    showAnswerTextOnPlayerDevices: resolvedGamePlan.showAnswerTextOnPlayerDevices,
+    gamePlanDraft: requestedGamePlan,
   };
   room.currentQuestionIndex = 0;
   room.state = RoomState.InGame;
   room.gameState = GameState.Idle;
+  room.lastRoundResult = null;
+  room.lastScoreChanges = [];
+  room.completedRoundResults = [];
+  room.completedAnswers = [];
 
   logRoomEvent("game:started", room, {});
 
@@ -249,7 +304,8 @@ export function handleGameStart(socket: TrackedWebSocket, roomId: string): void 
     roomState: RoomState.InGame,
     gameState: GameState.Idle,
     questionIndex: 0,
-    totalQuestionCount: room.quiz.questions.length,
+    totalQuestionCount: getTotalQuestionCount(room),
+    resolvedGamePlan,
   });
 
   startQuestion(room);
@@ -324,6 +380,141 @@ export function handleGameNextQuestion(socket: TrackedWebSocket, roomId: string)
 
   room.currentQuestionIndex = nextIndex;
   startQuestion(room);
+}
+
+function getAuthorizedHostRoom(
+  socket: TrackedWebSocket,
+  roomId: string,
+  event: typeof EVENTS[keyof typeof EVENTS],
+): RoomRecord | null {
+  const session = socket.sessionId ? sessionsById.get(socket.sessionId) : null;
+
+  if (!session || session.role !== "host") {
+    sendProtocolError(socket, PROTOCOL_ERROR_CODES.NOT_AUTHORIZED, "Only the host can do this", {
+      event,
+      roomId,
+      questionId: null,
+    });
+    return null;
+  }
+
+  const room = roomsById.get(roomId);
+  if (!room) {
+    sendProtocolError(socket, PROTOCOL_ERROR_CODES.ROOM_NOT_FOUND, "Room not found", {
+      event,
+      roomId,
+      questionId: null,
+    });
+    return null;
+  }
+
+  if (session.roomId !== room.id) {
+    sendProtocolError(socket, PROTOCOL_ERROR_CODES.NOT_AUTHORIZED, "Host is not in this room", {
+      event,
+      roomId: room.id,
+      questionId: null,
+    });
+    return null;
+  }
+
+  return room;
+}
+
+export function handleQuestionForceClose(socket: TrackedWebSocket, roomId: string): void {
+  const room = getAuthorizedHostRoom(socket, roomId, EVENTS.QUESTION_FORCE_CLOSE);
+  if (!room) return;
+
+  if (room.state !== RoomState.InGame || room.gameState !== GameState.QuestionActive) {
+    sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "No active question to close", {
+      event: EVENTS.QUESTION_FORCE_CLOSE,
+      roomId: room.id,
+      questionId: null,
+    });
+    return;
+  }
+
+  closeQuestion(room);
+}
+
+export function handleGameShowScoreboard(socket: TrackedWebSocket, roomId: string): void {
+  const room = getAuthorizedHostRoom(socket, roomId, EVENTS.GAME_SHOW_SCOREBOARD);
+  if (!room) return;
+
+  if (
+    room.state !== RoomState.InGame ||
+    room.gameState !== GameState.Revealing ||
+    !room.quiz ||
+    room.currentQuestionIndex === null
+  ) {
+    sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "Cannot show scoreboard now", {
+      event: EVENTS.GAME_SHOW_SCOREBOARD,
+      roomId: room.id,
+      questionId: null,
+    });
+    return;
+  }
+
+  if (room.revealTimer) {
+    clearTimeout(room.revealTimer);
+    room.revealTimer = null;
+  }
+
+  const question = room.quiz.questions[room.currentQuestionIndex];
+  if (question) {
+    showScoreboard(room, question.id);
+  }
+}
+
+export function handleGameFinishNow(socket: TrackedWebSocket, roomId: string): void {
+  const room = getAuthorizedHostRoom(socket, roomId, EVENTS.GAME_FINISH_NOW);
+  if (!room) return;
+
+  if (room.state !== RoomState.InGame) {
+    sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "No game in progress", {
+      event: EVENTS.GAME_FINISH_NOW,
+      roomId: room.id,
+      questionId: null,
+    });
+    return;
+  }
+
+  finishGame(room);
+}
+
+export function handlePlayerRemove(
+  socket: TrackedWebSocket,
+  payload: import("@quiz/shared-protocol").PlayerRemovePayload,
+): void {
+  const room = getAuthorizedHostRoom(socket, payload.roomId, EVENTS.PLAYER_REMOVE);
+  if (!room) return;
+
+  const player = room.players.find((entry) => entry.id === payload.playerId);
+  if (!player) {
+    sendProtocolError(socket, PROTOCOL_ERROR_CODES.PLAYER_NOT_FOUND, "Player not found", {
+      event: EVENTS.PLAYER_REMOVE,
+      roomId: room.id,
+      questionId: null,
+    });
+    return;
+  }
+
+  removePlayerFromRoom(room, payload.playerId);
+  broadcastToAllRoomClients(room, EVENTS.LOBBY_UPDATE, {
+    roomId: room.id,
+    roomState: room.state,
+    hostConnected: room.hostConnected,
+    displayConnected: room.displayConnected,
+    settings: room.settings,
+    players: room.players.map((entry) => ({
+      playerId: entry.id,
+      name: entry.name,
+      connected: entry.state !== PlayerState.Disconnected,
+      score: entry.score,
+    })),
+    playerCount: room.players.length,
+  });
+  handleAnswerEligibilityChanged(room);
+  handleScoreboardReadinessChanged(room);
 }
 
 export function handleAnswerSubmit(
@@ -567,14 +758,11 @@ export function handleNextQuestionReady(
   handleScoreboardReadinessChanged(room);
 }
 
-function startQuestion(room: RoomRecord): void {
-  if (
-    !room.quiz ||
-    room.currentQuestionIndex === null ||
-    room.currentQuestionIndex >= room.quiz.questions.length
-  )
-    return;
-
+function clearActiveQuestionTimers(room: RoomRecord): void {
+  if (room.countdownTimer) {
+    clearTimeout(room.countdownTimer);
+    room.countdownTimer = null;
+  }
   if (room.questionTimer) {
     clearTimeout(room.questionTimer);
     room.questionTimer = null;
@@ -587,8 +775,52 @@ function startQuestion(room: RoomRecord): void {
     clearTimeout(room.revealTimer);
     room.revealTimer = null;
   }
+}
 
+function startQuestion(room: RoomRecord): void {
+  if (
+    !room.quiz ||
+    room.currentQuestionIndex === null ||
+    room.currentQuestionIndex >= room.quiz.questions.length
+  )
+    return;
+
+  clearActiveQuestionTimers(room);
   const question = room.quiz.questions[room.currentQuestionIndex];
+
+  if (room.resolvedGamePlan?.displayShowLevel === "high") {
+    const countdownMs = 2_500;
+    room.gameState = GameState.Idle;
+    room.questionStartedAt = null;
+    broadcastToAllRoomClients(room, EVENTS.QUESTION_COUNTDOWN, {
+      roomId: room.id,
+      questionIndex: getVisibleQuestionIndex(room),
+      totalQuestionCount: getTotalQuestionCount(room),
+      countdownMs,
+      displayShowLevel: room.resolvedGamePlan.displayShowLevel,
+      ...(question.isDemoQuestion ? { isDemoQuestion: true } : {}),
+    });
+
+    room.countdownTimer = setTimeout(() => {
+      room.countdownTimer = null;
+      if (
+        room.state !== RoomState.InGame ||
+        !room.quiz ||
+        room.currentQuestionIndex === null ||
+        room.quiz.questions[room.currentQuestionIndex]?.id !== question.id
+      ) {
+        return;
+      }
+
+      activateQuestion(room, question);
+    }, countdownMs);
+    return;
+  }
+
+  activateQuestion(room, question);
+}
+
+function activateQuestion(room: RoomRecord, question: Question): void {
   const now = Date.now();
 
   room.gameState = GameState.QuestionActive;
@@ -604,7 +836,7 @@ function startQuestion(room: RoomRecord): void {
   }
 
   logRoomEvent("question:show", room, {
-    questionIndex: room.currentQuestionIndex,
+    questionIndex: room.currentQuestionIndex ?? 0,
     questionId: question.id,
   });
 
@@ -725,6 +957,7 @@ function closeQuestion(room: RoomRecord): void {
 
 function evaluateQuestion(room: RoomRecord, question: Question): void {
   const answers = [...room.currentAnswers.values()];
+  const previousScoreboard = getSortedScoreboard(room);
   const roundResult = (() => {
     switch (question.type) {
       case QuestionType.MultipleChoice:
@@ -735,7 +968,11 @@ function evaluateQuestion(room: RoomRecord, question: Question): void {
       case QuestionType.Estimate:
         return evaluateEstimate(question, answers);
       case QuestionType.Ranking:
-        return evaluateRanking(question, answers);
+        return evaluateRanking(
+          question,
+          answers,
+          room.resolvedGamePlan?.rankingScoringMode ?? "exact",
+        );
       case QuestionType.OpenText:
         return evaluateOpenText(question, answers);
     }
@@ -762,7 +999,13 @@ function evaluateQuestion(room: RoomRecord, question: Question): void {
     }
   }
 
+  const nextScoreboard = getSortedScoreboard(room);
+  room.lastScoreChanges = buildScoreChanges(previousScoreboard, nextScoreboard);
   room.lastRoundResult = roundResult;
+  if (!question.isDemoQuestion) {
+    room.completedRoundResults.push(roundResult);
+    room.completedAnswers.push(...answers);
+  }
   room.gameState = GameState.Revealing;
 
   logRoomEvent("question:reveal", room, {
@@ -804,14 +1047,11 @@ function evaluateQuestion(room: RoomRecord, question: Question): void {
     }
 
     showScoreboard(room, question.id);
-  }, REVEAL_DURATION_MS);
+  }, room.resolvedGamePlan?.revealDurationMs ?? REVEAL_DURATION_MS);
 }
 
-function showScoreboard(room: RoomRecord, questionId: string): void {
-  room.gameState = GameState.Scoreboard;
-  room.nextQuestionReadyPlayerIds.clear();
-
-  const scoreboard = room.players
+function getSortedScoreboard(room: RoomRecord) {
+  return room.players
     .filter((p) => p.state !== PlayerState.Disconnected)
     .map((p) => ({
       playerId: p.id,
@@ -819,11 +1059,50 @@ function showScoreboard(room: RoomRecord, questionId: string): void {
       score: p.score,
     }))
     .sort((a, b) => b.score - a.score);
+}
+
+function buildScoreChanges(
+  previousScoreboard: ReturnType<typeof getSortedScoreboard>,
+  nextScoreboard: ReturnType<typeof getSortedScoreboard>,
+): ScoreChange[] {
+  const previousByPlayerId = new Map(
+    previousScoreboard.map((entry, index) => [
+      entry.playerId,
+      { score: entry.score, rank: index + 1 },
+    ]),
+  );
+
+  return nextScoreboard
+    .map((entry, index) => {
+      const previous = previousByPlayerId.get(entry.playerId) ?? {
+        score: 0,
+        rank: nextScoreboard.length,
+      };
+
+      return {
+        playerId: entry.playerId,
+        name: entry.name,
+        previousScore: previous.score,
+        score: entry.score,
+        delta: Math.max(0, entry.score - previous.score),
+        previousRank: previous.rank,
+        rank: index + 1,
+      };
+    })
+    .filter((change) => change.delta > 0 || change.previousRank !== change.rank);
+}
+
+function showScoreboard(room: RoomRecord, questionId: string): void {
+  room.gameState = GameState.Scoreboard;
+  room.nextQuestionReadyPlayerIds.clear();
+
+  const scoreboard = getSortedScoreboard(room);
 
   broadcastToAllRoomClients(room, EVENTS.SCORE_UPDATE, {
     roomId: room.id,
     questionId,
     scoreboard,
+    scoreChanges: room.lastScoreChanges,
     gameState: GameState.Scoreboard,
   });
 
@@ -893,31 +1172,13 @@ function advanceFromScoreboard(room: RoomRecord): void {
 }
 
 function finishGame(room: RoomRecord): void {
-  if (room.questionTimer) {
-    clearTimeout(room.questionTimer);
-    room.questionTimer = null;
-  }
-  if (room.timerTickInterval) {
-    clearInterval(room.timerTickInterval);
-    room.timerTickInterval = null;
-  }
-  if (room.revealTimer) {
-    clearTimeout(room.revealTimer);
-    room.revealTimer = null;
-  }
+  clearActiveQuestionTimers(room);
 
   room.state = RoomState.Completed;
   room.gameState = GameState.Completed;
   room.nextQuestionReadyPlayerIds.clear();
 
-  const finalScoreboard = room.players
-    .filter((p) => p.state !== PlayerState.Disconnected)
-    .map((p) => ({
-      playerId: p.id,
-      name: p.name,
-      score: p.score,
-    }))
-    .sort((a, b) => b.score - a.score);
+  const finalScoreboard = getSortedScoreboard(room);
 
   logRoomEvent("game:finished", room, {});
 
@@ -925,7 +1186,68 @@ function finishGame(room: RoomRecord): void {
     roomId: room.id,
     roomState: RoomState.Completed,
     gameState: GameState.Completed,
-    totalQuestionCount: room.quiz?.questions.length ?? 0,
+    totalQuestionCount: getTotalQuestionCount(room),
     finalScoreboard,
+    finalStats: buildFinalStats(room),
   });
+}
+
+function buildFinalStats(room: RoomRecord): GameFinalStats | undefined {
+  const completedResults = room.completedRoundResults;
+  if (!completedResults.length) {
+    return undefined;
+  }
+
+  const playerById = new Map(room.players.map((player) => [player.id, player]));
+  const correctCounts = new Map<string, number>();
+  let fastest: { playerId: string; submittedAtMs: number } | null = null;
+
+  for (const result of completedResults) {
+    for (const playerResult of result.playerResults) {
+      if (playerResult.isCorrect) {
+        correctCounts.set(
+          playerResult.playerId,
+          (correctCounts.get(playerResult.playerId) ?? 0) + 1,
+        );
+      }
+    }
+  }
+
+  for (const submittedAnswer of room.completedAnswers) {
+    if (!fastest || submittedAnswer.submittedAtMs < fastest.submittedAtMs) {
+      fastest = {
+        playerId: submittedAnswer.playerId,
+        submittedAtMs: submittedAnswer.submittedAtMs,
+      };
+    }
+  }
+
+  const mostCorrectEntry = [...correctCounts.entries()].sort((a, b) => b[1] - a[1])[0];
+  const scoreboard = getSortedScoreboard(room);
+  const gaps = scoreboard
+    .slice(1)
+    .map((entry, index) => Math.abs(scoreboard[index].score - entry.score));
+  const closestGap = gaps.length ? Math.min(...gaps) : undefined;
+
+  return {
+    ...(mostCorrectEntry && playerById.get(mostCorrectEntry[0])
+      ? {
+          mostCorrect: {
+            playerId: mostCorrectEntry[0],
+            name: playerById.get(mostCorrectEntry[0])!.name,
+            count: mostCorrectEntry[1],
+          },
+        }
+      : {}),
+    ...(fastest && playerById.get(fastest.playerId)
+      ? {
+          fastestAnswer: {
+            playerId: fastest.playerId,
+            name: playerById.get(fastest.playerId)!.name,
+            submittedAtMs: fastest.submittedAtMs,
+          },
+        }
+      : {}),
+    ...(closestGap !== undefined ? { closestGap: { points: closestGap } } : {}),
+  };
 }

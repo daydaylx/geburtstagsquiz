@@ -7,6 +7,21 @@ import {
   EVENTS,
 } from "./index.js";
 
+const sampleGamePlan = {
+  mode: "preset" as const,
+  presetId: "normal_evening" as const,
+  questionCount: 20,
+  categoryIds: ["cat-01", "cat-02"],
+  questionTypes: ["multiple_choice", "majority_guess", "estimate", "logic", "ranking"],
+  timerMs: 30000,
+  revealDurationMs: 5000,
+  revealMode: "auto" as const,
+  showAnswerTextOnPlayerDevices: false,
+  enableDemoQuestion: true,
+  displayShowLevel: "high" as const,
+  rankingScoringMode: "partial_with_bonus" as const,
+};
+
 describe("parseClientToServerEnvelope", () => {
   it("accepts a valid answer:submit payload (option)", () => {
     const envelope = serializeEnvelope(EVENTS.ANSWER_SUBMIT, {
@@ -121,6 +136,20 @@ describe("parseClientToServerEnvelope", () => {
     expect(result.success).toBe(true);
     if (result.success) {
       expect(result.data.event).toBe(EVENTS.ROOM_SETTINGS_UPDATE);
+    }
+  });
+
+  it("accepts a valid game:start payload with game plan", () => {
+    const envelope = serializeEnvelope(EVENTS.GAME_START, {
+      roomId: "room-1",
+      gamePlan: sampleGamePlan,
+    });
+
+    const result = parseClientToServerEnvelope(envelope);
+
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.event).toBe(EVENTS.GAME_START);
     }
   });
 
@@ -293,6 +322,17 @@ describe("parseServerToClientEnvelope", () => {
         roomId: "room-1",
         questionId: "q1",
         scoreboard: [{ playerId: "p1", name: "Alice", score: 10 }],
+        scoreChanges: [
+          {
+            playerId: "p1",
+            name: "Alice",
+            previousScore: 7,
+            score: 10,
+            delta: 3,
+            previousRank: 2,
+            rank: 1,
+          },
+        ],
         gameState: "scoreboard",
       },
     });
@@ -627,6 +667,30 @@ describe("display and host events – schema validation", () => {
       event: EVENTS.DISPLAY_HOST_PAIRED,
       payload: { hostConnected: true },
     });
+    const result = parseServerToClientEnvelope(envelope);
+    expect(result.success).toBe(true);
+  });
+
+  it("accepts catalog:summary payload", () => {
+    const envelope = JSON.stringify({
+      event: EVENTS.CATALOG_SUMMARY,
+      payload: {
+        totalQuestions: 2,
+        maxQuestionCount: 2,
+        categories: [
+          {
+            id: "cat-01",
+            slug: "cat-one",
+            name: "Kategorie 1",
+            tags: ["test"],
+            questionCount: 2,
+            questionTypes: [{ type: "multiple_choice", count: 2 }],
+          },
+        ],
+        questionTypes: [{ type: "multiple_choice", count: 2 }],
+      },
+    });
+
     const result = parseServerToClientEnvelope(envelope);
     expect(result.success).toBe(true);
   });

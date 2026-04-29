@@ -55,6 +55,11 @@ export function closeRoom(room: RoomRecord, reason: string): void {
     room.hostDisconnectTimer = null;
   }
 
+  if (room.countdownTimer) {
+    clearTimeout(room.countdownTimer);
+    room.countdownTimer = null;
+  }
+
   if (room.questionTimer) {
     clearTimeout(room.questionTimer);
     room.questionTimer = null;
@@ -216,6 +221,7 @@ export function handleDisplayCreateRoom(
     displayDisconnectTimer: null,
     hostDisconnectTimer: null,
     playerDisconnectTimers: new Map(),
+    countdownTimer: null,
     questionTimer: null,
     timerTickInterval: null,
     revealTimer: null,
@@ -223,6 +229,9 @@ export function handleDisplayCreateRoom(
     nextQuestionReadyPlayerIds: new Set(),
     questionStartedAt: null,
     lastRoundResult: null,
+    lastScoreChanges: [],
+    completedRoundResults: [],
+    completedAnswers: [],
   };
 
   const session: SessionRecord = {

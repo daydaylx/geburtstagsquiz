@@ -150,6 +150,30 @@ describe("getDefaultQuiz catalog invariants", () => {
     const quiz = getDefaultQuiz();
     const issues: string[] = [];
     const ids = quiz.questions.map((question) => question.id);
+    const categoryIds = new Set(quiz.categories.map((category) => category.id));
+
+    if (quiz.categories.length === 0) {
+      issues.push("catalog has no categories");
+    }
+
+    if (!categoryIds.has("cat-01")) {
+      issues.push("catalog lost source category cat-01");
+    }
+
+    for (const category of quiz.categories) {
+      if (!category.id.trim()) {
+        issues.push("category with empty id");
+      }
+      if (!category.name.trim()) {
+        issues.push(`${category.id}: empty category name`);
+      }
+      if (!category.slug.trim()) {
+        issues.push(`${category.id}: empty category slug`);
+      }
+      if (!Number.isFinite(category.questionCount) || category.questionCount <= 0) {
+        issues.push(`${category.id}: invalid category questionCount`);
+      }
+    }
 
     for (const question of quiz.questions) {
       if (!question.id.trim()) {
@@ -170,6 +194,14 @@ describe("getDefaultQuiz catalog invariants", () => {
 
       if (!question.explanation?.trim()) {
         issues.push(`${question.id}: missing explanation`);
+      }
+
+      if (!question.categoryId || !categoryIds.has(question.categoryId)) {
+        issues.push(`${question.id}: missing or unknown categoryId`);
+      }
+
+      if (!question.categoryName?.trim()) {
+        issues.push(`${question.id}: missing categoryName`);
       }
 
       switch (question.type) {

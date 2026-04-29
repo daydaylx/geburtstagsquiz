@@ -9,20 +9,30 @@ Ein Host fuehrt ein simples Quiz mit den vorbereiteten Fragetypen durch. Das oef
 - Die Handys der Spieler dienen nur fuer Join, Antwort und Status.
 - Der Server entscheidet, was gueltig ist.
 
+## Spielplaene
+
+Vor dem Start waehlt der Host einen Spielplan. Der Server validiert diesen Spielplan und erstellt daraus den tatsaechlichen Fragenpool.
+
+Verfuegbar sind Presets fuer kurze Partyrunden, normalen Abendmodus, langen Quizabend und Chaos-/Party-Modus. Zusaetzlich gibt es eine freie Auswahl mit Fragenanzahl, Kategorien, Fragetypen, Timer, Reveal-Dauer, Antworttexten auf Handys, Demo-Frage und Display-Show-Level.
+
+Wichtig: Kategorien und Fragetypen sind echte Serverfilter. Wenn eine Auswahl zu wenige Fragen ergibt, startet das Spiel nicht und der Host bekommt eine konkrete Fehlermeldung mit verfuegbarer und benoetigter Anzahl.
+
 ## Rundenablauf
 
-1. Host startet das Spiel.
-2. Der Server oeffnet die naechste Frage.
-3. Das Display/TV zeigt die vollstaendige Frage; der Host sieht Kontrolldaten; Player sehen nur den Antwort-Controller.
-4. Der Timer laeuft serverseitig.
-5. Jeder Spieler kann eine Antwort absenden.
-6. Nach Timerende oder wenn alle geantwortet haben, wird die Frage geschlossen.
-7. Die richtige Antwort wird gezeigt.
-8. Spieler sehen, ob ihre Antwort richtig war und wie viele Punkte diese Frage gebracht hat.
-9. Der Punktestand wird aktualisiert.
-10. Alle verbundenen Spieler druecken auf dem Handy "Bereit fuer naechste Frage".
-11. Der Server startet automatisch die naechste Frage oder beendet das Spiel.
-12. Falls Spieler haengen bleiben, kann der Host auf der Rangliste manuell weiterschalten.
+1. Host waehlt Preset oder freie Auswahl und startet das Spiel.
+2. Der Server validiert den Spielplan und erstellt den Fragenpool.
+3. Optional laeuft zuerst eine Demo-Frage ohne Punkte.
+4. Der Server oeffnet die naechste Frage, bei hohem Show-Level mit kurzem Countdown.
+5. Das Display/TV zeigt die vollstaendige Frage; der Host sieht Kontrolldaten; Player sehen nur den Antwort-Controller.
+6. Der Timer laeuft serverseitig.
+7. Jeder Spieler kann eine Antwort absenden.
+8. Nach Timerende, Host-Override oder wenn alle geantwortet haben, wird die Frage geschlossen.
+9. Die richtige Antwort wird gezeigt.
+10. Spieler sehen, ob ihre Antwort richtig war und wie viele Punkte diese Frage gebracht hat.
+11. Der Punktestand wird aktualisiert.
+12. Alle verbundenen Spieler druecken auf dem Handy "Bereit fuer naechste Frage".
+13. Der Server startet automatisch die naechste Frage oder beendet das Spiel.
+14. Falls Spieler haengen bleiben, kann der Host manuell weiterschalten oder das Spiel mit aktuellem Stand beenden.
 
 ## Punkte
 
@@ -33,10 +43,15 @@ Aktuell gilt:
 - keine Antwort = `0`
 - keine Geschwindigkeitsboni
 - keine Multiplikatoren
+- Demo-Fragen zaehlen nicht in die Punkte
 
-Bei Schaetzfragen bekommt die naechste Antwort die Punkte. Bei Mehrheitsfragen bekommen alle Punkte, die eine meistgewaehlte Option getroffen haben; bei Gleichstand zaehlen alle Top-Optionen. Ranking-Fragen zaehlen nur bei exakt richtiger Reihenfolge. Freitextfragen zaehlen bei normalisiert exakter Uebereinstimmung mit der hinterlegten Antwort oder einem Alias.
+Bei Schaetzfragen bekommt die naechste Antwort die Punkte. Bei Mehrheitsfragen bekommen alle Punkte, die eine meistgewaehlte Option getroffen haben; bei Gleichstand zaehlen alle Top-Optionen.
 
-Im mitgelieferten Standard-Quiz sind die Fragen fest bepunktet. Fuer den Abend wird eine Auswahl aus dem kombinierten JSON-Fragenpool gespielt.
+Ranking-Fragen koennen im Spielplan strikt oder partyfreundlich gewertet werden. Im partyfreundlichen Modus gibt es einen Punkt pro Item an exakt richtiger Position und einen Bonuspunkt fuer komplett richtige Reihenfolge. Die Reveal-Ansicht zeigt die Details, damit Teilpunkte nachvollziehbar bleiben.
+
+Freitextfragen sind in den Standard-Spielplaenen deaktiviert oder niedrig dosiert. Wenn sie aktiv sind, zaehlen normalisierte Uebereinstimmungen mit der hinterlegten Antwort oder einem Alias.
+
+Im mitgelieferten Standard-Quiz sind die Fragen fest bepunktet. Fuer den Abend wird eine Auswahl aus dem kombinierten JSON-Fragenpool gespielt, gefiltert nach dem finalen Spielplan.
 
 ## Antwortregeln
 
@@ -50,7 +65,7 @@ Im mitgelieferten Standard-Quiz sind die Fragen fest bepunktet. Fuer den Abend w
 ## Timer-Regel
 
 - Der Timer kommt vom Server.
-- Die Antwortzeit kommt aus der vorbereiteten Frage.
+- Die Antwortzeit kommt aus dem validierten Spielplan.
 - Clients zeigen nur den verbleibenden Stand an.
 - Nicht der letzte sichtbare Tick, sondern die serverseitige Sperre ist massgeblich.
 
@@ -72,13 +87,16 @@ Das Display/TV:
 Der Host:
 
 - koppelt sich per Host-QR oder Host-Token mit dem Display-Raum
-- startet das Spiel
+- waehlt vor Spielstart Preset oder freie Auswahl
+- sieht den vom Server gelieferten Fragenkatalog als Grundlage fuer Kategorien und Fragetypen
+- startet das Spiel mit finalem Spielplan
 - sieht den Join-Code und Status
 - sieht Status, Fortschritt und Spieler in einer dauerhaften Uebersicht
-- kann Kategorien fuer den Host-Flow vorbereiten, ohne dass daraus schon serverseitige Regeln behauptet werden
+- sieht den aktuell gewaehlten Spielplan, aktive Kategorien und aktive Fragetypen
 - sieht den Fortschritt der Antworten
 - sieht, wie viele Spieler fuer die naechste Frage bereit sind
-- entscheidet in der Lobby, ob Antworttexte auf Handys sichtbar sein sollen
+- entscheidet im Spielplan, ob Antworttexte auf Handys sichtbar sein sollen
+- kann eine Frage sofort schliessen, Reveal ueberspringen, zur naechsten Frage gehen, Spieler entfernen oder das Spiel mit aktuellem Stand beenden
 - sieht Endstand und kann den Raum schliessen
 
 ### Spieler
@@ -98,9 +116,13 @@ Die Spieler:
 ### Display/TV
 
 - Frage gross und lesbar
+- bei hohem Show-Level kurzer Countdown vor Fragen
 - Antwortoptionen beziehungsweise Ranking-Items mit Text klar sichtbar
 - Timer klar sichtbar
+- Antwortfortschritt mit Anzahl beantwortet/offen
+- Reveal mit deutlicher richtiger Antwort, abgedunkelten falschen Optionen und Erklaerung
 - Rangliste einfach zu erfassen
+- Top 3 und Endstand als Abschluss klar hervorgehoben
 - Status, Fortschritt und Spieleruebersicht bleiben klar gegliedert
 - kein ueberladenes Layout
 

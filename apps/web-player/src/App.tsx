@@ -380,6 +380,9 @@ export function App() {
         setLobby(parsedEnvelope.data.payload);
         return;
 
+      case EVENTS.QUESTION_COUNTDOWN:
+        return;
+
       case EVENTS.QUESTION_CONTROLLER:
         const resumedAnswer = resumedAnswerRef.current;
         setQuestion(parsedEnvelope.data.payload);
@@ -645,8 +648,9 @@ export function App() {
           <>
             <div className="player-card player-controller-card" data-status={answerStatus}>
               <span className="player-kicker">
-                {getQuestionKindLabel(question.type)} · Frage {question.questionIndex + 1} /{" "}
-                {question.totalQuestionCount}
+                {question.isDemoQuestion
+                  ? "Testfrage"
+                  : `${getQuestionKindLabel(question.type)} · Frage ${question.questionIndex + 1} / ${question.totalQuestionCount}`}
               </span>
               <h2 className="player-controller-title">
                 {answerStatus === "accepted"
@@ -831,6 +835,15 @@ export function App() {
               <p className="player-points-earned">
                 {ownRoundResult?.pointsEarned ?? 0} Punkte verdient.
               </p>
+              {ownRoundResult?.detail?.exactPositions !== undefined && (
+                <p className="player-muted-copy player-muted-copy--compact">
+                  {ownRoundResult.detail.exactPositions} /{" "}
+                  {ownRoundResult.detail.totalPositions ?? "?"} Positionen richtig
+                  {ownRoundResult.detail.bonusPoints
+                    ? `, ${ownRoundResult.detail.bonusPoints} Bonus`
+                    : ""}
+                </p>
+              )}
               <div className="player-result-lines">
                 <div>
                   <span>Deine Antwort</span>

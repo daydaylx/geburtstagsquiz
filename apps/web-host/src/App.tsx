@@ -7,6 +7,7 @@ import {
   parseServerToClientEnvelope,
   serializeEnvelope,
   type AnswerProgressPayload,
+  type CatalogSummaryPayload,
   type ClientToServerEventPayloadMap,
   type GameFinishedPayload,
   type LobbyUpdatePayload,
@@ -15,7 +16,14 @@ import {
   type QuestionShowPayload,
   type ScoreUpdatePayload,
 } from "@quiz/shared-protocol";
-import { GameState, QuestionType, RoomState, type ScoreboardEntry } from "@quiz/shared-types";
+import {
+  GameState,
+  QuestionType,
+  type DisplayShowLevel,
+  type GamePlan,
+  type GamePlanPresetId,
+  type RevealMode,
+} from "@quiz/shared-types";
 import { getReconnectDelay, getWebSocketProtocol, isLoopbackHostname } from "@quiz/shared-utils";
 
 import {
@@ -26,8 +34,14 @@ import {
 } from "./storage.js";
 
 type ConnectionState = "connecting" | "connected" | "reconnecting";
-type HostScreen = "start" | "lobby" | "question" | "reveal" | "scoreboard" | "finished";
-type HostCategoryId = "general" | "birthday" | "personal" | "music" | "fun";
+type HostScreen =
+  | "start"
+  | "lobby"
+  | "countdown"
+  | "question"
+  | "reveal"
+  | "scoreboard"
+  | "finished";
 
 interface HostRoomInfo {
   roomId: string;
@@ -39,30 +53,28 @@ interface HostNotice {
   text: string;
 }
 
-interface HostCategoryOption {
-  id: HostCategoryId;
-  label: string;
-  description: string;
-}
-
-interface PrimaryAction {
-  label: string;
-  description: string;
-  disabled: boolean;
-  note: string;
-  onClick?: () => void;
-}
-
-const HOST_CATEGORY_OPTIONS: HostCategoryOption[] = [
-  { id: "general", label: "Allgemein", description: "Warme Einstiegsrunde." },
-  { id: "birthday", label: "Geburtstag", description: "Fragen zum Alter & Feier." },
-  { id: "personal", label: "Persönlich", description: "Fragen über das Geburtstagskind." },
-  { id: "music", label: "Musik", description: "Hits und Erkennerfragen." },
-  { id: "fun", label: "Spaßfragen", description: "Locker & albern." },
-] as const;
-
-const DEFAULT_SELECTED_CATEGORY_IDS = HOST_CATEGORY_OPTIONS.map((category) => category.id);
 const FLOW_STEPS = ["Lobby", "Kategorien", "Frage", "Auflösung", "Endstand"] as const;
+const PRESET_IDS: GamePlanPresetId[] = [
+  "quick_dirty",
+  "normal_evening",
+  "full_evening",
+  "chaos_party",
+];
+const QUESTION_COUNT_CHOICES = [10, 15, 20, 25, 30] as const;
+const TIMER_CHOICES = [20_000, 30_000, 45_000, 60_000] as const;
+const REVEAL_CHOICES: Array<{ label: string; value: number; mode: RevealMode }> = [
+  { label: "Kurz", value: 3_000, mode: "auto" },
+  { label: "Normal", value: 5_000, mode: "auto" },
+  { label: "Lang", value: 8_000, mode: "auto" },
+  { label: "Host entscheidet", value: 15_000, mode: "manual_with_fallback" },
+];
+const DEFAULT_CUSTOM_TYPES = [
+  QuestionType.MultipleChoice,
+  QuestionType.MajorityGuess,
+  QuestionType.Estimate,
+  QuestionType.Logic,
+  QuestionType.Ranking,
+];
 
 function getViteEnv(name: string): string | undefined {
   return (import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env?.[name];
@@ -134,6 +146,170 @@ function getAnswerDisplayLabel(index: number): string {
   return index < 26 ? String.fromCharCode(65 + index) : `${index + 1}`;
 }
 
+function getPresetLabel(presetId: GamePlanPresetId): string {
+  switch (presetId) {
+    case "quick_dirty":
+      return "Kurz & dreckig";
+    case "normal_evening":
+      return "Normaler Abendmodus";
+    case "full_evening":
+      return "Voller Quizabend";
+    case "chaos_party":
+      return "Chaos-/Party-Modus";
+  }
+}
+
+function getPresetHint(presetId: GamePlanPresetId): string {
+  switch (presetId) {
+    case "quick_dirty":
+      return "12 Fragen, schnell, wenig Frust.";
+    case "normal_evening":
+      return "20 Fragen, gemischt, Geburtstags-Default.";
+    case "full_evening":
+      return "30 Fragen, langer Mix.";
+    case "chaos_party":
+      return "18 Fragen, Tempo und Lacher.";
+  }
+}
+
+function getQuestionTypeLabel(type: QuestionType): string {
+  switch (type) {
+    case QuestionType.MultipleChoice:
+      return "Multiple Choice";
+    case QuestionType.Estimate:
+      return "Schätzfragen";
+    case QuestionType.MajorityGuess:
+      return "Mehrheitsfragen";
+    case QuestionType.Ranking:
+      return "Ranking";
+    case QuestionType.Logic:
+      return "Denkfragen";
+    case QuestionType.OpenText:
+      return "Freitext";
+  }
+}
+
+function getShowLevelLabel(level: DisplayShowLevel): string {
+  switch (level) {
+    case "minimal":
+      return "Minimal";
+    case "normal":
+      return "Normal";
+    case "high":
+      return "High";
+  }
+}
+
+function getAvailableQuestionTypes(catalog: CatalogSummaryPayload): QuestionType[] {
+  return catalog.questionTypes.map((entry) => entry.type);
+}
+
+function getDefaultCategoryIds(catalog: CatalogSummaryPayload, includeHard: boolean): string[] {
+  return catalog.categories
+    .filter((category) => includeHard || category.difficulty !== "hard")
+    .map((category) => category.id);
+}
+
+function buildPresetGamePlan(
+  presetId: GamePlanPresetId,
+  catalog: CatalogSummaryPayload,
+  showAnswerTextOnPlayerDevices: boolean,
+): GamePlan {
+  const includeHard = presetId === "normal_evening" || presetId === "full_evening";
+  const categoryIds = getDefaultCategoryIds(catalog, includeHard);
+  const allTypes = getAvailableQuestionTypes(catalog);
+
+  const byPreset: Record<GamePlanPresetId, Omit<GamePlan, "categoryIds">> = {
+    quick_dirty: {
+      mode: "preset",
+      presetId,
+      questionCount: 12,
+      questionTypes: [
+        QuestionType.MultipleChoice,
+        QuestionType.MajorityGuess,
+        QuestionType.Estimate,
+        QuestionType.Logic,
+      ].filter((type) => allTypes.includes(type)),
+      timerMs: 20_000,
+      revealDurationMs: 3_000,
+      revealMode: "auto",
+      showAnswerTextOnPlayerDevices,
+      enableDemoQuestion: true,
+      displayShowLevel: "high",
+      rankingScoringMode: "partial_with_bonus",
+    },
+    normal_evening: {
+      mode: "preset",
+      presetId,
+      questionCount: 20,
+      questionTypes: DEFAULT_CUSTOM_TYPES.filter((type) => allTypes.includes(type)),
+      timerMs: 30_000,
+      revealDurationMs: 5_000,
+      revealMode: "auto",
+      showAnswerTextOnPlayerDevices,
+      enableDemoQuestion: true,
+      displayShowLevel: "high",
+      rankingScoringMode: "partial_with_bonus",
+    },
+    full_evening: {
+      mode: "preset",
+      presetId,
+      questionCount: 30,
+      questionTypes: allTypes,
+      timerMs: 30_000,
+      revealDurationMs: 5_000,
+      revealMode: "auto",
+      showAnswerTextOnPlayerDevices,
+      enableDemoQuestion: true,
+      displayShowLevel: "high",
+      rankingScoringMode: "partial_with_bonus",
+    },
+    chaos_party: {
+      mode: "preset",
+      presetId,
+      questionCount: 18,
+      questionTypes: [
+        QuestionType.MultipleChoice,
+        QuestionType.MajorityGuess,
+        QuestionType.Estimate,
+      ].filter((type) => allTypes.includes(type)),
+      timerMs: 20_000,
+      revealDurationMs: 3_000,
+      revealMode: "auto",
+      showAnswerTextOnPlayerDevices,
+      enableDemoQuestion: true,
+      displayShowLevel: "high",
+      rankingScoringMode: "partial_with_bonus",
+    },
+  };
+
+  return {
+    ...byPreset[presetId],
+    categoryIds,
+  };
+}
+
+function buildCustomGamePlan(
+  catalog: CatalogSummaryPayload,
+  showAnswerTextOnPlayerDevices: boolean,
+): GamePlan {
+  const allTypes = getAvailableQuestionTypes(catalog);
+
+  return {
+    mode: "custom",
+    questionCount: 20,
+    categoryIds: catalog.categories.map((category) => category.id),
+    questionTypes: DEFAULT_CUSTOM_TYPES.filter((type) => allTypes.includes(type)),
+    timerMs: 30_000,
+    revealDurationMs: 5_000,
+    revealMode: "auto",
+    showAnswerTextOnPlayerDevices,
+    enableDemoQuestion: true,
+    displayShowLevel: "high",
+    rankingScoringMode: "partial_with_bonus",
+  };
+}
+
 function createHostClientInfo() {
   return { deviceType: "browser", appVersion: "0.0.1" };
 }
@@ -165,9 +341,12 @@ export function App() {
   const [finalResult, setFinalResult] = useState<GameFinishedPayload | null>(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number | null>(null);
   const [totalQuestionCount, setTotalQuestionCount] = useState<number | null>(null);
-  const [selectedCategoryIds, setSelectedCategoryIds] = useState<HostCategoryId[]>(
-    DEFAULT_SELECTED_CATEGORY_IDS,
+  const [catalog, setCatalog] = useState<CatalogSummaryPayload | null>(null);
+  const [gamePlanDraft, setGamePlanDraft] = useState<GamePlan | null>(null);
+  const [selectedPlanMode, setSelectedPlanMode] = useState<GamePlanPresetId | "custom">(
+    "normal_evening",
   );
+  const [countdownSeconds, setCountdownSeconds] = useState(0);
   const [showAnswerTextOnPlayerDevices, setShowAnswerTextOnPlayerDevices] = useState(false);
 
   const socketRef = useRef<WebSocket | null>(null);
@@ -220,6 +399,10 @@ export function App() {
     setFinalResult(null);
     setCurrentQuestionIndex(null);
     setTotalQuestionCount(null);
+    setCatalog(null);
+    setGamePlanDraft(null);
+    setSelectedPlanMode("normal_evening");
+    setCountdownSeconds(0);
     setShowAnswerTextOnPlayerDevices(false);
   });
 
@@ -290,6 +473,15 @@ export function App() {
         setNotice(null);
         return;
 
+      case EVENTS.CATALOG_SUMMARY:
+        const catalogPayload = parsedEnvelope.data.payload;
+        setCatalog(catalogPayload);
+        setGamePlanDraft((current) => {
+          if (current) return current;
+          return buildPresetGamePlan("normal_evening", catalogPayload, showAnswerTextOnPlayerDevices);
+        });
+        return;
+
       case EVENTS.CONNECTION_RESUMED:
         if (parsedEnvelope.data.payload.role !== "host") return;
         setRoomInfo({
@@ -312,10 +504,33 @@ export function App() {
         setShowAnswerTextOnPlayerDevices(
           parsedEnvelope.data.payload.settings.showAnswerTextOnPlayerDevices,
         );
+        if (parsedEnvelope.data.payload.settings.gamePlanDraft) {
+          setGamePlanDraft(parsedEnvelope.data.payload.settings.gamePlanDraft);
+          setSelectedPlanMode(
+            parsedEnvelope.data.payload.settings.gamePlanDraft.mode === "preset" &&
+              parsedEnvelope.data.payload.settings.gamePlanDraft.presetId
+              ? parsedEnvelope.data.payload.settings.gamePlanDraft.presetId
+              : "custom",
+          );
+        }
         return;
 
       case EVENTS.GAME_STARTED:
+        setGamePlanDraft(parsedEnvelope.data.payload.resolvedGamePlan);
+        setSelectedPlanMode(
+          parsedEnvelope.data.payload.resolvedGamePlan.mode === "preset" &&
+            parsedEnvelope.data.payload.resolvedGamePlan.presetId
+            ? parsedEnvelope.data.payload.resolvedGamePlan.presetId
+            : "custom",
+        );
         setScreen("question");
+        return;
+
+      case EVENTS.QUESTION_COUNTDOWN:
+        setCountdownSeconds(Math.ceil(parsedEnvelope.data.payload.countdownMs / 1000));
+        setCurrentQuestionIndex(parsedEnvelope.data.payload.questionIndex);
+        setTotalQuestionCount(parsedEnvelope.data.payload.totalQuestionCount);
+        setScreen("countdown");
         return;
 
       case EVENTS.QUESTION_SHOW:
@@ -414,6 +629,15 @@ export function App() {
       .catch(() => setQrCodeDataUrl(null));
   }, [roomInfo?.joinCode]);
 
+  useEffect(() => {
+    if (screen !== "countdown" || countdownSeconds <= 0) return;
+    const timer = window.setInterval(() => {
+      setCountdownSeconds((current) => Math.max(0, current - 1));
+    }, 1000);
+
+    return () => window.clearInterval(timer);
+  }, [screen, countdownSeconds]);
+
   const handleRestartInfo = useEffectEvent(() => {
     setNotice({
       kind: "info",
@@ -422,9 +646,9 @@ export function App() {
   });
 
   const handleStartGame = useEffectEvent(() => {
-    if (roomInfo) {
+    if (roomInfo && gamePlanDraft) {
       setNotice(null);
-      sendClientEvent(EVENTS.GAME_START, { roomId: roomInfo.roomId });
+      sendClientEvent(EVENTS.GAME_START, { roomId: roomInfo.roomId, gamePlan: gamePlanDraft });
     }
   });
 
@@ -432,9 +656,14 @@ export function App() {
     if (!roomInfo || screen !== "lobby") return;
     setShowAnswerTextOnPlayerDevices(enabled);
     setNotice(null);
+    const nextDraft = gamePlanDraft
+      ? { ...gamePlanDraft, showAnswerTextOnPlayerDevices: enabled }
+      : null;
+    if (nextDraft) setGamePlanDraft(nextDraft);
     const sent = sendClientEvent(EVENTS.ROOM_SETTINGS_UPDATE, {
       roomId: roomInfo.roomId,
       showAnswerTextOnPlayerDevices: enabled,
+      ...(nextDraft ? { gamePlanDraft: nextDraft } : {}),
     });
 
     if (!sent) {
@@ -447,6 +676,41 @@ export function App() {
       setNotice(null);
       sendClientEvent(EVENTS.GAME_NEXT_QUESTION, { roomId: roomInfo.roomId });
     }
+  });
+
+  const handleForceCloseQuestion = useEffectEvent(() => {
+    if (!roomInfo) return;
+    setNotice(null);
+    sendClientEvent(EVENTS.QUESTION_FORCE_CLOSE, { roomId: roomInfo.roomId });
+  });
+
+  const handleShowScoreboard = useEffectEvent(() => {
+    if (!roomInfo) return;
+    setNotice(null);
+    sendClientEvent(EVENTS.GAME_SHOW_SCOREBOARD, { roomId: roomInfo.roomId });
+  });
+
+  const handleFinishNow = useEffectEvent(() => {
+    if (!roomInfo) return;
+    setNotice(null);
+    sendClientEvent(EVENTS.GAME_FINISH_NOW, { roomId: roomInfo.roomId });
+  });
+
+  const handleRemovePlayer = useEffectEvent((playerId: string) => {
+    if (!roomInfo) return;
+    setNotice(null);
+    sendClientEvent(EVENTS.PLAYER_REMOVE, { roomId: roomInfo.roomId, playerId });
+  });
+
+  const handlePlanDraftChange = useEffectEvent((nextDraft: GamePlan) => {
+    setGamePlanDraft(nextDraft);
+    setShowAnswerTextOnPlayerDevices(nextDraft.showAnswerTextOnPlayerDevices);
+    if (!roomInfo || screen !== "lobby") return;
+    sendClientEvent(EVENTS.ROOM_SETTINGS_UPDATE, {
+      roomId: roomInfo.roomId,
+      showAnswerTextOnPlayerDevices: nextDraft.showAnswerTextOnPlayerDevices,
+      gamePlanDraft: nextDraft,
+    });
   });
 
   const loopback = isLoopbackHostname(getPublicHost());
@@ -466,6 +730,7 @@ export function App() {
   const nextReadyLabel = nextQuestionReadyProgress
     ? `${nextQuestionReadyProgress.readyCount} / ${nextQuestionReadyProgress.totalEligiblePlayers} bereit`
     : "Warte auf Bereitmeldungen";
+  const latestScoreChanges = scoreboard?.scoreChanges ?? [];
 
   const effectiveTotalQuestionCount =
     totalQuestionCount ?? question?.totalQuestionCount ?? finalResult?.totalQuestionCount ?? null;
@@ -482,7 +747,7 @@ export function App() {
       ? 4
       : screen === "scoreboard" || screen === "reveal"
         ? 3
-        : screen === "question"
+        : screen === "question" || screen === "countdown"
           ? 2
           : 1;
 
@@ -500,7 +765,219 @@ export function App() {
               <span className="host-stat-value">{connectedPlayerCount}</span>
               <span className="host-stat-label">Spieler bereit</span>
             </div>
+            <div className="host-stat-card">
+              <span className="host-stat-value">{gamePlanDraft?.questionCount ?? "-"}</span>
+              <span className="host-stat-label">Fragen</span>
+            </div>
           </div>
+          {catalog && gamePlanDraft ? (
+            <div className="host-plan-builder">
+              <div className="host-section-head">
+                <p className="host-section-label">Spielplan</p>
+                <span className="host-online-count">{catalog.totalQuestions} Fragen verfügbar</span>
+              </div>
+              <div className="host-preset-grid">
+                {PRESET_IDS.map((presetId) => (
+                  <button
+                    className="host-preset-button"
+                    data-active={selectedPlanMode === presetId ? "true" : undefined}
+                    key={presetId}
+                    onClick={() => {
+                      setSelectedPlanMode(presetId);
+                      handlePlanDraftChange(
+                        buildPresetGamePlan(
+                          presetId,
+                          catalog,
+                          gamePlanDraft.showAnswerTextOnPlayerDevices,
+                        ),
+                      );
+                    }}
+                    type="button"
+                  >
+                    <strong>{getPresetLabel(presetId)}</strong>
+                    <small>{getPresetHint(presetId)}</small>
+                  </button>
+                ))}
+                <button
+                  className="host-preset-button"
+                  data-active={selectedPlanMode === "custom" ? "true" : undefined}
+                  onClick={() => {
+                    setSelectedPlanMode("custom");
+                    handlePlanDraftChange(
+                      buildCustomGamePlan(catalog, gamePlanDraft.showAnswerTextOnPlayerDevices),
+                    );
+                  }}
+                  type="button"
+                >
+                  <strong>Freie Auswahl</strong>
+                  <small>Fragen, Kategorien und Typen selbst setzen.</small>
+                </button>
+              </div>
+
+              {selectedPlanMode === "custom" && (
+                <div className="host-custom-plan">
+                  <div className="host-choice-row">
+                    <span>Fragen</span>
+                    <div className="host-segmented">
+                      {QUESTION_COUNT_CHOICES.map((count) => (
+                        <button
+                          data-active={gamePlanDraft.questionCount === count ? "true" : undefined}
+                          key={count}
+                          onClick={() => handlePlanDraftChange({ ...gamePlanDraft, questionCount: count })}
+                          type="button"
+                        >
+                          {count}
+                        </button>
+                      ))}
+                    </div>
+                    <input
+                      className="host-small-number-input"
+                      max={catalog.maxQuestionCount}
+                      min={5}
+                      onChange={(event) => {
+                        const nextCount = Math.max(
+                          5,
+                          Math.min(catalog.maxQuestionCount, Number(event.target.value) || 5),
+                        );
+                        handlePlanDraftChange({ ...gamePlanDraft, questionCount: nextCount });
+                      }}
+                      type="number"
+                      value={gamePlanDraft.questionCount}
+                    />
+                  </div>
+                  <div className="host-choice-row">
+                    <span>Timer</span>
+                    <div className="host-segmented">
+                      {TIMER_CHOICES.map((timerMs) => (
+                        <button
+                          data-active={gamePlanDraft.timerMs === timerMs ? "true" : undefined}
+                          key={timerMs}
+                          onClick={() => handlePlanDraftChange({ ...gamePlanDraft, timerMs })}
+                          type="button"
+                        >
+                          {timerMs / 1000}s
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="host-choice-row">
+                    <span>Reveal</span>
+                    <div className="host-segmented">
+                      {REVEAL_CHOICES.map((choice) => (
+                        <button
+                          data-active={
+                            gamePlanDraft.revealDurationMs === choice.value &&
+                            gamePlanDraft.revealMode === choice.mode
+                              ? "true"
+                              : undefined
+                          }
+                          key={`${choice.mode}-${choice.value}`}
+                          onClick={() =>
+                            handlePlanDraftChange({
+                              ...gamePlanDraft,
+                              revealDurationMs: choice.value,
+                              revealMode: choice.mode,
+                            })
+                          }
+                          type="button"
+                        >
+                          {choice.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="host-choice-row">
+                    <span>Show</span>
+                    <div className="host-segmented">
+                      {(["minimal", "normal", "high"] as const).map((displayShowLevel) => (
+                        <button
+                          data-active={
+                            gamePlanDraft.displayShowLevel === displayShowLevel ? "true" : undefined
+                          }
+                          key={displayShowLevel}
+                          onClick={() =>
+                            handlePlanDraftChange({ ...gamePlanDraft, displayShowLevel })
+                          }
+                          type="button"
+                        >
+                          {getShowLevelLabel(displayShowLevel)}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <label className="host-checkbox-pill host-checkbox-pill--wide">
+                    <input
+                      checked={gamePlanDraft.enableDemoQuestion}
+                      onChange={(event) =>
+                        handlePlanDraftChange({
+                          ...gamePlanDraft,
+                          enableDemoQuestion: event.target.checked,
+                        })
+                      }
+                      type="checkbox"
+                    />
+                    <span>Demo-/Testfrage vor dem echten Spiel</span>
+                  </label>
+                  <div className="host-checkbox-grid">
+                    {catalog.categories.map((category) => (
+                      <label className="host-checkbox-pill" key={category.id}>
+                        <input
+                          checked={gamePlanDraft.categoryIds.includes(category.id)}
+                          onChange={(event) => {
+                            const categoryIds = event.target.checked
+                              ? [...gamePlanDraft.categoryIds, category.id]
+                              : gamePlanDraft.categoryIds.filter((id) => id !== category.id);
+                            handlePlanDraftChange({ ...gamePlanDraft, categoryIds });
+                          }}
+                          type="checkbox"
+                        />
+                        <span>{category.name}</span>
+                      </label>
+                    ))}
+                  </div>
+                  <div className="host-checkbox-grid host-checkbox-grid--types">
+                    {catalog.questionTypes.map((entry) => (
+                      <label className="host-checkbox-pill" key={entry.type}>
+                        <input
+                          checked={gamePlanDraft.questionTypes.includes(entry.type)}
+                          onChange={(event) => {
+                            const questionTypes = event.target.checked
+                              ? [...gamePlanDraft.questionTypes, entry.type]
+                              : gamePlanDraft.questionTypes.filter((type) => type !== entry.type);
+                            handlePlanDraftChange({ ...gamePlanDraft, questionTypes });
+                          }}
+                          type="checkbox"
+                        />
+                        <span>
+                          {getQuestionTypeLabel(entry.type)} ({entry.count})
+                        </span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <div className="host-plan-summary">
+                <span>{gamePlanDraft.questionCount} Fragen</span>
+                <span>{gamePlanDraft.timerMs / 1000}s Timer</span>
+                <span>{gamePlanDraft.revealMode === "manual_with_fallback" ? "Manuelles Reveal" : `${gamePlanDraft.revealDurationMs / 1000}s Reveal`}</span>
+                <span>Show: {getShowLevelLabel(gamePlanDraft.displayShowLevel)}</span>
+                <span>Demo: {gamePlanDraft.enableDemoQuestion ? "an" : "aus"}</span>
+              </div>
+            </div>
+          ) : (
+            <div className="host-estimate-display">Lade Fragenkatalog...</div>
+          )}
+        </div>
+      );
+    }
+
+    if (screen === "countdown") {
+      return (
+        <div className="host-panel-content host-countdown-panel">
+          <p className="host-section-label">Nächste Frage</p>
+          <div className="host-countdown-number">{countdownSeconds > 0 ? countdownSeconds : "Frage!"}</div>
+          <p className="host-lobby-hint">Timer startet gleich auf dem TV.</p>
         </div>
       );
     }
@@ -510,6 +987,9 @@ export function App() {
         <div className="host-panel-content">
           <div className="host-stage-head">
             <p className="host-section-label">Frage {currentQuestionNumber}</p>
+            {question.isDemoQuestion && (
+              <p className="host-section-label host-section-label--compact">Demo</p>
+            )}
             <div
               className="host-timer-shell"
               data-urgent={isTimerUrgent ? "true" : undefined}
@@ -665,6 +1145,16 @@ export function App() {
               </article>
             ))}
           </div>
+          {screen === "scoreboard" && latestScoreChanges.length > 0 && (
+            <div className="host-score-change-list">
+              {latestScoreChanges.slice(0, 4).map((change) => (
+                <div className="host-score-change" key={change.playerId}>
+                  +{change.delta} Punkte für {change.name}
+                  {change.previousRank !== change.rank ? ` · jetzt Platz ${change.rank}` : ""}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       );
     }
@@ -675,6 +1165,10 @@ export function App() {
   const primaryActionLabel =
     screen === "lobby"
       ? "Quiz starten"
+      : screen === "question"
+        ? "Frage schließen"
+        : screen === "reveal"
+          ? "Zum Zwischenstand"
       : screen === "scoreboard"
         ? "Nächste Frage"
         : screen === "finished"
@@ -682,7 +1176,9 @@ export function App() {
           : "Warten...";
   const isPrimaryDisabled =
     screen === "lobby"
-      ? connectedPlayerCount === 0
+      ? connectedPlayerCount === 0 || !gamePlanDraft || !catalog
+      : screen === "question" || screen === "reveal"
+        ? false
       : screen === "scoreboard"
         ? false
         : screen !== "finished";
@@ -771,7 +1267,16 @@ export function App() {
                           <div className="host-player-status-dot" data-connected={p.connected} />
                           <span className="host-player-name">{p.name}</span>
                         </div>
-                        <span className="host-player-score">{p.score}</span>
+                        <div className="host-player-actions">
+                          <span className="host-player-score">{p.score}</span>
+                          <button
+                            className="host-small-danger-button"
+                            onClick={() => handleRemovePlayer(p.playerId)}
+                            type="button"
+                          >
+                            Entfernen
+                          </button>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -823,12 +1328,23 @@ export function App() {
                 </div>
               </div>
             </div>
+            {["countdown", "question", "reveal", "scoreboard"].includes(screen) && (
+              <div className="host-fallback-actions">
+                <button className="host-secondary-button" onClick={handleFinishNow} type="button">
+                  Spiel beenden
+                </button>
+              </div>
+            )}
             <button
               className="host-primary-button"
               disabled={isPrimaryDisabled}
               onClick={
                 screen === "lobby"
                   ? handleStartGame
+                  : screen === "question"
+                    ? handleForceCloseQuestion
+                    : screen === "reveal"
+                      ? handleShowScoreboard
                   : screen === "scoreboard"
                     ? handleAdvanceQuestion
                     : handleRestartInfo
