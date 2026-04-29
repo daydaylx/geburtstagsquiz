@@ -33,7 +33,7 @@ export function evaluateRanking(
         playerId: sub.playerId,
         answer: sub.answer,
         isCorrect,
-        pointsEarned: exactPositions + bonusPoints,
+        pointsEarned: Math.min(exactPositions + bonusPoints, question.points),
         detail: {
           exactPositions,
           totalPositions: question.correctOrder.length,

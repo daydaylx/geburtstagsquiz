@@ -830,6 +830,36 @@ export function App() {
               </ol>
             )}
 
+            {finalResult.finalStats && (
+              <div className="display-final-stats">
+                {finalResult.finalStats.mostCorrect && (
+                  <div className="display-final-stat">
+                    <span className="display-final-stat-label">Meiste richtig</span>
+                    <span className="display-final-stat-value">
+                      {finalResult.finalStats.mostCorrect.name} ·{" "}
+                      {finalResult.finalStats.mostCorrect.count}×
+                    </span>
+                  </div>
+                )}
+                {finalResult.finalStats.fastestAnswer && (
+                  <div className="display-final-stat">
+                    <span className="display-final-stat-label">Schnellste Antwort</span>
+                    <span className="display-final-stat-value">
+                      {finalResult.finalStats.fastestAnswer.name}
+                    </span>
+                  </div>
+                )}
+                {finalResult.finalStats.closestGap && (
+                  <div className="display-final-stat">
+                    <span className="display-final-stat-label">Knappster Abstand</span>
+                    <span className="display-final-stat-value">
+                      {finalResult.finalStats.closestGap.points} Punkte
+                    </span>
+                  </div>
+                )}
+              </div>
+            )}
+
             {displayShowLevel === "high" && (
               <div className="display-confetti" aria-hidden="true">
                 {Array.from({ length: 30 }).map((_, i) => (

@@ -348,6 +348,8 @@ export function App() {
   );
   const [countdownSeconds, setCountdownSeconds] = useState(0);
   const [showAnswerTextOnPlayerDevices, setShowAnswerTextOnPlayerDevices] = useState(false);
+  const [confirmFinishNow, setConfirmFinishNow] = useState(false);
+  const [confirmRemovePlayerId, setConfirmRemovePlayerId] = useState<string | null>(null);
 
   const socketRef = useRef<WebSocket | null>(null);
   const reconnectTimerRef = useRef<number | null>(null);
@@ -408,9 +410,9 @@ export function App() {
 
   const connectHostOnCurrentSocket = useEffectEvent(() => {
     if (!hostToken) {
-      setNotice({ 
-        kind: "error", 
-        text: "Kein Host-Token vorhanden. Bitte QR-Code auf dem TV scannen." 
+      setNotice({
+        kind: "error",
+        text: "Kein Host-Token vorhanden. Bitte QR-Code auf dem TV scannen.",
       });
       return;
     }
@@ -478,7 +480,11 @@ export function App() {
         setCatalog(catalogPayload);
         setGamePlanDraft((current) => {
           if (current) return current;
-          return buildPresetGamePlan("normal_evening", catalogPayload, showAnswerTextOnPlayerDevices);
+          return buildPresetGamePlan(
+            "normal_evening",
+            catalogPayload,
+            showAnswerTextOnPlayerDevices,
+          );
         });
         return;
 
@@ -823,7 +829,9 @@ export function App() {
                         <button
                           data-active={gamePlanDraft.questionCount === count ? "true" : undefined}
                           key={count}
-                          onClick={() => handlePlanDraftChange({ ...gamePlanDraft, questionCount: count })}
+                          onClick={() =>
+                            handlePlanDraftChange({ ...gamePlanDraft, questionCount: count })
+                          }
                           type="button"
                         >
                           {count}
@@ -960,7 +968,11 @@ export function App() {
               <div className="host-plan-summary">
                 <span>{gamePlanDraft.questionCount} Fragen</span>
                 <span>{gamePlanDraft.timerMs / 1000}s Timer</span>
-                <span>{gamePlanDraft.revealMode === "manual_with_fallback" ? "Manuelles Reveal" : `${gamePlanDraft.revealDurationMs / 1000}s Reveal`}</span>
+                <span>
+                  {gamePlanDraft.revealMode === "manual_with_fallback"
+                    ? "Manuelles Reveal"
+                    : `${gamePlanDraft.revealDurationMs / 1000}s Reveal`}
+                </span>
                 <span>Show: {getShowLevelLabel(gamePlanDraft.displayShowLevel)}</span>
                 <span>Demo: {gamePlanDraft.enableDemoQuestion ? "an" : "aus"}</span>
               </div>
@@ -976,7 +988,9 @@ export function App() {
       return (
         <div className="host-panel-content host-countdown-panel">
           <p className="host-section-label">Nächste Frage</p>
-          <div className="host-countdown-number">{countdownSeconds > 0 ? countdownSeconds : "Frage!"}</div>
+          <div className="host-countdown-number">
+            {countdownSeconds > 0 ? countdownSeconds : "Frage!"}
+          </div>
           <p className="host-lobby-hint">Timer startet gleich auf dem TV.</p>
         </div>
       );
@@ -1071,14 +1085,14 @@ export function App() {
             </div>
           )}
           {question.type === QuestionType.Estimate && revealedAnswer?.type === "number" && (
-              <div className="host-estimate-display host-estimate-display--reveal">
-                <span>Richtig: </span>
-                <strong className="host-estimate-correct-value">
-                  {revealedAnswer.value} {question.unit}
-                </strong>
-                <span className="host-estimate-context">({question.context})</span>
-              </div>
-            )}
+            <div className="host-estimate-display host-estimate-display--reveal">
+              <span>Richtig: </span>
+              <strong className="host-estimate-correct-value">
+                {revealedAnswer.value} {question.unit}
+              </strong>
+              <span className="host-estimate-context">({question.context})</span>
+            </div>
+          )}
           {question.type === QuestionType.OpenText && revealedAnswer?.type === "text" && (
             <div className="host-estimate-display host-estimate-display--reveal">
               <span>Richtig: </span>
@@ -1169,19 +1183,30 @@ export function App() {
         ? "Frage schließen"
         : screen === "reveal"
           ? "Zum Zwischenstand"
-      : screen === "scoreboard"
-        ? "Nächste Frage"
-        : screen === "finished"
-          ? "Neues Spiel"
-          : "Warten...";
+          : screen === "scoreboard"
+            ? "Nächste Frage"
+            : screen === "finished"
+              ? "Neues Spiel"
+              : "Warten...";
   const isPrimaryDisabled =
     screen === "lobby"
-      ? connectedPlayerCount === 0 || !gamePlanDraft || !catalog
+      ? connectionState !== "connected" || connectedPlayerCount === 0 || !gamePlanDraft || !catalog
       : screen === "question" || screen === "reveal"
         ? false
-      : screen === "scoreboard"
-        ? false
-        : screen !== "finished";
+        : screen === "scoreboard"
+          ? false
+          : screen !== "finished";
+
+  const startBlockReason =
+    screen === "lobby" && isPrimaryDisabled
+      ? connectionState !== "connected"
+        ? "Nicht verbunden mit Server"
+        : !catalog
+          ? "Warte auf Fragenkatalog..."
+          : !gamePlanDraft
+            ? "Spielplan wird geladen..."
+            : "Mindestens 1 Spieler benötigt"
+      : null;
 
   return (
     <main className="host-shell" data-screen={screen}>
@@ -1206,8 +1231,8 @@ export function App() {
               {isConnectingHost ? "Verbindung wird hergestellt..." : "Warte auf Host-Verbindung"}
             </h2>
             <p className="host-start-hint">
-              {hostToken 
-                ? "Der Server koppelt dein Gerät gerade als Spielleiter." 
+              {hostToken
+                ? "Der Server koppelt dein Gerät gerade als Spielleiter."
                 : "Bitte scanne den Host-QR-Code auf dem TV-Display, um das Quiz zu steuern."}
             </p>
           </div>
@@ -1224,7 +1249,9 @@ export function App() {
                     <img alt="Join QR" src={qrCodeDataUrl} />
                   </div>
                 )}
-                {playerJoinUrl && <p className="host-join-url host-join-url--sidebar">{playerJoinUrl}</p>}
+                {playerJoinUrl && (
+                  <p className="host-join-url host-join-url--sidebar">{playerJoinUrl}</p>
+                )}
               </div>
               <div className="host-panel host-side-panel">
                 <div className="host-panel-content">
@@ -1269,13 +1296,35 @@ export function App() {
                         </div>
                         <div className="host-player-actions">
                           <span className="host-player-score">{p.score}</span>
-                          <button
-                            className="host-small-danger-button"
-                            onClick={() => handleRemovePlayer(p.playerId)}
-                            type="button"
-                          >
-                            Entfernen
-                          </button>
+                          {confirmRemovePlayerId === p.playerId ? (
+                            <>
+                              <button
+                                className="host-small-danger-button"
+                                onClick={() => {
+                                  handleRemovePlayer(p.playerId);
+                                  setConfirmRemovePlayerId(null);
+                                }}
+                                type="button"
+                              >
+                                Sicher?
+                              </button>
+                              <button
+                                className="host-small-cancel-button"
+                                onClick={() => setConfirmRemovePlayerId(null)}
+                                type="button"
+                              >
+                                ✕
+                              </button>
+                            </>
+                          ) : (
+                            <button
+                              className="host-small-danger-button"
+                              onClick={() => setConfirmRemovePlayerId(p.playerId)}
+                              type="button"
+                            >
+                              Entfernen
+                            </button>
+                          )}
                         </div>
                       </div>
                     ))}
@@ -1330,9 +1379,35 @@ export function App() {
             </div>
             {["countdown", "question", "reveal", "scoreboard"].includes(screen) && (
               <div className="host-fallback-actions">
-                <button className="host-secondary-button" onClick={handleFinishNow} type="button">
-                  Spiel beenden
-                </button>
+                {confirmFinishNow ? (
+                  <>
+                    <button
+                      className="host-secondary-button host-secondary-button--danger"
+                      onClick={() => {
+                        handleFinishNow();
+                        setConfirmFinishNow(false);
+                      }}
+                      type="button"
+                    >
+                      Wirklich beenden?
+                    </button>
+                    <button
+                      className="host-small-cancel-button"
+                      onClick={() => setConfirmFinishNow(false)}
+                      type="button"
+                    >
+                      ✕
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    className="host-secondary-button"
+                    onClick={() => setConfirmFinishNow(true)}
+                    type="button"
+                  >
+                    Spiel beenden
+                  </button>
+                )}
               </div>
             )}
             <button
@@ -1345,14 +1420,15 @@ export function App() {
                     ? handleForceCloseQuestion
                     : screen === "reveal"
                       ? handleShowScoreboard
-                  : screen === "scoreboard"
-                    ? handleAdvanceQuestion
-                    : handleRestartInfo
+                      : screen === "scoreboard"
+                        ? handleAdvanceQuestion
+                        : handleRestartInfo
               }
               type="button"
             >
               {primaryActionLabel}
             </button>
+            {startBlockReason && <p className="host-start-block-reason">{startBlockReason}</p>}
           </footer>
         </>
       ) : null}

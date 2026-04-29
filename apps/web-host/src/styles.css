@@ -1383,6 +1383,181 @@ body {
   }
 }
 
+/* ── Tablet (1024px) ───────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .host-dashboard {
+    grid-template-columns: 240px minmax(0, 1fr) 260px;
+    gap: 14px;
+  }
+
+  .host-shell[data-screen="question"] .host-dashboard,
+  .host-shell[data-screen="reveal"] .host-dashboard,
+  .host-shell[data-screen="scoreboard"] .host-dashboard,
+  .host-shell[data-screen="finished"] .host-dashboard {
+    grid-template-columns: 200px minmax(0, 1fr) 220px;
+  }
+
+  .host-panel-content,
+  .host-card {
+    padding: 16px;
+  }
+
+  .host-controls {
+    padding: 14px 20px;
+  }
+
+  .host-primary-button {
+    padding: 14px 32px;
+    font-size: 1.1rem;
+  }
+}
+
+/* ── Mobile (768px) ────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .host-shell {
+    padding: 10px;
+    gap: 10px;
+    height: auto;
+    min-height: 100dvh;
+  }
+
+  .host-title {
+    font-size: 1.2rem;
+  }
+
+  /* single-column stacked layout, stage panel first */
+  .host-dashboard {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    overflow-y: visible;
+  }
+
+  .host-shell[data-screen="question"] .host-dashboard,
+  .host-shell[data-screen="reveal"] .host-dashboard,
+  .host-shell[data-screen="scoreboard"] .host-dashboard,
+  .host-shell[data-screen="finished"] .host-dashboard {
+    grid-template-columns: 1fr;
+  }
+
+  /* reorder: stage → right sidebar (players) → left sidebar (flow) */
+  .host-dashboard > section.host-stage-panel {
+    order: 1;
+  }
+  .host-dashboard > aside:last-of-type {
+    order: 2;
+  }
+  .host-dashboard > aside:first-of-type {
+    order: 3;
+  }
+
+  /* hide low-priority items on mobile */
+  .host-flow-list,
+  .host-qr-mini,
+  .host-join-url--sidebar {
+    display: none;
+  }
+
+  .host-panel-content,
+  .host-card {
+    padding: 14px;
+  }
+
+  .host-sidebar-col {
+    gap: 10px;
+  }
+
+  /* compact player list */
+  .host-player-item {
+    padding: 8px 10px;
+  }
+
+  /* footer: vertical stack */
+  .host-controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 14px;
+    border-radius: 16px;
+  }
+
+  .host-control-info {
+    gap: 20px;
+    justify-content: space-between;
+  }
+
+  .host-control-value {
+    font-size: 1rem;
+  }
+
+  .host-fallback-actions {
+    margin: 0;
+    display: flex;
+    gap: 8px;
+  }
+
+  .host-primary-button {
+    width: 100%;
+    padding: 18px;
+    font-size: 1.15rem;
+    border-radius: 12px;
+  }
+
+  .host-secondary-button {
+    flex: 1;
+  }
+
+  .host-start-block-reason {
+    text-align: center;
+    padding: 6px 0 0;
+  }
+
+  /* lobby plan builder */
+  .host-preset-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .host-preset-button {
+    min-height: 70px;
+    padding: 10px 12px;
+  }
+
+  /* question screen */
+  .host-question-text {
+    font-size: clamp(1.2rem, 4vw, 2rem);
+  }
+
+  .host-option-card {
+    min-height: 52px;
+    padding: 10px 12px;
+  }
+
+  .host-option-id {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+
+  .host-option-label {
+    font-size: 1rem;
+  }
+
+  .host-timer {
+    font-size: 1.8rem;
+    min-width: 72px;
+  }
+
+  /* scoreboard */
+  .host-scoreboard-item {
+    padding: 10px 12px;
+  }
+
+  /* stage title */
+  .host-stage-title {
+    font-size: clamp(1.4rem, 5vw, 2rem);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -1586,4 +1761,27 @@ body {
   color: var(--host-ink);
   border: 1px solid rgba(255, 255, 255, 0.14);
   font-weight: 900;
+}
+
+.host-secondary-button--danger {
+  background: rgba(255, 51, 51, 0.14);
+  color: #ff9b9b;
+  border-color: rgba(255, 51, 51, 0.3);
+}
+
+.host-small-cancel-button {
+  padding: 6px 8px;
+  background: transparent;
+  color: var(--host-ink-soft);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+.host-start-block-reason {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--host-ink-soft);
+  text-align: center;
+  padding: 4px 0 0;
 }
