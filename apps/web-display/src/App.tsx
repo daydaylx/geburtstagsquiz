@@ -603,7 +603,7 @@ export function App() {
 
             {"options" in question && (
               <div
-                className={`display-options${question.options.some((o) => o.label.length > 45) ? " display-options--long" : ""}`}
+                className={`display-options${question.options.some((o) => o.label.length > 40) ? " display-options--long" : ""}`}
               >
                 {question.options.map((opt) => (
                   <div key={opt.id} className="display-option">
@@ -616,7 +616,7 @@ export function App() {
 
             {"items" in question && (
               <div
-                className={`display-options${question.items.some((item) => item.label.length > 45) ? " display-options--long" : ""}`}
+                className={`display-options${question.items.some((item) => item.label.length > 40) ? " display-options--long" : ""}`}
               >
                 {question.items.map((item, idx) => (
                   <div key={item.id} className="display-option">
@@ -671,58 +671,33 @@ export function App() {
           <div className="display-reveal" data-fading={isFadingOut || undefined}>
             <h3 className="display-reveal-question">{question.text}</h3>
 
-            {/* MultipleChoice / Logic / MajorityGuess */}
+            {/* MultipleChoice / Logic / MajorityGuess — fokussierte Richtig-Antwort */}
             {"options" in question && (
-              <div
-                className={`display-reveal-options${question.options.some((o) => o.label.length > 45) ? " display-reveal-options--long" : ""}`}
-              >
-                {question.options.map((opt) => {
-                  const ans = revealedAnswer;
-                  const isCorrect =
-                    ans !== null &&
-                    ((ans.type === "option" && ans.value === opt.id) ||
-                      (ans.type === "options" && ans.value.includes(opt.id)));
-                  return (
-                    <div
-                      key={opt.id}
-                      className="display-reveal-option"
-                      data-correct={ans !== null ? (isCorrect ? "true" : "false") : undefined}
-                    >
-                      <span className="display-reveal-option-label">{opt.id}</span>
-                      <span className="display-reveal-option-text">{opt.label}</span>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-
-            {/* Antwort-Heatmap: nur bei High-Show-Level */}
-            {displayShowLevel === "high" && "options" in question && roundResults.length > 0 && (
-              <div className="display-heatmap">
-                {question.options.map((opt) => {
-                  const ans = revealedAnswer;
-                  const count = optionCounts.get(opt.id) ?? 0;
-                  const pct =
-                    roundResults.length > 0 ? Math.round((count / roundResults.length) * 100) : 0;
-                  const isCorrect =
-                    ans !== null &&
-                    ((ans.type === "option" && ans.value === opt.id) ||
-                      (ans.type === "options" && ans.value.includes(opt.id)));
-                  return (
-                    <div key={opt.id} className="display-heatmap-row">
-                      <span className="display-heatmap-label">{opt.label}</span>
-                      <div className="display-heatmap-track">
-                        <div
-                          className="display-heatmap-fill"
-                          data-correct={isCorrect ? "true" : undefined}
-                          style={{ width: `${pct}%` }}
-                        />
+              <>
+                <div className="display-reveal-header">Richtige Antwort</div>
+                {revealedAnswer?.type === "option" &&
+                  (() => {
+                    const correctOpt = question.options.find(
+                      (o) => o.id === (revealedAnswer as { type: "option"; value: string }).value,
+                    );
+                    return correctOpt ? (
+                      <div className="display-reveal-correct-card">
+                        <span className="display-reveal-correct-label">{correctOpt.id}</span>
+                        <span className="display-reveal-correct-text">{correctOpt.label}</span>
                       </div>
-                      <span className="display-heatmap-count">{count}</span>
-                    </div>
-                  );
-                })}
-              </div>
+                    ) : null;
+                  })()}
+                {revealedAnswer?.type === "options" &&
+                  (revealedAnswer as { type: "options"; value: string[] }).value.map((id) => {
+                    const opt = question.options.find((o) => o.id === id);
+                    return opt ? (
+                      <div key={id} className="display-reveal-correct-card">
+                        <span className="display-reveal-correct-label">{opt.id}</span>
+                        <span className="display-reveal-correct-text">{opt.label}</span>
+                      </div>
+                    ) : null;
+                  })}
+              </>
             )}
 
             {/* Ranking — correct order */}

@@ -570,7 +570,7 @@ export function App() {
         setRevealExplanation(parsedEnvelope.data.payload.explanation ?? null);
         setRoundResults(parsedEnvelope.data.payload.playerResults);
         setScreen("reveal");
-        setRevealCooldownSeconds(8);
+        setRevealCooldownSeconds(20);
         return;
 
       case EVENTS.SCORE_UPDATE:
