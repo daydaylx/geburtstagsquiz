@@ -919,6 +919,112 @@ body {
   text-align: right;
 }
 
+/* ── Fortschrittsstrecke ───────────────────────────────────────────── */
+
+.display-scoreboard-entry .display-name {
+  flex: 0 0 auto;
+  width: 180px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.display-progress-track {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.display-progress-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--display-ink-soft);
+  opacity: 0.4;
+  flex-shrink: 0;
+}
+
+.display-progress-bar {
+  flex: 1;
+  position: relative;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+}
+
+.display-progress-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: var(--progress);
+  border-radius: 2px;
+  background: var(--display-accent);
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.display-progress-marker {
+  position: absolute;
+  top: 50%;
+  left: var(--progress);
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--display-accent);
+  border: 2px solid var(--display-bg-card);
+  transition: left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.display-scoreboard-entry[data-rank="1"] .display-progress-fill,
+.display-scoreboard-entry[data-rank="1"] .display-progress-marker {
+  background: var(--display-gold);
+}
+
+.display-scoreboard-entry[data-rank="2"] .display-progress-fill,
+.display-scoreboard-entry[data-rank="2"] .display-progress-marker {
+  background: rgb(192, 192, 192);
+}
+
+.display-scoreboard-entry[data-rank="3"] .display-progress-fill,
+.display-scoreboard-entry[data-rank="3"] .display-progress-marker {
+  background: rgb(205, 127, 50);
+}
+
+@keyframes marker-highlight {
+  from {
+    transform: translate(-50%, -50%) scale(1.8);
+    opacity: 0.6;
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
+
+.display-scoreboard-entry[data-changed="true"] .display-progress-marker {
+  animation: marker-highlight 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.35s both;
+  box-shadow: 0 0 10px 2px var(--display-accent);
+}
+
+.display-scoreboard-entry[data-rank="1"][data-changed="true"] .display-progress-marker {
+  box-shadow: 0 0 10px 2px var(--display-gold);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .display-progress-fill,
+  .display-progress-marker {
+    transition: none;
+  }
+
+  .display-scoreboard-entry[data-changed="true"] .display-progress-marker {
+    animation: none;
+  }
+}
+
 /* ── Finished / Podium ─────────────────────────────────────────────── */
 
 .display-finished {

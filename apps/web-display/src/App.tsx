@@ -760,28 +760,52 @@ export function App() {
           <div className="display-scoreboard" data-fading={isFadingOut || undefined}>
             <h2>Zwischenstand</h2>
             <ol className="display-scoreboard-list">
-              {scoreboard.scoreboard.slice(0, 8).map((entry, i) => {
-                const change = scoreChanges.find((c) => c.playerId === entry.playerId);
-                const rankDelta = change ? change.previousRank - change.rank : 0;
-                return (
-                  <li key={entry.playerId} className="display-scoreboard-entry" data-rank={i + 1}>
-                    <span className="display-rank">{i + 1}.</span>
-                    {rankDelta !== 0 && (
-                      <span
-                        className="display-rank-change"
-                        data-direction={rankDelta > 0 ? "up" : "down"}
+              {(() => {
+                const highestScore = scoreboard.scoreboard[0]?.score ?? 0;
+                const maxScore = Math.max(highestScore, question?.totalQuestionCount ?? 10, 10);
+                return scoreboard.scoreboard.slice(0, 8).map((entry, i) => {
+                  const change = scoreChanges.find((c) => c.playerId === entry.playerId);
+                  const rankDelta = change ? change.previousRank - change.rank : 0;
+                  const progressPercent = Math.min(
+                    100,
+                    Math.max(0, (entry.score / maxScore) * 100),
+                  );
+                  return (
+                    <li
+                      key={entry.playerId}
+                      className="display-scoreboard-entry"
+                      data-rank={i + 1}
+                      data-changed={change && change.delta > 0 ? "true" : undefined}
+                    >
+                      <span className="display-rank">{i + 1}.</span>
+                      {rankDelta !== 0 && (
+                        <span
+                          className="display-rank-change"
+                          data-direction={rankDelta > 0 ? "up" : "down"}
+                        >
+                          {rankDelta > 0 ? `▲${rankDelta}` : `▼${Math.abs(rankDelta)}`}
+                        </span>
+                      )}
+                      <span className="display-name">{entry.name}</span>
+                      <div
+                        className="display-progress-track"
+                        style={{ "--progress": `${progressPercent}%` } as React.CSSProperties}
                       >
-                        {rankDelta > 0 ? `▲${rankDelta}` : `▼${Math.abs(rankDelta)}`}
-                      </span>
-                    )}
-                    <span className="display-name">{entry.name}</span>
-                    {change && change.delta > 0 && (
-                      <span className="display-score-delta">+{change.delta}</span>
-                    )}
-                    <span className="display-score">{entry.score}</span>
-                  </li>
-                );
-              })}
+                        <span className="display-progress-label">Start</span>
+                        <div className="display-progress-bar">
+                          <div className="display-progress-fill" />
+                          <div className="display-progress-marker" />
+                        </div>
+                        <span className="display-progress-label">Ziel</span>
+                      </div>
+                      {change && change.delta > 0 && (
+                        <span className="display-score-delta">+{change.delta}</span>
+                      )}
+                      <span className="display-score">{entry.score}</span>
+                    </li>
+                  );
+                });
+              })()}
             </ol>
             {nextQuestionReadyProgress &&
               (() => {
