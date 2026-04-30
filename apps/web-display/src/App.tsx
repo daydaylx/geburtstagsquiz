@@ -583,20 +583,26 @@ export function App() {
             <h2 className="display-question-text">{question.text}</h2>
 
             {"options" in question && (
-              <div className="display-options">
+              <div
+                className={`display-options${question.options.some((o) => o.label.length > 45) ? " display-options--long" : ""}`}
+              >
                 {question.options.map((opt) => (
                   <div key={opt.id} className="display-option">
-                    <span className="display-option-label">{opt.label}</span>
+                    <span className="display-option-label">{opt.id}</span>
+                    <span className="display-option-text">{opt.label}</span>
                   </div>
                 ))}
               </div>
             )}
 
             {"items" in question && (
-              <div className="display-options">
-                {question.items.map((item) => (
+              <div
+                className={`display-options${question.items.some((item) => item.label.length > 45) ? " display-options--long" : ""}`}
+              >
+                {question.items.map((item, idx) => (
                   <div key={item.id} className="display-option">
-                    <span className="display-option-label">{item.label}</span>
+                    <span className="display-option-label">{idx + 1}.</span>
+                    <span className="display-option-text">{item.label}</span>
                   </div>
                 ))}
               </div>
@@ -648,7 +654,9 @@ export function App() {
 
             {/* MultipleChoice / Logic / MajorityGuess */}
             {"options" in question && (
-              <div className="display-reveal-options">
+              <div
+                className={`display-reveal-options${question.options.some((o) => o.label.length > 45) ? " display-reveal-options--long" : ""}`}
+              >
                 {question.options.map((opt) => {
                   const ans = revealedAnswer;
                   const isCorrect =
@@ -661,15 +669,16 @@ export function App() {
                       className="display-reveal-option"
                       data-correct={ans !== null ? (isCorrect ? "true" : "false") : undefined}
                     >
-                      <span className="display-reveal-option-label">{opt.label}</span>
+                      <span className="display-reveal-option-label">{opt.id}</span>
+                      <span className="display-reveal-option-text">{opt.label}</span>
                     </div>
                   );
                 })}
               </div>
             )}
 
-            {/* Antwort-Heatmap für Options-Fragen */}
-            {"options" in question && roundResults.length > 0 && (
+            {/* Antwort-Heatmap: nur bei High-Show-Level */}
+            {displayShowLevel === "high" && "options" in question && roundResults.length > 0 && (
               <div className="display-heatmap">
                 {question.options.map((opt) => {
                   const ans = revealedAnswer;
@@ -734,7 +743,12 @@ export function App() {
               </div>
             )}
 
-            {revealExplanation && <p className="display-explanation">{revealExplanation}</p>}
+            {revealExplanation && (
+              <div className="display-explanation">
+                <div className="display-explanation-label">Erklärung</div>
+                <p>{revealExplanation}</p>
+              </div>
+            )}
 
             <div className="display-reveal-stats">
               <span className="display-reveal-stat display-reveal-stat--correct">
