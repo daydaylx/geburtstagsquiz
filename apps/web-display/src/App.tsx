@@ -169,6 +169,7 @@ export function App() {
   const [finalResult, setFinalResult] = useState<GameFinishedPayload | null>(null);
   const [preCountdown, setPreCountdown] = useState<number | null>(null);
   const [displayShowLevel, setDisplayShowLevel] = useState<DisplayShowLevel>("high");
+  const [isFadingOut, setIsFadingOut] = useState(false);
 
   const socketRef = useRef<WebSocket | null>(null);
   const reconnectTimerRef = useRef<number | null>(null);
@@ -377,9 +378,8 @@ export function App() {
           clearInterval(preCountdownTimerRef.current);
           preCountdownTimerRef.current = null;
         }
+        const questionPayload = parsedEnvelope.data.payload;
         setPreCountdown(null);
-        setQuestion(parsedEnvelope.data.payload);
-        setRemainingMs(parsedEnvelope.data.payload.durationMs);
         setAnswerProgress(null);
         setRevealedAnswer(null);
         setRevealExplanation(null);
@@ -387,7 +387,13 @@ export function App() {
         setScoreboard(null);
         setScoreChanges([]);
         setNextQuestionReadyProgress(null);
-        setScreen("question");
+        setIsFadingOut(true);
+        setTimeout(() => {
+          setQuestion(questionPayload);
+          setRemainingMs(questionPayload.durationMs);
+          setScreen("question");
+          setIsFadingOut(false);
+        }, 200);
         return;
       }
 
@@ -411,7 +417,11 @@ export function App() {
         setRevealedAnswer(payload.correctAnswer);
         setRevealExplanation(payload.explanation ?? null);
         setRoundResults(payload.playerResults);
-        setScreen("reveal");
+        setIsFadingOut(true);
+        setTimeout(() => {
+          setScreen("reveal");
+          setIsFadingOut(false);
+        }, 200);
         return;
       }
 
@@ -419,7 +429,11 @@ export function App() {
         const payload = parsedEnvelope.data.payload;
         setScoreboard(payload);
         setScoreChanges(payload.scoreChanges);
-        setScreen("scoreboard");
+        setIsFadingOut(true);
+        setTimeout(() => {
+          setScreen("scoreboard");
+          setIsFadingOut(false);
+        }, 200);
         return;
       }
 
@@ -429,8 +443,13 @@ export function App() {
       }
 
       case EVENTS.GAME_FINISHED: {
-        setFinalResult(parsedEnvelope.data.payload);
-        setScreen("finished");
+        const finishedPayload = parsedEnvelope.data.payload;
+        setFinalResult(finishedPayload);
+        setIsFadingOut(true);
+        setTimeout(() => {
+          setScreen("finished");
+          setIsFadingOut(false);
+        }, 200);
         return;
       }
 
@@ -572,7 +591,7 @@ export function App() {
         )}
 
         {screen === "question" && question && (
-          <div className="display-question">
+          <div className="display-question" data-fading={isFadingOut || undefined}>
             <div className="display-question-meta">
               Frage {question.questionIndex + 1} / {question.totalQuestionCount}
               <span className="display-question-type">
@@ -649,7 +668,7 @@ export function App() {
         )}
 
         {screen === "reveal" && question && (
-          <div className="display-reveal">
+          <div className="display-reveal" data-fading={isFadingOut || undefined}>
             <h3 className="display-reveal-question">{question.text}</h3>
 
             {/* MultipleChoice / Logic / MajorityGuess */}
@@ -763,7 +782,7 @@ export function App() {
         )}
 
         {screen === "scoreboard" && scoreboard && (
-          <div className="display-scoreboard">
+          <div className="display-scoreboard" data-fading={isFadingOut || undefined}>
             <h2>Zwischenstand</h2>
             <ol className="display-scoreboard-list">
               {scoreboard.scoreboard.slice(0, 8).map((entry, i) => {
@@ -815,7 +834,7 @@ export function App() {
         )}
 
         {screen === "finished" && finalResult && (
-          <div className="display-finished">
+          <div className="display-finished" data-fading={isFadingOut || undefined}>
             <h1>Quiz beendet!</h1>
 
             <div className="display-podium">

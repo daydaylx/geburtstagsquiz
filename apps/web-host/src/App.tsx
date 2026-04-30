@@ -347,6 +347,7 @@ export function App() {
     "normal_evening",
   );
   const [countdownSeconds, setCountdownSeconds] = useState(0);
+  const [revealCooldownSeconds, setRevealCooldownSeconds] = useState(0);
   const [showAnswerTextOnPlayerDevices, setShowAnswerTextOnPlayerDevices] = useState(false);
   const [confirmFinishNow, setConfirmFinishNow] = useState(false);
   const [confirmRemovePlayerId, setConfirmRemovePlayerId] = useState<string | null>(null);
@@ -569,6 +570,7 @@ export function App() {
         setRevealExplanation(parsedEnvelope.data.payload.explanation ?? null);
         setRoundResults(parsedEnvelope.data.payload.playerResults);
         setScreen("reveal");
+        setRevealCooldownSeconds(8);
         return;
 
       case EVENTS.SCORE_UPDATE:
@@ -650,6 +652,14 @@ export function App() {
 
     return () => window.clearInterval(timer);
   }, [screen, countdownSeconds]);
+
+  useEffect(() => {
+    if (screen !== "reveal" || revealCooldownSeconds <= 0) return;
+    const timer = window.setTimeout(() => {
+      setRevealCooldownSeconds((s) => Math.max(0, s - 1));
+    }, 1000);
+    return () => window.clearTimeout(timer);
+  }, [screen, revealCooldownSeconds]);
 
   const handleRestartInfo = useEffectEvent(() => {
     setNotice({
@@ -1205,7 +1215,9 @@ export function App() {
       : screen === "question"
         ? "Frage schließen"
         : screen === "reveal"
-          ? "Zum Zwischenstand"
+          ? revealCooldownSeconds > 0
+            ? `Weiter (${revealCooldownSeconds}s)`
+            : "Zum Zwischenstand"
           : screen === "scoreboard"
             ? "Nächste Frage"
             : screen === "finished"
@@ -1214,11 +1226,13 @@ export function App() {
   const isPrimaryDisabled =
     screen === "lobby"
       ? connectionState !== "connected" || connectedPlayerCount === 0 || !gamePlanDraft || !catalog
-      : screen === "question" || screen === "reveal"
+      : screen === "question"
         ? false
-        : screen === "scoreboard"
-          ? false
-          : screen !== "finished";
+        : screen === "reveal"
+          ? revealCooldownSeconds > 0
+          : screen === "scoreboard"
+            ? false
+            : screen !== "finished";
 
   const startBlockReason =
     screen === "lobby" && isPrimaryDisabled
