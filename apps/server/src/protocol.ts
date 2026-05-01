@@ -55,8 +55,5 @@ export function toLobbyUpdatePayload(room: RoomRecord): LobbyUpdatePayload {
   };
 }
 
-export function unsupportedLobbyPhaseMessage(event: string): string {
-  return `${event} is not available in the lobby phase`;
-}
 
 export { PROTOCOL_ERROR_CODES };

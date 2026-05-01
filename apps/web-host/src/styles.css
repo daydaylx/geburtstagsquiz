@@ -557,23 +557,6 @@ button {
   gap: 40px;
   text-align: center;
 }
-
-/* Animations */
-@keyframes pulse-glow {
-  0% {
-    box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
-  }
-  50% {
-    box-shadow: 0 0 30px rgba(0, 240, 255, 0.4);
-  }
-  100% {
-    box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
-  }
-}
-.pulse {
-  animation: pulse-glow 3s infinite ease-in-out;
-}
-
 /* Estimate / MajorityGuess host display */
 .host-estimate-display {
   padding: 24px 32px;
@@ -656,30 +639,6 @@ button {
   color: #000;
 }
 
-.host-chip {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 6px;
-  font-weight: 800;
-  color: var(--host-ink-soft);
-}
-
-/* Large QR code for lobby center panel */
-.host-qr-large {
-  background: white;
-  padding: 20px;
-  border-radius: 20px;
-  box-shadow: 0 0 40px rgba(255, 255, 255, 0.15);
-  width: 100%;
-  max-width: 320px;
-}
-.host-qr-large img {
-  width: 100%;
-  height: auto;
-  display: block;
-  filter: contrast(1.1);
-}
-
 /* TV-show refinement layer */
 :root {
   --host-show-blue: #123d7a;
@@ -737,8 +696,7 @@ body {
 
 .host-status,
 .host-control-label,
-.host-toggle-copy small,
-.host-chip {
+.host-toggle-copy small {
   letter-spacing: 0;
 }
 
@@ -886,14 +844,7 @@ body {
     0 0 22px rgba(246, 199, 106, 0.28),
     0 2px 14px rgba(0, 0, 0, 0.7);
 }
-
-.host-join-code--hero {
-  font-size: 5rem;
-  margin: 0;
-}
-
-.host-qr-mini,
-.host-qr-large {
+.host-qr-mini {
   border-radius: var(--host-radius);
 }
 
@@ -1608,7 +1559,6 @@ body {
     transition-duration: 1ms !important;
   }
 
-  .pulse,
   .host-timer-shell[data-urgent="true"],
   .host-scoreboard-item,
   .host-option-card[data-state="correct"],
@@ -1791,6 +1741,10 @@ body {
 }
 
 .host-fallback-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
   margin-left: auto;
   margin-right: 12px;
 }

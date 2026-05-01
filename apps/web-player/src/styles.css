@@ -177,14 +177,6 @@ body {
   letter-spacing: 0;
 }
 
-.player-question-text {
-  font-size: 1.5rem;
-  font-weight: 800;
-  margin: 0;
-  line-height: 1.2;
-  color: #fff;
-}
-
 .player-controller-card {
   text-align: center;
 }
@@ -286,62 +278,6 @@ body {
   font-size: 0.8rem;
   line-height: 1.15;
   color: var(--player-ink-soft);
-}
-
-.player-options-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.player-option-button {
-  width: 100%;
-  min-height: 64px;
-  padding: 16px 20px;
-  border-radius: 18px;
-  border: 1px solid var(--player-line);
-  background: rgba(255, 255, 255, 0.04);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-weight: 700;
-  font-size: 1.1rem;
-  text-align: left;
-  transition: all 0.15s ease;
-  color: #fff;
-}
-
-.player-option-button:active:not(:disabled) {
-  transform: scale(0.98);
-  background: rgba(255, 255, 255, 0.08);
-}
-.player-option-button[data-state="selected"] {
-  border-color: var(--player-neon-cyan);
-  background: rgba(0, 240, 255, 0.1);
-  box-shadow: 0 0 15px rgba(0, 240, 255, 0.1);
-}
-
-.player-option-card {
-  padding: 16px 20px;
-  border-radius: 18px;
-  border: 1px solid var(--player-line);
-  background: rgba(255, 255, 255, 0.04);
-  font-weight: 700;
-  display: flex;
-  justify-content: space-between;
-  color: #fff;
-}
-.player-option-card[data-state="correct"] {
-  border-color: var(--player-neon-green);
-  background: rgba(0, 255, 102, 0.1);
-  box-shadow: 0 0 15px rgba(0, 255, 102, 0.1);
-}
-.player-option-card[data-state="wrong"] {
-  border-color: var(--player-neon-red);
-  background: rgba(255, 51, 51, 0.1);
-}
-.player-option-card[data-state="dimmed"] {
-  opacity: 0.3;
 }
 
 .player-feedback {
@@ -516,14 +452,6 @@ body {
 }
 
 /* Estimate / MajorityGuess */
-.player-question-unit {
-  font-size: 0.8rem;
-  color: var(--player-neon-cyan);
-  margin: 6px 0 0;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
 .player-estimate-area {
   display: flex;
   flex-direction: column;
@@ -549,30 +477,6 @@ body {
 .player-estimate-input:focus {
   border-color: var(--player-neon-cyan);
   box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
-}
-
-.player-estimate-result {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.player-estimate-result-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 20px;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--player-line);
-  font-size: 1rem;
-  color: #fff;
-}
-
-.player-estimate-result-correct {
-  border-color: var(--player-neon-green);
-  background: rgba(0, 255, 102, 0.08);
-  color: var(--player-neon-green);
 }
 
 .player-result-lines {
@@ -618,14 +522,6 @@ body {
   flex-direction: column;
   gap: 16px;
   min-width: 0;
-}
-
-.player-ranking-hint {
-  font-size: 0.85rem;
-  color: var(--player-ink-soft);
-  margin: 0;
-  text-align: center;
-  font-weight: 600;
 }
 
 .player-ranking-pool {
