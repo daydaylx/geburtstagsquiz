@@ -141,6 +141,10 @@ function getQuestionTypeLabel(type: QuestionType): string {
   }
 }
 
+function getAnswerDisplayLabel(index: number): string {
+  return index < 26 ? String.fromCharCode(65 + index) : `${index + 1}`;
+}
+
 export function App() {
   const initialSession = loadDisplayStoredSession();
 
@@ -156,6 +160,7 @@ export function App() {
 
   const [question, setQuestion] = useState<QuestionShowPayload | null>(null);
   const [remainingMs, setRemainingMs] = useState(0);
+  const [totalMs, setTotalMs] = useState(0);
   const [answerProgress, setAnswerProgress] = useState<AnswerProgressPayload | null>(null);
   const [revealedAnswer, setRevealedAnswer] = useState<
     QuestionRevealPayload["correctAnswer"] | null
@@ -391,6 +396,7 @@ export function App() {
         setTimeout(() => {
           setQuestion(questionPayload);
           setRemainingMs(questionPayload.durationMs);
+          setTotalMs(questionPayload.durationMs);
           setScreen("question");
           setIsFadingOut(false);
         }, 200);
@@ -417,6 +423,7 @@ export function App() {
         setRevealedAnswer(payload.correctAnswer);
         setRevealExplanation(payload.explanation ?? null);
         setRoundResults(payload.playerResults);
+        setNextQuestionReadyProgress(null);
         setIsFadingOut(true);
         setTimeout(() => {
           setScreen("reveal");
@@ -429,6 +436,7 @@ export function App() {
         const payload = parsedEnvelope.data.payload;
         setScoreboard(payload);
         setScoreChanges(payload.scoreChanges);
+        setNextQuestionReadyProgress(null);
         setIsFadingOut(true);
         setTimeout(() => {
           setScreen("scoreboard");
@@ -511,9 +519,29 @@ export function App() {
   const isTimerUrgent = remainingMs > 0 && timerSeconds <= 5;
   const isTimerWarning = remainingMs > 0 && timerSeconds <= 10 && timerSeconds > 5;
 
+  const RING_R = 42;
+  const RING_C = 2 * Math.PI * RING_R;
+  const ringOffset = totalMs > 0 ? RING_C * (1 - remainingMs / totalMs) : 0;
+
   const correctCount = roundResults.filter((r) => r.isCorrect).length;
   const wrongCount = roundResults.filter((r) => !r.isCorrect && r.answer !== null).length;
   const noneCount = roundResults.filter((r) => r.answer === null).length;
+  const visibleReadyProgress =
+    question &&
+    nextQuestionReadyProgress &&
+    nextQuestionReadyProgress.questionId === question.questionId
+      ? nextQuestionReadyProgress
+      : null;
+  const readyProgressAllReady =
+    !!visibleReadyProgress &&
+    visibleReadyProgress.totalEligiblePlayers > 0 &&
+    visibleReadyProgress.readyCount >= visibleReadyProgress.totalEligiblePlayers;
+  const readyProgressPercent =
+    visibleReadyProgress && visibleReadyProgress.totalEligiblePlayers > 0
+      ? Math.round(
+          (visibleReadyProgress.readyCount / visibleReadyProgress.totalEligiblePlayers) * 100,
+        )
+      : 0;
 
   const optionCounts = new Map<string, number>();
   for (const r of roundResults) {
@@ -605,9 +633,9 @@ export function App() {
               <div
                 className={`display-options${question.options.some((o) => o.label.length > 40) ? " display-options--long" : ""}`}
               >
-                {question.options.map((opt) => (
+                {question.options.map((opt, index) => (
                   <div key={opt.id} className="display-option">
-                    <span className="display-option-label">{opt.id}</span>
+                    <span className="display-option-label">{getAnswerDisplayLabel(index)}</span>
                     <span className="display-option-text">{opt.label}</span>
                   </div>
                 ))}
@@ -638,12 +666,26 @@ export function App() {
             )}
 
             <div className="display-footer">
-              <div
-                className="display-timer"
-                data-urgent={isTimerUrgent ? "true" : undefined}
-                data-warning={isTimerWarning ? "true" : undefined}
-              >
-                {remainingMs > 0 ? `${timerSeconds}s` : "—"}
+              <div className="display-timer-wrap">
+                <svg className="display-timer-svg" viewBox="0 0 100 100">
+                  <circle cx="50" cy="50" r={RING_R} className="display-timer-track" />
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r={RING_R}
+                    className="display-timer-fill"
+                    data-urgent={isTimerUrgent ? "true" : undefined}
+                    data-warning={isTimerWarning ? "true" : undefined}
+                    style={{ strokeDasharray: RING_C, strokeDashoffset: ringOffset }}
+                  />
+                </svg>
+                <span
+                  className="display-timer-label"
+                  data-urgent={isTimerUrgent ? "true" : undefined}
+                  data-warning={isTimerWarning ? "true" : undefined}
+                >
+                  {remainingMs > 0 ? timerSeconds : "—"}
+                </span>
               </div>
               {answerProgress && (
                 <div className="display-answer-progress">
@@ -680,9 +722,14 @@ export function App() {
                     const correctOpt = question.options.find(
                       (o) => o.id === (revealedAnswer as { type: "option"; value: string }).value,
                     );
+                    const correctIndex = correctOpt
+                      ? question.options.findIndex((option) => option.id === correctOpt.id)
+                      : -1;
                     return correctOpt ? (
                       <div className="display-reveal-correct-card">
-                        <span className="display-reveal-correct-label">{correctOpt.id}</span>
+                        <span className="display-reveal-correct-label">
+                          {getAnswerDisplayLabel(correctIndex)}
+                        </span>
                         <span className="display-reveal-correct-text">{correctOpt.label}</span>
                       </div>
                     ) : null;
@@ -690,9 +737,14 @@ export function App() {
                 {revealedAnswer?.type === "options" &&
                   (revealedAnswer as { type: "options"; value: string[] }).value.map((id) => {
                     const opt = question.options.find((o) => o.id === id);
+                    const optIndex = opt
+                      ? question.options.findIndex((option) => option.id === opt.id)
+                      : -1;
                     return opt ? (
                       <div key={id} className="display-reveal-correct-card">
-                        <span className="display-reveal-correct-label">{opt.id}</span>
+                        <span className="display-reveal-correct-label">
+                          {getAnswerDisplayLabel(optIndex)}
+                        </span>
                         <span className="display-reveal-correct-text">{opt.label}</span>
                       </div>
                     ) : null;
@@ -753,6 +805,24 @@ export function App() {
               </span>
               <span className="display-reveal-stat">— {noneCount} keine</span>
             </div>
+            {visibleReadyProgress && (
+              <div
+                className="display-ready-block"
+                data-all-ready={readyProgressAllReady ? "true" : undefined}
+              >
+                <div className="display-ready-label">
+                  {readyProgressAllReady
+                    ? "Alle bereit!"
+                    : `${visibleReadyProgress.readyCount} / ${visibleReadyProgress.totalEligiblePlayers} bereit`}
+                </div>
+                <div className="display-ready-track">
+                  <div
+                    className="display-ready-fill"
+                    style={{ width: `${readyProgressPercent}%` }}
+                  />
+                </div>
+              </div>
+            )}
           </div>
         )}
 
@@ -807,28 +877,24 @@ export function App() {
                 });
               })()}
             </ol>
-            {nextQuestionReadyProgress &&
-              (() => {
-                const { readyCount, totalEligiblePlayers } = nextQuestionReadyProgress;
-                const allReady = totalEligiblePlayers > 0 && readyCount >= totalEligiblePlayers;
-                const pct =
-                  totalEligiblePlayers > 0
-                    ? Math.round((readyCount / totalEligiblePlayers) * 100)
-                    : 0;
-                return (
+            {visibleReadyProgress && (
+              <div
+                className="display-ready-block"
+                data-all-ready={readyProgressAllReady ? "true" : undefined}
+              >
+                <div className="display-ready-label">
+                  {readyProgressAllReady
+                    ? "Alle bereit!"
+                    : `${visibleReadyProgress.readyCount} / ${visibleReadyProgress.totalEligiblePlayers} bereit`}
+                </div>
+                <div className="display-ready-track">
                   <div
-                    className="display-ready-block"
-                    data-all-ready={allReady ? "true" : undefined}
-                  >
-                    <div className="display-ready-label">
-                      {allReady ? "Alle bereit!" : `${readyCount} / ${totalEligiblePlayers} bereit`}
-                    </div>
-                    <div className="display-ready-track">
-                      <div className="display-ready-fill" style={{ width: `${pct}%` }} />
-                    </div>
-                  </div>
-                );
-              })()}
+                    className="display-ready-fill"
+                    style={{ width: `${readyProgressPercent}%` }}
+                  />
+                </div>
+              </div>
+            )}
           </div>
         )}
 

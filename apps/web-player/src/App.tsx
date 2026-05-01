@@ -161,6 +161,7 @@ export function App() {
   const [scoreboard, setScoreboard] = useState<ScoreUpdatePayload | null>(null);
   const [nextQuestionReadyProgress, setNextQuestionReadyProgress] =
     useState<NextQuestionReadyProgressPayload | null>(null);
+  const [locallyReadyQuestionId, setLocallyReadyQuestionId] = useState<string | null>(null);
   const [finalResult, setFinalResult] = useState<GameFinishedPayload | null>(null);
 
   const socketRef = useRef<WebSocket | null>(null);
@@ -310,12 +311,18 @@ export function App() {
 
   const handleReadyForNextQuestion = useEffectEvent(() => {
     const session = playerSessionRef.current;
-    if (!session || !scoreboard) return;
-    sendClientEvent(EVENTS.NEXT_QUESTION_READY, {
+    const questionId = scoreboard?.questionId ?? question?.questionId;
+    if (!session || !questionId || locallyReadyQuestionId === questionId) return;
+    setLocallyReadyQuestionId(questionId);
+    const sent = sendClientEvent(EVENTS.NEXT_QUESTION_READY, {
       roomId: session.roomId,
-      questionId: scoreboard.questionId,
+      questionId,
       playerId: session.playerId,
     });
+    if (!sent) {
+      setLocallyReadyQuestionId(null);
+      setNotice({ kind: "error", text: "Keine Verbindung zum Server." });
+    }
   });
 
   const handleServerMessage = useEffectEvent((rawMessage: string) => {
@@ -388,6 +395,7 @@ export function App() {
         return;
 
       case EVENTS.QUESTION_CONTROLLER:
+        if (!playerSessionRef.current) return;
         const resumedAnswer = resumedAnswerRef.current;
         setQuestion(parsedEnvelope.data.payload);
         setRemainingMs(parsedEnvelope.data.payload.durationMs);
@@ -401,6 +409,7 @@ export function App() {
         setRoundResults([]);
         setScoreboard(null);
         setNextQuestionReadyProgress(null);
+        setLocallyReadyQuestionId(null);
         setScreen("question");
         resumedAnswerRef.current = null;
         return;
@@ -442,14 +451,19 @@ export function App() {
         return;
 
       case EVENTS.QUESTION_REVEAL:
+        setAnswerStatus((curr) => (curr === "submitting" ? "locked" : curr));
         setCorrectAnswer(parsedEnvelope.data.payload.correctAnswer);
         setRevealExplanation(parsedEnvelope.data.payload.explanation ?? null);
         setRoundResults(parsedEnvelope.data.payload.playerResults);
+        setNextQuestionReadyProgress(null);
+        setLocallyReadyQuestionId(null);
         setScreen("reveal");
         return;
 
       case EVENTS.SCORE_UPDATE:
         setScoreboard(parsedEnvelope.data.payload);
+        setNextQuestionReadyProgress(null);
+        setLocallyReadyQuestionId(null);
         setScreen("scoreboard");
         return;
 
@@ -570,8 +584,13 @@ export function App() {
   const ownFinalPlacement = finalResult
     ? finalResult.finalScoreboard.findIndex((entry) => entry.playerId === ownPlayerId)
     : -1;
+  const readyQuestionId = scoreboard?.questionId ?? question?.questionId ?? null;
   const isReadyForNext =
-    !!ownPlayerId && !!nextQuestionReadyProgress?.readyPlayerIds.includes(ownPlayerId);
+    !!ownPlayerId &&
+    !!readyQuestionId &&
+    (locallyReadyQuestionId === readyQuestionId ||
+      (nextQuestionReadyProgress?.questionId === readyQuestionId &&
+        nextQuestionReadyProgress.readyPlayerIds.includes(ownPlayerId)));
 
   return (
     <main className="player-shell" data-answer-status={answerStatus} data-screen={screen}>
@@ -596,7 +615,7 @@ export function App() {
         </div>
       )}
 
-      <div className="player-main">
+      <div key={screen} className="player-main">
         {screen === "join" && (
           <div className="player-card">
             <span className="player-kicker">Willkommen</span>
@@ -878,6 +897,14 @@ export function App() {
               </div>
               {revealExplanation && <p className="player-explanation">{revealExplanation}</p>}
             </div>
+            <button
+              className="player-primary-button player-ready-button"
+              disabled={isReadyForNext}
+              onClick={handleReadyForNextQuestion}
+              type="button"
+            >
+              {isReadyForNext ? "Warten auf andere..." : "Bereit für nächste Frage"}
+            </button>
           </>
         )}
 

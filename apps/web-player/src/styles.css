@@ -26,6 +26,7 @@
   --player-navy: #152033;
   --player-green: var(--player-neon-green);
   --player-red: var(--player-neon-red);
+  --font-display: "Orbitron", system-ui, sans-serif;
 
   font-family:
     system-ui,
@@ -127,6 +128,7 @@ body {
   border-radius: 999px;
   font-weight: 800;
   font-size: 1.25rem;
+  font-family: var(--font-display);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 .player-timer-mini[data-urgent="true"] {
@@ -143,6 +145,7 @@ body {
   gap: 20px;
   padding-bottom: 24px;
   min-width: 0;
+  animation: player-screen-enter 0.25s ease both;
 }
 
 .player-card {
@@ -165,6 +168,7 @@ body {
   margin: 0;
   line-height: 1.1;
   font-weight: 900;
+  font-family: var(--font-display);
   color: #fff;
 }
 .player-kicker {
@@ -186,6 +190,7 @@ body {
   margin: 12px 0;
   line-height: 1.1;
   font-weight: 900;
+  font-family: var(--font-display);
   color: #fff;
 }
 
@@ -252,6 +257,10 @@ body {
   color: #fff;
 }
 
+.player-controller-option:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
+}
 .player-controller-option:active:not(:disabled) {
   transform: scale(0.96);
   background: rgba(255, 255, 255, 0.1);
@@ -286,6 +295,7 @@ body {
   text-align: center;
   font-weight: 900;
   font-size: 1.75rem;
+  font-family: var(--font-display);
   text-transform: uppercase;
   letter-spacing: 0;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
@@ -341,8 +351,13 @@ body {
   box-shadow: 0 8px 20px rgba(0, 240, 255, 0.3);
   transition: all 0.2s;
 }
+.player-primary-button:hover:not(:disabled) {
+  transform: scale(1.03);
+  box-shadow: 0 12px 28px rgba(0, 240, 255, 0.45);
+  filter: brightness(1.1);
+}
 .player-primary-button:active:not(:disabled) {
-  transform: translateY(2px);
+  transform: scale(0.97);
   box-shadow: 0 4px 10px rgba(0, 240, 255, 0.2);
 }
 .player-primary-button:disabled {
@@ -372,6 +387,7 @@ body {
 .player-my-rank-value {
   font-size: 3.5rem;
   font-weight: 900;
+  font-family: var(--font-display);
   margin: 8px 0;
   text-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
 }
@@ -786,7 +802,14 @@ body {
     filter 160ms ease;
 }
 
+.player-primary-button:hover:not(:disabled) {
+  transform: scale(1.03);
+  box-shadow: 0 16px 32px rgba(246, 199, 106, 0.4);
+  filter: brightness(1.08);
+}
+
 .player-primary-button:active:not(:disabled) {
+  transform: scale(0.97);
   box-shadow: 0 6px 14px rgba(246, 199, 106, 0.2);
 }
 
@@ -1006,6 +1029,17 @@ body {
 .player-final-rank {
   margin: 24px 0;
   color: #ffe0a0;
+}
+
+@keyframes player-screen-enter {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 @keyframes player-feedback-pop {

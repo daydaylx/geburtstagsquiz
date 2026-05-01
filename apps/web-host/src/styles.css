@@ -29,6 +29,7 @@
   --host-green-soft: rgba(0, 255, 102, 0.1);
   --host-red: var(--host-neon-red);
   --host-red-soft: rgba(255, 51, 51, 0.1);
+  --font-display: "Orbitron", system-ui, sans-serif;
 
   font-family:
     system-ui,
@@ -99,6 +100,7 @@ button {
   color: #fff;
   font-size: 2rem;
   font-weight: 800;
+  font-family: var(--font-display);
   letter-spacing: 0;
   text-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
 }
@@ -1598,11 +1600,23 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.12);
   color: var(--host-ink);
   text-align: left;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
+}
+
+.host-preset-button:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.22);
 }
 
 .host-preset-button[data-active="true"] {
   border-color: var(--host-show-gold);
   background: var(--host-show-gold-soft);
+}
+
+.host-preset-button[data-active="true"]:hover {
+  background: rgba(246, 199, 106, 0.22);
 }
 
 .host-preset-button strong,
@@ -1648,11 +1662,23 @@ body {
   color: var(--host-ink);
   font-size: 0.85rem;
   font-weight: 900;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
+}
+
+.host-segmented button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.22);
 }
 
 .host-segmented button[data-active="true"] {
   background: rgba(0, 240, 255, 0.16);
   border-color: var(--host-neon-cyan);
+}
+
+.host-segmented button[data-active="true"]:hover {
+  background: rgba(0, 240, 255, 0.24);
 }
 
 .host-small-number-input {
@@ -1716,7 +1742,8 @@ body {
 
 .host-countdown-number {
   font-size: 7rem;
-  font-weight: 1000;
+  font-weight: 900;
+  font-family: var(--font-display);
   color: var(--host-show-gold);
   text-shadow: 0 0 28px rgba(246, 199, 106, 0.3);
 }
@@ -1740,6 +1767,11 @@ body {
   font-weight: 900;
 }
 
+.host-small-danger-button:hover {
+  background: rgba(255, 51, 51, 0.22);
+  border-color: rgba(255, 51, 51, 0.4);
+}
+
 .host-fallback-actions {
   display: flex;
   align-items: center;
@@ -1755,6 +1787,14 @@ body {
   color: var(--host-ink);
   border: 1px solid rgba(255, 255, 255, 0.14);
   font-weight: 900;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
+}
+
+.host-secondary-button:hover {
+  background: rgba(255, 255, 255, 0.11);
+  border-color: rgba(255, 255, 255, 0.28);
 }
 
 .host-secondary-button--danger {
