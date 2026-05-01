@@ -20,7 +20,7 @@ import type { RoomRecord, TrackedWebSocket } from "./server-types.js";
 import { roomsById, sessionsById, logRoomEvent } from "./state.js";
 import { broadcastToAllRoomClients, broadcastToHostAndDisplay } from "./connection.js";
 import { getDefaultQuiz } from "./quiz-data.js";
-import { QUESTION_DURATION_MS, REVEAL_DURATION_MS } from "./config.js";
+import { QUESTION_DURATION_MS } from "./config.js";
 import { isAnswerValidForQuestion } from "./answer-validation.js";
 import { removePlayerFromRoom } from "./room.js";
 import {
@@ -38,16 +38,7 @@ import {
   selectQuestionsForGamePlan,
 } from "./game-plan.js";
 
-const EVENING_QUESTION_COUNT = 30;
-const TARGET_ALLOCATION: Record<QuestionType, number> = {
-  [QuestionType.MultipleChoice]: 12,
-  [QuestionType.Estimate]: 5,
-  [QuestionType.Logic]: 4,
-  [QuestionType.Ranking]: 3,
-  [QuestionType.MajorityGuess]: 3,
-  [QuestionType.OpenText]: 3,
-};
-
+const SCOREBOARD_INTERVAL = 5;
 function shuffleArray<T>(array: T[], random: () => number = Math.random): T[] {
   const result = [...array];
   for (let i = result.length - 1; i > 0; i--) {
@@ -55,104 +46,6 @@ function shuffleArray<T>(array: T[], random: () => number = Math.random): T[] {
     [result[i], result[j]] = [result[j], result[i]];
   }
   return result;
-}
-
-export function getEveningQuestions(
-  questions: Question[],
-  random: () => number = Math.random,
-): Question[] {
-  if (questions.length === 0) return [];
-  
-  const targetTotal = Math.min(EVENING_QUESTION_COUNT, questions.length);
-  const poolByType: Record<QuestionType, Question[]> = {
-    [QuestionType.MultipleChoice]: [],
-    [QuestionType.Logic]: [],
-    [QuestionType.Estimate]: [],
-    [QuestionType.MajorityGuess]: [],
-    [QuestionType.Ranking]: [],
-    [QuestionType.OpenText]: [],
-  };
-
-  for (const q of questions) {
-    if (poolByType[q.type]) {
-      poolByType[q.type].push(q);
-    }
-  }
-
-  const result: Question[] = [];
-  const typeOrder = [
-    QuestionType.MultipleChoice,
-    QuestionType.Estimate,
-    QuestionType.Logic,
-    QuestionType.Ranking,
-    QuestionType.MajorityGuess,
-    QuestionType.OpenText,
-  ];
-
-  // 1. Initial allocation based on targets
-  const counts: Record<QuestionType, number> = {
-    [QuestionType.MultipleChoice]: 0,
-    [QuestionType.Logic]: 0,
-    [QuestionType.Estimate]: 0,
-    [QuestionType.MajorityGuess]: 0,
-    [QuestionType.Ranking]: 0,
-    [QuestionType.OpenText]: 0,
-  };
-
-  for (const type of typeOrder) {
-    const target = TARGET_ALLOCATION[type];
-    counts[type] = Math.min(poolByType[type].length, target);
-  }
-
-  // 2. Fill remaining slots if targets couldn't be met (from types with surplus)
-  let currentTotal = Object.values(counts).reduce((a, b) => a + b, 0);
-  while (currentTotal < targetTotal) {
-    let bestType: QuestionType | null = null;
-    let maxSurplus = -1;
-
-    for (const type of typeOrder) {
-      const surplus = poolByType[type].length - counts[type];
-      if (surplus > maxSurplus) {
-        maxSurplus = surplus;
-        bestType = type;
-      }
-    }
-
-    if (!bestType || maxSurplus <= 0) break;
-    counts[bestType]++;
-    currentTotal++;
-  }
-
-  // 3. Trim if we somehow exceeded targetTotal (shouldn't happen here but for safety)
-  while (currentTotal > targetTotal) {
-    let worstType: QuestionType | null = null;
-    let minSurplus = Infinity;
-
-    for (const type of typeOrder) {
-      if (counts[type] > 0) {
-        const surplus = poolByType[type].length - counts[type];
-        if (surplus < minSurplus) {
-          minSurplus = surplus;
-          worstType = type;
-        }
-      }
-    }
-
-    if (!worstType) break;
-    counts[worstType]--;
-    currentTotal--;
-  }
-
-  // 4. Collect and shuffle
-  for (const type of typeOrder) {
-    const shuffled = shuffleArray(poolByType[type], random);
-    result.push(...shuffled.slice(0, counts[type]));
-  }
-
-  return shuffleArray(result, random).map((q) => ({
-    ...q,
-    durationMs: QUESTION_DURATION_MS,
-  }));
 }
 
 function sendQuestionForCurrentRole(
@@ -371,15 +264,12 @@ export function handleGameNextQuestion(socket: TrackedWebSocket, roomId: string)
     return;
   }
 
-  const nextIndex = room.currentQuestionIndex + 1;
-
-  if (nextIndex >= room.quiz.questions.length) {
-    finishGame(room);
+  if (room.gameState === GameState.Revealing) {
+    advanceAfterReveal(room);
     return;
   }
 
-  room.currentQuestionIndex = nextIndex;
-  startQuestion(room);
+  advanceFromScoreboard(room);
 }
 
 function getAuthorizedHostRoom(
@@ -460,9 +350,16 @@ export function handleGameShowScoreboard(socket: TrackedWebSocket, roomId: strin
   }
 
   const question = room.quiz.questions[room.currentQuestionIndex];
-  if (question) {
-    showScoreboard(room, question.id);
+  if (!question || question.isDemoQuestion || isLastQuestion(room)) {
+    sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "Cannot show scoreboard now", {
+      event: EVENTS.GAME_SHOW_SCOREBOARD,
+      roomId: room.id,
+      questionId: question?.id ?? null,
+    });
+    return;
   }
+
+  showScoreboard(room, question.id);
 }
 
 export function handleGameFinishNow(socket: TrackedWebSocket, roomId: string): void {
@@ -673,11 +570,14 @@ export function handleNextQuestionReady(
     return;
   }
 
-  if (room.state !== RoomState.InGame || room.gameState !== GameState.Scoreboard) {
+  if (
+    room.state !== RoomState.InGame ||
+    (room.gameState !== GameState.Revealing && room.gameState !== GameState.Scoreboard)
+  ) {
     sendProtocolError(
       socket,
       PROTOCOL_ERROR_CODES.INVALID_STATE,
-      "Next question readiness is only accepted on scoreboard",
+      "Next question readiness is only accepted during reveal or scoreboard",
       {
         event: EVENTS.NEXT_QUESTION_READY,
         roomId: room.id,
@@ -1025,29 +925,7 @@ function evaluateQuestion(room: RoomRecord, question: Question): void {
     explanation: question.explanation,
   });
 
-  room.revealTimer = setTimeout(() => {
-    room.revealTimer = null;
-
-    if (room.state !== RoomState.InGame || room.gameState !== GameState.Revealing) {
-      return;
-    }
-
-    if (
-      !room.quiz ||
-      room.currentQuestionIndex === null ||
-      room.currentQuestionIndex >= room.quiz.questions.length
-    ) {
-      return;
-    }
-
-    const activeQuestion = room.quiz.questions[room.currentQuestionIndex];
-
-    if (activeQuestion.id !== question.id) {
-      return;
-    }
-
-    showScoreboard(room, question.id);
-  }, room.resolvedGamePlan?.revealDurationMs ?? REVEAL_DURATION_MS);
+  broadcastNextQuestionReadyProgress(room, question.id, GameState.Revealing);
 }
 
 function getSortedScoreboard(room: RoomRecord) {
@@ -1059,6 +937,43 @@ function getSortedScoreboard(room: RoomRecord) {
       score: p.score,
     }))
     .sort((a, b) => b.score - a.score);
+}
+
+function getAnsweredVisibleQuestionNumber(room: RoomRecord): number {
+  if (!room.quiz || room.currentQuestionIndex === null) {
+    return 0;
+  }
+
+  const currentQuestion = room.quiz.questions[room.currentQuestionIndex];
+  if (!currentQuestion || currentQuestion.isDemoQuestion) {
+    return 0;
+  }
+
+  return room.quiz.questions
+    .slice(0, room.currentQuestionIndex + 1)
+    .filter((question) => !question.isDemoQuestion).length;
+}
+
+function isLastQuestion(room: RoomRecord): boolean {
+  return (
+    !!room.quiz &&
+    room.currentQuestionIndex !== null &&
+    room.currentQuestionIndex + 1 >= room.quiz.questions.length
+  );
+}
+
+function shouldShowScoreboardAfterCurrentQuestion(room: RoomRecord): boolean {
+  if (!room.quiz || room.currentQuestionIndex === null) {
+    return false;
+  }
+
+  const currentQuestion = room.quiz.questions[room.currentQuestionIndex];
+  if (!currentQuestion || currentQuestion.isDemoQuestion || isLastQuestion(room)) {
+    return false;
+  }
+
+  const answeredQuestionNumber = getAnsweredVisibleQuestionNumber(room);
+  return answeredQuestionNumber > 0 && answeredQuestionNumber % SCOREBOARD_INTERVAL === 0;
 }
 
 function buildScoreChanges(
@@ -1106,11 +1021,14 @@ function showScoreboard(room: RoomRecord, questionId: string): void {
     gameState: GameState.Scoreboard,
   });
 
-  broadcastNextQuestionReadyProgress(room, questionId);
+  broadcastNextQuestionReadyProgress(room, questionId, GameState.Scoreboard);
 }
 
 export function handleScoreboardReadinessChanged(room: RoomRecord): void {
-  if (room.state !== RoomState.InGame || room.gameState !== GameState.Scoreboard) {
+  if (
+    room.state !== RoomState.InGame ||
+    (room.gameState !== GameState.Revealing && room.gameState !== GameState.Scoreboard)
+  ) {
     return;
   }
 
@@ -1127,17 +1045,26 @@ export function handleScoreboardReadinessChanged(room: RoomRecord): void {
     (player) => player.state !== PlayerState.Disconnected,
   );
 
-  broadcastNextQuestionReadyProgress(room, question.id);
+  broadcastNextQuestionReadyProgress(room, question.id, room.gameState);
 
   if (
     connectedPlayers.length > 0 &&
     connectedPlayers.every((player) => room.nextQuestionReadyPlayerIds.has(player.id))
   ) {
+    if (room.gameState === GameState.Revealing) {
+      advanceAfterReveal(room);
+      return;
+    }
+
     advanceFromScoreboard(room);
   }
 }
 
-function broadcastNextQuestionReadyProgress(room: RoomRecord, questionId: string): void {
+function broadcastNextQuestionReadyProgress(
+  room: RoomRecord,
+  questionId: string,
+  gameState: GameState.Revealing | GameState.Scoreboard,
+): void {
   const connectedPlayers = room.players.filter(
     (player) => player.state !== PlayerState.Disconnected,
   );
@@ -1151,11 +1078,31 @@ function broadcastNextQuestionReadyProgress(room: RoomRecord, questionId: string
     readyCount: readyPlayerIds.length,
     totalEligiblePlayers: connectedPlayers.length,
     readyPlayerIds,
-    gameState: GameState.Scoreboard,
+    gameState,
   });
 }
 
+function advanceAfterReveal(room: RoomRecord): void {
+  if (!room.quiz || room.currentQuestionIndex === null) {
+    return;
+  }
+
+  if (shouldShowScoreboardAfterCurrentQuestion(room)) {
+    const question = room.quiz.questions[room.currentQuestionIndex];
+    if (question) {
+      showScoreboard(room, question.id);
+    }
+    return;
+  }
+
+  advanceToNextQuestionOrFinish(room);
+}
+
 function advanceFromScoreboard(room: RoomRecord): void {
+  advanceToNextQuestionOrFinish(room);
+}
+
+function advanceToNextQuestionOrFinish(room: RoomRecord): void {
   if (!room.quiz || room.currentQuestionIndex === null) {
     return;
   }

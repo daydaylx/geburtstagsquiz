@@ -8,9 +8,11 @@ import {
   type Quiz,
 } from "@quiz/shared-types";
 
-import { getAnswerProgress, getEveningQuestions } from "./game.js";
+import { getAnswerProgress } from "./game.js";
 import {
   buildCatalogSummary,
+  buildDefaultGamePlan,
+  createDemoQuestion,
   GamePlanValidationError,
   resolveGamePlan,
   selectQuestionsForGamePlan,
@@ -214,104 +216,6 @@ describe("getAnswerProgress", () => {
     });
   });
 });
-
-describe("getEveningQuestions", () => {
-  it("handles empty question list", () => {
-    expect(getEveningQuestions([])).toEqual([]);
-  });
-
-  it("selects an evening mix based on target distribution and sets QUESTION_DURATION_MS", () => {
-    const questions = [
-      ...Array.from({ length: 16 }, (_, i) => makeQuestion(`mc-${i}`, QuestionType.MultipleChoice)),
-      ...Array.from({ length: 14 }, (_, i) => makeQuestion(`estimate-${i}`, QuestionType.Estimate)),
-      ...Array.from({ length: 5 }, (_, i) => makeQuestion(`ranking-${i}`, QuestionType.Ranking)),
-    ];
-
-    const selected = getEveningQuestions(questions);
-
-    expect(selected).toHaveLength(30);
-    expect(selected.every((q) => q.durationMs === QUESTION_DURATION_MS)).toBe(true);
-    expect(questions.every((q) => q.durationMs === 10_000)).toBe(true);
-
-    // Initial targets: MC 12, Est 5, Rank 3 (Total 20)
-    // Remaining 10 slots filled by largest surplus:
-    // Est surplus was 9, MC was 4, Rank was 2.
-    // 1. Est (9->8), counts: MC 12, Est 6, Rank 3
-    // 2. Est (8->7), counts: MC 12, Est 7, Rank 3
-    // 3. Est (7->6), counts: MC 12, Est 8, Rank 3
-    // 4. Est (6->5), counts: MC 12, Est 9, Rank 3
-    // 5. Est (5->4), counts: MC 12, Est 10, Rank 3
-    // 6. MC (4->3), counts: MC 13, Est 10, Rank 3
-    // 7. Est (4->3), counts: MC 13, Est 11, Rank 3
-    // 8. MC (3->2), counts: MC 14, Est 11, Rank 3
-    // 9. Est (3->2), counts: MC 14, Est 12, Rank 3
-    // 10. MC wins the final tie by type order, counts: MC 15, Est 12, Rank 3
-    expect(selected.filter((q) => q.type === QuestionType.MultipleChoice)).toHaveLength(15);
-    expect(selected.filter((q) => q.type === QuestionType.Estimate)).toHaveLength(12);
-    expect(selected.filter((q) => q.type === QuestionType.Ranking)).toHaveLength(3);
-  });
-
-  it("does not produce duplicate question IDs", () => {
-    const questions = [
-      ...Array.from({ length: 10 }, (_, i) => makeQuestion(`mc-${i}`, QuestionType.MultipleChoice)),
-      ...Array.from({ length: 10 }, (_, i) => makeQuestion(`logic-${i}`, QuestionType.Logic)),
-      ...Array.from({ length: 10 }, (_, i) => makeQuestion(`estimate-${i}`, QuestionType.Estimate)),
-      ...Array.from({ length: 10 }, (_, i) =>
-        makeQuestion(`majority-${i}`, QuestionType.MajorityGuess),
-      ),
-      ...Array.from({ length: 10 }, (_, i) => makeQuestion(`ranking-${i}`, QuestionType.Ranking)),
-    ];
-
-    const selected = getEveningQuestions(questions);
-    const ids = selected.map((q) => q.id);
-
-    expect(new Set(ids).size).toBe(ids.length);
-  });
-
-  it("does not mutate the original question array", () => {
-    const questions = Array.from({ length: 8 }, (_, i) =>
-      makeQuestion(`mc-${i}`, QuestionType.MultipleChoice),
-    );
-    const originalOrder = questions.map((q) => q.id);
-
-    getEveningQuestions(questions);
-
-    expect(questions.map((q) => q.id)).toEqual(originalOrder);
-    expect(questions.every((q) => q.durationMs === 10_000)).toBe(true);
-  });
-
-  it("uses all available questions when fewer exist than requested", () => {
-    const questions = [
-      ...Array.from({ length: 2 }, (_, i) => makeQuestion(`mc-${i}`, QuestionType.MultipleChoice)),
-      ...Array.from({ length: 1 }, (_, i) => makeQuestion(`estimate-${i}`, QuestionType.Estimate)),
-      ...Array.from({ length: 1 }, (_, i) => makeQuestion(`ranking-${i}`, QuestionType.Ranking)),
-    ];
-
-    const selected = getEveningQuestions(questions);
-
-    expect(selected.filter((q) => q.type === QuestionType.MultipleChoice)).toHaveLength(2);
-    expect(selected.filter((q) => q.type === QuestionType.Estimate)).toHaveLength(1);
-    expect(selected.filter((q) => q.type === QuestionType.Ranking)).toHaveLength(1);
-  });
-
-  it("produces a deterministic result with a fixed random function", () => {
-    const questions = Array.from({ length: 10 }, (_, i) =>
-      makeQuestion(`mc-${i}`, QuestionType.MultipleChoice),
-    );
-    let seed = 42;
-    const seededRandom = () => {
-      seed = (seed * 1664525 + 1013904223) & 0xffffffff;
-      return (seed >>> 0) / 0xffffffff;
-    };
-
-    const run1 = getEveningQuestions(questions, seededRandom);
-    seed = 42;
-    const run2 = getEveningQuestions(questions, seededRandom);
-
-    expect(run1.map((q) => q.id)).toEqual(run2.map((q) => q.id));
-  });
-});
-
 describe("getDefaultQuiz", () => {
   it("loads the JSON question bank", () => {
     const quiz = getDefaultQuiz();
@@ -335,6 +239,20 @@ describe("game plan selection", () => {
     expect(catalog.questionTypes.some((entry) => entry.type === QuestionType.MultipleChoice)).toBe(
       true,
     );
+  });
+
+  it("uses 90 seconds as the default question timer", () => {
+    const quiz = getDefaultQuiz();
+    const catalog = buildCatalogSummary(quiz);
+    const defaultPlan = buildDefaultGamePlan(catalog);
+
+    expect(defaultPlan.timerMs).toBe(90_000);
+
+    const resolvedPlan = resolveGamePlan(defaultPlan, catalog, quiz);
+    const demoQuestion = createDemoQuestion(resolvedPlan);
+
+    expect(resolvedPlan.timerMs).toBe(90_000);
+    expect(demoQuestion.durationMs).toBe(90_000);
   });
 
   it("rejects game plans when the filtered pool is too small", () => {
