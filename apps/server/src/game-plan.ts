@@ -11,7 +11,7 @@ import {
 } from "@quiz/shared-types";
 
 export const ALLOWED_QUESTION_COUNTS = [10, 15, 20, 25, 30] as const;
-export const ALLOWED_TIMER_MS = [20_000, 30_000, 45_000, 60_000] as const;
+export const ALLOWED_TIMER_MS = [20_000, 30_000, 45_000, 60_000, 90_000] as const;
 export const ALLOWED_REVEAL_DURATION_MS = [3_000, 5_000, 8_000, 15_000, 30_000] as const;
 export const MANUAL_REVEAL_FALLBACK_MS = 30_000;
 
@@ -131,7 +131,7 @@ export function buildDefaultGamePlan(catalog: QuizCatalogSummary): GamePlan {
       QuestionType.Logic,
       QuestionType.Ranking,
     ],
-    timerMs: 45_000,
+    timerMs: 90_000,
     revealDurationMs: 15_000,
     revealMode: "manual_with_fallback",
     showAnswerTextOnPlayerDevices: true,
@@ -309,7 +309,7 @@ export function createDemoQuestion(plan: ResolvedGamePlan): Question {
       { id: "D", label: "Bier" },
     ],
     correctOptionId: "D",
-    durationMs: Math.min(plan.timerMs, 20_000),
+    durationMs: plan.timerMs,
     points: 0,
     explanation: "Die Testfrage zählt nicht in die Punkte. Wichtig ist nur, dass alle Handys reagieren.",
     categoryId: "__demo",
@@ -319,4 +319,3 @@ export function createDemoQuestion(plan: ResolvedGamePlan): Question {
     isDemoQuestion: true,
   };
 }
-

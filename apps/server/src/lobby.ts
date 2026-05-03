@@ -27,6 +27,7 @@ import {
   syncSessionToRoomState,
 } from "./connection.js";
 import { buildCatalogSummary } from "./game-plan.js";
+import { handleAnswerEligibilityChanged, handleScoreboardReadinessChanged } from "./game.js";
 import { getDefaultQuiz } from "./quiz-data.js";
 
 export function handleRoomJoin(
@@ -263,11 +264,11 @@ export function resumeSession(
     return;
   }
 
-  const disconnectTimer = room.playerDisconnectTimers.get(session.sessionId);
+  const disconnectTimer = room.playerDisconnectTimers.get(player.id);
 
   if (disconnectTimer) {
     clearTimeout(disconnectTimer);
-    room.playerDisconnectTimers.delete(session.sessionId);
+    room.playerDisconnectTimers.delete(player.id);
   }
 
   if (room.state === RoomState.Waiting) {
@@ -315,6 +316,8 @@ export function resumeSession(
   });
 
   broadcastLobbyUpdate(room);
+  handleAnswerEligibilityChanged(room);
+  handleScoreboardReadinessChanged(room);
 }
 
 export function handleConnectionResume(
@@ -402,7 +405,7 @@ export function handleRoomSettingsUpdate(
 
   room.settings = {
     showAnswerTextOnPlayerDevices: payload.showAnswerTextOnPlayerDevices,
-    ...(payload.gamePlanDraft ?? room.settings.gamePlanDraft
+    ...((payload.gamePlanDraft ?? room.settings.gamePlanDraft)
       ? { gamePlanDraft: payload.gamePlanDraft ?? room.settings.gamePlanDraft }
       : {}),
   };

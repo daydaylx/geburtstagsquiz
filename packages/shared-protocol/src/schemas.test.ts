@@ -364,6 +364,27 @@ describe("parseServerToClientEnvelope", () => {
     }
   });
 
+  it("accepts next-question:ready-progress during reveal", () => {
+    const envelope = JSON.stringify({
+      event: EVENTS.NEXT_QUESTION_READY_PROGRESS,
+      payload: {
+        roomId: "room-1",
+        questionId: "q1",
+        readyCount: 1,
+        totalEligiblePlayers: 2,
+        readyPlayerIds: ["p1"],
+        gameState: "revealing",
+      },
+    });
+
+    const result = parseServerToClientEnvelope(envelope);
+
+    expect(result.success).toBe(true);
+    if (result.success && result.data.event === EVENTS.NEXT_QUESTION_READY_PROGRESS) {
+      expect(result.data.payload.gameState).toBe("revealing");
+    }
+  });
+
   it("accepts a question:reveal payload with player round results", () => {
     const envelope = JSON.stringify({
       event: EVENTS.QUESTION_REVEAL,

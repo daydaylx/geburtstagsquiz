@@ -275,7 +275,7 @@ export function handleGameNextQuestion(socket: TrackedWebSocket, roomId: string)
 function getAuthorizedHostRoom(
   socket: TrackedWebSocket,
   roomId: string,
-  event: typeof EVENTS[keyof typeof EVENTS],
+  event: (typeof EVENTS)[keyof typeof EVENTS],
 ): RoomRecord | null {
   const session = socket.sessionId ? sessionsById.get(socket.sessionId) : null;
 
@@ -926,6 +926,11 @@ function evaluateQuestion(room: RoomRecord, question: Question): void {
   });
 
   broadcastNextQuestionReadyProgress(room, question.id, GameState.Revealing);
+
+  const revealDurationMs = room.resolvedGamePlan?.revealDurationMs;
+  if (revealDurationMs) {
+    room.revealTimer = setTimeout(() => advanceAfterReveal(room), revealDurationMs);
+  }
 }
 
 function getSortedScoreboard(room: RoomRecord) {
@@ -1083,6 +1088,11 @@ function broadcastNextQuestionReadyProgress(
 }
 
 function advanceAfterReveal(room: RoomRecord): void {
+  if (room.revealTimer) {
+    clearTimeout(room.revealTimer);
+    room.revealTimer = null;
+  }
+
   if (!room.quiz || room.currentQuestionIndex === null) {
     return;
   }

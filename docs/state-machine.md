@@ -37,13 +37,19 @@ Hinweis:
 | `idle` | Spiel wurde gestartet, naechste Frage wird vorbereitet | `question:show`/`question:controller` -> `question_active` |
 | `question_active` | Frage ist offen, Antworten duerfen eingehen | Timerende oder alle Antworten da -> `answer_locked` |
 | `answer_locked` | Eingaben sind gesperrt, Server wertet aus | direkte Weitergabe an `revealing` |
-| `revealing` | Richtige Antwort und Rundenergebnisse werden gezeigt | nach kurzer Aufloesungszeit -> `scoreboard` |
-| `scoreboard` | Punktestand nach der Runde wird gezeigt | alle verbundenen Spieler bereit -> `idle` oder Ende |
+| `revealing` | Richtige Antwort und Rundenergebnisse werden gezeigt | alle verbundenen Spieler bereit -> naechste Frage, `scoreboard` oder Ende |
+| `scoreboard` | Punktestand nach jeder 5. echten Frage wird gezeigt | alle verbundenen Spieler bereit -> `idle` oder Ende |
 | `completed` | Spiel ist vorbei | kein sinnvoller Rueckweg |
 
 Der praktische Fluss ist linear:
 
-`idle -> question_active -> answer_locked -> revealing -> scoreboard -> idle/completed`
+Normaler Fluss:
+
+`idle -> question_active -> answer_locked -> revealing -> idle/completed`
+
+Alle 5 echten Fragen kommt zusaetzlich:
+
+`revealing -> scoreboard -> idle/completed`
 
 ## Player State
 
@@ -90,7 +96,8 @@ Hinweise:
 
 - Server geht auf `answer_locked`
 - danach `revealing` mit richtiger Antwort, richtig/falsch je Spieler und Punkten fuer die Runde
-- danach `scoreboard`
+- die Aufloesung bleibt stehen, bis alle verbundenen Spieler bereit sind oder der Host weiterklickt
+- `scoreboard` kommt nur nach jeder 5. echten Frage, nicht nach der Demo und nicht nach jeder Runde
 
 ### Naechste Frage
 
@@ -98,7 +105,7 @@ Hinweise:
 - der Server zaehlt nur verbundene Spieler als blockierend
 - sobald alle verbundenen Spieler bereit sind, beginnt entweder die naechste Frage
 - oder das Spiel geht auf `completed`
-- `game:next-question` ist als Host-Override nach der Rangliste sichtbar
+- `game:next-question` ist als Host-Override in Reveal und Rangliste sichtbar
 
 ## Disconnect und Grace-Zeiten
 

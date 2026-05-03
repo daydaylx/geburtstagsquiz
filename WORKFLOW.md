@@ -96,7 +96,7 @@ Bei laufendem Server:
 corepack pnpm run smoke:local
 ```
 
-Der Smoke-Test verbindet Display, Host und zwei Player, erstellt einen Raum, koppelt den Host, startet eine Runde, sendet Antworten, wartet auf Reveal und Scoreboard und prueft Resume-Snapshots.
+Der Smoke-Test verbindet Display, Host und zwei Player, erstellt einen Raum, koppelt den Host, startet einen 90s-Spielplan, prueft Reveal-Bereitschaft, Scoreboard nach Frage 5, Endstand und Resume-Snapshots.
 
 Wenn der Smoke-Test nicht passt:
 
@@ -161,7 +161,7 @@ Ohne explizites `[CONFIRM]` sind verboten:
 - Display kann einen Raum erstellen.
 - Host kann sich per Host-Token/QR mit dem Display-Raum koppeln.
 - Player koennen per Join-Code oder QR beitreten.
-- Eine Frage laeuft von Start ueber Antwort bis Reveal und Scoreboard durch.
+- Eine Frage laeuft von Start ueber Antwort bis Reveal durch; das Scoreboard erscheint nur nach faelligen 5er-Intervallen.
 - Server entscheidet Timer, Antwortannahme und Punkte.
 - Doku nennt keine alte Zwei-Screen-Architektur als aktuellen Stand.
 - Keine Secrets oder echten Cloudflare-Credentials wurden geschrieben.

@@ -130,7 +130,7 @@ Fuer einen lokalen Protokoll-Smoke-Test bei laufendem Server:
 corepack pnpm run smoke:local
 ```
 
-Der Test erstellt einen Display-Raum, koppelt den Host, liest den Fragenkatalog, startet eine Runde mit Spielplan, sendet Antworten und wartet auf Reveal, Scoreboard und Resume-Snapshots.
+Der Test erstellt einen Display-Raum, koppelt den Host, liest den Fragenkatalog, startet einen 90s-Spielplan, prueft Reveal-Bereitschaft, Scoreboard nach Frage 5, Endstand und Resume-Snapshots.
 
 ## Cloudflare Tunnel
 

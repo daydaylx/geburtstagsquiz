@@ -45,7 +45,7 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 - `host:connect`
 - `room:settings:update`
 - `game:start`
-- `game:next-question` als sichtbarer Host-Override nach der Rangliste
+- `game:next-question` als sichtbarer Host-Override in Reveal und Rangliste
 - `question:force-close`
 - `game:show-scoreboard`
 - `game:finish-now`
@@ -111,10 +111,10 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 | `question:close` | Server -> Display/Host/Player | Frage ist gesperrt | `roomId`, `questionId`, `gameState` |
 | `question:force-close` | Host -> Server | Aktive Frage sofort schliessen | `roomId` |
 | `question:reveal` | Server -> Display/Host/Player | Richtige Antwort und Rundenergebnisse zeigen | `roomId`, `questionId`, `correctAnswer`, `playerResults`, `gameState`, optional `explanation` |
-| `score:update` | Server -> Display/Host/Player | Punktestand nach der Runde | `roomId`, `questionId`, `scoreboard`, `scoreChanges`, `gameState` |
-| `next-question:ready` | Player -> Server | Spieler ist nach der Rangliste bereit fuer die naechste Frage | `roomId`, `questionId`, `playerId` |
+| `score:update` | Server -> Display/Host/Player | Punktestand nach faelligen 5er-Intervallen | `roomId`, `questionId`, `scoreboard`, `scoreChanges`, `gameState` |
+| `next-question:ready` | Player -> Server | Spieler ist nach Reveal oder Rangliste bereit fuer die naechste Frage | `roomId`, `questionId`, `playerId` |
 | `next-question:ready-progress` | Server -> Display/Host/Player | Bereitschaft fuer die naechste Frage anzeigen | `roomId`, `questionId`, `readyCount`, `totalEligiblePlayers`, `readyPlayerIds`, `gameState` |
-| `game:next-question` | Host -> Server | Host-Override zum Wechseln nach der Rangliste | `roomId` |
+| `game:next-question` | Host -> Server | Host-Override zum Wechseln aus Reveal oder Rangliste | `roomId` |
 | `game:show-scoreboard` | Host -> Server | Reveal ueberspringen und Rangliste zeigen | `roomId` |
 | `game:finish-now` | Host -> Server | Spiel mit aktuellem Stand beenden | `roomId` |
 | `game:finished` | Server -> Display/Host/Player | Quiz ist zu Ende | `roomId`, `roomState`, `gameState`, `totalQuestionCount`, `finalScoreboard`, optional `finalStats` |
@@ -143,16 +143,17 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 - Der Server sendet `question:timer`.
 - Die Client-Anzeige darf weich laufen, ist aber nicht die Wahrheitsquelle.
 - `question:close` ist das massgebliche Signal fuer "zu spaet".
-- Die aktive Antwortzeit kommt aus dem serverseitig validierten `resolvedGamePlan`.
+- Die aktive Antwortzeit kommt aus dem serverseitig validierten `resolvedGamePlan` und ist standardmaessig 90 Sekunden.
 
 ### Bereit fuer die naechste Frage
 
-- Nach `score:update` bleiben Display, Host und Player auf der Rangliste.
-- Jeder verbundene Spieler sendet `next-question:ready` ueber sein Handy.
+- Nach `question:reveal` bleiben Display, Host und Player auf der Aufloesung.
+- Jeder verbundene Spieler kann schon im Reveal `next-question:ready` ueber sein Handy senden.
 - Der Server sendet `next-question:ready-progress` an Display, Host und Player.
-- Sobald alle verbundenen Spieler bereit sind, startet der Server automatisch die naechste Frage oder beendet das Spiel.
+- Sobald alle verbundenen Spieler bereit sind, startet der Server automatisch die naechste Frage, zeigt nach jeder 5. echten Frage den Zwischenstand oder beendet das Spiel nach der letzten Frage.
+- Nach `score:update` gilt derselbe Bereit-Flow fuer den Wechsel vom Zwischenstand zur naechsten Frage.
 - Disconnectete Spieler blockieren den Wechsel nicht.
-- Der Host kann nach `score:update` manuell weiterschalten, falls ein Handy haengen bleibt.
+- Der Host kann in Reveal und Rangliste manuell weiterschalten, falls ein Handy haengen bleibt.
 
 ### Reconnect
 
@@ -190,11 +191,11 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 7. Server antwortet mit `answer:accepted` oder `answer:rejected`
 8. Server sendet `question:close`
 9. Server sendet `question:reveal` mit richtiger Antwort und Rundenergebnissen
-10. Server zeigt die Aufloesung gemaess Spielplan kurz an
-11. Server sendet `score:update`
-12. Player senden `next-question:ready`
-13. Server sendet `next-question:ready-progress`
-14. Sobald alle verbundenen Spieler bereit sind, sendet der Server entweder die naechste Frage (`question:show`/`question:controller`) oder `game:finished`
+10. Player senden im Reveal `next-question:ready`
+11. Server sendet `next-question:ready-progress`
+12. Sobald alle verbundenen Spieler bereit sind, sendet der Server entweder die naechste Frage (`question:show`/`question:controller`), nach jeder 5. echten Frage `score:update` oder nach der letzten Frage `game:finished`
+13. Auf dem Scoreboard senden Player erneut `next-question:ready`
+14. Danach startet die naechste Frage oder das Spiel endet
 
 ## Ausdruecklich nicht Teil dieses Protokolls
 

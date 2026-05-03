@@ -200,7 +200,7 @@ Bei laufenden lokalen Diensten:
 corepack pnpm run smoke:local
 ```
 
-Der Smoke-Test verbindet Display, Host und zwei Player, startet eine Runde, sendet Antworten, wartet auf Reveal und Scoreboard und prueft Resume fuer Display, Host und einen Player.
+Der Smoke-Test verbindet Display, Host und zwei Player, startet einen 90s-Spielplan, prueft Reveal-Bereitschaft, Scoreboard nach Frage 5, Endstand und Resume fuer Display, Host und einen Player.
 
 ## Fehlerdiagnose
 

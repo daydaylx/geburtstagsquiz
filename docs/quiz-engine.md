@@ -46,7 +46,7 @@ Nicht zuständig:
 2. Server uebergibt die gespeicherten Antworten an die passende Engine-Funktion.
 3. Server addiert `pointsEarned` auf den Spielstand.
 4. Server sendet `question:reveal`.
-5. Server sendet danach `score:update`.
+5. Server sendet `score:update` nur, wenn der aktuelle Zwischenstand angezeigt werden soll.
 
 ## Keine weiteren Modi
 

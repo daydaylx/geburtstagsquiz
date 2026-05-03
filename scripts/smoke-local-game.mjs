@@ -123,16 +123,16 @@ function assertNonEmptyString(value, label) {
 function makeSmokeGamePlan(catalog) {
   return {
     mode: "custom",
-    questionCount: 5,
+    questionCount: 6,
     categoryIds: catalog.categories.map((category) => category.id),
     questionTypes: catalog.questionTypes
       .map((entry) => entry.type)
       .filter((type) =>
         ["multiple_choice", "logic", "majority_guess", "estimate"].includes(type),
       ),
-    timerMs: 20000,
-    revealDurationMs: 3000,
-    revealMode: "auto",
+    timerMs: 90000,
+    revealDurationMs: 30000,
+    revealMode: "manual_with_fallback",
     showAnswerTextOnPlayerDevices: false,
     enableDemoQuestion: false,
     displayShowLevel: "minimal",
@@ -145,6 +145,113 @@ async function resumeSession(label, sessionId, roomId) {
   client.send("connection:resume", { sessionId, roomId });
   await client.waitFor("connection:resumed", (payload) => payload.sessionId === sessionId);
   return client;
+}
+
+async function answerCurrentQuestion({
+  room,
+  display,
+  host,
+  player1,
+  player2,
+  joined1,
+  joined2,
+  questionIndex,
+}) {
+  const displayQuestion = await display.waitFor(
+    "question:show",
+    (payload) => payload.questionIndex === questionIndex,
+  );
+  const playerQuestion1 = await player1.waitFor(
+    "question:controller",
+    (payload) => payload.questionId === displayQuestion.questionId,
+  );
+  const playerQuestion2 = await player2.waitFor(
+    "question:controller",
+    (payload) => payload.questionId === displayQuestion.questionId,
+  );
+
+  if (displayQuestion.durationMs !== 90000) {
+    throw new Error(`expected 90s question timer, got ${displayQuestion.durationMs}`);
+  }
+
+  await display.waitFor(
+    "question:timer",
+    (payload) => payload.questionId === displayQuestion.questionId && payload.remainingMs > 0,
+  );
+
+  player1.send("answer:submit", {
+    roomId: room.roomId,
+    questionId: playerQuestion1.questionId,
+    playerId: joined1.playerId,
+    answer: answerForQuestion(playerQuestion1),
+    requestId: randomUUID(),
+  });
+  player2.send("answer:submit", {
+    roomId: room.roomId,
+    questionId: playerQuestion2.questionId,
+    playerId: joined2.playerId,
+    answer: answerForQuestion(playerQuestion2),
+    requestId: randomUUID(),
+  });
+
+  await player1.waitFor(
+    "answer:accepted",
+    (payload) => payload.questionId === displayQuestion.questionId,
+  );
+  await player2.waitFor(
+    "answer:accepted",
+    (payload) => payload.questionId === displayQuestion.questionId,
+  );
+  await display.waitFor(
+    "answer:progress",
+    (payload) => payload.questionId === displayQuestion.questionId && payload.answeredCount === 2,
+  );
+  await host.waitFor(
+    "answer:progress",
+    (payload) => payload.questionId === displayQuestion.questionId && payload.answeredCount === 2,
+  );
+
+  const displayReveal = await display.waitFor(
+    "question:reveal",
+    (payload) => payload.questionId === displayQuestion.questionId,
+  );
+  const hostReveal = await host.waitFor(
+    "question:reveal",
+    (payload) => payload.questionId === displayQuestion.questionId,
+  );
+  assertNonEmptyString(displayReveal.explanation, "display reveal explanation");
+  assertNonEmptyString(hostReveal.explanation, "host reveal explanation");
+  await player1.waitFor(
+    "question:reveal",
+    (payload) => payload.questionId === displayQuestion.questionId,
+  );
+  await display.waitFor(
+    "next-question:ready-progress",
+    (payload) =>
+      payload.questionId === displayQuestion.questionId &&
+      payload.readyCount === 0 &&
+      payload.totalEligiblePlayers === 2 &&
+      payload.gameState === "revealing",
+  );
+
+  return displayQuestion;
+}
+
+async function readyFromReveal({ room, player1, player2, joined1, joined2, questionId }) {
+  player1.send("next-question:ready", {
+    roomId: room.roomId,
+    questionId,
+    playerId: joined1.playerId,
+  });
+  player2.send("next-question:ready", {
+    roomId: room.roomId,
+    questionId,
+    playerId: joined2.playerId,
+  });
+}
+
+async function readyFromScoreboard({ room, player1, player2, joined1, joined2, questionId }) {
+  await readyFromReveal({ room, player1, player2, joined1, joined2, questionId });
 }
 
 const clients = [];
@@ -176,63 +283,95 @@ try {
 
   host.send("game:start", { roomId: room.roomId, gamePlan: makeSmokeGamePlan(catalog) });
 
-  const displayQuestion = await display.waitFor("question:show");
-  const playerQuestion1 = await player1.waitFor(
-    "question:controller",
-    (payload) => payload.questionId === displayQuestion.questionId,
-  );
-  const playerQuestion2 = await player2.waitFor(
-    "question:controller",
-    (payload) => payload.questionId === displayQuestion.questionId,
-  );
+  for (let questionIndex = 0; questionIndex < 4; questionIndex++) {
+    const displayQuestion = await answerCurrentQuestion({
+      room,
+      display,
+      host,
+      player1,
+      player2,
+      joined1,
+      joined2,
+      questionIndex,
+    });
+    await readyFromReveal({
+      room,
+      player1,
+      player2,
+      joined1,
+      joined2,
+      questionId: displayQuestion.questionId,
+    });
+  }
 
-  await display.waitFor(
-    "question:timer",
-    (payload) => payload.questionId === displayQuestion.questionId && payload.remainingMs > 0,
-  );
-
-  player1.send("answer:submit", {
-    roomId: room.roomId,
-    questionId: playerQuestion1.questionId,
-    playerId: joined1.playerId,
-    answer: answerForQuestion(playerQuestion1),
-    requestId: randomUUID(),
+  const fifthQuestion = await answerCurrentQuestion({
+    room,
+    display,
+    host,
+    player1,
+    player2,
+    joined1,
+    joined2,
+    questionIndex: 4,
   });
-  player2.send("answer:submit", {
-    roomId: room.roomId,
-    questionId: playerQuestion2.questionId,
-    playerId: joined2.playerId,
-    answer: answerForQuestion(playerQuestion2),
-    requestId: randomUUID(),
+  await readyFromReveal({
+    room,
+    player1,
+    player2,
+    joined1,
+    joined2,
+    questionId: fifthQuestion.questionId,
   });
 
-  await player1.waitFor("answer:accepted");
-  await player2.waitFor("answer:accepted");
-  await display.waitFor("answer:progress", (payload) => payload.answeredCount === 2);
-  await host.waitFor("answer:progress", (payload) => payload.answeredCount === 2);
-  const displayReveal = await display.waitFor(
-    "question:reveal",
-    (payload) => payload.questionId === displayQuestion.questionId,
+  const displayScore = await display.waitFor(
+    "score:update",
+    (payload) => payload.questionId === fifthQuestion.questionId,
   );
-  const hostReveal = await host.waitFor(
-    "question:reveal",
-    (payload) => payload.questionId === displayQuestion.questionId,
+  const hostScore = await host.waitFor(
+    "score:update",
+    (payload) => payload.questionId === fifthQuestion.questionId,
   );
-  assertNonEmptyString(displayReveal.explanation, "display reveal explanation");
-  assertNonEmptyString(hostReveal.explanation, "host reveal explanation");
-  await player1.waitFor("question:reveal");
-  const displayScore = await display.waitFor("score:update");
-  const hostScore = await host.waitFor("score:update");
-  await player1.waitFor("score:update");
+  await player1.waitFor(
+    "score:update",
+    (payload) => payload.questionId === fifthQuestion.questionId,
+  );
   if (!Array.isArray(displayScore.scoreChanges) || !Array.isArray(hostScore.scoreChanges)) {
     throw new Error("score:update must include scoreChanges arrays");
   }
+  await readyFromScoreboard({
+    room,
+    player1,
+    player2,
+    joined1,
+    joined2,
+    questionId: fifthQuestion.questionId,
+  });
+
+  const finalQuestion = await answerCurrentQuestion({
+    room,
+    display,
+    host,
+    player1,
+    player2,
+    joined1,
+    joined2,
+    questionIndex: 5,
+  });
+  await readyFromReveal({
+    room,
+    player1,
+    player2,
+    joined1,
+    joined2,
+    questionId: finalQuestion.questionId,
+  });
+  await display.waitFor("game:finished", (payload) => payload.finalScoreboard.length === 2);
 
   clients.push(await resumeSession("display-resume", room.displaySessionId, room.roomId));
   clients.push(await resumeSession("host-resume", hostConnected.hostSessionId, room.roomId));
   clients.push(await resumeSession("player-1-resume", joined1.sessionId, room.roomId));
 
-  console.log("smoke ok: display room, host pairing, catalog game plan, 2 players, timer, answer, reveal explanation, score:update, reconnect");
+  console.log("smoke ok: 90s timer, reveal readiness, scoreboard after question 5, final standings, reconnect");
 } finally {
   for (const client of clients.reverse()) {
     client.close();

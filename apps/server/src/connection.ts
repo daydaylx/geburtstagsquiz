@@ -158,7 +158,7 @@ function sendNextQuestionReadyProgress(
     readyCount: readyPlayerIds.length,
     totalEligiblePlayers: connectedPlayers.length,
     readyPlayerIds,
-    gameState: GameState.Scoreboard,
+    gameState: room.gameState === GameState.Revealing ? GameState.Revealing : GameState.Scoreboard,
   });
 }
 
@@ -275,6 +275,7 @@ export function syncSessionToRoomState(session: SessionRecord, room: RoomRecord)
           gameState: GameState.Revealing,
           explanation: question.explanation,
         });
+        sendNextQuestionReadyProgress(socket, room, question.id);
       }
       return;
 

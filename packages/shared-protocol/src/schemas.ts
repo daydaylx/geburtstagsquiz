@@ -637,7 +637,7 @@ export const NextQuestionReadyProgressPayloadSchema = z
     readyCount: z.number().int().nonnegative(),
     totalEligiblePlayers: z.number().int().nonnegative(),
     readyPlayerIds: z.array(idSchema),
-    gameState: z.literal(GameState.Scoreboard),
+    gameState: z.union([z.literal(GameState.Revealing), z.literal(GameState.Scoreboard)]),
   })
   .strict();
 

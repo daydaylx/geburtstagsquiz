@@ -61,12 +61,9 @@ const PRESET_IDS: GamePlanPresetId[] = [
   "chaos_party",
 ];
 const QUESTION_COUNT_CHOICES = [10, 15, 20, 25, 30] as const;
-const TIMER_CHOICES = [20_000, 30_000, 45_000, 60_000] as const;
+const TIMER_CHOICES = [20_000, 30_000, 45_000, 60_000, 90_000] as const;
 const REVEAL_CHOICES: Array<{ label: string; value: number; mode: RevealMode }> = [
-  { label: "Kurz", value: 3_000, mode: "auto" },
-  { label: "Normal", value: 5_000, mode: "auto" },
-  { label: "Lang", value: 8_000, mode: "auto" },
-  { label: "Host entscheidet", value: 15_000, mode: "manual_with_fallback" },
+  { label: "Bis alle bereit", value: 30_000, mode: "manual_with_fallback" },
 ];
 const DEFAULT_CUSTOM_TYPES = [
   QuestionType.MultipleChoice,
@@ -230,8 +227,8 @@ function buildPresetGamePlan(
         QuestionType.Estimate,
         QuestionType.Logic,
       ].filter((type) => allTypes.includes(type)),
-      timerMs: 30_000,
-      revealDurationMs: 15_000,
+      timerMs: 90_000,
+      revealDurationMs: 30_000,
       revealMode: "manual_with_fallback",
       showAnswerTextOnPlayerDevices: true,
       enableDemoQuestion: true,
@@ -243,8 +240,8 @@ function buildPresetGamePlan(
       presetId,
       questionCount: 20,
       questionTypes: DEFAULT_CUSTOM_TYPES.filter((type) => allTypes.includes(type)),
-      timerMs: 45_000,
-      revealDurationMs: 15_000,
+      timerMs: 90_000,
+      revealDurationMs: 30_000,
       revealMode: "manual_with_fallback",
       showAnswerTextOnPlayerDevices: true,
       enableDemoQuestion: true,
@@ -256,8 +253,8 @@ function buildPresetGamePlan(
       presetId,
       questionCount: 30,
       questionTypes: allTypes,
-      timerMs: 45_000,
-      revealDurationMs: 15_000,
+      timerMs: 90_000,
+      revealDurationMs: 30_000,
       revealMode: "manual_with_fallback",
       showAnswerTextOnPlayerDevices: true,
       enableDemoQuestion: true,
@@ -273,8 +270,8 @@ function buildPresetGamePlan(
         QuestionType.MajorityGuess,
         QuestionType.Estimate,
       ].filter((type) => allTypes.includes(type)),
-      timerMs: 30_000,
-      revealDurationMs: 15_000,
+      timerMs: 90_000,
+      revealDurationMs: 30_000,
       revealMode: "manual_with_fallback",
       showAnswerTextOnPlayerDevices: true,
       enableDemoQuestion: true,
@@ -300,8 +297,8 @@ function buildCustomGamePlan(
     questionCount: 20,
     categoryIds: catalog.categories.map((category) => category.id),
     questionTypes: DEFAULT_CUSTOM_TYPES.filter((type) => allTypes.includes(type)),
-    timerMs: 45_000,
-    revealDurationMs: 15_000,
+    timerMs: 90_000,
+    revealDurationMs: 30_000,
     revealMode: "manual_with_fallback",
     showAnswerTextOnPlayerDevices: true,
     enableDemoQuestion: true,
@@ -347,7 +344,6 @@ export function App() {
     "normal_evening",
   );
   const [countdownSeconds, setCountdownSeconds] = useState(0);
-  const [revealCooldownSeconds, setRevealCooldownSeconds] = useState(0);
   const [showAnswerTextOnPlayerDevices, setShowAnswerTextOnPlayerDevices] = useState(false);
   const [confirmFinishNow, setConfirmFinishNow] = useState(false);
   const [confirmRemovePlayerId, setConfirmRemovePlayerId] = useState<string | null>(null);
@@ -555,6 +551,8 @@ export function App() {
         setScreen("question");
         setAnswerProgress(null);
         setRevealExplanation(null);
+        setScoreboard(null);
+        setNextQuestionReadyProgress(null);
         return;
 
       case EVENTS.QUESTION_TIMER:
@@ -569,12 +567,13 @@ export function App() {
         setRevealedAnswer(parsedEnvelope.data.payload.correctAnswer);
         setRevealExplanation(parsedEnvelope.data.payload.explanation ?? null);
         setRoundResults(parsedEnvelope.data.payload.playerResults);
+        setNextQuestionReadyProgress(null);
         setScreen("reveal");
-        setRevealCooldownSeconds(20);
         return;
 
       case EVENTS.SCORE_UPDATE:
         setScoreboard(parsedEnvelope.data.payload);
+        setNextQuestionReadyProgress(null);
         setScreen("scoreboard");
         return;
 
@@ -652,14 +651,6 @@ export function App() {
 
     return () => window.clearInterval(timer);
   }, [screen, countdownSeconds]);
-
-  useEffect(() => {
-    if (screen !== "reveal" || revealCooldownSeconds <= 0) return;
-    const timer = window.setTimeout(() => {
-      setRevealCooldownSeconds((s) => Math.max(0, s - 1));
-    }, 1000);
-    return () => window.clearTimeout(timer);
-  }, [screen, revealCooldownSeconds]);
 
   const handleRestartInfo = useEffectEvent(() => {
     setNotice({
@@ -753,6 +744,11 @@ export function App() {
   const nextReadyLabel = nextQuestionReadyProgress
     ? `${nextQuestionReadyProgress.readyCount} / ${nextQuestionReadyProgress.totalEligiblePlayers} bereit`
     : "Warte auf Bereitmeldungen";
+  const nextReadyPercent =
+    nextQuestionReadyProgress && nextQuestionReadyProgress.totalEligiblePlayers > 0
+      ? (nextQuestionReadyProgress.readyCount / nextQuestionReadyProgress.totalEligiblePlayers) *
+        100
+      : 0;
   const latestScoreChanges = scoreboard?.scoreChanges ?? [];
 
   const effectiveTotalQuestionCount =
@@ -763,6 +759,12 @@ export function App() {
   const questionProgressPercent = effectiveTotalQuestionCount
     ? (visibleQuestionNumber / effectiveTotalQuestionCount) * 100
     : 0;
+  const canManuallyShowScoreboard =
+    screen === "reveal" &&
+    !!question &&
+    !question.isDemoQuestion &&
+    effectiveTotalQuestionCount !== null &&
+    currentQuestionNumber < effectiveTotalQuestionCount;
   const playerJoinUrl = roomInfo?.joinCode ? getPlayerJoinUrl(roomInfo.joinCode) : null;
 
   const currentFlowStepIndex =
@@ -1087,7 +1089,7 @@ export function App() {
     if (screen === "reveal" && question) {
       return (
         <div className="host-panel-content">
-          <p className="host-section-label">Auflösung</p>
+          <p className="host-section-label">Auflösung läuft</p>
           <h3 className="host-question-text">{question.text}</h3>
           {(question.type === QuestionType.MultipleChoice ||
             question.type === QuestionType.Logic ||
@@ -1157,6 +1159,15 @@ export function App() {
               <p>{missingRoundCount}</p>
             </div>
           </div>
+          <div className="host-progress-block">
+            <div className="host-bar-meta">
+              <span className="host-section-label host-section-label--compact">Bereit</span>
+              <strong>{nextReadyLabel}</strong>
+            </div>
+            <div className="host-progress-bar">
+              <div className="host-progress-fill" style={{ width: `${nextReadyPercent}%` }} />
+            </div>
+          </div>
         </div>
       );
     }
@@ -1215,9 +1226,7 @@ export function App() {
       : screen === "question"
         ? "Frage schließen"
         : screen === "reveal"
-          ? revealCooldownSeconds > 0
-            ? `Weiter (${revealCooldownSeconds}s)`
-            : "Zum Zwischenstand"
+          ? "Weiter"
           : screen === "scoreboard"
             ? "Nächste Frage"
             : screen === "finished"
@@ -1228,11 +1237,9 @@ export function App() {
       ? connectionState !== "connected" || connectedPlayerCount === 0 || !gamePlanDraft || !catalog
       : screen === "question"
         ? false
-        : screen === "reveal"
-          ? revealCooldownSeconds > 0
-          : screen === "scoreboard"
-            ? false
-            : screen !== "finished";
+        : screen === "reveal" || screen === "scoreboard"
+          ? false
+          : screen !== "finished";
 
   const startBlockReason =
     screen === "lobby" && isPrimaryDisabled
@@ -1426,6 +1433,15 @@ export function App() {
             </div>
             {["countdown", "question", "reveal", "scoreboard"].includes(screen) && (
               <div className="host-fallback-actions">
+                {canManuallyShowScoreboard && (
+                  <button
+                    className="host-secondary-button"
+                    onClick={handleShowScoreboard}
+                    type="button"
+                  >
+                    Scoreboard anzeigen
+                  </button>
+                )}
                 {confirmFinishNow ? (
                   <>
                     <button
@@ -1466,7 +1482,7 @@ export function App() {
                   : screen === "question"
                     ? handleForceCloseQuestion
                     : screen === "reveal"
-                      ? handleShowScoreboard
+                      ? handleAdvanceQuestion
                       : screen === "scoreboard"
                         ? handleAdvanceQuestion
                         : handleRestartInfo

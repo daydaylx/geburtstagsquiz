@@ -92,14 +92,14 @@ export function handleSocketClose(socket: TrackedWebSocket): void {
 
   player.state = PlayerState.Disconnected;
 
-  const existingTimer = room.playerDisconnectTimers.get(session.sessionId);
+  const existingTimer = room.playerDisconnectTimers.get(player.id);
 
   if (existingTimer) {
     clearTimeout(existingTimer);
   }
 
   room.playerDisconnectTimers.set(
-    session.sessionId,
+    player.id,
     setTimeout(() => {
       removePlayerFromRoom(room, player.id);
     }, PLAYER_DISCONNECT_GRACE_MS),

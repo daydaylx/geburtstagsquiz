@@ -69,7 +69,7 @@ Auch fuer ein Einmalprojekt sollten diese Punkte nicht aufgeweicht werden:
 - Hostgeraet ans Ladegeraet
 - mindestens zwei echte Handys testen
 - Join per QR und per Code einmal durchspielen
-- eine komplette Fragerunde mit Antwort, Reveal und Rangliste testen
+- eine komplette Fragerunde mit Antwort, Reveal-Bereitschaft und faelligem Zwischenstand testen
 - Browser-Tabs waehrend des eigentlichen Abends moeglichst nicht neu laden
 - keine letzten "coolen" Features kurz vorher einbauen
 

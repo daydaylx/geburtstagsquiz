@@ -397,7 +397,13 @@ function loadDefaultQuiz(): Quiz {
       });
 
       for (const question of category.questions) {
-        questionsById.set(question.id, transformQuestion(question, category));
+        try {
+          questionsById.set(question.id, transformQuestion(question, category));
+        } catch {
+          console.warn(
+            `[quiz-data] Skipping unsupported question ${question.id} (${question.type})`,
+          );
+        }
       }
     }
   }

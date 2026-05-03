@@ -173,7 +173,7 @@ Alles darueber hinaus ist optional und fuer dieses Repo nicht vorrangig.
 - `connection:resume`
 - `room:settings:update`
 - `game:start`
-- `game:next-question` als Host-Override nach der Rangliste
+- `game:next-question` als Host-Override in Reveal und Rangliste
 - `question:force-close`
 - `game:show-scoreboard`
 - `game:finish-now`

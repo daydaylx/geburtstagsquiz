@@ -90,7 +90,7 @@ Sicherstellen:
 - Timer kommt vom Server.
 - pro Spieler zaehlt nur eine Antwort.
 - Player sehen Antwort angenommen oder abgelehnt.
-- nach Schliessen der Frage folgen Reveal und Score.
+- nach Schliessen der Frage folgt Reveal; Scoreboard folgt nur nach faelligen 5er-Intervallen.
 
 Abnahme:
 
@@ -104,7 +104,7 @@ Abnahme:
 Sicherstellen:
 
 - Server wechselt automatisch weiter, wenn alle verbundenen Spieler bereit sind.
-- Host kann nach der Rangliste manuell weiterschalten, falls ein Handy haengen bleibt.
+- Host kann im Reveal oder nach der Rangliste manuell weiterschalten, falls ein Handy haengen bleibt.
 - Scoreboard bleibt konsistent.
 - letzte Frage fuehrt in einen Endstand.
 - Raum kann am Ende sauber geschlossen werden.

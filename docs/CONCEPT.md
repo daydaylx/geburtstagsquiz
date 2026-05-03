@@ -45,8 +45,8 @@ Ein browserbasiertes Geburtstagsquiz fuer Gruppen mit getrennten Rollen:
 8. Host startet das Spiel.
 9. Display zeigt die Frage, Player antworten ueber Handys.
 10. Server wertet aus.
-11. Display, Host und Player sehen Reveal und Rangliste.
-12. Player melden sich bereit fuer die naechste Frage.
+11. Display, Host und Player sehen die Aufloesung; alle 5 echten Fragen folgt zusaetzlich die Rangliste.
+12. Player melden sich im Reveal und auf der Rangliste bereit fuer die naechste Frage.
 
 ## Lokales Betriebsmodell
 

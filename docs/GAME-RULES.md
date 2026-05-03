@@ -24,14 +24,14 @@ Wichtig: Kategorien und Fragetypen sind echte Serverfilter. Wenn eine Auswahl zu
 3. Optional laeuft zuerst eine Demo-Frage ohne Punkte.
 4. Der Server oeffnet die naechste Frage, bei hohem Show-Level mit kurzem Countdown.
 5. Das Display/TV zeigt die vollstaendige Frage; der Host sieht Kontrolldaten; Player sehen nur den Antwort-Controller.
-6. Der Timer laeuft serverseitig.
+6. Der Timer laeuft serverseitig, standardmaessig 90 Sekunden.
 7. Jeder Spieler kann eine Antwort absenden.
 8. Nach Timerende, Host-Override oder wenn alle geantwortet haben, wird die Frage geschlossen.
 9. Die richtige Antwort wird gezeigt.
 10. Spieler sehen, ob ihre Antwort richtig war und wie viele Punkte diese Frage gebracht hat.
-11. Der Punktestand wird aktualisiert.
-12. Alle verbundenen Spieler druecken auf dem Handy "Bereit fuer naechste Frage".
-13. Der Server startet automatisch die naechste Frage oder beendet das Spiel.
+11. Alle verbundenen Spieler druecken auf dem Handy "Bereit fuer naechste Frage".
+12. Normalerweise startet danach direkt die naechste Frage.
+13. Nach jeder 5. echten Frage zeigt der Server den Zwischenstand; nach der letzten Frage erscheint der Endstand.
 14. Falls Spieler haengen bleiben, kann der Host manuell weiterschalten oder das Spiel mit aktuellem Stand beenden.
 
 ## Punkte
@@ -65,7 +65,7 @@ Im mitgelieferten Standard-Quiz sind die Fragen fest bepunktet. Fuer den Abend w
 ## Timer-Regel
 
 - Der Timer kommt vom Server.
-- Die Antwortzeit kommt aus dem validierten Spielplan.
+- Die Antwortzeit kommt aus dem validierten Spielplan und ist standardmaessig 90 Sekunden.
 - Clients zeigen nur den verbleibenden Stand an.
 - Nicht der letzte sichtbare Tick, sondern die serverseitige Sperre ist massgeblich.
 
@@ -96,7 +96,7 @@ Der Host:
 - sieht den Fortschritt der Antworten
 - sieht, wie viele Spieler fuer die naechste Frage bereit sind
 - entscheidet im Spielplan, ob Antworttexte auf Handys sichtbar sein sollen
-- kann eine Frage sofort schliessen, Reveal ueberspringen, zur naechsten Frage gehen, Spieler entfernen oder das Spiel mit aktuellem Stand beenden
+- kann eine Frage sofort schliessen, im Reveal weitergehen, optional den Zwischenstand anzeigen, Spieler entfernen oder das Spiel mit aktuellem Stand beenden
 - sieht Endstand und kann den Raum schliessen
 
 ### Spieler
@@ -108,7 +108,7 @@ Die Spieler:
 - schauen waehrend aktiver Fragen auf den Host-Bildschirm
 - senden eine Antwort pro Frage
 - sehen, ob die Antwort angenommen wurde
-- sehen bei der Aufloesung richtig/falsch, Punkte fuer die Frage, Rangliste und Endstand
+- sehen bei der Aufloesung richtig/falsch, Punkte fuer die Frage, bei faelligen Zwischenstaenden die Rangliste und am Schluss den Endstand
 - starten die naechste Frage gemeinsam ueber "Bereit fuer naechste Frage"
 
 ## UI-Fokus
@@ -121,7 +121,7 @@ Die Spieler:
 - Timer klar sichtbar
 - Antwortfortschritt mit Anzahl beantwortet/offen
 - Reveal mit deutlicher richtiger Antwort, abgedunkelten falschen Optionen und Erklaerung
-- Rangliste einfach zu erfassen
+- Rangliste alle 5 echten Fragen einfach zu erfassen
 - Top 3 und Endstand als Abschluss klar hervorgehoben
 - Status, Fortschritt und Spieleruebersicht bleiben klar gegliedert
 - kein ueberladenes Layout

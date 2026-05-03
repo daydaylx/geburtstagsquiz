@@ -10,8 +10,12 @@ import { handleDisplayCreateRoom } from "./room.js";
 import { handleHostConnect, handleRoomJoin } from "./lobby.js";
 import { handleGameStart, handleAnswerSubmit, handleNextQuestionReady } from "./game.js";
 import { syncSessionToRoomState } from "./connection.js";
-import { QUESTION_DURATION_MS, REVEAL_DURATION_MS } from "./config.js";
-import { buildCatalogSummary, buildDefaultGamePlan } from "./game-plan.js";
+import { QUESTION_DURATION_MS } from "./config.js";
+import {
+  buildCatalogSummary,
+  buildDefaultGamePlan,
+  MANUAL_REVEAL_FALLBACK_MS,
+} from "./game-plan.js";
 import { getDefaultQuiz } from "./quiz-data.js";
 import type { RoomRecord, TrackedWebSocket, SessionRecord } from "./server-types.js";
 
@@ -67,7 +71,7 @@ function makeAnswerForQuestion(question: Question): any {
   return { type: "text", value: "some text" };
 }
 
-function makeTestGamePlan() {
+function makeTestGamePlan(overrides: Partial<ReturnType<typeof buildDefaultGamePlan>> = {}) {
   const catalog = buildCatalogSummary(getDefaultQuiz());
 
   return {
@@ -75,6 +79,7 @@ function makeTestGamePlan() {
     questionCount: 1,
     enableDemoQuestion: false,
     displayShowLevel: "minimal" as const,
+    ...overrides,
   };
 }
 
@@ -82,15 +87,15 @@ function startGameWithOnePlayer(
   room: RoomRecord,
   hostSocket: TrackedWebSocket,
   playerSocket: TrackedWebSocket,
+  gamePlan = makeTestGamePlan(),
 ): { playerSession: SessionRecord; question: Question } {
   handleRoomJoin(playerSocket, { joinCode: room.joinCode, playerName: "Player 1" });
   const playerSession = getPlayerSession();
 
   hostSocket.sessionId = room.hostSessionId;
-  handleGameStart(hostSocket, { roomId: room.id, gamePlan: makeTestGamePlan() });
+  handleGameStart(hostSocket, { roomId: room.id, gamePlan });
 
   const question = room.quiz!.questions[0];
-  room.quiz!.questions = [question];
 
   return { playerSession, question };
 }
@@ -202,25 +207,35 @@ describe("Display Broadcast Logic", () => {
     expect(revealPayload).toBeDefined();
     expect(revealPayload.questionId).toBe(question.id);
     expect(revealPayload.correctAnswer).toBeDefined();
+
+    const readyPayload = getSentPayload(displaySocket, EVENTS.NEXT_QUESTION_READY_PROGRESS);
+    expect(readyPayload).toMatchObject({
+      questionId: question.id,
+      readyCount: 0,
+      totalEligiblePlayers: 1,
+      gameState: GameState.Revealing,
+    });
   });
 
-  it("sends score:update to display after reveal", () => {
+  it("keeps reveal visible until fallback timer fires (manual_with_fallback mode)", () => {
     const { playerSession, question } = startGameWithOnePlayer(room, hostSocket, playerSocket);
     submitAnswer(room, playerSocket, playerSession, question);
 
     (displaySocket as any)._sent.length = 0;
-    vi.advanceTimersByTime(REVEAL_DURATION_MS);
+    vi.advanceTimersByTime(MANUAL_REVEAL_FALLBACK_MS - 1);
 
-    const scorePayload = getSentPayload(displaySocket, EVENTS.SCORE_UPDATE);
-    expect(scorePayload).toBeDefined();
-    expect(scorePayload.questionId).toBe(question.id);
-    expect(scorePayload.scoreboard).toHaveLength(1);
+    const scorePayloadBefore = getSentPayload(displaySocket, EVENTS.SCORE_UPDATE);
+    expect(scorePayloadBefore).toBeUndefined();
+    expect(room.gameState).toBe(GameState.Revealing);
+
+    vi.advanceTimersByTime(1);
+
+    expect(room.gameState).toBe(GameState.Completed);
   });
 
-  it("sends game:finished to display after the final scoreboard ready state", () => {
+  it("sends game:finished to display after the final reveal ready state", () => {
     const { playerSession, question } = startGameWithOnePlayer(room, hostSocket, playerSocket);
     submitAnswer(room, playerSocket, playerSession, question);
-    vi.advanceTimersByTime(REVEAL_DURATION_MS);
 
     (displaySocket as any)._sent.length = 0;
     playerSocket.sessionId = playerSession.sessionId;
@@ -234,6 +249,101 @@ describe("Display Broadcast Logic", () => {
     expect(finishedPayload).toBeDefined();
     expect(finishedPayload.roomState).toBe(RoomState.Completed);
     expect(finishedPayload.finalScoreboard).toHaveLength(1);
+  });
+
+  it("skips scoreboard after non-interval questions and shows it after the fifth real question", () => {
+    const { playerSession } = startGameWithOnePlayer(
+      room,
+      hostSocket,
+      playerSocket,
+      makeTestGamePlan({ questionCount: 6 }),
+    );
+
+    for (let index = 0; index < 4; index++) {
+      const question = room.quiz!.questions[room.currentQuestionIndex!];
+      submitAnswer(room, playerSocket, playerSession, question);
+
+      (displaySocket as any)._sent.length = 0;
+      playerSocket.sessionId = playerSession.sessionId;
+      handleNextQuestionReady(playerSocket, {
+        roomId: room.id,
+        questionId: question.id,
+        playerId: playerSession.playerId!,
+      });
+
+      expect(getSentPayload(displaySocket, EVENTS.SCORE_UPDATE)).toBeUndefined();
+      expect(room.gameState).toBe(GameState.QuestionActive);
+      expect(room.currentQuestionIndex).toBe(index + 1);
+    }
+
+    const fifthQuestion = room.quiz!.questions[room.currentQuestionIndex!];
+    submitAnswer(room, playerSocket, playerSession, fifthQuestion);
+
+    (displaySocket as any)._sent.length = 0;
+    playerSocket.sessionId = playerSession.sessionId;
+    handleNextQuestionReady(playerSocket, {
+      roomId: room.id,
+      questionId: fifthQuestion.id,
+      playerId: playerSession.playerId!,
+    });
+
+    const scorePayload = getSentPayload(displaySocket, EVENTS.SCORE_UPDATE);
+    expect(scorePayload).toBeDefined();
+    expect(scorePayload.questionId).toBe(fifthQuestion.id);
+    expect(scorePayload.scoreboard).toHaveLength(1);
+    expect(room.gameState).toBe(GameState.Scoreboard);
+  });
+
+  it("does not count the demo question for the scoreboard interval", () => {
+    const { playerSession } = startGameWithOnePlayer(
+      room,
+      hostSocket,
+      playerSocket,
+      makeTestGamePlan({ questionCount: 6, enableDemoQuestion: true }),
+    );
+
+    const demoQuestion = room.quiz!.questions[room.currentQuestionIndex!];
+    expect(demoQuestion.isDemoQuestion).toBe(true);
+    submitAnswer(room, playerSocket, playerSession, demoQuestion);
+
+    (displaySocket as any)._sent.length = 0;
+    playerSocket.sessionId = playerSession.sessionId;
+    handleNextQuestionReady(playerSocket, {
+      roomId: room.id,
+      questionId: demoQuestion.id,
+      playerId: playerSession.playerId!,
+    });
+
+    expect(getSentPayload(displaySocket, EVENTS.SCORE_UPDATE)).toBeUndefined();
+    expect(room.gameState).toBe(GameState.QuestionActive);
+    expect(room.currentQuestionIndex).toBe(1);
+
+    for (let answeredRealQuestions = 0; answeredRealQuestions < 4; answeredRealQuestions++) {
+      const question = room.quiz!.questions[room.currentQuestionIndex!];
+      submitAnswer(room, playerSocket, playerSession, question);
+      playerSocket.sessionId = playerSession.sessionId;
+      handleNextQuestionReady(playerSocket, {
+        roomId: room.id,
+        questionId: question.id,
+        playerId: playerSession.playerId!,
+      });
+    }
+
+    const fifthRealQuestion = room.quiz!.questions[room.currentQuestionIndex!];
+    submitAnswer(room, playerSocket, playerSession, fifthRealQuestion);
+
+    (displaySocket as any)._sent.length = 0;
+    playerSocket.sessionId = playerSession.sessionId;
+    handleNextQuestionReady(playerSocket, {
+      roomId: room.id,
+      questionId: fifthRealQuestion.id,
+      playerId: playerSession.playerId!,
+    });
+
+    const scorePayload = getSentPayload(displaySocket, EVENTS.SCORE_UPDATE);
+    expect(scorePayload).toBeDefined();
+    expect(scorePayload.questionId).toBe(fifthRealQuestion.id);
+    expect(room.gameState).toBe(GameState.Scoreboard);
   });
 
   it("includes explanation in reveal snapshot during reconnect", () => {
