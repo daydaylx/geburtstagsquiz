@@ -3567,7 +3567,7 @@
           {
             "id": "q-04-01-275ee72c42",
             "type": "standard",
-            "prompt": "Welche MTV-Show war im Grunde eine hygienische Rasterfahndung, bei der Jugendzimmer unter UV-Licht auf 'biologische Rückstände' untersucht wurden?",
+            "prompt": "Welche MTV-Show untersuchte Jugendzimmer unter UV-Licht auf 'biologische Rückstände' – eine hygienische Rasterfahndung?",
             "options": [
               {
                 "id": "q-04-01-opt-1",
@@ -3598,7 +3598,7 @@
           {
             "id": "q-04-02-c5be5cbd7c",
             "type": "standard",
-            "prompt": "In welcher Dating-Show war ein Bus das ultimative Symbol für die Wegwerfgesellschaft, weil man nach einem falschen Satz sofort 'Next!' gerufen wurde?",
+            "prompt": "In welcher Dating-Show reichte ein falscher Satz für 'Next!' – und der Bus wurde zum Symbol der Wegwerfgesellschaft?",
             "options": [
               {
                 "id": "q-04-02-opt-1",
@@ -3723,7 +3723,7 @@
           {
             "id": "q-04-06-majority-shame",
             "type": "majority_guess",
-            "prompt": "Diskussionsrunde: Welcher dieser TV-Tiefpunkte der 2000er löst heute das stärkste Bedürfnis aus, die eigene Jugend nachträglich zu annullieren?",
+            "prompt": "Welcher TV-Tiefpunkt der 2000er löst heute das stärkste Bedürfnis aus, die eigene Jugend nachträglich zu annullieren?",
             "options": [
               {
                 "id": "q-04-06-opt-1",
@@ -3861,7 +3861,7 @@
           {
             "id": "q-04-11-6591ed9193",
             "type": "standard",
-            "prompt": "Welche Gerichtsshow-Richterin brachte uns bei, dass man für Nachbarschaftsstreitigkeiten im deutschen TV gefühlt lebenslänglich bekommen kann?",
+            "prompt": "Welche Gerichtsshow-Richterin brachte bei, dass Nachbarschaftsstreitigkeiten im deutschen TV gefühlt lebenslänglich geben?",
             "options": [
               {
                 "id": "q-04-11-opt-1",
@@ -3892,7 +3892,7 @@
           {
             "id": "q-04-12-duel-bb",
             "type": "estimate_duel",
-            "prompt": "Wie viele Menschen bewarben sich laut RTL II für die allererste Staffel von 'Big Brother' im Jahr 2000, um sich 100 Tage einsperren zu lassen?",
+            "prompt": "Wie viele Menschen bewarben sich 2000 bei RTL II für die erste 'Big Brother'-Staffel (100 Tage Einschluss)?",
             "answer": {
               "canonical": "70000",
               "reference_value": 70000,
@@ -3907,7 +3907,7 @@
           {
             "id": "q-04-13-mistake-pimp",
             "type": "common_mistake",
-            "prompt": "Common Mistake: Entgegen dem coolen Image von 'Pimp My Ride' – was passierte mit den meisten mechanischen Defekten der Autos während der Show?",
+            "prompt": "Common Mistake: Was passierte bei 'Pimp My Ride' wirklich mit den mechanischen Defekten der Autos?",
             "options": [
               {
                 "id": "q-04-13-opt-1",
@@ -4125,7 +4125,7 @@
           {
             "id": "q-04-20-e8d767902d",
             "type": "standard",
-            "prompt": "Welche Serie brachte uns 2003 bei, dass reiche Teenager in Kalifornien nur zwei Zustände kennen: Dramatisch weinen oder dramatisch im Meer surfen?",
+            "prompt": "Welche Serie zeigte 2003, dass reiche Teenager in Kalifornien nur weinen oder im Meer surfen können?",
             "options": [
               {
                 "id": "q-04-20-opt-1",
@@ -4310,7 +4310,7 @@
           {
             "id": "q-04-e02-adddcf4169",
             "type": "estimate",
-            "prompt": "Wie viele Zuschauer (in Millionen) sahen das finale der ersten 'Deutschland sucht den Superstar'-Staffel im Jahr 2003 (Sieg von Alexander Klaws)?",
+            "prompt": "Wie viele Millionen Zuschauer sahen 2003 das Finale der ersten DSDS-Staffel (Sieg von Alexander Klaws)?",
             "answer": {
               "canonical": "12.8 Millionen",
               "reference_value": 12.8,
@@ -7192,7 +7192,7 @@
           {
             "id": "q-09-02",
             "type": "estimate",
-            "prompt": "Wie viele Liter Wasser fließen im Durchschnitt durch eine klassische Toilettenspülung (altes Modell, ohne Spartaste), wenn man einmal abzieht?",
+            "prompt": "Wie viele Liter Wasser verbraucht eine klassische Toilettenspülung (altes Modell, ohne Spartaste) pro Gang?",
             "answer": {
               "canonical": "9 Liter",
               "reference_value": 9,
@@ -7713,7 +7713,7 @@
           {
             "id": "q-10-01",
             "type": "standard",
-            "prompt": "Es ist 23:00 Uhr, du willst heimlich ins Internet und niemand soll merken, dass die Telefonleitung blockiert ist. Welches Geraeusch verraet dich?",
+            "prompt": "Es ist 23:00 Uhr, du gehst heimlich ins Internet. Welches Geräusch verrät dich sofort über die Telefonleitung?",
             "answer": {
               "canonical": "Das Einwahlgeraeusch des Modems",
               "aliases": [
@@ -7873,7 +7873,7 @@
           {
             "id": "q-10-10",
             "type": "logic",
-            "prompt": "Du hast einen 'Anti-Shock'-Discman mit 30 Sekunden Puffer. Warum springt die Musik trotzdem, wenn du genau 31 Sekunden lang gleichmäßig joggst?",
+            "prompt": "Dein Anti-Shock-Discman hat 30 Sek. Puffer. Warum springt die Musik nach genau 31 Sek. gleichmäßigen Joggens?",
             "answer": {
               "canonical": "Der digitale Zwischenspeicher ist leer gelaufen",
               "aliases": [
@@ -7927,7 +7927,7 @@
           {
             "id": "q-10-12",
             "type": "estimate_duel",
-            "prompt": "Ein 3,5 MB großer Song bei Napster. Dein 56k-Modem läuft perfekt (ca. 7 KB/s). Wie viele Minuten dauert der Download im Idealfall mindestens?",
+            "prompt": "3,5 MB Song bei Napster, 56k-Modem (ca. 7 KB/s). Wie viele Minuten dauert der Download im Idealfall?",
             "answer": {
               "canonical": "ca. 8-9 Minuten",
               "reference_value": 8,

@@ -79,14 +79,10 @@ Startreihenfolge, falls manuell gestartet wird:
 Fuer den Abend-/Hotspotbetrieb:
 
 ```bash
-./start_quiz.sh
+./quiz.sh
 ```
 
-Stoppen:
-
-```bash
-./stop_quiz.sh
-```
+Im Menue "Lokal" oder "Tunnel" waehlen. Ctrl+C stoppt alle Dienste sauber.
 
 ## 4. Lokaler Smoke-Test
 

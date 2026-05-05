@@ -110,14 +110,10 @@ Standard-URLs:
 Abend-/Hotspot-Start:
 
 ```bash
-./start_quiz.sh
+./quiz.sh
 ```
 
-Stoppen:
-
-```bash
-./stop_quiz.sh
-```
+Im Menue "Lokal" oder "Tunnel" waehlen. Ctrl+C stoppt alle Dienste sauber.
 
 Lokaler Protokoll-Smoke-Test bei laufendem Server:
 
