@@ -47,7 +47,7 @@
     },
     "stats": {
       "total_categories": 10,
-      "total_questions": 220,
+      "total_questions": 219,
       "engine_question_type": "multiple_choice",
       "generated_options_per_question": 4
     },
@@ -2334,16 +2334,16 @@
           },
           {
             "id": "q-05-06-69a36d4f74",
-            "prompt": "Was versteht man unter 'Leichen' nach einer Hausparty?",
+            "prompt": "Was bezeichnet man in der Partysprache als 'Leichen' – also schlafende Personen die nach der Feier überall liegen?",
             "options": [
               {
                 "id": "q-05-06-69a36d4f74-opt-1",
-                "text": "Leute, die irgendwo im Haus betrunken eingeschlafen sind",
+                "text": "Betrunkene Gäste, die irgendwo eingeschlafen sind",
                 "is_correct": true
               },
               {
                 "id": "q-05-06-69a36d4f74-opt-2",
-                "text": "Leere Flaschen, die überall rumstehen",
+                "text": "Leere Dosen und Flaschen, die überall stehen",
                 "is_correct": false
               },
               {
@@ -2358,7 +2358,7 @@
               }
             ],
             "correct_option_id": "q-05-06-69a36d4f74-opt-1",
-            "explanation": "Meistens liegen sie in der Badewanne oder unter dem Küchentisch. Der Moment, in dem man realisiert, dass man neue Freunde braucht – oder einen Putztrupp.",
+            "explanation": "Im Partyslang sind 'Leichen' die eingeschlafenen Gäste. Leere Flaschen heißen Leichen nur umgangssprachlich in manchen Regionen – die Hauptbedeutung sind die schlafenden Personen.",
             "difficulty": "medium",
             "category_id": "cat-05",
             "type": "multiple_choice",
@@ -2690,7 +2690,7 @@
             "options": [
               {
                 "id": "q-05-17-d070806f36-opt-1",
-                "text": "Longdrinks haben nur 2 Zutaten (Spirituose + Filler)",
+                "text": "Longdrinks bestehen typischerweise aus einer Spirituose, die mit einem alkoholfreien Getränk aufgefüllt wird",
                 "is_correct": true
               },
               {
@@ -2710,7 +2710,7 @@
               }
             ],
             "correct_option_id": "q-05-17-d070806f36-opt-1",
-            "explanation": "Wodka-Lemon: Longdrink. Zombie: Cocktail. Ein Longdrink ist für Leute, die nicht warten wollen. Ein Cocktail ist für Leute, die Schirmchen mögen.",
+            "explanation": "Ein Longdrink ist eine Spirituose + Filler (Wasser, Soda, Saft, Cola…). Die '2 Zutaten'-Formel ist eine Vereinfachung – Garnitur nicht mitgezählt.",
             "difficulty": "medium",
             "category_id": "cat-05",
             "type": "multiple_choice",
@@ -3682,7 +3682,7 @@
           },
           {
             "id": "q-06-21-db7ae3022f",
-            "prompt": "Welche „Boygroup“ aus Berlin-Marzahn sorgte 2003 mit Masken und provokanten Texten für einen Skandal?",
+            "prompt": "Welches Berliner Rap-Kollektiv sorgte 2003 mit Masken und provokanten Texten für einen Skandal im deutschen Musikgeschäft?",
             "options": [
               {
                 "id": "q-06-21-db7ae3022f-opt-1",
@@ -3706,7 +3706,7 @@
               }
             ],
             "correct_option_id": "q-06-21-db7ae3022f-opt-1",
-            "explanation": "Sido mit der silbernen Maske. Unsere Eltern dachten, das Abendland geht unter, während wir im Kinderzimmer „Mein Block“ mitgerappt haben.",
+            "explanation": "Aggro Berlin war ein Rap-Label (kein Boyband-Projekt), das u. a. Sido, B-Tight und Fler unter Vertrag hatte. Das Label-Image wurde stark mit dem Berliner Plattenbau-Milieu assoziiert.",
             "difficulty": "medium_hard",
             "category_id": "cat-06",
             "type": "multiple_choice",
@@ -3778,11 +3778,11 @@
           },
           {
             "id": "q-06-24-bedb3b28b0",
-            "prompt": "Was war das Ziel des „Millennium-Bugs“ (Y2K), vor dem alle 1999 Panik hatten?",
+            "prompt": "Was war das Kernproblem des „Millennium-Bugs“ (Y2K), vor dem alle 1999 Panik hatten?",
             "options": [
               {
                 "id": "q-06-24-bedb3b28b0-opt-1",
-                "text": "Dass alle Computer abstürzen, weil sie das Jahr 2000 nicht kennen",
+                "text": "Computer-Software speicherte Jahreszahlen nur zweistellig – das Jahr 2000 hätte als '00' gelesen werden und Abstürze verursachen können",
                 "is_correct": true
               },
               {
@@ -3802,7 +3802,7 @@
               }
             ],
             "correct_option_id": "q-06-24-bedb3b28b0-opt-1",
-            "explanation": "Wir dachten, Flugzeuge fallen vom Himmel und Toaster fangen an zu brennen. Am Ende passierte: nichts. Außer dass wir alle betrunken „The Final Countdown“ gesungen haben.",
+            "explanation": "Y2K war kein Angriff, sondern ein Programmierungsfehler: Jahreszahlen wurden in vielen Systemen nur als zweistellige Zahl gespeichert. '00' wäre als 1900 interpretiert worden.",
             "difficulty": "medium_hard",
             "category_id": "cat-06",
             "type": "multiple_choice",
@@ -3858,19 +3858,36 @@
           },
           {
             "id": "q-06-e02-cf01d207c2",
-            "type": "estimate",
+            "type": "multiple_choice",
             "prompt": "In welchem Jahr ereignete sich der berühmte 'Nipplegate'-Skandal um Janet Jackson beim Super Bowl?",
-            "answer": {
-              "canonical": "2004 Jahr",
-              "reference_value": 2004,
-              "unit": "Jahr",
-              "context": "USA, Super Bowl Halftime Show"
-            },
             "scoring_rule": "closest_wins",
-            "explanation": "Es war 2004. Justin Timberlake riss an der Kleidung, die USA bekamen einen Nervenzusammenbruch und YouTube wurde quasi deshalb erfunden.",
+            "explanation": "Der 'Nipplegate'-Vorfall ereignete sich am 1. Februar 2004 während der Halbzeit-Show des Super Bowl XXXVIII. Er löste eine der größten Zensur-Debatten in der US-Mediengeschichte aus.",
             "difficulty": "medium",
             "points": 1,
-            "category_id": "cat-06"
+            "category_id": "cat-06",
+            "options": [
+              {
+                "id": "q-06-e02-opt-1",
+                "text": "2001",
+                "is_correct": false
+              },
+              {
+                "id": "q-06-e02-opt-2",
+                "text": "2003",
+                "is_correct": false
+              },
+              {
+                "id": "q-06-e02-opt-3",
+                "text": "2004",
+                "is_correct": true
+              },
+              {
+                "id": "q-06-e02-opt-4",
+                "text": "2007",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-06-e02-opt-3"
           }
         ],
         "id": "cat-06"
@@ -4324,13 +4341,13 @@
             "type": "estimate",
             "prompt": "Wie viel Megabyte (MB) Speicherplatz bot eine offizielle Memory Card für die erste PlayStation (PS1)?",
             "answer": {
-              "canonical": "1.0 MB",
-              "reference_value": 1,
+              "canonical": "0,125 MB (128 KB)",
+              "reference_value": 0.125,
               "unit": "MB",
-              "context": "Hardware Specs, 15 Speicherblöcke"
+              "context": "Die PS1 Memory Card hatte 1 Megabit = 128 Kilobyte = 0,125 MB Speicher, aufgeteilt auf 15 Speicherblöcke."
             },
             "scoring_rule": "closest_wins",
-            "explanation": "1 MB. Darauf passten 15 Blöcke. Und wir mussten ständig entscheiden, welches Savegame wir opfern – wahre Millennial-Traumata.",
+            "explanation": "Die PS1 Memory Card speicherte 128 KB – das sind 0,125 MB, nicht 1 MB. Ein häufiger Irrtum, weil 'Megabit' leicht mit 'Megabyte' verwechselt wird.",
             "difficulty": "medium",
             "points": 1,
             "category_id": "cat-07"
@@ -6028,35 +6045,69 @@
           },
           {
             "id": "q-08-e02-4ad75bc879",
-            "type": "estimate",
+            "type": "multiple_choice",
             "prompt": "Welchen BPM-Wert (Beats Per Minute) hat der Trance-Klassiker 'Sandstorm' von Darude?",
-            "answer": {
-              "canonical": "136 BPM",
-              "reference_value": 136,
-              "unit": "BPM",
-              "context": "Musik-Metrik"
-            },
             "scoring_rule": "closest_wins",
-            "explanation": "Mit 136 BPM ist es der perfekte Rhythmus für... alles. Wirklich alles.",
+            "explanation": "Sandstorm von Darude läuft bei 136 BPM – klassisches Trance-Tempo. Wer das wusste, ohne es nachzuschlagen: Respekt.",
             "difficulty": "medium",
             "points": 1,
-            "category_id": "cat-08"
+            "category_id": "cat-08",
+            "options": [
+              {
+                "id": "q-08-e02-opt-1",
+                "text": "112 BPM",
+                "is_correct": false
+              },
+              {
+                "id": "q-08-e02-opt-2",
+                "text": "128 BPM",
+                "is_correct": false
+              },
+              {
+                "id": "q-08-e02-opt-3",
+                "text": "136 BPM",
+                "is_correct": true
+              },
+              {
+                "id": "q-08-e02-opt-4",
+                "text": "150 BPM",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-08-e02-opt-3"
           },
           {
             "id": "q-08-e03-aac1454a8b",
-            "type": "estimate",
+            "type": "multiple_choice",
             "prompt": "In welchem Jahr wurde der deutsche Musiksender VIVA offiziell eingestellt?",
-            "answer": {
-              "canonical": "2018 Jahr",
-              "reference_value": 2018,
-              "unit": "Jahr",
-              "context": "Medienhistorie Deutschland"
-            },
             "scoring_rule": "closest_wins",
-            "explanation": "Am 31. Dezember 2018 war Schluss. Das Ende einer Ära für alle, die nach der Schule erst mal VIVA geschaut haben.",
+            "explanation": "VIVA wurde am 31. Dezember 2018 eingestellt. Der Sender lief seit 1993 – fast 25 Jahre Musikgeschichte.",
             "difficulty": "medium",
             "points": 1,
-            "category_id": "cat-08"
+            "category_id": "cat-08",
+            "options": [
+              {
+                "id": "q-08-e03-opt-1",
+                "text": "2012",
+                "is_correct": false
+              },
+              {
+                "id": "q-08-e03-opt-2",
+                "text": "2015",
+                "is_correct": false
+              },
+              {
+                "id": "q-08-e03-opt-3",
+                "text": "2018",
+                "is_correct": true
+              },
+              {
+                "id": "q-08-e03-opt-4",
+                "text": "2021",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-08-e03-opt-3"
           }
         ],
         "id": "cat-08"
@@ -6149,7 +6200,7 @@
             "difficulty": "medium",
             "difficulty_score": 3,
             "points": 1,
-            "prompt": "In welche Tonne gehören saubere Papierverpackungen normalerweise?",
+            "prompt": "In welche Tonne gehört ein alter, trockener Zeitungsstapel?",
             "options": [
               {
                 "id": "q-09-02-731a3c8f32-opt-1",
@@ -6183,7 +6234,7 @@
               "case_sensitive": false,
               "match_strategy": "alias_or_option_id"
             },
-            "explanation": "Sauberes Papier gehört in die Papiertonne. Eigentlich einfach, aber für manche Nachbarn immer noch ein ungelöstes Rätsel.",
+            "explanation": "Zeitungen und unbedrucktes Papier gehören immer in die Papiertonne – das gilt bundesweit. Bei beschichteten Papierverpackungen kann je nach Gemeinde auch der Gelbe Sack zuständig sein.",
             "tags": [
               "adulting",
               "haushalt",
@@ -7691,7 +7742,7 @@
         "slug": "technik-fails-hardware-friedhof",
         "name": "Technik-Fails & Hardware-Friedhof",
         "intro": "Hier liegt der Elektroschrott eurer Jugend in Ehren begraben: Röhrenmonster, Discman-Gehopse und CDs, die mit illegalen MP3s und 14 Viren zugleich gebrannt wurden. Fortschritt war damals nur ein anderes Wort für „funktioniert irgendwie, bis es raucht“.",
-        "question_count": 28,
+        "question_count": 27,
         "difficulty": "medium",
         "default_question_type": "multiple_choice",
         "default_points": 1,
@@ -9151,67 +9202,6 @@
               "match_strategy": "alias_or_option_id"
             },
             "explanation": "LimeWire war wie ein Wühltisch auf einem verseuchten Flohmarkt. Man suchte Britney und bekam tanzende Hamster mit Trojanern.",
-            "tags": [
-              "technik",
-              "hardware",
-              "computer",
-              "handys",
-              "nostalgie"
-            ],
-            "source": {
-              "imported_from_category_name": "Technik-Fails & Hardware-Friedhof"
-            },
-            "validation": {
-              "auto_generated_options": true,
-              "needs_manual_review": false,
-              "review_flags": []
-            }
-          },
-          {
-            "id": "q-10-25-258ab2b479",
-            "legacy_question_id": 25,
-            "category_id": "cat-10",
-            "order_in_category": 25,
-            "order_global": 250,
-            "type": "multiple_choice",
-            "difficulty": "medium",
-            "difficulty_score": 3,
-            "points": 1,
-            "prompt": "Was war die eigentliche Kernkompetenz vieler Geräte aus dieser Ära?",
-            "options": [
-              {
-                "id": "q-10-25-258ab2b479-opt-1",
-                "text": "Gedankensteuerung",
-                "is_correct": false
-              },
-              {
-                "id": "q-10-25-258ab2b479-opt-2",
-                "text": "Nie kaputtgehen",
-                "is_correct": false
-              },
-              {
-                "id": "q-10-25-258ab2b479-opt-3",
-                "text": "Umständlich sein und im falschen Moment versagen",
-                "is_correct": true
-              },
-              {
-                "id": "q-10-25-258ab2b479-opt-4",
-                "text": "Kaffee kochen",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-10-25-258ab2b479-opt-3",
-            "answer": {
-              "canonical": "Umständlich sein, Kabel brauchen und im dümmsten Moment versagen",
-              "aliases": [
-                "Umständlich sein, Kabel brauchen und im dümmsten Moment versagen",
-                "umständlich sein, kabel brauchen und im dümmsten moment versagen"
-              ],
-              "alternatives": [],
-              "case_sensitive": false,
-              "match_strategy": "alias_or_option_id"
-            },
-            "explanation": "Die Technik der 2000er war eine Lektion in Geduld. Wer heute über 2 Sek. Ladezeit meckert, hätte damals einen Nervenzusammenbruch erlitten.",
             "tags": [
               "technik",
               "hardware",

@@ -47,7 +47,7 @@
     },
     "stats": {
       "total_categories": 10,
-      "total_questions": 282,
+      "total_questions": 279,
       "engine_question_type": "multiple_choice",
       "generated_options_per_question": 4
     },
@@ -68,7 +68,7 @@
         "slug": "harry-potter-nur-filme-harter-schwierigkeitsgrad",
         "name": "Harry Potter (Nur Filme, harter Schwierigkeitsgrad)",
         "intro": "Ihr habt die Filme natürlich „alle oft gesehen“. Klar. Und trotzdem werdet ihr gleich mit dem Gesicht zuerst in euren eigenen Butterbier-Eimer fallen. Zeit für ein bisschen Realitätscheck.",
-        "question_count": 25,
+        "question_count": 22,
         "difficulty": "hard",
         "default_question_type": "standard",
         "default_points": 1,
@@ -249,37 +249,6 @@
             "correct_option_id": "q-01-06-opt-1",
             "explanation": "Snapes Logikrätsel mit den Fläschchen fehlt im Film. Wahrscheinlich war es zu wenig 'Action' für das Finale, oder man wollte nicht zeigen, dass Hermine die einzige ist, die logisch denken kann.",
             "difficulty": "hard",
-            "points": 1
-          },
-          {
-            "id": "q-01-07",
-            "type": "standard",
-            "prompt": "Welches markante körperliche Merkmal verrät den falschen Moody (Barty Crouch Jr.) in 'Der Feuerkelch'?",
-            "options": [
-              {
-                "id": "q-01-07-opt-1",
-                "text": "Das schlangenartige Züngeln/Lecken der Lippen",
-                "is_correct": true
-              },
-              {
-                "id": "q-01-07-opt-2",
-                "text": "Ein ständiges Augenzucken des falschen Auges",
-                "is_correct": false
-              },
-              {
-                "id": "q-01-07-opt-3",
-                "text": "Er benutzt den Zauberstab mit der falschen Hand",
-                "is_correct": false
-              },
-              {
-                "id": "q-01-07-opt-4",
-                "text": "Sein Hinken wechselt das Bein",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-01-07-opt-1",
-            "explanation": "Das Züngeln! Ein Detail, das David Tennant improvisiert hat. Ein klassischer 'Show, don't tell'-Moment, der uns als Kinder alle leicht verstört hat.",
-            "difficulty": "medium",
             "points": 1
           },
           {
@@ -589,37 +558,6 @@
             "points": 1
           },
           {
-            "id": "q-01-19",
-            "type": "standard",
-            "prompt": "Welche Gestalt hat der Patronus von Severus Snape?",
-            "options": [
-              {
-                "id": "q-01-19-opt-1",
-                "text": "Hirschkuh",
-                "is_correct": true
-              },
-              {
-                "id": "q-01-19-opt-2",
-                "text": "Hirsch",
-                "is_correct": false
-              },
-              {
-                "id": "q-01-19-opt-3",
-                "text": "Rehkitz",
-                "is_correct": false
-              },
-              {
-                "id": "q-01-19-opt-4",
-                "text": "Silberfüchsin",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-01-19-opt-1",
-            "explanation": "Eine Hirschkuh. 'After all this time?' – 'Always.' Der Moment, in dem eine ganze Generation gelernt hat, was echte (und leicht obsessive) Loyalität bedeutet.",
-            "difficulty": "medium",
-            "points": 1
-          },
-          {
             "id": "q-01-20",
             "type": "common_mistake",
             "prompt": "Welche Farbe haben Harry Potters Augen in den FILMEN (im Gegensatz zu den Büchern)?",
@@ -709,21 +647,6 @@
             ],
             "correct_option_id": "q-01-22-opt-1",
             "explanation": "Molly Weasley besiegt Bellatrix in der finalen Schlacht. Der Moment funktioniert, weil Molly nicht nur Mutter, sondern eine ernstzunehmende Hexe ist.",
-            "difficulty": "medium",
-            "points": 1
-          },
-          {
-            "id": "q-01-23",
-            "type": "estimate",
-            "prompt": "Wie viele Millionen US-Dollar spielte der letzte Film 'Harry Potter und die Heiligtümer des Todes – Teil 2' weltweit insgesamt ein?",
-            "answer": {
-              "canonical": "1342 Millionen USD",
-              "reference_value": 1342,
-              "unit": "Millionen USD",
-              "context": "Box Office Record"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "1,342 Milliarden Dollar. Das ist eine Menge Butterbier. Es war lange Zeit einer der erfolgreichsten Filme aller Zeiten – bis die Avengers kamen und alles kaputt gemacht haben.",
             "difficulty": "medium",
             "points": 1
           },
@@ -3706,7 +3629,7 @@
           {
             "id": "q-04-03-logic-kader",
             "type": "logic",
-            "prompt": "Kader-Loth-Logik: Sie war bei 'Big Brother' (5), 'Die Burg' und im 'Dschungelcamp'. Welches dieser Trash-Formate hat sie als EINZIGES tatsächlich als Siegerin ('Königin') verlassen?",
+            "prompt": "Welches Trash-Format hat Kader Loth als einziges als Siegerin verlassen?",
             "options": [
               {
                 "id": "q-04-03-opt-1",
@@ -3739,25 +3662,37 @@
             "type": "ranking",
             "prompt": "Sortiere den kulturellen Verfall nach seinem Startdatum im deutschen Fernsehen (von alt nach jung).",
             "items": [
-              "Big Brother (RTL II)",
-              "Deutschland sucht den Superstar (RTL)",
-              "Ich bin ein Star – Holt mich hier raus! (RTL)",
-              "Germany’s Next Topmodel (ProSieben)"
+              {
+                "id": "A",
+                "label": "Big Brother (RTL II)"
+              },
+              {
+                "id": "B",
+                "label": "Deutschland sucht den Superstar (RTL)"
+              },
+              {
+                "id": "C",
+                "label": "Ich bin ein Star – Holt mich hier raus! (RTL)"
+              },
+              {
+                "id": "D",
+                "label": "Germany's Next Topmodel (ProSieben)"
+              }
             ],
             "correct_order": [
-              "Big Brother (RTL II)",
-              "Deutschland sucht den Superstar (RTL)",
-              "Ich bin ein Star – Holt mich hier raus! (RTL)",
-              "Germany’s Next Topmodel (ProSieben)"
+              "A",
+              "B",
+              "C",
+              "D"
             ],
-            "explanation": "Big Brother startete 2000, DSDS 2002, das Dschungelcamp 2004 und GNTM 2006. Die Reihenfolge ist ein sauberer Zeitstrahl deutscher Reality-TV-Geschichte.",
+            "explanation": "Start-Reihenfolge: Big Brother (2000), DSDS (2002), Dschungelcamp (2004), GNTM (2006). Kultureller Verfall in Echtzeit.",
             "difficulty": "medium_hard",
             "points": 2
           },
           {
             "id": "q-04-05-mistake-alm",
             "type": "common_mistake",
-            "prompt": "Alle denken, das 'Dschungelcamp' hätte das Genre der ekligen Promi-Prüfungen in Deutschland erfunden. Aber welche ProSieben-Show zwang Promis schon vorher, auf einer Alm Kuhfladen zu wiegen und im Heu zu schlafen?",
+            "prompt": "Welche ProSieben-Show ließ Promis auf einer Alm Kuhfladen wiegen – BEVOR das Dschungelcamp das Genre in Deutschland populär machte?",
             "options": [
               {
                 "id": "q-04-05-opt-1",
@@ -3818,7 +3753,7 @@
           {
             "id": "q-04-07-pattern-catchphrase",
             "type": "pattern",
-            "prompt": "Vervollständige die Reihe der ikonischen Show-Abgänge: 'Next!' (Next), 'Ich habe heute leider kein Foto für dich' (GNTM), 'Du bist raus!' (Big Brother), ...?",
+            "prompt": "Wie endet die Reihe: 'Next!' (Next), 'Kein Foto für dich' (GNTM), 'Du bist raus!' (Big Brother), ...?",
             "options": [
               {
                 "id": "q-04-07-opt-1",
@@ -3895,7 +3830,7 @@
           {
             "id": "q-04-10-logic-gerner",
             "type": "logic",
-            "prompt": "GZSZ-Mathematik: Wer war in der Serie so oft verheiratet (und/oder liiert), dass man für seine Hochzeiten eigentlich ein eigenes Treuepunkt-System bei RTL hätte einführen müssen?",
+            "prompt": "Wer hält in GZSZ den inoffiziellen Rekord für die meisten Hochzeiten in der Seriengeschichte?",
             "options": [
               {
                 "id": "q-04-10-opt-1",
@@ -4160,18 +4095,30 @@
             "type": "ranking",
             "prompt": "Sortiere diese 'Trash-Ikonen' nach dem Jahr ihrer ersten großen TV-Präsenz (von alt nach jung).",
             "items": [
-              "Zlatko (Big Brother)",
-              "Kader Loth (Big Brother/Die Alm)",
-              "Daniela Katzenberger (Auf und davon)",
-              "Melanie Müller (Der Bachelor)"
+              {
+                "id": "A",
+                "label": "Zlatko Trpkovski (Big Brother)"
+              },
+              {
+                "id": "B",
+                "label": "Kader Loth (Die Alm)"
+              },
+              {
+                "id": "C",
+                "label": "Daniela Katzenberger (Auf und davon)"
+              },
+              {
+                "id": "D",
+                "label": "Melanie Müller (Der Bachelor)"
+              }
             ],
             "correct_order": [
-              "Zlatko (Big Brother)",
-              "Kader Loth (Big Brother/Die Alm)",
-              "Daniela Katzenberger (Auf und davon)",
-              "Melanie Müller (Der Bachelor)"
+              "A",
+              "B",
+              "C",
+              "D"
             ],
-            "explanation": "Zlatko (2000), Kader Loth (Hype ab 2004), Katzenberger (2009) und Melanie Müller (2013). Ein Abstieg auf Raten.",
+            "explanation": "Zlatko (2000), Kader Loth (2004 Die Alm), Katzenberger (2007), Melanie Müller (2013). Trash-Evolution über 13 Jahre.",
             "difficulty": "hard",
             "points": 2
           },
@@ -4317,7 +4264,7 @@
           {
             "id": "q-04-25-logic-jungle",
             "type": "logic",
-            "prompt": "Trash-Ausschlussverfahren: Welche dieser 'Legenden' hat es bis heute (Stand 2024) tatsächlich geschafft, NICHT als Kandidat im RTL-Dschungelcamp zu landen?",
+            "prompt": "Welche dieser Personen hat es bis 2023 tatsächlich geschafft, NICHT als Kandidat im RTL-Dschungelcamp zu landen?",
             "options": [
               {
                 "id": "q-04-25-opt-1",
@@ -4336,19 +4283,19 @@
               },
               {
                 "id": "q-04-25-opt-4",
-                "text": "Willi Herren",
+                "text": "Stefan Raab",
                 "is_correct": false
               }
             ],
             "correct_option_id": "q-04-25-opt-1",
-            "explanation": "Christian Ulmen blieb der Schauspielerei und Satire treu. Zlatko (nach langer Pause), Kader und Willi waren alle Teil der Dschungel-Historie.",
+            "explanation": "Christian Ulmen verweigerte konsequent alle Einladungen zu Trash-Reality-Formaten. Stefan Raab ebenfalls – aber Ulmen ist hier die Antwort. Die anderen drei waren alle dabei.",
             "difficulty": "medium_hard",
             "points": 1
           },
           {
             "id": "q-04-e01-b137796e03",
             "type": "estimate",
-            "prompt": "Wie viele Tage verbrachte der Kult-Kandidat Zlatko in der allerersten Big-Brother-Staffel im Haus, bevor er rausgewählt wurde und das Land in Trauer versetzte?",
+            "prompt": "Wie viele Tage verbrachte Zlatko in der allerersten Big-Brother-Staffel im Haus?",
             "answer": {
               "canonical": "41 Tage",
               "reference_value": 41,
@@ -4517,7 +4464,7 @@
           {
             "id": "q-05-05",
             "type": "logic",
-            "prompt": "Dorf-Mathe: Ihr seid zu fünft beim 'Vorglühen' und teilt euch eine 0,7l Flasche Wodka (37,5%) und eine Kiste Bier (20x0,5l, 5%). Wie viel Liter reiner Alkohol steht insgesamt auf dem Tisch?",
+            "prompt": "Vorglüh-Check: 0,7l Wodka (37,5%) + 20 Flaschen Bier (0,5l, 5%). Wie viel Liter reiner Alkohol sind das?",
             "options": [
               {
                 "id": "q-05-05-opt-1",
@@ -4831,7 +4778,7 @@
           {
             "id": "q-05-16",
             "type": "logic",
-            "prompt": "Drei Freunde wollen 'Vorglühen'. Einer bringt 6 Flaschen Bier mit, einer 4 und der Dritte gar nichts, zahlt dafür aber 10 Euro an die anderen. Wer bekommt wie viel von den 10 Euro?",
+            "prompt": "Freund A bringt 6 Bier, B bringt 4, C bringt 0 und zahlt 10 €. Wer bekommt wie viel von den 10 €?",
             "options": [
               {
                 "id": "q-05-16-opt-1",
@@ -5169,7 +5116,7 @@
           {
             "id": "q-06-02",
             "type": "common_mistake",
-            "prompt": "Wer wurde nach dem 'Nipplegate'-Skandal 2004 von der Musikindustrie fast komplett fallen gelassen, während der andere Beteiligte kaum Konsequenzen spürte?",
+            "prompt": "Wer trug nach 'Nipplegate' 2004 die meisten Konsequenzen – obwohl beide Beteiligten gleich verantwortlich waren?",
             "options": [
               {
                 "id": "q-06-02-opt-1",
@@ -5200,7 +5147,7 @@
           {
             "id": "q-06-03",
             "type": "logic",
-            "prompt": "Kanye-Logik: Wenn Beyoncé 2009 den Award für 'Video of the Year' gewann, warum musste Kanye dann Taylor Swifts Dankesrede für 'Best Female Video' unterbrechen?",
+            "prompt": "Kanye unterbricht 2009 Taylor Swifts Dankesrede. Für welchen Award hatte Swift gewonnen, den Kanye für Beyoncé beanspruchte?",
             "options": [
               {
                 "id": "q-06-03-opt-1",
@@ -5911,7 +5858,7 @@
           {
             "id": "q-07-02",
             "type": "logic",
-            "prompt": "Minesweeper-Logik: Ein Feld zeigt eine '3' und ist nur noch von genau drei ungeöffneten Feldern umgeben. Wie viele Minen befinden sich in diesen drei Feldern?",
+            "prompt": "Minesweeper: Ein Feld zeigt '3' und hat nur noch genau 3 ungeöffnete Nachbarn. Wie viele Minen sind darunter?",
             "options": [
               {
                 "id": "q-07-02-opt-1",
@@ -6102,7 +6049,7 @@
           {
             "id": "q-07-09",
             "type": "fast_guess",
-            "prompt": "Welche Konsole begrüßt dich mit einem tiefen, sphärischen Dröhnen, gefolgt von einem glitzernden Twinkle-Sound, der oft in einem schwarzen Bildschirm hängen blieb?",
+            "prompt": "Welche Konsole grüßt mit: tiefem Dröhnen, glitzerndem Twinkle-Sound – und hängt dann gerne im schwarzen Bildschirm?",
             "options": [
               {
                 "id": "q-07-09-opt-1",
@@ -6731,7 +6678,7 @@
             "difficulty": "medium",
             "difficulty_score": 3,
             "points": 1,
-            "prompt": "Wie viele Wochen hielt sich „Schnappi, das kleine Krokodil“ im Jahr 2005 auf Platz 1 der deutschen Charts, während die musikalische Zivilisation langsam kollabierte?",
+            "prompt": "Wie viele Wochen stand 'Schnappi, das kleine Krokodil' 2005 auf Platz 1 der deutschen Charts?",
             "answer": {
               "canonical": "10 Wochen",
               "reference_value": 10,
@@ -6788,7 +6735,7 @@
             "difficulty": "hard",
             "difficulty_score": 5,
             "points": 2,
-            "prompt": "My Chemical Romance: Wenn das Piano dieses eine „G“ spielt, fangen 90% der ehemaligen Emos sofort an zu weinen. Welches instrumentale Element markiert den nächsten harten Einstieg in den Song?",
+            "prompt": "MCR 'Welcome to the Black Parade': Was folgt nach dem einleitenden Solo-Klavier-'G', das 90% der Ex-Emos sofort erkennen?",
             "options": [
               {
                 "id": "opt-1",
@@ -6895,7 +6842,7 @@
             "difficulty": "hard",
             "difficulty_score": 5,
             "points": 2,
-            "prompt": "In der Boyband-Archetyp-Lehre gibt es: Den Süßen, den Bad Boy, den Schüchternen und den Älteren (Bruder-Typ). Welches fünfte Mitglied vervollständigt das klassische Line-up meistens?",
+            "prompt": "Boyband-Archetypen: Süßer, Bad Boy, Schüchterner, Älterer (Bruder-Typ). Was ist das fünfte klassische Mitglied?",
             "options": [
               {
                 "id": "opt-1",
@@ -6931,7 +6878,7 @@
             "difficulty": "hard",
             "difficulty_score": 5,
             "points": 2,
-            "prompt": "Wie viele Millionen Exemplare verkaufte *NSYNC von ihrem Album „No Strings Attached“ (2000) allein in der ERSTEN Woche in den USA – ein Rekord, der 15 Jahre lang hielt?",
+            "prompt": "Wie viele Millionen Exemplare verkaufte *NSYNC 'No Strings Attached' allein in der ersten Verkaufswoche (US-Rekord 2000)?",
             "answer": {
               "canonical": "2.41 Millionen",
               "reference_value": 2.41,
@@ -7065,7 +7012,7 @@
             "difficulty": "medium",
             "difficulty_score": 3,
             "points": 1,
-            "prompt": "Avril Lavigne singt in 'Sk8er Boi': „He was a boy, she was a girl / Can I make it any more obvious?“. Wenn wir dieser Logik folgen: Was passierte laut Text mit dem Jungen, nachdem sie ihn abgewiesen hatte?",
+            "prompt": "Was passierte laut 'Sk8er Boi' von Avril Lavigne mit dem Jungen, nachdem das Mädchen ihn abgewiesen hatte?",
             "options": [
               {
                 "id": "opt-1",
@@ -7159,7 +7106,7 @@
             "difficulty": "medium",
             "difficulty_score": 3,
             "points": 1,
-            "prompt": "Backstreet Boys - 'I Want It That Way': Warum antworten sie auf die Frage 'Tell me why' eigentlich mit 'Ain't nothin' but a heartache', obwohl das textlich in den Strophen davor kaum Sinn ergibt?",
+            "prompt": "Backstreet Boys 'I Want It That Way': Warum ergibt die Antwort 'Ain't nothin' but a heartache' auf 'Tell me why' textlich keinen Sinn?",
             "options": [
               {
                 "id": "q-08-14-opt-1",
@@ -7196,7 +7143,7 @@
             "difficulty": "hard",
             "difficulty_score": 5,
             "points": 3,
-            "prompt": "Schätzfrage für den Sieg: Wie viele Euro kostete ein standardmäßiges „Jamba Sparabo“ (z.B. für 3 Klingeltöne pro Monat) im Jahr 2004 typischerweise pro Monat?",
+            "prompt": "Was kostete ein Jamba-Sparabo (3 Klingeltöne pro Monat) im Jahr 2004 typischerweise pro Monat?",
             "answer": {
               "canonical": "4,99 Euro",
               "reference_value": 4.99,
@@ -7257,7 +7204,7 @@
           {
             "id": "q-09-03",
             "type": "logic",
-            "prompt": "Mietvertrags-Mathe: Deine Kaltmiete beträgt 600 €, die Nebenkosten 150 €. Du zahlst zusätzlich 80 € für Strom direkt an den Versorger. Wie viel Euro überweist du monatlich insgesamt an deinen Vermieter?",
+            "prompt": "Mietmathe: Kaltmiete 600 €, Nebenkosten 150 €, Strom 80 € direkt an Versorger. Was überweist du an den Vermieter?",
             "answer": {
               "canonical": "750 €",
               "reference_value": 750,
@@ -7784,7 +7731,7 @@
           {
             "id": "q-10-02",
             "type": "estimate",
-            "prompt": "Das Nokia 3310 war die Kakerlake unter den Handys: Praktisch unzerstörbar. Wie viele Stunden hielt der Akku im Standby-Modus laut offiziellen Herstellerangaben durch?",
+            "prompt": "Wie viele Stunden hielt der Akku des Nokia 3310 laut Hersteller im Standby-Modus durch?",
             "answer": {
               "canonical": "260 Stunden",
               "reference_value": 260,
@@ -7806,7 +7753,30 @@
                 "Runtertakten"
               ]
             },
-            "explanation": "Klingt absurd, aber sie war dafür da, den PC *langsamer* zu machen, damit alte Programme nicht zu schnell liefen und sofort abstürzten. Der Name war pures Marketing."
+            "explanation": "Die Turbo-Taste drosselte die CPU – das Gegenteil von dem was ihr Name suggeriert. Sie war für Kompatibilität mit alten Programmen gedacht, die mit Vollgas-CPU nicht liefen.",
+            "options": [
+              {
+                "id": "q-10-03-opt-1",
+                "text": "Sie beschleunigte den PC auf maximale Leistung",
+                "is_correct": false
+              },
+              {
+                "id": "q-10-03-opt-2",
+                "text": "Sie drosselte die CPU-Taktrate für ältere Software",
+                "is_correct": true
+              },
+              {
+                "id": "q-10-03-opt-3",
+                "text": "Sie aktivierte einen Extra-Turbo-Speicher",
+                "is_correct": false
+              },
+              {
+                "id": "q-10-03-opt-4",
+                "text": "Sie schaltete den zweiten Prozessorkern zu",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-10-03-opt-2"
           },
           {
             "id": "q-10-04",
@@ -7826,7 +7796,7 @@
           {
             "id": "q-10-05",
             "type": "common_mistake",
-            "prompt": "Was passiert in 99% der Fälle technisch wirklich, wenn man einen USB-Stick unter Windows einfach abzieht, ohne vorher auf 'Hardware sicher entfernen' zu klicken?",
+            "prompt": "Was passiert technisch wirklich, wenn man einen USB-Stick unter Windows einfach abzieht – ohne 'Sicher entfernen'?",
             "answer": {
               "canonical": "Absolut gar nichts",
               "aliases": [
@@ -7865,7 +7835,7 @@
           {
             "id": "q-10-07",
             "type": "estimate",
-            "prompt": "Eine LAN-Party im Jahr 2002 war vor allem ein Workout. Wie viele Kilo wog ein typischer 19-Zoll-Röhrenmonitor (CRT) etwa, den du in den zweiten Stock schleppen musstest?",
+            "prompt": "Wie viele Kilogramm wog ein typischer 19-Zoll-Röhrenmonitor (CRT) aus dem Jahr 2002 ungefähr?",
             "answer": {
               "canonical": "ca. 22-25 kg",
               "reference_value": 22,
@@ -7913,12 +7883,35 @@
                 "Datenvorrat aufgebraucht"
               ]
             },
-            "explanation": "Der Player liest Daten schneller von der CD als er sie abspielt. Bei Erschütterung stoppt der Lesekopf, und sobald der Vorrat im Speicher weg ist, herrscht Stille."
+            "explanation": "Der '30-Sekunden Anti-Shock' puffert 30 Sekunden CD-Daten im Speicher. Nach genau 31 Sekunden Vibration ist dieser Vorrat aufgebraucht – und es springt.",
+            "options": [
+              {
+                "id": "q-10-10-opt-1",
+                "text": "Der CD-Laser überhitzt beim Joggen",
+                "is_correct": false
+              },
+              {
+                "id": "q-10-10-opt-2",
+                "text": "Der digitale Puffer ist nach 31 Sekunden leer gelaufen",
+                "is_correct": true
+              },
+              {
+                "id": "q-10-10-opt-3",
+                "text": "Der Motor verliert beim Schwingen an Drehzahl",
+                "is_correct": false
+              },
+              {
+                "id": "q-10-10-opt-4",
+                "text": "Die Batterien schwächeln unter Belastung",
+                "is_correct": false
+              }
+            ],
+            "correct_option_id": "q-10-10-opt-2"
           },
           {
             "id": "q-10-11",
             "type": "pattern",
-            "prompt": "Die Handy-Evolution folgte einem klaren Trend. Was war die logische Folge auf: Erst wurden sie kleiner (Nokia 8210), dann flacher (Motorola Razr), dann kamen Polyphone Klingeltöne – und was war der radikale Trend ab 2007?",
+            "prompt": "Auf kleiner (Nokia 8210) → flacher (Razr) → polyphone Klingeltöne folgte ab 2007 welcher radikale Trend?",
             "answer": {
               "canonical": "Der Wegfall der physischen Tasten (Touchscreens)",
               "aliases": [
