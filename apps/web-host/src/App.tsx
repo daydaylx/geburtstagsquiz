@@ -1,57 +1,13 @@
-import { useEffect, useEffectEvent, useRef, useState } from "react";
-import QRCode from "qrcode";
-
-import {
-  EVENTS,
-  PROTOCOL_ERROR_CODES,
-  parseServerToClientEnvelope,
-  type AnswerProgressPayload,
-  type CatalogSummaryPayload,
-  type ClientToServerEventPayloadMap,
-  type GameFinishedPayload,
-  type LobbyUpdatePayload,
-  type NextQuestionReadyProgressPayload,
-  type QuestionRevealPayload,
-  type QuestionShowPayload,
-  type ScoreUpdatePayload,
-} from "@quiz/shared-protocol";
-import {
-  GameState,
-  QuestionType,
-  type DisplayShowLevel,
-  type GamePlan,
-  type GamePlanPresetId,
-  type RevealMode,
-} from "@quiz/shared-types";
+import { QuestionType, type DisplayShowLevel, type GamePlanPresetId, type RevealMode } from "@quiz/shared-types";
 import { isLoopbackHostname } from "@quiz/shared-utils";
 
-import {
-  clearHostStoredSession,
-  loadHostStoredSession,
-  saveHostStoredSession,
-  type HostStoredSession,
-} from "./storage.js";
 import { getPublicHost, getPlayerJoinUrl } from "./lib/helpers.js";
 import { useWebSocket, type ConnectionState } from "./hooks/useWebSocket.js";
-
-type HostScreen =
-  | "start"
-  | "lobby"
-  | "countdown"
-  | "question"
-  | "reveal"
-  | "scoreboard"
-  | "finished";
-
-interface HostRoomInfo {
-  roomId: string;
-  joinCode: string;
-}
-
-interface HostNotice {
-  kind: "info" | "error";
-  text: string;
-}
+import {
+  useHostSession,
+  buildPresetGamePlan,
+  buildCustomGamePlan,
+} from "./hooks/useHostSession.js";
 
 const FLOW_STEPS = ["Lobby", "Kategorien", "Frage", "Auflösung", "Endstand"] as const;
 const PRESET_IDS: GamePlanPresetId[] = [
@@ -64,13 +20,6 @@ const QUESTION_COUNT_CHOICES = [10, 15, 20, 25, 30] as const;
 const TIMER_CHOICES = [20_000, 30_000, 45_000, 60_000, 90_000] as const;
 const REVEAL_CHOICES: Array<{ label: string; value: number; mode: RevealMode }> = [
   { label: "Bis alle bereit", value: 30_000, mode: "manual_with_fallback" },
-];
-const DEFAULT_CUSTOM_TYPES = [
-  QuestionType.MultipleChoice,
-  QuestionType.MajorityGuess,
-  QuestionType.Estimate,
-  QuestionType.Logic,
-  QuestionType.Ranking,
 ];
 
 function getConnectionLabel(connectionState: ConnectionState): string {
@@ -144,533 +93,62 @@ function getShowLevelLabel(level: DisplayShowLevel): string {
   }
 }
 
-function getAvailableQuestionTypes(catalog: CatalogSummaryPayload): QuestionType[] {
-  return catalog.questionTypes.map((entry) => entry.type);
-}
-
-function getDefaultCategoryIds(catalog: CatalogSummaryPayload, includeHard: boolean): string[] {
-  return catalog.categories
-    .filter((category) => includeHard || category.difficulty !== "hard")
-    .map((category) => category.id);
-}
-
-function buildPresetGamePlan(
-  presetId: GamePlanPresetId,
-  catalog: CatalogSummaryPayload,
-  showAnswerTextOnPlayerDevices: boolean,
-): GamePlan {
-  const includeHard = presetId === "normal_evening" || presetId === "full_evening";
-  const categoryIds = getDefaultCategoryIds(catalog, includeHard);
-  const allTypes = getAvailableQuestionTypes(catalog);
-
-  const byPreset: Record<GamePlanPresetId, Omit<GamePlan, "categoryIds">> = {
-    quick_dirty: {
-      mode: "preset",
-      presetId,
-      questionCount: 12,
-      questionTypes: [
-        QuestionType.MultipleChoice,
-        QuestionType.MajorityGuess,
-        QuestionType.Estimate,
-        QuestionType.Logic,
-      ].filter((type) => allTypes.includes(type)),
-      timerMs: 90_000,
-      revealDurationMs: 30_000,
-      revealMode: "manual_with_fallback",
-      showAnswerTextOnPlayerDevices: true,
-      enableDemoQuestion: true,
-      displayShowLevel: "normal",
-      rankingScoringMode: "partial_with_bonus",
-    },
-    normal_evening: {
-      mode: "preset",
-      presetId,
-      questionCount: 20,
-      questionTypes: DEFAULT_CUSTOM_TYPES.filter((type) => allTypes.includes(type)),
-      timerMs: 90_000,
-      revealDurationMs: 30_000,
-      revealMode: "manual_with_fallback",
-      showAnswerTextOnPlayerDevices: true,
-      enableDemoQuestion: true,
-      displayShowLevel: "normal",
-      rankingScoringMode: "partial_with_bonus",
-    },
-    full_evening: {
-      mode: "preset",
-      presetId,
-      questionCount: 30,
-      questionTypes: allTypes,
-      timerMs: 90_000,
-      revealDurationMs: 30_000,
-      revealMode: "manual_with_fallback",
-      showAnswerTextOnPlayerDevices: true,
-      enableDemoQuestion: true,
-      displayShowLevel: "normal",
-      rankingScoringMode: "partial_with_bonus",
-    },
-    chaos_party: {
-      mode: "preset",
-      presetId,
-      questionCount: 18,
-      questionTypes: [
-        QuestionType.MultipleChoice,
-        QuestionType.MajorityGuess,
-        QuestionType.Estimate,
-      ].filter((type) => allTypes.includes(type)),
-      timerMs: 90_000,
-      revealDurationMs: 30_000,
-      revealMode: "manual_with_fallback",
-      showAnswerTextOnPlayerDevices: true,
-      enableDemoQuestion: true,
-      displayShowLevel: "normal",
-      rankingScoringMode: "partial_with_bonus",
-    },
-  };
-
-  return {
-    ...byPreset[presetId],
-    categoryIds,
-  };
-}
-
-function buildCustomGamePlan(
-  catalog: CatalogSummaryPayload,
-  showAnswerTextOnPlayerDevices: boolean,
-): GamePlan {
-  const allTypes = getAvailableQuestionTypes(catalog);
-
-  return {
-    mode: "custom",
-    questionCount: 20,
-    categoryIds: catalog.categories.map((category) => category.id),
-    questionTypes: DEFAULT_CUSTOM_TYPES.filter((type) => allTypes.includes(type)),
-    timerMs: 90_000,
-    revealDurationMs: 30_000,
-    revealMode: "manual_with_fallback",
-    showAnswerTextOnPlayerDevices: true,
-    enableDemoQuestion: true,
-    displayShowLevel: "normal",
-    rankingScoringMode: "partial_with_bonus",
-  };
-}
-
-function createHostClientInfo() {
-  return { deviceType: "browser", appVersion: "0.0.1" };
-}
-
 export function App() {
-  const initialSession = loadHostStoredSession();
   const urlParams = new URLSearchParams(window.location.search);
-  const hostToken = urlParams.get("hostToken");
-
   const { connectionState, sendEvent, onMessage, notifyConnected, closeSocket } = useWebSocket();
-  const [notice, setNotice] = useState<HostNotice | null>(null);
-  const [roomInfo, setRoomInfo] = useState<HostRoomInfo | null>(null);
-  const [lobby, setLobby] = useState<LobbyUpdatePayload | null>(null);
-  const [qrCodeDataUrl, setQrCodeDataUrl] = useState<string | null>(null);
-  const [isConnectingHost, setIsConnectingHost] = useState(false);
-
-  const [screen, setScreen] = useState<HostScreen>("start");
-  const [question, setQuestion] = useState<QuestionShowPayload | null>(null);
-  const [remainingMs, setRemainingMs] = useState<number>(0);
-  const [answerProgress, setAnswerProgress] = useState<AnswerProgressPayload | null>(null);
-  const [revealedAnswer, setRevealedAnswer] = useState<
-    QuestionRevealPayload["correctAnswer"] | null
-  >(null);
-  const [revealExplanation, setRevealExplanation] = useState<string | null>(null);
-  const [roundResults, setRoundResults] = useState<QuestionRevealPayload["playerResults"]>([]);
-  const [scoreboard, setScoreboard] = useState<ScoreUpdatePayload | null>(null);
-  const [nextQuestionReadyProgress, setNextQuestionReadyProgress] =
-    useState<NextQuestionReadyProgressPayload | null>(null);
-  const [finalResult, setFinalResult] = useState<GameFinishedPayload | null>(null);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number | null>(null);
-  const [totalQuestionCount, setTotalQuestionCount] = useState<number | null>(null);
-  const [catalog, setCatalog] = useState<CatalogSummaryPayload | null>(null);
-  const [gamePlanDraft, setGamePlanDraft] = useState<GamePlan | null>(null);
-  const [selectedPlanMode, setSelectedPlanMode] = useState<GamePlanPresetId | "custom">(
-    "normal_evening",
-  );
-  const [countdownSeconds, setCountdownSeconds] = useState(0);
-  const [showAnswerTextOnPlayerDevices, setShowAnswerTextOnPlayerDevices] = useState(false);
-  const [confirmFinishNow, setConfirmFinishNow] = useState(false);
-  const [confirmRemovePlayerId, setConfirmRemovePlayerId] = useState<string | null>(null);
-
-  const hostSessionRef = useRef<HostStoredSession | null>(initialSession);
-  const intentionalReconnectRef = useRef(false);
-  const pendingHostConnectRef = useRef(false);
-
-  const updateStoredSession = useEffectEvent((session: HostStoredSession | null) => {
-    hostSessionRef.current = session;
-    if (session) saveHostStoredSession(session);
-    else clearHostStoredSession();
-  });
-
-  const resetLobbyState = useEffectEvent(() => {
-    setRoomInfo(null);
-    setLobby(null);
-    setQrCodeDataUrl(null);
-    setIsConnectingHost(false);
-    setScreen("start");
-    setQuestion(null);
-    setRemainingMs(0);
-    setAnswerProgress(null);
-    setRevealedAnswer(null);
-    setRevealExplanation(null);
-    setRoundResults([]);
-    setScoreboard(null);
-    setNextQuestionReadyProgress(null);
-    setFinalResult(null);
-    setCurrentQuestionIndex(null);
-    setTotalQuestionCount(null);
-    setCatalog(null);
-    setGamePlanDraft(null);
-    setSelectedPlanMode("normal_evening");
-    setCountdownSeconds(0);
-    setShowAnswerTextOnPlayerDevices(false);
-  });
-
-  const connectHostOnCurrentSocket = useEffectEvent(() => {
-    if (!hostToken) {
-      setNotice({
-        kind: "error",
-        text: "Kein Host-Token vorhanden. Bitte QR-Code auf dem TV scannen.",
-      });
-      return;
-    }
-
-    setIsConnectingHost(true);
-    setNotice(null);
-    const sent = sendEvent(EVENTS.HOST_CONNECT, {
-      hostToken,
-      clientInfo: createHostClientInfo(),
-    });
-
-    if (!sent) {
-      setIsConnectingHost(false);
-      setNotice({ kind: "error", text: "Server ist nicht verbunden. Bitte kurz warten." });
-    }
-  });
-
-  const handleServerMessage = useEffectEvent((rawMessage: string) => {
-    const parsedEnvelope = parseServerToClientEnvelope(rawMessage);
-    if (!parsedEnvelope.success) return;
-
-    switch (parsedEnvelope.data.event) {
-      case EVENTS.CONNECTION_ACK:
-        notifyConnected();
-        intentionalReconnectRef.current = false;
-        if (hostSessionRef.current) {
-          sendEvent(EVENTS.CONNECTION_RESUME, {
-            roomId: hostSessionRef.current.roomId,
-            sessionId: hostSessionRef.current.sessionId,
-          });
-        } else if (pendingHostConnectRef.current || hostToken) {
-          pendingHostConnectRef.current = false;
-          connectHostOnCurrentSocket();
-        }
-        return;
-
-      case EVENTS.HOST_CONNECTED:
-        updateStoredSession({
-          roomId: parsedEnvelope.data.payload.roomId,
-          sessionId: parsedEnvelope.data.payload.hostSessionId,
-        });
-        setRoomInfo({
-          roomId: parsedEnvelope.data.payload.roomId,
-          joinCode: parsedEnvelope.data.payload.joinCode,
-        });
-        setShowAnswerTextOnPlayerDevices(false);
-        setScreen("lobby");
-        setIsConnectingHost(false);
-        setNotice(null);
-        return;
-
-      case EVENTS.CATALOG_SUMMARY:
-        const catalogPayload = parsedEnvelope.data.payload;
-        setCatalog(catalogPayload);
-        setGamePlanDraft((current) => {
-          if (current) return current;
-          return buildPresetGamePlan(
-            "normal_evening",
-            catalogPayload,
-            showAnswerTextOnPlayerDevices,
-          );
-        });
-        return;
-
-      case EVENTS.CONNECTION_RESUMED:
-        if (parsedEnvelope.data.payload.role !== "host") return;
-        setRoomInfo({
-          roomId: parsedEnvelope.data.payload.roomId,
-          joinCode: parsedEnvelope.data.payload.joinCode,
-        });
-        if (parsedEnvelope.data.payload.roomState === "waiting") {
-          setScreen("lobby");
-        } else {
-          const gs = parsedEnvelope.data.payload.gameState;
-          if (gs === GameState.Revealing) setScreen("reveal");
-          else if (gs === GameState.Scoreboard) setScreen("scoreboard");
-          else if (gs === GameState.Completed) setScreen("finished");
-          else setScreen("question");
-        }
-        return;
-
-      case EVENTS.LOBBY_UPDATE:
-        setLobby(parsedEnvelope.data.payload);
-        setShowAnswerTextOnPlayerDevices(
-          parsedEnvelope.data.payload.settings.showAnswerTextOnPlayerDevices,
-        );
-        if (parsedEnvelope.data.payload.settings.gamePlanDraft) {
-          setGamePlanDraft(parsedEnvelope.data.payload.settings.gamePlanDraft);
-          setSelectedPlanMode(
-            parsedEnvelope.data.payload.settings.gamePlanDraft.mode === "preset" &&
-              parsedEnvelope.data.payload.settings.gamePlanDraft.presetId
-              ? parsedEnvelope.data.payload.settings.gamePlanDraft.presetId
-              : "custom",
-          );
-        }
-        return;
-
-      case EVENTS.PLAYER_DISCONNECTED: {
-        const { playerId } = parsedEnvelope.data.payload;
-        const name = lobby?.players.find((p) => p.playerId === playerId)?.name ?? "Spieler";
-        setNotice({ kind: "info", text: `${name} hat die Verbindung verloren (30s Grace-Period)` });
-        return;
-      }
-
-      case EVENTS.GAME_STARTED:
-        setGamePlanDraft(parsedEnvelope.data.payload.resolvedGamePlan);
-        setSelectedPlanMode(
-          parsedEnvelope.data.payload.resolvedGamePlan.mode === "preset" &&
-            parsedEnvelope.data.payload.resolvedGamePlan.presetId
-            ? parsedEnvelope.data.payload.resolvedGamePlan.presetId
-            : "custom",
-        );
-        setScreen("question");
-        return;
-
-      case EVENTS.QUESTION_COUNTDOWN:
-        setCountdownSeconds(Math.ceil(parsedEnvelope.data.payload.countdownMs / 1000));
-        setCurrentQuestionIndex(parsedEnvelope.data.payload.questionIndex);
-        setTotalQuestionCount(parsedEnvelope.data.payload.totalQuestionCount);
-        setScreen("countdown");
-        return;
-
-      case EVENTS.QUESTION_SHOW:
-        setQuestion(parsedEnvelope.data.payload);
-        setRemainingMs(parsedEnvelope.data.payload.durationMs);
-        setCurrentQuestionIndex(parsedEnvelope.data.payload.questionIndex);
-        setTotalQuestionCount(parsedEnvelope.data.payload.totalQuestionCount);
-        setScreen("question");
-        setAnswerProgress(null);
-        setRevealExplanation(null);
-        setScoreboard(null);
-        setNextQuestionReadyProgress(null);
-        return;
-
-      case EVENTS.QUESTION_TIMER:
-        setRemainingMs(parsedEnvelope.data.payload.remainingMs);
-        return;
-
-      case EVENTS.ANSWER_PROGRESS:
-        setAnswerProgress(parsedEnvelope.data.payload);
-        return;
-
-      case EVENTS.QUESTION_REVEAL:
-        setRevealedAnswer(parsedEnvelope.data.payload.correctAnswer);
-        setRevealExplanation(parsedEnvelope.data.payload.explanation ?? null);
-        setRoundResults(parsedEnvelope.data.payload.playerResults);
-        setNextQuestionReadyProgress(null);
-        setScreen("reveal");
-        return;
-
-      case EVENTS.SCORE_UPDATE:
-        setScoreboard(parsedEnvelope.data.payload);
-        setNextQuestionReadyProgress(null);
-        setScreen("scoreboard");
-        return;
-
-      case EVENTS.NEXT_QUESTION_READY_PROGRESS:
-        setNextQuestionReadyProgress(parsedEnvelope.data.payload);
-        return;
-
-      case EVENTS.GAME_FINISHED:
-        setFinalResult(parsedEnvelope.data.payload);
-        setScreen("finished");
-        return;
-
-      case EVENTS.ROOM_CLOSED:
-        resetLobbyState();
-        updateStoredSession(null);
-        return;
-
-      case EVENTS.ERROR_PROTOCOL:
-        setIsConnectingHost(false);
-        if (
-          parsedEnvelope.data.payload.code === PROTOCOL_ERROR_CODES.SESSION_NOT_FOUND ||
-          parsedEnvelope.data.payload.code === PROTOCOL_ERROR_CODES.ROOM_NOT_FOUND
-        ) {
-          updateStoredSession(null);
-          resetLobbyState();
-          if (pendingHostConnectRef.current) {
-            closeSocket();
-          }
-        }
-        setNotice({ kind: "error", text: parsedEnvelope.data.payload.message });
-        return;
-
-      default:
-        return;
-    }
-  });
-
-  onMessage(handleServerMessage);
-
-  useEffect(() => {
-    if (!roomInfo?.joinCode) {
-      setQrCodeDataUrl(null);
-      return;
-    }
-    QRCode.toDataURL(getPlayerJoinUrl(roomInfo.joinCode), { margin: 1, width: 400 })
-      .then(setQrCodeDataUrl)
-      .catch(() => setQrCodeDataUrl(null));
-  }, [roomInfo?.joinCode]);
-
-  useEffect(() => {
-    if (screen !== "countdown" || countdownSeconds <= 0) return;
-    const timer = window.setInterval(() => {
-      setCountdownSeconds((current) => Math.max(0, current - 1));
-    }, 1000);
-
-    return () => window.clearInterval(timer);
-  }, [screen, countdownSeconds]);
-
-  const handleRestartInfo = useEffectEvent(() => {
-    setNotice({
-      kind: "info",
-      text: "Um ein neues Spiel zu starten, klicke bitte am TV-Bildschirm auf 'Neues Quiz'.",
-    });
-  });
-
-  const handleStartGame = useEffectEvent(() => {
-    if (roomInfo && gamePlanDraft) {
-      setNotice(null);
-      sendEvent(EVENTS.GAME_START, { roomId: roomInfo.roomId, gamePlan: gamePlanDraft });
-    }
-  });
-
-  const handleAnswerTextSettingChange = useEffectEvent((enabled: boolean) => {
-    if (!roomInfo || screen !== "lobby") return;
-    setShowAnswerTextOnPlayerDevices(enabled);
-    setNotice(null);
-    const nextDraft = gamePlanDraft
-      ? { ...gamePlanDraft, showAnswerTextOnPlayerDevices: enabled }
-      : null;
-    if (nextDraft) setGamePlanDraft(nextDraft);
-    const sent = sendEvent(EVENTS.ROOM_SETTINGS_UPDATE, {
-      roomId: roomInfo.roomId,
-      showAnswerTextOnPlayerDevices: enabled,
-      ...(nextDraft ? { gamePlanDraft: nextDraft } : {}),
-    });
-
-    if (!sent) {
-      setNotice({ kind: "error", text: "Einstellung konnte nicht gesendet werden." });
-    }
-  });
-
-  const handleAdvanceQuestion = useEffectEvent(() => {
-    if (roomInfo) {
-      setNotice(null);
-      sendEvent(EVENTS.GAME_NEXT_QUESTION, { roomId: roomInfo.roomId });
-    }
-  });
-
-  const handleForceCloseQuestion = useEffectEvent(() => {
-    if (!roomInfo) return;
-    setNotice(null);
-    sendEvent(EVENTS.QUESTION_FORCE_CLOSE, { roomId: roomInfo.roomId });
-  });
-
-  const handleShowScoreboard = useEffectEvent(() => {
-    if (!roomInfo) return;
-    setNotice(null);
-    sendEvent(EVENTS.GAME_SHOW_SCOREBOARD, { roomId: roomInfo.roomId });
-  });
-
-  const handleFinishNow = useEffectEvent(() => {
-    if (!roomInfo) return;
-    setNotice(null);
-    sendEvent(EVENTS.GAME_FINISH_NOW, { roomId: roomInfo.roomId });
-  });
-
-  const handleRemovePlayer = useEffectEvent((playerId: string) => {
-    if (!roomInfo) return;
-    setNotice(null);
-    sendEvent(EVENTS.PLAYER_REMOVE, { roomId: roomInfo.roomId, playerId });
-  });
-
-  const handlePlanDraftChange = useEffectEvent((nextDraft: GamePlan) => {
-    setGamePlanDraft(nextDraft);
-    setShowAnswerTextOnPlayerDevices(nextDraft.showAnswerTextOnPlayerDevices);
-    if (!roomInfo || screen !== "lobby") return;
-    sendEvent(EVENTS.ROOM_SETTINGS_UPDATE, {
-      roomId: roomInfo.roomId,
-      showAnswerTextOnPlayerDevices: nextDraft.showAnswerTextOnPlayerDevices,
-      gamePlanDraft: nextDraft,
-    });
-  });
+  const s = useHostSession({ sendEvent, onMessage, notifyConnected, closeSocket, connectionState });
 
   const loopback = isLoopbackHostname(getPublicHost());
-  const connectedPlayerCount = lobby?.players.filter((p) => p.connected).length ?? 0;
-  const timerSeconds = Math.ceil((remainingMs ?? 0) / 1000);
-  const isTimerWarning = remainingMs > 0 && timerSeconds <= 10;
-  const isTimerUrgent = remainingMs > 0 && timerSeconds <= 5;
+  const connectedPlayerCount = s.lobby?.players.filter((p) => p.connected).length ?? 0;
+  const timerSeconds = Math.ceil((s.remainingMs ?? 0) / 1000);
+  const isTimerWarning = s.remainingMs > 0 && timerSeconds <= 10;
+  const isTimerUrgent = s.remainingMs > 0 && timerSeconds <= 5;
   const answerProgressPercent =
-    answerProgress && answerProgress.totalEligiblePlayers > 0
-      ? (answerProgress.answeredCount / answerProgress.totalEligiblePlayers) * 100
+    s.answerProgress && s.answerProgress.totalEligiblePlayers > 0
+      ? (s.answerProgress.answeredCount / s.answerProgress.totalEligiblePlayers) * 100
       : 0;
 
-  const latestScoreboard = finalResult?.finalScoreboard ?? scoreboard?.scoreboard ?? [];
-  const correctRoundCount = roundResults.filter((r) => r.isCorrect).length;
-  const wrongRoundCount = roundResults.filter((r) => !r.isCorrect && r.answer !== null).length;
-  const missingRoundCount = roundResults.filter((r) => r.answer === null).length;
-  const nextReadyLabel = nextQuestionReadyProgress
-    ? `${nextQuestionReadyProgress.readyCount} / ${nextQuestionReadyProgress.totalEligiblePlayers} bereit`
+  const latestScoreboard = s.finalResult?.finalScoreboard ?? s.scoreboard?.scoreboard ?? [];
+  const correctRoundCount = s.roundResults.filter((r) => r.isCorrect).length;
+  const wrongRoundCount = s.roundResults.filter((r) => !r.isCorrect && r.answer !== null).length;
+  const missingRoundCount = s.roundResults.filter((r) => r.answer === null).length;
+  const nextReadyLabel = s.nextQuestionReadyProgress
+    ? `${s.nextQuestionReadyProgress.readyCount} / ${s.nextQuestionReadyProgress.totalEligiblePlayers} bereit`
     : "Warte auf Bereitmeldungen";
   const nextReadyPercent =
-    nextQuestionReadyProgress && nextQuestionReadyProgress.totalEligiblePlayers > 0
-      ? (nextQuestionReadyProgress.readyCount / nextQuestionReadyProgress.totalEligiblePlayers) *
+    s.nextQuestionReadyProgress && s.nextQuestionReadyProgress.totalEligiblePlayers > 0
+      ? (s.nextQuestionReadyProgress.readyCount / s.nextQuestionReadyProgress.totalEligiblePlayers) *
         100
       : 0;
-  const latestScoreChanges = scoreboard?.scoreChanges ?? [];
+  const latestScoreChanges = s.scoreboard?.scoreChanges ?? [];
 
   const effectiveTotalQuestionCount =
-    totalQuestionCount ?? question?.totalQuestionCount ?? finalResult?.totalQuestionCount ?? null;
-  const currentQuestionNumber = currentQuestionIndex !== null ? currentQuestionIndex + 1 : 0;
+    s.totalQuestionCount ?? s.question?.totalQuestionCount ?? s.finalResult?.totalQuestionCount ?? null;
+  const currentQuestionNumber = s.currentQuestionIndex !== null ? s.currentQuestionIndex + 1 : 0;
   const visibleQuestionNumber =
-    screen === "finished" ? effectiveTotalQuestionCount || 0 : currentQuestionNumber;
+    s.screen === "finished" ? effectiveTotalQuestionCount || 0 : currentQuestionNumber;
   const questionProgressPercent = effectiveTotalQuestionCount
     ? (visibleQuestionNumber / effectiveTotalQuestionCount) * 100
     : 0;
   const canManuallyShowScoreboard =
-    screen === "reveal" &&
-    !!question &&
-    !question.isDemoQuestion &&
+    s.screen === "reveal" &&
+    !!s.question &&
+    !s.question.isDemoQuestion &&
     effectiveTotalQuestionCount !== null &&
     currentQuestionNumber < effectiveTotalQuestionCount;
-  const playerJoinUrl = roomInfo?.joinCode ? getPlayerJoinUrl(roomInfo.joinCode) : null;
+  const playerJoinUrl = s.roomInfo?.joinCode ? getPlayerJoinUrl(s.roomInfo.joinCode) : null;
 
   const currentFlowStepIndex =
-    screen === "finished"
+    s.screen === "finished"
       ? 4
-      : screen === "scoreboard" || screen === "reveal"
+      : s.screen === "scoreboard" || s.screen === "reveal"
         ? 3
-        : screen === "question" || screen === "countdown"
+        : s.screen === "question" || s.screen === "countdown"
           ? 2
           : 1;
 
   const renderStagePanel = () => {
-    if (screen === "lobby" && roomInfo) {
+    if (s.screen === "lobby" && s.roomInfo) {
       return (
         <div className="host-panel-content host-lobby-stage">
           <p className="host-section-label host-section-label--compact">Status</p>
@@ -684,29 +162,29 @@ export function App() {
               <span className="host-stat-label">Spieler bereit</span>
             </div>
             <div className="host-stat-card">
-              <span className="host-stat-value">{gamePlanDraft?.questionCount ?? "-"}</span>
+              <span className="host-stat-value">{s.gamePlanDraft?.questionCount ?? "-"}</span>
               <span className="host-stat-label">Fragen</span>
             </div>
           </div>
-          {catalog && gamePlanDraft ? (
+          {s.catalog && s.gamePlanDraft ? (
             <div className="host-plan-builder">
               <div className="host-section-head">
                 <p className="host-section-label">Spielplan</p>
-                <span className="host-online-count">{catalog.totalQuestions} Fragen verfügbar</span>
+                <span className="host-online-count">{s.catalog.totalQuestions} Fragen verfügbar</span>
               </div>
               <div className="host-preset-grid">
                 {PRESET_IDS.map((presetId) => (
                   <button
                     className="host-preset-button"
-                    data-active={selectedPlanMode === presetId ? "true" : undefined}
+                    data-active={s.selectedPlanMode === presetId ? "true" : undefined}
                     key={presetId}
                     onClick={() => {
-                      setSelectedPlanMode(presetId);
-                      handlePlanDraftChange(
+                      s.setSelectedPlanMode(presetId);
+                      s.handlePlanDraftChange(
                         buildPresetGamePlan(
                           presetId,
-                          catalog,
-                          gamePlanDraft.showAnswerTextOnPlayerDevices,
+                          s.catalog!,
+                          s.gamePlanDraft!.showAnswerTextOnPlayerDevices,
                         ),
                       );
                     }}
@@ -718,11 +196,11 @@ export function App() {
                 ))}
                 <button
                   className="host-preset-button"
-                  data-active={selectedPlanMode === "custom" ? "true" : undefined}
+                  data-active={s.selectedPlanMode === "custom" ? "true" : undefined}
                   onClick={() => {
-                    setSelectedPlanMode("custom");
-                    handlePlanDraftChange(
-                      buildCustomGamePlan(catalog, gamePlanDraft.showAnswerTextOnPlayerDevices),
+                    s.setSelectedPlanMode("custom");
+                    s.handlePlanDraftChange(
+                      buildCustomGamePlan(s.catalog!, s.gamePlanDraft!.showAnswerTextOnPlayerDevices),
                     );
                   }}
                   type="button"
@@ -732,17 +210,17 @@ export function App() {
                 </button>
               </div>
 
-              {selectedPlanMode === "custom" && (
+              {s.selectedPlanMode === "custom" && (
                 <div className="host-custom-plan">
                   <div className="host-choice-row">
                     <span>Fragen</span>
                     <div className="host-segmented">
                       {QUESTION_COUNT_CHOICES.map((count) => (
                         <button
-                          data-active={gamePlanDraft.questionCount === count ? "true" : undefined}
+                          data-active={s.gamePlanDraft!.questionCount === count ? "true" : undefined}
                           key={count}
                           onClick={() =>
-                            handlePlanDraftChange({ ...gamePlanDraft, questionCount: count })
+                            s.handlePlanDraftChange({ ...s.gamePlanDraft!, questionCount: count })
                           }
                           type="button"
                         >
@@ -752,17 +230,17 @@ export function App() {
                     </div>
                     <input
                       className="host-small-number-input"
-                      max={catalog.maxQuestionCount}
+                      max={s.catalog!.maxQuestionCount}
                       min={5}
                       onChange={(event) => {
                         const nextCount = Math.max(
                           5,
-                          Math.min(catalog.maxQuestionCount, Number(event.target.value) || 5),
+                          Math.min(s.catalog!.maxQuestionCount, Number(event.target.value) || 5),
                         );
-                        handlePlanDraftChange({ ...gamePlanDraft, questionCount: nextCount });
+                        s.handlePlanDraftChange({ ...s.gamePlanDraft!, questionCount: nextCount });
                       }}
                       type="number"
-                      value={gamePlanDraft.questionCount}
+                      value={s.gamePlanDraft!.questionCount}
                     />
                   </div>
                   <div className="host-choice-row">
@@ -770,9 +248,9 @@ export function App() {
                     <div className="host-segmented">
                       {TIMER_CHOICES.map((timerMs) => (
                         <button
-                          data-active={gamePlanDraft.timerMs === timerMs ? "true" : undefined}
+                          data-active={s.gamePlanDraft!.timerMs === timerMs ? "true" : undefined}
                           key={timerMs}
-                          onClick={() => handlePlanDraftChange({ ...gamePlanDraft, timerMs })}
+                          onClick={() => s.handlePlanDraftChange({ ...s.gamePlanDraft!, timerMs })}
                           type="button"
                         >
                           {timerMs / 1000}s
@@ -786,15 +264,15 @@ export function App() {
                       {REVEAL_CHOICES.map((choice) => (
                         <button
                           data-active={
-                            gamePlanDraft.revealDurationMs === choice.value &&
-                            gamePlanDraft.revealMode === choice.mode
+                            s.gamePlanDraft!.revealDurationMs === choice.value &&
+                            s.gamePlanDraft!.revealMode === choice.mode
                               ? "true"
                               : undefined
                           }
                           key={`${choice.mode}-${choice.value}`}
                           onClick={() =>
-                            handlePlanDraftChange({
-                              ...gamePlanDraft,
+                            s.handlePlanDraftChange({
+                              ...s.gamePlanDraft!,
                               revealDurationMs: choice.value,
                               revealMode: choice.mode,
                             })
@@ -812,11 +290,11 @@ export function App() {
                       {(["minimal", "normal", "high"] as const).map((displayShowLevel) => (
                         <button
                           data-active={
-                            gamePlanDraft.displayShowLevel === displayShowLevel ? "true" : undefined
+                            s.gamePlanDraft!.displayShowLevel === displayShowLevel ? "true" : undefined
                           }
                           key={displayShowLevel}
                           onClick={() =>
-                            handlePlanDraftChange({ ...gamePlanDraft, displayShowLevel })
+                            s.handlePlanDraftChange({ ...s.gamePlanDraft!, displayShowLevel })
                           }
                           type="button"
                         >
@@ -827,10 +305,10 @@ export function App() {
                   </div>
                   <label className="host-checkbox-pill host-checkbox-pill--wide">
                     <input
-                      checked={gamePlanDraft.enableDemoQuestion}
+                      checked={s.gamePlanDraft!.enableDemoQuestion}
                       onChange={(event) =>
-                        handlePlanDraftChange({
-                          ...gamePlanDraft,
+                        s.handlePlanDraftChange({
+                          ...s.gamePlanDraft!,
                           enableDemoQuestion: event.target.checked,
                         })
                       }
@@ -839,15 +317,15 @@ export function App() {
                     <span>Demo-/Testfrage vor dem echten Spiel</span>
                   </label>
                   <div className="host-checkbox-grid">
-                    {catalog.categories.map((category) => (
+                    {s.catalog!.categories.map((category) => (
                       <label className="host-checkbox-pill" key={category.id}>
                         <input
-                          checked={gamePlanDraft.categoryIds.includes(category.id)}
+                          checked={s.gamePlanDraft!.categoryIds.includes(category.id)}
                           onChange={(event) => {
                             const categoryIds = event.target.checked
-                              ? [...gamePlanDraft.categoryIds, category.id]
-                              : gamePlanDraft.categoryIds.filter((id) => id !== category.id);
-                            handlePlanDraftChange({ ...gamePlanDraft, categoryIds });
+                              ? [...s.gamePlanDraft!.categoryIds, category.id]
+                              : s.gamePlanDraft!.categoryIds.filter((id) => id !== category.id);
+                            s.handlePlanDraftChange({ ...s.gamePlanDraft!, categoryIds });
                           }}
                           type="checkbox"
                         />
@@ -856,15 +334,15 @@ export function App() {
                     ))}
                   </div>
                   <div className="host-checkbox-grid host-checkbox-grid--types">
-                    {catalog.questionTypes.map((entry) => (
+                    {s.catalog!.questionTypes.map((entry) => (
                       <label className="host-checkbox-pill" key={entry.type}>
                         <input
-                          checked={gamePlanDraft.questionTypes.includes(entry.type)}
+                          checked={s.gamePlanDraft!.questionTypes.includes(entry.type)}
                           onChange={(event) => {
                             const questionTypes = event.target.checked
-                              ? [...gamePlanDraft.questionTypes, entry.type]
-                              : gamePlanDraft.questionTypes.filter((type) => type !== entry.type);
-                            handlePlanDraftChange({ ...gamePlanDraft, questionTypes });
+                              ? [...s.gamePlanDraft!.questionTypes, entry.type]
+                              : s.gamePlanDraft!.questionTypes.filter((type) => type !== entry.type);
+                            s.handlePlanDraftChange({ ...s.gamePlanDraft!, questionTypes });
                           }}
                           type="checkbox"
                         />
@@ -878,15 +356,15 @@ export function App() {
               )}
 
               <div className="host-plan-summary">
-                <span>{gamePlanDraft.questionCount} Fragen</span>
-                <span>{gamePlanDraft.timerMs / 1000}s Timer</span>
+                <span>{s.gamePlanDraft.questionCount} Fragen</span>
+                <span>{s.gamePlanDraft.timerMs / 1000}s Timer</span>
                 <span>
-                  {gamePlanDraft.revealMode === "manual_with_fallback"
+                  {s.gamePlanDraft.revealMode === "manual_with_fallback"
                     ? "Manuelles Reveal"
-                    : `${gamePlanDraft.revealDurationMs / 1000}s Reveal`}
+                    : `${s.gamePlanDraft.revealDurationMs / 1000}s Reveal`}
                 </span>
-                <span>Show: {getShowLevelLabel(gamePlanDraft.displayShowLevel)}</span>
-                <span>Demo: {gamePlanDraft.enableDemoQuestion ? "an" : "aus"}</span>
+                <span>Show: {getShowLevelLabel(s.gamePlanDraft.displayShowLevel)}</span>
+                <span>Demo: {s.gamePlanDraft.enableDemoQuestion ? "an" : "aus"}</span>
               </div>
             </div>
           ) : (
@@ -896,24 +374,24 @@ export function App() {
       );
     }
 
-    if (screen === "countdown") {
+    if (s.screen === "countdown") {
       return (
         <div className="host-panel-content host-countdown-panel">
           <p className="host-section-label">Nächste Frage</p>
           <div className="host-countdown-number">
-            {countdownSeconds > 0 ? countdownSeconds : "Frage!"}
+            {s.countdownSeconds > 0 ? s.countdownSeconds : "Frage!"}
           </div>
           <p className="host-lobby-hint">Timer startet gleich auf dem TV.</p>
         </div>
       );
     }
 
-    if (screen === "question" && question) {
+    if (s.screen === "question" && s.question) {
       return (
         <div className="host-panel-content">
           <div className="host-stage-head">
             <p className="host-section-label">
-              {question.isDemoQuestion
+              {s.question.isDemoQuestion
                 ? "Testfrage"
                 : `Frage ${currentQuestionNumber}${effectiveTotalQuestionCount ? ` / ${effectiveTotalQuestionCount}` : ""}`}
             </p>
@@ -925,12 +403,12 @@ export function App() {
               <div className="host-timer">{timerSeconds}s</div>
             </div>
           </div>
-          <h3 className="host-question-text">{question.text}</h3>
-          {(question.type === QuestionType.MultipleChoice ||
-            question.type === QuestionType.Logic ||
-            question.type === QuestionType.MajorityGuess) && (
+          <h3 className="host-question-text">{s.question.text}</h3>
+          {(s.question.type === QuestionType.MultipleChoice ||
+            s.question.type === QuestionType.Logic ||
+            s.question.type === QuestionType.MajorityGuess) && (
             <div className="host-options-grid">
-              {question.options.map((opt, index) => (
+              {s.question.options.map((opt, index) => (
                 <div className="host-option-card" key={opt.id}>
                   <span className="host-option-id">{getAnswerDisplayLabel(index)}</span>
                   <span className="host-option-label">{opt.label}</span>
@@ -938,17 +416,17 @@ export function App() {
               ))}
             </div>
           )}
-          {question.type === QuestionType.Estimate && (
+          {s.question.type === QuestionType.Estimate && (
             <div className="host-estimate-display">
-              Schätzungen laufen... ({question.unit} · {question.context})
+              Schätzungen laufen... ({s.question.unit} · {s.question.context})
             </div>
           )}
-          {question.type === QuestionType.OpenText && (
+          {s.question.type === QuestionType.OpenText && (
             <div className="host-estimate-display">Texteingaben laufen...</div>
           )}
-          {question.type === QuestionType.Ranking && (
+          {s.question.type === QuestionType.Ranking && (
             <div className="host-ranking-list">
-              {question.items.map((item, index) => (
+              {s.question.items.map((item, index) => (
                 <div className="host-ranking-item" key={item.id}>
                   <span className="host-option-id">{getAnswerDisplayLabel(index)}</span>
                   <span>{item.label}</span>
@@ -960,12 +438,12 @@ export function App() {
             <div className="host-bar-meta">
               <span className="host-section-label host-section-label--compact">Antworten</span>
               <strong>
-                {answerProgress?.answeredCount || 0} / {answerProgress?.totalEligiblePlayers || 0}
-                {answerProgress &&
-                  answerProgress.totalEligiblePlayers - answerProgress.answeredCount > 0 && (
+                {s.answerProgress?.answeredCount || 0} / {s.answerProgress?.totalEligiblePlayers || 0}
+                {s.answerProgress &&
+                  s.answerProgress.totalEligiblePlayers - s.answerProgress.answeredCount > 0 && (
                     <span className="host-pending-count">
                       {" "}
-                      · {answerProgress.totalEligiblePlayers - answerProgress.answeredCount} noch
+                      · {s.answerProgress.totalEligiblePlayers - s.answerProgress.answeredCount} noch
                       offen
                     </span>
                   )}
@@ -979,19 +457,19 @@ export function App() {
       );
     }
 
-    if (screen === "reveal" && question) {
+    if (s.screen === "reveal" && s.question) {
       return (
         <div className="host-panel-content">
           <p className="host-section-label">Auflösung läuft</p>
-          <h3 className="host-question-text">{question.text}</h3>
-          {(question.type === QuestionType.MultipleChoice ||
-            question.type === QuestionType.Logic ||
-            question.type === QuestionType.MajorityGuess) && (
+          <h3 className="host-question-text">{s.question.text}</h3>
+          {(s.question.type === QuestionType.MultipleChoice ||
+            s.question.type === QuestionType.Logic ||
+            s.question.type === QuestionType.MajorityGuess) && (
             <div className="host-options-grid host-options-grid--reveal">
-              {question.options.map((opt, index) => {
+              {s.question.options.map((opt, index) => {
                 const isCorrectAnswer =
-                  (revealedAnswer?.type === "option" && revealedAnswer.value === opt.id) ||
-                  (revealedAnswer?.type === "options" && revealedAnswer.value.includes(opt.id));
+                  (s.revealedAnswer?.type === "option" && s.revealedAnswer.value === opt.id) ||
+                  (s.revealedAnswer?.type === "options" && s.revealedAnswer.value.includes(opt.id));
                 return (
                   <div
                     className="host-option-card"
@@ -1005,26 +483,28 @@ export function App() {
               })}
             </div>
           )}
-          {question.type === QuestionType.Estimate && revealedAnswer?.type === "number" && (
+          {s.question.type === QuestionType.Estimate && s.revealedAnswer?.type === "number" && (
             <div className="host-estimate-display host-estimate-display--reveal">
               <span>Richtig: </span>
               <strong className="host-estimate-correct-value">
-                {revealedAnswer.value} {question.unit}
+                {s.revealedAnswer.value} {s.question.unit}
               </strong>
-              <span className="host-estimate-context">({question.context})</span>
+              <span className="host-estimate-context">({s.question.context})</span>
             </div>
           )}
-          {question.type === QuestionType.OpenText && revealedAnswer?.type === "text" && (
+          {s.question.type === QuestionType.OpenText && s.revealedAnswer?.type === "text" && (
             <div className="host-estimate-display host-estimate-display--reveal">
               <span>Richtig: </span>
-              <strong className="host-estimate-correct-value">{revealedAnswer.value}</strong>
+              <strong className="host-estimate-correct-value">{s.revealedAnswer.value}</strong>
             </div>
           )}
-          {question.type === QuestionType.Ranking && revealedAnswer?.type === "ranking" && (
+          {s.question.type === QuestionType.Ranking && s.revealedAnswer?.type === "ranking" && (() => {
+            const q = s.question!;
+            return (
             <div className="host-ranking-list">
-              {revealedAnswer.value.map((id, i) => {
-                const itemIndex = question.items.findIndex((x) => x.id === id);
-                const item = itemIndex >= 0 ? question.items[itemIndex] : undefined;
+              {s.revealedAnswer.value.map((id, i) => {
+                const itemIndex = q.items.findIndex((x) => x.id === id);
+                const item = itemIndex >= 0 ? q.items[itemIndex] : undefined;
                 return (
                   <div className="host-ranking-item host-ranking-item--reveal" key={id}>
                     <span className="host-ranking-position">{i + 1}.</span>
@@ -1036,8 +516,9 @@ export function App() {
                 );
               })}
             </div>
-          )}
-          {revealExplanation && <p className="host-explanation">{revealExplanation}</p>}
+            );
+          })()}
+          {s.revealExplanation && <p className="host-explanation">{s.revealExplanation}</p>}
           <div className="host-round-summary">
             <div className="host-round-summary-card" data-state="correct">
               <p className="host-control-label">Richtig</p>
@@ -1065,15 +546,15 @@ export function App() {
       );
     }
 
-    if (screen === "scoreboard" || screen === "finished") {
+    if (s.screen === "scoreboard" || s.screen === "finished") {
       return (
         <div className="host-panel-content">
           <p className="host-section-label">
-            {screen === "finished" ? "Endstand" : `Zwischenstand (${nextReadyLabel})`}
+            {s.screen === "finished" ? "Endstand" : `Zwischenstand (${nextReadyLabel})`}
           </p>
           <div
             className="host-scoreboard-list"
-            data-final={screen === "finished" ? "true" : undefined}
+            data-final={s.screen === "finished" ? "true" : undefined}
           >
             {latestScoreboard.map((entry, index) => {
               const gap =
@@ -1096,7 +577,7 @@ export function App() {
               );
             })}
           </div>
-          {screen === "scoreboard" && latestScoreChanges.length > 0 && (
+          {s.screen === "scoreboard" && latestScoreChanges.length > 0 && (
             <div className="host-score-change-list">
               {latestScoreChanges.slice(0, 4).map((change) => (
                 <div className="host-score-change" key={change.playerId}>
@@ -1114,39 +595,39 @@ export function App() {
   };
 
   const primaryActionLabel =
-    screen === "lobby"
+    s.screen === "lobby"
       ? "Quiz starten"
-      : screen === "question"
+      : s.screen === "question"
         ? "Frage schließen"
-        : screen === "reveal"
+        : s.screen === "reveal"
           ? "Weiter"
-          : screen === "scoreboard"
+          : s.screen === "scoreboard"
             ? "Nächste Frage"
-            : screen === "finished"
+            : s.screen === "finished"
               ? "Neues Spiel"
               : "Warten...";
   const isPrimaryDisabled =
-    screen === "lobby"
-      ? connectionState !== "connected" || connectedPlayerCount === 0 || !gamePlanDraft || !catalog
-      : screen === "question"
+    s.screen === "lobby"
+      ? connectionState !== "connected" || connectedPlayerCount === 0 || !s.gamePlanDraft || !s.catalog
+      : s.screen === "question"
         ? false
-        : screen === "reveal" || screen === "scoreboard"
+        : s.screen === "reveal" || s.screen === "scoreboard"
           ? false
-          : screen !== "finished";
+          : s.screen !== "finished";
 
   const startBlockReason =
-    screen === "lobby" && isPrimaryDisabled
+    s.screen === "lobby" && isPrimaryDisabled
       ? connectionState !== "connected"
         ? "Nicht verbunden mit Server"
-        : !catalog
+        : !s.catalog
           ? "Warte auf Fragenkatalog..."
-          : !gamePlanDraft
+          : !s.gamePlanDraft
             ? "Spielplan wird geladen..."
             : "Mindestens 1 Spieler benötigt"
       : null;
 
   return (
-    <main className="host-shell" data-screen={screen}>
+    <main className="host-shell" data-screen={s.screen}>
       <header className="host-header">
         <div className="host-brand">
           <h1 className="host-title">Geburtstagsquiz</h1>
@@ -1154,36 +635,36 @@ export function App() {
             {getConnectionLabel(connectionState)}
           </div>
         </div>
-        {notice && (
-          <div className="host-notice" data-kind={notice.kind}>
-            {notice.text}
+        {s.notice && (
+          <div className="host-notice" data-kind={s.notice.kind}>
+            {s.notice.text}
           </div>
         )}
       </header>
 
-      {screen === "start" && !roomInfo ? (
+      {s.screen === "start" && !s.roomInfo ? (
         <section className="host-panel host-start-panel">
           <div className="host-start-container">
             <h2 className="host-stage-title host-stage-title--hero">
-              {isConnectingHost ? "Verbindung wird hergestellt..." : "Warte auf Host-Verbindung"}
+              {s.isConnectingHost ? "Verbindung wird hergestellt..." : "Warte auf Host-Verbindung"}
             </h2>
             <p className="host-start-hint">
-              {hostToken
+              {urlParams.get("hostToken")
                 ? "Der Server koppelt dein Gerät gerade als Spielleiter."
                 : "Bitte scanne den Host-QR-Code auf dem TV-Display, um das Quiz zu steuern."}
             </p>
           </div>
         </section>
-      ) : roomInfo ? (
+      ) : s.roomInfo ? (
         <>
           <section className="host-dashboard">
             <aside className="host-sidebar-col">
               <div className="host-card host-card--dark">
                 <p className="host-section-label host-section-label--muted">Raum</p>
-                <p className="host-join-code">{roomInfo.joinCode}</p>
-                {!loopback && qrCodeDataUrl && (
+                <p className="host-join-code">{s.roomInfo.joinCode}</p>
+                {!loopback && s.qrCodeDataUrl && (
                   <div className="host-qr-mini">
-                    <img alt="Join QR" src={qrCodeDataUrl} />
+                    <img alt="Join QR" src={s.qrCodeDataUrl} />
                   </div>
                 )}
                 {playerJoinUrl && (
@@ -1235,7 +716,7 @@ export function App() {
                     <span className="host-online-count">{connectedPlayerCount} online</span>
                   </div>
                   <div className="host-player-list">
-                    {(lobby?.players ?? []).map((p) => (
+                    {(s.lobby?.players ?? []).map((p) => (
                       <div className="host-player-item" key={p.playerId}>
                         <div className="host-player-meta">
                           <div className="host-player-status-dot" data-connected={p.connected} />
@@ -1243,13 +724,13 @@ export function App() {
                         </div>
                         <div className="host-player-actions">
                           <span className="host-player-score">{p.score}</span>
-                          {confirmRemovePlayerId === p.playerId ? (
+                          {s.confirmRemovePlayerId === p.playerId ? (
                             <>
                               <button
                                 className="host-small-danger-button"
                                 onClick={() => {
-                                  handleRemovePlayer(p.playerId);
-                                  setConfirmRemovePlayerId(null);
+                                  s.handleRemovePlayer(p.playerId);
+                                  s.setConfirmRemovePlayerId(null);
                                 }}
                                 type="button"
                               >
@@ -1257,7 +738,7 @@ export function App() {
                               </button>
                               <button
                                 className="host-small-cancel-button"
-                                onClick={() => setConfirmRemovePlayerId(null)}
+                                onClick={() => s.setConfirmRemovePlayerId(null)}
                                 type="button"
                               >
                                 ✕
@@ -1266,7 +747,7 @@ export function App() {
                           ) : (
                             <button
                               className="host-small-danger-button"
-                              onClick={() => setConfirmRemovePlayerId(p.playerId)}
+                              onClick={() => s.setConfirmRemovePlayerId(p.playerId)}
                               type="button"
                             >
                               Entfernen
@@ -1282,15 +763,15 @@ export function App() {
                 <p className="host-section-label">Handy-Controller</p>
                 <label className="host-toggle-row">
                   <input
-                    checked={showAnswerTextOnPlayerDevices}
-                    disabled={screen !== "lobby"}
-                    onChange={(event) => handleAnswerTextSettingChange(event.target.checked)}
+                    checked={s.showAnswerTextOnPlayerDevices}
+                    disabled={s.screen !== "lobby"}
+                    onChange={(event) => s.handleAnswerTextSettingChange(event.target.checked)}
                     type="checkbox"
                   />
                   <span className="host-toggle-track" />
                   <span className="host-toggle-copy">
                     <strong>Antworttexte auf Handys</strong>
-                    <small>{showAnswerTextOnPlayerDevices ? "An" : "Aus"}</small>
+                    <small>{s.showAnswerTextOnPlayerDevices ? "An" : "Aus"}</small>
                   </span>
                 </label>
               </div>
@@ -1302,9 +783,9 @@ export function App() {
               <div className="host-control-metric">
                 <span className="host-control-label">Status</span>
                 <span className="host-control-value">
-                  {screen === "finished"
+                  {s.screen === "finished"
                     ? "Beendet"
-                    : screen === "lobby"
+                    : s.screen === "lobby"
                       ? "Lobby offen"
                       : "Quiz läuft"}
                 </span>
@@ -1324,24 +805,24 @@ export function App() {
                 </div>
               </div>
             </div>
-            {["countdown", "question", "reveal", "scoreboard"].includes(screen) && (
+            {["countdown", "question", "reveal", "scoreboard"].includes(s.screen) && (
               <div className="host-fallback-actions">
                 {canManuallyShowScoreboard && (
                   <button
                     className="host-secondary-button"
-                    onClick={handleShowScoreboard}
+                    onClick={s.handleShowScoreboard}
                     type="button"
                   >
                     Scoreboard anzeigen
                   </button>
                 )}
-                {confirmFinishNow ? (
+                {s.confirmFinishNow ? (
                   <>
                     <button
                       className="host-secondary-button host-secondary-button--danger"
                       onClick={() => {
-                        handleFinishNow();
-                        setConfirmFinishNow(false);
+                        s.handleFinishNow();
+                        s.setConfirmFinishNow(false);
                       }}
                       type="button"
                     >
@@ -1349,7 +830,7 @@ export function App() {
                     </button>
                     <button
                       className="host-small-cancel-button"
-                      onClick={() => setConfirmFinishNow(false)}
+                      onClick={() => s.setConfirmFinishNow(false)}
                       type="button"
                     >
                       ✕
@@ -1358,7 +839,7 @@ export function App() {
                 ) : (
                   <button
                     className="host-secondary-button"
-                    onClick={() => setConfirmFinishNow(true)}
+                    onClick={() => s.setConfirmFinishNow(true)}
                     type="button"
                   >
                     Spiel beenden
@@ -1370,15 +851,15 @@ export function App() {
               className="host-primary-button"
               disabled={isPrimaryDisabled}
               onClick={
-                screen === "lobby"
-                  ? handleStartGame
-                  : screen === "question"
-                    ? handleForceCloseQuestion
-                    : screen === "reveal"
-                      ? handleAdvanceQuestion
-                      : screen === "scoreboard"
-                        ? handleAdvanceQuestion
-                        : handleRestartInfo
+                s.screen === "lobby"
+                  ? s.handleStartGame
+                  : s.screen === "question"
+                    ? s.handleForceCloseQuestion
+                    : s.screen === "reveal"
+                      ? s.handleAdvanceQuestion
+                      : s.screen === "scoreboard"
+                        ? s.handleAdvanceQuestion
+                        : s.handleRestartInfo
               }
               type="button"
             >
