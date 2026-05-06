@@ -4,7 +4,6 @@ import {
   EVENTS,
   PROTOCOL_ERROR_CODES,
   parseServerToClientEnvelope,
-  serializeEnvelope,
   type ClientToServerEventPayloadMap,
   type LobbyUpdatePayload,
   type NextQuestionReadyProgressPayload,
@@ -15,11 +14,7 @@ import {
   type ConnectionResumedPayload,
 } from "@quiz/shared-protocol";
 import { GameState, QuestionType, type CorrectAnswer } from "@quiz/shared-types";
-import {
-  getReconnectDelay,
-  normalizeJoinCode,
-  normalizePlayerName,
-} from "@quiz/shared-utils";
+import { normalizeJoinCode, normalizePlayerName } from "@quiz/shared-utils";
 
 import {
   clearPlayerStoredSession,
@@ -32,10 +27,8 @@ import {
   getOptionAnswerLabel,
   getProtocolErrorMessage,
   getQuestionKindLabel,
-  getServerSocketUrl,
 } from "./lib/helpers.js";
-
-type ConnectionState = "connecting" | "connected" | "reconnecting";
+import { useWebSocket, type ConnectionState } from "./hooks/useWebSocket.js";
 interface PlayerNotice {
   kind: "info" | "error";
   text: string;
@@ -68,7 +61,7 @@ function getConnectionLabel(connectionState: ConnectionState): string {
 export function App() {
   const initialSession = loadPlayerStoredSession();
 
-  const [connectionState, setConnectionState] = useState<ConnectionState>("connecting");
+  const { connectionState, sendEvent, onMessage, notifyConnected } = useWebSocket();
   const [notice, setNotice] = useState<PlayerNotice | null>(null);
   const [joinCode, setJoinCode] = useState(getInitialJoinCode(initialSession));
   const [playerName, setPlayerName] = useState(initialSession?.playerName ?? "");
@@ -95,21 +88,10 @@ export function App() {
   const [locallyReadyQuestionId, setLocallyReadyQuestionId] = useState<string | null>(null);
   const [finalResult, setFinalResult] = useState<GameFinishedPayload | null>(null);
 
-  const socketRef = useRef<WebSocket | null>(null);
-  const reconnectTimerRef = useRef<number | null>(null);
-  const reconnectAttemptRef = useRef(0);
-  const shouldReconnectRef = useRef(true);
   const playerSessionRef = useRef<PlayerStoredSession | null>(initialSession);
   const lastJoinAttemptRef = useRef<JoinAttempt | null>(null);
   const resumedAnswerRef = useRef<ConnectionResumedPayload["currentAnswer"] | null>(null);
   const intentionalReconnectRef = useRef(false);
-
-  const clearReconnectTimer = useEffectEvent(() => {
-    if (reconnectTimerRef.current !== null) {
-      window.clearTimeout(reconnectTimerRef.current);
-      reconnectTimerRef.current = null;
-    }
-  });
 
   const updateStoredSession = useEffectEvent((session: PlayerStoredSession | null) => {
     playerSessionRef.current = session;
@@ -137,28 +119,6 @@ export function App() {
     setRankingOrder([]);
   });
 
-  const sendClientEvent = useEffectEvent(
-    <TEvent extends keyof ClientToServerEventPayloadMap>(
-      event: TEvent,
-      payload: ClientToServerEventPayloadMap[TEvent],
-    ) => {
-      const socket = socketRef.current;
-      if (!socket || socket.readyState !== WebSocket.OPEN) return false;
-      socket.send(serializeEnvelope(event, payload));
-      return true;
-    },
-  );
-
-  const scheduleReconnect = useEffectEvent(() => {
-    if (!shouldReconnectRef.current) return;
-    clearReconnectTimer();
-    const delay = getReconnectDelay(reconnectAttemptRef.current);
-    reconnectTimerRef.current = window.setTimeout(() => {
-      reconnectAttemptRef.current += 1;
-      connectSocket();
-    }, delay);
-  });
-
   const handleSubmitAnswer = useEffectEvent((optionId: string) => {
     const session = playerSessionRef.current;
     if (!session || !question || answerStatus !== "idle") return;
@@ -166,7 +126,7 @@ export function App() {
     setNotice(null);
     setSelectedOptionId(optionId);
     setAnswerStatus("submitting");
-    const sent = sendClientEvent(EVENTS.ANSWER_SUBMIT, {
+    const sent = sendEvent(EVENTS.ANSWER_SUBMIT, {
       roomId: session.roomId,
       questionId: question.questionId,
       playerId: session.playerId,
@@ -186,7 +146,7 @@ export function App() {
     navigator.vibrate?.(50);
     setNotice(null);
     setAnswerStatus("submitting");
-    const sent = sendClientEvent(EVENTS.ANSWER_SUBMIT, {
+    const sent = sendEvent(EVENTS.ANSWER_SUBMIT, {
       roomId: session.roomId,
       questionId: question.questionId,
       playerId: session.playerId,
@@ -206,7 +166,7 @@ export function App() {
     navigator.vibrate?.(50);
     setNotice(null);
     setAnswerStatus("submitting");
-    const sent = sendClientEvent(EVENTS.ANSWER_SUBMIT, {
+    const sent = sendEvent(EVENTS.ANSWER_SUBMIT, {
       roomId: session.roomId,
       questionId: question.questionId,
       playerId: session.playerId,
@@ -226,7 +186,7 @@ export function App() {
     navigator.vibrate?.(50);
     setNotice(null);
     setAnswerStatus("submitting");
-    const sent = sendClientEvent(EVENTS.ANSWER_SUBMIT, {
+    const sent = sendEvent(EVENTS.ANSWER_SUBMIT, {
       roomId: session.roomId,
       questionId: question.questionId,
       playerId: session.playerId,
@@ -245,7 +205,7 @@ export function App() {
     const questionId = scoreboard?.questionId ?? question?.questionId;
     if (!session || !questionId || locallyReadyQuestionId === questionId) return;
     setLocallyReadyQuestionId(questionId);
-    const sent = sendClientEvent(EVENTS.NEXT_QUESTION_READY, {
+    const sent = sendEvent(EVENTS.NEXT_QUESTION_READY, {
       roomId: session.roomId,
       questionId,
       playerId: session.playerId,
@@ -262,11 +222,10 @@ export function App() {
 
     switch (parsedEnvelope.data.event) {
       case EVENTS.CONNECTION_ACK:
-        reconnectAttemptRef.current = 0;
+        notifyConnected();
         intentionalReconnectRef.current = false;
-        setConnectionState("connected");
         if (playerSessionRef.current) {
-          sendClientEvent(EVENTS.CONNECTION_RESUME, {
+          sendEvent(EVENTS.CONNECTION_RESUME, {
             roomId: playerSessionRef.current.roomId,
             sessionId: playerSessionRef.current.sessionId,
           });
@@ -438,27 +397,7 @@ export function App() {
     }
   });
 
-  const connectSocket = useEffectEvent(() => {
-    clearReconnectTimer();
-    const socket = new WebSocket(getServerSocketUrl());
-    socketRef.current = socket;
-    socket.addEventListener("message", (e) => handleServerMessage(e.data as string));
-    socket.addEventListener("close", () => {
-      if (socketRef.current === socket) {
-        setConnectionState("reconnecting");
-        scheduleReconnect();
-      }
-    });
-  });
-
-  useEffect(() => {
-    connectSocket();
-    return () => {
-      shouldReconnectRef.current = false;
-      clearReconnectTimer();
-      socketRef.current?.close();
-    };
-  }, []);
+  onMessage(handleServerMessage);
 
   const handleJoin = useEffectEvent(() => {
     const njc = normalizeJoinCode(joinCode);
@@ -475,7 +414,7 @@ export function App() {
 
     setIsJoining(true);
     lastJoinAttemptRef.current = { joinCode: njc, playerName: npn };
-    const sent = sendClientEvent(EVENTS.ROOM_JOIN, {
+    const sent = sendEvent(EVENTS.ROOM_JOIN, {
       joinCode: njc,
       playerName: npn,
       sessionId: null,
