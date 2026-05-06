@@ -23,13 +23,7 @@ import {
   type DisplayStoredSession,
 } from "../storage.js";
 
-export type DisplayScreen =
-  | "setup"
-  | "lobby"
-  | "question"
-  | "reveal"
-  | "scoreboard"
-  | "finished";
+export type DisplayScreen = "setup" | "lobby" | "question" | "reveal" | "scoreboard" | "finished";
 export type DisplayShowLevel = "minimal" | "normal" | "high";
 
 export interface DisplayRoomInfo {
@@ -107,6 +101,17 @@ export function useDisplaySession(deps: {
 
   const displaySessionRef = useRef<DisplayStoredSession | null>(initialSession);
   const preCountdownTimerRef = useRef<number | null>(null);
+  const fadeTimerRef = useRef<number | null>(null);
+
+  const scheduleFade = useEffectEvent((cb: () => void) => {
+    if (fadeTimerRef.current !== null) {
+      window.clearTimeout(fadeTimerRef.current);
+    }
+    fadeTimerRef.current = window.setTimeout(() => {
+      fadeTimerRef.current = null;
+      cb();
+    }, 200);
+  });
 
   const updateStoredSession = useEffectEvent((session: DisplayStoredSession | null) => {
     displaySessionRef.current = session;
@@ -118,6 +123,10 @@ export function useDisplaySession(deps: {
     if (preCountdownTimerRef.current !== null) {
       clearInterval(preCountdownTimerRef.current);
       preCountdownTimerRef.current = null;
+    }
+    if (fadeTimerRef.current !== null) {
+      window.clearTimeout(fadeTimerRef.current);
+      fadeTimerRef.current = null;
     }
     setPreCountdown(null);
     setScreen("setup");
@@ -142,12 +151,12 @@ export function useDisplaySession(deps: {
   });
 
   const generateQrCodes = useEffectEvent((joinCode: string, hostToken: string) => {
-    QRCode.toDataURL(getPlayerJoinUrl(joinCode), { margin: 1, width: 400 }).then((url) =>
-      setPlayerQrUrl(url),
-    );
-    QRCode.toDataURL(getHostJoinUrl(hostToken), { margin: 1, width: 400 }).then((url) =>
-      setHostQrUrl(url),
-    );
+    QRCode.toDataURL(getPlayerJoinUrl(joinCode), { margin: 1, width: 400 })
+      .then((url) => setPlayerQrUrl(url))
+      .catch(() => setPlayerQrUrl(null));
+    QRCode.toDataURL(getHostJoinUrl(hostToken), { margin: 1, width: 400 })
+      .then((url) => setHostQrUrl(url))
+      .catch(() => setHostQrUrl(null));
   });
 
   const handleServerMessage = useEffectEvent((rawMessage: string) => {
@@ -288,13 +297,13 @@ export function useDisplaySession(deps: {
         setScoreChanges([]);
         setNextQuestionReadyProgress(null);
         setIsFadingOut(true);
-        setTimeout(() => {
+        scheduleFade(() => {
           setQuestion(questionPayload);
           setRemainingMs(questionPayload.durationMs);
           setTotalMs(questionPayload.durationMs);
           setScreen("question");
           setIsFadingOut(false);
-        }, 200);
+        });
         return;
       }
 
@@ -320,10 +329,10 @@ export function useDisplaySession(deps: {
         setRoundResults(payload.playerResults);
         setNextQuestionReadyProgress(null);
         setIsFadingOut(true);
-        setTimeout(() => {
+        scheduleFade(() => {
           setScreen("reveal");
           setIsFadingOut(false);
-        }, 200);
+        });
         return;
       }
 
@@ -333,10 +342,10 @@ export function useDisplaySession(deps: {
         setScoreChanges(payload.scoreChanges);
         setNextQuestionReadyProgress(null);
         setIsFadingOut(true);
-        setTimeout(() => {
+        scheduleFade(() => {
           setScreen("scoreboard");
           setIsFadingOut(false);
-        }, 200);
+        });
         return;
       }
 
@@ -349,10 +358,10 @@ export function useDisplaySession(deps: {
         const finishedPayload = parsedEnvelope.data.payload;
         setFinalResult(finishedPayload);
         setIsFadingOut(true);
-        setTimeout(() => {
+        scheduleFade(() => {
           setScreen("finished");
           setIsFadingOut(false);
-        }, 200);
+        });
         return;
       }
 
@@ -380,6 +389,9 @@ export function useDisplaySession(deps: {
     return () => {
       if (preCountdownTimerRef.current !== null) {
         clearInterval(preCountdownTimerRef.current);
+      }
+      if (fadeTimerRef.current !== null) {
+        window.clearTimeout(fadeTimerRef.current);
       }
     };
   }, []);

@@ -1,5 +1,5 @@
 import { EVENTS, type QuestionShowPayload } from "@quiz/shared-protocol";
-import { GameState, PlayerState, RoomState, type Question } from "@quiz/shared-types";
+import { GameState, RoomState, type Question } from "@quiz/shared-types";
 import type { ServerToClientEventName, ServerToClientEventPayloadMap } from "@quiz/shared-protocol";
 
 import type { RoomRecord, SessionRecord, TrackedWebSocket } from "./server-types.js";
@@ -11,6 +11,8 @@ import {
   toQuestionControllerPayload,
   toQuestionShowPayload,
 } from "./question-payloads.js";
+import { buildFinalStats } from "./game-scoreboard.js";
+import { getConnectedPlayers, getCurrentQuestion, getSortedScoreboard } from "./room-selectors.js";
 
 type BroadcastOptions = {
   excludeSessionIds?: Set<string>;
@@ -84,28 +86,6 @@ export function broadcastToAllRoomClients<TEvent extends ServerToClientEventName
   }
 
   sendToPlayers(room, event, payload, options);
-}
-
-function getCurrentQuestion(room: RoomRecord): Question | null {
-  if (!room.quiz || room.currentQuestionIndex === null) {
-    return null;
-  }
-
-  return room.quiz.questions[room.currentQuestionIndex] ?? null;
-}
-
-function getConnectedPlayers(room: RoomRecord) {
-  return room.players.filter((player) => player.state !== PlayerState.Disconnected);
-}
-
-function getSortedScoreboard(room: RoomRecord) {
-  return getConnectedPlayers(room)
-    .map((player) => ({
-      playerId: player.id,
-      name: player.name,
-      score: player.score,
-    }))
-    .sort((a, b) => b.score - a.score);
 }
 
 function getRevealResultPayload(room: RoomRecord) {
@@ -182,6 +162,7 @@ export function syncSessionToRoomState(session: SessionRecord, room: RoomRecord)
       gameState: GameState.Completed,
       totalQuestionCount: getTotalQuestionCount(room),
       finalScoreboard: getSortedScoreboard(room),
+      finalStats: buildFinalStats(room),
     });
     return;
   }
@@ -318,6 +299,7 @@ export function syncSessionToRoomState(session: SessionRecord, room: RoomRecord)
         gameState: GameState.Completed,
         totalQuestionCount: getTotalQuestionCount(room),
         finalScoreboard: scoreboard,
+        finalStats: buildFinalStats(room),
       });
       return;
   }

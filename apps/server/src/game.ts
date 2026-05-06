@@ -7,20 +7,13 @@ import {
   evaluateRanking,
 } from "@quiz/quiz-engine";
 import { GameState, PlayerState, QuestionType, RoomState } from "@quiz/shared-types";
-import type {
-  GameFinalStats,
-  Question,
-  ResolvedGamePlan,
-  ScoreChange,
-  SubmittedAnswer,
-} from "@quiz/shared-types";
+import type { Question, ResolvedGamePlan, SubmittedAnswer } from "@quiz/shared-types";
 
 import { PROTOCOL_ERROR_CODES, sendEvent, sendProtocolError } from "./protocol.js";
 import type { RoomRecord, TrackedWebSocket } from "./server-types.js";
 import { roomsById, sessionsById, logRoomEvent } from "./state.js";
 import { broadcastToAllRoomClients, broadcastToHostAndDisplay } from "./connection.js";
 import { getDefaultQuiz } from "./quiz-data.js";
-import { QUESTION_DURATION_MS } from "./config.js";
 import { isAnswerValidForQuestion } from "./answer-validation.js";
 import { removePlayerFromRoom } from "./room.js";
 import {
@@ -37,16 +30,14 @@ import {
   resolveGamePlan,
   selectQuestionsForGamePlan,
 } from "./game-plan.js";
-
-const SCOREBOARD_INTERVAL = 5;
-function shuffleArray<T>(array: T[], random: () => number = Math.random): T[] {
-  const result = [...array];
-  for (let i = result.length - 1; i > 0; i--) {
-    const j = Math.floor(random() * (i + 1));
-    [result[i], result[j]] = [result[j], result[i]];
-  }
-  return result;
-}
+import {
+  buildFinalStats,
+  buildScoreChanges,
+  isLastQuestion,
+  shouldShowScoreboardAfterCurrentQuestion,
+} from "./game-scoreboard.js";
+import { getConnectedPlayers, getSortedScoreboard } from "./room-selectors.js";
+import { clearActiveRoomTimers } from "./room-timers.js";
 
 function sendQuestionForCurrentRole(
   sessionSocket: TrackedWebSocket | null | undefined,
@@ -131,7 +122,7 @@ export function handleGameStart(socket: TrackedWebSocket, payload: GameStartPayl
     return;
   }
 
-  const connectedPlayers = room.players.filter((p) => p.state !== PlayerState.Disconnected);
+  const connectedPlayers = getConnectedPlayers(room);
 
   if (connectedPlayers.length === 0) {
     sendProtocolError(
@@ -658,25 +649,6 @@ export function handleNextQuestionReady(
   handleScoreboardReadinessChanged(room);
 }
 
-function clearActiveQuestionTimers(room: RoomRecord): void {
-  if (room.countdownTimer) {
-    clearTimeout(room.countdownTimer);
-    room.countdownTimer = null;
-  }
-  if (room.questionTimer) {
-    clearTimeout(room.questionTimer);
-    room.questionTimer = null;
-  }
-  if (room.timerTickInterval) {
-    clearInterval(room.timerTickInterval);
-    room.timerTickInterval = null;
-  }
-  if (room.revealTimer) {
-    clearTimeout(room.revealTimer);
-    room.revealTimer = null;
-  }
-}
-
 function startQuestion(room: RoomRecord): void {
   if (
     !room.quiz ||
@@ -685,7 +657,7 @@ function startQuestion(room: RoomRecord): void {
   )
     return;
 
-  clearActiveQuestionTimers(room);
+  clearActiveRoomTimers(room);
   const question = room.quiz.questions[room.currentQuestionIndex];
 
   if (room.resolvedGamePlan?.displayShowLevel === "high") {
@@ -808,9 +780,7 @@ export function getAnswerProgress(room: Pick<RoomRecord, "players" | "currentAns
   answeredCount: number;
   totalEligiblePlayers: number;
 } {
-  const connectedPlayers = room.players.filter(
-    (player) => player.state !== PlayerState.Disconnected,
-  );
+  const connectedPlayers = getConnectedPlayers(room);
 
   return {
     answeredCount: connectedPlayers.filter((player) => room.currentAnswers.has(player.id)).length,
@@ -878,7 +848,7 @@ function evaluateQuestion(room: RoomRecord, question: Question): void {
     }
   })();
 
-  const connectedPlayers = room.players.filter((p) => p.state !== PlayerState.Disconnected);
+  const connectedPlayers = getConnectedPlayers(room);
   const answeringPlayerIds = new Set(answers.map((a) => a.playerId));
 
   for (const player of connectedPlayers) {
@@ -933,85 +903,6 @@ function evaluateQuestion(room: RoomRecord, question: Question): void {
   }
 }
 
-function getSortedScoreboard(room: RoomRecord) {
-  return room.players
-    .filter((p) => p.state !== PlayerState.Disconnected)
-    .map((p) => ({
-      playerId: p.id,
-      name: p.name,
-      score: p.score,
-    }))
-    .sort((a, b) => b.score - a.score);
-}
-
-function getAnsweredVisibleQuestionNumber(room: RoomRecord): number {
-  if (!room.quiz || room.currentQuestionIndex === null) {
-    return 0;
-  }
-
-  const currentQuestion = room.quiz.questions[room.currentQuestionIndex];
-  if (!currentQuestion || currentQuestion.isDemoQuestion) {
-    return 0;
-  }
-
-  return room.quiz.questions
-    .slice(0, room.currentQuestionIndex + 1)
-    .filter((question) => !question.isDemoQuestion).length;
-}
-
-function isLastQuestion(room: RoomRecord): boolean {
-  return (
-    !!room.quiz &&
-    room.currentQuestionIndex !== null &&
-    room.currentQuestionIndex + 1 >= room.quiz.questions.length
-  );
-}
-
-function shouldShowScoreboardAfterCurrentQuestion(room: RoomRecord): boolean {
-  if (!room.quiz || room.currentQuestionIndex === null) {
-    return false;
-  }
-
-  const currentQuestion = room.quiz.questions[room.currentQuestionIndex];
-  if (!currentQuestion || currentQuestion.isDemoQuestion || isLastQuestion(room)) {
-    return false;
-  }
-
-  const answeredQuestionNumber = getAnsweredVisibleQuestionNumber(room);
-  return answeredQuestionNumber > 0 && answeredQuestionNumber % SCOREBOARD_INTERVAL === 0;
-}
-
-function buildScoreChanges(
-  previousScoreboard: ReturnType<typeof getSortedScoreboard>,
-  nextScoreboard: ReturnType<typeof getSortedScoreboard>,
-): ScoreChange[] {
-  const previousByPlayerId = new Map(
-    previousScoreboard.map((entry, index) => [
-      entry.playerId,
-      { score: entry.score, rank: index + 1 },
-    ]),
-  );
-
-  return nextScoreboard
-    .map((entry, index) => {
-      const previous = previousByPlayerId.get(entry.playerId) ?? {
-        score: 0,
-        rank: nextScoreboard.length,
-      };
-
-      return {
-        playerId: entry.playerId,
-        name: entry.name,
-        previousScore: previous.score,
-        score: entry.score,
-        delta: Math.max(0, entry.score - previous.score),
-        previousRank: previous.rank,
-        rank: index + 1,
-      };
-    })
-    .filter((change) => change.delta > 0 || change.previousRank !== change.rank);
-}
-
 function showScoreboard(room: RoomRecord, questionId: string): void {
   room.gameState = GameState.Scoreboard;
   room.nextQuestionReadyPlayerIds.clear();
@@ -1046,9 +937,7 @@ export function handleScoreboardReadinessChanged(room: RoomRecord): void {
   }
 
   const question = room.quiz.questions[room.currentQuestionIndex];
-  const connectedPlayers = room.players.filter(
-    (player) => player.state !== PlayerState.Disconnected,
-  );
+  const connectedPlayers = getConnectedPlayers(room);
 
   broadcastNextQuestionReadyProgress(room, question.id, room.gameState);
 
@@ -1070,9 +959,7 @@ function broadcastNextQuestionReadyProgress(
   questionId: string,
   gameState: GameState.Revealing | GameState.Scoreboard,
 ): void {
-  const connectedPlayers = room.players.filter(
-    (player) => player.state !== PlayerState.Disconnected,
-  );
+  const connectedPlayers = getConnectedPlayers(room);
   const readyPlayerIds = connectedPlayers
     .filter((player) => room.nextQuestionReadyPlayerIds.has(player.id))
     .map((player) => player.id);
@@ -1129,7 +1016,7 @@ function advanceToNextQuestionOrFinish(room: RoomRecord): void {
 }
 
 function finishGame(room: RoomRecord): void {
-  clearActiveQuestionTimers(room);
+  clearActiveRoomTimers(room);
 
   room.state = RoomState.Completed;
   room.gameState = GameState.Completed;
@@ -1147,64 +1034,4 @@ function finishGame(room: RoomRecord): void {
     finalScoreboard,
     finalStats: buildFinalStats(room),
   });
-}
-
-function buildFinalStats(room: RoomRecord): GameFinalStats | undefined {
-  const completedResults = room.completedRoundResults;
-  if (!completedResults.length) {
-    return undefined;
-  }
-
-  const playerById = new Map(room.players.map((player) => [player.id, player]));
-  const correctCounts = new Map<string, number>();
-  let fastest: { playerId: string; submittedAtMs: number } | null = null;
-
-  for (const result of completedResults) {
-    for (const playerResult of result.playerResults) {
-      if (playerResult.isCorrect) {
-        correctCounts.set(
-          playerResult.playerId,
-          (correctCounts.get(playerResult.playerId) ?? 0) + 1,
-        );
-      }
-    }
-  }
-
-  for (const submittedAnswer of room.completedAnswers) {
-    if (!fastest || submittedAnswer.submittedAtMs < fastest.submittedAtMs) {
-      fastest = {
-        playerId: submittedAnswer.playerId,
-        submittedAtMs: submittedAnswer.submittedAtMs,
-      };
-    }
-  }
-
-  const mostCorrectEntry = [...correctCounts.entries()].sort((a, b) => b[1] - a[1])[0];
-  const scoreboard = getSortedScoreboard(room);
-  const gaps = scoreboard
-    .slice(1)
-    .map((entry, index) => Math.abs(scoreboard[index].score - entry.score));
-  const closestGap = gaps.length ? Math.min(...gaps) : undefined;
-
-  return {
-    ...(mostCorrectEntry && playerById.get(mostCorrectEntry[0])
-      ? {
-          mostCorrect: {
-            playerId: mostCorrectEntry[0],
-            name: playerById.get(mostCorrectEntry[0])!.name,
-            count: mostCorrectEntry[1],
-          },
-        }
-      : {}),
-    ...(fastest && playerById.get(fastest.playerId)
-      ? {
-          fastestAnswer: {
-            playerId: fastest.playerId,
-            name: playerById.get(fastest.playerId)!.name,
-            submittedAtMs: fastest.submittedAtMs,
-          },
-        }
-      : {}),
-    ...(closestGap !== undefined ? { closestGap: { points: closestGap } } : {}),
-  };
 }

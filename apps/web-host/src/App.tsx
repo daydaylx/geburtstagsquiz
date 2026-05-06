@@ -1,26 +1,13 @@
-import { QuestionType, type DisplayShowLevel, type GamePlanPresetId, type RevealMode } from "@quiz/shared-types";
+import { QuestionType } from "@quiz/shared-types";
 import { isLoopbackHostname } from "@quiz/shared-utils";
 
+import { HostGamePlanBuilder } from "./components/HostGamePlanBuilder.js";
 import { getPublicHost, getPlayerJoinUrl } from "./lib/helpers.js";
-import { useWebSocket, type ConnectionState } from "./hooks/useWebSocket.js";
-import {
-  useHostSession,
-  buildPresetGamePlan,
-  buildCustomGamePlan,
-} from "./hooks/useHostSession.js";
+import { useWebSocket, type ConnectionState } from "@quiz/shared-hooks";
+import { getAnswerDisplayLabel } from "./lib/labels.js";
+import { useHostSession } from "./hooks/useHostSession.js";
 
 const FLOW_STEPS = ["Lobby", "Kategorien", "Frage", "Auflösung", "Endstand"] as const;
-const PRESET_IDS: GamePlanPresetId[] = [
-  "quick_dirty",
-  "normal_evening",
-  "full_evening",
-  "chaos_party",
-];
-const QUESTION_COUNT_CHOICES = [10, 15, 20, 25, 30] as const;
-const TIMER_CHOICES = [20_000, 30_000, 45_000, 60_000, 90_000] as const;
-const REVEAL_CHOICES: Array<{ label: string; value: number; mode: RevealMode }> = [
-  { label: "Bis alle bereit", value: 30_000, mode: "manual_with_fallback" },
-];
 
 function getConnectionLabel(connectionState: ConnectionState): string {
   switch (connectionState) {
@@ -32,64 +19,6 @@ function getConnectionLabel(connectionState: ConnectionState): string {
       return "Online";
     default:
       return "Offline";
-  }
-}
-
-function getAnswerDisplayLabel(index: number): string {
-  return index < 26 ? String.fromCharCode(65 + index) : `${index + 1}`;
-}
-
-function getPresetLabel(presetId: GamePlanPresetId): string {
-  switch (presetId) {
-    case "quick_dirty":
-      return "Kurz & dreckig";
-    case "normal_evening":
-      return "Normaler Abendmodus";
-    case "full_evening":
-      return "Voller Quizabend";
-    case "chaos_party":
-      return "Chaos-/Party-Modus";
-  }
-}
-
-function getPresetHint(presetId: GamePlanPresetId): string {
-  switch (presetId) {
-    case "quick_dirty":
-      return "12 Fragen, schnell, wenig Frust.";
-    case "normal_evening":
-      return "20 Fragen, gemischt, Geburtstags-Default.";
-    case "full_evening":
-      return "30 Fragen, langer Mix.";
-    case "chaos_party":
-      return "18 Fragen, Tempo und Lacher.";
-  }
-}
-
-function getQuestionTypeLabel(type: QuestionType): string {
-  switch (type) {
-    case QuestionType.MultipleChoice:
-      return "Multiple Choice";
-    case QuestionType.Estimate:
-      return "Schätzfragen";
-    case QuestionType.MajorityGuess:
-      return "Mehrheitsfragen";
-    case QuestionType.Ranking:
-      return "Ranking";
-    case QuestionType.Logic:
-      return "Denkfragen";
-    case QuestionType.OpenText:
-      return "Freitext";
-  }
-}
-
-function getShowLevelLabel(level: DisplayShowLevel): string {
-  switch (level) {
-    case "minimal":
-      return "Minimal";
-    case "normal":
-      return "Normal";
-    case "high":
-      return "High";
   }
 }
 
@@ -117,13 +46,17 @@ export function App() {
     : "Warte auf Bereitmeldungen";
   const nextReadyPercent =
     s.nextQuestionReadyProgress && s.nextQuestionReadyProgress.totalEligiblePlayers > 0
-      ? (s.nextQuestionReadyProgress.readyCount / s.nextQuestionReadyProgress.totalEligiblePlayers) *
+      ? (s.nextQuestionReadyProgress.readyCount /
+          s.nextQuestionReadyProgress.totalEligiblePlayers) *
         100
       : 0;
   const latestScoreChanges = s.scoreboard?.scoreChanges ?? [];
 
   const effectiveTotalQuestionCount =
-    s.totalQuestionCount ?? s.question?.totalQuestionCount ?? s.finalResult?.totalQuestionCount ?? null;
+    s.totalQuestionCount ??
+    s.question?.totalQuestionCount ??
+    s.finalResult?.totalQuestionCount ??
+    null;
   const currentQuestionNumber = s.currentQuestionIndex !== null ? s.currentQuestionIndex + 1 : 0;
   const visibleQuestionNumber =
     s.screen === "finished" ? effectiveTotalQuestionCount || 0 : currentQuestionNumber;
@@ -166,210 +99,7 @@ export function App() {
               <span className="host-stat-label">Fragen</span>
             </div>
           </div>
-          {s.catalog && s.gamePlanDraft ? (
-            <div className="host-plan-builder">
-              <div className="host-section-head">
-                <p className="host-section-label">Spielplan</p>
-                <span className="host-online-count">{s.catalog.totalQuestions} Fragen verfügbar</span>
-              </div>
-              <div className="host-preset-grid">
-                {PRESET_IDS.map((presetId) => (
-                  <button
-                    className="host-preset-button"
-                    data-active={s.selectedPlanMode === presetId ? "true" : undefined}
-                    key={presetId}
-                    onClick={() => {
-                      s.setSelectedPlanMode(presetId);
-                      s.handlePlanDraftChange(
-                        buildPresetGamePlan(
-                          presetId,
-                          s.catalog!,
-                          s.gamePlanDraft!.showAnswerTextOnPlayerDevices,
-                        ),
-                      );
-                    }}
-                    type="button"
-                  >
-                    <strong>{getPresetLabel(presetId)}</strong>
-                    <small>{getPresetHint(presetId)}</small>
-                  </button>
-                ))}
-                <button
-                  className="host-preset-button"
-                  data-active={s.selectedPlanMode === "custom" ? "true" : undefined}
-                  onClick={() => {
-                    s.setSelectedPlanMode("custom");
-                    s.handlePlanDraftChange(
-                      buildCustomGamePlan(s.catalog!, s.gamePlanDraft!.showAnswerTextOnPlayerDevices),
-                    );
-                  }}
-                  type="button"
-                >
-                  <strong>Freie Auswahl</strong>
-                  <small>Fragen, Kategorien und Typen selbst setzen.</small>
-                </button>
-              </div>
-
-              {s.selectedPlanMode === "custom" && (
-                <div className="host-custom-plan">
-                  <div className="host-choice-row">
-                    <span>Fragen</span>
-                    <div className="host-segmented">
-                      {QUESTION_COUNT_CHOICES.map((count) => (
-                        <button
-                          data-active={s.gamePlanDraft!.questionCount === count ? "true" : undefined}
-                          key={count}
-                          onClick={() =>
-                            s.handlePlanDraftChange({ ...s.gamePlanDraft!, questionCount: count })
-                          }
-                          type="button"
-                        >
-                          {count}
-                        </button>
-                      ))}
-                    </div>
-                    <input
-                      className="host-small-number-input"
-                      max={s.catalog!.maxQuestionCount}
-                      min={5}
-                      onChange={(event) => {
-                        const nextCount = Math.max(
-                          5,
-                          Math.min(s.catalog!.maxQuestionCount, Number(event.target.value) || 5),
-                        );
-                        s.handlePlanDraftChange({ ...s.gamePlanDraft!, questionCount: nextCount });
-                      }}
-                      type="number"
-                      value={s.gamePlanDraft!.questionCount}
-                    />
-                  </div>
-                  <div className="host-choice-row">
-                    <span>Timer</span>
-                    <div className="host-segmented">
-                      {TIMER_CHOICES.map((timerMs) => (
-                        <button
-                          data-active={s.gamePlanDraft!.timerMs === timerMs ? "true" : undefined}
-                          key={timerMs}
-                          onClick={() => s.handlePlanDraftChange({ ...s.gamePlanDraft!, timerMs })}
-                          type="button"
-                        >
-                          {timerMs / 1000}s
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="host-choice-row">
-                    <span>Reveal</span>
-                    <div className="host-segmented">
-                      {REVEAL_CHOICES.map((choice) => (
-                        <button
-                          data-active={
-                            s.gamePlanDraft!.revealDurationMs === choice.value &&
-                            s.gamePlanDraft!.revealMode === choice.mode
-                              ? "true"
-                              : undefined
-                          }
-                          key={`${choice.mode}-${choice.value}`}
-                          onClick={() =>
-                            s.handlePlanDraftChange({
-                              ...s.gamePlanDraft!,
-                              revealDurationMs: choice.value,
-                              revealMode: choice.mode,
-                            })
-                          }
-                          type="button"
-                        >
-                          {choice.label}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="host-choice-row">
-                    <span>Show</span>
-                    <div className="host-segmented">
-                      {(["minimal", "normal", "high"] as const).map((displayShowLevel) => (
-                        <button
-                          data-active={
-                            s.gamePlanDraft!.displayShowLevel === displayShowLevel ? "true" : undefined
-                          }
-                          key={displayShowLevel}
-                          onClick={() =>
-                            s.handlePlanDraftChange({ ...s.gamePlanDraft!, displayShowLevel })
-                          }
-                          type="button"
-                        >
-                          {getShowLevelLabel(displayShowLevel)}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                  <label className="host-checkbox-pill host-checkbox-pill--wide">
-                    <input
-                      checked={s.gamePlanDraft!.enableDemoQuestion}
-                      onChange={(event) =>
-                        s.handlePlanDraftChange({
-                          ...s.gamePlanDraft!,
-                          enableDemoQuestion: event.target.checked,
-                        })
-                      }
-                      type="checkbox"
-                    />
-                    <span>Demo-/Testfrage vor dem echten Spiel</span>
-                  </label>
-                  <div className="host-checkbox-grid">
-                    {s.catalog!.categories.map((category) => (
-                      <label className="host-checkbox-pill" key={category.id}>
-                        <input
-                          checked={s.gamePlanDraft!.categoryIds.includes(category.id)}
-                          onChange={(event) => {
-                            const categoryIds = event.target.checked
-                              ? [...s.gamePlanDraft!.categoryIds, category.id]
-                              : s.gamePlanDraft!.categoryIds.filter((id) => id !== category.id);
-                            s.handlePlanDraftChange({ ...s.gamePlanDraft!, categoryIds });
-                          }}
-                          type="checkbox"
-                        />
-                        <span>{category.name}</span>
-                      </label>
-                    ))}
-                  </div>
-                  <div className="host-checkbox-grid host-checkbox-grid--types">
-                    {s.catalog!.questionTypes.map((entry) => (
-                      <label className="host-checkbox-pill" key={entry.type}>
-                        <input
-                          checked={s.gamePlanDraft!.questionTypes.includes(entry.type)}
-                          onChange={(event) => {
-                            const questionTypes = event.target.checked
-                              ? [...s.gamePlanDraft!.questionTypes, entry.type]
-                              : s.gamePlanDraft!.questionTypes.filter((type) => type !== entry.type);
-                            s.handlePlanDraftChange({ ...s.gamePlanDraft!, questionTypes });
-                          }}
-                          type="checkbox"
-                        />
-                        <span>
-                          {getQuestionTypeLabel(entry.type)} ({entry.count})
-                        </span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              <div className="host-plan-summary">
-                <span>{s.gamePlanDraft.questionCount} Fragen</span>
-                <span>{s.gamePlanDraft.timerMs / 1000}s Timer</span>
-                <span>
-                  {s.gamePlanDraft.revealMode === "manual_with_fallback"
-                    ? "Manuelles Reveal"
-                    : `${s.gamePlanDraft.revealDurationMs / 1000}s Reveal`}
-                </span>
-                <span>Show: {getShowLevelLabel(s.gamePlanDraft.displayShowLevel)}</span>
-                <span>Demo: {s.gamePlanDraft.enableDemoQuestion ? "an" : "aus"}</span>
-              </div>
-            </div>
-          ) : (
-            <div className="host-estimate-display">Lade Fragenkatalog...</div>
-          )}
+          <HostGamePlanBuilder session={s} />
         </div>
       );
     }
@@ -438,13 +168,15 @@ export function App() {
             <div className="host-bar-meta">
               <span className="host-section-label host-section-label--compact">Antworten</span>
               <strong>
-                {s.answerProgress?.answeredCount || 0} / {s.answerProgress?.totalEligiblePlayers || 0}
+                {s.answerProgress?.answeredCount || 0} /{" "}
+                {s.answerProgress?.totalEligiblePlayers || 0}
                 {s.answerProgress &&
                   s.answerProgress.totalEligiblePlayers - s.answerProgress.answeredCount > 0 && (
                     <span className="host-pending-count">
                       {" "}
-                      · {s.answerProgress.totalEligiblePlayers - s.answerProgress.answeredCount} noch
-                      offen
+                      · {s.answerProgress.totalEligiblePlayers -
+                        s.answerProgress.answeredCount}{" "}
+                      noch offen
                     </span>
                   )}
               </strong>
@@ -498,26 +230,28 @@ export function App() {
               <strong className="host-estimate-correct-value">{s.revealedAnswer.value}</strong>
             </div>
           )}
-          {s.question.type === QuestionType.Ranking && s.revealedAnswer?.type === "ranking" && (() => {
-            const q = s.question!;
-            return (
-            <div className="host-ranking-list">
-              {s.revealedAnswer.value.map((id, i) => {
-                const itemIndex = q.items.findIndex((x) => x.id === id);
-                const item = itemIndex >= 0 ? q.items[itemIndex] : undefined;
-                return (
-                  <div className="host-ranking-item host-ranking-item--reveal" key={id}>
-                    <span className="host-ranking-position">{i + 1}.</span>
-                    <span className="host-option-id">
-                      {itemIndex >= 0 ? getAnswerDisplayLabel(itemIndex) : id}
-                    </span>
-                    <span>{item?.label ?? id}</span>
-                  </div>
-                );
-              })}
-            </div>
-            );
-          })()}
+          {s.question.type === QuestionType.Ranking &&
+            s.revealedAnswer?.type === "ranking" &&
+            (() => {
+              const q = s.question!;
+              return (
+                <div className="host-ranking-list">
+                  {s.revealedAnswer.value.map((id, i) => {
+                    const itemIndex = q.items.findIndex((x) => x.id === id);
+                    const item = itemIndex >= 0 ? q.items[itemIndex] : undefined;
+                    return (
+                      <div className="host-ranking-item host-ranking-item--reveal" key={id}>
+                        <span className="host-ranking-position">{i + 1}.</span>
+                        <span className="host-option-id">
+                          {itemIndex >= 0 ? getAnswerDisplayLabel(itemIndex) : id}
+                        </span>
+                        <span>{item?.label ?? id}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            })()}
           {s.revealExplanation && <p className="host-explanation">{s.revealExplanation}</p>}
           <div className="host-round-summary">
             <div className="host-round-summary-card" data-state="correct">
@@ -608,7 +342,10 @@ export function App() {
               : "Warten...";
   const isPrimaryDisabled =
     s.screen === "lobby"
-      ? connectionState !== "connected" || connectedPlayerCount === 0 || !s.gamePlanDraft || !s.catalog
+      ? connectionState !== "connected" ||
+        connectedPlayerCount === 0 ||
+        !s.gamePlanDraft ||
+        !s.catalog
       : s.screen === "question"
         ? false
         : s.screen === "reveal" || s.screen === "scoreboard"

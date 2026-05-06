@@ -48,6 +48,9 @@ importers:
 
   apps/web-display:
     dependencies:
+      '@quiz/shared-hooks':
+        specifier: workspace:*
+        version: link:../../packages/shared-hooks
       '@quiz/shared-protocol':
         specifier: workspace:*
         version: link:../../packages/shared-protocol
@@ -88,6 +91,9 @@ importers:
 
   apps/web-host:
     dependencies:
+      '@quiz/shared-hooks':
+        specifier: workspace:*
+        version: link:../../packages/shared-hooks
       '@quiz/shared-protocol':
         specifier: workspace:*
         version: link:../../packages/shared-protocol
@@ -128,6 +134,9 @@ importers:
 
   apps/web-player:
     dependencies:
+      '@quiz/shared-hooks':
+        specifier: workspace:*
+        version: link:../../packages/shared-hooks
       '@quiz/shared-protocol':
         specifier: workspace:*
         version: link:../../packages/shared-protocol
@@ -165,6 +174,25 @@ importers:
       '@quiz/shared-types':
         specifier: workspace:*
         version: link:../shared-types
+
+  packages/shared-hooks:
+    dependencies:
+      react:
+        specifier: ^19.0.0
+        version: 19.2.5
+    devDependencies:
+      '@quiz/shared-protocol':
+        specifier: workspace:*
+        version: link:../shared-protocol
+      '@quiz/shared-utils':
+        specifier: workspace:*
+        version: link:../shared-utils
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.2.14
+      typescript:
+        specifier: ^5.7.0
+        version: 5.9.3
 
   packages/shared-protocol:
     dependencies:

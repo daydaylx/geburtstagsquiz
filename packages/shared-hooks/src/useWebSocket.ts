@@ -3,7 +3,7 @@ import { useEffect, useEffectEvent, useRef, useState } from "react";
 import { serializeEnvelope, type ClientToServerEventPayloadMap } from "@quiz/shared-protocol";
 import { getReconnectDelay } from "@quiz/shared-utils";
 
-import { getServerSocketUrl } from "../lib/helpers.js";
+import { getServerSocketUrl } from "./helpers.js";
 
 export type ConnectionState = "connecting" | "connected" | "reconnecting";
 
@@ -65,6 +65,11 @@ export function useWebSocket() {
     messageHandlerRef.current = handler;
   });
 
+  const notifyConnected = useEffectEvent(() => {
+    reconnectAttemptRef.current = 0;
+    setConnectionState("connected");
+  });
+
   useEffect(() => {
     connectSocket();
     return () => {
@@ -73,11 +78,6 @@ export function useWebSocket() {
       socketRef.current?.close();
     };
   }, []);
-
-  const notifyConnected = useEffectEvent(() => {
-    reconnectAttemptRef.current = 0;
-    setConnectionState("connected");
-  });
 
   const closeSocket = useEffectEvent(() => {
     socketRef.current?.close();

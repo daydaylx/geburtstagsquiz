@@ -9,7 +9,8 @@
       "@quiz/shared-types": ["packages/shared-types/src/index.ts"],
       "@quiz/shared-protocol": ["packages/shared-protocol/src/index.ts"],
       "@quiz/shared-utils": ["packages/shared-utils/src/index.ts"],
-      "@quiz/quiz-engine": ["packages/quiz-engine/src/index.ts"]
+      "@quiz/quiz-engine": ["packages/quiz-engine/src/index.ts"],
+      "@quiz/shared-hooks": ["packages/shared-hooks/src/index.ts"]
     },
     "esModuleInterop": true,
     "skipLibCheck": true,

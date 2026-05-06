@@ -1,7 +1,8 @@
 import { QuestionType } from "@quiz/shared-types";
-import { type ConnectionState } from "./hooks/useWebSocket.js";
+import { useWebSocket, type ConnectionState } from "@quiz/shared-hooks";
+import { DisplayRevealScreen } from "./components/DisplayRevealScreen.js";
 import { getHostJoinUrl } from "./lib/helpers.js";
-import { useWebSocket } from "./hooks/useWebSocket.js";
+import { getAnswerDisplayLabel, getQuestionTypeLabel } from "./lib/labels.js";
 import { useDisplaySession } from "./hooks/useDisplaySession.js";
 
 const CONFETTI_COLORS = ["#ff6b6b", "#ffd500", "#00d4ff", "#00e676", "#c061cb"];
@@ -15,29 +16,6 @@ function getConnectionLabel(state: ConnectionState): string {
     case "connected":
       return "Online";
   }
-}
-
-function getQuestionTypeLabel(type: QuestionType): string {
-  switch (type) {
-    case QuestionType.MultipleChoice:
-      return "Auswahlfrage";
-    case QuestionType.Logic:
-      return "Logikfrage";
-    case QuestionType.Estimate:
-      return "Schätzfrage";
-    case QuestionType.MajorityGuess:
-      return "Mehrheitsfrage";
-    case QuestionType.Ranking:
-      return "Reihenfrage";
-    case QuestionType.OpenText:
-      return "Freitextfrage";
-    default:
-      return "";
-  }
-}
-
-function getAnswerDisplayLabel(index: number): string {
-  return index < 26 ? String.fromCharCode(65 + index) : `${index + 1}`;
 }
 
 export function App() {
@@ -134,7 +112,8 @@ export function App() {
             )}
 
             <div className="display-player-count">
-              <span className="display-player-count-number">{s.lobby?.playerCount ?? 0}</span> Spieler
+              <span className="display-player-count-number">{s.lobby?.playerCount ?? 0}</span>{" "}
+              Spieler
             </div>
           </div>
         )}
@@ -231,122 +210,15 @@ export function App() {
         )}
 
         {s.screen === "reveal" && s.question && (
-          <div className="display-reveal" data-fading={s.isFadingOut || undefined}>
-            <h3 className="display-reveal-question">{s.question.text}</h3>
-
-            {"options" in s.question && (() => {
-              const q = s.question!;
-              return (
-              <>
-                <div className="display-reveal-header">Richtige Antwort</div>
-                {s.revealedAnswer?.type === "option" &&
-                  (() => {
-                    const correctOpt = q.options.find(
-                      (o) => o.id === (s.revealedAnswer as { type: "option"; value: string }).value,
-                    );
-                    const correctIndex = correctOpt
-                      ? q.options.findIndex((option) => option.id === correctOpt.id)
-                      : -1;
-                    return correctOpt ? (
-                      <div className="display-reveal-correct-card">
-                        <span className="display-reveal-correct-label">
-                          {getAnswerDisplayLabel(correctIndex)}
-                        </span>
-                        <span className="display-reveal-correct-text">{correctOpt.label}</span>
-                      </div>
-                    ) : null;
-                  })()}
-                {s.revealedAnswer?.type === "options" &&
-                  (s.revealedAnswer as { type: "options"; value: string[] }).value.map((id) => {
-                    const opt = q.options.find((o) => o.id === id);
-                    const optIndex = opt
-                      ? q.options.findIndex((option) => option.id === opt.id)
-                      : -1;
-                    return opt ? (
-                      <div key={id} className="display-reveal-correct-card">
-                        <span className="display-reveal-correct-label">
-                          {getAnswerDisplayLabel(optIndex)}
-                        </span>
-                        <span className="display-reveal-correct-text">{opt.label}</span>
-                      </div>
-                    ) : null;
-                  })}
-              </>
-              );
-            })()}
-
-            {"items" in s.question && s.revealedAnswer?.type === "ranking" && (() => {
-              const q = s.question!;
-              return (
-              <ol className="display-reveal-ranking">
-                {s.revealedAnswer.value.map((itemId, pos) => {
-                  const item = q.items.find((it) => it.id === itemId);
-                  return (
-                    <li key={itemId} className="display-reveal-ranking-item">
-                      <span className="display-reveal-rank-pos">{pos + 1}.</span>
-                      <span>{item?.label ?? itemId}</span>
-                    </li>
-                  );
-                })}
-              </ol>
-              );
-            })()}
-
-            {s.question.type === QuestionType.Estimate && s.revealedAnswer?.type === "number" && (
-              <div className="display-reveal-estimate">
-                <div className="display-reveal-estimate-main">
-                  <span className="display-reveal-estimate-value">{s.revealedAnswer.value}</span>
-                  <span className="display-reveal-estimate-unit">{s.question.unit}</span>
-                </div>
-                <p className="display-reveal-estimate-context">{s.question.context}</p>
-              </div>
-            )}
-
-            {s.question.type === QuestionType.OpenText && (
-              <div className="display-reveal-text-answer">
-                {s.revealedAnswer?.type === "text"
-                  ? s.revealedAnswer.value
-                  : s.revealedAnswer?.type === "options"
-                    ? s.revealedAnswer.value[0]
-                    : ""}
-              </div>
-            )}
-
-            {s.revealExplanation && (
-              <div className="display-explanation">
-                <div className="display-explanation-label">Erklärung</div>
-                <p>{s.revealExplanation}</p>
-              </div>
-            )}
-
-            <div className="display-reveal-stats">
-              <span className="display-reveal-stat display-reveal-stat--correct">
-                ✓ {correctCount} richtig
-              </span>
-              <span className="display-reveal-stat display-reveal-stat--wrong">
-                ✗ {wrongCount} falsch
-              </span>
-              <span className="display-reveal-stat">— {noneCount} keine</span>
-            </div>
-            {visibleReadyProgress && (
-              <div
-                className="display-ready-block"
-                data-all-ready={readyProgressAllReady ? "true" : undefined}
-              >
-                <div className="display-ready-label">
-                  {readyProgressAllReady
-                    ? "Alle bereit!"
-                    : `${visibleReadyProgress.readyCount} / ${visibleReadyProgress.totalEligiblePlayers} bereit`}
-                </div>
-                <div className="display-ready-track">
-                  <div
-                    className="display-ready-fill"
-                    style={{ width: `${readyProgressPercent}%` }}
-                  />
-                </div>
-              </div>
-            )}
-          </div>
+          <DisplayRevealScreen
+            correctCount={correctCount}
+            noneCount={noneCount}
+            readyProgressAllReady={readyProgressAllReady}
+            readyProgressPercent={readyProgressPercent}
+            session={s}
+            visibleReadyProgress={visibleReadyProgress}
+            wrongCount={wrongCount}
+          />
         )}
 
         {s.screen === "scoreboard" && s.scoreboard && (
@@ -421,90 +293,95 @@ export function App() {
           </div>
         )}
 
-        {s.screen === "finished" && s.finalResult && (() => {
-          const fr = s.finalResult!;
-          return (
-          <div className="display-finished" data-fading={s.isFadingOut || undefined}>
-            <h1>Quiz beendet!</h1>
+        {s.screen === "finished" &&
+          s.finalResult &&
+          (() => {
+            const fr = s.finalResult!;
+            return (
+              <div className="display-finished" data-fading={s.isFadingOut || undefined}>
+                <h1>Quiz beendet!</h1>
 
-            <div className="display-podium">
-              {[1, 0, 2].map((rankIndex) => {
-                const entry = fr.finalScoreboard[rankIndex];
-                if (!entry) return null;
-                return (
-                  <div
-                    key={rankIndex}
-                    className={`display-podium-entry display-podium-entry--${rankIndex + 1}`}
-                  >
-                    <div className="display-podium-rank-badge">{rankIndex + 1}</div>
-                    <div className="display-podium-name">{entry.name}</div>
-                    <div className="display-podium-score">{entry.score} Pkt</div>
-                  </div>
-                );
-              })}
-            </div>
+                <div className="display-podium">
+                  {[1, 0, 2].map((rankIndex) => {
+                    const entry = fr.finalScoreboard[rankIndex];
+                    if (!entry) return null;
+                    return (
+                      <div
+                        key={rankIndex}
+                        className={`display-podium-entry display-podium-entry--${rankIndex + 1}`}
+                      >
+                        <div className="display-podium-rank-badge">{rankIndex + 1}</div>
+                        <div className="display-podium-name">{entry.name}</div>
+                        <div className="display-podium-score">{entry.score} Pkt</div>
+                      </div>
+                    );
+                  })}
+                </div>
 
-            {fr.finalScoreboard.length > 3 && (
-              <ol className="display-scoreboard-list">
-                {fr.finalScoreboard.slice(3, 8).map((entry, i) => (
-                  <li key={entry.playerId} className="display-scoreboard-entry" data-rank={i + 4}>
-                    <span className="display-rank">{i + 4}.</span>
-                    <span className="display-name">{entry.name}</span>
-                    <span className="display-score">{entry.score}</span>
-                  </li>
-                ))}
-              </ol>
-            )}
+                {fr.finalScoreboard.length > 3 && (
+                  <ol className="display-scoreboard-list">
+                    {fr.finalScoreboard.slice(3, 8).map((entry, i) => (
+                      <li
+                        key={entry.playerId}
+                        className="display-scoreboard-entry"
+                        data-rank={i + 4}
+                      >
+                        <span className="display-rank">{i + 4}.</span>
+                        <span className="display-name">{entry.name}</span>
+                        <span className="display-score">{entry.score}</span>
+                      </li>
+                    ))}
+                  </ol>
+                )}
 
-            {fr.finalStats && (
-              <div className="display-final-stats">
-                {fr.finalStats.mostCorrect && (
-                  <div className="display-final-stat">
-                    <span className="display-final-stat-label">Meiste richtig</span>
-                    <span className="display-final-stat-value">
-                      {fr.finalStats.mostCorrect.name} ·{" "}
-                      {fr.finalStats.mostCorrect.count}×
-                    </span>
+                {fr.finalStats && (
+                  <div className="display-final-stats">
+                    {fr.finalStats.mostCorrect && (
+                      <div className="display-final-stat">
+                        <span className="display-final-stat-label">Meiste richtig</span>
+                        <span className="display-final-stat-value">
+                          {fr.finalStats.mostCorrect.name} · {fr.finalStats.mostCorrect.count}×
+                        </span>
+                      </div>
+                    )}
+                    {fr.finalStats.fastestAnswer && (
+                      <div className="display-final-stat">
+                        <span className="display-final-stat-label">Schnellste Antwort</span>
+                        <span className="display-final-stat-value">
+                          {fr.finalStats.fastestAnswer.name}
+                        </span>
+                      </div>
+                    )}
+                    {fr.finalStats.closestGap && (
+                      <div className="display-final-stat">
+                        <span className="display-final-stat-label">Knappster Abstand</span>
+                        <span className="display-final-stat-value">
+                          {fr.finalStats.closestGap.points} Punkte
+                        </span>
+                      </div>
+                    )}
                   </div>
                 )}
-                {fr.finalStats.fastestAnswer && (
-                  <div className="display-final-stat">
-                    <span className="display-final-stat-label">Schnellste Antwort</span>
-                    <span className="display-final-stat-value">
-                      {fr.finalStats.fastestAnswer.name}
-                    </span>
-                  </div>
-                )}
-                {fr.finalStats.closestGap && (
-                  <div className="display-final-stat">
-                    <span className="display-final-stat-label">Knappster Abstand</span>
-                    <span className="display-final-stat-value">
-                      {fr.finalStats.closestGap.points} Punkte
-                    </span>
+
+                {s.displayShowLevel === "high" && (
+                  <div className="display-confetti" aria-hidden="true">
+                    {Array.from({ length: 30 }).map((_, i) => (
+                      <div
+                        key={i}
+                        className="display-confetti-piece"
+                        style={{
+                          left: `${(i * 3.37) % 100}%`,
+                          animationDelay: `${(i * 0.12) % 1.8}s`,
+                          animationDuration: `${2.8 + ((i * 0.07) % 1.5)}s`,
+                          background: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
+                        }}
+                      />
+                    ))}
                   </div>
                 )}
               </div>
-            )}
-
-            {s.displayShowLevel === "high" && (
-              <div className="display-confetti" aria-hidden="true">
-                {Array.from({ length: 30 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className="display-confetti-piece"
-                    style={{
-                      left: `${(i * 3.37) % 100}%`,
-                      animationDelay: `${(i * 0.12) % 1.8}s`,
-                      animationDuration: `${2.8 + ((i * 0.07) % 1.5)}s`,
-                      background: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
-                    }}
-                  />
-                ))}
-              </div>
-            )}
-          </div>
-          );
-        })()}
+            );
+          })()}
       </div>
     </div>
   );

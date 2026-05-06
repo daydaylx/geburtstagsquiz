@@ -14,6 +14,7 @@ import {
   sessionsById,
   logRoomEvent,
 } from "./state.js";
+import { clearActiveRoomTimers } from "./room-timers.js";
 
 function generateHostToken(): string {
   return randomUUID().replace(/-/g, "") + randomUUID().replace(/-/g, "");
@@ -55,25 +56,7 @@ export function closeRoom(room: RoomRecord, reason: string): void {
     room.hostDisconnectTimer = null;
   }
 
-  if (room.countdownTimer) {
-    clearTimeout(room.countdownTimer);
-    room.countdownTimer = null;
-  }
-
-  if (room.questionTimer) {
-    clearTimeout(room.questionTimer);
-    room.questionTimer = null;
-  }
-
-  if (room.timerTickInterval) {
-    clearInterval(room.timerTickInterval);
-    room.timerTickInterval = null;
-  }
-
-  if (room.revealTimer) {
-    clearTimeout(room.revealTimer);
-    room.revealTimer = null;
-  }
+  clearActiveRoomTimers(room);
 
   for (const disconnectTimer of room.playerDisconnectTimers.values()) {
     clearTimeout(disconnectTimer);

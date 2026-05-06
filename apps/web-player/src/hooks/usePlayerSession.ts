@@ -13,7 +13,7 @@ import {
   type QuestionRevealPayload,
   type ScoreUpdatePayload,
 } from "@quiz/shared-protocol";
-import { GameState, QuestionType } from "@quiz/shared-types";
+import { GameState, QuestionType, type Answer } from "@quiz/shared-types";
 import { normalizeJoinCode, normalizePlayerName } from "@quiz/shared-utils";
 
 import { getProtocolErrorMessage } from "../lib/helpers.js";
@@ -29,13 +29,7 @@ export interface PlayerNotice {
   text: string;
 }
 
-export type PlayerScreen =
-  | "join"
-  | "lobby"
-  | "question"
-  | "reveal"
-  | "scoreboard"
-  | "finished";
+export type PlayerScreen = "join" | "lobby" | "question" | "reveal" | "scoreboard" | "finished";
 export type AnswerStatus = "idle" | "submitting" | "accepted" | "rejected" | "locked";
 
 interface JoinAttempt {
@@ -163,18 +157,17 @@ export function usePlayerSession(deps: {
     setRankingOrder([]);
   });
 
-  const handleSubmitAnswer = useEffectEvent((optionId: string) => {
+  const submitAnswer = useEffectEvent((answer: Answer) => {
     const session = playerSessionRef.current;
     if (!session || !question || answerStatus !== "idle") return;
     navigator.vibrate?.(50);
     setNotice(null);
-    setSelectedOptionId(optionId);
     setAnswerStatus("submitting");
     const sent = sendEvent(EVENTS.ANSWER_SUBMIT, {
       roomId: session.roomId,
       questionId: question.questionId,
       playerId: session.playerId,
-      answer: { type: "option", value: optionId },
+      answer,
       requestId: crypto.randomUUID(),
     });
 
@@ -182,66 +175,24 @@ export function usePlayerSession(deps: {
       setAnswerStatus("idle");
       setNotice({ kind: "error", text: "Keine Verbindung zum Server." });
     }
+  });
+
+  const handleSubmitAnswer = useEffectEvent((optionId: string) => {
+    if (!playerSessionRef.current || !question || answerStatus !== "idle") return;
+    setSelectedOptionId(optionId);
+    submitAnswer({ type: "option", value: optionId });
   });
 
   const handleSubmitEstimate = useEffectEvent((value: number) => {
-    const session = playerSessionRef.current;
-    if (!session || !question || answerStatus !== "idle") return;
-    navigator.vibrate?.(50);
-    setNotice(null);
-    setAnswerStatus("submitting");
-    const sent = sendEvent(EVENTS.ANSWER_SUBMIT, {
-      roomId: session.roomId,
-      questionId: question.questionId,
-      playerId: session.playerId,
-      answer: { type: "number", value },
-      requestId: crypto.randomUUID(),
-    });
-
-    if (!sent) {
-      setAnswerStatus("idle");
-      setNotice({ kind: "error", text: "Keine Verbindung zum Server." });
-    }
+    submitAnswer({ type: "number", value });
   });
 
   const handleSubmitRanking = useEffectEvent((order: string[]) => {
-    const session = playerSessionRef.current;
-    if (!session || !question || answerStatus !== "idle") return;
-    navigator.vibrate?.(50);
-    setNotice(null);
-    setAnswerStatus("submitting");
-    const sent = sendEvent(EVENTS.ANSWER_SUBMIT, {
-      roomId: session.roomId,
-      questionId: question.questionId,
-      playerId: session.playerId,
-      answer: { type: "ranking", value: order },
-      requestId: crypto.randomUUID(),
-    });
-
-    if (!sent) {
-      setAnswerStatus("idle");
-      setNotice({ kind: "error", text: "Keine Verbindung zum Server." });
-    }
+    submitAnswer({ type: "ranking", value: order });
   });
 
   const handleSubmitText = useEffectEvent((value: string) => {
-    const session = playerSessionRef.current;
-    if (!session || !question || answerStatus !== "idle") return;
-    navigator.vibrate?.(50);
-    setNotice(null);
-    setAnswerStatus("submitting");
-    const sent = sendEvent(EVENTS.ANSWER_SUBMIT, {
-      roomId: session.roomId,
-      questionId: question.questionId,
-      playerId: session.playerId,
-      answer: { type: "text", value },
-      requestId: crypto.randomUUID(),
-    });
-
-    if (!sent) {
-      setAnswerStatus("idle");
-      setNotice({ kind: "error", text: "Keine Verbindung zum Server." });
-    }
+    submitAnswer({ type: "text", value });
   });
 
   const handleReadyForNextQuestion = useEffectEvent(() => {
@@ -276,7 +227,7 @@ export function usePlayerSession(deps: {
         }
         return;
 
-      case EVENTS.PLAYER_JOINED:
+      case EVENTS.PLAYER_JOINED: {
         const joinAttempt = lastJoinAttemptRef.current;
         if (!joinAttempt) return;
         const session: PlayerStoredSession = {
@@ -293,8 +244,9 @@ export function usePlayerSession(deps: {
         setIsJoining(false);
         setScreen("lobby");
         return;
+      }
 
-      case EVENTS.CONNECTION_RESUMED:
+      case EVENTS.CONNECTION_RESUMED: {
         if (parsedEnvelope.data.payload.role !== "player") return;
         const resumedPayload = parsedEnvelope.data.payload as ConnectionResumedPayload;
         const resumedPlayerName =
@@ -320,6 +272,7 @@ export function usePlayerSession(deps: {
           else setScreen("question");
         }
         return;
+      }
 
       case EVENTS.LOBBY_UPDATE:
         setLobby(parsedEnvelope.data.payload);
@@ -328,7 +281,7 @@ export function usePlayerSession(deps: {
       case EVENTS.QUESTION_COUNTDOWN:
         return;
 
-      case EVENTS.QUESTION_CONTROLLER:
+      case EVENTS.QUESTION_CONTROLLER: {
         if (!playerSessionRef.current) return;
         const resumedAnswer = resumedAnswerRef.current;
         setQuestion(parsedEnvelope.data.payload);
@@ -347,6 +300,7 @@ export function usePlayerSession(deps: {
         setScreen("question");
         resumedAnswerRef.current = null;
         return;
+      }
 
       case EVENTS.QUESTION_TIMER:
         setRemainingMs(parsedEnvelope.data.payload.remainingMs);
