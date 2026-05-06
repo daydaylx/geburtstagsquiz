@@ -4,9 +4,8 @@ import QRCode from "qrcode";
 import {
   EVENTS,
   parseServerToClientEnvelope,
-  serializeEnvelope,
-  type AnswerProgressPayload,
   type ClientToServerEventPayloadMap,
+  type AnswerProgressPayload,
   type GameFinishedPayload,
   type LobbyUpdatePayload,
   type NextQuestionReadyProgressPayload,
@@ -15,7 +14,6 @@ import {
   type ScoreUpdatePayload,
 } from "@quiz/shared-protocol";
 import { GameState, QuestionType, RoomState } from "@quiz/shared-types";
-import { getReconnectDelay, getWebSocketProtocol, isLoopbackHostname } from "@quiz/shared-utils";
 
 import {
   clearDisplayStoredSession,
@@ -23,8 +21,13 @@ import {
   saveDisplayStoredSession,
   type DisplayStoredSession,
 } from "./storage.js";
+import {
+  getHostJoinUrl,
+  getPlayerJoinUrl,
+  getServerSocketUrl,
+} from "./lib/helpers.js";
+import { useWebSocket, type ConnectionState } from "./hooks/useWebSocket.js";
 
-type ConnectionState = "connecting" | "connected" | "reconnecting";
 type DisplayScreen = "setup" | "lobby" | "question" | "reveal" | "scoreboard" | "finished";
 type DisplayShowLevel = "minimal" | "normal" | "high";
 
@@ -37,79 +40,6 @@ interface DisplayRoomInfo {
 }
 
 const CONFETTI_COLORS = ["#ff6b6b", "#ffd500", "#00d4ff", "#00e676", "#c061cb"];
-
-function getViteEnv(name: string): string | undefined {
-  return (import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env?.[name];
-}
-
-function getPublicHost(): string {
-  return getViteEnv("VITE_PUBLIC_HOST") ?? window.location.hostname;
-}
-
-function applyFallbackUiOrigin(
-  url: URL,
-  targetSubdomain: "host" | "play",
-  portEnvName: string,
-  defaultLocalPort: string,
-): void {
-  url.hostname = getPublicHost();
-
-  const explicitPort = getViteEnv(portEnvName);
-  if (explicitPort) {
-    url.port = explicitPort;
-    return;
-  }
-
-  if (isLoopbackHostname(url.hostname)) {
-    url.port = defaultLocalPort;
-    return;
-  }
-
-  const labels = url.hostname.split(".");
-  if (labels.length > 2 && ["tv", "host", "play"].includes(labels[0])) {
-    url.hostname = [targetSubdomain, ...labels.slice(1)].join(".");
-  }
-  url.port = "";
-}
-
-function getServerSocketUrl(): string {
-  const envUrl = getViteEnv("VITE_SERVER_SOCKET_URL");
-  if (envUrl) return envUrl;
-
-  const url = new URL("/ws", window.location.href);
-  url.protocol = getWebSocketProtocol(window.location.protocol);
-  return url.toString();
-}
-
-function getPlayerJoinUrl(joinCode: string): string {
-  const envUrl = getViteEnv("VITE_PLAYER_JOIN_BASE_URL");
-  if (envUrl) {
-    const url = new URL(envUrl);
-    url.searchParams.set("joinCode", joinCode);
-    return url.toString();
-  }
-
-  const url = new URL(window.location.href);
-  applyFallbackUiOrigin(url, "play", "VITE_PLAYER_PORT", "5174");
-  url.pathname = "/";
-  url.search = new URLSearchParams({ joinCode }).toString();
-  return url.toString();
-}
-
-function getHostJoinUrl(hostToken: string): string {
-  const envUrl = getViteEnv("VITE_HOST_URL");
-  if (envUrl) {
-    const url = new URL(envUrl);
-    url.searchParams.set("hostToken", hostToken);
-    return url.toString();
-  }
-
-  const url = new URL(window.location.href);
-  applyFallbackUiOrigin(url, "host", "VITE_HOST_PORT", "5173");
-  url.pathname = "/";
-  url.search = new URLSearchParams({ hostToken }).toString();
-  return url.toString();
-}
 
 function getConnectionLabel(state: ConnectionState): string {
   switch (state) {
@@ -148,7 +78,7 @@ function getAnswerDisplayLabel(index: number): string {
 export function App() {
   const initialSession = loadDisplayStoredSession();
 
-  const [connectionState, setConnectionState] = useState<ConnectionState>("connecting");
+  const { connectionState, sendEvent, onMessage, notifyConnected } = useWebSocket();
   const [screen, setScreen] = useState<DisplayScreen>("setup");
   const [roomInfo, setRoomInfo] = useState<DisplayRoomInfo | null>(null);
   const [hostPaired, setHostPaired] = useState(false);
@@ -176,19 +106,8 @@ export function App() {
   const [displayShowLevel, setDisplayShowLevel] = useState<DisplayShowLevel>("high");
   const [isFadingOut, setIsFadingOut] = useState(false);
 
-  const socketRef = useRef<WebSocket | null>(null);
-  const reconnectTimerRef = useRef<number | null>(null);
-  const reconnectAttemptRef = useRef(0);
-  const shouldReconnectRef = useRef(true);
   const displaySessionRef = useRef<DisplayStoredSession | null>(initialSession);
   const preCountdownTimerRef = useRef<number | null>(null);
-
-  const clearReconnectTimer = useEffectEvent(() => {
-    if (reconnectTimerRef.current !== null) {
-      window.clearTimeout(reconnectTimerRef.current);
-      reconnectTimerRef.current = null;
-    }
-  });
 
   const updateStoredSession = useEffectEvent((session: DisplayStoredSession | null) => {
     displaySessionRef.current = session;
@@ -223,28 +142,6 @@ export function App() {
     displaySessionRef.current = null;
   });
 
-  const sendClientEvent = useEffectEvent(
-    <TEvent extends keyof ClientToServerEventPayloadMap>(
-      event: TEvent,
-      payload: ClientToServerEventPayloadMap[TEvent],
-    ) => {
-      const socket = socketRef.current;
-      if (!socket || socket.readyState !== WebSocket.OPEN) return false;
-      socket.send(serializeEnvelope(event, payload));
-      return true;
-    },
-  );
-
-  const scheduleReconnect = useEffectEvent(() => {
-    if (!shouldReconnectRef.current) return;
-    clearReconnectTimer();
-    const delay = getReconnectDelay(reconnectAttemptRef.current);
-    reconnectTimerRef.current = window.setTimeout(() => {
-      reconnectAttemptRef.current += 1;
-      connectSocket();
-    }, delay);
-  });
-
   const generateQrCodes = useEffectEvent((joinCode: string, hostToken: string) => {
     QRCode.toDataURL(getPlayerJoinUrl(joinCode), { margin: 1, width: 400 }).then((url) =>
       setPlayerQrUrl(url),
@@ -260,11 +157,10 @@ export function App() {
 
     switch (parsedEnvelope.data.event) {
       case EVENTS.CONNECTION_ACK: {
-        reconnectAttemptRef.current = 0;
-        setConnectionState("connected");
+        notifyConnected();
         const stored = displaySessionRef.current;
         if (stored) {
-          sendClientEvent(EVENTS.CONNECTION_RESUME, {
+          sendEvent(EVENTS.CONNECTION_RESUME, {
             roomId: stored.roomId,
             sessionId: stored.displaySessionId,
           });
@@ -479,28 +375,13 @@ export function App() {
     }
   });
 
-  const connectSocket = useEffectEvent(() => {
-    clearReconnectTimer();
-    const socket = new WebSocket(getServerSocketUrl());
-    socketRef.current = socket;
-    socket.addEventListener("message", (e) => handleServerMessage(e.data as string));
-    socket.addEventListener("close", () => {
-      if (socketRef.current === socket) {
-        setConnectionState("reconnecting");
-        scheduleReconnect();
-      }
-    });
-  });
+  onMessage(handleServerMessage);
 
   useEffect(() => {
-    connectSocket();
     return () => {
-      shouldReconnectRef.current = false;
-      clearReconnectTimer();
       if (preCountdownTimerRef.current !== null) {
         clearInterval(preCountdownTimerRef.current);
       }
-      socketRef.current?.close();
     };
   }, []);
 
@@ -508,7 +389,7 @@ export function App() {
     if (isCreatingRoom || connectionState !== "connected") return;
     setIsCreatingRoom(true);
     setNotice(null);
-    const sent = sendClientEvent(EVENTS.DISPLAY_CREATE_ROOM, {});
+    const sent = sendEvent(EVENTS.DISPLAY_CREATE_ROOM, {});
     if (!sent) {
       setIsCreatingRoom(false);
       setNotice("Keine Verbindung zum Server.");
