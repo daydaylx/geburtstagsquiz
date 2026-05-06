@@ -1,49 +1,13 @@
-import { useEffect, useEffectEvent, useRef, useState } from "react";
-
-import {
-  EVENTS,
-  PROTOCOL_ERROR_CODES,
-  parseServerToClientEnvelope,
-  type ClientToServerEventPayloadMap,
-  type LobbyUpdatePayload,
-  type NextQuestionReadyProgressPayload,
-  type QuestionRevealPayload,
-  type QuestionControllerPayload,
-  type ScoreUpdatePayload,
-  type GameFinishedPayload,
-  type ConnectionResumedPayload,
-} from "@quiz/shared-protocol";
-import { GameState, QuestionType, type CorrectAnswer } from "@quiz/shared-types";
-import { normalizeJoinCode, normalizePlayerName } from "@quiz/shared-utils";
-
-import {
-  clearPlayerStoredSession,
-  loadPlayerStoredSession,
-  savePlayerStoredSession,
-  type PlayerStoredSession,
-} from "./storage.js";
+import { type ConnectionState } from "./hooks/useWebSocket.js";
 import {
   formatControllerAnswer,
   getOptionAnswerLabel,
-  getProtocolErrorMessage,
   getQuestionKindLabel,
 } from "./lib/helpers.js";
-import { useWebSocket, type ConnectionState } from "./hooks/useWebSocket.js";
-interface PlayerNotice {
-  kind: "info" | "error";
-  text: string;
-}
-interface JoinAttempt {
-  joinCode: string;
-  playerName: string;
-}
-type PlayerScreen = "join" | "lobby" | "question" | "reveal" | "scoreboard" | "finished";
-type AnswerStatus = "idle" | "submitting" | "accepted" | "rejected" | "locked";
-
-function getInitialJoinCode(storedSession: PlayerStoredSession | null): string {
-  const queryJoinCode = new URLSearchParams(window.location.search).get("joinCode");
-  return normalizeJoinCode(queryJoinCode ?? storedSession?.joinCode ?? "");
-}
+import { useWebSocket } from "./hooks/useWebSocket.js";
+import { usePlayerSession } from "./hooks/usePlayerSession.js";
+import { normalizeJoinCode } from "@quiz/shared-utils";
+import { QuestionType } from "@quiz/shared-types";
 
 function getConnectionLabel(connectionState: ConnectionState): string {
   switch (connectionState) {
@@ -59,434 +23,34 @@ function getConnectionLabel(connectionState: ConnectionState): string {
 }
 
 export function App() {
-  const initialSession = loadPlayerStoredSession();
-
   const { connectionState, sendEvent, onMessage, notifyConnected } = useWebSocket();
-  const [notice, setNotice] = useState<PlayerNotice | null>(null);
-  const [joinCode, setJoinCode] = useState(getInitialJoinCode(initialSession));
-  const [playerName, setPlayerName] = useState(initialSession?.playerName ?? "");
-  const [lobby, setLobby] = useState<LobbyUpdatePayload | null>(null);
-  const [roomId, setRoomId] = useState<string | null>(initialSession?.roomId ?? null);
-  const [isJoining, setIsJoining] = useState(false);
-
-  const [screen, setScreen] = useState<PlayerScreen>(initialSession ? "lobby" : "join");
-  const [question, setQuestion] = useState<QuestionControllerPayload | null>(null);
-  const [remainingMs, setRemainingMs] = useState<number>(0);
-  const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
-  const [estimateValue, setEstimateValue] = useState<string>("");
-  const [textAnswerValue, setTextAnswerValue] = useState<string>("");
-  const [rankingOrder, setRankingOrder] = useState<string[]>([]);
-  const [answerStatus, setAnswerStatus] = useState<AnswerStatus>("idle");
-  const [correctAnswer, setCorrectAnswer] = useState<QuestionRevealPayload["correctAnswer"] | null>(
-    null,
-  );
-  const [revealExplanation, setRevealExplanation] = useState<string | null>(null);
-  const [roundResults, setRoundResults] = useState<QuestionRevealPayload["playerResults"]>([]);
-  const [scoreboard, setScoreboard] = useState<ScoreUpdatePayload | null>(null);
-  const [nextQuestionReadyProgress, setNextQuestionReadyProgress] =
-    useState<NextQuestionReadyProgressPayload | null>(null);
-  const [locallyReadyQuestionId, setLocallyReadyQuestionId] = useState<string | null>(null);
-  const [finalResult, setFinalResult] = useState<GameFinishedPayload | null>(null);
-
-  const playerSessionRef = useRef<PlayerStoredSession | null>(initialSession);
-  const lastJoinAttemptRef = useRef<JoinAttempt | null>(null);
-  const resumedAnswerRef = useRef<ConnectionResumedPayload["currentAnswer"] | null>(null);
-  const intentionalReconnectRef = useRef(false);
-
-  const updateStoredSession = useEffectEvent((session: PlayerStoredSession | null) => {
-    playerSessionRef.current = session;
-    if (session) savePlayerStoredSession(session);
-    else clearPlayerStoredSession();
-  });
-
-  const resetToJoin = useEffectEvent(() => {
-    setLobby(null);
-    setRoomId(null);
-    setIsJoining(false);
-    setScreen("join");
-    setQuestion(null);
-    setRemainingMs(0);
-    setSelectedOptionId(null);
-    setAnswerStatus("idle");
-    setCorrectAnswer(null);
-    setRevealExplanation(null);
-    setRoundResults([]);
-    setScoreboard(null);
-    setNextQuestionReadyProgress(null);
-    setFinalResult(null);
-    setEstimateValue("");
-    setTextAnswerValue("");
-    setRankingOrder([]);
-  });
-
-  const handleSubmitAnswer = useEffectEvent((optionId: string) => {
-    const session = playerSessionRef.current;
-    if (!session || !question || answerStatus !== "idle") return;
-    navigator.vibrate?.(50);
-    setNotice(null);
-    setSelectedOptionId(optionId);
-    setAnswerStatus("submitting");
-    const sent = sendEvent(EVENTS.ANSWER_SUBMIT, {
-      roomId: session.roomId,
-      questionId: question.questionId,
-      playerId: session.playerId,
-      answer: { type: "option", value: optionId },
-      requestId: crypto.randomUUID(),
-    });
-
-    if (!sent) {
-      setAnswerStatus("idle");
-      setNotice({ kind: "error", text: "Keine Verbindung zum Server." });
-    }
-  });
-
-  const handleSubmitEstimate = useEffectEvent((value: number) => {
-    const session = playerSessionRef.current;
-    if (!session || !question || answerStatus !== "idle") return;
-    navigator.vibrate?.(50);
-    setNotice(null);
-    setAnswerStatus("submitting");
-    const sent = sendEvent(EVENTS.ANSWER_SUBMIT, {
-      roomId: session.roomId,
-      questionId: question.questionId,
-      playerId: session.playerId,
-      answer: { type: "number", value },
-      requestId: crypto.randomUUID(),
-    });
-
-    if (!sent) {
-      setAnswerStatus("idle");
-      setNotice({ kind: "error", text: "Keine Verbindung zum Server." });
-    }
-  });
-
-  const handleSubmitRanking = useEffectEvent((order: string[]) => {
-    const session = playerSessionRef.current;
-    if (!session || !question || answerStatus !== "idle") return;
-    navigator.vibrate?.(50);
-    setNotice(null);
-    setAnswerStatus("submitting");
-    const sent = sendEvent(EVENTS.ANSWER_SUBMIT, {
-      roomId: session.roomId,
-      questionId: question.questionId,
-      playerId: session.playerId,
-      answer: { type: "ranking", value: order },
-      requestId: crypto.randomUUID(),
-    });
-
-    if (!sent) {
-      setAnswerStatus("idle");
-      setNotice({ kind: "error", text: "Keine Verbindung zum Server." });
-    }
-  });
-
-  const handleSubmitText = useEffectEvent((value: string) => {
-    const session = playerSessionRef.current;
-    if (!session || !question || answerStatus !== "idle") return;
-    navigator.vibrate?.(50);
-    setNotice(null);
-    setAnswerStatus("submitting");
-    const sent = sendEvent(EVENTS.ANSWER_SUBMIT, {
-      roomId: session.roomId,
-      questionId: question.questionId,
-      playerId: session.playerId,
-      answer: { type: "text", value },
-      requestId: crypto.randomUUID(),
-    });
-
-    if (!sent) {
-      setAnswerStatus("idle");
-      setNotice({ kind: "error", text: "Keine Verbindung zum Server." });
-    }
-  });
-
-  const handleReadyForNextQuestion = useEffectEvent(() => {
-    const session = playerSessionRef.current;
-    const questionId = scoreboard?.questionId ?? question?.questionId;
-    if (!session || !questionId || locallyReadyQuestionId === questionId) return;
-    setLocallyReadyQuestionId(questionId);
-    const sent = sendEvent(EVENTS.NEXT_QUESTION_READY, {
-      roomId: session.roomId,
-      questionId,
-      playerId: session.playerId,
-    });
-    if (!sent) {
-      setLocallyReadyQuestionId(null);
-      setNotice({ kind: "error", text: "Keine Verbindung zum Server." });
-    }
-  });
-
-  const handleServerMessage = useEffectEvent((rawMessage: string) => {
-    const parsedEnvelope = parseServerToClientEnvelope(rawMessage);
-    if (!parsedEnvelope.success) return;
-
-    switch (parsedEnvelope.data.event) {
-      case EVENTS.CONNECTION_ACK:
-        notifyConnected();
-        intentionalReconnectRef.current = false;
-        if (playerSessionRef.current) {
-          sendEvent(EVENTS.CONNECTION_RESUME, {
-            roomId: playerSessionRef.current.roomId,
-            sessionId: playerSessionRef.current.sessionId,
-          });
-        }
-        return;
-
-      case EVENTS.PLAYER_JOINED:
-        const joinAttempt = lastJoinAttemptRef.current;
-        if (!joinAttempt) return;
-        const session: PlayerStoredSession = {
-          roomId: parsedEnvelope.data.payload.roomId,
-          sessionId: parsedEnvelope.data.payload.sessionId,
-          playerId: parsedEnvelope.data.payload.playerId,
-          playerName: joinAttempt.playerName,
-          joinCode: joinAttempt.joinCode,
-        };
-        updateStoredSession(session);
-        setRoomId(parsedEnvelope.data.payload.roomId);
-        setJoinCode(joinAttempt.joinCode);
-        setPlayerName(joinAttempt.playerName);
-        setIsJoining(false);
-        setScreen("lobby");
-        return;
-
-      case EVENTS.CONNECTION_RESUMED:
-        if (parsedEnvelope.data.payload.role !== "player") return;
-        const resumedPayload = parsedEnvelope.data.payload as ConnectionResumedPayload;
-        const resumedPlayerName =
-          playerSessionRef.current?.playerName ?? normalizePlayerName(playerName);
-        updateStoredSession({
-          roomId: resumedPayload.roomId,
-          sessionId: resumedPayload.sessionId,
-          playerId: resumedPayload.playerId ?? playerSessionRef.current?.playerId ?? "",
-          playerName: resumedPlayerName,
-          joinCode: resumedPayload.joinCode,
-        });
-        resumedAnswerRef.current = resumedPayload.currentAnswer ?? null;
-        setRoomId(resumedPayload.roomId);
-        setJoinCode(resumedPayload.joinCode);
-        setPlayerName(resumedPlayerName);
-        if (resumedPayload.roomState === "waiting") {
-          setScreen("lobby");
-        } else {
-          const gs = resumedPayload.gameState;
-          if (gs === GameState.Revealing) setScreen("reveal");
-          else if (gs === GameState.Scoreboard) setScreen("scoreboard");
-          else if (gs === GameState.Completed) setScreen("finished");
-          else setScreen("question");
-        }
-        return;
-
-      case EVENTS.LOBBY_UPDATE:
-        setLobby(parsedEnvelope.data.payload);
-        return;
-
-      case EVENTS.QUESTION_COUNTDOWN:
-        return;
-
-      case EVENTS.QUESTION_CONTROLLER:
-        if (!playerSessionRef.current) return;
-        const resumedAnswer = resumedAnswerRef.current;
-        setQuestion(parsedEnvelope.data.payload);
-        setRemainingMs(parsedEnvelope.data.payload.durationMs);
-        setSelectedOptionId(resumedAnswer?.type === "option" ? resumedAnswer.value : null);
-        setEstimateValue(resumedAnswer?.type === "number" ? String(resumedAnswer.value) : "");
-        setTextAnswerValue(resumedAnswer?.type === "text" ? resumedAnswer.value : "");
-        setRankingOrder(resumedAnswer?.type === "ranking" ? resumedAnswer.value : []);
-        setAnswerStatus(resumedAnswer ? "accepted" : "idle");
-        setCorrectAnswer(null);
-        setRevealExplanation(null);
-        setRoundResults([]);
-        setScoreboard(null);
-        setNextQuestionReadyProgress(null);
-        setLocallyReadyQuestionId(null);
-        setScreen("question");
-        resumedAnswerRef.current = null;
-        return;
-
-      case EVENTS.QUESTION_TIMER:
-        setRemainingMs(parsedEnvelope.data.payload.remainingMs);
-        return;
-
-      case EVENTS.ANSWER_ACCEPTED:
-        setNotice(null);
-        setAnswerStatus("accepted");
-        return;
-
-      case EVENTS.ANSWER_REJECTED:
-        switch (parsedEnvelope.data.payload.reason) {
-          case "duplicate":
-            setAnswerStatus("accepted");
-            setNotice({ kind: "info", text: "Antwort war bereits gespeichert." });
-            return;
-          case "late":
-          case "invalid_state":
-            setAnswerStatus("locked");
-            setNotice({ kind: "error", text: "Antwort kam zu spät." });
-            return;
-          case "invalid_payload":
-            setAnswerStatus("idle");
-            setNotice({ kind: "error", text: "Antwort ungültig. Bitte erneut versuchen." });
-            return;
-          case "unauthorized":
-            setAnswerStatus("rejected");
-            setNotice({ kind: "error", text: "Antwort wurde nicht angenommen." });
-            return;
-        }
-        return;
-
-      case EVENTS.QUESTION_CLOSE:
-        setRemainingMs(0);
-        setAnswerStatus((curr) => (curr === "idle" || curr === "submitting" ? "locked" : curr));
-        return;
-
-      case EVENTS.QUESTION_REVEAL:
-        setAnswerStatus((curr) => (curr === "submitting" ? "locked" : curr));
-        setCorrectAnswer(parsedEnvelope.data.payload.correctAnswer);
-        setRevealExplanation(parsedEnvelope.data.payload.explanation ?? null);
-        setRoundResults(parsedEnvelope.data.payload.playerResults);
-        setNextQuestionReadyProgress(null);
-        setLocallyReadyQuestionId(null);
-        setScreen("reveal");
-        return;
-
-      case EVENTS.SCORE_UPDATE:
-        setScoreboard(parsedEnvelope.data.payload);
-        setNextQuestionReadyProgress(null);
-        setLocallyReadyQuestionId(null);
-        setScreen("scoreboard");
-        return;
-
-      case EVENTS.NEXT_QUESTION_READY_PROGRESS:
-        setNextQuestionReadyProgress(parsedEnvelope.data.payload);
-        return;
-
-      case EVENTS.GAME_FINISHED:
-        setFinalResult(parsedEnvelope.data.payload);
-        setScreen("finished");
-        return;
-
-      case EVENTS.ROOM_CLOSED:
-        updateStoredSession(null);
-        resetToJoin();
-        setNotice({ kind: "info", text: "Raum geschlossen. Bitte neu beitreten." });
-        return;
-
-      case EVENTS.ERROR_PROTOCOL: {
-        const error = parsedEnvelope.data.payload;
-        setIsJoining(false);
-        setNotice({ kind: "error", text: getProtocolErrorMessage(error.code, error.message) });
-
-        if (error.context.event === EVENTS.ANSWER_SUBMIT) {
-          setAnswerStatus(error.code === PROTOCOL_ERROR_CODES.INVALID_PAYLOAD ? "idle" : "locked");
-        }
-
-        if (
-          error.code === PROTOCOL_ERROR_CODES.ROOM_NOT_FOUND ||
-          error.code === PROTOCOL_ERROR_CODES.ROOM_CLOSED ||
-          error.code === PROTOCOL_ERROR_CODES.SESSION_NOT_FOUND
-        ) {
-          updateStoredSession(null);
-          resetToJoin();
-        }
-        return;
-      }
-
-      default:
-        return;
-    }
-  });
-
-  onMessage(handleServerMessage);
-
-  const handleJoin = useEffectEvent(() => {
-    const njc = normalizeJoinCode(joinCode);
-    const npn = normalizePlayerName(playerName);
-    setJoinCode(njc);
-    setPlayerName(npn);
-    setNotice(null);
-
-    if (njc.length !== 6 || npn.length === 0) {
-      setIsJoining(false);
-      setNotice({ kind: "error", text: "Bitte Raumcode und Namen prüfen." });
-      return;
-    }
-
-    setIsJoining(true);
-    lastJoinAttemptRef.current = { joinCode: njc, playerName: npn };
-    const sent = sendEvent(EVENTS.ROOM_JOIN, {
-      joinCode: njc,
-      playerName: npn,
-      sessionId: null,
-    });
-
-    if (!sent) {
-      setIsJoining(false);
-      setNotice({ kind: "error", text: "Keine Verbindung zum Server." });
-    }
-  });
-
-  const playerSession = playerSessionRef.current;
-  const ownPlayerId = playerSession?.playerId ?? "";
-  const timerSeconds = Math.ceil((remainingMs ?? 0) / 1000);
-  const isTimerWarning = remainingMs > 0 && timerSeconds <= 10;
-  const isTimerUrgent = remainingMs > 0 && timerSeconds <= 5;
-  const ownRoundResult = roundResults.find((r) => r.playerId === ownPlayerId) ?? null;
-  const selfRevealState = ownRoundResult?.isCorrect
-    ? "correct"
-    : ownRoundResult?.answer
-      ? "wrong"
-      : "missing";
-  const selfRevealLabel =
-    selfRevealState === "correct"
-      ? "RICHTIG!"
-      : selfRevealState === "wrong"
-        ? "LEIDER FALSCH"
-        : "KEINE ANTWORT GEWERTET";
-
-  const ownScoreboardPlacement = scoreboard
-    ? scoreboard.scoreboard.findIndex((e) => e.playerId === ownPlayerId)
-    : -1;
-  const ownScoreboardEntry =
-    ownScoreboardPlacement >= 0 && scoreboard
-      ? scoreboard.scoreboard[ownScoreboardPlacement]
-      : null;
-  const ownFinalPlacement = finalResult
-    ? finalResult.finalScoreboard.findIndex((entry) => entry.playerId === ownPlayerId)
-    : -1;
-  const readyQuestionId = scoreboard?.questionId ?? question?.questionId ?? null;
-  const isReadyForNext =
-    !!ownPlayerId &&
-    !!readyQuestionId &&
-    (locallyReadyQuestionId === readyQuestionId ||
-      (nextQuestionReadyProgress?.questionId === readyQuestionId &&
-        nextQuestionReadyProgress.readyPlayerIds.includes(ownPlayerId)));
+  const session = usePlayerSession({ sendEvent, onMessage, notifyConnected });
 
   return (
-    <main className="player-shell" data-answer-status={answerStatus} data-screen={screen}>
+    <main className="player-shell" data-answer-status={session.answerStatus} data-screen={session.screen}>
       <header className="player-header">
         <div className="player-status" data-state={connectionState}>
           {getConnectionLabel(connectionState)}
         </div>
-        {screen === "question" && remainingMs > 0 && (
+        {session.screen === "question" && session.remainingMs > 0 && (
           <div
             className="player-timer-mini"
-            data-urgent={isTimerUrgent ? "true" : undefined}
-            data-warning={isTimerWarning ? "true" : undefined}
+            data-urgent={session.isTimerUrgent ? "true" : undefined}
+            data-warning={session.isTimerWarning ? "true" : undefined}
           >
-            {timerSeconds}s
+            {session.timerSeconds}s
           </div>
         )}
       </header>
 
-      {notice && (
-        <div className="player-notice" data-kind={notice.kind}>
-          {notice.text}
+      {session.notice && (
+        <div className="player-notice" data-kind={session.notice.kind}>
+          {session.notice.text}
         </div>
       )}
 
-      <div key={screen} className="player-main">
-        {screen === "join" && (
+      <div key={session.screen} className="player-main">
+        {session.screen === "join" && (
           <div className="player-card">
             <span className="player-kicker">Willkommen</span>
             <h1 className="player-title">Mitspielen</h1>
@@ -495,35 +59,35 @@ export function App() {
                 autoCapitalize="characters"
                 className="player-input"
                 maxLength={6}
-                onChange={(e) => setJoinCode(normalizeJoinCode(e.target.value))}
+                onChange={(e) => session.setJoinCode(normalizeJoinCode(e.target.value))}
                 placeholder="Raumcode"
-                value={joinCode}
+                value={session.joinCode}
               />
               <input
                 autoCapitalize="words"
                 className="player-input"
                 maxLength={20}
-                onChange={(e) => setPlayerName(e.target.value)}
+                onChange={(e) => session.setPlayerName(e.target.value)}
                 placeholder="Dein Name"
-                value={playerName}
+                value={session.playerName}
               />
               <button
                 className="player-primary-button"
-                disabled={isJoining || joinCode.length !== 6 || !playerName}
-                onClick={handleJoin}
+                disabled={session.isJoining || session.joinCode.length !== 6 || !session.playerName}
+                onClick={session.handleJoin}
                 type="button"
               >
-                {isJoining ? "Beitreten..." : "Los geht's"}
+                {session.isJoining ? "Beitreten..." : "Los geht's"}
               </button>
             </div>
           </div>
         )}
 
-        {screen === "lobby" && (
+        {session.screen === "lobby" && (
           <>
             <div className="player-card">
               <span className="player-kicker">Lobby</span>
-              <h1 className="player-title">{playerName || "Spieler"}</h1>
+              <h1 className="player-title">{session.playerName || "Spieler"}</h1>
               <p className="player-muted-copy">
                 Warte auf das Quiz. Sobald es startet, geht es hier automatisch weiter.
               </p>
@@ -531,80 +95,80 @@ export function App() {
             <div className="player-scoreboard-list">
               <div className="player-scoreboard-item">
                 <span>Andere Spieler</span>
-                <strong>{lobby?.playerCount ?? 0}</strong>
+                <strong>{session.lobby?.playerCount ?? 0}</strong>
               </div>
             </div>
           </>
         )}
 
-        {screen === "question" && question && (
+        {session.screen === "question" && session.question && (
           <>
-            <div className="player-card player-controller-card" data-status={answerStatus}>
+            <div className="player-card player-controller-card" data-status={session.answerStatus}>
               <span className="player-kicker">
-                {question.isDemoQuestion
+                {session.question.isDemoQuestion
                   ? "Testfrage"
-                  : `${getQuestionKindLabel(question.type)} · Frage ${question.questionIndex + 1} / ${question.totalQuestionCount}`}
+                  : `${getQuestionKindLabel(session.question.type)} · Frage ${session.question.questionIndex + 1} / ${session.question.totalQuestionCount}`}
               </span>
               <h2 className="player-controller-title">
-                {answerStatus === "accepted"
+                {session.answerStatus === "accepted"
                   ? "Antwort gespeichert"
                   : "Schau auf den Bildschirm vorne"}
               </h2>
               <p className="player-controller-copy">
-                {answerStatus === "accepted"
+                {session.answerStatus === "accepted"
                   ? "Warte auf die Auflösung."
                   : "Die Frage und Antworttexte stehen vorne auf dem Hauptbildschirm."}
               </p>
-              {answerStatus === "submitting" && (
+              {session.answerStatus === "submitting" && (
                 <div className="player-controller-status" data-state="submitting">
                   Sende Antwort...
                 </div>
               )}
-              {answerStatus === "accepted" && (
+              {session.answerStatus === "accepted" && (
                 <div className="player-controller-status" data-state="saved">
-                  {selectedOptionId && (
-                    <span>Du hast {getOptionAnswerLabel(selectedOptionId, question)} gewählt.</span>
+                  {session.selectedOptionId && (
+                    <span>Du hast {getOptionAnswerLabel(session.selectedOptionId, session.question)} gewählt.</span>
                   )}
-                  {!selectedOptionId && estimateValue && (
+                  {!session.selectedOptionId && session.estimateValue && (
                     <span>
-                      Deine Schätzung: {estimateValue}{" "}
-                      {question.type === QuestionType.Estimate && question.unit}
+                      Deine Schätzung: {session.estimateValue}{" "}
+                      {session.question.type === QuestionType.Estimate && session.question.unit}
                     </span>
                   )}
-                  {!selectedOptionId && textAnswerValue && (
-                    <span>Deine Antwort: {textAnswerValue}</span>
+                  {!session.selectedOptionId && session.textAnswerValue && (
+                    <span>Deine Antwort: {session.textAnswerValue}</span>
                   )}
-                  {!selectedOptionId && rankingOrder.length > 0 && (
+                  {!session.selectedOptionId && session.rankingOrder.length > 0 && (
                     <span>
                       Deine Reihenfolge:{" "}
-                      {rankingOrder.map((id) => getOptionAnswerLabel(id, question)).join(" > ")}
+                      {session.rankingOrder.map((id) => getOptionAnswerLabel(id, session.question)).join(" > ")}
                     </span>
                   )}
                 </div>
               )}
-              {answerStatus === "locked" && (
+              {session.answerStatus === "locked" && (
                 <div className="player-controller-status" data-state="locked">
                   Zeit abgelaufen
                 </div>
               )}
-              {answerStatus === "rejected" && (
+              {session.answerStatus === "rejected" && (
                 <div className="player-controller-status" data-state="error">
                   Antwort nicht angenommen
                 </div>
               )}
             </div>
 
-            {(question.type === QuestionType.MultipleChoice ||
-              question.type === QuestionType.Logic ||
-              question.type === QuestionType.MajorityGuess) && (
-              <div className="player-controller-options" data-status={answerStatus}>
-                {question.options.map((opt) => (
+            {(session.question.type === QuestionType.MultipleChoice ||
+              session.question.type === QuestionType.Logic ||
+              session.question.type === QuestionType.MajorityGuess) && (
+              <div className="player-controller-options" data-status={session.answerStatus}>
+                {session.question.options.map((opt) => (
                   <button
                     key={opt.id}
                     className="player-controller-option"
-                    data-state={selectedOptionId === opt.id ? "selected" : "idle"}
-                    disabled={answerStatus !== "idle"}
-                    onClick={() => handleSubmitAnswer(opt.id)}
+                    data-state={session.selectedOptionId === opt.id ? "selected" : "idle"}
+                    disabled={session.answerStatus !== "idle"}
+                    onClick={() => session.handleSubmitAnswer(opt.id)}
                     type="button"
                   >
                     <span className="player-controller-option-id">{opt.label}</span>
@@ -614,21 +178,21 @@ export function App() {
               </div>
             )}
 
-            {question.type === QuestionType.Estimate && (
+            {session.question.type === QuestionType.Estimate && (
               <div className="player-estimate-area">
                 <input
                   className="player-estimate-input"
-                  disabled={answerStatus !== "idle"}
-                  onChange={(e) => setEstimateValue(e.target.value)}
-                  placeholder={`${question.unit} eingeben...`}
+                  disabled={session.answerStatus !== "idle"}
+                  onChange={(e) => session.setEstimateValue(e.target.value)}
+                  placeholder={`${session.question.unit} eingeben...`}
                   step="any"
                   type="number"
-                  value={estimateValue}
+                  value={session.estimateValue}
                 />
                 <button
                   className="player-primary-button"
-                  disabled={answerStatus !== "idle" || estimateValue === ""}
-                  onClick={() => handleSubmitEstimate(parseFloat(estimateValue))}
+                  disabled={session.answerStatus !== "idle" || session.estimateValue === ""}
+                  onClick={() => session.handleSubmitEstimate(parseFloat(session.estimateValue))}
                   type="button"
                 >
                   Schätzen
@@ -636,20 +200,20 @@ export function App() {
               </div>
             )}
 
-            {question.type === QuestionType.OpenText && (
+            {session.question.type === QuestionType.OpenText && (
               <div className="player-estimate-area">
                 <input
                   className="player-estimate-input"
-                  disabled={answerStatus !== "idle"}
-                  onChange={(e) => setTextAnswerValue(e.target.value)}
+                  disabled={session.answerStatus !== "idle"}
+                  onChange={(e) => session.setTextAnswerValue(e.target.value)}
                   placeholder="Antwort eingeben..."
                   type="text"
-                  value={textAnswerValue}
+                  value={session.textAnswerValue}
                 />
                 <button
                   className="player-primary-button"
-                  disabled={answerStatus !== "idle" || textAnswerValue.trim() === ""}
-                  onClick={() => handleSubmitText(textAnswerValue)}
+                  disabled={session.answerStatus !== "idle" || session.textAnswerValue.trim() === ""}
+                  onClick={() => session.handleSubmitText(session.textAnswerValue)}
                   type="button"
                 >
                   Antworten
@@ -657,20 +221,22 @@ export function App() {
               </div>
             )}
 
-            {question.type === QuestionType.Ranking && (
+            {session.question.type === QuestionType.Ranking && (() => {
+              const q = session.question!;
+              return (
               <div className="player-ranking-area">
                 <p className="player-ranking-section-label">
                   Einordnen – tippe in der richtigen Reihenfolge an
                 </p>
                 <div className="player-ranking-pool">
-                  {question.items
-                    .filter((item) => !rankingOrder.includes(item.id))
+                  {q.items
+                    .filter((item) => !session.rankingOrder.includes(item.id))
                     .map((item) => (
                       <button
                         key={item.id}
                         className="player-ranking-item"
-                        disabled={answerStatus !== "idle"}
-                        onClick={() => setRankingOrder([...rankingOrder, item.id])}
+                        disabled={session.answerStatus !== "idle"}
+                        onClick={() => session.setRankingOrder([...session.rankingOrder, item.id])}
                         type="button"
                       >
                         <span>{item.label}</span>
@@ -678,22 +244,22 @@ export function App() {
                       </button>
                     ))}
                 </div>
-                {rankingOrder.length > 0 && (
+                {session.rankingOrder.length > 0 && (
                   <>
                     <p className="player-ranking-section-label">Deine Reihenfolge</p>
                     <div className="player-ranking-chosen">
-                      {rankingOrder.map((id, i) => {
-                        const item = question.items.find((x) => x.id === id)!;
+                      {session.rankingOrder.map((id, i) => {
+                        const item = q.items.find((x) => x.id === id)!;
                         return (
                           <div key={id} className="player-ranking-slot">
                             <span className="player-ranking-pos">{i + 1}.</span>
                             <span>{item.label}</span>
                             {item.text && <small>{item.text}</small>}
-                            {answerStatus === "idle" && (
+                            {session.answerStatus === "idle" && (
                               <button
                                 className="player-ranking-remove"
                                 onClick={() =>
-                                  setRankingOrder(rankingOrder.filter((x) => x !== id))
+                                  session.setRankingOrder(session.rankingOrder.filter((x) => x !== id))
                                 }
                                 type="button"
                               >
@@ -708,34 +274,35 @@ export function App() {
                 )}
                 <button
                   className="player-primary-button player-ranking-submit"
-                  disabled={rankingOrder.length < question.items.length || answerStatus !== "idle"}
-                  onClick={() => handleSubmitRanking(rankingOrder)}
+                  disabled={session.rankingOrder.length < q.items.length || session.answerStatus !== "idle"}
+                  onClick={() => session.handleSubmitRanking(session.rankingOrder)}
                   type="button"
                 >
                   Reihenfolge bestätigen
                 </button>
               </div>
-            )}
+              );
+            })()}
           </>
         )}
 
-        {screen === "reveal" && (
+        {session.screen === "reveal" && (
           <>
-            <div className="player-feedback" data-state={selfRevealState}>
-              {selfRevealLabel}
+            <div className="player-feedback" data-state={session.selfRevealState}>
+              {session.selfRevealLabel}
             </div>
             <div className="player-card">
               <span className="player-kicker">Auflösung</span>
               <h2 className="player-title">Schau auf den Bildschirm vorne</h2>
               <p className="player-points-earned">
-                {ownRoundResult?.pointsEarned ?? 0} Punkte verdient.
+                {session.ownRoundResult?.pointsEarned ?? 0} Punkte verdient.
               </p>
-              {ownRoundResult?.detail?.exactPositions !== undefined && (
+              {session.ownRoundResult?.detail?.exactPositions !== undefined && (
                 <p className="player-muted-copy player-muted-copy--compact">
-                  {ownRoundResult.detail.exactPositions} /{" "}
-                  {ownRoundResult.detail.totalPositions ?? "?"} Positionen richtig
-                  {ownRoundResult.detail.bonusPoints
-                    ? `, ${ownRoundResult.detail.bonusPoints} Bonus`
+                  {session.ownRoundResult.detail.exactPositions} /{" "}
+                  {session.ownRoundResult.detail.totalPositions ?? "?"} Positionen richtig
+                  {session.ownRoundResult.detail.bonusPoints
+                    ? `, ${session.ownRoundResult.detail.bonusPoints} Bonus`
                     : ""}
                 </p>
               )}
@@ -744,10 +311,10 @@ export function App() {
                   <span>Deine Antwort</span>
                   <strong>
                     {formatControllerAnswer(
-                      ownRoundResult?.answer ?? null,
-                      question,
-                      question && question.type === QuestionType.Estimate
-                        ? question.unit
+                      session.ownRoundResult?.answer ?? null,
+                      session.question,
+                      session.question && session.question.type === QuestionType.Estimate
+                        ? session.question.unit
                         : undefined,
                     )}
                   </strong>
@@ -756,35 +323,35 @@ export function App() {
                   <span>Richtig</span>
                   <strong>
                     {formatControllerAnswer(
-                      correctAnswer,
-                      question,
-                      question && question.type === QuestionType.Estimate
-                        ? question.unit
+                      session.correctAnswer,
+                      session.question,
+                      session.question && session.question.type === QuestionType.Estimate
+                        ? session.question.unit
                         : undefined,
                     )}
                   </strong>
                 </div>
               </div>
-              {revealExplanation && <p className="player-explanation">{revealExplanation}</p>}
+              {session.revealExplanation && <p className="player-explanation">{session.revealExplanation}</p>}
             </div>
             <button
               className="player-primary-button player-ready-button"
-              disabled={isReadyForNext}
-              onClick={handleReadyForNextQuestion}
+              disabled={session.isReadyForNext}
+              onClick={session.handleReadyForNextQuestion}
               type="button"
             >
-              {isReadyForNext ? "Warten auf andere..." : "Bereit für nächste Frage"}
+              {session.isReadyForNext ? "Warten auf andere..." : "Bereit für nächste Frage"}
             </button>
           </>
         )}
 
-        {screen === "scoreboard" && (
+        {session.screen === "scoreboard" && (
           <>
-            {ownScoreboardEntry && (
+            {session.ownScoreboardEntry && (
               <div className="player-my-rank">
                 <div className="player-my-rank-label">Dein Platz</div>
-                <div className="player-my-rank-value">{ownScoreboardPlacement + 1}.</div>
-                <div className="player-my-rank-score">{ownScoreboardEntry.score} Punkte</div>
+                <div className="player-my-rank-value">{session.ownScoreboardPlacement + 1}.</div>
+                <div className="player-my-rank-score">{session.ownScoreboardEntry.score} Punkte</div>
               </div>
             )}
             <div className="player-card">
@@ -796,21 +363,21 @@ export function App() {
             </div>
             <button
               className="player-primary-button player-ready-button"
-              disabled={isReadyForNext}
-              onClick={handleReadyForNextQuestion}
+              disabled={session.isReadyForNext}
+              onClick={session.handleReadyForNextQuestion}
               type="button"
             >
-              {isReadyForNext ? "Warten auf andere..." : "Bereit für nächste Frage"}
+              {session.isReadyForNext ? "Warten auf andere..." : "Bereit für nächste Frage"}
             </button>
           </>
         )}
 
-        {screen === "finished" && (
+        {session.screen === "finished" && (
           <div className="player-card player-finished-card">
             <span className="player-kicker">Quiz beendet</span>
             <h1 className="player-title">Vielen Dank!</h1>
             <div className="player-my-rank-value player-final-rank">
-              {ownFinalPlacement >= 0 ? `#${ownFinalPlacement + 1}` : "-"}
+              {session.ownFinalPlacement >= 0 ? `#${session.ownFinalPlacement + 1}` : "-"}
             </div>
             <button className="player-primary-button" onClick={() => window.location.reload()}>
               Nochmal spielen
