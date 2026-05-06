@@ -79,5 +79,9 @@ export function useWebSocket() {
     setConnectionState("connected");
   });
 
-  return { connectionState, sendEvent, onMessage, notifyConnected };
+  const closeSocket = useEffectEvent(() => {
+    socketRef.current?.close();
+  });
+
+  return { connectionState, sendEvent, onMessage, notifyConnected, closeSocket };
 }

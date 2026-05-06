@@ -5,7 +5,6 @@ import {
   EVENTS,
   PROTOCOL_ERROR_CODES,
   parseServerToClientEnvelope,
-  serializeEnvelope,
   type AnswerProgressPayload,
   type CatalogSummaryPayload,
   type ClientToServerEventPayloadMap,
@@ -24,7 +23,7 @@ import {
   type GamePlanPresetId,
   type RevealMode,
 } from "@quiz/shared-types";
-import { getReconnectDelay, getWebSocketProtocol, isLoopbackHostname } from "@quiz/shared-utils";
+import { isLoopbackHostname } from "@quiz/shared-utils";
 
 import {
   clearHostStoredSession,
@@ -32,8 +31,9 @@ import {
   saveHostStoredSession,
   type HostStoredSession,
 } from "./storage.js";
+import { getPublicHost, getPlayerJoinUrl } from "./lib/helpers.js";
+import { useWebSocket, type ConnectionState } from "./hooks/useWebSocket.js";
 
-type ConnectionState = "connecting" | "connected" | "reconnecting";
 type HostScreen =
   | "start"
   | "lobby"
@@ -72,59 +72,6 @@ const DEFAULT_CUSTOM_TYPES = [
   QuestionType.Logic,
   QuestionType.Ranking,
 ];
-
-function getViteEnv(name: string): string | undefined {
-  return (import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env?.[name];
-}
-
-function getPublicHost(): string {
-  return getViteEnv("VITE_PUBLIC_HOST") ?? window.location.hostname;
-}
-
-function applyFallbackPlayerOrigin(url: URL): void {
-  url.hostname = getPublicHost();
-
-  const explicitPort = getViteEnv("VITE_PLAYER_PORT");
-  if (explicitPort) {
-    url.port = explicitPort;
-    return;
-  }
-
-  if (isLoopbackHostname(url.hostname)) {
-    url.port = "5174";
-    return;
-  }
-
-  const labels = url.hostname.split(".");
-  if (labels.length > 2 && ["tv", "host", "play"].includes(labels[0])) {
-    url.hostname = ["play", ...labels.slice(1)].join(".");
-  }
-  url.port = "";
-}
-
-function getServerSocketUrl(): string {
-  const envUrl = getViteEnv("VITE_SERVER_SOCKET_URL");
-  if (envUrl) return envUrl;
-
-  const url = new URL("/ws", window.location.href);
-  url.protocol = getWebSocketProtocol(window.location.protocol);
-  return url.toString();
-}
-
-function getPlayerJoinUrl(joinCode: string): string {
-  const envUrl = getViteEnv("VITE_PLAYER_JOIN_BASE_URL");
-  if (envUrl) {
-    const url = new URL(envUrl);
-    url.searchParams.set("joinCode", joinCode);
-    return url.toString();
-  }
-
-  const url = new URL(window.location.href);
-  applyFallbackPlayerOrigin(url);
-  url.pathname = "/";
-  url.search = new URLSearchParams({ joinCode }).toString();
-  return url.toString();
-}
 
 function getConnectionLabel(connectionState: ConnectionState): string {
   switch (connectionState) {
@@ -316,7 +263,7 @@ export function App() {
   const urlParams = new URLSearchParams(window.location.search);
   const hostToken = urlParams.get("hostToken");
 
-  const [connectionState, setConnectionState] = useState<ConnectionState>("connecting");
+  const { connectionState, sendEvent, onMessage, notifyConnected, closeSocket } = useWebSocket();
   const [notice, setNotice] = useState<HostNotice | null>(null);
   const [roomInfo, setRoomInfo] = useState<HostRoomInfo | null>(null);
   const [lobby, setLobby] = useState<LobbyUpdatePayload | null>(null);
@@ -348,38 +295,15 @@ export function App() {
   const [confirmFinishNow, setConfirmFinishNow] = useState(false);
   const [confirmRemovePlayerId, setConfirmRemovePlayerId] = useState<string | null>(null);
 
-  const socketRef = useRef<WebSocket | null>(null);
-  const reconnectTimerRef = useRef<number | null>(null);
-  const reconnectAttemptRef = useRef(0);
   const hostSessionRef = useRef<HostStoredSession | null>(initialSession);
-  const shouldReconnectRef = useRef(true);
   const intentionalReconnectRef = useRef(false);
   const pendingHostConnectRef = useRef(false);
-
-  const clearReconnectTimer = useEffectEvent(() => {
-    if (reconnectTimerRef.current !== null) {
-      window.clearTimeout(reconnectTimerRef.current);
-      reconnectTimerRef.current = null;
-    }
-  });
 
   const updateStoredSession = useEffectEvent((session: HostStoredSession | null) => {
     hostSessionRef.current = session;
     if (session) saveHostStoredSession(session);
     else clearHostStoredSession();
   });
-
-  const sendClientEvent = useEffectEvent(
-    <TEvent extends keyof ClientToServerEventPayloadMap>(
-      event: TEvent,
-      payload: ClientToServerEventPayloadMap[TEvent],
-    ) => {
-      const socket = socketRef.current;
-      if (!socket || socket.readyState !== WebSocket.OPEN) return false;
-      socket.send(serializeEnvelope(event, payload));
-      return true;
-    },
-  );
 
   const resetLobbyState = useEffectEvent(() => {
     setRoomInfo(null);
@@ -416,7 +340,7 @@ export function App() {
 
     setIsConnectingHost(true);
     setNotice(null);
-    const sent = sendClientEvent(EVENTS.HOST_CONNECT, {
+    const sent = sendEvent(EVENTS.HOST_CONNECT, {
       hostToken,
       clientInfo: createHostClientInfo(),
     });
@@ -427,27 +351,16 @@ export function App() {
     }
   });
 
-  const scheduleReconnect = useEffectEvent(() => {
-    if (!shouldReconnectRef.current) return;
-    clearReconnectTimer();
-    const delay = getReconnectDelay(reconnectAttemptRef.current);
-    reconnectTimerRef.current = window.setTimeout(() => {
-      reconnectAttemptRef.current += 1;
-      connectSocket();
-    }, delay);
-  });
-
   const handleServerMessage = useEffectEvent((rawMessage: string) => {
     const parsedEnvelope = parseServerToClientEnvelope(rawMessage);
     if (!parsedEnvelope.success) return;
 
     switch (parsedEnvelope.data.event) {
       case EVENTS.CONNECTION_ACK:
-        reconnectAttemptRef.current = 0;
+        notifyConnected();
         intentionalReconnectRef.current = false;
-        setConnectionState("connected");
         if (hostSessionRef.current) {
-          sendClientEvent(EVENTS.CONNECTION_RESUME, {
+          sendEvent(EVENTS.CONNECTION_RESUME, {
             roomId: hostSessionRef.current.roomId,
             sessionId: hostSessionRef.current.sessionId,
           });
@@ -600,7 +513,7 @@ export function App() {
           updateStoredSession(null);
           resetLobbyState();
           if (pendingHostConnectRef.current) {
-            socketRef.current?.close();
+            closeSocket();
           }
         }
         setNotice({ kind: "error", text: parsedEnvelope.data.payload.message });
@@ -611,27 +524,7 @@ export function App() {
     }
   });
 
-  const connectSocket = useEffectEvent(() => {
-    clearReconnectTimer();
-    const socket = new WebSocket(getServerSocketUrl());
-    socketRef.current = socket;
-    socket.addEventListener("message", (e) => handleServerMessage(e.data as string));
-    socket.addEventListener("close", () => {
-      if (socketRef.current === socket) {
-        setConnectionState("reconnecting");
-        scheduleReconnect();
-      }
-    });
-  });
-
-  useEffect(() => {
-    connectSocket();
-    return () => {
-      shouldReconnectRef.current = false;
-      clearReconnectTimer();
-      socketRef.current?.close();
-    };
-  }, []);
+  onMessage(handleServerMessage);
 
   useEffect(() => {
     if (!roomInfo?.joinCode) {
@@ -662,7 +555,7 @@ export function App() {
   const handleStartGame = useEffectEvent(() => {
     if (roomInfo && gamePlanDraft) {
       setNotice(null);
-      sendClientEvent(EVENTS.GAME_START, { roomId: roomInfo.roomId, gamePlan: gamePlanDraft });
+      sendEvent(EVENTS.GAME_START, { roomId: roomInfo.roomId, gamePlan: gamePlanDraft });
     }
   });
 
@@ -674,7 +567,7 @@ export function App() {
       ? { ...gamePlanDraft, showAnswerTextOnPlayerDevices: enabled }
       : null;
     if (nextDraft) setGamePlanDraft(nextDraft);
-    const sent = sendClientEvent(EVENTS.ROOM_SETTINGS_UPDATE, {
+    const sent = sendEvent(EVENTS.ROOM_SETTINGS_UPDATE, {
       roomId: roomInfo.roomId,
       showAnswerTextOnPlayerDevices: enabled,
       ...(nextDraft ? { gamePlanDraft: nextDraft } : {}),
@@ -688,39 +581,39 @@ export function App() {
   const handleAdvanceQuestion = useEffectEvent(() => {
     if (roomInfo) {
       setNotice(null);
-      sendClientEvent(EVENTS.GAME_NEXT_QUESTION, { roomId: roomInfo.roomId });
+      sendEvent(EVENTS.GAME_NEXT_QUESTION, { roomId: roomInfo.roomId });
     }
   });
 
   const handleForceCloseQuestion = useEffectEvent(() => {
     if (!roomInfo) return;
     setNotice(null);
-    sendClientEvent(EVENTS.QUESTION_FORCE_CLOSE, { roomId: roomInfo.roomId });
+    sendEvent(EVENTS.QUESTION_FORCE_CLOSE, { roomId: roomInfo.roomId });
   });
 
   const handleShowScoreboard = useEffectEvent(() => {
     if (!roomInfo) return;
     setNotice(null);
-    sendClientEvent(EVENTS.GAME_SHOW_SCOREBOARD, { roomId: roomInfo.roomId });
+    sendEvent(EVENTS.GAME_SHOW_SCOREBOARD, { roomId: roomInfo.roomId });
   });
 
   const handleFinishNow = useEffectEvent(() => {
     if (!roomInfo) return;
     setNotice(null);
-    sendClientEvent(EVENTS.GAME_FINISH_NOW, { roomId: roomInfo.roomId });
+    sendEvent(EVENTS.GAME_FINISH_NOW, { roomId: roomInfo.roomId });
   });
 
   const handleRemovePlayer = useEffectEvent((playerId: string) => {
     if (!roomInfo) return;
     setNotice(null);
-    sendClientEvent(EVENTS.PLAYER_REMOVE, { roomId: roomInfo.roomId, playerId });
+    sendEvent(EVENTS.PLAYER_REMOVE, { roomId: roomInfo.roomId, playerId });
   });
 
   const handlePlanDraftChange = useEffectEvent((nextDraft: GamePlan) => {
     setGamePlanDraft(nextDraft);
     setShowAnswerTextOnPlayerDevices(nextDraft.showAnswerTextOnPlayerDevices);
     if (!roomInfo || screen !== "lobby") return;
-    sendClientEvent(EVENTS.ROOM_SETTINGS_UPDATE, {
+    sendEvent(EVENTS.ROOM_SETTINGS_UPDATE, {
       roomId: roomInfo.roomId,
       showAnswerTextOnPlayerDevices: nextDraft.showAnswerTextOnPlayerDevices,
       gamePlanDraft: nextDraft,
