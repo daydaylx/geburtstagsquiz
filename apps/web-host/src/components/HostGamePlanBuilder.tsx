@@ -169,7 +169,9 @@ function HostCustomGamePlanBuilder({ session: s }: HostGamePlanBuilderProps) {
         <div className="host-segmented">
           {(["minimal", "normal", "high"] as const).map((displayShowLevel) => (
             <button
-              data-active={s.gamePlanDraft!.displayShowLevel === displayShowLevel ? "true" : undefined}
+              data-active={
+                s.gamePlanDraft!.displayShowLevel === displayShowLevel ? "true" : undefined
+              }
               key={displayShowLevel}
               onClick={() => s.handlePlanDraftChange({ ...s.gamePlanDraft!, displayShowLevel })}
               type="button"
@@ -193,21 +195,32 @@ function HostCustomGamePlanBuilder({ session: s }: HostGamePlanBuilderProps) {
         <span>Demo-/Testfrage vor dem echten Spiel</span>
       </label>
       <div className="host-checkbox-grid">
-        {s.catalog!.categories.map((category) => (
-          <label className="host-checkbox-pill" key={category.id}>
-            <input
-              checked={s.gamePlanDraft!.categoryIds.includes(category.id)}
-              onChange={(event) => {
-                const categoryIds = event.target.checked
-                  ? [...s.gamePlanDraft!.categoryIds, category.id]
-                  : s.gamePlanDraft!.categoryIds.filter((id) => id !== category.id);
-                s.handlePlanDraftChange({ ...s.gamePlanDraft!, categoryIds });
-              }}
-              type="checkbox"
-            />
-            <span>{category.name}</span>
-          </label>
-        ))}
+        {s.catalog!.categories.map((category) => {
+          const voteCount = s.votes[category.id] ?? 0;
+          const isTopVoted =
+            voteCount > 0 &&
+            voteCount === Math.max(...s.catalog!.categories.map((c) => s.votes[c.id] ?? 0));
+          return (
+            <label
+              className="host-checkbox-pill"
+              data-top-vote={isTopVoted ? "true" : undefined}
+              key={category.id}
+            >
+              <input
+                checked={s.gamePlanDraft!.categoryIds.includes(category.id)}
+                onChange={(event) => {
+                  const categoryIds = event.target.checked
+                    ? [...s.gamePlanDraft!.categoryIds, category.id]
+                    : s.gamePlanDraft!.categoryIds.filter((id) => id !== category.id);
+                  s.handlePlanDraftChange({ ...s.gamePlanDraft!, categoryIds });
+                }}
+                type="checkbox"
+              />
+              <span>{category.name}</span>
+              {voteCount > 0 && <span className="host-vote-badge">{voteCount}</span>}
+            </label>
+          );
+        })}
       </div>
       <div className="host-checkbox-grid host-checkbox-grid--types">
         {s.catalog!.questionTypes.map((entry) => (

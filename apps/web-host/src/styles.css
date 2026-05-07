@@ -1716,6 +1716,23 @@ body {
   align-self: flex-start;
 }
 
+.host-checkbox-pill[data-top-vote="true"] {
+  border-color: #00f0ff;
+  background: rgba(0, 240, 255, 0.1);
+}
+
+.host-vote-badge {
+  margin-left: auto;
+  background: #00f0ff;
+  color: #000;
+  font-size: 0.75rem;
+  font-weight: 900;
+  border-radius: 999px;
+  padding: 2px 8px;
+  min-width: 22px;
+  text-align: center;
+}
+
 .host-plan-summary,
 .host-score-change-list {
   display: flex;

@@ -215,6 +215,7 @@ export function handleDisplayCreateRoom(
     lastScoreChanges: [],
     completedRoundResults: [],
     completedAnswers: [],
+    categoryVotes: new Map(),
   };
 
   const session: SessionRecord = {

@@ -7,11 +7,13 @@ import {
   type ClientToServerEventPayloadMap,
   type ConnectionResumedPayload,
   type GameFinishedPayload,
+  type LobbyCategory,
   type LobbyUpdatePayload,
   type NextQuestionReadyProgressPayload,
   type QuestionControllerPayload,
   type QuestionRevealPayload,
   type ScoreUpdatePayload,
+  type VoteUpdatePayload,
 } from "@quiz/shared-protocol";
 import { GameState, QuestionType, type Answer } from "@quiz/shared-types";
 import { normalizeJoinCode, normalizePlayerName } from "@quiz/shared-utils";
@@ -44,6 +46,9 @@ export interface UsePlayerSessionReturn {
   playerName: string;
   lobby: LobbyUpdatePayload | null;
   roomId: string | null;
+  categories: LobbyCategory[];
+  votes: Record<string, number>;
+  myVote: string | null;
   isJoining: boolean;
   question: QuestionControllerPayload | null;
   remainingMs: number;
@@ -72,6 +77,7 @@ export interface UsePlayerSessionReturn {
   readyQuestionId: string | null;
   isReadyForNext: boolean;
   handleJoin: () => void;
+  handleCategoryVote: (categoryId: string) => void;
   handleSubmitAnswer: (optionId: string) => void;
   handleSubmitEstimate: (value: number) => void;
   handleSubmitRanking: (order: string[]) => void;
@@ -125,6 +131,9 @@ export function usePlayerSession(deps: {
     useState<NextQuestionReadyProgressPayload | null>(null);
   const [locallyReadyQuestionId, setLocallyReadyQuestionId] = useState<string | null>(null);
   const [finalResult, setFinalResult] = useState<GameFinishedPayload | null>(null);
+  const [categories, setCategories] = useState<LobbyCategory[]>([]);
+  const [votes, setVotes] = useState<Record<string, number>>({});
+  const [myVote, setMyVote] = useState<string | null>(null);
 
   const playerSessionRef = useRef<PlayerStoredSession | null>(initialSession);
   const lastJoinAttemptRef = useRef<JoinAttempt | null>(null);
@@ -155,6 +164,16 @@ export function usePlayerSession(deps: {
     setEstimateValue("");
     setTextAnswerValue("");
     setRankingOrder([]);
+    setCategories([]);
+    setVotes({});
+    setMyVote(null);
+  });
+
+  const handleCategoryVote = useEffectEvent((categoryId: string) => {
+    const session = playerSessionRef.current;
+    if (!session) return;
+    setMyVote(categoryId);
+    sendEvent(EVENTS.CATEGORY_VOTE, { roomId: session.roomId, categoryId });
   });
 
   const submitAnswer = useEffectEvent((answer: Answer) => {
@@ -274,8 +293,15 @@ export function usePlayerSession(deps: {
         return;
       }
 
-      case EVENTS.LOBBY_UPDATE:
-        setLobby(parsedEnvelope.data.payload);
+      case EVENTS.LOBBY_UPDATE: {
+        const lobbyPayload = parsedEnvelope.data.payload;
+        setLobby(lobbyPayload);
+        if (lobbyPayload.categories) setCategories(lobbyPayload.categories);
+        return;
+      }
+
+      case EVENTS.VOTE_UPDATE:
+        setVotes((parsedEnvelope.data.payload as VoteUpdatePayload).votes);
         return;
 
       case EVENTS.QUESTION_COUNTDOWN:
@@ -494,7 +520,11 @@ export function usePlayerSession(deps: {
     ownFinalPlacement,
     readyQuestionId,
     isReadyForNext,
+    categories,
+    votes,
+    myVote,
     handleJoin,
+    handleCategoryVote,
     handleSubmitAnswer,
     handleSubmitEstimate,
     handleSubmitRanking,

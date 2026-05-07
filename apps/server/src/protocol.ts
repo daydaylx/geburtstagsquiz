@@ -12,6 +12,7 @@ import {
 import { PlayerState, RoomState } from "@quiz/shared-types";
 
 import type { RoomRecord, TrackedWebSocket } from "./server-types.js";
+import { getDefaultQuiz } from "./quiz-data.js";
 
 export function sendEvent<TEvent extends ServerToClientEventName>(
   socket: TrackedWebSocket | null | undefined,
@@ -39,6 +40,11 @@ export function sendProtocolError(
 }
 
 export function toLobbyUpdatePayload(room: RoomRecord): LobbyUpdatePayload {
+  const categories =
+    room.state === RoomState.Waiting
+      ? getDefaultQuiz().categories.map((c) => ({ id: c.id, name: c.name }))
+      : undefined;
+
   return {
     roomId: room.id,
     roomState: room.state,
@@ -52,8 +58,8 @@ export function toLobbyUpdatePayload(room: RoomRecord): LobbyUpdatePayload {
       score: player.score,
     })),
     playerCount: room.players.length,
+    ...(categories ? { categories } : {}),
   };
 }
-
 
 export { PROTOCOL_ERROR_CODES };

@@ -414,6 +414,49 @@ body {
   font-weight: 800;
 }
 
+.player-category-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.player-category-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 14px;
+  border: 1px solid var(--player-line);
+  font-size: 0.95rem;
+  color: #fff;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
+}
+.player-category-item:active {
+  background: rgba(0, 240, 255, 0.1);
+}
+.player-category-item[data-selected="true"] {
+  border-color: var(--player-neon-cyan);
+  background: rgba(0, 240, 255, 0.12);
+  font-weight: 700;
+}
+.player-category-name {
+  flex: 1;
+}
+.player-category-votes {
+  background: var(--player-neon-cyan);
+  color: #000;
+  font-weight: 800;
+  font-size: 0.8rem;
+  border-radius: 999px;
+  padding: 2px 10px;
+  min-width: 26px;
+  text-align: center;
+}
+
 @keyframes flash {
   from {
     opacity: 1;

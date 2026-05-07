@@ -38,6 +38,8 @@ export const EVENTS = {
   ROOM_CLOSE: "room:close",
   ROOM_CLOSED: "room:closed",
   ERROR_PROTOCOL: "error:protocol",
+  CATEGORY_VOTE: "category:vote",
+  VOTE_UPDATE: "vote:update",
 } as const;
 
 export type EventName = (typeof EVENTS)[keyof typeof EVENTS];
@@ -65,6 +67,7 @@ export const PLAYER_TO_SERVER_EVENT_NAMES = [
   EVENTS.CONNECTION_RESUME,
   EVENTS.ANSWER_SUBMIT,
   EVENTS.NEXT_QUESTION_READY,
+  EVENTS.CATEGORY_VOTE,
 ] as const;
 
 export const CLIENT_TO_SERVER_EVENT_NAMES = [
@@ -91,6 +94,7 @@ export const SERVER_TO_DISPLAY_EVENT_NAMES = [
   EVENTS.GAME_FINISHED,
   EVENTS.ROOM_CLOSED,
   EVENTS.ERROR_PROTOCOL,
+  EVENTS.VOTE_UPDATE,
 ] as const;
 
 export const SERVER_TO_HOST_EVENT_NAMES = [
@@ -113,6 +117,7 @@ export const SERVER_TO_HOST_EVENT_NAMES = [
   EVENTS.GAME_FINISHED,
   EVENTS.ROOM_CLOSED,
   EVENTS.ERROR_PROTOCOL,
+  EVENTS.VOTE_UPDATE,
 ] as const;
 
 export const SERVER_TO_PLAYER_EVENT_NAMES = [
@@ -135,6 +140,7 @@ export const SERVER_TO_PLAYER_EVENT_NAMES = [
   EVENTS.GAME_FINISHED,
   EVENTS.ROOM_CLOSED,
   EVENTS.ERROR_PROTOCOL,
+  EVENTS.VOTE_UPDATE,
 ] as const;
 
 export const SERVER_TO_CLIENT_EVENT_NAMES = [
@@ -163,6 +169,7 @@ export const SERVER_TO_CLIENT_EVENT_NAMES = [
   EVENTS.GAME_FINISHED,
   EVENTS.ROOM_CLOSED,
   EVENTS.ERROR_PROTOCOL,
+  EVENTS.VOTE_UPDATE,
 ] as const;
 
 export type DisplayToServerEventName = (typeof DISPLAY_TO_SERVER_EVENT_NAMES)[number];

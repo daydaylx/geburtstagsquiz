@@ -1,4 +1,10 @@
-import type { ClientRole, Room, RoundResult, ScoreChange, SubmittedAnswer } from "@quiz/shared-types";
+import type {
+  ClientRole,
+  Room,
+  RoundResult,
+  ScoreChange,
+  SubmittedAnswer,
+} from "@quiz/shared-types";
 import type WebSocket from "ws";
 
 export interface TrackedWebSocket extends WebSocket {
@@ -36,4 +42,5 @@ export interface RoomRecord extends Room {
   lastScoreChanges: ScoreChange[];
   completedRoundResults: RoundResult[];
   completedAnswers: SubmittedAnswer[];
+  categoryVotes: Map<string, string>;
 }

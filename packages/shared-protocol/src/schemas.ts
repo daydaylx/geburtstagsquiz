@@ -358,6 +358,13 @@ export const HostConnectedPayloadSchema = z
   })
   .strict();
 
+export const LobbyCategorySchema = z
+  .object({
+    id: idSchema,
+    name: z.string().min(1),
+  })
+  .strict();
+
 export const LobbyUpdatePayloadSchema = z
   .object({
     roomId: idSchema,
@@ -367,6 +374,7 @@ export const LobbyUpdatePayloadSchema = z
     settings: RoomSettingsSchema,
     players: z.array(LobbyPlayerSchema),
     playerCount: z.number().int().nonnegative(),
+    categories: z.array(LobbyCategorySchema).optional(),
   })
   .strict();
 
@@ -677,6 +685,20 @@ export const GameFinishedPayloadSchema = z
   })
   .strict();
 
+export const CategoryVotePayloadSchema = z
+  .object({
+    roomId: idSchema,
+    categoryId: idSchema,
+  })
+  .strict();
+
+export const VoteUpdatePayloadSchema = z
+  .object({
+    roomId: idSchema,
+    votes: z.record(idSchema, z.number().int().nonnegative()),
+  })
+  .strict();
+
 export const RoomClosePayloadSchema = z
   .object({
     roomId: idSchema,
@@ -729,6 +751,7 @@ export const PLAYER_TO_SERVER_EVENT_SCHEMAS = {
   [EVENTS.ROOM_JOIN]: RoomJoinPayloadSchema,
   [EVENTS.ANSWER_SUBMIT]: AnswerSubmitPayloadSchema,
   [EVENTS.NEXT_QUESTION_READY]: NextQuestionReadyPayloadSchema,
+  [EVENTS.CATEGORY_VOTE]: CategoryVotePayloadSchema,
 } as const;
 
 export const CLIENT_TO_SERVER_EVENT_SCHEMAS = {
@@ -755,6 +778,7 @@ export const SERVER_TO_DISPLAY_EVENT_SCHEMAS = {
   [EVENTS.GAME_FINISHED]: GameFinishedPayloadSchema,
   [EVENTS.ROOM_CLOSED]: RoomClosedPayloadSchema,
   [EVENTS.ERROR_PROTOCOL]: ErrorPayloadSchema,
+  [EVENTS.VOTE_UPDATE]: VoteUpdatePayloadSchema,
 } as const;
 
 export const SERVER_TO_HOST_EVENT_SCHEMAS = {
@@ -777,6 +801,7 @@ export const SERVER_TO_HOST_EVENT_SCHEMAS = {
   [EVENTS.GAME_FINISHED]: GameFinishedPayloadSchema,
   [EVENTS.ROOM_CLOSED]: RoomClosedPayloadSchema,
   [EVENTS.ERROR_PROTOCOL]: ErrorPayloadSchema,
+  [EVENTS.VOTE_UPDATE]: VoteUpdatePayloadSchema,
 } as const;
 
 export const SERVER_TO_PLAYER_EVENT_SCHEMAS = {
@@ -799,6 +824,7 @@ export const SERVER_TO_PLAYER_EVENT_SCHEMAS = {
   [EVENTS.GAME_FINISHED]: GameFinishedPayloadSchema,
   [EVENTS.ROOM_CLOSED]: RoomClosedPayloadSchema,
   [EVENTS.ERROR_PROTOCOL]: ErrorPayloadSchema,
+  [EVENTS.VOTE_UPDATE]: VoteUpdatePayloadSchema,
 } as const;
 
 export const SERVER_TO_CLIENT_EVENT_SCHEMAS = {
@@ -848,6 +874,9 @@ export type GameFinishedPayload = z.infer<typeof GameFinishedPayloadSchema>;
 export type RoomClosePayload = z.infer<typeof RoomClosePayloadSchema>;
 export type RoomClosedPayload = z.infer<typeof RoomClosedPayloadSchema>;
 export type ErrorPayload = z.infer<typeof ErrorPayloadSchema>;
+export type CategoryVotePayload = z.infer<typeof CategoryVotePayloadSchema>;
+export type VoteUpdatePayload = z.infer<typeof VoteUpdatePayloadSchema>;
+export type LobbyCategory = z.infer<typeof LobbyCategorySchema>;
 
 export type DisplayToServerEventPayloadMap = InferSchemaMap<typeof DISPLAY_TO_SERVER_EVENT_SCHEMAS>;
 export type HostToServerEventPayloadMap = InferSchemaMap<typeof HOST_TO_SERVER_EVENT_SCHEMAS>;

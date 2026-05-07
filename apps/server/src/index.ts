@@ -16,6 +16,7 @@ import {
   handleConnectionResume,
   handleRoomSettingsUpdate,
   handleHostConnect,
+  handleCategoryVote,
 } from "./lobby.js";
 import { handleSocketClose } from "./session.js";
 import {
@@ -173,7 +174,11 @@ export function isEventAllowedForRole(event: EventName, role: ClientRole | null)
     EVENTS.ROOM_SETTINGS_UPDATE,
     EVENTS.ROOM_CLOSE,
   ];
-  const playerOnlyEvents: EventName[] = [EVENTS.ANSWER_SUBMIT, EVENTS.NEXT_QUESTION_READY];
+  const playerOnlyEvents: EventName[] = [
+    EVENTS.ANSWER_SUBMIT,
+    EVENTS.NEXT_QUESTION_READY,
+    EVENTS.CATEGORY_VOTE,
+  ];
   const displayOnlyEvents: EventName[] = [EVENTS.DISPLAY_CREATE_ROOM];
 
   if (role === "display") {
@@ -269,6 +274,10 @@ function handleSocketMessage(socket: TrackedWebSocket, rawMessage: string): void
 
     case EVENTS.NEXT_QUESTION_READY:
       handleNextQuestionReady(socket, parsedEnvelope.data.payload);
+      return;
+
+    case EVENTS.CATEGORY_VOTE:
+      handleCategoryVote(socket, parsedEnvelope.data.payload);
       return;
   }
 }

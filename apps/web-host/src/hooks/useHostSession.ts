@@ -14,6 +14,7 @@ import {
   type QuestionRevealPayload,
   type QuestionShowPayload,
   type ScoreUpdatePayload,
+  type VoteUpdatePayload,
 } from "@quiz/shared-protocol";
 import { GameState, type GamePlan, type GamePlanPresetId } from "@quiz/shared-types";
 
@@ -82,6 +83,7 @@ export interface UseHostSessionReturn {
   handleRemovePlayer: (playerId: string) => void;
   handlePlanDraftChange: (nextDraft: GamePlan) => void;
   setSelectedPlanMode: (mode: GamePlanPresetId | "custom") => void;
+  votes: Record<string, number>;
 }
 
 export function useHostSession(deps: {
@@ -118,6 +120,7 @@ export function useHostSession(deps: {
   const [nextQuestionReadyProgress, setNextQuestionReadyProgress] =
     useState<NextQuestionReadyProgressPayload | null>(null);
   const [finalResult, setFinalResult] = useState<GameFinishedPayload | null>(null);
+  const [votes, setVotes] = useState<Record<string, number>>({});
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number | null>(null);
   const [totalQuestionCount, setTotalQuestionCount] = useState<number | null>(null);
   const [catalog, setCatalog] = useState<CatalogSummaryPayload | null>(null);
@@ -248,6 +251,10 @@ export function useHostSession(deps: {
           else if (gs === GameState.Completed) setScreen("finished");
           else setScreen("question");
         }
+        return;
+
+      case EVENTS.VOTE_UPDATE:
+        setVotes((parsedEnvelope.data.payload as VoteUpdatePayload).votes);
         return;
 
       case EVENTS.LOBBY_UPDATE:
@@ -492,5 +499,6 @@ export function useHostSession(deps: {
     handleRemovePlayer,
     handlePlanDraftChange,
     setSelectedPlanMode,
+    votes,
   };
 }

@@ -86,10 +86,38 @@ export function App() {
             <div className="player-card">
               <span className="player-kicker">Lobby</span>
               <h1 className="player-title">{session.playerName || "Spieler"}</h1>
-              <p className="player-muted-copy">
-                Warte auf das Quiz. Sobald es startet, geht es hier automatisch weiter.
-              </p>
+              {session.categories.length > 0 ? (
+                <p className="player-muted-copy">
+                  Wähle eine Kategorie – die meisten Stimmen gewinnen.
+                </p>
+              ) : (
+                <p className="player-muted-copy">
+                  Warte auf das Quiz. Sobald es startet, geht es hier automatisch weiter.
+                </p>
+              )}
             </div>
+
+            {session.categories.length > 0 && (
+              <div className="player-category-list">
+                {session.categories.map((cat) => {
+                  const voteCount = session.votes[cat.id] ?? 0;
+                  const isMyVote = session.myVote === cat.id;
+                  return (
+                    <button
+                      key={cat.id}
+                      className="player-category-item"
+                      data-selected={isMyVote ? "true" : undefined}
+                      onClick={() => session.handleCategoryVote(cat.id)}
+                      type="button"
+                    >
+                      <span className="player-category-name">{cat.name}</span>
+                      {voteCount > 0 && <span className="player-category-votes">{voteCount}</span>}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+
             <div className="player-scoreboard-list">
               <div className="player-scoreboard-item">
                 <span>Andere Spieler</span>
@@ -103,9 +131,7 @@ export function App() {
           <PlayerQuestionScreen session={session} />
         )}
 
-        {session.screen === "reveal" && (
-          <PlayerRevealScreen session={session} />
-        )}
+        {session.screen === "reveal" && <PlayerRevealScreen session={session} />}
 
         {session.screen === "scoreboard" && (
           <>

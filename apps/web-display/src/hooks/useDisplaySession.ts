@@ -12,6 +12,7 @@ import {
   type QuestionRevealPayload,
   type QuestionShowPayload,
   type ScoreUpdatePayload,
+  type VoteUpdatePayload,
 } from "@quiz/shared-protocol";
 import { GameState, RoomState } from "@quiz/shared-types";
 
@@ -57,6 +58,7 @@ export interface UseDisplaySessionReturn {
   preCountdown: number | null;
   displayShowLevel: DisplayShowLevel;
   isFadingOut: boolean;
+  votes: Record<string, number>;
   handleCreateRoom: () => void;
 }
 
@@ -96,6 +98,7 @@ export function useDisplaySession(deps: {
     useState<NextQuestionReadyProgressPayload | null>(null);
   const [finalResult, setFinalResult] = useState<GameFinishedPayload | null>(null);
   const [preCountdown, setPreCountdown] = useState<number | null>(null);
+  const [votes, setVotes] = useState<Record<string, number>>({});
   const [displayShowLevel, setDisplayShowLevel] = useState<DisplayShowLevel>("high");
   const [isFadingOut, setIsFadingOut] = useState(false);
 
@@ -239,6 +242,10 @@ export function useDisplaySession(deps: {
         setHostPaired(true);
         return;
       }
+
+      case EVENTS.VOTE_UPDATE:
+        setVotes((parsedEnvelope.data.payload as VoteUpdatePayload).votes);
+        return;
 
       case EVENTS.LOBBY_UPDATE: {
         setLobby(parsedEnvelope.data.payload);
@@ -430,6 +437,7 @@ export function useDisplaySession(deps: {
     preCountdown,
     displayShowLevel,
     isFadingOut,
+    votes,
     handleCreateRoom,
   };
 }

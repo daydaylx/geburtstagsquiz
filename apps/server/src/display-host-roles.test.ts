@@ -58,6 +58,7 @@ function makeRoom(overrides: Partial<RoomRecord> = {}): RoomRecord {
     lastScoreChanges: [],
     completedRoundResults: [],
     completedAnswers: [],
+    categoryVotes: new Map(),
     ...overrides,
   };
   return room;

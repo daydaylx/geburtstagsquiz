@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
 
-import { EVENTS } from "@quiz/shared-protocol";
+import { EVENTS, type CategoryVotePayload } from "@quiz/shared-protocol";
 import { GameState, PlayerState, RoomState, type Player } from "@quiz/shared-types";
 import { normalizePlayerName } from "@quiz/shared-utils";
 
@@ -424,4 +424,66 @@ export function broadcastLobbyUpdate(room: RoomRecord): void {
   }
 
   broadcastToAllRoomClients(room, EVENTS.LOBBY_UPDATE, toLobbyUpdatePayload(room));
+}
+
+function tallyVotes(categoryVotes: Map<string, string>): Record<string, number> {
+  const tally: Record<string, number> = {};
+  for (const categoryId of categoryVotes.values()) {
+    tally[categoryId] = (tally[categoryId] ?? 0) + 1;
+  }
+  return tally;
+}
+
+export function handleCategoryVote(socket: TrackedWebSocket, payload: CategoryVotePayload): void {
+  const session = socket.sessionId ? sessionsById.get(socket.sessionId) : null;
+
+  if (!session || session.role !== "player" || !session.playerId) {
+    sendProtocolError(socket, PROTOCOL_ERROR_CODES.NOT_AUTHORIZED, "Only players can vote", {
+      event: EVENTS.CATEGORY_VOTE,
+      roomId: payload.roomId,
+      questionId: null,
+    });
+    return;
+  }
+
+  const room = roomsById.get(payload.roomId);
+
+  if (!room) {
+    sendProtocolError(socket, PROTOCOL_ERROR_CODES.ROOM_NOT_FOUND, "Room not found", {
+      event: EVENTS.CATEGORY_VOTE,
+      roomId: payload.roomId,
+      questionId: null,
+    });
+    return;
+  }
+
+  if (room.state !== RoomState.Waiting) {
+    sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "Voting only allowed in lobby", {
+      event: EVENTS.CATEGORY_VOTE,
+      roomId: room.id,
+      questionId: null,
+    });
+    return;
+  }
+
+  const quiz = getDefaultQuiz();
+  const categoryExists = quiz.categories.some((c) => c.id === payload.categoryId);
+
+  if (!categoryExists) {
+    sendProtocolError(
+      socket,
+      PROTOCOL_ERROR_CODES.INVALID_PAYLOAD,
+      `Unknown category: ${payload.categoryId}`,
+      { event: EVENTS.CATEGORY_VOTE, roomId: room.id, questionId: null },
+    );
+    return;
+  }
+
+  room.categoryVotes.set(session.playerId, payload.categoryId);
+  room.lastActivityAt = Date.now();
+
+  broadcastToAllRoomClients(room, EVENTS.VOTE_UPDATE, {
+    roomId: room.id,
+    votes: tallyVotes(room.categoryVotes),
+  });
 }

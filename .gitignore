@@ -18,6 +18,7 @@ dist/
 .claude/
 .codex
 .kilo/
+.crush/
 sqlite_mcp_server.db
 /cloudflared
 /yarn.lock
