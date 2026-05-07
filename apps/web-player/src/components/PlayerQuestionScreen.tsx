@@ -29,47 +29,42 @@ export function PlayerQuestionScreen({ session }: PlayerQuestionScreenProps) {
         <h2 className="player-controller-title">
           {session.answerStatus === "accepted"
             ? "Antwort gespeichert"
-            : "Schau auf den Bildschirm vorne"}
+            : "Schau auf den Bildschirm"}
         </h2>
         <p className="player-controller-copy">
           {session.answerStatus === "accepted"
             ? "Warte auf die Auflösung."
-            : "Die Frage und Antworttexte stehen vorne auf dem Hauptbildschirm."}
+            : "Die Frage steht auf dem Hauptbildschirm."}
         </p>
         {session.answerStatus === "submitting" && (
           <div className="player-controller-status" data-state="submitting">
-            Sende Antwort...
+            Wird gespeichert…
           </div>
         )}
         {session.answerStatus === "accepted" && (
           <div className="player-controller-status" data-state="saved">
             {session.selectedOptionId && (
               <span>
-                Du hast {getOptionAnswerLabel(session.selectedOptionId, session.question)} gewählt.
+                ✓ {getOptionAnswerLabel(session.selectedOptionId, session.question)} gewählt
               </span>
             )}
             {!session.selectedOptionId && session.estimateValue && (
               <span>
-                Deine Schätzung: {session.estimateValue}{" "}
+                ✓ Schätzung: {session.estimateValue}{" "}
                 {session.question.type === QuestionType.Estimate && session.question.unit}
               </span>
             )}
             {!session.selectedOptionId && session.textAnswerValue && (
-              <span>Deine Antwort: {session.textAnswerValue}</span>
+              <span>✓ Antwort gespeichert</span>
             )}
             {!session.selectedOptionId && session.rankingOrder.length > 0 && (
-              <span>
-                Deine Reihenfolge:{" "}
-                {session.rankingOrder
-                  .map((id) => getOptionAnswerLabel(id, session.question))
-                  .join(" > ")}
-              </span>
+              <span>✓ Reihenfolge gespeichert</span>
             )}
           </div>
         )}
         {session.answerStatus === "locked" && (
           <div className="player-controller-status" data-state="locked">
-            Zeit abgelaufen
+            Zeit ist um
           </div>
         )}
         {session.answerStatus === "rejected" && (
@@ -83,9 +78,10 @@ export function PlayerQuestionScreen({ session }: PlayerQuestionScreenProps) {
         session.question.type === QuestionType.Logic ||
         session.question.type === QuestionType.MajorityGuess) && (
         <div className="player-controller-options" data-status={session.answerStatus}>
-          {session.question.options.map((opt) => (
+          {session.question.options.map((opt, index) => (
             <button
               className="player-controller-option"
+              data-option-index={index}
               data-state={session.selectedOptionId === opt.id ? "selected" : "idle"}
               disabled={session.answerStatus !== "idle"}
               key={opt.id}
@@ -157,7 +153,7 @@ export function PlayerRevealScreen({ session }: PlayerQuestionScreenProps) {
       </div>
       <div className="player-card">
         <span className="player-kicker">Auflösung</span>
-        <h2 className="player-title">Schau auf den Bildschirm vorne</h2>
+        <h2 className="player-title">Schau auf den Bildschirm</h2>
         <p className="player-points-earned">
           {session.ownRoundResult?.pointsEarned ?? 0} Punkte verdient.
         </p>
@@ -206,7 +202,7 @@ export function PlayerRevealScreen({ session }: PlayerQuestionScreenProps) {
         onClick={session.handleReadyForNextQuestion}
         type="button"
       >
-        {session.isReadyForNext ? "Warten auf andere..." : "Bereit für nächste Frage"}
+        {session.isReadyForNext ? "Warten…" : "Weiter"}
       </button>
     </>
   );
@@ -218,27 +214,32 @@ function PlayerRankingController({ session }: PlayerQuestionScreenProps) {
     return null;
   }
 
+  const remaining = question.items.filter((item) => !session.rankingOrder.includes(item.id));
+
   return (
     <div className="player-ranking-area">
-      <p className="player-ranking-section-label">
-        Einordnen – tippe in der richtigen Reihenfolge an
+      <p className="player-ranking-instruction">
+        Tippe die Elemente in der richtigen Reihenfolge an.
       </p>
-      <div className="player-ranking-pool">
-        {question.items
-          .filter((item) => !session.rankingOrder.includes(item.id))
-          .map((item) => (
-            <button
-              className="player-ranking-item"
-              disabled={session.answerStatus !== "idle"}
-              key={item.id}
-              onClick={() => session.setRankingOrder([...session.rankingOrder, item.id])}
-              type="button"
-            >
-              <span>{item.label}</span>
-              {item.text && <small>{item.text}</small>}
-            </button>
-          ))}
-      </div>
+      {remaining.length > 0 && (
+        <>
+          <p className="player-ranking-section-label">Verfügbar</p>
+          <div className="player-ranking-pool">
+            {remaining.map((item) => (
+              <button
+                className="player-ranking-item"
+                disabled={session.answerStatus !== "idle"}
+                key={item.id}
+                onClick={() => session.setRankingOrder([...session.rankingOrder, item.id])}
+                type="button"
+              >
+                <span>{item.label}</span>
+                {item.text && <small>{item.text}</small>}
+              </button>
+            ))}
+          </div>
+        </>
+      )}
       {session.rankingOrder.length > 0 && (
         <>
           <p className="player-ranking-section-label">Deine Reihenfolge</p>
@@ -269,7 +270,9 @@ function PlayerRankingController({ session }: PlayerQuestionScreenProps) {
       )}
       <button
         className="player-primary-button player-ranking-submit"
-        disabled={session.rankingOrder.length < question.items.length || session.answerStatus !== "idle"}
+        disabled={
+          session.rankingOrder.length < question.items.length || session.answerStatus !== "idle"
+        }
         onClick={() => session.handleSubmitRanking(session.rankingOrder)}
         type="button"
       >

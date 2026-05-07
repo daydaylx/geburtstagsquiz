@@ -1,7 +1,6 @@
 import { QuestionType } from "@quiz/shared-types";
 import { useWebSocket, type ConnectionState } from "@quiz/shared-hooks";
 import { DisplayRevealScreen } from "./components/DisplayRevealScreen.js";
-import { getHostJoinUrl } from "./lib/helpers.js";
 import { getAnswerDisplayLabel, getQuestionTypeLabel } from "./lib/labels.js";
 import { useDisplaySession } from "./hooks/useDisplaySession.js";
 
@@ -88,19 +87,16 @@ export function App() {
             className={`display-lobby ${s.hostPaired ? "display-lobby--host-paired" : "display-lobby--pre-host"}`}
           >
             <div className={`display-qr-block${s.hostPaired ? " display-qr-block--primary" : ""}`}>
-              <h2>Spieler scannen</h2>
+              <h2>Beitreten</h2>
               {s.playerQrUrl && <img src={s.playerQrUrl} alt="Player-QR-Code" />}
               <code className="display-join-code">{s.roomInfo.joinCode}</code>
             </div>
 
             {!s.hostPaired && (
               <div className="display-qr-block display-qr-block--host">
-                <h2>Host scannen</h2>
+                <h2>Host</h2>
                 {s.hostQrUrl && <img src={s.hostQrUrl} alt="Host-QR-Code" />}
-                {s.roomInfo.hostToken && (
-                  <code className="display-host-url">{getHostJoinUrl(s.roomInfo.hostToken)}</code>
-                )}
-                <p className="display-host-pending">Host noch nicht verbunden</p>
+                <p className="display-host-pending">Warte auf Host…</p>
               </div>
             )}
 
@@ -134,7 +130,7 @@ export function App() {
                 className={`display-options${s.question.options.some((o) => o.label.length > 40) ? " display-options--long" : ""}`}
               >
                 {s.question.options.map((opt, index) => (
-                  <div key={opt.id} className="display-option">
+                  <div key={opt.id} className="display-option" data-option-index={index}>
                     <span className="display-option-label">{getAnswerDisplayLabel(index)}</span>
                     <span className="display-option-text">{opt.label}</span>
                   </div>
@@ -363,7 +359,7 @@ export function App() {
                   </div>
                 )}
 
-                {s.displayShowLevel === "high" && (
+                {s.displayShowLevel !== "minimal" && (
                   <div className="display-confetti" aria-hidden="true">
                     {Array.from({ length: 30 }).map((_, i) => (
                       <div
