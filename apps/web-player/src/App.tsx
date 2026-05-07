@@ -75,7 +75,7 @@ export function App() {
                 onClick={session.handleJoin}
                 type="button"
               >
-                {session.isJoining ? "Beitreten..." : "Los geht's"}
+                {session.isJoining ? "Beitreten…" : "Spielen"}
               </button>
             </div>
           </div>
@@ -157,7 +157,7 @@ export function App() {
               onClick={session.handleReadyForNextQuestion}
               type="button"
             >
-              {session.isReadyForNext ? "Warten auf andere..." : "Bereit für nächste Frage"}
+              {session.isReadyForNext ? "Warten…" : "Weiter"}
             </button>
           </>
         )}
