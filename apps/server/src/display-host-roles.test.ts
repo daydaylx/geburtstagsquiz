@@ -3,7 +3,7 @@ import { describe, expect, it, beforeEach } from "vitest";
 import { EVENTS } from "@quiz/shared-protocol";
 import { RoomState } from "@quiz/shared-types";
 
-import { isEventAllowedForRole } from "./index.js";
+import { isEventAllowedForRole } from "./role-auth.js";
 import { roomsById, roomIdByJoinCode, roomIdByHostToken, sessionsById } from "./state.js";
 import { handleDisplayCreateRoom, closeRoom } from "./room.js";
 import { handleHostConnect } from "./lobby.js";
