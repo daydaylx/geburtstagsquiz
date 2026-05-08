@@ -53,7 +53,7 @@ export const PlayerStateSchema = z.nativeEnum(PlayerState);
 export const QuestionTypeSchema = z.nativeEnum(QuestionType);
 export const GamePlanPresetIdSchema = z.enum(GAME_PLAN_PRESET_IDS);
 export const DisplayShowLevelSchema = z.enum(["minimal", "normal", "high"] as const);
-export const RevealModeSchema = z.enum(["auto", "manual_with_fallback"] as const);
+export const RevealModeSchema = z.enum(["auto", "manual", "manual_with_fallback"] as const);
 export const RankingScoringModeSchema = z.enum(["exact", "partial_with_bonus"] as const);
 export const ClientRoleSchema = z.enum(CLIENT_ROLES);
 export const QuestionDisplayGameStateSchema = z.enum([
@@ -290,6 +290,8 @@ export const ConnectionResumedPayloadSchema = z
     playerId: idSchema.optional(),
     playerState: PlayerStateSchema.optional(),
     currentAnswer: AnswerSchema.nullable().optional(),
+    hostConnected: z.boolean().optional(),
+    hostToken: z.string().nullable().optional(),
   })
   .strict();
 

@@ -191,15 +191,17 @@ export function useDisplaySession(deps: {
 
         if (displaySessionRef.current) {
           const stored = displaySessionRef.current;
+          const resolvedHostToken = payload.hostToken ?? "";
           const info: DisplayRoomInfo = {
             roomId: payload.roomId,
             joinCode: payload.joinCode,
-            hostToken: "",
+            hostToken: resolvedHostToken,
             displaySessionId: payload.sessionId,
             displayToken: stored.displayToken,
           };
           setRoomInfo(info);
-          generateQrCodes(payload.joinCode, "");
+          setHostPaired(payload.hostConnected ?? false);
+          generateQrCodes(payload.joinCode, resolvedHostToken);
         }
 
         if (payload.roomState === RoomState.Waiting) {

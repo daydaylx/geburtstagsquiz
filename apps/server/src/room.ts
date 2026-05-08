@@ -126,11 +126,11 @@ export function removePlayerFromRoom(room: RoomRecord, playerId: string): void {
 
   const [player] = room.players.splice(playerIndex, 1);
   room.nextQuestionReadyPlayerIds.delete(player.id);
-  const disconnectTimer = room.playerDisconnectTimers.get(player.sessionId);
+  const disconnectTimer = room.playerDisconnectTimers.get(player.id);
 
   if (disconnectTimer) {
     clearTimeout(disconnectTimer);
-    room.playerDisconnectTimers.delete(player.sessionId);
+    room.playerDisconnectTimers.delete(player.id);
   }
 
   const session = sessionsById.get(player.sessionId);

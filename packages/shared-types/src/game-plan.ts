@@ -10,7 +10,7 @@ export const GAME_PLAN_PRESET_IDS = [
 export type GamePlanPresetId = (typeof GAME_PLAN_PRESET_IDS)[number];
 export type GamePlanMode = "preset" | "custom";
 export type DisplayShowLevel = "minimal" | "normal" | "high";
-export type RevealMode = "auto" | "manual_with_fallback";
+export type RevealMode = "auto" | "manual" | "manual_with_fallback";
 export type RankingScoringMode = "exact" | "partial_with_bonus";
 
 export interface GamePlan {
@@ -56,4 +56,3 @@ export interface QuizCatalogSummary {
   categories: CatalogCategorySummary[];
   questionTypes: CatalogQuestionTypeSummary[];
 }
-

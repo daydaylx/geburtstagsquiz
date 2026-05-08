@@ -27,6 +27,18 @@ import {
   type HostStoredSession,
 } from "../storage.js";
 
+function getHostErrorMessage(code: string, fallback: string): string {
+  switch (code) {
+    case PROTOCOL_ERROR_CODES.NOT_AUTHORIZED:
+      return "Dieser Host-Code wurde bereits verwendet. Bitte dasselbe Gerät und denselben Browser verwenden oder auf dem TV-Display einen neuen Raum erstellen.";
+    case PROTOCOL_ERROR_CODES.SESSION_NOT_FOUND:
+    case PROTOCOL_ERROR_CODES.ROOM_NOT_FOUND:
+      return "Die Sitzung wurde nicht gefunden oder der Raum wurde geschlossen. Bitte auf dem TV-Display einen neuen Raum erstellen.";
+    default:
+      return fallback;
+  }
+}
+
 export type HostScreen =
   | "start"
   | "lobby"
@@ -358,7 +370,13 @@ export function useHostSession(deps: {
             closeSocket();
           }
         }
-        setNotice({ kind: "error", text: parsedEnvelope.data.payload.message });
+        setNotice({
+          kind: "error",
+          text: getHostErrorMessage(
+            parsedEnvelope.data.payload.code,
+            parsedEnvelope.data.payload.message,
+          ),
+        });
         return;
 
       default:

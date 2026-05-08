@@ -6,7 +6,7 @@ export function getProtocolErrorMessage(code: string, fallback: string): string 
     case PROTOCOL_ERROR_CODES.ROOM_NOT_FOUND:
       return "Raum nicht gefunden. Bitte Code prüfen.";
     case PROTOCOL_ERROR_CODES.ROOM_CLOSED:
-      return "Der Raum nimmt keine Spieler mehr an.";
+      return "Das Spiel läuft bereits – bitte beim nächsten Spiel mitspielen.";
     case PROTOCOL_ERROR_CODES.SESSION_NOT_FOUND:
       return "Deine alte Sitzung ist abgelaufen. Bitte neu beitreten.";
     case PROTOCOL_ERROR_CODES.INVALID_PAYLOAD:

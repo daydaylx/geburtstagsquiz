@@ -146,6 +146,7 @@ Die Spieler:
 - Kurze Disconnects sind abzufangen, aber keine Kernmechanik.
 - Wer mitten im Spiel neu laedt, bekommt wieder einen praktischen Snapshot fuer den aktuellen Stand, aber keine perfekte Recovery-Magie.
 - Fuer den Abend ist stabile Verbindung wichtiger als ausgefeilte Recovery-Logik.
+- **Spaetes Beitreten waehrend eines laufenden Spiels ist bewusst nicht unterstuetzt.** Wer versucht beizutreten, nachdem das Spiel gestartet hat, erhaelt die Meldung "Das Spiel laeuft bereits – bitte beim naechsten Spiel mitspielen." und landet zurueck auf dem Join-Screen.
 
 ## Was ausdruecklich nicht Teil dieses Spiels ist
 

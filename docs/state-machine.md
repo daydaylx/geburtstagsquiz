@@ -19,12 +19,12 @@ Der Server haelt die massgeblichen Zustaende. Display, Host und Player reagieren
 
 ## Room State
 
-| State | Bedeutung im Repo | Typische Uebergaenge |
-| --- | --- | --- |
-| `waiting` | Raum ist offen, Spieler koennen joinen, Spiel laeuft noch nicht | `game:start` -> `in_game`, `room:close` -> `closed` |
-| `in_game` | Quiz laeuft oder befindet sich zwischen Frage, Reveal und Rangliste | letzte Frage -> `completed`, `room:close` -> `closed` |
-| `completed` | Quiz ist beendet, Endstand liegt vor | `room:close` -> `closed` |
-| `closed` | Raum ist final beendet | kein sinnvoller Rueckweg |
+| State       | Bedeutung im Repo                                                   | Typische Uebergaenge                                  |
+| ----------- | ------------------------------------------------------------------- | ----------------------------------------------------- |
+| `waiting`   | Raum ist offen, Spieler koennen joinen, Spiel laeuft noch nicht     | `game:start` -> `in_game`, `room:close` -> `closed`   |
+| `in_game`   | Quiz laeuft oder befindet sich zwischen Frage, Reveal und Rangliste | letzte Frage -> `completed`, `room:close` -> `closed` |
+| `completed` | Quiz ist beendet, Endstand liegt vor                                | `room:close` -> `closed`                              |
+| `closed`    | Raum ist final beendet                                              | kein sinnvoller Rueckweg                              |
 
 Hinweis:
 
@@ -32,14 +32,14 @@ Hinweis:
 
 ## Game State
 
-| State | Bedeutung im Repo | Typische Uebergaenge |
-| --- | --- | --- |
-| `idle` | Spiel wurde gestartet, naechste Frage wird vorbereitet | `question:show`/`question:controller` -> `question_active` |
-| `question_active` | Frage ist offen, Antworten duerfen eingehen | Timerende oder alle Antworten da -> `answer_locked` |
-| `answer_locked` | Eingaben sind gesperrt, Server wertet aus | direkte Weitergabe an `revealing` |
-| `revealing` | Richtige Antwort und Rundenergebnisse werden gezeigt | alle verbundenen Spieler bereit -> naechste Frage, `scoreboard` oder Ende |
-| `scoreboard` | Punktestand nach jeder 5. echten Frage wird gezeigt | alle verbundenen Spieler bereit -> `idle` oder Ende |
-| `completed` | Spiel ist vorbei | kein sinnvoller Rueckweg |
+| State             | Bedeutung im Repo                                      | Typische Uebergaenge                                                      |
+| ----------------- | ------------------------------------------------------ | ------------------------------------------------------------------------- |
+| `idle`            | Spiel wurde gestartet, naechste Frage wird vorbereitet | `question:show`/`question:controller` -> `question_active`                |
+| `question_active` | Frage ist offen, Antworten duerfen eingehen            | Timerende oder alle Antworten da -> `answer_locked`                       |
+| `answer_locked`   | Eingaben sind gesperrt, Server wertet aus              | direkte Weitergabe an `revealing`                                         |
+| `revealing`       | Richtige Antwort und Rundenergebnisse werden gezeigt   | alle verbundenen Spieler bereit -> naechste Frage, `scoreboard` oder Ende |
+| `scoreboard`      | Punktestand nach jeder 5. echten Frage wird gezeigt    | alle verbundenen Spieler bereit -> `idle` oder Ende                       |
+| `completed`       | Spiel ist vorbei                                       | kein sinnvoller Rueckweg                                                  |
 
 Der praktische Fluss ist linear:
 
@@ -53,12 +53,12 @@ Alle 5 echten Fragen kommt zusaetzlich:
 
 ## Player State
 
-| State | Bedeutung im Repo | Typische Uebergaenge |
-| --- | --- | --- |
-| `ready` | Spieler ist in der Lobby oder wurde in einen brauchbaren Grundzustand gesetzt | Frage startet -> `answering` |
-| `answering` | Spieler darf fuer die aktive Frage antworten | gueltige Antwort -> `answered`, Disconnect -> `disconnected` |
-| `answered` | Antwort ist angenommen, Spieler wartet auf Reveal/Score | naechste Frage -> `answering` |
-| `disconnected` | Verbindung ist temporaer weg | Resume innerhalb Grace-Zeit oder Entfernen aus dem Raum |
+| State          | Bedeutung im Repo                                                             | Typische Uebergaenge                                         |
+| -------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------ |
+| `ready`        | Spieler ist in der Lobby oder wurde in einen brauchbaren Grundzustand gesetzt | Frage startet -> `answering`                                 |
+| `answering`    | Spieler darf fuer die aktive Frage antworten                                  | gueltige Antwort -> `answered`, Disconnect -> `disconnected` |
+| `answered`     | Antwort ist angenommen, Spieler wartet auf Reveal/Score                       | naechste Frage -> `answering`                                |
+| `disconnected` | Verbindung ist temporaer weg                                                  | Resume innerhalb Grace-Zeit oder Entfernen aus dem Raum      |
 
 Hinweise:
 
@@ -120,12 +120,15 @@ Hinweise:
 - Bei Host-Disconnect bleibt der Raum zunaechst bestehen.
 - Aktuelle Grace-Zeit im Code: `5min`.
 - Danach wird der Raum geschlossen.
+- **Host-Recovery funktioniert nur im gleichen Browser** (gespeicherte `sessionId` via `CONNECTION_RESUME`). Ein anderer Browser besitzt kein gespeichertes Token und erhaelt `NOT_AUTHORIZED` ("Host token already used"), da das Token Einmal-Tokens sind. In diesem Fall muss auf dem TV-Display ein neuer Raum erstellt werden.
+- Nach Ablauf der Grace-Zeit wird der Raum serverseitig geschlossen. Ein Reconnect-Versuch liefert dann `ROOM_NOT_FOUND` oder `SESSION_NOT_FOUND`. Auch hier muss ein neuer Raum erstellt werden.
 
 ### Display
 
 - Bei Display-Disconnect bleibt der Raum kurz bestehen.
 - Aktuelle Grace-Zeit im Code: `45s`.
-- Kommt das Display nicht zurueck, wird der Raum geschlossen.
+- Kommt das Display nicht zurueck, laeuft der Raum weiter. Der Raum wird **nicht** automatisch geschlossen.
+- Der Host erhaelt eine sichtbare Warnung, solange das Display offline ist.
 
 ## Bewusste Vereinfachungen
 

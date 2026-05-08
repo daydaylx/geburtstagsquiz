@@ -39,16 +39,6 @@ import {
 import { getConnectedPlayers, getSortedScoreboard } from "./room-selectors.js";
 import { clearActiveRoomTimers } from "./room-timers.js";
 
-function getTopVotedCategory(categoryVotes: Map<string, string>): string {
-  const tally: Record<string, number> = {};
-  for (const categoryId of categoryVotes.values()) {
-    tally[categoryId] = (tally[categoryId] ?? 0) + 1;
-  }
-  return Object.entries(tally).sort(
-    ([a, countA], [b, countB]) => countB - countA || a.localeCompare(b),
-  )[0][0];
-}
-
 function sendQuestionForCurrentRole(
   sessionSocket: TrackedWebSocket | null | undefined,
   role: "host" | "player" | "display",
@@ -151,14 +141,7 @@ export function handleGameStart(socket: TrackedWebSocket, payload: GameStartPayl
   const defaultQuiz = getDefaultQuiz();
   const catalog = buildCatalogSummary(defaultQuiz);
   const basePlan = payload.gamePlan ?? buildDefaultGamePlan(catalog);
-  const requestedGamePlan =
-    room.categoryVotes.size > 0
-      ? {
-          ...basePlan,
-          mode: "custom" as const,
-          categoryIds: [getTopVotedCategory(room.categoryVotes)],
-        }
-      : basePlan;
+  const requestedGamePlan = basePlan;
   let resolvedGamePlan: ResolvedGamePlan;
   let selectedQuestions: Question[];
 

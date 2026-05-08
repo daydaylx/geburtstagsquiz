@@ -185,6 +185,11 @@ export function App() {
               <div className="host-progress-fill" style={{ width: `${answerProgressPercent}%` }} />
             </div>
           </div>
+          {s.answerProgress?.totalEligiblePlayers === 0 && (
+            <p className="host-zero-players-hint">
+              Keine Spieler verbunden – warte auf Reconnect oder gehe manuell weiter.
+            </p>
+          )}
         </div>
       );
     }
@@ -276,6 +281,14 @@ export function App() {
               <div className="host-progress-fill" style={{ width: `${nextReadyPercent}%` }} />
             </div>
           </div>
+          {s.gamePlanDraft?.revealMode === "manual_with_fallback" && (
+            <p className="host-reveal-fallback-hint">Auto-weiter in ~30s falls kein Klick.</p>
+          )}
+          {s.nextQuestionReadyProgress?.totalEligiblePlayers === 0 && (
+            <p className="host-zero-players-hint">
+              Keine Spieler verbunden – warte auf Reconnect oder gehe manuell weiter.
+            </p>
+          )}
         </div>
       );
     }
@@ -320,6 +333,11 @@ export function App() {
                 </div>
               ))}
             </div>
+          )}
+          {s.screen === "scoreboard" && s.nextQuestionReadyProgress?.totalEligiblePlayers === 0 && (
+            <p className="host-zero-players-hint">
+              Keine Spieler verbunden – warte auf Reconnect oder gehe manuell weiter.
+            </p>
           )}
         </div>
       );
@@ -375,6 +393,11 @@ export function App() {
         {s.notice && (
           <div className="host-notice" data-kind={s.notice.kind}>
             {s.notice.text}
+          </div>
+        )}
+        {s.lobby !== null && !s.lobby.displayConnected && (
+          <div className="host-notice" data-kind="error">
+            Display nicht verbunden – Spieler sehen den TV-Screen nicht.
           </div>
         )}
       </header>

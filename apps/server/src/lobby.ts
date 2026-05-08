@@ -216,6 +216,8 @@ export function resumeSession(
       sessionId: session.sessionId,
       joinCode: room.joinCode,
       gameState: room.gameState,
+      hostConnected: room.hostConnected,
+      hostToken: room.hostTokenUsed ? null : room.hostToken,
     });
 
     syncSessionToRoomState(session, room);
