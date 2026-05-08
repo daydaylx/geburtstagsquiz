@@ -380,12 +380,20 @@ function loadDefaultQuiz(): Quiz {
   let quizId = "geburtstagsquiz-millennials-combined";
   let quizTitle = "Geburtstagsquiz für Millennials";
 
+  let totalLoaded = 0;
+  let totalSkipped = 0;
+  let totalDuplicates = 0;
+
   for (const sourceFile of QUIZ_SOURCE_FILES) {
     const sourcePath = findQuizSourceFile(sourceFile);
     const rawQuiz = JSON.parse(readFileSync(sourcePath, "utf8")) as RawQuizFile;
 
     quizId = rawQuiz.quiz.quiz_id;
     quizTitle = rawQuiz.quiz.title;
+
+    let fileLoaded = 0;
+    let fileSkipped = 0;
+    let fileDuplicates = 0;
 
     for (const category of rawQuiz.quiz.categories) {
       const quizCategory = toQuizCategory(category);
@@ -397,16 +405,35 @@ function loadDefaultQuiz(): Quiz {
       });
 
       for (const question of category.questions) {
+        if (questionsById.has(question.id)) {
+          fileDuplicates++;
+          continue;
+        }
         try {
           questionsById.set(question.id, transformQuestion(question, category));
-        } catch {
+          fileLoaded++;
+        } catch (err) {
           console.warn(
-            `[quiz-data] Skipping unsupported question ${question.id} (${question.type})`,
+            `[quiz-data] Skipping unsupported question ${question.id} (${question.type}): ${err instanceof Error ? err.message : String(err)}`,
           );
+          fileSkipped++;
         }
       }
     }
+
+    console.log(
+      `[quiz-data] ${sourceFile}: ${fileLoaded} geladen, ${fileSkipped} übersprungen, ${fileDuplicates} Duplikate`,
+    );
+    totalLoaded += fileLoaded;
+    totalSkipped += fileSkipped;
+    totalDuplicates += fileDuplicates;
   }
+
+  console.log(
+    `[quiz-data] Gesamt: ${totalLoaded} Fragen aus ${questionsById.size} eindeutigen IDs` +
+      (totalSkipped > 0 ? `, ${totalSkipped} übersprungen` : "") +
+      (totalDuplicates > 0 ? `, ${totalDuplicates} Duplikate ignoriert` : ""),
+  );
 
   return {
     id: quizId,
