@@ -239,6 +239,7 @@ export function useDisplaySession(deps: {
           displayToken: payload.displayToken,
         });
         setIsCreatingRoom(false);
+        isCreatingRoomRef.current = false;
         generateQrCodes(payload.joinCode, payload.hostToken);
         setScreen("lobby");
         return;
@@ -387,6 +388,7 @@ export function useDisplaySession(deps: {
       case EVENTS.ERROR_PROTOCOL: {
         const payload = parsedEnvelope.data.payload;
         setIsCreatingRoom(false);
+        isCreatingRoomRef.current = false;
         setNotice(payload.message);
         return;
       }
@@ -409,12 +411,16 @@ export function useDisplaySession(deps: {
     };
   }, []);
 
+  const isCreatingRoomRef = useRef(false);
+
   const handleCreateRoom = useEffectEvent(() => {
-    if (isCreatingRoom || connectionState !== "connected") return;
+    if (isCreatingRoomRef.current || isCreatingRoom || connectionState !== "connected") return;
+    isCreatingRoomRef.current = true;
     setIsCreatingRoom(true);
     setNotice(null);
     const sent = sendEvent(EVENTS.DISPLAY_CREATE_ROOM, {});
     if (!sent) {
+      isCreatingRoomRef.current = false;
       setIsCreatingRoom(false);
       setNotice("Keine Verbindung zum Server.");
     }

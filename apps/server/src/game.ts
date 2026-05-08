@@ -38,6 +38,9 @@ import {
 } from "./game-scoreboard.js";
 import { getConnectedPlayers, getSortedScoreboard } from "./room-selectors.js";
 import { clearActiveRoomTimers } from "./room-timers.js";
+import { closeRoom } from "./room.js";
+
+const COMPLETED_ROOM_TTL_MS = 10 * 60_000;
 
 function sendQuestionForCurrentRole(
   sessionSocket: TrackedWebSocket | null | undefined,
@@ -981,6 +984,10 @@ function advanceAfterReveal(room: RoomRecord): void {
     room.revealTimer = null;
   }
 
+  if (room.state !== RoomState.InGame || room.gameState !== GameState.Revealing) {
+    return;
+  }
+
   if (!room.quiz || room.currentQuestionIndex === null) {
     return;
   }
@@ -1035,4 +1042,10 @@ function finishGame(room: RoomRecord): void {
     finalScoreboard,
     finalStats: buildFinalStats(room),
   });
+
+  setTimeout(() => {
+    if (room.state === RoomState.Completed) {
+      closeRoom(room, "Completed room auto-cleanup");
+    }
+  }, COMPLETED_ROOM_TTL_MS);
 }

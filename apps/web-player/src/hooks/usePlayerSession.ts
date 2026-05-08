@@ -261,6 +261,7 @@ export function usePlayerSession(deps: {
         setJoinCode(joinAttempt.joinCode);
         setPlayerName(joinAttempt.playerName);
         setIsJoining(false);
+        isJoiningRef.current = false;
         setScreen("lobby");
         return;
       }
@@ -278,6 +279,11 @@ export function usePlayerSession(deps: {
           joinCode: resumedPayload.joinCode,
         });
         resumedAnswerRef.current = resumedPayload.currentAnswer ?? null;
+        if (resumedPayload.currentAnswer) {
+          setAnswerStatus("accepted");
+        } else if (answerStatus === "submitting") {
+          setAnswerStatus("idle");
+        }
         setRoomId(resumedPayload.roomId);
         setJoinCode(resumedPayload.joinCode);
         setPlayerName(resumedPlayerName);
@@ -399,6 +405,7 @@ export function usePlayerSession(deps: {
       case EVENTS.ERROR_PROTOCOL: {
         const error = parsedEnvelope.data.payload;
         setIsJoining(false);
+        isJoiningRef.current = false;
         setNotice({ kind: "error", text: getProtocolErrorMessage(error.code, error.message) });
 
         if (error.context.event === EVENTS.ANSWER_SUBMIT) {
@@ -423,7 +430,10 @@ export function usePlayerSession(deps: {
 
   onMessage(handleServerMessage);
 
+  const isJoiningRef = useRef(false);
+
   const handleJoin = useEffectEvent(() => {
+    if (isJoiningRef.current) return;
     const njc = normalizeJoinCode(joinCode);
     const npn = normalizePlayerName(playerName);
     setJoinCode(njc);
@@ -436,6 +446,7 @@ export function usePlayerSession(deps: {
       return;
     }
 
+    isJoiningRef.current = true;
     setIsJoining(true);
     lastJoinAttemptRef.current = { joinCode: njc, playerName: npn };
     const sent = sendEvent(EVENTS.ROOM_JOIN, {
@@ -445,6 +456,7 @@ export function usePlayerSession(deps: {
     });
 
     if (!sent) {
+      isJoiningRef.current = false;
       setIsJoining(false);
       setNotice({ kind: "error", text: "Keine Verbindung zum Server." });
     }

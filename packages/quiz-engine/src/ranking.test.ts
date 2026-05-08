@@ -108,7 +108,7 @@ describe("evaluateRanking", () => {
     const result = evaluateRanking(question, answers, "partial_with_bonus");
 
     expect(result.playerResults[0].isCorrect).toBe(true);
-    expect(result.playerResults[0].pointsEarned).toBe(4);
+    expect(result.playerResults[0].pointsEarned).toBe(10);
     expect(result.playerResults[0].detail).toEqual({
       exactPositions: 3,
       totalPositions: 3,
@@ -123,7 +123,7 @@ describe("evaluateRanking", () => {
     const result = evaluateRanking(question, answers, "partial_with_bonus");
 
     expect(result.playerResults[0].isCorrect).toBe(false);
-    expect(result.playerResults[0].pointsEarned).toBe(1);
+    expect(result.playerResults[0].pointsEarned).toBe(3);
     expect(result.playerResults[0].detail).toEqual({
       exactPositions: 1,
       totalPositions: 3,

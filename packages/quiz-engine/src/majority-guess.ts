@@ -14,9 +14,11 @@ export function evaluateMajorityGuess(
   const optionAnswers = answers.filter(
     (a): a is SubmittedAnswer & { answer: OptionAnswer } => a.answer.type === "option",
   );
+  const validOptionIds = new Set(question.options.map((opt) => opt.id));
   const counts = new Map<string, number>();
 
   for (const answer of optionAnswers) {
+    if (!validOptionIds.has(answer.answer.value)) continue;
     counts.set(answer.answer.value, (counts.get(answer.answer.value) ?? 0) + 1);
   }
 

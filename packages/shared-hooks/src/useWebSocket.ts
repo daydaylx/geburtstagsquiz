@@ -49,6 +49,16 @@ export function useWebSocket() {
     clearReconnectTimer();
     const socket = new WebSocket(getServerSocketUrl());
     socketRef.current = socket;
+    socket.addEventListener("open", () => {
+      if (socketRef.current === socket) {
+        setConnectionState("connecting");
+      }
+    });
+    socket.addEventListener("error", () => {
+      if (socketRef.current === socket) {
+        setConnectionState("reconnecting");
+      }
+    });
     socket.addEventListener("message", (e) => {
       const handler = messageHandlerRef.current;
       if (handler) handler(e.data as string);
@@ -80,7 +90,11 @@ export function useWebSocket() {
   }, []);
 
   const closeSocket = useEffectEvent(() => {
+    const prev = shouldReconnectRef.current;
+    shouldReconnectRef.current = false;
+    clearReconnectTimer();
     socketRef.current?.close();
+    shouldReconnectRef.current = prev;
   });
 
   return { connectionState, sendEvent, onMessage, notifyConnected, closeSocket };

@@ -21,19 +21,25 @@ export function evaluateRanking(
       return { playerId: sub.playerId, answer: sub.answer, isCorrect: false, pointsEarned: 0 };
     }
     const submitted = sub.answer as RankingAnswer;
-    const isCorrect = submitted.value.join(",") === correctKey;
+    const isCorrect =
+      submitted.value.length === question.correctOrder.length &&
+      submitted.value.every((itemId, index) => itemId === question.correctOrder[index]);
 
     if (scoringMode === "partial_with_bonus") {
-      const exactPositions = submitted.value.filter(
-        (itemId, index) => itemId === question.correctOrder[index],
-      ).length;
+      const maxLen = Math.min(submitted.value.length, question.correctOrder.length);
+      const exactPositions = submitted.value
+        .slice(0, maxLen)
+        .filter((itemId, index) => itemId === question.correctOrder[index]).length;
       const bonusPoints = isCorrect ? 1 : 0;
+      const proportionalPoints = Math.round(
+        (exactPositions / question.correctOrder.length) * question.points,
+      );
 
       return {
         playerId: sub.playerId,
         answer: sub.answer,
         isCorrect,
-        pointsEarned: Math.min(exactPositions + bonusPoints, question.points),
+        pointsEarned: Math.min(proportionalPoints + bonusPoints, question.points),
         detail: {
           exactPositions,
           totalPositions: question.correctOrder.length,

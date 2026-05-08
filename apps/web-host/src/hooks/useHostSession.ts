@@ -399,11 +399,14 @@ export function useHostSession(deps: {
   useEffect(() => {
     if (screen !== "countdown" || countdownSeconds <= 0) return;
     const timer = window.setInterval(() => {
-      setCountdownSeconds((current) => Math.max(0, current - 1));
+      setCountdownSeconds((current) => {
+        if (current <= 1) return 0;
+        return current - 1;
+      });
     }, 1000);
 
     return () => window.clearInterval(timer);
-  }, [screen, countdownSeconds]);
+  }, [screen]);
 
   const handleRestartInfo = useEffectEvent(() => {
     setNotice({

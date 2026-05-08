@@ -151,14 +151,16 @@ export const OptionAnswerSchema = z
 export const NumberAnswerSchema = z
   .object({
     type: z.literal("number"),
-    value: z.number(),
+    value: z.number().finite(),
   })
   .strict();
 
 export const RankingAnswerSchema = z
   .object({
     type: z.literal("ranking"),
-    value: z.array(z.string().min(1)),
+    value: z.array(z.string().min(1)).min(1).refine((arr) => new Set(arr).size === arr.length, {
+      message: "Ranking items must be unique",
+    }),
   })
   .strict();
 
