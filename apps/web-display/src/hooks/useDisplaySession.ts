@@ -157,9 +157,13 @@ export function useDisplaySession(deps: {
     QRCode.toDataURL(getPlayerJoinUrl(joinCode), { margin: 1, width: 400 })
       .then((url) => setPlayerQrUrl(url))
       .catch(() => setPlayerQrUrl(null));
-    QRCode.toDataURL(getHostJoinUrl(hostToken), { margin: 1, width: 400 })
-      .then((url) => setHostQrUrl(url))
-      .catch(() => setHostQrUrl(null));
+    if (hostToken) {
+      QRCode.toDataURL(getHostJoinUrl(hostToken), { margin: 1, width: 400 })
+        .then((url) => setHostQrUrl(url))
+        .catch(() => setHostQrUrl(null));
+    } else {
+      setHostQrUrl(null);
+    }
   });
 
   const handleServerMessage = useEffectEvent((rawMessage: string) => {

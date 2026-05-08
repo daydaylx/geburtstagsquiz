@@ -308,11 +308,12 @@ body {
 
 .player-controller-status[data-state="saved"] {
   color: #baffce;
-  border-color: rgba(34, 197, 94, 0.44);
+  border-color: rgba(34, 197, 94, 0.5);
   background:
-    linear-gradient(90deg, rgba(34, 197, 94, 0.16), rgba(246, 199, 106, 0.08)),
+    linear-gradient(135deg, rgba(34, 197, 94, 0.18), rgba(34, 197, 94, 0.06)),
     rgba(255, 255, 255, 0.05);
-  box-shadow: 0 0 22px rgba(34, 197, 94, 0.12);
+  font-size: 1.15rem;
+  padding: 20px;
   animation: player-saved-pop 0.32s ease-out both;
 }
 
@@ -335,31 +336,30 @@ body {
 
 /* ── Answer Options (Multiple Choice / Logic) ──────────────────────── */
 .player-controller-options {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   min-width: 0;
-  align-items: stretch;
 }
 
 .player-controller-option {
   width: 100%;
   max-width: 100%;
   min-width: 0;
-  min-height: 124px;
-  padding: 16px;
+  min-height: 72px;
+  padding: 14px 18px;
   border-radius: var(--player-radius);
   border: 2px solid rgba(255, 255, 255, 0.18);
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.04)),
     rgba(255, 255, 255, 0.04);
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
-  gap: 6px;
+  justify-content: flex-start;
+  gap: 14px;
   font-weight: 800;
-  text-align: center;
+  text-align: left;
   transition:
     transform 120ms ease,
     box-shadow 120ms ease,
@@ -441,16 +441,19 @@ body {
 }
 
 .player-controller-option-id {
-  font-size: 2.4rem;
+  font-size: 1.6rem;
   line-height: 1;
   font-weight: 900;
   color: inherit;
+  flex-shrink: 0;
+  width: 1.8rem;
+  text-align: center;
 }
 
 .player-controller-option-text {
-  font-size: 0.82rem;
-  line-height: 1.15;
-  color: rgba(240, 244, 248, 0.72);
+  font-size: 0.9rem;
+  line-height: 1.25;
+  color: rgba(240, 244, 248, 0.9);
   overflow-wrap: anywhere;
 }
 
@@ -1170,13 +1173,6 @@ body {
   }
   100% {
     transform: scale(1);
-  }
-}
-
-/* ── Responsive: 400px ─────────────────────────────────────────────── */
-@media (max-width: 400px) {
-  .player-controller-options {
-    grid-template-columns: 1fr;
   }
 }
 

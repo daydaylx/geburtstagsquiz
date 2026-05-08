@@ -36,7 +36,7 @@ export function PlayerQuestionScreen({ session }: PlayerQuestionScreenProps) {
         <p className="player-controller-copy">
           {session.answerStatus === "accepted"
             ? "Warte auf die Auflösung."
-            : "Die Frage steht auf dem Hauptbildschirm."}
+            : "Die Frage steht auf dem TV."}
         </p>
         {session.answerStatus === "submitting" && (
           <div className="player-controller-status" data-state="submitting">
@@ -71,7 +71,7 @@ export function PlayerQuestionScreen({ session }: PlayerQuestionScreenProps) {
         )}
         {session.answerStatus === "rejected" && (
           <div className="player-controller-status" data-state="error">
-            Antwort nicht angenommen
+            Antwort nicht angekommen – nochmal tippen
           </div>
         )}
       </div>
@@ -242,7 +242,7 @@ export function PlayerRevealScreen({ session }: PlayerQuestionScreenProps) {
         onClick={session.handleReadyForNextQuestion}
         type="button"
       >
-        {session.isReadyForNext ? "Warten…" : "Weiter"}
+        {session.isReadyForNext ? "Warten…" : "Ich bin bereit"}
       </button>
     </>
   );
