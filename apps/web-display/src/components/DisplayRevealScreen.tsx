@@ -30,16 +30,15 @@ export function DisplayRevealScreen({
     <div className="display-reveal" data-fading={s.isFadingOut || undefined}>
       <h3 className="display-reveal-question">{s.question.text}</h3>
 
-      {"options" in s.question && (
-        <DisplayRevealOptions session={s} question={s.question} />
-      )}
+      {"options" in s.question && <DisplayRevealOptions session={s} question={s.question} />}
 
       {"items" in s.question && s.revealedAnswer?.type === "ranking" && (
         <ol className="display-reveal-ranking">
           {s.revealedAnswer.value.map((itemId, pos) => {
-            const item = s.question && "items" in s.question
-              ? s.question.items.find((entry) => entry.id === itemId)
-              : undefined;
+            const item =
+              s.question && "items" in s.question
+                ? s.question.items.find((entry) => entry.id === itemId)
+                : undefined;
             return (
               <li className="display-reveal-ranking-item" key={itemId}>
                 <span className="display-reveal-rank-pos">{pos + 1}.</span>
@@ -70,13 +69,6 @@ export function DisplayRevealScreen({
         </div>
       )}
 
-      {s.revealExplanation && (
-        <div className="display-explanation">
-          <div className="display-explanation-label">Erklärung</div>
-          <p>{s.revealExplanation}</p>
-        </div>
-      )}
-
       <div className="display-reveal-stats">
         <span className="display-reveal-stat display-reveal-stat--correct">
           ✓ {correctCount} richtig
@@ -86,6 +78,13 @@ export function DisplayRevealScreen({
         </span>
         <span className="display-reveal-stat">— {noneCount} keine</span>
       </div>
+
+      {s.revealExplanation && (
+        <div className="display-explanation">
+          <div className="display-explanation-label">Erklärung</div>
+          <p>{s.revealExplanation}</p>
+        </div>
+      )}
       {visibleReadyProgress && (
         <div
           className="display-ready-block"
@@ -135,9 +134,7 @@ function DisplayRevealOptions({
       {revealedAnswer?.type === "options" &&
         revealedAnswer.value.map((id) => {
           const opt = question.options.find((option) => option.id === id);
-          const optIndex = opt
-            ? question.options.findIndex((option) => option.id === opt.id)
-            : -1;
+          const optIndex = opt ? question.options.findIndex((option) => option.id === opt.id) : -1;
           return opt ? (
             <div className="display-reveal-correct-card" key={id}>
               <span className="display-reveal-correct-label">

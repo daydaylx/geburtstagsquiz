@@ -522,8 +522,9 @@ body {
   font-size: 4.5rem;
   font-weight: 800;
   letter-spacing: 0.18em;
-  color: var(--display-accent);
-  font-family: "Courier New", Courier, monospace;
+  color: var(--display-gold);
+  font-family: var(--font-display);
+  text-transform: uppercase;
 }
 
 .display-host-pending {
