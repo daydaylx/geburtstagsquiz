@@ -260,6 +260,9 @@ function PlayerRankingController({ session }: PlayerQuestionScreenProps) {
     <div className="player-ranking-area">
       <p className="player-ranking-instruction">
         Tippe die Elemente in der richtigen Reihenfolge an.
+        {remaining.length > 0 && (
+          <span className="player-ranking-remaining"> Noch {remaining.length} auswählen.</span>
+        )}
       </p>
       {remaining.length > 0 && (
         <>
@@ -313,16 +316,27 @@ function PlayerRankingController({ session }: PlayerQuestionScreenProps) {
           );
         })}
       </div>
-      <button
-        className="player-primary-button player-ranking-submit"
-        disabled={
-          session.rankingOrder.length < question.items.length || session.answerStatus !== "idle"
-        }
-        onClick={() => session.handleSubmitRanking(session.rankingOrder)}
-        type="button"
-      >
-        Reihenfolge bestätigen
-      </button>
+      <div className="player-ranking-actions">
+        {session.rankingOrder.length > 0 && session.answerStatus === "idle" && (
+          <button
+            className="player-ranking-reset"
+            onClick={() => session.setRankingOrder([])}
+            type="button"
+          >
+            Zurücksetzen
+          </button>
+        )}
+        <button
+          className="player-primary-button player-ranking-submit"
+          disabled={
+            session.rankingOrder.length < question.items.length || session.answerStatus !== "idle"
+          }
+          onClick={() => session.handleSubmitRanking(session.rankingOrder)}
+          type="button"
+        >
+          Reihenfolge bestätigen
+        </button>
+      </div>
     </div>
   );
 }

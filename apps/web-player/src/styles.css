@@ -815,6 +815,11 @@ body {
   text-align: center;
 }
 
+.player-ranking-remaining {
+  color: var(--player-accent);
+  font-weight: 600;
+}
+
 .player-ranking-pool {
   display: flex;
   flex-direction: column;
@@ -925,8 +930,30 @@ body {
   flex-shrink: 0;
 }
 
-.player-ranking-submit {
-  margin-top: 12px;
+.player-ranking-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.player-ranking-reset {
+  background: transparent;
+  border: 1px solid var(--player-line);
+  color: var(--player-ink-soft);
+  font-size: 0.9rem;
+  padding: 10px 16px;
+  border-radius: var(--player-radius);
+  cursor: pointer;
+  text-align: center;
+  transition:
+    color var(--dur-fast),
+    border-color var(--dur-fast);
+}
+
+.player-ranking-reset:hover {
+  color: var(--player-ink);
+  border-color: var(--player-ink-soft);
 }
 
 /* ── Finished Screen ───────────────────────────────────────────────── */
