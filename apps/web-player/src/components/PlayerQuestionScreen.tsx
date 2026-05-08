@@ -280,23 +280,24 @@ function PlayerRankingController({ session }: PlayerQuestionScreenProps) {
           </div>
         </>
       )}
-      {session.rankingOrder.length > 0 && (
-        <>
-          <p className="player-ranking-section-label">Deine Reihenfolge</p>
-          <div className="player-ranking-chosen">
-            {session.rankingOrder.map((id, i) => {
-              const item = question.items.find((entry) => entry.id === id)!;
-              return (
-                <div className="player-ranking-slot" key={id}>
-                  <span className="player-ranking-pos">{i + 1}.</span>
-                  <span>{item.label}</span>
+      <p className="player-ranking-section-label">Deine Reihenfolge</p>
+      <div className="player-ranking-chosen">
+        {question.items.map((_, i) => {
+          const filledId = session.rankingOrder[i];
+          const item = filledId ? question.items.find((entry) => entry.id === filledId) : undefined;
+          return (
+            <div className="player-ranking-slot" data-filled={item ? "true" : undefined} key={i}>
+              <span className="player-ranking-pos">{i + 1}.</span>
+              {item ? (
+                <>
+                  <span className="player-ranking-slot-label">{item.label}</span>
                   {item.text && <small>{item.text}</small>}
                   {session.answerStatus === "idle" && (
                     <button
                       className="player-ranking-remove"
                       onClick={() =>
                         session.setRankingOrder(
-                          session.rankingOrder.filter((entry) => entry !== id),
+                          session.rankingOrder.filter((entry) => entry !== filledId),
                         )
                       }
                       type="button"
@@ -304,12 +305,14 @@ function PlayerRankingController({ session }: PlayerQuestionScreenProps) {
                       ✕
                     </button>
                   )}
-                </div>
-              );
-            })}
-          </div>
-        </>
-      )}
+                </>
+              ) : (
+                <span className="player-ranking-slot-empty">Tippe ein Element</span>
+              )}
+            </div>
+          );
+        })}
+      </div>
       <button
         className="player-primary-button player-ranking-submit"
         disabled={
