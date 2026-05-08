@@ -18,7 +18,11 @@ export function PlayerQuestionScreen({ session }: PlayerQuestionScreenProps) {
 
   return (
     <>
-      <div className="player-card player-controller-card" data-status={session.answerStatus}>
+      <div
+        className="player-card player-controller-card"
+        data-question-type={session.question.type}
+        data-status={session.answerStatus}
+      >
         <span className="player-kicker">
           {session.question.isDemoQuestion
             ? "Testfrage"
@@ -27,9 +31,7 @@ export function PlayerQuestionScreen({ session }: PlayerQuestionScreenProps) {
               } / ${session.question.totalQuestionCount}`}
         </span>
         <h2 className="player-controller-title">
-          {session.answerStatus === "accepted"
-            ? "Antwort gespeichert"
-            : "Schau auf den Bildschirm"}
+          {session.answerStatus === "accepted" ? "Antwort gespeichert" : "Schau auf den Bildschirm"}
         </h2>
         <p className="player-controller-copy">
           {session.answerStatus === "accepted"
@@ -96,10 +98,19 @@ export function PlayerQuestionScreen({ session }: PlayerQuestionScreenProps) {
       )}
 
       {session.question.type === QuestionType.Estimate && (
-        <div className="player-estimate-area">
+        <form
+          className="player-estimate-area"
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (session.answerStatus === "idle" && session.estimateValue !== "") {
+              session.handleSubmitEstimate(parseFloat(session.estimateValue));
+            }
+          }}
+        >
           <input
             className="player-estimate-input"
             disabled={session.answerStatus !== "idle"}
+            inputMode="decimal"
             onChange={(e) => session.setEstimateValue(e.target.value)}
             placeholder={`${session.question.unit} eingeben...`}
             step="any"
@@ -109,16 +120,23 @@ export function PlayerQuestionScreen({ session }: PlayerQuestionScreenProps) {
           <button
             className="player-primary-button"
             disabled={session.answerStatus !== "idle" || session.estimateValue === ""}
-            onClick={() => session.handleSubmitEstimate(parseFloat(session.estimateValue))}
-            type="button"
+            type="submit"
           >
             Schätzen
           </button>
-        </div>
+        </form>
       )}
 
       {session.question.type === QuestionType.OpenText && (
-        <div className="player-estimate-area">
+        <form
+          className="player-estimate-area"
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (session.answerStatus === "idle" && session.textAnswerValue.trim() !== "") {
+              session.handleSubmitText(session.textAnswerValue);
+            }
+          }}
+        >
           <input
             className="player-estimate-input"
             disabled={session.answerStatus !== "idle"}
@@ -130,12 +148,11 @@ export function PlayerQuestionScreen({ session }: PlayerQuestionScreenProps) {
           <button
             className="player-primary-button"
             disabled={session.answerStatus !== "idle" || session.textAnswerValue.trim() === ""}
-            onClick={() => session.handleSubmitText(session.textAnswerValue)}
-            type="button"
+            type="submit"
           >
             Antworten
           </button>
-        </div>
+        </form>
       )}
 
       {session.question.type === QuestionType.Ranking && (
@@ -145,9 +162,32 @@ export function PlayerQuestionScreen({ session }: PlayerQuestionScreenProps) {
   );
 }
 
+const CONFETTI_COLORS = ["#00e676", "#f6c76a", "#00d4ff", "#c084fc", "#ff6b6b"];
+
+export function PlayerConfetti({ count }: { count: number }) {
+  return (
+    <div className="player-confetti" aria-hidden="true">
+      {Array.from({ length: count }, (_, i) => (
+        <div
+          className="player-confetti-piece"
+          key={i}
+          style={{
+            left: `${5 + (i * 90) / count + Math.sin(i * 1.7) * 8}%`,
+            animationDuration: `${1.4 + (i % 5) * 0.25}s`,
+            animationDelay: `${(i % 4) * 0.09}s`,
+            background: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
+            transform: `rotate(${i * 37}deg)`,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
 export function PlayerRevealScreen({ session }: PlayerQuestionScreenProps) {
   return (
     <>
+      {session.selfRevealState === "correct" && <PlayerConfetti count={14} />}
       <div className="player-feedback" data-state={session.selfRevealState}>
         {session.selfRevealLabel}
       </div>
@@ -255,7 +295,9 @@ function PlayerRankingController({ session }: PlayerQuestionScreenProps) {
                     <button
                       className="player-ranking-remove"
                       onClick={() =>
-                        session.setRankingOrder(session.rankingOrder.filter((entry) => entry !== id))
+                        session.setRankingOrder(
+                          session.rankingOrder.filter((entry) => entry !== id),
+                        )
                       }
                       type="button"
                     >

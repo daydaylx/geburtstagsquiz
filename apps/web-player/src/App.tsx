@@ -1,7 +1,11 @@
 import { useWebSocket, type ConnectionState } from "@quiz/shared-hooks";
 import { usePlayerSession } from "./hooks/usePlayerSession.js";
 import { normalizeJoinCode } from "@quiz/shared-utils";
-import { PlayerQuestionScreen, PlayerRevealScreen } from "./components/PlayerQuestionScreen.js";
+import {
+  PlayerQuestionScreen,
+  PlayerRevealScreen,
+  PlayerConfetti,
+} from "./components/PlayerQuestionScreen.js";
 
 function getConnectionLabel(connectionState: ConnectionState): string {
   switch (connectionState) {
@@ -99,22 +103,38 @@ export function App() {
 
             {session.categories.length > 0 && (
               <div className="player-category-list">
-                {session.categories.map((cat) => {
-                  const voteCount = session.votes[cat.id] ?? 0;
-                  const isMyVote = session.myVote === cat.id;
-                  return (
-                    <button
-                      key={cat.id}
-                      className="player-category-item"
-                      data-selected={isMyVote ? "true" : undefined}
-                      onClick={() => session.handleCategoryVote(cat.id)}
-                      type="button"
-                    >
-                      <span className="player-category-name">{cat.name}</span>
-                      {voteCount > 0 && <span className="player-category-votes">{voteCount}</span>}
-                    </button>
+                {(() => {
+                  const maxVotes = Math.max(
+                    1,
+                    ...session.categories.map((c) => session.votes[c.id] ?? 0),
                   );
-                })}
+                  return session.categories.map((cat) => {
+                    const voteCount = session.votes[cat.id] ?? 0;
+                    const isMyVote = session.myVote === cat.id;
+                    const pct = Math.round((voteCount / maxVotes) * 100);
+                    return (
+                      <button
+                        key={cat.id}
+                        className="player-category-item"
+                        data-selected={isMyVote ? "true" : undefined}
+                        onClick={() => session.handleCategoryVote(cat.id)}
+                        type="button"
+                      >
+                        <div className="player-category-item-row">
+                          <span className="player-category-name">{cat.name}</span>
+                          {voteCount > 0 && (
+                            <span className="player-category-votes">{voteCount}</span>
+                          )}
+                        </div>
+                        {voteCount > 0 && (
+                          <div className="player-category-bar-track">
+                            <div className="player-category-bar" style={{ width: `${pct}%` }} />
+                          </div>
+                        )}
+                      </button>
+                    );
+                  });
+                })()}
               </div>
             )}
 
@@ -163,16 +183,38 @@ export function App() {
         )}
 
         {session.screen === "finished" && (
-          <div className="player-card player-finished-card">
-            <span className="player-kicker">Quiz beendet</span>
-            <h1 className="player-title">Vielen Dank!</h1>
-            <div className="player-my-rank-value player-final-rank">
-              {session.ownFinalPlacement >= 0 ? `#${session.ownFinalPlacement + 1}` : "-"}
+          <>
+            {session.ownFinalPlacement >= 0 && session.ownFinalPlacement <= 2 && (
+              <PlayerConfetti count={20} />
+            )}
+            <div className="player-card player-finished-card">
+              <span className="player-kicker">Quiz beendet</span>
+              <div className="player-finished-trophy" aria-hidden="true">
+                {session.ownFinalPlacement === 0
+                  ? "🏆"
+                  : session.ownFinalPlacement === 1
+                    ? "🥈"
+                    : session.ownFinalPlacement === 2
+                      ? "🥉"
+                      : "🎉"}
+              </div>
+              <h1 className="player-title">
+                {session.ownFinalPlacement === 0
+                  ? "Gewonnen!"
+                  : session.ownFinalPlacement === 1
+                    ? "Platz 2 – Stark!"
+                    : session.ownFinalPlacement === 2
+                      ? "Platz 3 – Gut!"
+                      : "Vielen Dank!"}
+              </h1>
+              <div className="player-my-rank-value player-final-rank">
+                {session.ownFinalPlacement >= 0 ? `#${session.ownFinalPlacement + 1}` : "-"}
+              </div>
+              <button className="player-primary-button" onClick={() => window.location.reload()}>
+                Nochmal spielen
+              </button>
             </div>
-            <button className="player-primary-button" onClick={() => window.location.reload()}>
-              Nochmal spielen
-            </button>
-          </div>
+          </>
         )}
       </div>
     </main>

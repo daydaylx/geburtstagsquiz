@@ -2,6 +2,7 @@ import { QuestionType } from "@quiz/shared-types";
 import { useWebSocket, type ConnectionState } from "@quiz/shared-hooks";
 import { DisplayRevealScreen } from "./components/DisplayRevealScreen.js";
 import { getAnswerDisplayLabel, getQuestionTypeLabel } from "./lib/labels.js";
+import { getHostJoinUrl } from "./lib/helpers.js";
 import { useDisplaySession } from "./hooks/useDisplaySession.js";
 
 const CONFETTI_COLORS = ["#ff6b6b", "#ffd500", "#00d4ff", "#00e676", "#c061cb"];
@@ -86,7 +87,7 @@ export function App() {
           <div
             className={`display-lobby ${s.hostPaired ? "display-lobby--host-paired" : "display-lobby--pre-host"}`}
           >
-            <div className={`display-qr-block${s.hostPaired ? " display-qr-block--primary" : ""}`}>
+            <div className="display-qr-block display-qr-block--primary">
               <h2>Beitreten</h2>
               {s.playerQrUrl && <img src={s.playerQrUrl} alt="Player-QR-Code" />}
               <code className="display-join-code">{s.roomInfo.joinCode}</code>
@@ -94,8 +95,11 @@ export function App() {
 
             {!s.hostPaired && (
               <div className="display-qr-block display-qr-block--host">
-                <h2>Host</h2>
+                <h2>Host pairen</h2>
                 {s.hostQrUrl && <img src={s.hostQrUrl} alt="Host-QR-Code" />}
+                {s.roomInfo.hostToken && (
+                  <code className="display-host-url">{getHostJoinUrl(s.roomInfo.hostToken)}</code>
+                )}
                 <p className="display-host-pending">Warte auf Host…</p>
               </div>
             )}

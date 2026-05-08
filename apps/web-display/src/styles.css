@@ -73,18 +73,31 @@ body {
 
 @keyframes countdown-pop {
   0% {
-    transform: scale(1.5);
+    transform: scale(2.8);
     opacity: 0;
   }
   18% {
+    transform: scale(0.88);
+    opacity: 1;
+  }
+  30% {
+    transform: scale(1.08);
+  }
+  42% {
+    transform: scale(0.97);
+  }
+  54% {
+    transform: scale(1.03);
+  }
+  65% {
     transform: scale(1);
     opacity: 1;
   }
-  75% {
+  80% {
     opacity: 1;
   }
   100% {
-    transform: scale(0.9);
+    transform: scale(0.8);
     opacity: 0;
   }
 }
@@ -119,6 +132,21 @@ body {
     transform: translateX(-10px);
   }
   to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes display-score-rise {
+  0% {
+    opacity: 0;
+    transform: translateY(28px) scale(0.94);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-4px) scale(1.02);
+  }
+  100% {
     opacity: 1;
     transform: none;
   }
@@ -221,6 +249,24 @@ body {
   height: 100vh;
   padding: 32px 40px;
   gap: 24px;
+  position: relative;
+}
+
+.display-shell::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(0, 212, 255, 0.07), transparent 35%),
+    radial-gradient(circle at 80% 80%, rgba(246, 199, 106, 0.07), transparent 35%),
+    radial-gradient(circle at 50% 10%, rgba(0, 230, 118, 0.04), transparent 30%),
+    repeating-radial-gradient(
+      circle at center,
+      rgba(255, 255, 255, 0.018) 0 1px,
+      transparent 1px 56px
+    );
+  z-index: 0;
 }
 
 .display-topbar {
@@ -295,12 +341,15 @@ body {
 }
 
 .display-countdown-number {
-  font-size: clamp(6rem, 18vw, 13rem);
+  font-size: clamp(8rem, 22vw, 16rem);
   font-weight: 900;
   color: var(--display-accent);
   line-height: 1;
-  animation: countdown-pop 0.9s ease both;
-  text-shadow: 0 0 60px rgba(0, 212, 255, 0.4);
+  animation: countdown-pop 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  text-shadow:
+    0 0 40px rgba(0, 212, 255, 0.9),
+    0 0 100px rgba(0, 212, 255, 0.5),
+    0 0 180px rgba(0, 212, 255, 0.2);
 }
 
 /* ── Setup ─────────────────────────────────────────────────────────── */
@@ -924,32 +973,32 @@ body {
   background: var(--display-bg-card);
   border: 1px solid var(--display-line);
   font-size: 1.5rem;
-  animation: stagger-in 0.3s ease both;
+  animation: display-score-rise 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 
 .display-scoreboard-entry:nth-child(1) {
-  animation-delay: 0s;
+  animation-delay: 0.05s;
 }
 .display-scoreboard-entry:nth-child(2) {
-  animation-delay: 0.04s;
+  animation-delay: 0.14s;
 }
 .display-scoreboard-entry:nth-child(3) {
-  animation-delay: 0.08s;
+  animation-delay: 0.23s;
 }
 .display-scoreboard-entry:nth-child(4) {
-  animation-delay: 0.12s;
+  animation-delay: 0.32s;
 }
 .display-scoreboard-entry:nth-child(5) {
-  animation-delay: 0.16s;
+  animation-delay: 0.41s;
 }
 .display-scoreboard-entry:nth-child(6) {
-  animation-delay: 0.2s;
+  animation-delay: 0.5s;
 }
 .display-scoreboard-entry:nth-child(7) {
-  animation-delay: 0.24s;
+  animation-delay: 0.59s;
 }
 .display-scoreboard-entry:nth-child(8) {
-  animation-delay: 0.28s;
+  animation-delay: 0.68s;
 }
 
 .display-scoreboard-entry[data-rank="1"] {
