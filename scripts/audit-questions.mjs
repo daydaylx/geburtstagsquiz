@@ -1,15 +1,16 @@
 #!/usr/bin/env node
-// Strukturelle Analyse beider Fragenkatalog-JSONs.
+// Strukturelle Analyse des Fragenkatalogs (Kategorie-Dateien).
 // Ausgabe: JSON auf stdout.
-import { readFileSync } from "node:fs";
-import { resolve, dirname } from "node:path";
+import { readdirSync, readFileSync } from "node:fs";
+import { resolve, join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const FILES = [
-  "geburtstagsquiz_millennials_engine_v4_release_candidate.json",
-  "geburtstagsquiz_millennials_engine_v5_expanded.json",
-];
+const CATEGORIES_DIR = resolve(ROOT, "data/quiz/questions");
+const FILES = readdirSync(CATEGORIES_DIR)
+  .filter((f) => f.startsWith("cat-") && f.endsWith(".json"))
+  .sort()
+  .map((f) => join(CATEGORIES_DIR, f));
 
 const SUPPORTED_TYPES = new Set([
   "multiple_choice",
@@ -21,23 +22,20 @@ const SUPPORTED_TYPES = new Set([
 ]);
 
 function loadFile(filename) {
-  const raw = JSON.parse(readFileSync(resolve(ROOT, filename), "utf8"));
-  return raw.quiz ?? raw;
+  return JSON.parse(readFileSync(filename, "utf8"));
 }
 
-function getAllQuestions(quiz) {
+function getAllQuestions(cat) {
   const questions = [];
-  for (const cat of quiz.categories ?? []) {
-    for (const q of cat.questions ?? []) {
-      questions.push({ ...q, _category: cat });
-    }
+  for (const q of cat.questions ?? []) {
+    questions.push({ ...q, _category: cat });
   }
   return questions;
 }
 
 function auditFile(filename) {
-  const quiz = loadFile(filename);
-  const questions = getAllQuestions(quiz);
+  const cat = loadFile(filename);
+  const questions = getAllQuestions(cat);
 
   const byType = {};
   const unsupported = [];
@@ -154,8 +152,8 @@ function auditFile(filename) {
 function findDuplicates(filesResults) {
   const all = [];
   for (const r of filesResults) {
-    const quiz = loadFile(r.filename);
-    for (const q of getAllQuestions(quiz)) {
+    const cat = loadFile(r.filename);
+    for (const q of getAllQuestions(cat)) {
       const prompt = (q.prompt ?? q.text ?? "").trim().toLowerCase().slice(0, 80);
       all.push({ id: q.id, prompt, full: q.prompt ?? q.text ?? "", file: r.filename });
     }

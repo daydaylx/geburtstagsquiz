@@ -1,0 +1,1143 @@
+{
+  "category_id": "cat-03",
+  "slug": "cringe-millennial-slang-internet-fossilien",
+  "name": "Cringe Millennial-Slang & Internet-Fossilien",
+  "difficulty": "medium_hard",
+  "tags": [],
+  "question_count": 37,
+  "questions": [
+    {
+      "id": "q-03-01-a1f969d060",
+      "prompt": "Welches Geräusch machte ICQ bei einer neuen Nachricht berüchtigt?",
+      "options": [
+        {
+          "id": "q-03-01-a1f969d060-opt-1",
+          "text": "„Uh-oh!“",
+          "is_correct": true
+        },
+        {
+          "id": "q-03-01-a1f969d060-opt-2",
+          "text": "Ein leises „Pling“",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-01-a1f969d060-opt-3",
+          "text": "Der Nokia-Klingelton",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-01-a1f969d060-opt-4",
+          "text": "Ein wütendes Modem-Fauchen",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-03-01-a1f969d060-opt-1",
+      "explanation": "Das legendäre 'Uh-oh!'. Es hat sich in das Gehirn einer ganzen Generation eingebrannt und löst heute noch sofortigen Stress oder pure Nostalgie aus. Je nachdem, wer geschrieben hat.",
+      "difficulty": "medium_hard",
+      "category_id": "cat-03",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-03-02-303be9c845",
+      "prompt": "Wofür stand MSN im MSN Messenger ursprünglich?",
+      "options": [
+        {
+          "id": "q-03-02-303be9c845-opt-1",
+          "text": "Microsoft Network",
+          "is_correct": true
+        },
+        {
+          "id": "q-03-02-303be9c845-opt-2",
+          "text": "Mein Super Netzwerk",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-02-303be9c845-opt-3",
+          "text": "Mutti Schimpft Nochmal",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-02-303be9c845-opt-4",
+          "text": "Multi Social Node",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-03-02-303be9c845-opt-1",
+      "explanation": "Microsoft Network. Damals der Inbegriff von Coolness, bevor wir gemerkt haben, dass Microsoft eigentlich die 'Spießer' des Internets sind. Aber hey, die Emoticons waren top.",
+      "difficulty": "medium_hard",
+      "category_id": "cat-03",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-03-03-9bd05e9dc4",
+      "prompt": "Was war der „Nudge“ (Rütteln) bei MSN Messenger?",
+      "options": [
+        {
+          "id": "q-03-03-9bd05e9dc4-opt-1",
+          "text": "Eine Funktion, die das Chatfenster des Gegenübers schüttelte",
+          "is_correct": true
+        },
+        {
+          "id": "q-03-03-9bd05e9dc4-opt-2",
+          "text": "Ein digitaler Klaps auf den Hinterkopf",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-03-9bd05e9dc4-opt-3",
+          "text": "Eine Einladung zu einem geheimen Spiel",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-03-9bd05e9dc4-opt-4",
+          "text": "Das automatische Senden eines Kuss-Smilies",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-03-03-9bd05e9dc4-opt-1",
+      "explanation": "Nichts war aggressiver als ein Nudge. Man wollte nur kurz Hallo sagen und hat beim Gegenüber fast einen Hardware-Schaden verursacht. Die Vorstufe zum heutigen Telefonterror.",
+      "difficulty": "medium_hard",
+      "category_id": "cat-03",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-03-04-31ecd277f3",
+      "prompt": "Was bedeutete „brb“ im Chat?",
+      "options": [
+        {
+          "id": "q-03-04-31ecd277f3-opt-1",
+          "text": "Be Right Back",
+          "is_correct": true
+        },
+        {
+          "id": "q-03-04-31ecd277f3-opt-2",
+          "text": "Bin Richtig Böse",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-04-31ecd277f3-opt-3",
+          "text": "Bringe Richtig Bier",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-04-31ecd277f3-opt-4",
+          "text": "Bratwurst Reicht Bald",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-03-04-31ecd277f3-opt-1",
+      "explanation": "Be Right Back. Wurde oft gesagt, wenn man eigentlich für 3 Stunden verschwunden ist, um die neue Bravo zu lesen oder heimlich Fernsehen zu gucken.",
+      "difficulty": "medium_hard",
+      "category_id": "cat-03",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-03-05-3be45bd649",
+      "prompt": "Wie hieß der gelbe, animierte Smiley von ICQ, der die Zunge rausstreckte?",
+      "options": [
+        {
+          "id": "q-03-05-3be45bd649-opt-1",
+          "text": "Es war einfach der Standard-Smiley :P",
+          "is_correct": true
+        },
+        {
+          "id": "q-03-05-3be45bd649-opt-2",
+          "text": "Yellow Jester",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-05-3be45bd649-opt-3",
+          "text": "Zungen-Zorro",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-05-3be45bd649-opt-4",
+          "text": "Wacky Wilma",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-03-05-3be45bd649-opt-1",
+      "explanation": "Es gab keine speziellen Namen, aber diese animierten Gifs waren der Peak der 2000er Grafik. Wer :P nicht inflationär benutzt hat, hat das Internet nie geliebt.",
+      "difficulty": "medium_hard",
+      "category_id": "cat-03",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-03-06-9bd22e9dc4",
+      "prompt": "Was war das Besondere am ICQ-Status 'Invisible'?",
+      "options": [
+        {
+          "id": "q-03-06-9bd22e9dc4-opt-1",
+          "text": "Man konnte andere sehen, ohne selbst gesehen zu werden",
+          "is_correct": true
+        },
+        {
+          "id": "q-03-06-9bd22e9dc4-opt-2",
+          "text": "Der PC hat sich automatisch ausgeschaltet",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-06-9bd22e9dc4-opt-3",
+          "text": "Man wurde nur für Freunde aus der Top-Liste sichtbar",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-06-9bd22e9dc4-opt-4",
+          "text": "Alle Nachrichten wurden automatisch gelöscht",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-03-06-9bd22e9dc4-opt-1",
+      "explanation": "Das ultimative Tool für digitale Stalker. Wir waren alle 'Invisible', um bloß nicht mit den Leuten reden zu müssen, die uns angeschrieben haben. Klassisches Millennial-Social-Anxiety-Training.",
+      "difficulty": "medium_hard",
+      "category_id": "cat-03",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-03-07-7bc92e9dc4",
+      "prompt": "Wie hieß die soziale Plattform für Schüler, bevor Facebook alles plattmachte?",
+      "options": [
+        {
+          "id": "q-03-07-7bc92e9dc4-opt-1",
+          "text": "SchülerVZ",
+          "is_correct": true
+        },
+        {
+          "id": "q-03-07-7bc92e9dc4-opt-2",
+          "text": "Classmatey",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-07-7bc92e9dc4-opt-3",
+          "text": "Pausenhof.net",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-07-7bc92e9dc4-opt-4",
+          "text": "SchulCloud",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-03-07-7bc92e9dc4-opt-1",
+      "explanation": "SchülerVZ. Mit dem ikonischen Pink-Look. Hier wurden die ersten Gruppen gegründet wie 'Dinge, die ich ohne Alkohol nicht tun würde' – wir waren so tiefgründig.",
+      "difficulty": "medium_hard",
+      "category_id": "cat-03",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-03-08-11d22e9dc4",
+      "prompt": "Welche Funktion war bei SchülerVZ/StudiVZ das digitale Äquivalent zum heutigen 'Like'?",
+      "options": [
+        {
+          "id": "q-03-08-11d22e9dc4-opt-1",
+          "text": "Gruscheln",
+          "is_correct": true
+        },
+        {
+          "id": "q-03-08-11d22e9dc4-opt-2",
+          "text": "Anstupsen",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-08-11d22e9dc4-opt-3",
+          "text": "Pinnen",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-08-11d22e9dc4-opt-4",
+          "text": "Wackeln",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-03-08-11d22e9dc4-opt-1",
+      "explanation": "Gruscheln – eine Mischung aus Grüßen und Kuscheln. Wer das erfunden hat, gehört heute noch für den Cringe-Faktor zur Rechenschaft gezogen.",
+      "difficulty": "medium_hard",
+      "category_id": "cat-03",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-03-09-bcfd859896",
+      "prompt": "Was war ein 'Pranger' in SchülerVZ-Gruppen?",
+      "options": [
+        {
+          "id": "q-03-09-bcfd859896-opt-1",
+          "text": "Ein Bereich, in dem peinliche Fotos von Freunden gepostet wurden",
+          "is_correct": true
+        },
+        {
+          "id": "q-03-09-bcfd859896-opt-2",
+          "text": "Die Liste der gesperrten User",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-09-bcfd859896-opt-3",
+          "text": "Ein Ort für Hausaufgaben-Lösungen",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-09-bcfd859896-opt-4",
+          "text": "Der Vorläufer der Kommentarspalte",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-03-09-bcfd859896-opt-1",
+      "explanation": "Am Pranger wurden Leute für Kleinigkeiten 'verurteilt'. Cybermobbing light, bevor wir wussten, wie gefährlich das ist. Aber hey, es gab ja auch den 'Knuddel-Thread'.",
+      "difficulty": "medium_hard",
+      "category_id": "cat-03",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-03-10-5ba4f4f826",
+      "prompt": "Wofür stand das Kürzel 'hdl'?",
+      "options": [
+        {
+          "id": "q-03-10-5ba4f4f826-opt-1",
+          "text": "Hab dich lieb",
+          "is_correct": true
+        },
+        {
+          "id": "q-03-10-5ba4f4f826-opt-2",
+          "text": "Halt die Luken (dicht)",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-10-5ba4f4f826-opt-3",
+          "text": "Habe den Lachs (gefangen)",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-10-5ba4f4f826-opt-4",
+          "text": "Heute die Liste (fertig machen)",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-03-10-5ba4f4f826-opt-1",
+      "explanation": "Hab dich lieb. Steigerungsform: hdgdln (Hab dich ganz doll lieb, Nase). Wir hatten damals keine Zeit für echte Gefühle, wir mussten Buchstaben sparen (wegen der 160 Zeichen pro SMS).",
+      "difficulty": "medium_hard",
+      "category_id": "cat-03",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-03-11-75e907ba1d",
+      "prompt": "Was bedeutete „YOLO“?",
+      "options": [
+        {
+          "id": "q-03-11-75e907ba1d-opt-1",
+          "text": "You Only Live Once",
+          "is_correct": true
+        },
+        {
+          "id": "q-03-11-75e907ba1d-opt-2",
+          "text": "You Obviously Love Owls",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-11-75e907ba1d-opt-3",
+          "text": "Yesterday On Line Only",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-11-75e907ba1d-opt-4",
+          "text": "Young Old Lady Organization",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-03-11-75e907ba1d-opt-1",
+      "explanation": "Jugendwort des Jahres 2012. Die perfekte Ausrede für alles, was dumm, gefährlich oder teuer war. Heute sagen wir stattdessen: 'Ich habe keine Kontrolle mehr über mein Leben'.",
+      "difficulty": "medium_hard",
+      "category_id": "cat-03",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-03-12-7692bfe976",
+      "prompt": "Was ist ein 'Babo'?",
+      "options": [
+        {
+          "id": "q-03-12-7692bfe976-opt-1",
+          "text": "Ein Boss oder Anführer",
+          "is_correct": true
+        },
+        {
+          "id": "q-03-12-7692bfe976-opt-2",
+          "text": "Eine besonders große Banane",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-12-7692bfe976-opt-3",
+          "text": "Ein kleiner Affe",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-12-7692bfe976-opt-4",
+          "text": "Ein neuer Tanzschritt",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-03-12-7692bfe976-opt-1",
+      "explanation": "Dank Haftbefehl wussten wir alle: 'Chabos wissen, wer der Babo ist'. Falls du es nicht weißt: Du bist wahrscheinlich eher ein Chabo.",
+      "difficulty": "medium_hard",
+      "category_id": "cat-03",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-03-13-c4f64c8cbc",
+      "prompt": "Was bedeutet „vong“ in der Vong-Sprache?",
+      "options": [
+        {
+          "id": "q-03-13-c4f64c8cbc-opt-1",
+          "text": "Es ersetzt 'von' (z.B. Was ist das für 1 Life vong Niceheit her?)",
+          "is_correct": true
+        },
+        {
+          "id": "q-03-13-c4f64c8cbc-opt-2",
+          "text": "Es ist ein Geräusch beim Klingeln",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-13-c4f64c8cbc-opt-3",
+          "text": "Es steht für 'very online never gone'",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-13-c4f64c8cbc-opt-4",
+          "text": "Es ist eine Abkürzung für 'völlig ohne neuen Grund'",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-03-13-c4f64c8cbc-opt-1",
+      "explanation": "Die Vong-Sprache hat unsere Grammatik für Monate zerstört. Es war 1 Peak-Moment Millennial-Humor, der heute fast nur noch körperliche Schmerzen verursacht.",
+      "difficulty": "medium_hard",
+      "category_id": "cat-03",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-03-14-1b96d1e975",
+      "prompt": "Was war ein 'Epic Fail'?",
+      "options": [
+        {
+          "id": "q-03-14-1b96d1e975-opt-1",
+          "text": "Ein besonders spektakulärer Fehlschlag",
+          "is_correct": true
+        },
+        {
+          "id": "q-03-14-1b96d1e975-opt-2",
+          "text": "Ein epischer Sieg beim Gaming",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-14-1b96d1e975-opt-3",
+          "text": "Ein Fehler in der Matrix",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-14-1b96d1e975-opt-4",
+          "text": "Das Ende eines langen Rollenspiels",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-03-14-1b96d1e975-opt-1",
+      "explanation": "Fail-Videos waren das TikTok der 2000er. Wer sich auf die Fresse gelegt hat und dabei gefilmt wurde, war ein Epic Fail. Schadenfreude ist eben doch die schönste Freude.",
+      "difficulty": "medium_hard",
+      "category_id": "cat-03",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-03-15-ae7728dccf",
+      "prompt": "Wofür nutzte man „404“ als Witz?",
+      "options": [
+        {
+          "id": "q-03-15-ae7728dccf-opt-1",
+          "text": "Wenn jemand geistig nicht anwesend war (Not Found)",
+          "is_correct": true
+        },
+        {
+          "id": "q-03-15-ae7728dccf-opt-2",
+          "text": "Wenn man 4:04 Uhr nachts noch online war",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-15-ae7728dccf-opt-3",
+          "text": "Als Code für 'Lust auf Pizza'",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-15-ae7728dccf-opt-4",
+          "text": "Wenn man 404 Freunde bei Facebook hatte",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-03-15-ae7728dccf-opt-1",
+      "explanation": "404 Error: Brain not found. Ein klassischer Nerd-Witz für Leute, die zu viel Zeit vor dem Browser verbracht haben. Also für uns alle.",
+      "difficulty": "medium_hard",
+      "category_id": "cat-03",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-03-16-13a6aff138",
+      "prompt": "Wie hießen die kleinen, pixeligen Figuren, die man in Foren als Signatur nutzte?",
+      "options": [
+        {
+          "id": "q-03-16-13a6aff138-opt-1",
+          "text": "Adoptables / Pixel Pets",
+          "is_correct": true
+        },
+        {
+          "id": "q-03-16-13a6aff138-opt-2",
+          "text": "Nano-Gnomes",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-16-13a6aff138-opt-3",
+          "text": "Sprite-Spirits",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-16-13a6aff138-opt-4",
+          "text": "Bit-Bunnies",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-03-16-13a6aff138-opt-1",
+      "explanation": "Klick auf mein Ei, damit es schlüpft! Wir haben Stunden damit verbracht, virtuelle Dracheneier in Signaturen zu pflegen. Eine Vorform von Tamagotchi-Trauma im Web.",
+      "difficulty": "medium_hard",
+      "category_id": "cat-03",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-03-17-387b018db7",
+      "prompt": "Welche Schriftart ist das ultimative Symbol für Internet-Cringe der 2000er?",
+      "options": [
+        {
+          "id": "q-03-17-387b018db7-opt-1",
+          "text": "Comic Sans",
+          "is_correct": true
+        },
+        {
+          "id": "q-03-17-387b018db7-opt-2",
+          "text": "Times New Roman",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-17-387b018db7-opt-3",
+          "text": "Helvetica",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-17-387b018db7-opt-4",
+          "text": "Wingdings",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-03-17-387b018db7-opt-1",
+      "explanation": "Comic Sans – die Schriftart, die schreit: 'Ich habe keine Ahnung von Design, aber ich will freundlich wirken!'. Wer sie für Bewerbungen nutzt, hat die Kontrolle über sein Leben verloren.",
+      "difficulty": "medium_hard",
+      "category_id": "cat-03",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-03-18-765fd501f3",
+      "prompt": "Was bedeutet 'rofl'?",
+      "options": [
+        {
+          "id": "q-03-18-765fd501f3-opt-1",
+          "text": "Rolling on the floor laughing",
+          "is_correct": true
+        },
+        {
+          "id": "q-03-18-765fd501f3-opt-2",
+          "text": "Really old fat lady",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-18-765fd501f3-opt-3",
+          "text": "Right on front line",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-18-765fd501f3-opt-4",
+          "text": "Read only for losers",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-03-18-765fd501f3-opt-1",
+      "explanation": "Rolling on the floor laughing. In 99% der Fälle saß man aber mit steinerner Miene vor dem Monitor und hat maximal einmal kurz durch die Nase ausgeatmet.",
+      "difficulty": "medium_hard",
+      "category_id": "cat-03",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-03-19-5307173b6b",
+      "prompt": "Was bedeutet '1337' in der Gamersprache?",
+      "options": [
+        {
+          "id": "q-03-19-5307173b6b-opt-1",
+          "text": "Leet (Elite)",
+          "is_correct": true
+        },
+        {
+          "id": "q-03-19-5307173b6b-opt-2",
+          "text": "Leer (Empty)",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-19-5307173b6b-opt-3",
+          "text": "Lost (Verloren)",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-19-5307173b6b-opt-4",
+          "text": "Love (Liebe)",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-03-19-5307173b6b-opt-1",
+      "explanation": "L337 5P34K. Wer das lesen kann, ist entweder ein Hacker oder hat zu viel Zeit in Counter-Strike-Foren verbracht. Oder beides.",
+      "difficulty": "medium_hard",
+      "category_id": "cat-03",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-03-20-7a5a6c1b9f",
+      "prompt": "Was passierte laut Kettenbriefen, wenn man sie NICHT an 10 Freunde weiterleitete?",
+      "options": [
+        {
+          "id": "q-03-20-7a5a6c1b9f-opt-1",
+          "text": "Man würde sterben oder ewiges Pech haben",
+          "is_correct": true
+        },
+        {
+          "id": "q-03-20-7a5a6c1b9f-opt-2",
+          "text": "Das Internet würde gelöscht werden",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-20-7a5a6c1b9f-opt-3",
+          "text": "Bill Gates würde persönlich vorbeikommen",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-20-7a5a6c1b9f-opt-4",
+          "text": "Man müsste 10 Euro an ICQ zahlen",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-03-20-7a5a6c1b9f-opt-1",
+      "explanation": "Diese Briefe waren purer Psychoterror für 11-Jährige. 'Wenn du das nicht weiterschickst, steht heute Nacht ein totes Mädchen an deinem Bett'. Danke für die Albträume, Internet.",
+      "difficulty": "medium_hard",
+      "category_id": "cat-03",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-03-21-9abc66630b",
+      "prompt": "Was war 'Knuddels'?",
+      "options": [
+        {
+          "id": "q-03-21-9abc66630b-opt-1",
+          "text": "Ein Chatportal mit fragwürdigem Jugendschutz",
+          "is_correct": true
+        },
+        {
+          "id": "q-03-21-9abc66630b-opt-2",
+          "text": "Eine Marke für Kuscheltiere",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-21-9abc66630b-opt-3",
+          "text": "Ein Vorläufer von Tinder",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-21-9abc66630b-opt-4",
+          "text": "Ein anderes Wort für Gruscheln",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-03-21-9abc66630b-opt-1",
+      "explanation": "Knuddels war ein deutsches Chatportal mit Bot 'James', vielen Raeumen und einem Ruf, bei dem Datenschutz und Jugendschutz nicht gerade wie Zukunftsmusik klangen.",
+      "difficulty": "medium_hard",
+      "category_id": "cat-03",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-03-22-3d378ee907",
+      "prompt": "Was war der 'Tom' bei MySpace?",
+      "options": [
+        {
+          "id": "q-03-22-3d378ee907-opt-1",
+          "text": "Der erste Freund, den jeder automatisch hatte",
+          "is_correct": true
+        },
+        {
+          "id": "q-03-22-3d378ee907-opt-2",
+          "text": "Ein spezieller Grafik-Filter",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-22-3d378ee907-opt-3",
+          "text": "Der Name des MySpace-Servers",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-22-3d378ee907-opt-4",
+          "text": "Ein Schimpfwort für Facebook-Nutzer",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-03-22-3d378ee907-opt-1",
+      "explanation": "Tom Anderson, der Gründer von MySpace. Er war unser aller erster digitaler Freund. Er hat uns nie geghostet, bis wir alle zu Facebook abgehauen sind. Sorry, Tom.",
+      "difficulty": "medium_hard",
+      "category_id": "cat-03",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-03-23-681bfb03e4",
+      "prompt": "Was bedeutete 'AFK' in Chats und Online-Games der 2000er?",
+      "options": [
+        {
+          "id": "q-03-23-681bfb03e4-opt-1",
+          "text": "Away from keyboard",
+          "is_correct": true
+        },
+        {
+          "id": "q-03-23-681bfb03e4-opt-2",
+          "text": "Always fast kill",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-23-681bfb03e4-opt-3",
+          "text": "Account fuer Kinder",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-23-681bfb03e4-opt-4",
+          "text": "Automatischer Freundschaftsklick",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-03-23-681bfb03e4-opt-1",
+      "explanation": "AFK steht fuer 'away from keyboard': Man war kurz weg vom Rechner, meist weil Eltern, Telefon oder Tiefkuehlpizza wichtiger wurden.",
+      "difficulty": "medium_hard",
+      "category_id": "cat-03",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-03-24-9736e71b53",
+      "prompt": "Was bedeutet das Kürzel 'omg'?",
+      "options": [
+        {
+          "id": "q-03-24-9736e71b53-opt-1",
+          "text": "Oh my God",
+          "is_correct": true
+        },
+        {
+          "id": "q-03-24-9736e71b53-opt-2",
+          "text": "Only my group",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-24-9736e71b53-opt-3",
+          "text": "Old men gaming",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-24-9736e71b53-opt-4",
+          "text": "Open my garage",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-03-24-9736e71b53-opt-1",
+      "explanation": "Oh my God. Inzwischen so im Sprachgebrauch verankert, dass wir es sogar laut sagen. OMG, wir werden echt alt.",
+      "difficulty": "medium_hard",
+      "category_id": "cat-03",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-03-25-ce5747243a",
+      "prompt": "Welcher Messenger hatte das Logo mit der grünen Blume?",
+      "options": [
+        {
+          "id": "q-03-25-ce5747243a-opt-1",
+          "text": "ICQ",
+          "is_correct": true
+        },
+        {
+          "id": "q-03-25-ce5747243a-opt-2",
+          "text": "MSN",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-25-ce5747243a-opt-3",
+          "text": "AOL",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-25-ce5747243a-opt-4",
+          "text": "Skype",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-03-25-ce5747243a-opt-1",
+      "explanation": "ICQ (I Seek You). Wenn die Blume rot war, warst du 'Offline'. Wenn sie grün war, konntest du endlich deine Hausaufgaben ignorieren und mit Fremden chatten.",
+      "difficulty": "medium_hard",
+      "category_id": "cat-03",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-03-mac9aa73df0",
+      "type": "ranking",
+      "prompt": "Sortiere diese Chat-Apps nach ihrem Release (älteste zuerst).",
+      "items": [
+        {
+          "id": "A",
+          "label": "WhatsApp (2009)"
+        },
+        {
+          "id": "B",
+          "label": "ICQ (1996)"
+        },
+        {
+          "id": "C",
+          "label": "Telegram (2013)"
+        },
+        {
+          "id": "D",
+          "label": "Signal (2014)"
+        }
+      ],
+      "correct_order": [
+        "B",
+        "A",
+        "C",
+        "D"
+      ],
+      "explanation": "ICQ war der Urvater, WhatsApp kam erst über ein Jahrzehnt später. Telegram und Signal sind die modernen Nachzügler.",
+      "difficulty": "medium",
+      "points": 2,
+      "category_id": "cat-03"
+    },
+    {
+      "id": "q-03-01",
+      "type": "logic",
+      "prompt": "T9-Logik: Du willst jemandem kurz 'HALLO' schreiben. Welche Zahlenfolge musst du (ohne Sonderfunktionen) auf deinem Nokia 3310 drücken?",
+      "options": [
+        {
+          "id": "q-03-01-opt-1",
+          "text": "4-2-5-5-6",
+          "is_correct": true
+        },
+        {
+          "id": "q-03-01-opt-2",
+          "text": "44-2-55-55-666",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-01-opt-3",
+          "text": "3-1-4-4-5",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-01-opt-4",
+          "text": "4-1-5-5-6",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-03-01-opt-1",
+      "explanation": "Bei T9 drückt man jede Taste nur EINMAL pro Buchstabe. 4(H), 2(A), 5(L), 5(L), 6(O). Wer 44-2-55... drückt, nutzt das alte Mehrfach-Tipp-System und hat die Kontrolle über sein Leben verloren.",
+      "difficulty": "medium",
+      "points": 2
+    },
+    {
+      "id": "q-03-02",
+      "type": "estimate",
+      "prompt": "Wie viele Zeichen durfte eine einzige SMS maximal lang sein, bevor sie als zwei Nachrichten abgerechnet wurde?",
+      "answer": {
+        "canonical": "160 Zeichen",
+        "reference_value": 160,
+        "unit": "Zeichen",
+        "context": "Standard-SMS-Limit"
+      },
+      "scoring_rule": "closest_wins",
+      "explanation": "160 Zeichen. Das ist auch der Grund, warum wir 'hdl gdln' und andere Abkürzungs-Verbrechen begangen haben. Jedes 'e' war bares Geld wert.",
+      "difficulty": "easy",
+      "points": 1
+    },
+    {
+      "id": "q-03-03",
+      "type": "ranking",
+      "prompt": "Ordne diese digitalen Fossilien nach ihrem Erscheinungsjahr (ältestes zuerst).",
+      "items": [
+        {
+          "id": "item-icq",
+          "text": "ICQ (Messenger)"
+        },
+        {
+          "id": "item-myspace",
+          "text": "MySpace"
+        },
+        {
+          "id": "item-facebook",
+          "text": "Facebook (TheFacebook)"
+        },
+        {
+          "id": "item-svz",
+          "text": "SchülerVZ"
+        }
+      ],
+      "correct_order": [
+        "item-icq",
+        "item-myspace",
+        "item-facebook",
+        "item-svz"
+      ],
+      "explanation": "ICQ startete 1996, MySpace 2003, Facebook 2004 und SchülerVZ kam erst 2006.",
+      "difficulty": "hard",
+      "points": 2
+    },
+    {
+      "id": "q-03-04",
+      "type": "majority_guess",
+      "prompt": "Diskussionsrunde: Welches MSN-Messenger-Verhalten war am aggressivsten?",
+      "options": [
+        {
+          "id": "q-03-04-opt-1",
+          "text": "Dauer-Nudging (Fenster rütteln lassen)"
+        },
+        {
+          "id": "q-03-04-opt-2",
+          "text": "Sich ständig an- und abmelden für Aufmerksamkeit"
+        },
+        {
+          "id": "q-03-04-opt-3",
+          "text": "Passiv-aggressive Songtitel im Status"
+        },
+        {
+          "id": "q-03-04-opt-4",
+          "text": "Riesige Custom-Emojis, die den Text blockieren"
+        }
+      ],
+      "explanation": "Die Gruppe entscheidet. Nudging war physische Gewalt, aber das An-/Abmelden war psychologische Kriegsführung.",
+      "difficulty": "medium",
+      "points": 2
+    },
+    {
+      "id": "q-03-05",
+      "type": "common_mistake",
+      "prompt": "Was bedeutet das 'CC' im E-Mail-Feld eigentlich wirklich?",
+      "options": [
+        {
+          "id": "q-03-05-opt-1",
+          "text": "Carbon Copy",
+          "is_correct": true
+        },
+        {
+          "id": "q-03-05-opt-2",
+          "text": "Courtesy Copy",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-05-opt-3",
+          "text": "Company Communication",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-05-opt-4",
+          "text": "Certified Copy",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-03-05-opt-1",
+      "explanation": "Es steht für 'Carbon Copy' (Durchschlag). Ein Relikt aus der Schreibmaschinenzeit.",
+      "difficulty": "medium",
+      "points": 1
+    },
+    {
+      "id": "q-03-06",
+      "type": "estimate_duel",
+      "prompt": "In den MySpace-Zeiten: Wie viele 'Top Friends' konntest du am Anfang maximal auf deiner Profilseite präsentieren?",
+      "answer": {
+        "canonical": "8 Freunde",
+        "reference_value": 8,
+        "unit": "Freunde",
+        "context": "Original Top 8"
+      },
+      "scoring_rule": "closest_wins",
+      "explanation": "Die legendären 'Top 8'. Nichts hat mehr Freundschaften zerstört als der Wechsel von Platz 3 auf Platz 9.",
+      "difficulty": "hard",
+      "points": 2
+    },
+    {
+      "id": "q-03-07",
+      "type": "pattern",
+      "prompt": "Vervollständige die Evolution der emotionalen Erpressung: ICQ 'Uh-Oh' -> MSN 'Nudge' -> Facebook 'Anstupsen' -> ?",
+      "options": [
+        {
+          "id": "q-03-07-opt-1",
+          "text": "WhatsApp 'Gelesen'-Haken (Blau)",
+          "is_correct": true
+        },
+        {
+          "id": "q-03-07-opt-2",
+          "text": "Instagram 'Herz'",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-07-opt-3",
+          "text": "Snapchat 'Flammen'",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-07-opt-4",
+          "text": "LinkedIn 'Vernetzung'",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-03-07-opt-1",
+      "explanation": "Die blauen Haken sind das moderne Endstadium dieser digitalen Folter.",
+      "difficulty": "medium",
+      "points": 1
+    },
+    {
+      "id": "q-03-08",
+      "type": "logic",
+      "prompt": "Wer konnte dich bei ICQ trotz 'Invisible'-Status weiterhin online sehen?",
+      "options": [
+        {
+          "id": "q-03-08-opt-1",
+          "text": "Kontakte auf deiner Visible List",
+          "is_correct": true
+        },
+        {
+          "id": "q-03-08-opt-2",
+          "text": "alle mit niedriger ICQ-Nummer",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-08-opt-3",
+          "text": "nur deine Top-Kontakte",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-08-opt-4",
+          "text": "niemand jemals",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-03-08-opt-1",
+      "explanation": "ICQ kannte Sichtbarkeitslisten: Bestimmte Kontakte konnten dich trotz Invisible-Status sehen. Invisible war also eher Tarnmodus als echte Unsichtbarkeit.",
+      "difficulty": "medium",
+      "points": 1
+    },
+    {
+      "id": "q-03-11",
+      "type": "majority_guess",
+      "prompt": "Was war das schlimmste Verbrechen an der Ästhetik in einem SchülerVZ-Profil?",
+      "options": [
+        {
+          "id": "q-03-11-opt-1",
+          "text": "Glitzer-Gifs mit Sprüchen"
+        },
+        {
+          "id": "q-03-11-opt-2",
+          "text": "Webcam-Fotos von extrem weit oben (Duckface)"
+        },
+        {
+          "id": "q-03-11-opt-3",
+          "text": "Hunderte 'Ich hasse Montage'-Gruppen"
+        },
+        {
+          "id": "q-03-11-opt-4",
+          "text": "Texte in wEiRd cAsE (Groß-Klein gemischt)"
+        }
+      ],
+      "explanation": "Die Mehrheit bestimmt den Cringe. Spoiler: Wahrscheinlich war es alles zusammen.",
+      "difficulty": "medium",
+      "points": 2
+    },
+    {
+      "id": "q-03-12",
+      "type": "standard",
+      "prompt": "Welches Wortpaar verbirgt sich hinter dem VZ-Klassiker 'Gruscheln'?",
+      "options": [
+        {
+          "id": "q-03-12-opt-1",
+          "text": "Grüßen & Kuscheln",
+          "is_correct": true
+        },
+        {
+          "id": "q-03-12-opt-2",
+          "text": "Gucken & Kuscheln",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-12-opt-3",
+          "text": "Grinsen & Schnorcheln",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-12-opt-4",
+          "text": "Grapschen & Lächeln",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-03-12-opt-1",
+      "explanation": "Grüßen und Kuscheln. Heute pure Nostalgie mit hohem Fremdscham-Anteil.",
+      "difficulty": "easy",
+      "points": 1
+    },
+    {
+      "id": "q-03-14",
+      "type": "common_mistake",
+      "prompt": "In alten Chaträumen war 'ASL' der Standard. Wofür stand das 'L'?",
+      "options": [
+        {
+          "id": "q-03-14-opt-1",
+          "text": "Location (Wohnort)",
+          "is_correct": true
+        },
+        {
+          "id": "q-03-14-opt-2",
+          "text": "Language (Sprache)",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-14-opt-3",
+          "text": "Level (Gaming)",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-14-opt-4",
+          "text": "Love-Interest",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-03-14-opt-1",
+      "explanation": "Age, Sex, Location. Die heilige Dreifaltigkeit des anonymen Chats.",
+      "difficulty": "easy",
+      "points": 1
+    }
+  ]
+}

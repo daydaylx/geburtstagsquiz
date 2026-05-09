@@ -1,0 +1,607 @@
+{
+  "category_id": "cat-04",
+  "slug": "90er-00er-trash-tv-kollektives-trauma",
+  "name": "90er/00er Trash-TV & kollektives Trauma",
+  "difficulty": "medium_hard",
+  "tags": [],
+  "question_count": 19,
+  "questions": [
+    {
+      "id": "q-04-04-69a3624d74",
+      "prompt": "Welche deutsche Show machte Z-Promis beim Essen von Känguru-Hoden berühmt?",
+      "options": [
+        {
+          "id": "q-04-04-69a3624d74-opt-1",
+          "text": "Ich bin ein Star – Holt mich hier raus!",
+          "is_correct": true
+        },
+        {
+          "id": "q-04-04-69a3624d74-opt-2",
+          "text": "Promi Dinner",
+          "is_correct": false
+        },
+        {
+          "id": "q-04-04-69a3624d74-opt-3",
+          "text": "Die Alm",
+          "is_correct": false
+        },
+        {
+          "id": "q-04-04-69a3624d74-opt-4",
+          "text": "Big Brother",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-04-04-69a3624d74-opt-1",
+      "explanation": "Das Dschungelcamp. Seit 2004 der Ort, an dem Karrieren entweder sterben oder im RTL-Dschungel wiederbelebt werden. Mahlzeit!",
+      "difficulty": "medium_hard",
+      "category_id": "cat-04",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-04-05-9e64f181f0",
+      "prompt": "Wer war der Moderator der ersten Stunde bei 'Wer wird Millionär?' in Deutschland?",
+      "options": [
+        {
+          "id": "q-04-05-9e64f181f0-opt-1",
+          "text": "Günther Jauch",
+          "is_correct": true
+        },
+        {
+          "id": "q-04-05-9e64f181f0-opt-2",
+          "text": "Thomas Gottschalk",
+          "is_correct": false
+        },
+        {
+          "id": "q-04-05-9e64f181f0-opt-3",
+          "text": "Kai Pflaume",
+          "is_correct": false
+        },
+        {
+          "id": "q-04-05-9e64f181f0-opt-4",
+          "text": "Stefan Raab",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-04-05-9e64f181f0-opt-1",
+      "explanation": "Günther Jauch – der Mann, der es schafft, dass man sich dumm fühlt, auch wenn man die 50-Euro-Frage richtig beantwortet.",
+      "difficulty": "medium_hard",
+      "category_id": "cat-04",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-04-07-2a1f4b82bc",
+      "prompt": "Aus welcher deutschen TV-Sendung stammt das Meme-Zitat 'Halt Stop!' von Andreas?",
+      "options": [
+        {
+          "id": "q-04-07-2a1f4b82bc-opt-1",
+          "text": "Frauentausch",
+          "is_correct": true
+        },
+        {
+          "id": "q-04-07-2a1f4b82bc-opt-2",
+          "text": "Richter Alexander Hold",
+          "is_correct": false
+        },
+        {
+          "id": "q-04-07-2a1f4b82bc-opt-3",
+          "text": "Oliver Geissen",
+          "is_correct": false
+        },
+        {
+          "id": "q-04-07-2a1f4b82bc-opt-4",
+          "text": "Hans Meiser",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-04-07-2a1f4b82bc-opt-1",
+      "explanation": "Das Zitat stammt aus einer 'Frauentausch'-Folge mit Andreas und wurde spaeter zum Internet-Meme.",
+      "difficulty": "medium_hard",
+      "category_id": "cat-04",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-04-10-279254d815",
+      "prompt": "Wie hieß das fiktive Dorf in 'Gute Zeiten, schlechte Zeiten', in dem alles passierte?",
+      "options": [
+        {
+          "id": "q-04-10-279254d815-opt-1",
+          "text": "Es gibt kein Dorf, es spielt in Berlin",
+          "is_correct": true
+        },
+        {
+          "id": "q-04-10-279254d815-opt-2",
+          "text": "Lindenstraße",
+          "is_correct": false
+        },
+        {
+          "id": "q-04-10-279254d815-opt-3",
+          "text": "Bensberg",
+          "is_correct": false
+        },
+        {
+          "id": "q-04-10-279254d815-opt-4",
+          "text": "Marienhof",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-04-10-279254d815-opt-1",
+      "explanation": "GZSZ spielt in Berlin-Mitte. Aber so, wie sich dort alle ständig im selben Kiezcafé treffen, könnte es auch ein 50-Seiten-Dorf sein.",
+      "difficulty": "medium_hard",
+      "category_id": "cat-04",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-04-13-85247b5309",
+      "prompt": "Was passierte bei 'Pimp My Ride' mit den Autos wirklich oft nach der Show?",
+      "options": [
+        {
+          "id": "q-04-13-85247b5309-opt-1",
+          "text": "Sie waren mechanisch oft immer noch Schrott",
+          "is_correct": true
+        },
+        {
+          "id": "q-04-13-85247b5309-opt-2",
+          "text": "Sie wurden von Xzibit persönlich signiert",
+          "is_correct": false
+        },
+        {
+          "id": "q-04-13-85247b5309-opt-3",
+          "text": "Sie wurden an Museen verkauft",
+          "is_correct": false
+        },
+        {
+          "id": "q-04-13-85247b5309-opt-4",
+          "text": "Die Besitzer mussten die Steuern dafür nicht zahlen",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-04-13-85247b5309-opt-1",
+      "explanation": "Die Autos sahen zwar von außen geil aus (Bildschirme in den Reifen!), aber unter der Haube waren sie oft lebensgefährlich. Klassische Verschlimmbesserung.",
+      "difficulty": "medium_hard",
+      "category_id": "cat-04",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-04-14-154c7645ae",
+      "prompt": "Welche MTV-Show zeigte das luxuriöse Leben von Promis (und deren oft leere Kühlschränke)?",
+      "options": [
+        {
+          "id": "q-04-14-154c7645ae-opt-1",
+          "text": "MTV Cribs",
+          "is_correct": true
+        },
+        {
+          "id": "q-04-14-154c7645ae-opt-2",
+          "text": "Made",
+          "is_correct": false
+        },
+        {
+          "id": "q-04-14-154c7645ae-opt-3",
+          "text": "The Hills",
+          "is_correct": false
+        },
+        {
+          "id": "q-04-14-154c7645ae-opt-4",
+          "text": "Laguna Beach",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-04-14-154c7645ae-opt-1",
+      "explanation": "MTV Cribs. 'This is where the magic happens' – meistens im Schlafzimmer mit einer Bettwäsche, die mehr gekostet hat als unsere gesamte Ausbildung.",
+      "difficulty": "medium_hard",
+      "category_id": "cat-04",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-04-19-bf1675c548",
+      "prompt": "Wie hieß der legendäre Schiedsrichter bei 'Takeshi's Castle'?",
+      "options": [
+        {
+          "id": "q-04-19-bf1675c548-opt-1",
+          "text": "General Lee",
+          "is_correct": true
+        },
+        {
+          "id": "q-04-19-bf1675c548-opt-2",
+          "text": "Sensei Wu",
+          "is_correct": false
+        },
+        {
+          "id": "q-04-19-bf1675c548-opt-3",
+          "text": "Meister Proper",
+          "is_correct": false
+        },
+        {
+          "id": "q-04-19-bf1675c548-opt-4",
+          "text": "Fürst Takeshi",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-04-19-bf1675c548-opt-1",
+      "explanation": "General Lee. 'Attacke!' Er peitschte die Kandidaten in den Schlamm, während wir uns vom Sofa aus über deren Unfähigkeit lustig machten.",
+      "difficulty": "medium_hard",
+      "category_id": "cat-04",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-04-24-97d8e651ce",
+      "prompt": "Welcher Sender war in Deutschland besonders fuer naechtliche Call-in-Gewinnspiele wie 'quiz fire' beruechtigt?",
+      "options": [
+        {
+          "id": "q-04-24-97d8e651ce-opt-1",
+          "text": "9Live",
+          "is_correct": true
+        },
+        {
+          "id": "q-04-24-97d8e651ce-opt-2",
+          "text": "VIVA",
+          "is_correct": false
+        },
+        {
+          "id": "q-04-24-97d8e651ce-opt-3",
+          "text": "KiKA",
+          "is_correct": false
+        },
+        {
+          "id": "q-04-24-97d8e651ce-opt-4",
+          "text": "arte",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-04-24-97d8e651ce-opt-1",
+      "explanation": "9Live wurde zum Synonym fuer Call-in-Quizsendungen mit teuren Anrufen und sehr viel Nachtprogramm.",
+      "difficulty": "medium_hard",
+      "category_id": "cat-04",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-04-04-ranking-starts",
+      "type": "ranking",
+      "prompt": "Sortiere den kulturellen Verfall nach seinem Startdatum im deutschen Fernsehen (von alt nach jung).",
+      "items": [
+        {
+          "id": "A",
+          "label": "Big Brother (RTL II)"
+        },
+        {
+          "id": "B",
+          "label": "Deutschland sucht den Superstar (RTL)"
+        },
+        {
+          "id": "C",
+          "label": "Ich bin ein Star – Holt mich hier raus! (RTL)"
+        },
+        {
+          "id": "D",
+          "label": "Germany's Next Topmodel (ProSieben)"
+        }
+      ],
+      "correct_order": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "explanation": "Start-Reihenfolge: Big Brother (2000), DSDS (2002), Dschungelcamp (2004), GNTM (2006). Kultureller Verfall in Echtzeit.",
+      "difficulty": "medium_hard",
+      "points": 2
+    },
+    {
+      "id": "q-04-06-majority-shame",
+      "type": "majority_guess",
+      "prompt": "Welcher TV-Tiefpunkt der 2000er löst heute das stärkste Bedürfnis aus, die eigene Jugend nachträglich zu annullieren?",
+      "options": [
+        {
+          "id": "q-04-06-opt-1",
+          "text": "9Live-Anrufshows (Hot Button)",
+          "is_correct": false
+        },
+        {
+          "id": "q-04-06-opt-2",
+          "text": "Die Stille Treppe der Super-Nanny",
+          "is_correct": false
+        },
+        {
+          "id": "q-04-06-opt-3",
+          "text": "Frauentausch (Andreas vs. Nadine)",
+          "is_correct": false
+        },
+        {
+          "id": "q-04-06-opt-4",
+          "text": "Mitten im Leben (Scripted Reality)",
+          "is_correct": false
+        }
+      ],
+      "explanation": "Hier gibt es kein Richtig oder Falsch, nur kollektives Trauma. Die Mehrheit entscheidet, was am schlimmsten war.",
+      "difficulty": "easy",
+      "points": 1
+    },
+    {
+      "id": "q-04-07-pattern-catchphrase",
+      "type": "pattern",
+      "prompt": "Wie endet die Reihe: 'Next!' (Next), 'Kein Foto für dich' (GNTM), 'Du bist raus!' (Big Brother), ...?",
+      "options": [
+        {
+          "id": "q-04-07-opt-1",
+          "text": "Ich habe heute leider keine Rose für dich.",
+          "is_correct": true
+        },
+        {
+          "id": "q-04-07-opt-2",
+          "text": "Nimm deine Koffer und geh.",
+          "is_correct": false
+        },
+        {
+          "id": "q-04-07-opt-3",
+          "text": "Du hast ausgespielt.",
+          "is_correct": false
+        },
+        {
+          "id": "q-04-07-opt-4",
+          "text": "Dein Feuer ist erloschen.",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-04-07-opt-1",
+      "explanation": "Der Bachelor und seine Rosen – die höflichste Art, jemandem vor laufender Kamera das Herz zu brechen und ihn in die Bedeutungslosigkeit zurückzuschicken.",
+      "difficulty": "medium",
+      "points": 1
+    },
+    {
+      "id": "q-04-08-36f4d1e2a0",
+      "type": "standard",
+      "prompt": "Welche Talkshow-Moderatorin war die unangefochtene Königin der Vaterschaftstests und Lügendetektoren, bei denen Familien live zerbrachen?",
+      "options": [
+        {
+          "id": "q-04-08-opt-1",
+          "text": "Britt Hagedorn",
+          "is_correct": true
+        },
+        {
+          "id": "q-04-08-opt-2",
+          "text": "Bärbel Schäfer",
+          "is_correct": false
+        },
+        {
+          "id": "q-04-08-opt-3",
+          "text": "Vera am Mittag",
+          "is_correct": false
+        },
+        {
+          "id": "q-04-08-opt-4",
+          "text": "Arabella Kiesbauer",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-04-08-opt-1",
+      "explanation": "Britt – Der Talk um eins. Wenn der Lügendetektor ausschlug, wusste man: Das Mittagessen ist heute besonders salzig.",
+      "difficulty": "medium",
+      "points": 1
+    },
+    {
+      "id": "q-04-11-6591ed9193",
+      "type": "standard",
+      "prompt": "Welche Gerichtsshow-Richterin brachte bei, dass Nachbarschaftsstreitigkeiten im deutschen TV gefühlt lebenslänglich geben?",
+      "options": [
+        {
+          "id": "q-04-11-opt-1",
+          "text": "Barbara Salesch",
+          "is_correct": true
+        },
+        {
+          "id": "q-04-11-opt-2",
+          "text": "Ruth Herz",
+          "is_correct": false
+        },
+        {
+          "id": "q-04-11-opt-3",
+          "text": "Richter Alexander Hold",
+          "is_correct": false
+        },
+        {
+          "id": "q-04-11-opt-4",
+          "text": "Angelika Kallwass",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-04-11-opt-1",
+      "explanation": "Barbara Salesch. Ihre knallroten Haare und ihre autoritäre Art waren das Highlight jedes Schultages, an dem man 'krank' zu Hause blieb.",
+      "difficulty": "medium",
+      "points": 1
+    },
+    {
+      "id": "q-04-14-fast-cribs",
+      "type": "fast_guess",
+      "prompt": "Vervollständige den legendären 'MTV Cribs'-Satz, der in fast jedem Schlafzimmer eines Rappers fiel: 'And this is the bedroom...'",
+      "options": [
+        {
+          "id": "q-04-14-opt-1",
+          "text": "...where the magic happens.",
+          "is_correct": true
+        },
+        {
+          "id": "q-04-14-opt-2",
+          "text": "...where I sleep like a king.",
+          "is_correct": false
+        },
+        {
+          "id": "q-04-14-opt-3",
+          "text": "...where the money is made.",
+          "is_correct": false
+        },
+        {
+          "id": "q-04-14-opt-4",
+          "text": "...check out the fridge first.",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-04-14-opt-1",
+      "explanation": "'Where the magic happens' – der Satz wurde so oft benutzt, dass man glaubte, Millennial-Rapper hätten magische Kräfte im Bett (oder einfach nur Satin-Bettwäsche).",
+      "difficulty": "medium",
+      "points": 1
+    },
+    {
+      "id": "q-04-16-ea4e2ea010",
+      "type": "standard",
+      "prompt": "Welcher Jamba-Klingelton war 2005 so erfolgreich, dass er sogar die Charts anführte und uns alle fast in den Wahnsinn trieb?",
+      "options": [
+        {
+          "id": "q-04-16-opt-1",
+          "text": "Crazy Frog (Axel F)",
+          "is_correct": true
+        },
+        {
+          "id": "q-04-16-opt-2",
+          "text": "Schnuffel",
+          "is_correct": false
+        },
+        {
+          "id": "q-04-16-opt-3",
+          "text": "Sweety das Küken",
+          "is_correct": false
+        },
+        {
+          "id": "q-04-16-opt-4",
+          "text": "Das bekloppte Nilpferd",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-04-16-opt-1",
+      "explanation": "Crazy Frog. Er hatte ein sichtbares (später zensiertes) Gemächt, machte Motorradgeräusche und war die Nummer 1. Ein kultureller Tiefpunkt.",
+      "difficulty": "medium",
+      "points": 1
+    },
+    {
+      "id": "q-04-17-fa43d01a4d",
+      "type": "standard",
+      "prompt": "Wie hieß die pädagogische Wunderwaffe von RTL, die verzweifelten Eltern die 'Stille Treppe' als Lösung für alles verkaufte?",
+      "options": [
+        {
+          "id": "q-04-17-opt-1",
+          "text": "Die Super Nanny",
+          "is_correct": true
+        },
+        {
+          "id": "q-04-17-opt-2",
+          "text": "Zuhause im Glück",
+          "is_correct": false
+        },
+        {
+          "id": "q-04-17-opt-3",
+          "text": "Vermisst",
+          "is_correct": false
+        },
+        {
+          "id": "q-04-17-opt-4",
+          "text": "Schwiegertochter gesucht",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-04-17-opt-1",
+      "explanation": "Katia Saalfrank alias Die Super Nanny. Wer nicht hörte, musste auf die Treppe. Ein ganzes Jahrzehnt Erziehung basierte auf diesem Holzstufen-Drama.",
+      "difficulty": "medium",
+      "points": 1
+    },
+    {
+      "id": "q-04-20-e8d767902d",
+      "type": "standard",
+      "prompt": "Welche Serie zeigte 2003, dass reiche Teenager in Kalifornien nur weinen oder im Meer surfen können?",
+      "options": [
+        {
+          "id": "q-04-20-opt-1",
+          "text": "O.C., California",
+          "is_correct": true
+        },
+        {
+          "id": "q-04-20-opt-2",
+          "text": "One Tree Hill",
+          "is_correct": false
+        },
+        {
+          "id": "q-04-20-opt-3",
+          "text": "Dawson's Creek",
+          "is_correct": false
+        },
+        {
+          "id": "q-04-20-opt-4",
+          "text": "Gossip Girl",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-04-20-opt-1",
+      "explanation": "O.C., California. Ryan, Seth, Summer und Marissa. Wer bei Marissas Tod (Spoileralarm für 20 Jahre alte Serien!) nicht geweint hat, hat kein Herz.",
+      "difficulty": "medium",
+      "points": 1
+    },
+    {
+      "id": "q-04-21-ebc05de3f6",
+      "type": "standard",
+      "prompt": "Welche MTV-Show war im Grunde ein Wettbewerb darin, wer sich am kreativsten selbst verstümmeln oder mit Fäkalien bewerfen konnte?",
+      "options": [
+        {
+          "id": "q-04-21-opt-1",
+          "text": "Jackass",
+          "is_correct": true
+        },
+        {
+          "id": "q-04-21-opt-2",
+          "text": "Dirty Sanchez",
+          "is_correct": false
+        },
+        {
+          "id": "q-04-21-opt-3",
+          "text": "Wildboyz",
+          "is_correct": false
+        },
+        {
+          "id": "q-04-21-opt-4",
+          "text": "Viva La Bam",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-04-21-opt-1",
+      "explanation": "Johnny Knoxville und seine Crew. 'Hi, I'm Johnny Knoxville, and welcome to Jackass!' – Der Startschuss für tausende gebrochene Knochen weltweit.",
+      "difficulty": "medium",
+      "points": 1
+    },
+    {
+      "id": "q-04-23-b038fa9207",
+      "type": "standard",
+      "prompt": "Welches Duo erfand das Konzept 'Berühmt sein fürs Berühmt sein' und scheiterte in 'The Simple Life' glorreich am Landleben?",
+      "options": [
+        {
+          "id": "q-04-23-opt-1",
+          "text": "Paris Hilton & Nicole Richie",
+          "is_correct": true
+        },
+        {
+          "id": "q-04-23-opt-2",
+          "text": "The Olsen Twins",
+          "is_correct": false
+        },
+        {
+          "id": "q-04-23-opt-3",
+          "text": "Kim & Khloé Kardashian",
+          "is_correct": false
+        },
+        {
+          "id": "q-04-23-opt-4",
+          "text": "Britney Spears & Christina Aguilera",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-04-23-opt-1",
+      "explanation": "Paris und Nicole. 'That's hot.' Sie zeigten uns, dass man mit einer pinken Handtasche und null Ahnung von Landwirtschaft Millionen verdienen kann.",
+      "difficulty": "medium",
+      "points": 1
+    }
+  ]
+}

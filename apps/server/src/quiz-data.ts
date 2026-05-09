@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -13,13 +13,9 @@ import {
 
 import { QUESTION_DURATION_MS } from "./config.js";
 
-type RawQuizFile = {
-  quiz: {
-    quiz_id: string;
-    title: string;
-    categories: RawCategory[];
-  };
-};
+const QUIZ_CATEGORIES_DIR = "data/quiz/questions";
+const QUIZ_ID = "geburtstagsquiz-millennials-v2-engine-v2";
+const QUIZ_TITLE = "Geburtstagsquiz für Millennials";
 
 type RawCategory = {
   category_id?: string;
@@ -64,13 +60,9 @@ type RawAnswer = {
   canonical_order?: string[];
 };
 
-const QUIZ_SOURCE_FILES = [
-  "geburtstagsquiz_millennials_engine_v4_release_candidate.json",
-  "geburtstagsquiz_millennials_engine_v5_expanded.json",
-] as const;
 const moduleDir = path.dirname(fileURLToPath(import.meta.url));
 
-function findQuizSourceFile(fileName: string): string {
+function findQuizCategoriesDir(): string {
   const searchRoots = [process.cwd(), moduleDir];
   const visited = new Set<string>();
 
@@ -80,7 +72,7 @@ function findQuizSourceFile(fileName: string): string {
     while (!visited.has(currentDir)) {
       visited.add(currentDir);
 
-      const candidate = path.resolve(currentDir, fileName);
+      const candidate = path.resolve(currentDir, QUIZ_CATEGORIES_DIR);
       if (existsSync(candidate)) {
         return candidate;
       }
@@ -94,7 +86,18 @@ function findQuizSourceFile(fileName: string): string {
     }
   }
 
-  throw new Error(`Quiz source file not found: ${fileName}`);
+  throw new Error(`Quiz categories directory not found: ${QUIZ_CATEGORIES_DIR}`);
+}
+
+function loadCategoryFiles(dir: string): RawCategory[] {
+  const files = readdirSync(dir)
+    .filter((f) => f.startsWith("cat-") && f.endsWith(".json"))
+    .sort();
+
+  return files.map((file) => {
+    const filePath = path.join(dir, file);
+    return JSON.parse(readFileSync(filePath, "utf8")) as RawCategory;
+  });
 }
 
 function requireText(value: string | undefined, fieldName: string, questionId: string): string {
@@ -377,56 +380,46 @@ function transformQuestion(question: RawQuestion, category: RawCategory): Questi
 function loadDefaultQuiz(): Quiz {
   const questionsById = new Map<string, Question>();
   const categoriesById = new Map<string, QuizCategory>();
-  let quizId = "geburtstagsquiz-millennials-combined";
-  let quizTitle = "Geburtstagsquiz für Millennials";
 
   let totalLoaded = 0;
   let totalSkipped = 0;
   let totalDuplicates = 0;
 
-  for (const sourceFile of QUIZ_SOURCE_FILES) {
-    const sourcePath = findQuizSourceFile(sourceFile);
-    const rawQuiz = JSON.parse(readFileSync(sourcePath, "utf8")) as RawQuizFile;
+  const categoriesDir = findQuizCategoriesDir();
+  const rawCategories = loadCategoryFiles(categoriesDir);
 
-    quizId = rawQuiz.quiz.quiz_id;
-    quizTitle = rawQuiz.quiz.title;
+  for (const category of rawCategories) {
+    const quizCategory = toQuizCategory(category);
+    categoriesById.set(quizCategory.id, quizCategory);
 
-    let fileLoaded = 0;
-    let fileSkipped = 0;
-    let fileDuplicates = 0;
+    let catLoaded = 0;
+    let catSkipped = 0;
+    let catDuplicates = 0;
 
-    for (const category of rawQuiz.quiz.categories) {
-      const quizCategory = toQuizCategory(category);
-      const existingCategory = categoriesById.get(quizCategory.id);
-      categoriesById.set(quizCategory.id, {
-        ...quizCategory,
-        questionCount: (existingCategory?.questionCount ?? 0) + category.questions.length,
-        tags: [...new Set([...(existingCategory?.tags ?? []), ...quizCategory.tags])],
-      });
-
-      for (const question of category.questions) {
-        if (questionsById.has(question.id)) {
-          fileDuplicates++;
-          continue;
-        }
-        try {
-          questionsById.set(question.id, transformQuestion(question, category));
-          fileLoaded++;
-        } catch (err) {
-          console.warn(
-            `[quiz-data] Skipping unsupported question ${question.id} (${question.type}): ${err instanceof Error ? err.message : String(err)}`,
-          );
-          fileSkipped++;
-        }
+    for (const question of category.questions) {
+      if (questionsById.has(question.id)) {
+        catDuplicates++;
+        continue;
+      }
+      try {
+        questionsById.set(question.id, transformQuestion(question, category));
+        catLoaded++;
+      } catch (err) {
+        console.warn(
+          `[quiz-data] Skipping unsupported question ${question.id} (${question.type}): ${err instanceof Error ? err.message : String(err)}`,
+        );
+        catSkipped++;
       }
     }
 
     console.log(
-      `[quiz-data] ${sourceFile}: ${fileLoaded} geladen, ${fileSkipped} übersprungen, ${fileDuplicates} Duplikate`,
+      `[quiz-data] ${quizCategory.id} (${quizCategory.name}): ${catLoaded} geladen` +
+        (catSkipped > 0 ? `, ${catSkipped} übersprungen` : "") +
+        (catDuplicates > 0 ? `, ${catDuplicates} Duplikate` : ""),
     );
-    totalLoaded += fileLoaded;
-    totalSkipped += fileSkipped;
-    totalDuplicates += fileDuplicates;
+    totalLoaded += catLoaded;
+    totalSkipped += catSkipped;
+    totalDuplicates += catDuplicates;
   }
 
   console.log(
@@ -436,8 +429,8 @@ function loadDefaultQuiz(): Quiz {
   );
 
   return {
-    id: quizId,
-    title: quizTitle,
+    id: QUIZ_ID,
+    title: QUIZ_TITLE,
     categories: [...categoriesById.values()].filter((category) => category.questionCount > 0),
     questions: [...questionsById.values()],
   };

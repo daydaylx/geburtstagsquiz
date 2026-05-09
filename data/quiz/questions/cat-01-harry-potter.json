@@ -1,0 +1,1056 @@
+{
+  "category_id": "cat-01",
+  "slug": "harry-potter-nur-filme-harter-schwierigkeitsgrad",
+  "name": "Harry Potter (Nur Filme, harter Schwierigkeitsgrad)",
+  "difficulty": "hard",
+  "tags": [
+    "harry-potter",
+    "filme",
+    "nostalgie",
+    "popkultur",
+    "schwer"
+  ],
+  "question_count": 33,
+  "questions": [
+    {
+      "id": "q-01-01-6a920e98bc",
+      "prompt": "Wie lautet das erste Gryffindor-Passwort, das im ersten Film benutzt wird?",
+      "options": [
+        {
+          "id": "q-01-01-6a920e98bc-opt-1",
+          "text": "Caput Draconis",
+          "is_correct": true
+        },
+        {
+          "id": "q-01-01-6a920e98bc-opt-2",
+          "text": "Draco Dormiens",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-01-6a920e98bc-opt-3",
+          "text": "Mimbulus Mimbletonia",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-01-6a920e98bc-opt-4",
+          "text": "Schweineschnauze",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-01-01-6a920e98bc-opt-1",
+      "explanation": "Es ist 'Caput Draconis' (Drachenkopf). Klingt beeindruckender als es ist, wenn man bedenkt, dass das Passwort später im Jahr teilweise gegen 'Banane' oder Schlimmeres getauscht wurde. Klassische Verschlimmbesserung der Sicherheit.",
+      "difficulty": "hard",
+      "category_id": "cat-01",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-01-02-6626e18f0a",
+      "prompt": "Welchen Zauberspruch nutzt Hermine im ersten Film gegen die Teufelsschlinge?",
+      "options": [
+        {
+          "id": "q-01-02-6626e18f0a-opt-1",
+          "text": "Lumos Solem",
+          "is_correct": true
+        },
+        {
+          "id": "q-01-02-6626e18f0a-opt-2",
+          "text": "Incendio",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-02-6626e18f0a-opt-3",
+          "text": "Alohomora",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-02-6626e18f0a-opt-4",
+          "text": "Diffindo",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-01-02-6626e18f0a-opt-1",
+      "explanation": "Lumos Solem erzeugt helles Sonnenlicht. Im Buch ist es eigentlich eine 'helle Flamme', aber die Filme brauchten wohl mehr CGI-Glanz. Hauptsache, Ron hat nicht wieder vergessen, dass er ein Zauberer ist – Fremdscham pur.",
+      "difficulty": "hard",
+      "category_id": "cat-01",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-01-03-65b54b9aa2",
+      "prompt": "Welchen Geschmack einer Bertie Bott Bohne erwischt Dumbledore am Ende des ersten Films?",
+      "options": [
+        {
+          "id": "q-01-03-65b54b9aa2-opt-1",
+          "text": "Ohrenschmalz",
+          "is_correct": true
+        },
+        {
+          "id": "q-01-03-65b54b9aa2-opt-2",
+          "text": "Erbrochenes",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-03-65b54b9aa2-opt-3",
+          "text": "Regenwurm",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-03-65b54b9aa2-opt-4",
+          "text": "Gammelfisch",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-01-03-65b54b9aa2-opt-1",
+      "explanation": "Es war Ohrenschmalz. Dumbledore hat einfach kein Glück mit diesen Bohnen. In seiner Jugend war es angeblich eine gute Toffee-Bohne, aber wir wissen ja, wie nostalgische Verklärung funktioniert.",
+      "difficulty": "hard",
+      "category_id": "cat-01",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-01-04-new",
+      "prompt": "Welches Passwort benutzt Harry, um im zweiten Film in Dumbledores Büro zu gelangen (eine Anspielung auf eine Süßigkeit)?",
+      "options": [
+        {
+          "id": "q-01-04-new-opt-1",
+          "text": "Zitroneneis",
+          "is_correct": true
+        },
+        {
+          "id": "q-01-04-new-opt-2",
+          "text": "Schokofrosch",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-04-new-opt-3",
+          "text": "Kürbissaft",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-04-new-opt-4",
+          "text": "Lakritz-Zauberstäbe",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-01-04-new-opt-1",
+      "explanation": "Zitroneneis (Sherbet Lemon). Dumbledore hat eine Schwäche für Muggel-Süßigkeiten. Ein bisschen Cringe, wenn man bedenkt, dass die Sicherheit der gesamten Schule an einem Sorbet hängt.",
+      "difficulty": "hard",
+      "category_id": "cat-01",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-01-05-c97cd9c5d9",
+      "prompt": "Welches Körperteil bricht Harry sich beim Quidditch-Spiel in 'Die Kammer des Schreckens', bevor Lockhart ihn 'entbeint'?",
+      "options": [
+        {
+          "id": "q-01-05-c97cd9c5d9-opt-1",
+          "text": "Den rechten Arm",
+          "is_correct": true
+        },
+        {
+          "id": "q-01-05-c97cd9c5d9-opt-2",
+          "text": "Das linke Handgelenk",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-05-c97cd9c5d9-opt-3",
+          "text": "Sein Schlüsselbein",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-05-c97cd9c5d9-opt-4",
+          "text": "Den Sucher-Instinkt",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-01-05-c97cd9c5d9-opt-1",
+      "explanation": "Den rechten Arm. Lockhart hat dann mit 'Brackium Emendo' alle Knochen entfernt. Wer braucht schon Skelett-Struktur, wenn man einen 'Best-Lächeln-Award' hat?",
+      "difficulty": "hard",
+      "category_id": "cat-01",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-01-06-9cf7daedf3",
+      "prompt": "Welche 'Ausrede' benutzt Ron im zweiten Film, um die Flucht mit dem fliegenden Auto vor seiner Mutter zu rechtfertigen?",
+      "options": [
+        {
+          "id": "q-01-06-9cf7daedf3-opt-1",
+          "text": "Die Absperrung zum Gleis war zu",
+          "is_correct": true
+        },
+        {
+          "id": "q-01-06-9cf7daedf3-opt-2",
+          "text": "Der Zug war schon weg",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-06-9cf7daedf3-opt-3",
+          "text": "Harry wurde von Dobby entführt",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-06-9cf7daedf3-opt-4",
+          "text": "Der Wagen wollte mal bewegt werden",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-01-06-9cf7daedf3-opt-1",
+      "explanation": "Sie konnten nicht durch die Absperrung. Anstatt auf Rons Eltern zu warten, klauen sie den Ford Anglia. Logik von 12-Jährigen: Ein fliegendes Auto ist unauffälliger als ein Brief per Eule.",
+      "difficulty": "hard",
+      "category_id": "cat-01",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-01-08-2babd01a45",
+      "prompt": "Wie viele unverzeihliche Flüche präsentiert Moody im vierten Film an einer Spinne?",
+      "options": [
+        {
+          "id": "q-01-08-2babd01a45-opt-1",
+          "text": "Drei",
+          "is_correct": true
+        },
+        {
+          "id": "q-01-08-2babd01a45-opt-2",
+          "text": "Zwei",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-08-2babd01a45-opt-3",
+          "text": "Fünf",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-08-2babd01a45-opt-4",
+          "text": "Alle, die er kannte",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-01-08-2babd01a45-opt-1",
+      "explanation": "Imperius, Cruciatus und Avada Kedavra. Nichts sagt so sehr 'Millennial-Kindheit' wie Traumata durch Spinnen-Folter im Klassenzimmer.",
+      "difficulty": "hard",
+      "category_id": "cat-01",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-01-09-7d2fe92524",
+      "prompt": "Welchen Drachen bekommt Harry in der ersten Aufgabe des Trimagischen Turniers?",
+      "options": [
+        {
+          "id": "q-01-09-7d2fe92524-opt-1",
+          "text": "Den Ungarischen Hornschwanz",
+          "is_correct": true
+        },
+        {
+          "id": "q-01-09-7d2fe92524-opt-2",
+          "text": "Den Norwegischen Stachelbuckel",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-09-7d2fe92524-opt-3",
+          "text": "Den Chinesischen Feuerball",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-09-7d2fe92524-opt-4",
+          "text": "Den Walisischen Grünling",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-01-09-7d2fe92524-opt-1",
+      "explanation": "Der Ungarische Hornschwanz. Er gilt als der gefährlichste. Harrys Glückssträhne ist so beständig wie eine schlechte WLAN-Verbindung im Keller.",
+      "difficulty": "hard",
+      "category_id": "cat-01",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-01-11-346e4e40a0",
+      "prompt": "Welchen Tier-Kopfschmuck trägt Luna Lovegood im sechsten Film auf der Tribüne?",
+      "options": [
+        {
+          "id": "q-01-11-346e4e40a0-opt-1",
+          "text": "Einen Löwen",
+          "is_correct": true
+        },
+        {
+          "id": "q-01-11-346e4e40a0-opt-2",
+          "text": "Einen Adler",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-11-346e4e40a0-opt-3",
+          "text": "Einen Dachs",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-11-346e4e40a0-opt-4",
+          "text": "Einen Niffler",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-01-11-346e4e40a0-opt-1",
+      "explanation": "Ein riesiger Löwenkopf, der brüllen kann. Luna ist die Queen des 'Mir doch egal, was ihr denkt'-Styles. Wir alle wünschten, wir hätten dieses Selbstbewusstsein bei unseren ersten Profilbildern gehabt.",
+      "difficulty": "hard",
+      "category_id": "cat-01",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-01-12-d56fa12b3e",
+      "prompt": "Was verschüttet Slughorn in Hagrids Hütte, bevor sie Aragog beerdigen?",
+      "options": [
+        {
+          "id": "q-01-12-d56fa12b3e-opt-1",
+          "text": "Wein",
+          "is_correct": true
+        },
+        {
+          "id": "q-01-12-d56fa12b3e-opt-2",
+          "text": "Butterbier",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-12-d56fa12b3e-opt-3",
+          "text": "Felix Felicis",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-12-d56fa12b3e-opt-4",
+          "text": "Feuerwhisky",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-01-12-d56fa12b3e-opt-1",
+      "explanation": "Es war Wein. Slughorn nutzt jede Gelegenheit für ein Tröpfchen. Dass sie danach eine Riesenspinne beerdigen, macht das Ganze nur noch absurder. Ein normaler Dienstag in Hogwarts.",
+      "difficulty": "hard",
+      "category_id": "cat-01",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-01-13-28324b61c1",
+      "prompt": "Mit welchem 'Opfer' öffnet Dumbledore den Zugang zur Horkrux-Höhle?",
+      "options": [
+        {
+          "id": "q-01-13-28324b61c1-opt-1",
+          "text": "Blut",
+          "is_correct": true
+        },
+        {
+          "id": "q-01-13-28324b61c1-opt-2",
+          "text": "Tränen",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-13-28324b61c1-opt-3",
+          "text": "Einer Erinnerung",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-13-28324b61c1-opt-4",
+          "text": "Einem Haarbüschel",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-01-13-28324b61c1-opt-1",
+      "explanation": "Er muss die Felswand mit Blut bezahlen. Voldemort ist halt eher der Fan von dramatischer Sicherheitstechnik. Ein PIN-Code wäre wohl zu einfach gewesen.",
+      "difficulty": "hard",
+      "category_id": "cat-01",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-01-14-deafd17949",
+      "prompt": "Wie heißt das alternative Magazin von Xenophilius Lovegood?",
+      "options": [
+        {
+          "id": "q-01-14-deafd17949-opt-1",
+          "text": "Der Klitterer",
+          "is_correct": true
+        },
+        {
+          "id": "q-01-14-deafd17949-opt-2",
+          "text": "Der Tagesprophet",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-14-deafd17949-opt-3",
+          "text": "Hexenwoche",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-14-deafd17949-opt-4",
+          "text": "Zauberer-Woche",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-01-14-deafd17949-opt-1",
+      "explanation": "Der Klitterer (The Quibbler). Die einzige Quelle für echte News über schrumpfhörnige Schnarcher. Quasi das Telegram der Zaubererwelt, nur charmanter.",
+      "difficulty": "hard",
+      "category_id": "cat-01",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-01-16-5ce93af546",
+      "prompt": "Welchen Zauberspruch nutzt Hermine, um das Gedächtnis ihrer Eltern zu löschen?",
+      "options": [
+        {
+          "id": "q-01-16-5ce93af546-opt-1",
+          "text": "Obliviate",
+          "is_correct": true
+        },
+        {
+          "id": "q-01-16-5ce93af546-opt-2",
+          "text": "Confundo",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-16-5ce93af546-opt-3",
+          "text": "Stupor",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-16-5ce93af546-opt-4",
+          "text": "Expelliarmus",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-01-16-5ce93af546-opt-1",
+      "explanation": "Obliviate. Eine der traurigsten Szenen, weil sie sich selbst aus allen Familienfotos löscht. Das ultimative Ghosting-Level.",
+      "difficulty": "hard",
+      "category_id": "cat-01",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-01-18-3959fe77b5",
+      "prompt": "Was tut Hermine in 'Der Gefangene von Askaban', nachdem Draco sie und ihre Freunde provoziert?",
+      "options": [
+        {
+          "id": "q-01-18-3959fe77b5-opt-1",
+          "text": "Sie verpasst ihm eine Ohrfeige",
+          "is_correct": true
+        },
+        {
+          "id": "q-01-18-3959fe77b5-opt-2",
+          "text": "Sie verhext ihn mit Stupor",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-18-3959fe77b5-opt-3",
+          "text": "Sie ruft Professor McGonagall",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-18-3959fe77b5-opt-4",
+          "text": "Sie zerbricht seinen Zauberstab",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-01-18-3959fe77b5-opt-1",
+      "explanation": "Hermine droht Draco erst mit dem Zauberstab und gibt ihm dann eine Ohrfeige. Einer der seltenen Hogwarts-Momente ganz ohne Zauberspruch.",
+      "difficulty": "hard",
+      "category_id": "cat-01",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-01-19-fd285a0207",
+      "prompt": "Was unterrichtet Remus Lupin, bevor er als Werwolf enttarnt wird?",
+      "options": [
+        {
+          "id": "q-01-19-fd285a0207-opt-1",
+          "text": "Verteidigung gegen die dunklen Künste",
+          "is_correct": true
+        },
+        {
+          "id": "q-01-19-fd285a0207-opt-2",
+          "text": "Zaubertränke",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-19-fd285a0207-opt-3",
+          "text": "Verwandlung",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-19-fd285a0207-opt-4",
+          "text": "Kräuterkunde",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-01-19-fd285a0207-opt-1",
+      "explanation": "Verteidigung gegen die dunklen Künste. Endlich mal ein kompetenter Lehrer, und dann hat er dieses kleine Vollmond-Problem. Klassisches Burnout-Risiko.",
+      "difficulty": "hard",
+      "category_id": "cat-01",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-01-20-43495be7ae",
+      "prompt": "Welche 'Medizin' gibt Lupin Harry nach der ersten Begegnung mit Dementoren?",
+      "options": [
+        {
+          "id": "q-01-20-43495be7ae-opt-1",
+          "text": "Schokolade",
+          "is_correct": true
+        },
+        {
+          "id": "q-01-20-43495be7ae-opt-2",
+          "text": "Kürbissaft",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-20-43495be7ae-opt-3",
+          "text": "Einen Schluck Tee",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-20-43495be7ae-opt-4",
+          "text": "Einen Hustensaft",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-01-20-43495be7ae-opt-1",
+      "explanation": "Schokolade hilft gegen Dementoren. Wenn wir ehrlich sind, ist Schokolade die Lösung für fast alle Millennial-Probleme. Lupin wusste Bescheid.",
+      "difficulty": "hard",
+      "category_id": "cat-01",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-01-21-89c1ef5e21",
+      "prompt": "Welche Gestalt hat der Patronus von Severus Snape?",
+      "options": [
+        {
+          "id": "q-01-21-89c1ef5e21-opt-1",
+          "text": "Hirschkuh",
+          "is_correct": true
+        },
+        {
+          "id": "q-01-21-89c1ef5e21-opt-2",
+          "text": "Hirsch",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-21-89c1ef5e21-opt-3",
+          "text": "Otter",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-21-89c1ef5e21-opt-4",
+          "text": "Phönix",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-01-21-89c1ef5e21-opt-1",
+      "explanation": "Eine Hirschkuh. „After all this time?“ – „Always.“ Snape ist der Inbegriff von Loyalität und ungesundem Festhalten an der Vergangenheit. Wir fühlen das.",
+      "difficulty": "hard",
+      "category_id": "cat-01",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-01-22-6f9e77ee5b",
+      "prompt": "Welchen Spruch benutzt Harry im sechsten Film gegen Draco, ohne dessen Wirkung zu kennen?",
+      "options": [
+        {
+          "id": "q-01-22-6f9e77ee5b-opt-1",
+          "text": "Sectumsempra",
+          "is_correct": true
+        },
+        {
+          "id": "q-01-22-6f9e77ee5b-opt-2",
+          "text": "Levicorpus",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-22-6f9e77ee5b-opt-3",
+          "text": "Crucio",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-22-6f9e77ee5b-opt-4",
+          "text": "Imperio",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-01-22-6f9e77ee5b-opt-1",
+      "explanation": "Sectumsempra. Harry probiert einfach Sprüche aus einem alten Schulbuch aus. Das ist so, als würde man ungeprüften Code aus dem Internet in die Produktion schieben. Mutig, aber dumm.",
+      "difficulty": "hard",
+      "category_id": "cat-01",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-01-23-a9ef897ed3",
+      "prompt": "Was muss Harry im vierten Film unter Wasser retten?",
+      "options": [
+        {
+          "id": "q-01-23-a9ef897ed3-opt-1",
+          "text": "Ron (seinen besten Freund)",
+          "is_correct": true
+        },
+        {
+          "id": "q-01-23-a9ef897ed3-opt-2",
+          "text": "Das goldene Ei",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-23-a9ef897ed3-opt-3",
+          "text": "Seinen Zauberstab",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-23-a9ef897ed3-opt-4",
+          "text": "Seinen Stolz",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-01-23-a9ef897ed3-opt-1",
+      "explanation": "Ron. Weil man Freunde im See versenkt, um die Motivation zu steigern. Pädagogisch wertvoll, danke Trimagisches Komitee.",
+      "difficulty": "hard",
+      "category_id": "cat-01",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-01-24-3db2618a98",
+      "prompt": "Welches magische Objekt wird am Ende von Teil 2 zerstört (Harrys erster Horkrux)?",
+      "options": [
+        {
+          "id": "q-01-24-3db2618a98-opt-1",
+          "text": "Tom Riddles Tagebuch",
+          "is_correct": true
+        },
+        {
+          "id": "q-01-24-3db2618a98-opt-2",
+          "text": "Ravenclaws Diadem",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-24-3db2618a98-opt-3",
+          "text": "Hufflepuffs Becher",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-24-3db2618a98-opt-4",
+          "text": "Der Stein der Weisen",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-01-24-3db2618a98-opt-1",
+      "explanation": "Das Tagebuch. Mit einem Basiliskenzahn. Harry war schon damals Experte darin, fremdes Eigentum zu zerstören. Ein echter Rebell.",
+      "difficulty": "hard",
+      "category_id": "cat-01",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-01-25-new",
+      "prompt": "Was passiert mit Neville Longbottom am Ende des ersten Films, was ihm 10 Punkte einbringt?",
+      "options": [
+        {
+          "id": "q-01-25-new-opt-1",
+          "text": "Er hat sich seinen Freunden entgegengestellt",
+          "is_correct": true
+        },
+        {
+          "id": "q-01-25-new-opt-2",
+          "text": "Er hat Trevor die Kröte gefunden",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-25-new-opt-3",
+          "text": "Er hat einen Trank richtig gebraut",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-25-new-opt-4",
+          "text": "Er hat die Treppe rechtzeitig gewechselt",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-01-25-new-opt-1",
+      "explanation": "Dumbledore brauchte noch 10 Punkte für Gryffindor, also musste Nevilles Mut herhalten. Nevilles Schicksal: Der einzige Vernünftige sein und dafür versteinert werden.",
+      "difficulty": "hard",
+      "category_id": "cat-01",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-01-01",
+      "type": "standard",
+      "prompt": "Wie lautet das allererste Gryffindor-Passwort, das wir im ersten Film hören?",
+      "options": [
+        {
+          "id": "q-01-01-opt-1",
+          "text": "Caput Draconis",
+          "is_correct": true
+        },
+        {
+          "id": "q-01-01-opt-2",
+          "text": "Draco Dormiens",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-01-opt-3",
+          "text": "Schweineschnauze",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-01-opt-4",
+          "text": "Fortuna Major",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-01-01-opt-1",
+      "explanation": "Es ist 'Caput Draconis' (Drachenkopf). Percy Weasley fuehrt die Erstklaessler an, als waere er der CEO von Gryffindor. Spaeter gab es Passwoerter wie 'Banane', was die Sicherheit in Hogwarts perfekt zusammenfasst.",
+      "difficulty": "hard",
+      "points": 1
+    },
+    {
+      "id": "q-01-02",
+      "type": "logic",
+      "prompt": "Logik-Check: Wer ist am Ende des 7. Teils der wahre Gebieter des Elderstabs, nachdem Harry Draco in Malfoy Manor entwaffnet hat?",
+      "options": [
+        {
+          "id": "q-01-02-opt-1",
+          "text": "Harry Potter",
+          "is_correct": true
+        },
+        {
+          "id": "q-01-02-opt-2",
+          "text": "Lord Voldemort",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-02-opt-3",
+          "text": "Severus Snape",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-02-opt-4",
+          "text": "Draco Malfoy",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-01-02-opt-1",
+      "explanation": "Draco entwaffnete Dumbledore, Harry entwaffnete Draco. Voldemorts Denkfehler war zu glauben, dass Töten (Snape) die Herrschaft überträgt. In der Zaubererwelt gewinnt man Wandschaften wie Follower: durch reine Dominanz, nicht durch Mord.",
+      "difficulty": "hard",
+      "points": 2
+    },
+    {
+      "id": "q-01-03",
+      "type": "common_mistake",
+      "prompt": "Achtung, Buch-Fans: Wer gibt Harry im FILM 'Der Feuerkelch' das Dianthuskraut (Gillyweed) für die zweite Aufgabe?",
+      "options": [
+        {
+          "id": "q-01-03-opt-1",
+          "text": "Neville Longbottom",
+          "is_correct": true
+        },
+        {
+          "id": "q-01-03-opt-2",
+          "text": "Dobby der Hauself",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-03-opt-3",
+          "text": "Hermine Granger",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-03-opt-4",
+          "text": "Alastor Moody (Crouch Jr.)",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-01-03-opt-1",
+      "explanation": "Im Film ist es Neville! Die Macher wollten Dobby wohl das CGI-Budget sparen. Neville ist so stolz, dass er Harry fast umbringt, nur um seine Pflanzenkunde-Skills zu zeigen. Ein klassischer Neville-Moment.",
+      "difficulty": "hard",
+      "points": 1
+    },
+    {
+      "id": "q-01-04",
+      "type": "ranking",
+      "prompt": "Ordne die Horkruxe nach der Reihenfolge ihrer Zerstörung in der Filmreihe (zuerst zerstört oben).",
+      "items": [
+        {
+          "id": "item-diary",
+          "text": "Tom Riddles Tagebuch"
+        },
+        {
+          "id": "item-locket",
+          "text": "Salazar Slytherins Medaillon"
+        },
+        {
+          "id": "item-cup",
+          "text": "Helga Hufflepuffs Trinkpokal"
+        },
+        {
+          "id": "item-nagini",
+          "text": "Nagini (die Schlange)"
+        }
+      ],
+      "correct_order": [
+        "item-diary",
+        "item-locket",
+        "item-cup",
+        "item-nagini"
+      ],
+      "explanation": "Tagebuch (Teil 2), Medaillon (Teil 7.1), Pokal (Teil 7.2), Nagini (Finale). Wer 'Der Ring' oder 'Das Diadem' vermisst: Die wurden zwischendurch eher beiläufig abgehakt. Nagini war das dramatische Dessert.",
+      "difficulty": "hard",
+      "points": 2
+    },
+    {
+      "id": "q-01-08",
+      "type": "majority_guess",
+      "prompt": "Diskussionsrunde: Welcher dieser Charaktere wäre auf einem 10-stündigen Roadtrip im selben Auto am anstrengendsten?",
+      "options": [
+        {
+          "id": "q-01-08-opt-1",
+          "text": "Gilderoy Lockhart (Dauer-Selbstbeweihräucherung)"
+        },
+        {
+          "id": "q-01-08-opt-2",
+          "text": "Dolores Umbridge (Hust-Zwänge & Regeln)"
+        },
+        {
+          "id": "q-01-08-opt-3",
+          "text": "Bellatrix Lestrange (Permanentes Kreischen)"
+        },
+        {
+          "id": "q-01-08-opt-4",
+          "text": "Moaning Myrtle (Dauergeheule auf dem Rücksitz)"
+        }
+      ],
+      "explanation": "Die Mehrheit entscheidet, wer das Auto zuerst verlassen muss. Lockhart klaut das Radio, Umbridge verbietet Snacks, Bellatrix sticht die Reifen auf und Myrtle flutet den Fußraum. Wählt euer Gift.",
+      "difficulty": "medium",
+      "points": 2
+    },
+    {
+      "id": "q-01-11",
+      "type": "logic",
+      "prompt": "Wie viele Horkruxe hat Harry Potter IM FILM höchstpersönlich (physisch) zerstört?",
+      "options": [
+        {
+          "id": "q-01-11-opt-1",
+          "text": "Zwei",
+          "is_correct": true
+        },
+        {
+          "id": "q-01-11-opt-2",
+          "text": "Drei",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-11-opt-3",
+          "text": "Einen",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-11-opt-4",
+          "text": "Gar keinen, er hat nur assistiert",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-01-11-opt-1",
+      "explanation": "Nur das Tagebuch (Teil 2) und das Diadem (Teil 7.2). Den Ring erledigte Dumbledore, das Medaillon Ron, den Pokal Hermine, Nagini Neville und den Horkrux in Harry zerstörte Voldemort selbst. Harry ist also eher der Teamkapitän als der Vollstrecker.",
+      "difficulty": "hard",
+      "points": 2
+    },
+    {
+      "id": "q-01-13",
+      "type": "standard",
+      "prompt": "Welchen Tier-Kopfschmuck trägt Luna Lovegood im sechsten Film auf der Quidditch-Tribüne?",
+      "options": [
+        {
+          "id": "q-01-13-opt-1",
+          "text": "Einen brüllenden Löwen",
+          "is_correct": true
+        },
+        {
+          "id": "q-01-13-opt-2",
+          "text": "Einen Adler mit beweglichen Flügeln",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-13-opt-3",
+          "text": "Einen Niffler, der nach Gold schnappt",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-13-opt-4",
+          "text": "Einen schrumpfhörnigen Schnarcher",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-01-13-opt-1",
+      "explanation": "Der riesige Löwenkopf. Luna ist die einzige, die Camp-Aesthetics in Hogwarts wirklich verstanden hat. Wir alle brauchen diesen Vibe an einem Montagmorgen.",
+      "difficulty": "medium",
+      "points": 1
+    },
+    {
+      "id": "q-01-14",
+      "type": "fast_guess",
+      "prompt": "Kurze Reaktionszeit: Welcher der Weasley-Zwillinge stirbt in der Schlacht von Hogwarts?",
+      "options": [
+        {
+          "id": "q-01-14-opt-1",
+          "text": "Fred",
+          "is_correct": true
+        },
+        {
+          "id": "q-01-14-opt-2",
+          "text": "George",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-14-opt-3",
+          "text": "Beide",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-14-opt-4",
+          "text": "Keiner von beiden",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-01-14-opt-1",
+      "explanation": "Fred stirbt in der Schlacht von Hogwarts. George ueberlebt, hatte aber vorher bereits ein Ohr verloren.",
+      "difficulty": "medium",
+      "points": 1
+    },
+    {
+      "id": "q-01-18",
+      "type": "standard",
+      "prompt": "Welches 'Opfer' muss erbracht werden, um den Eingang zur Horkrux-Höhle in 'Der Halbblutprinz' zu öffnen?",
+      "options": [
+        {
+          "id": "q-01-18-opt-1",
+          "text": "Blut",
+          "is_correct": true
+        },
+        {
+          "id": "q-01-18-opt-2",
+          "text": "Eine schmerzhafte Erinnerung",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-18-opt-3",
+          "text": "Ein geliebter Gegenstand",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-18-opt-4",
+          "text": "Tränen der Reue",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-01-18-opt-1",
+      "explanation": "Blut. Voldemort ist sehr altmodisch, was seine Alarmanlagen angeht. Dumbledore schneidet sich ohne Zögern – harte Schale, weicher Kern, eiserne Disziplin.",
+      "difficulty": "medium",
+      "points": 1
+    },
+    {
+      "id": "q-01-20",
+      "type": "common_mistake",
+      "prompt": "Welche Farbe haben Harry Potters Augen in den FILMEN (im Gegensatz zu den Büchern)?",
+      "options": [
+        {
+          "id": "q-01-20-opt-1",
+          "text": "Blau",
+          "is_correct": true
+        },
+        {
+          "id": "q-01-20-opt-2",
+          "text": "Grün",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-20-opt-3",
+          "text": "Grau",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-20-opt-4",
+          "text": "Haselnussbraun",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-01-20-opt-1",
+      "explanation": "Blau! Daniel Radcliffe vertrug die grünen Kontaktlinsen nicht. Dass ständig gesagt wird 'Du hast die Augen deiner Mutter', obwohl die Schauspielerin der Mutter teilweise braune Augen hatte, ignorieren wir einfach mal gekonnt.",
+      "difficulty": "medium",
+      "points": 1
+    },
+    {
+      "id": "q-01-22",
+      "type": "logic",
+      "prompt": "Wer hat Bellatrix Lestrange in der finalen Schlacht von Hogwarts getötet?",
+      "options": [
+        {
+          "id": "q-01-22-opt-1",
+          "text": "Molly Weasley",
+          "is_correct": true
+        },
+        {
+          "id": "q-01-22-opt-2",
+          "text": "Neville Longbottom",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-22-opt-3",
+          "text": "Hermine Granger",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-22-opt-4",
+          "text": "Ron Weasley",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-01-22-opt-1",
+      "explanation": "Molly Weasley besiegt Bellatrix in der finalen Schlacht. Der Moment funktioniert, weil Molly nicht nur Mutter, sondern eine ernstzunehmende Hexe ist.",
+      "difficulty": "medium",
+      "points": 1
+    },
+    {
+      "id": "q-01-25",
+      "type": "logic",
+      "prompt": "Was passiert im zweiten Film, als Ron versucht, Draco mit einem defekten Zauberstab zu verfluchen ('Schnecken spucken')?",
+      "options": [
+        {
+          "id": "q-01-25-opt-1",
+          "text": "Der Fluch prallt nach hinten ab und Ron spuckt selbst Schnecken",
+          "is_correct": true
+        },
+        {
+          "id": "q-01-25-opt-2",
+          "text": "Der Stab explodiert und zerstört Hagrids Kürbisse",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-25-opt-3",
+          "text": "Nichts passiert, der Stab ist komplett tot",
+          "is_correct": false
+        },
+        {
+          "id": "q-01-25-opt-4",
+          "text": "Draco verwandelt sich stattdessen in ein Frettchen",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-01-25-opt-1",
+      "explanation": "Backfire! Ron spuckt Riesen-Schnecken. Eine Lektion fürs Leben: Repariere dein Equipment mit vernünftigem Klebeband, nicht mit Tesafilm. Oder kauf einfach ein neues Handy... äh, Zauberstab.",
+      "difficulty": "medium",
+      "points": 1
+    }
+  ]
+}

@@ -1,0 +1,1397 @@
+{
+  "category_id": "cat-05",
+  "slug": "saufen-feiern-toxische-jugend-drinks",
+  "name": "Saufen, Feiern & toxische Jugend-Drinks",
+  "difficulty": "medium",
+  "tags": [],
+  "question_count": 44,
+  "questions": [
+    {
+      "id": "q-05-01-dcbbe9ff6d",
+      "prompt": "Welcher Alkopop war in den 2000ern das Statussymbol jeder Dorfdisco?",
+      "options": [
+        {
+          "id": "q-05-01-dcbbe9ff6d-opt-1",
+          "text": "Smirnoff Ice",
+          "is_correct": true
+        },
+        {
+          "id": "q-05-01-dcbbe9ff6d-opt-2",
+          "text": "Bacardi Breezer",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-01-dcbbe9ff6d-opt-3",
+          "text": "Rigo",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-01-dcbbe9ff6d-opt-4",
+          "text": "Eristoff Ice",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-05-01-dcbbe9ff6d-opt-1",
+      "explanation": "Smirnoff Ice. Die milchig-weiße Flüssigkeit, die nach Zitronenreiniger schmeckte, aber uns gefühlt zum König der Nacht machte. Alkopop-Steuer sei Dank heute fast ein Luxusgut.",
+      "difficulty": "medium",
+      "category_id": "cat-05",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-05-02-c0ae97b14c",
+      "prompt": "Was war die Hauptzutat (neben Billig-Wodka) für den klassischen 'Wodka-E'?",
+      "options": [
+        {
+          "id": "q-05-02-c0ae97b14c-opt-1",
+          "text": "Energy Drink (meist vom Discounter)",
+          "is_correct": true
+        },
+        {
+          "id": "q-05-02-c0ae97b14c-opt-2",
+          "text": "Eistee Pfirsich",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-02-c0ae97b14c-opt-3",
+          "text": "Eierlikör",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-02-c0ae97b14c-opt-4",
+          "text": "Espresso (kalt)",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-05-02-c0ae97b14c-opt-1",
+      "explanation": "Energy Drinks. Die Mischung, die dein Herz rasen lässt, während dein Gehirn schon längst Feierabend gemacht hat. Perfekt für Nächte, die man am nächsten Tag lieber vergessen möchte.",
+      "difficulty": "medium",
+      "category_id": "cat-05",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-05-03-f117db8d8b",
+      "prompt": "Was ist der Hauptgeschmack des Kult-Getränks 'Pfeffi'?",
+      "options": [
+        {
+          "id": "q-05-03-f117db8d8b-opt-1",
+          "text": "Pfefferminze (wie flüssiges Kaugummi)",
+          "is_correct": true
+        },
+        {
+          "id": "q-05-03-f117db8d8b-opt-2",
+          "text": "Scharfer Pfeffer",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-03-f117db8d8b-opt-3",
+          "text": "Waldmeister",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-03-f117db8d8b-opt-4",
+          "text": "Grüner Apfel",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-05-03-f117db8d8b-opt-1",
+      "explanation": "Pfefferminzlikör. Schmeckt wie Zähneputzen, nur dass man danach schlechter laufen kann. Der Retter jeder WG-Party, wenn das Geld für echten Alkohol knapp war.",
+      "difficulty": "medium",
+      "category_id": "cat-05",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-05-04-462ff3060e",
+      "prompt": "Warum war 'Korn-Cola' (oder Koco) besonders in ländlichen Regionen so beliebt?",
+      "options": [
+        {
+          "id": "q-05-04-462ff3060e-opt-1",
+          "text": "Es war billig und knallte effizient",
+          "is_correct": true
+        },
+        {
+          "id": "q-05-04-462ff3060e-opt-2",
+          "text": "Wegen des feinen nussigen Aromas",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-04-462ff3060e-opt-3",
+          "text": "Weil es von Zahnärzten empfohlen wurde",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-04-462ff3060e-opt-4",
+          "text": "Es war das offizielle Getränk der Landjugend-Olympiade",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-05-04-462ff3060e-opt-1",
+      "explanation": "Korn hat kaum Eigengeschmack, man schmeckt also nur die Zuckerplörre der Cola. Die effizienteste Methode, sich für unter 5 Euro die Lichter auszuschießen.",
+      "difficulty": "medium",
+      "category_id": "cat-05",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-05-05-e0f7a3f0af",
+      "prompt": "Was ist die goldene Regel des 'Vorglühens'?",
+      "options": [
+        {
+          "id": "q-05-05-e0f7a3f0af-opt-1",
+          "text": "Zuhause trinken, um Club-Preise zu umgehen",
+          "is_correct": true
+        },
+        {
+          "id": "q-05-05-e0f7a3f0af-opt-2",
+          "text": "Nur Wasser trinken, bevor es losgeht",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-05-e0f7a3f0af-opt-3",
+          "text": "Die Heizung auf 5 stellen, bevor man geht",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-05-e0f7a3f0af-opt-4",
+          "text": "Sich gegenseitig die Haare vorglühen (stylen)",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-05-05-e0f7a3f0af-opt-1",
+      "explanation": "Vorglühen ist reiner Kapitalismus-Widerstand. Warum 10 Euro für einen Drink zahlen, wenn man die ganze Flasche für 5 Euro im Supermarkt bekommt? Logik!",
+      "difficulty": "medium",
+      "category_id": "cat-05",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-05-07-2a1f4b82ba",
+      "prompt": "Welcher Schnaps wird oft für 'Jägerbomben' genutzt?",
+      "options": [
+        {
+          "id": "q-05-07-2a1f4b82ba-opt-1",
+          "text": "Jägermeister",
+          "is_correct": true
+        },
+        {
+          "id": "q-05-07-2a1f4b82ba-opt-2",
+          "text": "Kümmerling",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-07-2a1f4b82ba-opt-3",
+          "text": "Underberg",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-07-2a1f4b82ba-opt-4",
+          "text": "Schierker Feuerstein",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-05-07-2a1f4b82ba-opt-1",
+      "explanation": "Jägermeister in einem Glas Energy. Die perfekte Methode, um gleichzeitig hellwach und komplett unfähig zu sein. Eine explosive Mischung für den Magen.",
+      "difficulty": "medium",
+      "category_id": "cat-05",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-05-08-36f4d1e2a1",
+      "prompt": "Was ist das Besondere an einem 'Desperados' Bier?",
+      "options": [
+        {
+          "id": "q-05-08-36f4d1e2a1-opt-1",
+          "text": "Es ist mit Tequila-Flavour versetzt",
+          "is_correct": true
+        },
+        {
+          "id": "q-05-08-36f4d1e2a1-opt-2",
+          "text": "Es enthält echten Mezcal mit Wurm",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-08-36f4d1e2a1-opt-3",
+          "text": "Es wurde in Mexiko erfunden",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-08-36f4d1e2a1-opt-4",
+          "text": "Man darf es nur mit Sombrero trinken",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-05-08-36f4d1e2a1-opt-1",
+      "explanation": "Tequila-Flavour (Aroma). Kein echter Tequila, aber für 16-Jährige war es der Gipfel der Exotik. Und verdammt teuer an der Tankstelle.",
+      "difficulty": "medium",
+      "category_id": "cat-05",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-05-09-f868c708c8",
+      "prompt": "Woraus besteht ein 'Sekt-Frühstück' meistens?",
+      "options": [
+        {
+          "id": "q-05-09-f868c708c8-opt-1",
+          "text": "Billiger Sekt und die Reste der Party-Chips",
+          "is_correct": true
+        },
+        {
+          "id": "q-05-09-f868c708c8-opt-2",
+          "text": "Champagner und Kaviar",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-09-f868c708c8-opt-3",
+          "text": "Vollkornmüsli mit Prosecco",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-09-f868c708c8-opt-4",
+          "text": "Kaffee mit einem Schuss Grappa",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-05-09-f868c708c8-opt-1",
+      "explanation": "Meistens ist es die verzweifelte Fortsetzung der Nacht. Wer braucht schon Rührei, wenn man Kohlensäure und Restalkohol haben kann? Adulting at its best.",
+      "difficulty": "medium",
+      "category_id": "cat-05",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-05-10-4b3aebd3c4",
+      "prompt": "Was ist die wichtigste Zutat für einen Mojito (neben Rum)?",
+      "options": [
+        {
+          "id": "q-05-10-4b3aebd3c4-opt-1",
+          "text": "Frische Minze",
+          "is_correct": true
+        },
+        {
+          "id": "q-05-10-4b3aebd3c4-opt-2",
+          "text": "Petersilie",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-10-4b3aebd3c4-opt-3",
+          "text": "Basilikum",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-10-4b3aebd3c4-opt-4",
+          "text": "Schnittlauch",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-05-10-4b3aebd3c4-opt-1",
+      "explanation": "Minze. Ohne Minze ist es nur süßes Wasser mit Rum. In den 2000ern hat jeder Barkeeper Minze gehasst, weil das Stampfen so lange dauert. Wir haben trotzdem 5 bestellt.",
+      "difficulty": "medium",
+      "category_id": "cat-05",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-05-11-a587148d2a",
+      "prompt": "Was ist ein 'Diesel' in der Kneipe?",
+      "options": [
+        {
+          "id": "q-05-11-a587148d2a-opt-1",
+          "text": "Bier mit Cola",
+          "is_correct": true
+        },
+        {
+          "id": "q-05-11-a587148d2a-opt-2",
+          "text": "Bier mit Fanta",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-11-a587148d2a-opt-3",
+          "text": "Bier mit Tomatensaft",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-11-a587148d2a-opt-4",
+          "text": "Ein Schnaps, der brennt wie Treibstoff",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-05-11-a587148d2a-opt-1",
+      "explanation": "Bier und Cola. Je nach Region heisst das auch Krefelder oder einfach Colabier; die Bestellung ist weniger kompliziert als die Namensdebatte.",
+      "difficulty": "medium",
+      "category_id": "cat-05",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-05-12-81973f536c",
+      "prompt": "Was bestellt man bei einem 'Herrengedeck'?",
+      "options": [
+        {
+          "id": "q-05-12-81973f536c-opt-1",
+          "text": "Ein Bier und einen Kurzen (Korn/Kümmel)",
+          "is_correct": true
+        },
+        {
+          "id": "q-05-12-81973f536c-opt-2",
+          "text": "Zwei halbe Hähnchen",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-12-81973f536c-opt-3",
+          "text": "Einen Weinbrand mit Zigarre",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-12-81973f536c-opt-4",
+          "text": "Ein Wasser und eine Entschuldigung",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-05-12-81973f536c-opt-1",
+      "explanation": "Klassisches Kneipen-Duo. Das 'Adulting' unserer Väter, das wir ironisch übernommen haben, bis wir merkten, dass Korn eigentlich ganz okay ist.",
+      "difficulty": "medium",
+      "category_id": "cat-05",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-05-13-60c32a85e1",
+      "prompt": "Was passiert beim Tequila-Ritual 'Silver'?",
+      "options": [
+        {
+          "id": "q-05-13-60c32a85e1-opt-1",
+          "text": "Salz lecken, Shot trinken, in die Zitrone beißen",
+          "is_correct": true
+        },
+        {
+          "id": "q-05-13-60c32a85e1-opt-2",
+          "text": "Zimt lecken, Shot trinken, Orange essen",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-13-60c32a85e1-opt-3",
+          "text": "Zucker lecken, Shot trinken, Gurke essen",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-13-60c32a85e1-opt-4",
+          "text": "Den Shot über den Rücken des Nachbarn gießen",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-05-13-60c32a85e1-opt-1",
+      "explanation": "Salz und Zitrone. Der Versuch, den fiesen Geschmack von billigem Tequila zu überdecken. Spoiler: Es klappt nicht, man zieht trotzdem eine Grimasse.",
+      "difficulty": "medium",
+      "category_id": "cat-05",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-05-14-8b8b88842b",
+      "prompt": "Was ist ein 'Filmriss'?",
+      "options": [
+        {
+          "id": "q-05-14-8b8b88842b-opt-1",
+          "text": "Kompletter Blackout durch Alkohol",
+          "is_correct": true
+        },
+        {
+          "id": "q-05-14-8b8b88842b-opt-2",
+          "text": "Wenn die DVD im Player stecken bleibt",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-14-8b8b88842b-opt-3",
+          "text": "Ein Streit im Kino",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-14-8b8b88842b-opt-4",
+          "text": "Wenn man vergisst, die Kamera einzuschalten",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-05-14-8b8b88842b-opt-1",
+      "explanation": "Man wacht auf und hat 200 neue WhatsApp-Nachrichten und keine Ahnung, warum man ein Verkehrsschild im Wohnzimmer stehen hat. Millennial-Horror.",
+      "difficulty": "medium",
+      "category_id": "cat-05",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-05-15-c5205f9c74",
+      "prompt": "Was darf in einem echten 'Cuba Libre' niemals fehlen?",
+      "options": [
+        {
+          "id": "q-05-15-c5205f9c74-opt-1",
+          "text": "Limettensaft (und die Schale)",
+          "is_correct": true
+        },
+        {
+          "id": "q-05-15-c5205f9c74-opt-2",
+          "text": "Zitronensaft",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-15-c5205f9c74-opt-3",
+          "text": "Ein Schuss Grenadine",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-15-c5205f9c74-opt-4",
+          "text": "Minzblätter",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-05-15-c5205f9c74-opt-1",
+      "explanation": "Ohne Limette ist es nur Rum-Cola. Die Säure macht den Unterschied zwischen 'Genießer' und 'ich will nur schnell betrunken werden'.",
+      "difficulty": "medium",
+      "category_id": "cat-05",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-05-16-b646ca4087",
+      "prompt": "Welches Zubehör braucht man zwingend für 'Bierpong'?",
+      "options": [
+        {
+          "id": "q-05-16-b646ca4087-opt-1",
+          "text": "Rote Plastikbecher (Red Solo Cups)",
+          "is_correct": true
+        },
+        {
+          "id": "q-05-16-b646ca4087-opt-2",
+          "text": "Sektflöten aus Kristall",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-16-b646ca4087-opt-3",
+          "text": "Einen Tennisschläger",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-16-b646ca4087-opt-4",
+          "text": "Eine Stoppuhr",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-05-16-b646ca4087-opt-1",
+      "explanation": "Red Solo Cups. Das Symbol jeder US-Highschool-Party, das wir Millennials übernommen haben, als wäre es unsere eigene Kultur. Hauptsache, der Ball ist klebrig.",
+      "difficulty": "medium",
+      "category_id": "cat-05",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-05-18-9e1f7c5006",
+      "prompt": "Warum heißt das 'Radler' eigentlich Radler?",
+      "options": [
+        {
+          "id": "q-05-18-9e1f7c5006-opt-1",
+          "text": "Weil es angeblich für Radfahrer erfunden wurde (weniger Alkohol)",
+          "is_correct": true
+        },
+        {
+          "id": "q-05-18-9e1f7c5006-opt-2",
+          "text": "Weil der Erfinder Hans Radler hieß",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-18-9e1f7c5006-opt-3",
+          "text": "Wegen der Umdrehungen im Glas",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-18-9e1f7c5006-opt-4",
+          "text": "Es ist eine Abkürzung für 'Richtig angenehmes Durst-Limonaden-Erfrischungs-Rezept'",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-05-18-9e1f7c5006-opt-1",
+      "explanation": "Es sollte Radfahrer nicht sofort vom Sattel hauen. Heute ist es das Getränk für Leute, die am nächsten Tag noch wissen wollen, wo sie ihr Fahrrad abgestellt haben.",
+      "difficulty": "medium",
+      "category_id": "cat-05",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-05-19-3c5b30cb20",
+      "prompt": "Welchen Beigeschmack hat Bacardi Razz?",
+      "options": [
+        {
+          "id": "q-05-19-3c5b30cb20-opt-1",
+          "text": "Himbeere",
+          "is_correct": true
+        },
+        {
+          "id": "q-05-19-3c5b30cb20-opt-2",
+          "text": "Ananas",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-19-3c5b30cb20-opt-3",
+          "text": "Pfirsich",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-19-3c5b30cb20-opt-4",
+          "text": "Drachenfrucht",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-05-19-3c5b30cb20-opt-1",
+      "explanation": "Bacardi Razz steht fuer Himbeere. Meistens wurde er mit Sprite gemischt und war so suess, dass man den Jahrgang sofort wieder schmeckt.",
+      "difficulty": "medium",
+      "category_id": "cat-05",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-05-20-530d8c8719",
+      "prompt": "Welche Farbe hat 'Blue Curaçao' (pur)?",
+      "options": [
+        {
+          "id": "q-05-20-530d8c8719-opt-1",
+          "text": "Giftiges Blau",
+          "is_correct": true
+        },
+        {
+          "id": "q-05-20-530d8c8719-opt-2",
+          "text": "Klar wie Wasser",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-20-530d8c8719-opt-3",
+          "text": "Tiefrot",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-20-530d8c8719-opt-4",
+          "text": "Goldgelb",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-05-20-530d8c8719-opt-1",
+      "explanation": "Ein Blau, das in der Natur so nicht vorkommt. Es färbt die Zunge und sorgt für sehr interessante Farben beim späteren... nun ja, Wiedersehen mit dem Getränk.",
+      "difficulty": "medium",
+      "category_id": "cat-05",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-05-21-e6c973030f",
+      "prompt": "Was ist die Strafe bei 'Ich hab noch nie', wenn man es DOCH getan hat?",
+      "options": [
+        {
+          "id": "q-05-21-e6c973030f-opt-1",
+          "text": "Man muss trinken",
+          "is_correct": true
+        },
+        {
+          "id": "q-05-21-e6c973030f-opt-2",
+          "text": "Man muss den Raum verlassen",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-21-e6c973030f-opt-3",
+          "text": "Man muss 5 Euro in die Kasse zahlen",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-21-e6c973030f-opt-4",
+          "text": "Man muss ein peinliches Geheimnis bei Facebook posten",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-05-21-e6c973030f-opt-1",
+      "explanation": "Trinken. Die beste Methode, um herauszufinden, wer von seinen Freunden der größte Wildfang (oder Lügner) ist. Fremdscham vorprogrammiert.",
+      "difficulty": "medium",
+      "category_id": "cat-05",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-05-22-da75306604",
+      "prompt": "Hilft ein 'Konterbier' wirklich gegen den Kater?",
+      "options": [
+        {
+          "id": "q-05-22-da75306604-opt-1",
+          "text": "Nein, es verschiebt den Kater nur nach hinten",
+          "is_correct": true
+        },
+        {
+          "id": "q-05-22-da75306604-opt-2",
+          "text": "Ja, es neutralisiert die Magensäure",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-22-da75306604-opt-3",
+          "text": "Nur, wenn es warm getrunken wird",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-22-da75306604-opt-4",
+          "text": "Es ist medizinisch bewiesen (Placebo-Effekt)",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-05-22-da75306604-opt-1",
+      "explanation": "Ein Konterbier ist wie ein Kredit bei der Bank: Man muss ihn später mit Zinsen zurückzahlen. Aber für den Moment fühlt man sich wie ein Gott.",
+      "difficulty": "medium",
+      "category_id": "cat-05",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-05-23-fd629b97c3",
+      "prompt": "Warum war 'Flying Hirsch' so berüchtigt?",
+      "options": [
+        {
+          "id": "q-05-23-fd629b97c3-opt-1",
+          "text": "Weil die Kombi aus Jägermeister und Energy extrem aufputscht",
+          "is_correct": true
+        },
+        {
+          "id": "q-05-23-fd629b97c3-opt-2",
+          "text": "Weil man danach angeblich Geweihe sieht",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-23-fd629b97c3-opt-3",
+          "text": "Wegen der hohen Explosionsgefahr beim Mischen",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-23-fd629b97c3-opt-4",
+          "text": "Weil es nur in Skihütten über 2000m serviert wird",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-05-23-fd629b97c3-opt-1",
+      "explanation": "Wach und betrunken zugleich. Die gefährlichste Kombination seit 'Vokuhila und Schnurrbart'. Man fühlt sich unbesiegbar, bis man versucht zu stehen.",
+      "difficulty": "medium",
+      "category_id": "cat-05",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-05-24-d96b10abfe",
+      "prompt": "Was passiert beim 'Lüttje Lage' trinken (bekannt aus Hannover)?",
+      "options": [
+        {
+          "id": "q-05-24-d96b10abfe-opt-1",
+          "text": "Bier und Korn werden gleichzeitig aus zwei Gläsern getrunken",
+          "is_correct": true
+        },
+        {
+          "id": "q-05-24-d96b10abfe-opt-2",
+          "text": "Man muss ein Fass im Stehen austrinken",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-24-d96b10abfe-opt-3",
+          "text": "Man trinkt nur mit der linken Hand",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-24-d96b10abfe-opt-4",
+          "text": "Der Verlierer zahlt die nächste Runde Schnitzel",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-05-24-d96b10abfe-opt-1",
+      "explanation": "Eine artistische Meisterleistung. Wer es nicht kann, hat den Korn danach auf dem Hemd. Wer es kann, hat den Korn im Kopf. Klassische Win-Loss-Situation.",
+      "difficulty": "medium",
+      "category_id": "cat-05",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-05-25-9312ca2062",
+      "prompt": "Wie nennt man den letzten, oft verzweifelten Drink, bevor der Club schließt?",
+      "options": [
+        {
+          "id": "q-05-25-9312ca2062-opt-1",
+          "text": "Absacker / Wegbier / Rausschmeißer",
+          "is_correct": true
+        },
+        {
+          "id": "q-05-25-9312ca2062-opt-2",
+          "text": "Final Fantasy",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-25-9312ca2062-opt-3",
+          "text": "The End of Days",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-25-9312ca2062-opt-4",
+          "text": "Morgenröte-Mische",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-05-25-9312ca2062-opt-1",
+      "explanation": "Meistens der Drink, der einen über die Klippe stößt. Aber hey, man will ja nichts verpassen. YOLO (vong Niceheit her).",
+      "difficulty": "medium",
+      "category_id": "cat-05",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-05-01",
+      "type": "standard",
+      "prompt": "Welcher Alkopop war das flüssige Statussymbol der 2000er, bevor die 'Alkopop-Steuer' ihn quasi zur Wertanlage machte?",
+      "options": [
+        {
+          "id": "q-05-01-opt-1",
+          "text": "Smirnoff Ice",
+          "is_correct": true
+        },
+        {
+          "id": "q-05-01-opt-2",
+          "text": "Bacardi Rigo",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-01-opt-3",
+          "text": "Eristoff Ice",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-01-opt-4",
+          "text": "Breezer Lime",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-05-01-opt-1",
+      "explanation": "Smirnoff Ice. Diese milchig-trübe Plörre, die nach Zitronenreiniger schmeckte, aber uns gefühlt zum König der Dorfdisco machte.",
+      "difficulty": "medium",
+      "category_id": "cat-05",
+      "points": 1
+    },
+    {
+      "id": "q-05-03",
+      "type": "ranking",
+      "prompt": "Sortiere diese Kult-Getraenke nach ihrem Zuckergehalt pro 100 ml, von wenig zu viel.",
+      "items": [
+        {
+          "id": "q-05-03-item-1",
+          "text": "Pils (herb)"
+        },
+        {
+          "id": "q-05-03-item-2",
+          "text": "Weißwein-Schorle"
+        },
+        {
+          "id": "q-05-03-item-3",
+          "text": "Gin Tonic (Standard)"
+        },
+        {
+          "id": "q-05-03-item-4",
+          "text": "Bacardi Breezer"
+        }
+      ],
+      "correct_order": [
+        "q-05-03-item-1",
+        "q-05-03-item-2",
+        "q-05-03-item-3",
+        "q-05-03-item-4"
+      ],
+      "explanation": "Bier hat fast keinen Zucker, Weinschorle liegt hoeher, Tonic Water bringt deutlich mehr mit und Alkopops waren oft echte Zuckerbomben.",
+      "difficulty": "hard",
+      "category_id": "cat-05",
+      "points": 2
+    },
+    {
+      "id": "q-05-04",
+      "type": "common_mistake",
+      "prompt": "Was ist der hartnäckigste Mythos gegen den Kater, der wissenschaftlich gesehen absolut kontraproduktiv ist?",
+      "options": [
+        {
+          "id": "q-05-04-opt-1",
+          "text": "Das 'Konterbier' am nächsten Morgen",
+          "is_correct": true
+        },
+        {
+          "id": "q-05-04-opt-2",
+          "text": "Ein Glas Wasser zwischen jedem Drink",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-04-opt-3",
+          "text": "Elektrolyte vor dem Schlafengehen",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-04-opt-4",
+          "text": "Viel Salz zum Frühstück essen",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-05-04-opt-1",
+      "explanation": "Das Konterbier verschiebt den Abbau von Methanol nur. Du fühlst dich kurz besser, aber der Absturz danach wird nur noch tiefer.",
+      "difficulty": "medium",
+      "category_id": "cat-05",
+      "points": 1
+    },
+    {
+      "id": "q-05-05",
+      "type": "logic",
+      "prompt": "Vorglüh-Check: 0,7l Wodka (37,5%) + 20 Flaschen Bier (0,5l, 5%). Wie viel Liter reiner Alkohol sind das?",
+      "options": [
+        {
+          "id": "q-05-05-opt-1",
+          "text": "0,76 Liter",
+          "is_correct": true
+        },
+        {
+          "id": "q-05-05-opt-2",
+          "text": "0,50 Liter",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-05-opt-3",
+          "text": "1,20 Liter",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-05-opt-4",
+          "text": "Genug für den Führerscheinentzug",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-05-05-opt-1",
+      "explanation": "Wodka: 0,7 * 0,375 = 0,2625l. Bier: 10l * 0,05 = 0,5l. Gesamt: 0,7625 Liter reiner Spiritus. Viel Erfolg!",
+      "difficulty": "hard",
+      "category_id": "cat-05",
+      "points": 2
+    },
+    {
+      "id": "q-05-06",
+      "type": "majority_guess",
+      "prompt": "Umfrage unter Millennials: Welches dieser 'Mischgetränke' ist der sicherste Weg zu einem kompletten Filmriss?",
+      "options": [
+        {
+          "id": "q-05-06-opt-1",
+          "text": "Wodka-Energy (Billig-Marke)",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-06-opt-2",
+          "text": "Sangria aus dem Eimer",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-06-opt-3",
+          "text": "Tequila-Shots am laufenden Band",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-06-opt-4",
+          "text": "Der 'Letzte Drink' vom Barkeeper",
+          "is_correct": false
+        }
+      ],
+      "explanation": "Hier entscheidet die Gruppe. Aber Hand aufs Herz: Wodka-E ist der Treibstoff der verlorenen Erinnerungen.",
+      "difficulty": "low",
+      "category_id": "cat-05",
+      "points": 1
+    },
+    {
+      "id": "q-05-07",
+      "type": "pattern",
+      "prompt": "Welcher Drink passt NICHT in diese Reihe: Sangria, Bowle, Kalte Ente, Hugo?",
+      "options": [
+        {
+          "id": "q-05-07-opt-1",
+          "text": "Hugo",
+          "is_correct": true
+        },
+        {
+          "id": "q-05-07-opt-2",
+          "text": "Sangria",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-07-opt-3",
+          "text": "Bowle",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-07-opt-4",
+          "text": "Kalte Ente",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-05-07-opt-1",
+      "explanation": "Die ersten drei sind klassische 'Gefäß-Getränke' für Gruppen (Eimer/Schüssel). Ein Hugo ist ein Einzel-Drink für Leute, die Minze im Glas mögen.",
+      "difficulty": "medium",
+      "category_id": "cat-05",
+      "points": 1
+    },
+    {
+      "id": "q-05-09",
+      "type": "fast_guess",
+      "prompt": "Welcher Schnaps wird traditionell mit einer Kaffeebohne serviert, die man am Ende zerkauen muss?",
+      "options": [
+        {
+          "id": "q-05-09-opt-1",
+          "text": "Sambuca",
+          "is_correct": true
+        },
+        {
+          "id": "q-05-09-opt-2",
+          "text": "Ouzo",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-09-opt-3",
+          "text": "Grappa",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-09-opt-4",
+          "text": "Fernet Branca",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-05-09-opt-1",
+      "explanation": "Sambuca 'con la mosca' (mit der Fliege). Die Bohne soll die Süße des Anis-Likörs ausgleichen.",
+      "difficulty": "low",
+      "category_id": "cat-05",
+      "points": 1
+    },
+    {
+      "id": "q-05-10",
+      "type": "logic",
+      "prompt": "Bierpong-Logik: Der Gegner trifft den Becher, während du ihn gerade in der Hand hältst. Was passiert?",
+      "options": [
+        {
+          "id": "q-05-10-opt-1",
+          "text": "Death Cup: Du hast das Spiel sofort verloren",
+          "is_correct": true
+        },
+        {
+          "id": "q-05-10-opt-2",
+          "text": "Du musst nur zwei Becher extra trinken",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-10-opt-3",
+          "text": "Der Wurf wird wiederholt",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-10-opt-4",
+          "text": "Es passiert gar nichts",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-05-10-opt-1",
+      "explanation": "Die 'Death Cup' Regel ist unerbittlich. Wer den Becher unvorsichtig hält, riskiert den Absturz des ganzen Teams.",
+      "difficulty": "medium",
+      "category_id": "cat-05",
+      "points": 1
+    },
+    {
+      "id": "q-05-11",
+      "type": "sudden_death_estimate",
+      "prompt": "Ab welchem Promillewert gilt man in Deutschland beim Fahrradfahren als 'absolut fahruntüchtig' (Straftat)?",
+      "answer": {
+        "reference_value": 1.6,
+        "unit": "Promille",
+        "canonical": "1,6 Promille",
+        "context": "StVZO Deutschland"
+      },
+      "scoring_rule": "closest_wins",
+      "explanation": "1,6 Promille. Wer darüber liegt, darf zur MPU – auch ohne Auto. Die 'Leiche' auf dem Hollandrad wird teuer.",
+      "difficulty": "hard",
+      "category_id": "cat-05",
+      "points": 3
+    },
+    {
+      "id": "q-05-12",
+      "type": "majority_guess",
+      "prompt": "Wo ist man nach einer harten Party am wahrscheinlichsten aufgewacht?",
+      "explanation": "Das ist Erfahrungs- und Gruppendynamik, keine objektiv sortierbare Wahrheit. Deshalb entscheidet hier die Mehrheit der Runde.",
+      "difficulty": "medium",
+      "category_id": "cat-05",
+      "points": 1,
+      "options": [
+        {
+          "id": "q-05-12-opt-1",
+          "text": "Auf der Couch"
+        },
+        {
+          "id": "q-05-12-opt-2",
+          "text": "In der Badewanne"
+        },
+        {
+          "id": "q-05-12-opt-3",
+          "text": "Unter dem Kuechentisch"
+        },
+        {
+          "id": "q-05-12-opt-4",
+          "text": "In einem fremden Gartenhaeuschen"
+        }
+      ]
+    },
+    {
+      "id": "q-05-13",
+      "type": "standard",
+      "prompt": "Wie nennt man das Phänomen, wenn man am Morgen nach der Party panisch seine WhatsApp-Verläufe checkt, um den sozialen Schaden zu begrenzen?",
+      "options": [
+        {
+          "id": "q-05-13-opt-1",
+          "text": "Hangxiety",
+          "is_correct": true
+        },
+        {
+          "id": "q-05-13-opt-2",
+          "text": "Drunk-Shame",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-13-opt-3",
+          "text": "After-Hour-Panic",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-13-opt-4",
+          "text": "Digitaler Kater",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-05-13-opt-1",
+      "explanation": "Hangxiety (Hangover + Anxiety). Die Angst vor dem, was man getan hat, während das Gehirn auf 'Standby' war.",
+      "difficulty": "medium",
+      "category_id": "cat-05",
+      "points": 1
+    },
+    {
+      "id": "q-05-14",
+      "type": "common_mistake",
+      "prompt": "Warum ist 'Tequila Gold' eigentlich goldfarben? (Kleiner Tipp: Es liegt nicht am Alter)",
+      "options": [
+        {
+          "id": "q-05-14-opt-1",
+          "text": "Zusatz von Zuckercouleur und Aromen",
+          "is_correct": true
+        },
+        {
+          "id": "q-05-14-opt-2",
+          "text": "Lagerung in edlen Eichenfässern",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-14-opt-3",
+          "text": "Beigabe von echtem Blattgold",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-14-opt-4",
+          "text": "Es ist eine spezielle Agaven-Art",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-05-14-opt-1",
+      "explanation": "Der billige 'Mixto' Tequila wird einfach gefärbt. Echter gereifter Tequila heißt 'Reposado' und ist meist deutlich teurer.",
+      "difficulty": "hard",
+      "category_id": "cat-05",
+      "points": 1
+    },
+    {
+      "id": "q-05-15",
+      "type": "fast_guess",
+      "prompt": "Welche Farbe hat die Zunge nach dem Konsum von 'Blue Curaçao'?",
+      "options": [
+        {
+          "id": "q-05-15-opt-1",
+          "text": "Giftiges Schlumpf-Blau",
+          "is_correct": true
+        },
+        {
+          "id": "q-05-15-opt-2",
+          "text": "Tiefschwarz",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-15-opt-3",
+          "text": "Gar keine Verfärbung",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-15-opt-4",
+          "text": "Neongelb",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-05-15-opt-1",
+      "explanation": "Der Farbstoff E131 sorgt für ein Blau, das in der Natur so nicht vorkommt und jeden Verdacht beim Zähneputzen sofort bestätigt.",
+      "difficulty": "low",
+      "category_id": "cat-05",
+      "points": 1
+    },
+    {
+      "id": "q-05-16",
+      "type": "logic",
+      "prompt": "Freund A bringt 6 Bier, B bringt 4, C bringt 0 und zahlt 10 €. Wer bekommt wie viel von den 10 €?",
+      "options": [
+        {
+          "id": "q-05-16-opt-1",
+          "text": "Freund 1 bekommt 8€, Freund 2 bekommt 2€",
+          "is_correct": true
+        },
+        {
+          "id": "q-05-16-opt-2",
+          "text": "Jeder bekommt 5€",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-16-opt-3",
+          "text": "Freund 1 bekommt alles",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-16-opt-4",
+          "text": "Sie kaufen davon noch mehr Bier",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-05-16-opt-1",
+      "explanation": "10 Flaschen durch 3 Leute = 3,33 pro Kopf. Freund 1 hat 2,67 Flaschen 'zu viel', Freund 2 hat 0,67 'zu viel'. Freund 1 hat also 80% des Überschusses geliefert.",
+      "difficulty": "hard",
+      "category_id": "cat-05",
+      "points": 2
+    },
+    {
+      "id": "q-05-17",
+      "type": "pattern",
+      "prompt": "Berliner Luft - Minze | Sourz - Apfel | Kleiner Feigling - ...?",
+      "options": [
+        {
+          "id": "q-05-17-opt-1",
+          "text": "Feige",
+          "is_correct": true
+        },
+        {
+          "id": "q-05-17-opt-2",
+          "text": "Birne",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-17-opt-3",
+          "text": "Pflaume",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-17-opt-4",
+          "text": "Nuss",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-05-17-opt-1",
+      "explanation": "Kleiner Feigling basiert auf Feige und Wodka. Der Clou ist das rituelle Klopfen mit dem Deckel auf die Nase.",
+      "difficulty": "low",
+      "category_id": "cat-05",
+      "points": 1
+    },
+    {
+      "id": "q-05-19",
+      "type": "majority_guess",
+      "prompt": "Welche 'Kater-Nahrung' ist der absolute heilige Gral nach einer durchzechten Nacht?",
+      "options": [
+        {
+          "id": "q-05-19-opt-1",
+          "text": "Döner mit ALLES",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-19-opt-2",
+          "text": "Kaltes Pizza-Stück vom Vorabend",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-19-opt-3",
+          "text": "Nudeln mit Ketchup",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-19-opt-4",
+          "text": "Rührei des Grauens",
+          "is_correct": false
+        }
+      ],
+      "explanation": "Döner gewinnt fast immer. Die Kombination aus Fett, Salz und zweifelhafter Fleischherkunft ist physiologisch unbesiegbar.",
+      "difficulty": "low",
+      "category_id": "cat-05",
+      "points": 1
+    },
+    {
+      "id": "q-05-20",
+      "type": "standard",
+      "prompt": "Was ist der Hauptbestandteil von 'Elotrans', das Millennials zweckentfremdet haben, um ihre Partynächte zu überleben?",
+      "options": [
+        {
+          "id": "q-05-20-opt-1",
+          "text": "Elektrolyte und Glucose",
+          "is_correct": true
+        },
+        {
+          "id": "q-05-20-opt-2",
+          "text": "Reines Koffein",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-20-opt-3",
+          "text": "Schmerzmittel (Ibuprofen)",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-20-opt-4",
+          "text": "Magnesium und B12",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-05-20-opt-1",
+      "explanation": "Eigentlich ein Mittel gegen Durchfall bei Kindern. Für Millennials die einzige Chance, am Montag im Büro nicht wie ein Zombie auszusehen.",
+      "difficulty": "medium",
+      "category_id": "cat-05",
+      "points": 1
+    },
+    {
+      "id": "q-05-21",
+      "type": "logic",
+      "prompt": "Mischverhältnis-Check: Du willst eine 0,2l Mische mit exakt 4cl Wodka machen. Welches Mischverhältnis (Wodka zu Filler) ist das?",
+      "options": [
+        {
+          "id": "q-05-21-opt-1",
+          "text": "1 : 4",
+          "is_correct": true
+        },
+        {
+          "id": "q-05-21-opt-2",
+          "text": "1 : 3",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-21-opt-3",
+          "text": "1 : 5",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-21-opt-4",
+          "text": "50 / 50",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-05-21-opt-1",
+      "explanation": "4cl Wodka und 16cl Filler ergeben 20cl (0,2l). Das Verhältnis ist also 4 zu 16, gekürzt 1 zu 4. Klassische Mische.",
+      "difficulty": "medium",
+      "category_id": "cat-05",
+      "points": 1
+    },
+    {
+      "id": "q-05-22",
+      "type": "pattern",
+      "prompt": "Finde den Eindringling in der Liste der 'Tequila-Bier-Hybride'!",
+      "options": [
+        {
+          "id": "q-05-22-opt-1",
+          "text": "Guinness",
+          "is_correct": true
+        },
+        {
+          "id": "q-05-22-opt-2",
+          "text": "Desperados",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-22-opt-3",
+          "text": "Salitos",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-22-opt-4",
+          "text": "Cab",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-05-22-opt-1",
+      "explanation": "Während Desperados und Co. den Tequila-Flavour-Hype der 2000er bedienten, ist Guinness ein irisches Stout ohne jeden Schnickschnack.",
+      "difficulty": "medium",
+      "category_id": "cat-05",
+      "points": 1
+    },
+    {
+      "id": "q-05-23",
+      "type": "fast_guess",
+      "prompt": "In welcher Stadt ist das Ritual 'Lüttje Lage' (Bier und Korn gleichzeitig aus zwei Gläsern trinken) tief verwurzelt?",
+      "options": [
+        {
+          "id": "q-05-23-opt-1",
+          "text": "Hannover",
+          "is_correct": true
+        },
+        {
+          "id": "q-05-23-opt-2",
+          "text": "Hamburg",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-23-opt-3",
+          "text": "Bremen",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-23-opt-4",
+          "text": "Berlin",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-05-23-opt-1",
+      "explanation": "In Hannover gehört die Lüttje Lage zum Schützenfest wie der Kater zum Morgen danach. Wer es nicht kann, hat den Schnaps auf dem Hemd.",
+      "difficulty": "medium",
+      "category_id": "cat-05",
+      "points": 1
+    },
+    {
+      "id": "q-05-25",
+      "type": "ranking",
+      "prompt": "Sortiere diese Party-Phasen nach dem üblichen zeitlichen Ablauf einer legendären Nacht!",
+      "items": [
+        {
+          "id": "q-05-25-item-1",
+          "text": "Vorglühen (Kapitalismus-Widerstand)"
+        },
+        {
+          "id": "q-05-25-item-2",
+          "text": "Der 'Warum-bin-ich-hier' Moment im Club"
+        },
+        {
+          "id": "q-05-25-item-3",
+          "text": "Döner-Inhalation am Bahnhof"
+        },
+        {
+          "id": "q-05-25-item-4",
+          "text": "Hangxiety (WhatsApp-Check)"
+        }
+      ],
+      "correct_order": [
+        "q-05-25-item-1",
+        "q-05-25-item-2",
+        "q-05-25-item-3",
+        "q-05-25-item-4"
+      ],
+      "explanation": "Erst sparen, dann tanzen (und zweifeln), dann essen, dann bereuen. Der ewige Kreislauf.",
+      "difficulty": "low",
+      "category_id": "cat-05",
+      "points": 2
+    }
+  ]
+}

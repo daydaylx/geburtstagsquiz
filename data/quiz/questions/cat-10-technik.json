@@ -1,0 +1,1785 @@
+{
+  "category_id": "cat-10",
+  "slug": "technik-fails-hardware-friedhof",
+  "name": "Technik-Fails & Hardware-Friedhof",
+  "difficulty": "medium",
+  "tags": [
+    "technik",
+    "hardware",
+    "computer",
+    "handys",
+    "nostalgie"
+  ],
+  "question_count": 38,
+  "questions": [
+    {
+      "id": "q-10-01-a724282785",
+      "legacy_question_id": 1,
+      "category_id": "cat-10",
+      "order_in_category": 1,
+      "order_global": 226,
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Wie hieß das Geräusch/Signal, das ein klassisches Einwählmodem beim Verbindungsaufbau machte?",
+      "options": [
+        {
+          "id": "q-10-01-a724282785-opt-1",
+          "text": "Modem-Handshaking (Kratzen und Piepen)",
+          "is_correct": true
+        },
+        {
+          "id": "q-10-01-a724282785-opt-2",
+          "text": "DSL-Summen",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-01-a724282785-opt-3",
+          "text": "ISDN-Klicken",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-01-a724282785-opt-4",
+          "text": "Modem-Walzer",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-10-01-a724282785-opt-1",
+      "answer": {
+        "canonical": "Das Modem-Handshaking",
+        "aliases": [
+          "Das Modem-Handshaking",
+          "Einwahlgeräusch",
+          "Modemgeräusch"
+        ],
+        "alternatives": [],
+        "case_sensitive": false,
+        "match_strategy": "alias_or_option_id"
+      },
+      "explanation": "Das Geräusch, das unsere Eltern wütend machte, weil wir die Leitung blockierten. Das Tor zur Freiheit (mit 5 KB/s).",
+      "tags": [
+        "technik",
+        "hardware",
+        "computer",
+        "handys",
+        "nostalgie"
+      ],
+      "source": {
+        "imported_from_category_name": "Technik-Fails & Hardware-Friedhof"
+      },
+      "validation": {
+        "auto_generated_options": false,
+        "needs_manual_review": false,
+        "review_flags": []
+      }
+    },
+    {
+      "id": "q-10-02-16cfd8fe93",
+      "legacy_question_id": 2,
+      "category_id": "cat-10",
+      "order_in_category": 2,
+      "order_global": 227,
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Was war der große Nachteil eines Discman beim Gehen?",
+      "options": [
+        {
+          "id": "q-10-02-16cfd8fe93-opt-1",
+          "text": "Songs sprangen bei jeder Erschütterung",
+          "is_correct": true
+        },
+        {
+          "id": "q-10-02-16cfd8fe93-opt-2",
+          "text": "Er wurde zu heiß",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-02-16cfd8fe93-opt-3",
+          "text": "Die CD schmolz",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-02-16cfd8fe93-opt-4",
+          "text": "Man brauchte eine Genehmigung",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-10-02-16cfd8fe93-opt-1",
+      "answer": {
+        "canonical": "Songs sprangen wegen Erschütterungen",
+        "aliases": [
+          "Songs sprangen wegen Erschütterungen",
+          "songs sprangen wegen erschütterungen"
+        ],
+        "alternatives": [],
+        "case_sensitive": false,
+        "match_strategy": "alias_or_option_id"
+      },
+      "explanation": "Discman ohne 'Anti-Shock' war eine Mutprobe. Wer damit gejoggt ist, hat eigentlich nur 3-sekündige Snippets gehört.",
+      "tags": [
+        "technik",
+        "hardware",
+        "computer",
+        "handys",
+        "nostalgie"
+      ],
+      "source": {
+        "imported_from_category_name": "Technik-Fails & Hardware-Friedhof"
+      },
+      "validation": {
+        "auto_generated_options": true,
+        "needs_manual_review": false,
+        "review_flags": []
+      }
+    },
+    {
+      "id": "q-10-03-2a59fdd462",
+      "legacy_question_id": 3,
+      "category_id": "cat-10",
+      "order_in_category": 3,
+      "order_global": 228,
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Wofür war Nero Burning ROM bekannt?",
+      "options": [
+        {
+          "id": "q-10-03-2a59fdd462-opt-1",
+          "text": "Software zum Brennen von CDs/DVDs",
+          "is_correct": true
+        },
+        {
+          "id": "q-10-03-2a59fdd462-opt-2",
+          "text": "Ein römisches Strategiespiel",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-03-2a59fdd462-opt-3",
+          "text": "Ein Kochprogramm",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-03-2a59fdd462-opt-4",
+          "text": "Ein Virus-Schutz",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-10-03-2a59fdd462-opt-1",
+      "answer": {
+        "canonical": "Zum Brennen von CDs und DVDs",
+        "aliases": [
+          "Zum Brennen von CDs und DVDs",
+          "zum brennen von cds und dvds"
+        ],
+        "alternatives": [],
+        "case_sensitive": false,
+        "match_strategy": "alias_or_option_id"
+      },
+      "explanation": "Nero Burning ROM. Das Wortspiel mit dem brennenden Rom haben wir erst Jahre später kapiert. Unser Tool für Mix-CDs.",
+      "tags": [
+        "technik",
+        "hardware",
+        "computer",
+        "handys",
+        "nostalgie"
+      ],
+      "source": {
+        "imported_from_category_name": "Technik-Fails & Hardware-Friedhof"
+      },
+      "validation": {
+        "auto_generated_options": true,
+        "needs_manual_review": false,
+        "review_flags": []
+      }
+    },
+    {
+      "id": "q-10-04-681a745dc2",
+      "legacy_question_id": 4,
+      "category_id": "cat-10",
+      "order_in_category": 4,
+      "order_global": 229,
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Was bedeutete „CD brennen“ praktisch?",
+      "options": [
+        {
+          "id": "q-10-04-681a745dc2-opt-1",
+          "text": "CD im Ofen erhitzen",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-04-681a745dc2-opt-2",
+          "text": "Cover einritzen",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-04-681a745dc2-opt-3",
+          "text": "Daten per Laser auf einen Rohling schreiben",
+          "is_correct": true
+        },
+        {
+          "id": "q-10-04-681a745dc2-opt-4",
+          "text": "CDs illegal verkaufen",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-10-04-681a745dc2-opt-3",
+      "answer": {
+        "canonical": "Daten oder Musik auf einen beschreibbaren Rohling schreiben",
+        "aliases": [
+          "Daten oder Musik auf einen beschreibbaren Rohling schreiben",
+          "daten oder musik auf einen beschreibbaren rohling schreiben"
+        ],
+        "alternatives": [],
+        "case_sensitive": false,
+        "match_strategy": "alias_or_option_id"
+      },
+      "explanation": "Brennen. Ein heroischer Akt, der oft mit 'Buffer Underrun' endete. Wir haben mehr Plastik verschwendet als eine Fabrik.",
+      "tags": [
+        "technik",
+        "hardware",
+        "computer",
+        "handys",
+        "nostalgie"
+      ],
+      "source": {
+        "imported_from_category_name": "Technik-Fails & Hardware-Friedhof"
+      },
+      "validation": {
+        "auto_generated_options": true,
+        "needs_manual_review": false,
+        "review_flags": []
+      }
+    },
+    {
+      "id": "q-10-05-c51c3c5aa4",
+      "legacy_question_id": 5,
+      "category_id": "cat-10",
+      "order_in_category": 5,
+      "order_global": 230,
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Welche Dateiendung war für Musikdownloads in der Tauschbörsenära am typischsten?",
+      "options": [
+        {
+          "id": "q-10-05-c51c3c5aa4-opt-1",
+          "text": ".mp3",
+          "is_correct": true
+        },
+        {
+          "id": "q-10-05-c51c3c5aa4-opt-2",
+          "text": ".exe (Virus!)",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-05-c51c3c5aa4-opt-3",
+          "text": ".wav",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-05-c51c3c5aa4-opt-4",
+          "text": ".zip",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-10-05-c51c3c5aa4-opt-1",
+      "answer": {
+        "canonical": ".mp3",
+        "aliases": [
+          ".mp3"
+        ],
+        "alternatives": [],
+        "case_sensitive": false,
+        "match_strategy": "alias_or_option_id"
+      },
+      "explanation": ".mp3 war die Währung des frühen 21. Jahrhunderts. 128 kbps galt damals als 'High Fidelity'.",
+      "tags": [
+        "technik",
+        "hardware",
+        "computer",
+        "handys",
+        "nostalgie"
+      ],
+      "source": {
+        "imported_from_category_name": "Technik-Fails & Hardware-Friedhof"
+      },
+      "validation": {
+        "auto_generated_options": true,
+        "needs_manual_review": false,
+        "review_flags": []
+      }
+    },
+    {
+      "id": "q-10-06-65bfbcc6d2",
+      "legacy_question_id": 6,
+      "category_id": "cat-10",
+      "order_in_category": 6,
+      "order_global": 231,
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Welche Tauschbörse war berüchtigt für Viren und Fake-Dateien neben Kazaa?",
+      "options": [
+        {
+          "id": "q-10-06-65bfbcc6d2-opt-1",
+          "text": "eMule",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-06-65bfbcc6d2-opt-2",
+          "text": "Napster",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-06-65bfbcc6d2-opt-3",
+          "text": "LimeWire",
+          "is_correct": true
+        },
+        {
+          "id": "q-10-06-65bfbcc6d2-opt-4",
+          "text": "BearShare",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-10-06-65bfbcc6d2-opt-3",
+      "answer": {
+        "canonical": "LimeWire",
+        "aliases": [
+          "LimeWire",
+          "limewire"
+        ],
+        "alternatives": [],
+        "case_sensitive": false,
+        "match_strategy": "alias_or_option_id"
+      },
+      "explanation": "LimeWire. Man wollte einen Song und bekam einen Virus, der den PC in drei Sprachen gleichzeitig abstürzen ließ.",
+      "tags": [
+        "technik",
+        "hardware",
+        "computer",
+        "handys",
+        "nostalgie"
+      ],
+      "source": {
+        "imported_from_category_name": "Technik-Fails & Hardware-Friedhof"
+      },
+      "validation": {
+        "auto_generated_options": true,
+        "needs_manual_review": false,
+        "review_flags": []
+      }
+    },
+    {
+      "id": "q-10-07-c46b85b036",
+      "legacy_question_id": 7,
+      "category_id": "cat-10",
+      "order_in_category": 7,
+      "order_global": 232,
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Welche Speicherkapazität hatte eine klassische 3,5-Zoll-Diskette meist?",
+      "options": [
+        {
+          "id": "q-10-07-c46b85b036-opt-1",
+          "text": "1,44 MB (reicht für ein halbes Foto)",
+          "is_correct": true
+        },
+        {
+          "id": "q-10-07-c46b85b036-opt-2",
+          "text": "1,44 GB",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-07-c46b85b036-opt-3",
+          "text": "700 MB",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-07-c46b85b036-opt-4",
+          "text": "100 KB",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-10-07-c46b85b036-opt-1",
+      "answer": {
+        "canonical": "1,44 MB",
+        "aliases": [
+          "1,44 MB",
+          "1,44 mb"
+        ],
+        "alternatives": [],
+        "case_sensitive": false,
+        "match_strategy": "alias_or_option_id"
+      },
+      "explanation": "1,44 Megabyte. Das reicht heute nicht mal für ein 4K-Emoji. Damals haben wir ganze Hausarbeiten darauf gespeichert.",
+      "tags": [
+        "technik",
+        "hardware",
+        "computer",
+        "handys",
+        "nostalgie"
+      ],
+      "source": {
+        "imported_from_category_name": "Technik-Fails & Hardware-Friedhof"
+      },
+      "validation": {
+        "auto_generated_options": true,
+        "needs_manual_review": false,
+        "review_flags": []
+      }
+    },
+    {
+      "id": "q-10-08-e01d9ff8bd",
+      "legacy_question_id": 8,
+      "category_id": "cat-10",
+      "order_in_category": 8,
+      "order_global": 233,
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Warum war ein Röhrenmonitor im Vergleich zu heutigen Displays ein Möbelstück mit Stromanschluss?",
+      "options": [
+        {
+          "id": "q-10-08-e01d9ff8bd-opt-1",
+          "text": "Wegen der enormen Tiefe und des Gewichts",
+          "is_correct": true
+        },
+        {
+          "id": "q-10-08-e01d9ff8bd-opt-2",
+          "text": "Man konnte ihn als Tisch nutzen",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-08-e01d9ff8bd-opt-3",
+          "text": "Er war aus Holz",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-08-e01d9ff8bd-opt-4",
+          "text": "Keine Kabel",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-10-08-e01d9ff8bd-opt-1",
+      "answer": {
+        "canonical": "Weil er groß, schwer und tief war",
+        "aliases": [
+          "Weil er groß, schwer und tief war",
+          "weil er groß, schwer und tief war"
+        ],
+        "alternatives": [],
+        "case_sensitive": false,
+        "match_strategy": "alias_or_option_id"
+      },
+      "explanation": "Röhrenmonitore waren der Grund für unsere Rückenprobleme. Wer so ein 19-Zoll-Monster zur LAN-Party geschleppt hat, war ein Held.",
+      "tags": [
+        "technik",
+        "hardware",
+        "computer",
+        "handys",
+        "nostalgie"
+      ],
+      "source": {
+        "imported_from_category_name": "Technik-Fails & Hardware-Friedhof"
+      },
+      "validation": {
+        "auto_generated_options": true,
+        "needs_manual_review": false,
+        "review_flags": []
+      }
+    },
+    {
+      "id": "q-10-09-d59a3ca39c",
+      "legacy_question_id": 9,
+      "category_id": "cat-10",
+      "order_in_category": 9,
+      "order_global": 234,
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Wofür stand SMS?",
+      "options": [
+        {
+          "id": "q-10-09-d59a3ca39c-opt-1",
+          "text": "Super Message System",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-09-d59a3ca39c-opt-2",
+          "text": "Small Mail Service",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-09-d59a3ca39c-opt-3",
+          "text": "Soon My Son",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-09-d59a3ca39c-opt-4",
+          "text": "Short Message Service",
+          "is_correct": true
+        }
+      ],
+      "correct_option_id": "q-10-09-d59a3ca39c-opt-4",
+      "answer": {
+        "canonical": "Short Message Service",
+        "aliases": [
+          "Short Message Service",
+          "short message service"
+        ],
+        "alternatives": [],
+        "case_sensitive": false,
+        "match_strategy": "alias_or_option_id"
+      },
+      "explanation": "SMS. 160 Zeichen pure Emotion für 39 Pfennig. Wir haben Abkürzungen erfunden, die heute kein Linguist mehr versteht.",
+      "tags": [
+        "technik",
+        "hardware",
+        "computer",
+        "handys",
+        "nostalgie"
+      ],
+      "source": {
+        "imported_from_category_name": "Technik-Fails & Hardware-Friedhof"
+      },
+      "validation": {
+        "auto_generated_options": true,
+        "needs_manual_review": false,
+        "review_flags": []
+      }
+    },
+    {
+      "id": "q-10-10-c7e06f0732",
+      "legacy_question_id": 10,
+      "category_id": "cat-10",
+      "order_in_category": 10,
+      "order_global": 235,
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Was war T9 bei Handys?",
+      "options": [
+        {
+          "id": "q-10-10-c7e06f0732-opt-1",
+          "text": "Texteingabehilfe auf Zifferntasten",
+          "is_correct": true
+        },
+        {
+          "id": "q-10-10-c7e06f0732-opt-2",
+          "text": "Ein Terminator-Modell",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-10-c7e06f0732-opt-3",
+          "text": "Ein Flugzeugtyp",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-10-c7e06f0732-opt-4",
+          "text": "Ein Level in Tetris",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-10-10-c7e06f0732-opt-1",
+      "answer": {
+        "canonical": "Eine Texteingabehilfe zur Worterkennung auf Nummerntastaturen",
+        "aliases": [
+          "Eine Texteingabehilfe zur Worterkennung auf Nummerntastaturen",
+          "eine texteingabehilfe zur worterkennung auf nummerntastaturen"
+        ],
+        "alternatives": [],
+        "case_sensitive": false,
+        "match_strategy": "alias_or_option_id"
+      },
+      "explanation": "T9 war Magie. Wir konnten blind unter der Schulbank Nachrichten tippen. Heute wirken wir damit wie Zauberer.",
+      "tags": [
+        "technik",
+        "hardware",
+        "computer",
+        "handys",
+        "nostalgie"
+      ],
+      "source": {
+        "imported_from_category_name": "Technik-Fails & Hardware-Friedhof"
+      },
+      "validation": {
+        "auto_generated_options": true,
+        "needs_manual_review": false,
+        "review_flags": []
+      }
+    },
+    {
+      "id": "q-10-11-f066fb2e24",
+      "legacy_question_id": 11,
+      "category_id": "cat-10",
+      "order_in_category": 11,
+      "order_global": 236,
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Was war der Vorteil eines Klapphandys?",
+      "options": [
+        {
+          "id": "q-10-11-f066fb2e24-opt-1",
+          "text": "Aggressives Zuklappen zum Auflegen",
+          "is_correct": true
+        },
+        {
+          "id": "q-10-11-f066fb2e24-opt-2",
+          "text": "Besserer Empfang im Keller",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-11-f066fb2e24-opt-3",
+          "text": "Eingebauter Spiegel",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-11-f066fb2e24-opt-4",
+          "text": "Als Waffe nutzbar",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-10-11-f066fb2e24-opt-1",
+      "answer": {
+        "canonical": "Kompakt, geschütztes Display/Tastenfeld und Auflegen mit zuklappen",
+        "aliases": [
+          "Kompakt, geschütztes Display/Tastenfeld und Auflegen mit zuklappen",
+          "kompakt, geschütztes display/tastenfeld und auflegen mit zuklappen"
+        ],
+        "alternatives": [],
+        "case_sensitive": false,
+        "match_strategy": "alias_or_option_id"
+      },
+      "explanation": "Klapphandys (Razr!) waren der Gipfel der Coolness. Nichts war befriedigender als ein lautes 'Klack' zum Gesprächsende.",
+      "tags": [
+        "technik",
+        "hardware",
+        "computer",
+        "handys",
+        "nostalgie"
+      ],
+      "source": {
+        "imported_from_category_name": "Technik-Fails & Hardware-Friedhof"
+      },
+      "validation": {
+        "auto_generated_options": true,
+        "needs_manual_review": false,
+        "review_flags": []
+      }
+    },
+    {
+      "id": "q-10-12-ba3a09612f",
+      "legacy_question_id": 12,
+      "category_id": "cat-10",
+      "order_in_category": 12,
+      "order_global": 237,
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Welche Marke ist eng mit dem Kult-Handy 3310 verbunden?",
+      "options": [
+        {
+          "id": "q-10-12-ba3a09612f-opt-1",
+          "text": "Siemens",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-12-ba3a09612f-opt-2",
+          "text": "Sony Ericsson",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-12-ba3a09612f-opt-3",
+          "text": "Nokia (Unkaputtbar)",
+          "is_correct": true
+        },
+        {
+          "id": "q-10-12-ba3a09612f-opt-4",
+          "text": "Samsung",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-10-12-ba3a09612f-opt-3",
+      "answer": {
+        "canonical": "Nokia",
+        "aliases": [
+          "Nokia",
+          "nokia"
+        ],
+        "alternatives": [],
+        "case_sensitive": false,
+        "match_strategy": "alias_or_option_id"
+      },
+      "explanation": "Das Nokia 3310. Wenn es runterfiel, ging der Boden kaputt, nicht das Handy. Akkulaufzeit? Mehrere Wochen.",
+      "tags": [
+        "technik",
+        "hardware",
+        "computer",
+        "handys",
+        "nostalgie"
+      ],
+      "source": {
+        "imported_from_category_name": "Technik-Fails & Hardware-Friedhof"
+      },
+      "validation": {
+        "auto_generated_options": true,
+        "needs_manual_review": false,
+        "review_flags": []
+      }
+    },
+    {
+      "id": "q-10-13-9a6c710d44",
+      "legacy_question_id": 13,
+      "category_id": "cat-10",
+      "order_in_category": 13,
+      "order_global": 238,
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Was war ein großer Nachteil früher MP3-Player mit wenig Speicher?",
+      "options": [
+        {
+          "id": "q-10-13-9a6c710d44-opt-1",
+          "text": "Entscheidungszwang (nur ca. 15 Songs)",
+          "is_correct": true
+        },
+        {
+          "id": "q-10-13-9a6c710d44-opt-2",
+          "text": "Man brauchte Benzin",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-13-9a6c710d44-opt-3",
+          "text": "Sie waren zu schwer",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-13-9a6c710d44-opt-4",
+          "text": "Funktion nur unter Wasser",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-10-13-9a6c710d44-opt-1",
+      "answer": {
+        "canonical": "Es passten nur relativ wenige Songs drauf",
+        "aliases": [
+          "Es passten nur relativ wenige Songs drauf",
+          "es passten nur relativ wenige songs drauf"
+        ],
+        "alternatives": [],
+        "case_sensitive": false,
+        "match_strategy": "alias_or_option_id"
+      },
+      "explanation": "Frühe MP3-Player hatten 64 MB. Man musste morgens entscheiden: Welche 15 Songs begleiten mich? Das war Charakterbildung!",
+      "tags": [
+        "technik",
+        "hardware",
+        "computer",
+        "handys",
+        "nostalgie"
+      ],
+      "source": {
+        "imported_from_category_name": "Technik-Fails & Hardware-Friedhof"
+      },
+      "validation": {
+        "auto_generated_options": true,
+        "needs_manual_review": false,
+        "review_flags": []
+      }
+    },
+    {
+      "id": "q-10-14-d85f04e7ab",
+      "legacy_question_id": 14,
+      "category_id": "cat-10",
+      "order_in_category": 14,
+      "order_global": 239,
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Wofür stand VGA am PC-Monitoranschluss?",
+      "options": [
+        {
+          "id": "q-10-14-d85f04e7ab-opt-1",
+          "text": "Very Good Audio",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-14-d85f04e7ab-opt-2",
+          "text": "Video Graphics Array (Blauer Stecker)",
+          "is_correct": true
+        },
+        {
+          "id": "q-10-14-d85f04e7ab-opt-3",
+          "text": "Virtual Game Adapter",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-14-d85f04e7ab-opt-4",
+          "text": "Visual Graphic Area",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-10-14-d85f04e7ab-opt-2",
+      "answer": {
+        "canonical": "Video Graphics Array",
+        "aliases": [
+          "Video Graphics Array",
+          "video graphics array"
+        ],
+        "alternatives": [],
+        "case_sensitive": false,
+        "match_strategy": "alias_or_option_id"
+      },
+      "explanation": "VGA – der blaue Stecker mit den Schrauben, die man immer zu fest angezogen hat. Wenn ein Pin verbogen war, war alles lila.",
+      "tags": [
+        "technik",
+        "hardware",
+        "computer",
+        "handys",
+        "nostalgie"
+      ],
+      "source": {
+        "imported_from_category_name": "Technik-Fails & Hardware-Friedhof"
+      },
+      "validation": {
+        "auto_generated_options": true,
+        "needs_manual_review": false,
+        "review_flags": []
+      }
+    },
+    {
+      "id": "q-10-15-22894dcb08",
+      "legacy_question_id": 15,
+      "category_id": "cat-10",
+      "order_in_category": 15,
+      "order_global": 240,
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Was ist ein USB-Stick funktional?",
+      "options": [
+        {
+          "id": "q-10-15-22894dcb08-opt-1",
+          "text": "Tragbarer Flash-Speicher",
+          "is_correct": true
+        },
+        {
+          "id": "q-10-15-22894dcb08-opt-2",
+          "text": "WLAN-Verstärker",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-15-22894dcb08-opt-3",
+          "text": "Digitaler Schlüssel",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-15-22894dcb08-opt-4",
+          "text": "Kleiner Ventilator",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-10-15-22894dcb08-opt-1",
+      "answer": {
+        "canonical": "Ein tragbarer Flash-Speicher",
+        "aliases": [
+          "Ein tragbarer Flash-Speicher",
+          "ein tragbarer flash-speicher"
+        ],
+        "alternatives": [],
+        "case_sensitive": false,
+        "match_strategy": "alias_or_option_id"
+      },
+      "explanation": "Der USB-Stick hat die Diskette getötet. Plötzlich 128 MB in der Hosentasche! Und man hat ihn IMMER erst beim 3. Versuch richtig eingesteckt.",
+      "tags": [
+        "technik",
+        "hardware",
+        "computer",
+        "handys",
+        "nostalgie"
+      ],
+      "source": {
+        "imported_from_category_name": "Technik-Fails & Hardware-Friedhof"
+      },
+      "validation": {
+        "auto_generated_options": true,
+        "needs_manual_review": false,
+        "review_flags": []
+      }
+    },
+    {
+      "id": "q-10-16-3375eefa44",
+      "legacy_question_id": 16,
+      "category_id": "cat-10",
+      "order_in_category": 16,
+      "order_global": 241,
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Was war bei frühen WLAN-Verbindungen im Haushalt oft frustig?",
+      "options": [
+        {
+          "id": "q-10-16-3375eefa44-opt-1",
+          "text": "Nacht-Modus",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-16-3375eefa44-opt-2",
+          "text": "Man konnte es riechen",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-16-3375eefa44-opt-3",
+          "text": "Machte Milch sauer",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-16-3375eefa44-opt-4",
+          "text": "Instabile Verbindung und geringe Reichweite",
+          "is_correct": true
+        }
+      ],
+      "correct_option_id": "q-10-16-3375eefa44-opt-4",
+      "answer": {
+        "canonical": "Instabile Reichweite, schwaches Signal und komplizierte Einrichtung",
+        "aliases": [
+          "Instabile Reichweite, schwaches Signal und komplizierte Einrichtung",
+          "instabile reichweite, schwaches signal und komplizierte einrichtung"
+        ],
+        "alternatives": [],
+        "case_sensitive": false,
+        "match_strategy": "alias_or_option_id"
+      },
+      "explanation": "Frühes WLAN war ein Mythos. Einmal falsch geatmet oder eine Wand dazwischen, und schon war man wieder offline.",
+      "tags": [
+        "technik",
+        "hardware",
+        "computer",
+        "handys",
+        "nostalgie"
+      ],
+      "source": {
+        "imported_from_category_name": "Technik-Fails & Hardware-Friedhof"
+      },
+      "validation": {
+        "auto_generated_options": true,
+        "needs_manual_review": false,
+        "review_flags": []
+      }
+    },
+    {
+      "id": "q-10-17-91e8d7efc9",
+      "legacy_question_id": 17,
+      "category_id": "cat-10",
+      "order_in_category": 17,
+      "order_global": 242,
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Was ist ein „Blue Screen“ im Windows-Alltag umgangssprachlich?",
+      "options": [
+        {
+          "id": "q-10-17-91e8d7efc9-opt-1",
+          "text": "Entspannungsmodus",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-17-91e8d7efc9-opt-2",
+          "text": "Design-Feature",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-17-91e8d7efc9-opt-3",
+          "text": "Filter für Fotos",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-17-91e8d7efc9-opt-4",
+          "text": "Kritischer Systemabsturz",
+          "is_correct": true
+        }
+      ],
+      "correct_option_id": "q-10-17-91e8d7efc9-opt-4",
+      "answer": {
+        "canonical": "Ein schwerer Systemabsturz/Fehlerbildschirm",
+        "aliases": [
+          "Ein schwerer Systemabsturz/Fehlerbildschirm",
+          "ein schwerer systemabsturz/fehlerbildschirm"
+        ],
+        "alternatives": [],
+        "case_sensitive": false,
+        "match_strategy": "alias_or_option_id"
+      },
+      "explanation": "Der Blue Screen of Death. Der Moment, in dem dein Puls auf 180 ging, weil du seit Stunden nicht gespeichert hattest.",
+      "tags": [
+        "technik",
+        "hardware",
+        "computer",
+        "handys",
+        "nostalgie"
+      ],
+      "source": {
+        "imported_from_category_name": "Technik-Fails & Hardware-Friedhof"
+      },
+      "validation": {
+        "auto_generated_options": true,
+        "needs_manual_review": false,
+        "review_flags": []
+      }
+    },
+    {
+      "id": "q-10-18-ed86c923b4",
+      "legacy_question_id": 18,
+      "category_id": "cat-10",
+      "order_in_category": 18,
+      "order_global": 243,
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Was war bei gebrannten CDs ein häufiger Grund dafür, dass sie im Autoradio nicht liefen?",
+      "options": [
+        {
+          "id": "q-10-18-ed86c923b4-opt-1",
+          "text": "Sie waren zu rund",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-18-ed86c923b4-opt-2",
+          "text": "Falsches Format (Daten statt Audio)",
+          "is_correct": true
+        },
+        {
+          "id": "q-10-18-ed86c923b4-opt-3",
+          "text": "Zu laut gebrannt",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-18-ed86c923b4-opt-4",
+          "text": "Auto mochte die Musik nicht",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-10-18-ed86c923b4-opt-2",
+      "answer": {
+        "canonical": "Falsches Format, schlechte Rohlinge oder inkompatible Brennweise",
+        "aliases": [
+          "Falsches Format, schlechte Rohlinge oder inkompatible Brennweise",
+          "falsches format, schlechte rohlinge oder inkompatible brennweise"
+        ],
+        "alternatives": [],
+        "case_sensitive": false,
+        "match_strategy": "alias_or_option_id"
+      },
+      "explanation": "Daten-CD statt Audio-CD im Autoradio? Stille. Ein harter Tag für jeden Hobby-DJ der 2000er.",
+      "tags": [
+        "technik",
+        "hardware",
+        "computer",
+        "handys",
+        "nostalgie"
+      ],
+      "source": {
+        "imported_from_category_name": "Technik-Fails & Hardware-Friedhof"
+      },
+      "validation": {
+        "auto_generated_options": true,
+        "needs_manual_review": false,
+        "review_flags": []
+      }
+    },
+    {
+      "id": "q-10-19-067bdd8992",
+      "legacy_question_id": 19,
+      "category_id": "cat-10",
+      "order_in_category": 19,
+      "order_global": 244,
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Wofür war Winamp unter anderem bekannt?",
+      "options": [
+        {
+          "id": "q-10-19-067bdd8992-opt-1",
+          "text": "Kult-Mediaplayer mit Skins",
+          "is_correct": true
+        },
+        {
+          "id": "q-10-19-067bdd8992-opt-2",
+          "text": "WhatsApp-Vorläufer",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-19-067bdd8992-opt-3",
+          "text": "Bilder-Editor",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-19-067bdd8992-opt-4",
+          "text": "Rennspiel",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-10-19-067bdd8992-opt-1",
+      "answer": {
+        "canonical": "Als populärer Medienplayer für MP3s auf Windows",
+        "aliases": [
+          "Als populärer Medienplayer für MP3s auf Windows",
+          "als populärer medienplayer für mp3s auf windows"
+        ],
+        "alternatives": [],
+        "case_sensitive": false,
+        "match_strategy": "alias_or_option_id"
+      },
+      "explanation": "Winamp – 'It really whips the llama's ass!'. Wir haben Stunden mit hässlichen Skins verbracht, nur um am Ende 'Classic' zu nutzen.",
+      "tags": [
+        "technik",
+        "hardware",
+        "computer",
+        "handys",
+        "nostalgie"
+      ],
+      "source": {
+        "imported_from_category_name": "Technik-Fails & Hardware-Friedhof"
+      },
+      "validation": {
+        "auto_generated_options": true,
+        "needs_manual_review": false,
+        "review_flags": []
+      }
+    },
+    {
+      "id": "q-10-20-e8893bcd21",
+      "legacy_question_id": 20,
+      "category_id": "cat-10",
+      "order_in_category": 20,
+      "order_global": 245,
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Was bedeutete „defragmentieren“ bei alten Festplatten?",
+      "options": [
+        {
+          "id": "q-10-20-e8893bcd21-opt-1",
+          "text": "PC putzen",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-20-e8893bcd21-opt-2",
+          "text": "Datenblöcke sortieren für Speed",
+          "is_correct": true
+        },
+        {
+          "id": "q-10-20-e8893bcd21-opt-3",
+          "text": "Viren löschen",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-20-e8893bcd21-opt-4",
+          "text": "Monitor entmagnetisieren",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-10-20-e8893bcd21-opt-2",
+      "answer": {
+        "canonical": "Datenblöcke neu anordnen, um Zugriffe effizienter zu machen",
+        "aliases": [
+          "Datenblöcke neu anordnen, um Zugriffe effizienter zu machen",
+          "datenblöcke neu anordnen, um zugriffe effizienter zu machen"
+        ],
+        "alternatives": [],
+        "case_sensitive": false,
+        "match_strategy": "alias_or_option_id"
+      },
+      "explanation": "Defragmentieren war das digitale Zimmer-Aufräumen. Den bunten Kästchen stundenlang zuzusehen, hatte etwas Meditatives.",
+      "tags": [
+        "technik",
+        "hardware",
+        "computer",
+        "handys",
+        "nostalgie"
+      ],
+      "source": {
+        "imported_from_category_name": "Technik-Fails & Hardware-Friedhof"
+      },
+      "validation": {
+        "auto_generated_options": true,
+        "needs_manual_review": false,
+        "review_flags": []
+      }
+    },
+    {
+      "id": "q-10-21-da25583664",
+      "legacy_question_id": 21,
+      "category_id": "cat-10",
+      "order_in_category": 21,
+      "order_global": 246,
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Was war der Unterschied zwischen Schiebehandy und Klapphandy?",
+      "options": [
+        {
+          "id": "q-10-21-da25583664-opt-1",
+          "text": "Keiner",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-21-da25583664-opt-2",
+          "text": "Schiebehandys für Gamer",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-21-da25583664-opt-3",
+          "text": "Klapphandys ohne Display",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-21-da25583664-opt-4",
+          "text": "Slider (schieben) vs. Clamshell (klappen)",
+          "is_correct": true
+        }
+      ],
+      "correct_option_id": "q-10-21-da25583664-opt-4",
+      "answer": {
+        "canonical": "Beim Schiebehandy schob man Teile auseinander, beim Klapphandy klappte man es auf",
+        "aliases": [
+          "Beim Schiebehandy schob man Teile auseinander, beim Klapphandy klappte man es auf",
+          "beim schiebehandy schob man teile auseinander, beim klapphandy klappte man es auf"
+        ],
+        "alternatives": [],
+        "case_sensitive": false,
+        "match_strategy": "alias_or_option_id"
+      },
+      "explanation": "Slider-Handys (Nokia 8110!) waren für die Matrix-Fans unter uns. Einmal schnippen und man war quasi Neo.",
+      "tags": [
+        "technik",
+        "hardware",
+        "computer",
+        "handys",
+        "nostalgie"
+      ],
+      "source": {
+        "imported_from_category_name": "Technik-Fails & Hardware-Friedhof"
+      },
+      "validation": {
+        "auto_generated_options": true,
+        "needs_manual_review": false,
+        "review_flags": []
+      }
+    },
+    {
+      "id": "q-10-22-1a883f547d",
+      "legacy_question_id": 22,
+      "category_id": "cat-10",
+      "order_in_category": 22,
+      "order_global": 247,
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Warum waren frühe Digitalkameras mit winzigen Speicherkarten schnell nervig?",
+      "options": [
+        {
+          "id": "q-10-22-1a883f547d-opt-1",
+          "text": "Batterien hielten 5 Minuten",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-22-1a883f547d-opt-2",
+          "text": "Schwarz-Weiß-Bilder",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-22-1a883f547d-opt-3",
+          "text": "Speicher nach ca. 10 Fotos voll",
+          "is_correct": true
+        },
+        {
+          "id": "q-10-22-1a883f547d-opt-4",
+          "text": "Man musste sie entwickeln lassen",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-10-22-1a883f547d-opt-3",
+      "answer": {
+        "canonical": "Wenig Platz und dauernd volles Speichermedium",
+        "aliases": [
+          "Wenig Platz und dauernd volles Speichermedium",
+          "wenig platz und dauernd volles speichermedium"
+        ],
+        "alternatives": [],
+        "case_sensitive": false,
+        "match_strategy": "alias_or_option_id"
+      },
+      "explanation": "Frühe Digicams mit 16 MB Karten. Man musste entscheiden: Ist Tante Ernas Lächeln wertvoller als das Bild vom Schnitzel?",
+      "tags": [
+        "technik",
+        "hardware",
+        "computer",
+        "handys",
+        "nostalgie"
+      ],
+      "source": {
+        "imported_from_category_name": "Technik-Fails & Hardware-Friedhof"
+      },
+      "validation": {
+        "auto_generated_options": true,
+        "needs_manual_review": false,
+        "review_flags": []
+      }
+    },
+    {
+      "id": "q-10-23-c2cd438f9e",
+      "legacy_question_id": 23,
+      "category_id": "cat-10",
+      "order_in_category": 23,
+      "order_global": 248,
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Was war ein „Rohling“ im Computer-/Musikalltag?",
+      "options": [
+        {
+          "id": "q-10-23-c2cd438f9e-opt-1",
+          "text": "Unfertiges Lied",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-23-c2cd438f9e-opt-2",
+          "text": "Leere, beschreibbare CD/DVD",
+          "is_correct": true
+        },
+        {
+          "id": "q-10-23-c2cd438f9e-opt-3",
+          "text": "PC ohne Windows",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-23-c2cd438f9e-opt-4",
+          "text": "Mensch ohne Millennial-Wissen",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-10-23-c2cd438f9e-opt-2",
+      "answer": {
+        "canonical": "Eine unbeschriebene CD oder DVD zum Brennen",
+        "aliases": [
+          "Eine unbeschriebene CD oder DVD zum Brennen",
+          "eine unbeschriebene cd oder dvd zum brennen"
+        ],
+        "alternatives": [],
+        "case_sensitive": false,
+        "match_strategy": "alias_or_option_id"
+      },
+      "explanation": "Rohlinge wurden im 50er-Spind gekauft. Die silberne Seite war empfindlicher als unser Ego nach einer ICQ-Abfuhr.",
+      "tags": [
+        "technik",
+        "hardware",
+        "computer",
+        "handys",
+        "nostalgie"
+      ],
+      "source": {
+        "imported_from_category_name": "Technik-Fails & Hardware-Friedhof"
+      },
+      "validation": {
+        "auto_generated_options": true,
+        "needs_manual_review": false,
+        "review_flags": []
+      }
+    },
+    {
+      "id": "q-10-24-1394a5fdc3",
+      "legacy_question_id": 24,
+      "category_id": "cat-10",
+      "order_in_category": 24,
+      "order_global": 249,
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Warum waren LimeWire/Kazaa-Downloads berüchtigt?",
+      "options": [
+        {
+          "id": "q-10-24-1394a5fdc3-opt-1",
+          "text": "Zu teuer",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-24-1394a5fdc3-opt-2",
+          "text": "Viren, Fakes und miese Qualität",
+          "is_correct": true
+        },
+        {
+          "id": "q-10-24-1394a5fdc3-opt-3",
+          "text": "Limit von 1 Lied pro Tag",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-24-1394a5fdc3-opt-4",
+          "text": "Liefen nur auf Macs",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-10-24-1394a5fdc3-opt-2",
+      "answer": {
+        "canonical": "Wegen Malware, Fake-Dateien und miserabler Qualität",
+        "aliases": [
+          "Wegen Malware, Fake-Dateien und miserabler Qualität",
+          "wegen malware, fake-dateien und miserabler qualität"
+        ],
+        "alternatives": [],
+        "case_sensitive": false,
+        "match_strategy": "alias_or_option_id"
+      },
+      "explanation": "LimeWire war wie ein Wühltisch auf einem verseuchten Flohmarkt. Man suchte Britney und bekam tanzende Hamster mit Trojanern.",
+      "tags": [
+        "technik",
+        "hardware",
+        "computer",
+        "handys",
+        "nostalgie"
+      ],
+      "source": {
+        "imported_from_category_name": "Technik-Fails & Hardware-Friedhof"
+      },
+      "validation": {
+        "auto_generated_options": true,
+        "needs_manual_review": false,
+        "review_flags": []
+      }
+    },
+    {
+      "id": "q-10-m9e136a2a7e",
+      "type": "ranking",
+      "prompt": "Sortiere diese Speichermedien nach ihrer Kapazität (kleinste zuerst).",
+      "items": [
+        {
+          "id": "A",
+          "label": "Blu-ray (25 GB)"
+        },
+        {
+          "id": "B",
+          "label": "Floppy Disk (1.44 MB)"
+        },
+        {
+          "id": "C",
+          "label": "DVD (4.7 GB)"
+        },
+        {
+          "id": "D",
+          "label": "CD (700 MB)"
+        }
+      ],
+      "correct_order": [
+        "B",
+        "D",
+        "C",
+        "A"
+      ],
+      "explanation": "Von der Diskette bis zur Blu-ray – ein Weg voller Kratzer, Lesefehler und 'Bitte Disk 2 einlegen'.",
+      "difficulty": "medium",
+      "points": 2,
+      "category_id": "cat-10"
+    },
+    {
+      "id": "q-10-01",
+      "type": "standard",
+      "prompt": "Es ist 23:00 Uhr, du gehst heimlich ins Internet. Welches Geräusch verrät dich sofort über die Telefonleitung?",
+      "answer": {
+        "canonical": "Das Einwahlgeraeusch des Modems",
+        "aliases": [
+          "Modem-Sound",
+          "Modemgeraeusch",
+          "Modemgeräusch",
+          "Einwahlgeraeusch",
+          "Einwahlgeräusch",
+          "Pfeifen und Kratzen",
+          "Handshaking"
+        ]
+      },
+      "explanation": "Das Piepen und Rauschen des Modems war unverkennbar und machte heimliches Surfen fast unmoeglich."
+    },
+    {
+      "id": "q-10-03",
+      "type": "logic",
+      "prompt": "An alten PCs gab es die legendäre 'Turbo-Taste'. Was war ihre eigentliche, meist völlig missverstandene Funktion?",
+      "answer": {
+        "canonical": "Sie drosselte die Geschwindigkeit",
+        "aliases": [
+          "Drosselung",
+          "Kompatibilitätsmodus",
+          "Langsamer machen",
+          "Runtertakten"
+        ]
+      },
+      "explanation": "Die Turbo-Taste drosselte die CPU – das Gegenteil von dem was ihr Name suggeriert. Sie war für Kompatibilität mit alten Programmen gedacht, die mit Vollgas-CPU nicht liefen.",
+      "options": [
+        {
+          "id": "q-10-03-opt-1",
+          "text": "Sie beschleunigte den PC auf maximale Leistung",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-03-opt-2",
+          "text": "Sie drosselte die CPU-Taktrate für ältere Software",
+          "is_correct": true
+        },
+        {
+          "id": "q-10-03-opt-3",
+          "text": "Sie aktivierte einen Extra-Turbo-Speicher",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-03-opt-4",
+          "text": "Sie schaltete den zweiten Prozessorkern zu",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-10-03-opt-2"
+    },
+    {
+      "id": "q-10-04",
+      "type": "ranking",
+      "prompt": "Dein digitales Erbe: Sortiere diese Speichermedien nach ihrer typischen Kapazität, beginnend mit dem kleinsten.",
+      "answer": {
+        "canonical_order": [
+          "3,5 Zoll Diskette (1,44 MB)",
+          "Zip-Disk (100 MB)",
+          "CD-ROM (700 MB)",
+          "DVD (4,7 GB)"
+        ],
+        "context": "Typische Groessenordnung: Diskette 1,44 MB, Zip-Disk 100 MB, CD-ROM rund 700 MB und DVD 4,7 GB."
+      },
+      "scoring_rule": "exact_order"
+    },
+    {
+      "id": "q-10-05",
+      "type": "common_mistake",
+      "prompt": "Was passiert technisch wirklich, wenn man einen USB-Stick unter Windows einfach abzieht – ohne 'Sicher entfernen'?",
+      "answer": {
+        "canonical": "Absolut gar nichts",
+        "aliases": [
+          "Nichts",
+          "Kein Datenverlust",
+          "Nix",
+          "Nichts passiert"
+        ]
+      },
+      "explanation": "Solange nicht aktiv geschrieben wird, passiert gar nichts. Wir haben alle umsonst jahrelang diesen Klick-Stress und die Todesangst vor Datenverlust gehabt."
+    },
+    {
+      "id": "q-10-06",
+      "type": "majority_guess",
+      "prompt": "Was war dein typischstes Tauschboersen-Problem bei LimeWire, Kazaa und Co.?",
+      "options": [
+        {
+          "id": "q-10-06-opt-1",
+          "text": "Fake-Datei statt Song"
+        },
+        {
+          "id": "q-10-06-opt-2",
+          "text": "Virus oder seltsame EXE"
+        },
+        {
+          "id": "q-10-06-opt-3",
+          "text": "Falscher Songtitel"
+        },
+        {
+          "id": "q-10-06-opt-4",
+          "text": "Download dauerte laenger als die Pubertaet"
+        }
+      ],
+      "explanation": "Als harte Prozentzahl waere das kaum sauber belegbar. Als Mehrheitsfrage trifft es die Erinnerung an Tauschboersen-Chaos deutlich besser."
+    },
+    {
+      "id": "q-10-08",
+      "type": "fast_guess",
+      "prompt": "Welches Microsoft-Feature war so nervig, dass es heute als Inbegriff für 'ungefragte Hilfe' gilt und optisch an eine Büroklammer erinnert?",
+      "answer": {
+        "canonical": "Clippy (Karl Klammer)",
+        "aliases": [
+          "Clippy",
+          "Karl Klammer",
+          "Büroklammer"
+        ]
+      },
+      "explanation": "„Es sieht so aus, als wollten Sie einen Brief schreiben...“ – NEIN, Karl, ich will nur, dass du für immer in der Hölle der User-Interfaces verschwindest!"
+    },
+    {
+      "id": "q-10-09",
+      "type": "standard",
+      "prompt": "Winamp war der einzige Player, der zählte. Welches Tier wurde im legendären Start-Jingle angeblich 'gepeitscht'?",
+      "answer": {
+        "canonical": "Ein Lama",
+        "aliases": [
+          "Llama"
+        ]
+      },
+      "explanation": "„Winamp: It really whips the llama's ass!“ – Ein Satz, der sich tiefer in das Hirn der Millennials gebrannt hat als das kleine Einmaleins."
+    },
+    {
+      "id": "q-10-10",
+      "type": "logic",
+      "prompt": "Dein Anti-Shock-Discman hat 30 Sek. Puffer. Warum springt die Musik nach genau 31 Sek. gleichmäßigen Joggens?",
+      "answer": {
+        "canonical": "Der digitale Zwischenspeicher ist leer gelaufen",
+        "aliases": [
+          "Buffer leer",
+          "Speicher leer",
+          "Puffer leer",
+          "Datenvorrat aufgebraucht"
+        ]
+      },
+      "explanation": "Der '30-Sekunden Anti-Shock' puffert 30 Sekunden CD-Daten im Speicher. Nach genau 31 Sekunden Vibration ist dieser Vorrat aufgebraucht – und es springt.",
+      "options": [
+        {
+          "id": "q-10-10-opt-1",
+          "text": "Der CD-Laser überhitzt beim Joggen",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-10-opt-2",
+          "text": "Der digitale Puffer ist nach 31 Sekunden leer gelaufen",
+          "is_correct": true
+        },
+        {
+          "id": "q-10-10-opt-3",
+          "text": "Der Motor verliert beim Schwingen an Drehzahl",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-10-opt-4",
+          "text": "Die Batterien schwächeln unter Belastung",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-10-10-opt-2"
+    },
+    {
+      "id": "q-10-11",
+      "type": "pattern",
+      "prompt": "Auf kleiner (Nokia 8210) → flacher (Razr) → polyphone Klingeltöne folgte ab 2007 welcher radikale Trend?",
+      "answer": {
+        "canonical": "Der Wegfall der physischen Tasten (Touchscreens)",
+        "aliases": [
+          "Touchscreen",
+          "Keine Tasten",
+          "Smartphone",
+          "iPhone",
+          "Display-Tastatur"
+        ]
+      },
+      "explanation": "Mit dem iPhone 2007 endete die Ära, in der man blind unter der Schulbank SMS tippen konnte, und das Zeitalter des Glas-Wischens begann."
+    },
+    {
+      "id": "q-10-12",
+      "type": "estimate_duel",
+      "prompt": "3,5 MB Song bei Napster, 56k-Modem (ca. 7 KB/s). Wie viele Minuten dauert der Download im Idealfall?",
+      "answer": {
+        "canonical": "ca. 8-9 Minuten",
+        "reference_value": 8,
+        "unit": "Minuten",
+        "context": "Man hat den Download gestartet, ist duschen gegangen und hat gebetet, dass niemand im Haus das Telefon abhebt und die Verbindung killt."
+      },
+      "scoring_rule": "closest_wins"
+    },
+    {
+      "id": "q-10-13",
+      "type": "common_mistake",
+      "prompt": "Warum machten Magnete bei alten Roehrenfernsehern oder CRT-Monitoren ploetzlich bunte Flecken ins Bild?",
+      "answer": {
+        "canonical": "Der Magnet stoerte die Elektronenstrahlen bzw. magnetisierte Teile der Bildroehre",
+        "aliases": [
+          "Magnet stoerte Elektronenstrahl",
+          "Elektronenstrahl wurde abgelenkt",
+          "Magnetisierung der Bildroehre",
+          "Farbverzerrung durch Magnet",
+          "Magnetflecken",
+          "Farbflecken"
+        ]
+      },
+      "explanation": "Ein Magnet konnte die Elektronenstrahlen ablenken oder Teile der Roehre magnetisieren. Viele Geraete konnten solche Farbflecken per Degauss-Funktion wieder reduzieren."
+    },
+    {
+      "id": "q-10-14",
+      "type": "multiple_choice",
+      "prompt": "Was war der eigentliche Trick von T9 auf alten Handys?",
+      "options": [
+        {
+          "id": "q-10-14-opt-1",
+          "text": "Eine Taste pro Buchstabe druecken, das Woerterbuch raet das Wort",
+          "is_correct": true
+        },
+        {
+          "id": "q-10-14-opt-2",
+          "text": "Jeden Buchstaben mehrfach antippen, bis er erscheint",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-14-opt-3",
+          "text": "Mit dem Steuerkreuz Buchstaben aus einer Tabelle auswaehlen",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-14-opt-4",
+          "text": "Sprache aufnehmen und automatisch als SMS versenden",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-10-14-opt-1",
+      "explanation": "T9 nutzte ein Woerterbuch: Fuer 'Hallo' drueckte man die passenden Zahlentasten nur einmal pro Buchstabe. Das war fuer geuebte Nutzer deutlich schneller als Mehrfachtippen."
+    },
+    {
+      "id": "q-10-15",
+      "type": "majority_guess",
+      "prompt": "Wann glaubst du am ehesten, dein Handy habe vibriert, obwohl nichts war?",
+      "options": [
+        {
+          "id": "q-10-15-opt-1",
+          "text": "In der Hosentasche"
+        },
+        {
+          "id": "q-10-15-opt-2",
+          "text": "Nachts im Bett"
+        },
+        {
+          "id": "q-10-15-opt-3",
+          "text": "Beim Arbeiten am Schreibtisch"
+        },
+        {
+          "id": "q-10-15-opt-4",
+          "text": "Nie, ich bin innerlich frei"
+        }
+      ],
+      "explanation": "Phantom-Vibrationen sind ein bekanntes Alltagsphaenomen. Statt eine wackelige Prozentzahl zu raten, entscheidet hier die Erfahrung der Runde."
+    }
+  ]
+}

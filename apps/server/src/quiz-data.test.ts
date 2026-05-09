@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 
 import { describe, expect, it } from "vitest";
@@ -24,29 +24,20 @@ type RawQuestion = {
   correct_option_id?: string;
 };
 
-type RawCategory = {
+type RawCategoryFile = {
   category_id?: string;
   question_count?: number;
   questions: RawQuestion[];
 };
 
-type RawQuizFile = {
-  quiz: {
-    stats?: {
-      total_questions?: number;
-      total_categories?: number;
-    };
-    categories: RawCategory[];
-  };
-};
+const QUIZ_CATEGORIES_DIR = "data/quiz/questions";
 
-const QUIZ_SOURCE_FILES = [
-  "geburtstagsquiz_millennials_engine_v4_release_candidate.json",
-  "geburtstagsquiz_millennials_engine_v5_expanded.json",
-] as const;
-
-function readQuizSource(fileName: string): RawQuizFile {
-  return JSON.parse(readFileSync(path.resolve(process.cwd(), fileName), "utf8")) as RawQuizFile;
+function readCategoryFiles(): RawCategoryFile[] {
+  const dir = path.resolve(process.cwd(), QUIZ_CATEGORIES_DIR);
+  const files = readdirSync(dir)
+    .filter((f) => f.startsWith("cat-") && f.endsWith(".json"))
+    .sort();
+  return files.map((f) => JSON.parse(readFileSync(path.join(dir, f), "utf8")) as RawCategoryFile);
 }
 
 function getRawOptionId(option: RawOption, index: number): string {
@@ -84,58 +75,45 @@ describe("quiz source files", () => {
     const seenIds = new Map<string, string>();
     let rawQuestionCount = 0;
 
-    for (const fileName of QUIZ_SOURCE_FILES) {
-      const source = readQuizSource(fileName);
-      let fileQuestionCount = 0;
+    for (const categoryFile of readCategoryFiles()) {
+      const catId = categoryFile.category_id ?? "unknown";
 
-      if (source.quiz.stats?.total_categories !== source.quiz.categories.length) {
-        issues.push(`${fileName}: stats.total_categories does not match categories`);
+      if (
+        categoryFile.question_count !== undefined &&
+        categoryFile.question_count !== categoryFile.questions.length
+      ) {
+        issues.push(`${catId}: question_count mismatch`);
       }
 
-      for (const category of source.quiz.categories) {
-        fileQuestionCount += category.questions.length;
+      for (const question of categoryFile.questions) {
+        rawQuestionCount += 1;
 
-        if (
-          category.question_count !== undefined &&
-          category.question_count !== category.questions.length
-        ) {
-          issues.push(`${fileName}/${category.category_id}: question_count mismatch`);
+        if (!question.id?.trim()) {
+          issues.push(`${catId}: empty question id`);
+          continue;
         }
 
-        for (const question of category.questions) {
-          rawQuestionCount += 1;
+        const previous = seenIds.get(question.id);
+        if (previous) {
+          issues.push(`${question.id}: duplicate raw id in ${previous} and ${catId}`);
+        }
+        seenIds.set(question.id, catId);
 
-          if (!question.id?.trim()) {
-            issues.push(`${fileName}/${category.category_id}: empty question id`);
+        if (!question.prompt?.trim()) {
+          issues.push(`${question.id}: empty prompt`);
+        }
+
+        for (const fieldName of ["options", "items"] as const) {
+          const entries = question[fieldName];
+          if (!entries) {
             continue;
           }
 
-          const previous = seenIds.get(question.id);
-          if (previous) {
-            issues.push(`${question.id}: duplicate raw id in ${previous} and ${fileName}`);
-          }
-          seenIds.set(question.id, fileName);
-
-          if (!question.prompt?.trim()) {
-            issues.push(`${question.id}: empty prompt`);
-          }
-
-          for (const fieldName of ["options", "items"] as const) {
-            const entries = question[fieldName];
-            if (!entries) {
-              continue;
-            }
-
-            const ids = entries.map(getRawOptionId);
-            if (new Set(ids).size !== ids.length) {
-              issues.push(`${question.id}: duplicate raw ${fieldName} ids`);
-            }
+          const ids = entries.map(getRawOptionId);
+          if (new Set(ids).size !== ids.length) {
+            issues.push(`${question.id}: duplicate raw ${fieldName} ids`);
           }
         }
-      }
-
-      if (source.quiz.stats?.total_questions !== fileQuestionCount) {
-        issues.push(`${fileName}: stats.total_questions does not match questions`);
       }
     }
 
