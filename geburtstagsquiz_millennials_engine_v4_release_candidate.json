@@ -47,7 +47,7 @@
     },
     "stats": {
       "total_categories": 10,
-      "total_questions": 207,
+      "total_questions": 177,
       "engine_question_type": "multiple_choice",
       "generated_options_per_question": 4
     },
@@ -68,7 +68,7 @@
         "slug": "harry-potter-nur-filme-harter-schwierigkeitsgrad",
         "name": "Harry Potter (Nur Filme, harter Schwierigkeitsgrad)",
         "intro": "Ihr habt die Filme natürlich „alle oft gesehen“. Klar. Und trotzdem werdet ihr gleich mit dem Gesicht zuerst in euren eigenen Butterbier-Eimer fallen. Zeit für ein bisschen Realitätscheck.",
-        "question_count": 24,
+        "question_count": 21,
         "difficulty": "hard",
         "default_question_type": "multiple_choice",
         "default_points": 1,
@@ -331,38 +331,6 @@
             ],
             "correct_option_id": "q-01-09-7d2fe92524-opt-1",
             "explanation": "Der Ungarische Hornschwanz. Er gilt als der gefährlichste. Harrys Glückssträhne ist so beständig wie eine schlechte WLAN-Verbindung im Keller.",
-            "difficulty": "hard",
-            "category_id": "cat-01",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
-            "id": "q-01-10-new",
-            "prompt": "Welches markante körperliche Merkmal verrät den falschen Moody (Barty Crouch Jr.) in den Filmen?",
-            "options": [
-              {
-                "id": "q-01-10-new-opt-1",
-                "text": "Das Züngeln/Lecken der Lippen",
-                "is_correct": true
-              },
-              {
-                "id": "q-01-10-new-opt-2",
-                "text": "Ein nervöses Augenzucken",
-                "is_correct": false
-              },
-              {
-                "id": "q-01-10-new-opt-3",
-                "text": "Ständiges Kratzen am Ohr",
-                "is_correct": false
-              },
-              {
-                "id": "q-01-10-new-opt-4",
-                "text": "Er hinkt mit dem falschen Bein",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-01-10-new-opt-1",
-            "explanation": "Sein schlangenartiges Züngeln. Das hat er wohl von seinem Vater geerbt – oder einfach zu viel Zeit mit Schlangen verbracht. Ein klassischer Millennial-Tick für Leute, die zu viel Energy-Drinks trinken.",
             "difficulty": "hard",
             "category_id": "cat-01",
             "type": "multiple_choice",
@@ -783,38 +751,6 @@
             "category_id": "cat-01",
             "type": "multiple_choice",
             "points": 1
-          },
-          {
-            "id": "q-01-e02-0ed6866105",
-            "type": "estimate",
-            "prompt": "Wie hoch war das Budget für den ersten Film 'Harry Potter und der Stein der Weisen' (in Millionen US-Dollar)?",
-            "answer": {
-              "canonical": "125 Millionen USD",
-              "reference_value": 125,
-              "unit": "Millionen USD",
-              "context": "Produktionskosten 2001"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "125 Millionen Dollar. Ein echtes Schnäppchen, wenn man bedenkt, dass die Merchandising-Maschine danach Milliarden eingespielt hat.",
-            "difficulty": "medium",
-            "points": 1,
-            "category_id": "cat-01"
-          },
-          {
-            "id": "q-01-e03-a6553820f8",
-            "type": "estimate",
-            "prompt": "Wie viele Millionen US-Dollar spielte der letzte Film 'Harry Potter und die Heiligtümer des Todes – Teil 2' weltweit insgesamt ein?",
-            "answer": {
-              "canonical": "1342 Millionen USD",
-              "reference_value": 1342,
-              "unit": "Millionen USD",
-              "context": "Box Office Mojo"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "Über 1,34 Milliarden Dollar. Ein magischer Abschluss für eine magische Geldmaschine.",
-            "difficulty": "medium",
-            "points": 1,
-            "category_id": "cat-01"
           }
         ],
         "id": "cat-01"
@@ -834,7 +770,7 @@
         "slug": "cringe-millennial-slang-internet-fossilien",
         "name": "Cringe Millennial-Slang & Internet-Fossilien",
         "intro": "Willkommen im digitalen Moor eurer Jugend. ICQ-Geräusche, schlechte Emoticons und die peinliche Gewissheit, dass ihr damals alles davon für cool gehalten habt. Eure alten Statusmeldungen verfolgen euch bis heute.",
-        "question_count": 29,
+        "question_count": 26,
         "difficulty": "medium_hard",
         "questions": [
           {
@@ -1638,54 +1574,6 @@
             "points": 1
           },
           {
-            "id": "q-03-e01-b4f45030f1",
-            "type": "estimate",
-            "prompt": "Wie viele aktive Nutzer hatte MySpace in seinem absoluten Rekordmonat im Jahr 2008?",
-            "answer": {
-              "canonical": "75.9 Millionen",
-              "reference_value": 75.9,
-              "unit": "Millionen",
-              "context": "Weltweit, Peak MySpace"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "Fast 76 Millionen Menschen haben damals gleichzeitig ihre Profil-Songs ausgesucht und Tom in ihrer Top-Friends-Liste gelassen.",
-            "difficulty": "medium",
-            "points": 1,
-            "category_id": "cat-03"
-          },
-          {
-            "id": "q-03-e02-cb56fcabf0",
-            "type": "estimate",
-            "prompt": "Wie viele Millionen Euro zahlte Google im Jahr 2006 für den Kauf von YouTube?",
-            "answer": {
-              "canonical": "1310 Millionen Euro",
-              "reference_value": 1310,
-              "unit": "Millionen Euro",
-              "context": "Unternehmenskauf 2006"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "Google zahlte ca. 1,65 Milliarden USD, was damals etwa 1,31 Milliarden Euro entsprach. Heute ist YouTube ein Vielfaches davon wert.",
-            "difficulty": "medium",
-            "points": 1,
-            "category_id": "cat-03"
-          },
-          {
-            "id": "q-03-e03-b05498e1e6",
-            "type": "estimate",
-            "prompt": "Wie viele aktive Nutzer hatte Facebook am Ende seines Gründungsjahres 2004?",
-            "answer": {
-              "canonical": "1.0 Millionen",
-              "reference_value": 1,
-              "unit": "Millionen",
-              "context": "Facebook History"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "Exakt eine Million Nutzer. Damals war es noch exklusiv für Studenten und man brauchte eine Uni-E-Mail-Adresse.",
-            "difficulty": "medium",
-            "points": 1,
-            "category_id": "cat-03"
-          },
-          {
             "id": "q-03-mac9aa73df0",
             "type": "ranking",
             "prompt": "Sortiere diese Chat-Apps nach ihrem Release (älteste zuerst).",
@@ -1726,41 +1614,9 @@
         "slug": "90er-00er-trash-tv-kollektives-trauma",
         "name": "90er/00er Trash-TV & kollektives Trauma",
         "intro": "Fernsehen war damals kein Medium, sondern ein Gewaltverbrechen an Würde und Geschmack. Und natürlich habt ihr es trotzdem geguckt wie religiöse Pflichtveranstaltungen. Zeit für eine Runde kollektives Fremdschämen.",
-        "question_count": 13,
+        "question_count": 8,
         "difficulty": "medium_hard",
         "questions": [
-          {
-            "id": "q-04-03-b91d0aec59",
-            "prompt": "Welche Reality-Show ließ Eltern ein alternatives Date für ihr Kind aussuchen?",
-            "options": [
-              {
-                "id": "q-04-03-b91d0aec59-opt-1",
-                "text": "Parental Control",
-                "is_correct": true
-              },
-              {
-                "id": "q-04-03-b91d0aec59-opt-2",
-                "text": "Meet the Parents",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-03-b91d0aec59-opt-3",
-                "text": "Ex on the Beach",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-03-b91d0aec59-opt-4",
-                "text": "Temptation Island",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-04-03-b91d0aec59-opt-1",
-            "explanation": "Parental Control. Nichts war schöner als Eltern, die den aktuellen Partner des Kindes vor laufender Kamera als Totalausfall bezeichnet haben. Familiendrama für die Quote.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-04",
-            "type": "multiple_choice",
-            "points": 1
-          },
           {
             "id": "q-04-04-69a3624d74",
             "prompt": "Welche deutsche Show machte Z-Promis beim Essen von Känguru-Hoden berühmt?",
@@ -1826,38 +1682,6 @@
             "points": 1
           },
           {
-            "id": "q-04-06-69a35e4d74",
-            "prompt": "Wie hieß der erste Gewinner von 'Big Brother' Deutschland (2000)?",
-            "options": [
-              {
-                "id": "q-04-06-69a35e4d74-opt-1",
-                "text": "John",
-                "is_correct": true
-              },
-              {
-                "id": "q-04-06-69a35e4d74-opt-2",
-                "text": "Zlatko",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-06-69a35e4d74-opt-3",
-                "text": "Jürgen",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-06-69a35e4d74-opt-4",
-                "text": "Alida",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-04-06-69a35e4d74-opt-1",
-            "explanation": "John Milz gewann die erste Staffel. Zlatko war zwar der Star der Herzen (und der Charts), aber John nahm die Million mit nach Hause.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-04",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
             "id": "q-04-07-2a1f4b82bc",
             "prompt": "Aus welcher deutschen TV-Sendung stammt das Meme-Zitat 'Halt Stop!' von Andreas?",
             "options": [
@@ -1890,38 +1714,6 @@
             "points": 1
           },
           {
-            "id": "q-04-09-42a89c9ab5",
-            "prompt": "Wer moderierte die 'Mini Playback Show'?",
-            "options": [
-              {
-                "id": "q-04-09-42a89c9ab5-opt-1",
-                "text": "Marijke Amado",
-                "is_correct": true
-              },
-              {
-                "id": "q-04-09-42a89c9ab5-opt-2",
-                "text": "Linda de Mol",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-09-42a89c9ab5-opt-3",
-                "text": "Ulla Kock am Brink",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-09-42a89c9ab5-opt-4",
-                "text": "Heike Makatsch",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-04-09-42a89c9ab5-opt-1",
-            "explanation": "Marijke Amado. Der Moment, als Kinder durch die Zauberkugel gingen und als geschminkte Mini-Versionen von Whitney Houston wiederkamen. Ein Fiebertraum.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-04",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
             "id": "q-04-10-279254d815",
             "prompt": "Wie hieß das fiktive Dorf in 'Gute Zeiten, schlechte Zeiten', in dem alles passierte?",
             "options": [
@@ -1948,38 +1740,6 @@
             ],
             "correct_option_id": "q-04-10-279254d815-opt-1",
             "explanation": "GZSZ spielt in Berlin-Mitte. Aber so, wie sich dort alle ständig im selben Kiezcafé treffen, könnte es auch ein 50-Seiten-Dorf sein.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-04",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
-            "id": "q-04-12-a015ede7fc",
-            "prompt": "In welcher Reality-Show dateten Frauen einen angeblichen Millionaer, der in Wahrheit gar nicht reich war?",
-            "options": [
-              {
-                "id": "q-04-12-a015ede7fc-opt-1",
-                "text": "Joe Millionaire",
-                "is_correct": true
-              },
-              {
-                "id": "q-04-12-a015ede7fc-opt-2",
-                "text": "Der Bachelor",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-12-a015ede7fc-opt-3",
-                "text": "Temptation Island",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-12-a015ede7fc-opt-4",
-                "text": "Beauty and the Nerd",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-04-12-a015ede7fc-opt-1",
-            "explanation": "Bei 'Joe Millionaire' war genau die vorgetaeuschte Millionaersrolle der Twist. 'Der Bachelor' verteilt Rosen, behauptet aber nicht automatisch, reich zu sein.",
             "difficulty": "medium_hard",
             "category_id": "cat-04",
             "type": "multiple_choice",
@@ -2112,38 +1872,6 @@
             "category_id": "cat-04",
             "type": "multiple_choice",
             "points": 1
-          },
-          {
-            "id": "q-04-25-73cac13595",
-            "prompt": "Wer moderierte die Sendung 'Zimmer frei!'?",
-            "options": [
-              {
-                "id": "q-04-25-73cac13595-opt-1",
-                "text": "Götz Alsmann und Christine Westermann",
-                "is_correct": true
-              },
-              {
-                "id": "q-04-25-73cac13595-opt-2",
-                "text": "Harald Schmidt und Herbert Feuerstein",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-25-73cac13595-opt-3",
-                "text": "Jörg Pilawa und Mareile Höppner",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-25-73cac13595-opt-4",
-                "text": "Barbara Schöneberger und Hubertus Meyer-Burckhardt",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-04-25-73cac13595-opt-1",
-            "explanation": "Das WG-Casting der Dritten Programme. Intellektueller Trash mit Bilderrätseln und Hausmusik. Ein Klassiker.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-04",
-            "type": "multiple_choice",
-            "points": 1
           }
         ],
         "id": "cat-04"
@@ -2153,7 +1881,7 @@
         "slug": "saufen-feiern-toxische-jugend-drinks",
         "name": "Saufen, Feiern & toxische Jugend-Drinks",
         "intro": "Ah ja, die glorreiche Zeit, in der man billigen Fusel mit noch billigerem Energy mischte und das „Vorglühen“ nannte, als wäre es ein Kulturbeitrag. Eure Leber würde gern klagen, hat aber keine Kraft mehr. Zeit für einen Kater-Rückblick.",
-        "question_count": 26,
+        "question_count": 23,
         "difficulty": "medium",
         "questions": [
           {
@@ -2891,54 +2619,6 @@
             "category_id": "cat-05",
             "type": "multiple_choice",
             "points": 1
-          },
-          {
-            "id": "q-05-e01-17bf04c35b",
-            "type": "estimate",
-            "prompt": "Wie viele Halbe Bier stecken in einem 5-Liter-Partyfass?",
-            "answer": {
-              "canonical": "10 Halbe",
-              "reference_value": 10,
-              "unit": "Halbe",
-              "context": "5 Liter geteilt durch 0,5 Liter pro Glas"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "Ein 5-Liter-Fass reicht rechnerisch fuer zehn 0,5-Liter-Glaeser. Praktisch verschwindet trotzdem immer irgendwo ein Rest im Schaum.",
-            "difficulty": "medium",
-            "points": 1,
-            "category_id": "cat-05"
-          },
-          {
-            "id": "q-05-e02-4d430361dd",
-            "type": "estimate",
-            "prompt": "Wie viel Gramm Zucker enthält eine klassische 250ml-Dose Red Bull?",
-            "answer": {
-              "canonical": "27.5 Gramm",
-              "reference_value": 27.5,
-              "unit": "Gramm",
-              "context": "Standard-Dose (250ml)"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "27,5g Zucker. Das sind ca. 9 bis 10 Stück Würfelzucker. Aber hey, man hat ja Flügel.",
-            "difficulty": "medium",
-            "points": 1,
-            "category_id": "cat-05"
-          },
-          {
-            "id": "q-05-e03-1f23da5f70",
-            "type": "estimate",
-            "prompt": "Welchen Alkoholgehalt (in Vol-%) hatte das Kult-Getränk 'Smirnoff Ice' bei seiner Einführung in Deutschland?",
-            "answer": {
-              "canonical": "5.0 Vol-%",
-              "reference_value": 5,
-              "unit": "Vol-%",
-              "context": "Produktspezifikation"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "5,0 %. Schmeckte wie Limo, haute aber rein wie Bier. Der perfekte Treibstoff für die Dorfdisco.",
-            "difficulty": "medium",
-            "points": 1,
-            "category_id": "cat-05"
           }
         ],
         "id": "cat-05"
@@ -2948,7 +2628,7 @@
         "slug": "absurde-skandale-popkultur-meltdowns",
         "name": "Absurde Skandale & Popkultur-Meltdowns",
         "intro": "Nichts eint eine Gesellschaft so sehr wie kollektive Empörung über Promis, die sich benehmen wie Promis. Damals war jede Woche ein Fiebertraum mit Paparazzi-Blitz und moralischer Panik. Schnallt euch an, es wird peinlich.",
-        "question_count": 23,
+        "question_count": 18,
         "difficulty": "medium_hard",
         "default_question_type": "multiple_choice",
         "default_points": 1,
@@ -3217,38 +2897,6 @@
             "points": 1
           },
           {
-            "id": "q-06-09-d5f36a6140",
-            "prompt": "Welche deutsche Pop-Sängerin blamierte sich in einer Doku-Soap mit ihrem Ehemann Marc Terenzi?",
-            "options": [
-              {
-                "id": "q-06-09-d5f36a6140-opt-1",
-                "text": "Sarah Connor",
-                "is_correct": true
-              },
-              {
-                "id": "q-06-09-d5f36a6140-opt-2",
-                "text": "Jeanette Biedermann",
-                "is_correct": false
-              },
-              {
-                "id": "q-06-09-d5f36a6140-opt-3",
-                "text": "Blümchen",
-                "is_correct": false
-              },
-              {
-                "id": "q-06-09-d5f36a6140-opt-4",
-                "text": "Yvonne Catterfeld",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-06-09-d5f36a6140-opt-1",
-            "explanation": "„Sarah & Marc in Love“. Wir durften live zusehen, wie eine Ehe zerfällt, während Marc verzweifelt versuchte, Deutsch zu lernen. „The beautifullest thing“ – autsch.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-06",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
             "id": "q-06-10-7682eb6340",
             "prompt": "Welche Webseite war vor Spotify das Eldorado für (meist illegale) MP3-Downloads?",
             "options": [
@@ -3345,38 +2993,6 @@
             "points": 1
           },
           {
-            "id": "q-06-13-ef29db8405",
-            "prompt": "Womit waren Heidi Klum und Seal in der Klatschpresse regelmaessig praesent?",
-            "options": [
-              {
-                "id": "q-06-13-ef29db8405-opt-1",
-                "text": "Mit jaehrlichen Erneuerungen ihres Ehegeluebdes",
-                "is_correct": true
-              },
-              {
-                "id": "q-06-13-ef29db8405-opt-2",
-                "text": "Mit einem Streit im Supermarkt",
-                "is_correct": false
-              },
-              {
-                "id": "q-06-13-ef29db8405-opt-3",
-                "text": "Mit einem gemeinsamen ESC-Auftritt",
-                "is_correct": false
-              },
-              {
-                "id": "q-06-13-ef29db8405-opt-4",
-                "text": "Mit einer heimlichen Castingshow",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-06-13-ef29db8405-opt-1",
-            "explanation": "Die beiden erneuerten ihr Ehegeluebde jahrelang regelmaessig und lieferten damit verlaesslich Stoff fuer die Klatschspalten.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-06",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
             "id": "q-06-14-146b14c352",
             "prompt": "Welches Getränk wurde durch die „Desperate Housewives“ und „Sex and the City“ zum Trend-Drink der Millennials?",
             "options": [
@@ -3409,38 +3025,6 @@
             "points": 1
           },
           {
-            "id": "q-06-15-e635ddb041",
-            "prompt": "Welcher Reality-TV-Moment bei „Germany's Next Topmodel“ ist legendär für absoluten Zickenkrieg?",
-            "options": [
-              {
-                "id": "q-06-15-e635ddb041-opt-1",
-                "text": "„Zack die Bohne!“ (Gina-Lisa Lohfink)",
-                "is_correct": true
-              },
-              {
-                "id": "q-06-15-e635ddb041-opt-2",
-                "text": "Das große Umstyling-Drama",
-                "is_correct": false
-              },
-              {
-                "id": "q-06-15-e635ddb041-opt-3",
-                "text": "Heidis Entscheidung mit dem Foto",
-                "is_correct": false
-              },
-              {
-                "id": "q-06-15-e635ddb041-opt-4",
-                "text": "Ein Sturz auf dem Laufsteg",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-06-15-e635ddb041-opt-1",
-            "explanation": "Gina-Lisa und Sarah Knappik waren das dynamische Duo des Grauens. „Zack die Bohne“ wurde zur Lebensphilosophie für Leute, die eigentlich nichts zu sagen hatten.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-06",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
             "id": "q-06-16-a59d98c3a2",
             "prompt": "Was war das große Problem beim ersten iPhone (2007) im Vergleich zu anderen Handys?",
             "options": [
@@ -3467,38 +3051,6 @@
             ],
             "correct_option_id": "q-06-16-a59d98c3a2-opt-1",
             "explanation": "Ein „revolutionäres“ Gerät, auf dem man keinen Text kopieren konnte. Steve Jobs’ Realitätsverzerrungsfeld war so stark, dass wir es trotzdem alle wollten.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-06",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
-            "id": "q-06-17-f35e9c1fce",
-            "prompt": "Welcher Trend wurde durch die Serie „The O.C.“ (California Clan) bei Millennials ausgelöst?",
-            "options": [
-              {
-                "id": "q-06-17-f35e9c1fce-opt-1",
-                "text": "Indie-Rock hören und melancholisch aufs Meer starren",
-                "is_correct": true
-              },
-              {
-                "id": "q-06-17-f35e9c1fce-opt-2",
-                "text": "Surfen lernen im Baggersee",
-                "is_correct": false
-              },
-              {
-                "id": "q-06-17-f35e9c1fce-opt-3",
-                "text": "Nur noch Poloshirts mit hochgestelltem Kragen tragen",
-                "is_correct": false
-              },
-              {
-                "id": "q-06-17-f35e9c1fce-opt-4",
-                "text": "Sich die Haare blond färben wie Seth Cohen",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-06-17-f35e9c1fce-opt-1",
-            "explanation": "Phantom Planet im Ohr und die Überzeugung, dass das Leben in Newport Beach viel cooler ist als in Castrop-Rauxel. Spoiler: War es.",
             "difficulty": "medium_hard",
             "category_id": "cat-06",
             "type": "multiple_choice",
@@ -3663,22 +3215,6 @@
             "category_id": "cat-06",
             "type": "multiple_choice",
             "points": 1
-          },
-          {
-            "id": "q-06-e01-efc82aae93",
-            "type": "estimate",
-            "prompt": "Wie viele Stunden hielt die berüchtigte Blitz-Ehe von Britney Spears und Jason Alexander im Jahr 2004?",
-            "answer": {
-              "canonical": "55 Stunden",
-              "reference_value": 55,
-              "unit": "Stunden",
-              "context": "Las Vegas, Januar 2004"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "Nach 55 Stunden war der Spuk vorbei. Eine der kürzesten und ehrlichsten Promi-Ehen der Geschichte.",
-            "difficulty": "medium",
-            "points": 1,
-            "category_id": "cat-06"
           }
         ],
         "id": "cat-06"
@@ -3688,7 +3224,7 @@
         "slug": "gaming-frust-pixel-nostalgie",
         "name": "Gaming-Frust & Pixel-Nostalgie",
         "intro": "Hier liegt der wahre Schaden eurer Kindheit: blaue Panzer, tote Tamagotchis und Speicherstände, die auf wundersame Weise „aus Versehen“ weg waren. Charakterbildung durch Frust, nennt man das wohl.",
-        "question_count": 10,
+        "question_count": 7,
         "difficulty": "medium_hard",
         "default_question_type": "multiple_choice",
         "default_points": 1,
@@ -4067,54 +3603,6 @@
             }
           },
           {
-            "id": "q-07-e02-158977001a",
-            "type": "estimate",
-            "prompt": "Wie viele Millionen Einheiten des Game Boy (Original & Color) wurden weltweit insgesamt verkauft?",
-            "answer": {
-              "canonical": "118.7 Millionen",
-              "reference_value": 118.7,
-              "unit": "Millionen",
-              "context": "Verkaufszahlen weltweit"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "Fast 119 Millionen Stück. Jeder hatte einen, oder kannte jemanden, der einen hatte. Und jeder hat das Klick-Geräusch beim Einschalten im Ohr.",
-            "difficulty": "medium",
-            "points": 1,
-            "category_id": "cat-07"
-          },
-          {
-            "id": "q-07-e03-52b027ab0a",
-            "type": "estimate",
-            "prompt": "Wie viele Millionen Tamagotchis wurden in den ersten drei Jahren (1996-1999) weltweit verkauft?",
-            "answer": {
-              "canonical": "40.0 Millionen",
-              "reference_value": 40,
-              "unit": "Millionen",
-              "context": "Weltweit, Bandai Statistik"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "40 Millionen Stück. Und gefühlt 39 Millionen davon sind gestorben, weil wir in der Schule nicht füttern durften.",
-            "difficulty": "medium",
-            "points": 1,
-            "category_id": "cat-07"
-          },
-          {
-            "id": "q-07-e04-4073853fbd",
-            "type": "estimate",
-            "prompt": "Wie viele Pixel breit war das Display des legendären Nokia 3310?",
-            "answer": {
-              "canonical": "84 Pixel",
-              "reference_value": 84,
-              "unit": "Pixel",
-              "context": "Hardware-Spezifikationen"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "84 Pixel Breite (und 48 Pixel Höhe). Mehr brauchte man nicht für das beste Spiel der Welt: Snake II.",
-            "difficulty": "medium",
-            "points": 1,
-            "category_id": "cat-07"
-          },
-          {
             "id": "q-07-mdb25573919",
             "type": "ranking",
             "prompt": "Sortiere diese Gaming-Konsolen nach Erscheinungsjahr in Deutschland (älteste zuerst).",
@@ -4155,7 +3643,7 @@
         "slug": "musikalische-jugendsunden-emo-phasen",
         "name": "Musikalische Jugendsünden & Emo-Phasen",
         "intro": "Jetzt betreten wir den Friedhof eurer Playlist-Historie. Boybands, Emo-Bangs und Klingeltöne – also genau der akustische Sondermüll, den ihr heute heimlich noch mitsingen könnt. Setzt euren seitlichen Pony zurecht, es wird peinlich.",
-        "question_count": 26,
+        "question_count": 24,
         "difficulty": "medium",
         "default_question_type": "multiple_choice",
         "default_points": 1,
@@ -5618,68 +5106,6 @@
             }
           },
           {
-            "id": "q-08-24-0271acbb7c",
-            "legacy_question_id": 24,
-            "category_id": "cat-08",
-            "order_in_category": 24,
-            "order_global": 199,
-            "type": "multiple_choice",
-            "difficulty": "medium",
-            "difficulty_score": 3,
-            "points": 1,
-            "prompt": "Welche Musiksendung auf MTV zeigte täglich Musikvideos und Charts für eine ganze Generation?",
-            "options": [
-              {
-                "id": "q-08-24-0271acbb7c-opt-1",
-                "text": "TRL (Total Request Live)",
-                "is_correct": true
-              },
-              {
-                "id": "q-08-24-0271acbb7c-opt-2",
-                "text": "Pimp My Ride",
-                "is_correct": false
-              },
-              {
-                "id": "q-08-24-0271acbb7c-opt-3",
-                "text": "Next",
-                "is_correct": false
-              },
-              {
-                "id": "q-08-24-0271acbb7c-opt-4",
-                "text": "Date My Mom",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-08-24-0271acbb7c-opt-1",
-            "answer": {
-              "canonical": "Total Request Live",
-              "aliases": [
-                "Total Request Live",
-                "TRL"
-              ],
-              "alternatives": [],
-              "case_sensitive": false,
-              "match_strategy": "alias_or_option_id"
-            },
-            "explanation": "TRL auf MTV. Es war die Zeit, in der wir tatsächlich noch angerufen haben, um ein Video zu sehen.",
-            "tags": [
-              "musik",
-              "emo",
-              "boybands",
-              "mtv",
-              "viva",
-              "2000er"
-            ],
-            "source": {
-              "imported_from_category_name": "Musikalische Jugendsünden & Emo-Phasen"
-            },
-            "validation": {
-              "auto_generated_options": false,
-              "needs_manual_review": false,
-              "review_flags": []
-            }
-          },
-          {
             "id": "q-08-25-efd407f660",
             "legacy_question_id": 25,
             "category_id": "cat-08",
@@ -5740,22 +5166,6 @@
               "needs_manual_review": false,
               "review_flags": []
             }
-          },
-          {
-            "id": "q-08-e01-26b596c217",
-            "type": "estimate",
-            "prompt": "Wie viele Wochen stand der Sommerhit 'Dragostea Din Tei' (O-Zone) im Jahr 2004 auf Platz 1 der deutschen Charts?",
-            "answer": {
-              "canonical": "14 Wochen",
-              "reference_value": 14,
-              "unit": "Wochen",
-              "context": "Deutschland, Single-Charts"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "14 Wochen lang gab es kein Entkommen vor 'Ma-ia-hii, Ma-ia-huu'. Eine kollektive Gehirnwäsche.",
-            "difficulty": "medium",
-            "points": 1,
-            "category_id": "cat-08"
           }
         ],
         "id": "cat-08"
@@ -5765,7 +5175,7 @@
         "slug": "gefahrliches-halbwissen-fur-erwachsene-adulting-fails",
         "name": "Gefährliches Halbwissen für Erwachsene (Adulting Fails)",
         "intro": "Jetzt kommt der Teil, in dem ihr merkt, dass man mit 30 zwar Rechnungen bekommt, aber nicht automatisch Kompetenz. Willkommen im Club der Leute, die Mülltrennung googeln, während der Rücken bereits kündigt. Adulting ist ein Scam.",
-        "question_count": 29,
+        "question_count": 25,
         "difficulty": "medium",
         "default_question_type": "multiple_choice",
         "default_points": 1,
@@ -7242,38 +6652,6 @@
             }
           },
           {
-            "id": "q-09-e01-c4ce8bab00",
-            "type": "estimate",
-            "prompt": "Wie hoch ist der durchschnittliche Kaffeekonsum pro Kopf in Deutschland pro Jahr (in Litern)?",
-            "answer": {
-              "canonical": "167 Liter",
-              "reference_value": 167,
-              "unit": "Liter",
-              "context": "Deutschland, Pro-Kopf-Verbrauch 2022"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "167 Liter pro Jahr. Das ist mehr als Wasser oder Bier. Wir sind eine Gesellschaft von koffeinabhängigen Zombies.",
-            "difficulty": "medium",
-            "points": 1,
-            "category_id": "cat-09"
-          },
-          {
-            "id": "q-09-e02-f64f016e43",
-            "type": "estimate",
-            "prompt": "Wie viel Kilogramm Fleisch isst ein Deutscher durchschnittlich pro Jahr (Stand 2022)?",
-            "answer": {
-              "canonical": "52 kg",
-              "reference_value": 52,
-              "unit": "kg",
-              "context": "Deutschland, Pro-Kopf-Verbrauch"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "52 kg. Das sind etwa 1 kg pro Woche. Aber wir 'essen ja alle viel weniger Fleisch als früher', klar.",
-            "difficulty": "medium",
-            "points": 1,
-            "category_id": "cat-09"
-          },
-          {
             "id": "q-09-e03-28cbb403a0",
             "type": "estimate",
             "prompt": "Wie viel Prozent ihres Netto-Einkommens gibt ein durchschnittlicher Millennial in Deutschland für Miete aus?",
@@ -7288,38 +6666,6 @@
             "difficulty": "medium",
             "points": 1,
             "category_id": "cat-09"
-          },
-          {
-            "id": "q-09-e04-eefb0daff9",
-            "type": "estimate",
-            "prompt": "Wie viele E-Mails erhält ein durchschnittlicher Büroangestellter pro Tag?",
-            "answer": {
-              "canonical": "121 E-Mails",
-              "reference_value": 121,
-              "unit": "E-Mails",
-              "context": "Radicati Group Study"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "121 E-Mails pro Tag. Und 120 davon hätten wahrscheinlich auch ein kurzes Slack-Gespräch sein können.",
-            "difficulty": "medium",
-            "points": 1,
-            "category_id": "cat-09"
-          },
-          {
-            "id": "q-09-m7404ef4ed3",
-            "type": "estimate",
-            "prompt": "Wie viel Prozent der Deutschen trinken laut Statistik täglich Kaffee?",
-            "answer": {
-              "canonical": "77 %",
-              "reference_value": 77,
-              "unit": "%",
-              "context": "Deutschland, DKV 2022"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "Ohne Kaffee geht bei 77% gar nichts. Wir sind eine Gesellschaft von koffeinabhängigen Zombies.",
-            "difficulty": "medium",
-            "points": 1,
-            "category_id": "cat-09"
           }
         ],
         "id": "cat-09"
@@ -7329,7 +6675,7 @@
         "slug": "technik-fails-hardware-friedhof",
         "name": "Technik-Fails & Hardware-Friedhof",
         "intro": "Hier liegt der Elektroschrott eurer Jugend in Ehren begraben: Röhrenmonster, Discman-Gehopse und CDs, die mit illegalen MP3s und 14 Viren zugleich gebrannt wurden. Fortschritt war damals nur ein anderes Wort für „funktioniert irgendwie, bis es raucht“.",
-        "question_count": 27,
+        "question_count": 25,
         "difficulty": "medium",
         "default_question_type": "multiple_choice",
         "default_points": 1,
@@ -8804,38 +8150,6 @@
               "needs_manual_review": false,
               "review_flags": []
             }
-          },
-          {
-            "id": "q-10-e01-89d163ce7d",
-            "type": "estimate",
-            "prompt": "Wie viele Milliarden SMS wurden im absoluten Rekordjahr 2012 in Deutschland verschickt?",
-            "answer": {
-              "canonical": "59.8 Milliarden",
-              "reference_value": 59.8,
-              "unit": "Milliarden",
-              "context": "Deutschland, SMS-Statistik"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "59,8 Milliarden SMS. Danach kam WhatsApp und hat die SMS fast vollständig beerdigt. RIP T9.",
-            "difficulty": "medium",
-            "points": 1,
-            "category_id": "cat-10"
-          },
-          {
-            "id": "q-10-e02-b0f83de864",
-            "type": "estimate",
-            "prompt": "Wie viel Gramm wiegt ein original Nokia 3310 (das legendäre unzerstörbare Handy)?",
-            "answer": {
-              "canonical": "133 Gramm",
-              "reference_value": 133,
-              "unit": "Gramm",
-              "context": "Hardware-Spezifikationen"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "133 Gramm pure Unzerstörbarkeit. Wenn es runterfiel, ging der Boden kaputt, nicht das Handy.",
-            "difficulty": "medium",
-            "points": 1,
-            "category_id": "cat-10"
           },
           {
             "id": "q-10-m9e136a2a7e",
