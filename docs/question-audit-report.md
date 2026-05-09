@@ -548,3 +548,58 @@ Wenn die P0-Liste (6 Einträge) abgearbeitet ist, ist der Katalog für den Abend
   }
 }
 ```
+
+---
+
+## Bereinigung nach Audit (2026-05-09)
+
+Basis: Issues #40, #41, #42
+
+### Entfernte Fragen
+
+| ID | Datei | Kategorie | Grund |
+|---|---|---|---|
+| q-07-e01-9ce9e570a8 | v4 | gaming-frust-pixel-nostalgie | PS1 Memory Card Faktenfehler (128 KB, nicht 1 MB) |
+| q-07-17-890823bbb8 | v4 | gaming-frust-pixel-nostalgie | Carmen Sandiego zu niche für deutsche Millennial-Gruppe |
+| q-06-21-db7ae3022f | v4 | absurde-skandale-popkultur-meltdowns | Aggro Berlin / Marzahn fachlich unsauber |
+| q-06-24-bedb3b28b0 | v4 | absurde-skandale-popkultur-meltdowns | Millennium-Bug falsch / unsauber formuliert |
+| q-06-25-290a147a5f | v4 | absurde-skandale-popkultur-meltdowns | Eastpak-Statussymbol zu subjektiv / regional |
+| q-06-e02-cf01d207c2 | v4 | absurde-skandale-popkultur-meltdowns | Nipplegate-Jahr als Estimate untauglich |
+| q-08-e02-4ad75bc879 | v4 | musikalische-jugendsunden-emo-phasen | Sandstorm BPM als Estimate untauglich |
+| q-08-e03-aac1454a8b | v4 | musikalische-jugendsunden-emo-phasen | VIVA-Einstellung als Estimate untauglich |
+| q-05-17-d070806f36 | v4 | saufen-feiern-toxische-jugend-drinks | Longdrink-Definition zu stark vereinfacht |
+| q-05-06-69a36d4f74 | v4 | saufen-feiern-toxische-jugend-drinks | „Leichen" nach Party: mehrere legitime Bedeutungen |
+| q-09-02-731a3c8f32 | v4 | gefahrliches-halbwissen-fur-erwachsene-adulting-fails | Mülltrennung regional/kommunal abhängig |
+| q-01-e01-c564fe35e2 | v4 | harry-potter-nur-filme-harter-schwierigkeitsgrad | Buchinhalt (142 Treppen) in Kategorie „Nur Filme" |
+| q-04-25-logic-jungle | v5 | 90er-00er-trash-tv-kollektives-trauma | Zu lang, heikel, schlechte Negativfrage |
+| q-08-06 | v5 | musikalische-jugendsunden-emo-phasen | Boyband-Archetyp/Quotentänzer zu subjektiv |
+| q-01-05 | v5 | harry-potter-nur-filme-harter-schwierigkeitsgrad | Voldemort Screen-Time als Estimate untauglich |
+| q-02-new-35-sugar-daddy | v5 | sex-liebe-expliziter-bullshit | Antwortoptionen unausgewogen, Lösung wird telegrafiert |
+
+### Nicht gefundene IDs (bereits vor dieser Bereinigung entfernt)
+
+- q-01-07, q-01-19, q-01-23, q-10-25-258ab2b479
+
+### Behaltensentscheidungen
+
+| ID | Grund |
+|---|---|
+| q-10-03 | Bereits sauber als logic/MC umgebaut (4 Optionen, correctOptionId, kurzer Prompt) |
+| q-10-10 | Bereits sauber als logic/MC umgebaut (4 Optionen, correctOptionId, kurzer Prompt) |
+
+### Neue Gesamtzählung
+
+| Datei | Vorher | Nachher |
+|---|---:|---:|
+| v4_release_candidate.json | 219 | 207 |
+| v5_expanded.json | 279 | 275 |
+| **Gesamt** | **498** | **482** |
+
+### Ausgeführte Befehle
+
+| Befehl | Ergebnis |
+|---|---|
+| `corepack pnpm typecheck` | ✓ alle 9 Pakete fehlerfrei |
+| `corepack pnpm test` | ✓ 160/160 Tests bestanden |
+| `corepack pnpm build` | ✓ alle 4 Apps gebaut |
+| `node scripts/audit-questions.mjs` | ✓ 482 Fragen, 0 Duplikate, 0 Estimate-Fehler, 0 Ranking-Fehler |

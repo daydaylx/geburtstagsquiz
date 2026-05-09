@@ -47,7 +47,7 @@
     },
     "stats": {
       "total_categories": 10,
-      "total_questions": 279,
+      "total_questions": 275,
       "engine_question_type": "multiple_choice",
       "generated_options_per_question": 4
     },
@@ -68,7 +68,7 @@
         "slug": "harry-potter-nur-filme-harter-schwierigkeitsgrad",
         "name": "Harry Potter (Nur Filme, harter Schwierigkeitsgrad)",
         "intro": "Ihr habt die Filme natürlich „alle oft gesehen“. Klar. Und trotzdem werdet ihr gleich mit dem Gesicht zuerst in euren eigenen Butterbier-Eimer fallen. Zeit für ein bisschen Realitätscheck.",
-        "question_count": 22,
+        "question_count": 21,
         "difficulty": "hard",
         "default_question_type": "standard",
         "default_points": 1,
@@ -202,21 +202,6 @@
               "item-nagini"
             ],
             "explanation": "Tagebuch (Teil 2), Medaillon (Teil 7.1), Pokal (Teil 7.2), Nagini (Finale). Wer 'Der Ring' oder 'Das Diadem' vermisst: Die wurden zwischendurch eher beiläufig abgehakt. Nagini war das dramatische Dessert.",
-            "difficulty": "hard",
-            "points": 2
-          },
-          {
-            "id": "q-01-05",
-            "type": "estimate",
-            "prompt": "Wie viele Minuten reine Screen-Time hat Lord Voldemort (Ralph Fiennes) insgesamt über alle 8 Filme verteilt?",
-            "answer": {
-              "canonical": "37 Minuten",
-              "reference_value": 37,
-              "unit": "Minuten",
-              "context": "Total Screen Time"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "Nur etwa 37 Minuten! Er ist wie ein guter Gewürzgurken-Eimer: Man riecht ihn die ganze Zeit, aber man sieht ihn kaum. Der ultimative Beweis, dass Präsenz nichts mit Dauer zu tun hat.",
             "difficulty": "hard",
             "points": 2
           },
@@ -703,7 +688,7 @@
         "slug": "sex-liebe-expliziter-bullshit",
         "name": "Sex, Liebe & expliziter Bullshit",
         "intro": "Jetzt wird’s erwachsen. Also pseudo-erwachsen: genug Halbwissen, um bei Tinder arrogant zu wirken, aber zu wenig, um peinliche Gespräche wirklich zu überleben. Millennial-Dating ist ein Schlachtfeld.",
-        "question_count": 79,
+        "question_count": 78,
         "difficulty": "medium_hard",
         "questions": [
           {
@@ -2659,38 +2644,6 @@
             "points": 1
           },
           {
-            "id": "q-02-new-35-sugar-daddy",
-            "prompt": "Was zeichnet einen klassischen „Sugar Daddy“ aus?",
-            "options": [
-              {
-                "id": "q-02-new-35-opt-1",
-                "text": "Ein wohlhabender, älterer Mann, der einer jüngeren person Geld und Geschenke im Tausch für intime Gesellschaft gibt",
-                "is_correct": true
-              },
-              {
-                "id": "q-02-new-35-opt-2",
-                "text": "Ein Typ, der bei Dates konsequent nur für sich selbst bezahlt",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-new-35-opt-3",
-                "text": "Ein partner, der einen Bäuchlein hat (Dad Bod) und gerne süße Snacks im Bett isst",
-                "is_correct": false
-              },
-              {
-                "id": "q-02-new-35-opt-4",
-                "text": "Ein Fetischist, der seinen Körper mit Zuckerguss bedecken lässt",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-02-new-35-opt-1",
-            "explanation": "In Zeiten von Studienkrediten, astronomischen Mieten in Berlin und chronischer Inflation ist das mittlerweile für viele Kunstgeschichte-Studentinnen der einzig verbliebene solide Altersvorsorge-Plan.",
-            "difficulty": "easy",
-            "category_id": "cat-02",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
             "id": "q-02-new-36-bdsm",
             "prompt": "Wofür stehen die Buchstaben im Akronym „BDSM“?",
             "options": [
@@ -4262,37 +4215,6 @@
             "points": 2
           },
           {
-            "id": "q-04-25-logic-jungle",
-            "type": "logic",
-            "prompt": "Welche dieser Personen hat es bis 2023 tatsächlich geschafft, NICHT als Kandidat im RTL-Dschungelcamp zu landen?",
-            "options": [
-              {
-                "id": "q-04-25-opt-1",
-                "text": "Christian Ulmen",
-                "is_correct": true
-              },
-              {
-                "id": "q-04-25-opt-2",
-                "text": "Zlatko Trpkovski",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-25-opt-3",
-                "text": "Kader Loth",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-25-opt-4",
-                "text": "Stefan Raab",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-04-25-opt-1",
-            "explanation": "Christian Ulmen verweigerte konsequent alle Einladungen zu Trash-Reality-Formaten. Stefan Raab ebenfalls – aber Ulmen ist hier die Antwort. Die anderen drei waren alle dabei.",
-            "difficulty": "medium_hard",
-            "points": 1
-          },
-          {
             "id": "q-04-e01-b137796e03",
             "type": "estimate",
             "prompt": "Wie viele Tage verbrachte Zlatko in der allerersten Big-Brother-Staffel im Haus?",
@@ -4338,7 +4260,7 @@
             "points": 1
           }
         ],
-        "question_count": 28
+        "question_count": 27
       },
       {
         "category_id": "cat-05",
@@ -6660,7 +6582,7 @@
         "slug": "musikalische-jugendsunden-emo-phasen",
         "name": "Musikalische Jugendsünden & Emo-Phasen",
         "intro": "Jetzt betreten wir den Friedhof eurer Playlist-Historie. Boybands, Emo-Bangs und Klingeltöne – also genau der akustische Sondermüll, den ihr heute heimlich noch mitsingen könnt. Setzt euren seitlichen Pony zurecht, es wird peinlich.",
-        "question_count": 15,
+        "question_count": 14,
         "difficulty": "medium",
         "default_question_type": "multiple_choice",
         "tags": [
@@ -6834,42 +6756,6 @@
               "fashion",
               "trends",
               "majority_guess"
-            ]
-          },
-          {
-            "id": "q-08-06",
-            "type": "logic",
-            "difficulty": "hard",
-            "difficulty_score": 5,
-            "points": 2,
-            "prompt": "Boyband-Archetypen: Süßer, Bad Boy, Schüchterner, Älterer (Bruder-Typ). Was ist das fünfte klassische Mitglied?",
-            "options": [
-              {
-                "id": "opt-1",
-                "text": "Der Quotentänzer (der kaum Solo-Lines hat)",
-                "is_correct": true
-              },
-              {
-                "id": "opt-2",
-                "text": "Der Metal-Fan (für die 'harten' Riffs)",
-                "is_correct": false
-              },
-              {
-                "id": "opt-3",
-                "text": "Der DJ (für die Scratches)",
-                "is_correct": false
-              },
-              {
-                "id": "opt-4",
-                "text": "Ein echtes Instrument (Gitarre/Bass)",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "opt-1",
-            "explanation": "Denkt an Howie D. (BSB) oder Chris Kirkpatrick (*NSYNC). Sie waren wichtig für die Choreo, aber ihre Mikrofon-Lautstärke war im Studio oft... homöopathisch dosiert.",
-            "tags": [
-              "boybands",
-              "logic"
             ]
           },
           {

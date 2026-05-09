@@ -47,7 +47,7 @@
     },
     "stats": {
       "total_categories": 10,
-      "total_questions": 219,
+      "total_questions": 207,
       "engine_question_type": "multiple_choice",
       "generated_options_per_question": 4
     },
@@ -68,7 +68,7 @@
         "slug": "harry-potter-nur-filme-harter-schwierigkeitsgrad",
         "name": "Harry Potter (Nur Filme, harter Schwierigkeitsgrad)",
         "intro": "Ihr habt die Filme natürlich „alle oft gesehen“. Klar. Und trotzdem werdet ihr gleich mit dem Gesicht zuerst in euren eigenen Butterbier-Eimer fallen. Zeit für ein bisschen Realitätscheck.",
-        "question_count": 25,
+        "question_count": 24,
         "difficulty": "hard",
         "default_question_type": "multiple_choice",
         "default_points": 1,
@@ -783,22 +783,6 @@
             "category_id": "cat-01",
             "type": "multiple_choice",
             "points": 1
-          },
-          {
-            "id": "q-01-e01-c564fe35e2",
-            "type": "estimate",
-            "prompt": "Wie viele Treppen gibt es laut den Büchern/Filmen in Hogwarts?",
-            "answer": {
-              "canonical": "142 Treppen",
-              "reference_value": 142,
-              "unit": "Treppen",
-              "context": "Hogwarts Castle Canon"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "Es sind exakt 142 Treppen. Manche sind breit, manche schmal, und manche führen freitags woanders hin. Viel Spaß beim Treppensteigen.",
-            "difficulty": "medium",
-            "points": 1,
-            "category_id": "cat-01"
           },
           {
             "id": "q-01-e02-0ed6866105",
@@ -2169,7 +2153,7 @@
         "slug": "saufen-feiern-toxische-jugend-drinks",
         "name": "Saufen, Feiern & toxische Jugend-Drinks",
         "intro": "Ah ja, die glorreiche Zeit, in der man billigen Fusel mit noch billigerem Energy mischte und das „Vorglühen“ nannte, als wäre es ein Kulturbeitrag. Eure Leber würde gern klagen, hat aber keine Kraft mehr. Zeit für einen Kater-Rückblick.",
-        "question_count": 28,
+        "question_count": 26,
         "difficulty": "medium",
         "questions": [
           {
@@ -2327,38 +2311,6 @@
             ],
             "correct_option_id": "q-05-05-e0f7a3f0af-opt-1",
             "explanation": "Vorglühen ist reiner Kapitalismus-Widerstand. Warum 10 Euro für einen Drink zahlen, wenn man die ganze Flasche für 5 Euro im Supermarkt bekommt? Logik!",
-            "difficulty": "medium",
-            "category_id": "cat-05",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
-            "id": "q-05-06-69a36d4f74",
-            "prompt": "Was bezeichnet man in der Partysprache als 'Leichen' – also schlafende Personen die nach der Feier überall liegen?",
-            "options": [
-              {
-                "id": "q-05-06-69a36d4f74-opt-1",
-                "text": "Betrunkene Gäste, die irgendwo eingeschlafen sind",
-                "is_correct": true
-              },
-              {
-                "id": "q-05-06-69a36d4f74-opt-2",
-                "text": "Leere Dosen und Flaschen, die überall stehen",
-                "is_correct": false
-              },
-              {
-                "id": "q-05-06-69a36d4f74-opt-3",
-                "text": "Abgelaufene Lebensmittel im Kühlschrank",
-                "is_correct": false
-              },
-              {
-                "id": "q-05-06-69a36d4f74-opt-4",
-                "text": "Gäste, die ohne Tschüss zu sagen gegangen sind",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-05-06-69a36d4f74-opt-1",
-            "explanation": "Im Partyslang sind 'Leichen' die eingeschlafenen Gäste. Leere Flaschen heißen Leichen nur umgangssprachlich in manchen Regionen – die Hauptbedeutung sind die schlafenden Personen.",
             "difficulty": "medium",
             "category_id": "cat-05",
             "type": "multiple_choice",
@@ -2685,38 +2637,6 @@
             "points": 1
           },
           {
-            "id": "q-05-17-d070806f36",
-            "prompt": "Was ist der Unterschied zwischen einem Cocktail und einem Longdrink?",
-            "options": [
-              {
-                "id": "q-05-17-d070806f36-opt-1",
-                "text": "Longdrinks bestehen typischerweise aus einer Spirituose, die mit einem alkoholfreien Getränk aufgefüllt wird",
-                "is_correct": true
-              },
-              {
-                "id": "q-05-17-d070806f36-opt-2",
-                "text": "Cocktails müssen immer geschüttelt werden",
-                "is_correct": false
-              },
-              {
-                "id": "q-05-17-d070806f36-opt-3",
-                "text": "Longdrinks sind immer alkoholfrei",
-                "is_correct": false
-              },
-              {
-                "id": "q-05-17-d070806f36-opt-4",
-                "text": "Cocktails gibt es nur in Hotels",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-05-17-d070806f36-opt-1",
-            "explanation": "Ein Longdrink ist eine Spirituose + Filler (Wasser, Soda, Saft, Cola…). Die '2 Zutaten'-Formel ist eine Vereinfachung – Garnitur nicht mitgezählt.",
-            "difficulty": "medium",
-            "category_id": "cat-05",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
             "id": "q-05-18-9e1f7c5006",
             "prompt": "Warum heißt das 'Radler' eigentlich Radler?",
             "options": [
@@ -3028,7 +2948,7 @@
         "slug": "absurde-skandale-popkultur-meltdowns",
         "name": "Absurde Skandale & Popkultur-Meltdowns",
         "intro": "Nichts eint eine Gesellschaft so sehr wie kollektive Empörung über Promis, die sich benehmen wie Promis. Damals war jede Woche ein Fiebertraum mit Paparazzi-Blitz und moralischer Panik. Schnallt euch an, es wird peinlich.",
-        "question_count": 27,
+        "question_count": 23,
         "difficulty": "medium_hard",
         "default_question_type": "multiple_choice",
         "default_points": 1,
@@ -3681,38 +3601,6 @@
             "points": 1
           },
           {
-            "id": "q-06-21-db7ae3022f",
-            "prompt": "Welches Berliner Rap-Kollektiv sorgte 2003 mit Masken und provokanten Texten für einen Skandal im deutschen Musikgeschäft?",
-            "options": [
-              {
-                "id": "q-06-21-db7ae3022f-opt-1",
-                "text": "Aggro Berlin (Sido, B-Tight etc.)",
-                "is_correct": true
-              },
-              {
-                "id": "q-06-21-db7ae3022f-opt-2",
-                "text": "Die Fantastischen Vier",
-                "is_correct": false
-              },
-              {
-                "id": "q-06-21-db7ae3022f-opt-3",
-                "text": "Fettes Brot",
-                "is_correct": false
-              },
-              {
-                "id": "q-06-21-db7ae3022f-opt-4",
-                "text": "Seeed",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-06-21-db7ae3022f-opt-1",
-            "explanation": "Aggro Berlin war ein Rap-Label (kein Boyband-Projekt), das u. a. Sido, B-Tight und Fler unter Vertrag hatte. Das Label-Image wurde stark mit dem Berliner Plattenbau-Milieu assoziiert.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-06",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
             "id": "q-06-22-14f4f41899",
             "prompt": "Was war die größte Enttäuschung beim Kauf einer „Wundertüte“ am Kiosk?",
             "options": [
@@ -3777,70 +3665,6 @@
             "points": 1
           },
           {
-            "id": "q-06-24-bedb3b28b0",
-            "prompt": "Was war das Kernproblem des „Millennium-Bugs“ (Y2K), vor dem alle 1999 Panik hatten?",
-            "options": [
-              {
-                "id": "q-06-24-bedb3b28b0-opt-1",
-                "text": "Computer-Software speicherte Jahreszahlen nur zweistellig – das Jahr 2000 hätte als '00' gelesen werden und Abstürze verursachen können",
-                "is_correct": true
-              },
-              {
-                "id": "q-06-24-bedb3b28b0-opt-2",
-                "text": "Ein Virus, der alle Disketten löscht",
-                "is_correct": false
-              },
-              {
-                "id": "q-06-24-bedb3b28b0-opt-3",
-                "text": "Dass das Internet für immer abgeschaltet wird",
-                "is_correct": false
-              },
-              {
-                "id": "q-06-24-bedb3b28b0-opt-4",
-                "text": "Ein Angriff von außerirdischen Hackern",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-06-24-bedb3b28b0-opt-1",
-            "explanation": "Y2K war kein Angriff, sondern ein Programmierungsfehler: Jahreszahlen wurden in vielen Systemen nur als zweistellige Zahl gespeichert. '00' wäre als 1900 interpretiert worden.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-06",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
-            "id": "q-06-25-290a147a5f",
-            "prompt": "Was war das ultimative Statussymbol in der Schule nach den Sommerferien?",
-            "options": [
-              {
-                "id": "q-06-25-290a147a5f-opt-1",
-                "text": "Ein Eastpak-Rucksack mit möglichst viel Gekritzel drauf",
-                "is_correct": true
-              },
-              {
-                "id": "q-06-25-290a147a5f-opt-2",
-                "text": "Ein neues Paar Socken",
-                "is_correct": false
-              },
-              {
-                "id": "q-06-25-290a147a5f-opt-3",
-                "text": "Ein sauberer Füller",
-                "is_correct": false
-              },
-              {
-                "id": "q-06-25-290a147a5f-opt-4",
-                "text": "Gute Noten im Zeugnis",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-06-25-290a147a5f-opt-1",
-            "explanation": "Wer seinen Eastpak nicht so tief hängen hatte, dass er in den Kniekehlen schlug, hatte keine Ehre. Und wehe, es stand kein Edding-Müll drauf.",
-            "difficulty": "medium_hard",
-            "category_id": "cat-06",
-            "type": "multiple_choice",
-            "points": 1
-          },
-          {
             "id": "q-06-e01-efc82aae93",
             "type": "estimate",
             "prompt": "Wie viele Stunden hielt die berüchtigte Blitz-Ehe von Britney Spears und Jason Alexander im Jahr 2004?",
@@ -3855,39 +3679,6 @@
             "difficulty": "medium",
             "points": 1,
             "category_id": "cat-06"
-          },
-          {
-            "id": "q-06-e02-cf01d207c2",
-            "type": "multiple_choice",
-            "prompt": "In welchem Jahr ereignete sich der berühmte 'Nipplegate'-Skandal um Janet Jackson beim Super Bowl?",
-            "scoring_rule": "closest_wins",
-            "explanation": "Der 'Nipplegate'-Vorfall ereignete sich am 1. Februar 2004 während der Halbzeit-Show des Super Bowl XXXVIII. Er löste eine der größten Zensur-Debatten in der US-Mediengeschichte aus.",
-            "difficulty": "medium",
-            "points": 1,
-            "category_id": "cat-06",
-            "options": [
-              {
-                "id": "q-06-e02-opt-1",
-                "text": "2001",
-                "is_correct": false
-              },
-              {
-                "id": "q-06-e02-opt-2",
-                "text": "2003",
-                "is_correct": false
-              },
-              {
-                "id": "q-06-e02-opt-3",
-                "text": "2004",
-                "is_correct": true
-              },
-              {
-                "id": "q-06-e02-opt-4",
-                "text": "2007",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-06-e02-opt-3"
           }
         ],
         "id": "cat-06"
@@ -3897,7 +3688,7 @@
         "slug": "gaming-frust-pixel-nostalgie",
         "name": "Gaming-Frust & Pixel-Nostalgie",
         "intro": "Hier liegt der wahre Schaden eurer Kindheit: blaue Panzer, tote Tamagotchis und Speicherstände, die auf wundersame Weise „aus Versehen“ weg waren. Charakterbildung durch Frust, nennt man das wohl.",
-        "question_count": 12,
+        "question_count": 10,
         "difficulty": "medium_hard",
         "default_question_type": "multiple_choice",
         "default_points": 1,
@@ -4154,67 +3945,6 @@
             }
           },
           {
-            "id": "q-07-17-890823bbb8",
-            "legacy_question_id": 17,
-            "category_id": "cat-07",
-            "order_in_category": 17,
-            "order_global": 167,
-            "type": "multiple_choice",
-            "difficulty": "medium_hard",
-            "difficulty_score": 3,
-            "points": 1,
-            "prompt": "Welcher Klassiker ließ euch bei der Frage „Wo ist Carmen Sandiego?“ vermutlich weniger lernen als ihr dachtet?",
-            "options": [
-              {
-                "id": "q-07-17-890823bbb8-opt-1",
-                "text": "Where in the World Is Carmen Sandiego",
-                "is_correct": true
-              },
-              {
-                "id": "q-07-17-890823bbb8-opt-2",
-                "text": "Oregon Trail",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-17-890823bbb8-opt-3",
-                "text": "Monkey Island",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-17-890823bbb8-opt-4",
-                "text": "Prince of Persia",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-07-17-890823bbb8-opt-1",
-            "answer": {
-              "canonical": "Where in the World Is Carmen Sandiego",
-              "aliases": [
-                "Where in the World Is Carmen Sandiego",
-                "Carmen Sandiego"
-              ],
-              "alternatives": [],
-              "case_sensitive": false,
-              "match_strategy": "alias_or_option_id"
-            },
-            "explanation": "Gemeint ist der Edutainment-Klassiker „Where in the World Is Carmen Sandiego?“.",
-            "tags": [
-              "gaming",
-              "retro",
-              "videospiele",
-              "nostalgie",
-              "frust"
-            ],
-            "source": {
-              "imported_from_category_name": "Gaming-Frust & Pixel-Nostalgie"
-            },
-            "validation": {
-              "auto_generated_options": false,
-              "needs_manual_review": false,
-              "review_flags": []
-            }
-          },
-          {
             "id": "q-07-22-d683609ad9",
             "legacy_question_id": 22,
             "category_id": "cat-07",
@@ -4337,22 +4067,6 @@
             }
           },
           {
-            "id": "q-07-e01-9ce9e570a8",
-            "type": "estimate",
-            "prompt": "Wie viel Megabyte (MB) Speicherplatz bot eine offizielle Memory Card für die erste PlayStation (PS1)?",
-            "answer": {
-              "canonical": "0,125 MB (128 KB)",
-              "reference_value": 0.125,
-              "unit": "MB",
-              "context": "Die PS1 Memory Card hatte 1 Megabit = 128 Kilobyte = 0,125 MB Speicher, aufgeteilt auf 15 Speicherblöcke."
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "Die PS1 Memory Card speicherte 128 KB – das sind 0,125 MB, nicht 1 MB. Ein häufiger Irrtum, weil 'Megabit' leicht mit 'Megabyte' verwechselt wird.",
-            "difficulty": "medium",
-            "points": 1,
-            "category_id": "cat-07"
-          },
-          {
             "id": "q-07-e02-158977001a",
             "type": "estimate",
             "prompt": "Wie viele Millionen Einheiten des Game Boy (Original & Color) wurden weltweit insgesamt verkauft?",
@@ -4441,7 +4155,7 @@
         "slug": "musikalische-jugendsunden-emo-phasen",
         "name": "Musikalische Jugendsünden & Emo-Phasen",
         "intro": "Jetzt betreten wir den Friedhof eurer Playlist-Historie. Boybands, Emo-Bangs und Klingeltöne – also genau der akustische Sondermüll, den ihr heute heimlich noch mitsingen könnt. Setzt euren seitlichen Pony zurecht, es wird peinlich.",
-        "question_count": 28,
+        "question_count": 26,
         "difficulty": "medium",
         "default_question_type": "multiple_choice",
         "default_points": 1,
@@ -6042,72 +5756,6 @@
             "difficulty": "medium",
             "points": 1,
             "category_id": "cat-08"
-          },
-          {
-            "id": "q-08-e02-4ad75bc879",
-            "type": "multiple_choice",
-            "prompt": "Welchen BPM-Wert (Beats Per Minute) hat der Trance-Klassiker 'Sandstorm' von Darude?",
-            "scoring_rule": "closest_wins",
-            "explanation": "Sandstorm von Darude läuft bei 136 BPM – klassisches Trance-Tempo. Wer das wusste, ohne es nachzuschlagen: Respekt.",
-            "difficulty": "medium",
-            "points": 1,
-            "category_id": "cat-08",
-            "options": [
-              {
-                "id": "q-08-e02-opt-1",
-                "text": "112 BPM",
-                "is_correct": false
-              },
-              {
-                "id": "q-08-e02-opt-2",
-                "text": "128 BPM",
-                "is_correct": false
-              },
-              {
-                "id": "q-08-e02-opt-3",
-                "text": "136 BPM",
-                "is_correct": true
-              },
-              {
-                "id": "q-08-e02-opt-4",
-                "text": "150 BPM",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-08-e02-opt-3"
-          },
-          {
-            "id": "q-08-e03-aac1454a8b",
-            "type": "multiple_choice",
-            "prompt": "In welchem Jahr wurde der deutsche Musiksender VIVA offiziell eingestellt?",
-            "scoring_rule": "closest_wins",
-            "explanation": "VIVA wurde am 31. Dezember 2018 eingestellt. Der Sender lief seit 1993 – fast 25 Jahre Musikgeschichte.",
-            "difficulty": "medium",
-            "points": 1,
-            "category_id": "cat-08",
-            "options": [
-              {
-                "id": "q-08-e03-opt-1",
-                "text": "2012",
-                "is_correct": false
-              },
-              {
-                "id": "q-08-e03-opt-2",
-                "text": "2015",
-                "is_correct": false
-              },
-              {
-                "id": "q-08-e03-opt-3",
-                "text": "2018",
-                "is_correct": true
-              },
-              {
-                "id": "q-08-e03-opt-4",
-                "text": "2021",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-08-e03-opt-3"
           }
         ],
         "id": "cat-08"
@@ -6117,7 +5765,7 @@
         "slug": "gefahrliches-halbwissen-fur-erwachsene-adulting-fails",
         "name": "Gefährliches Halbwissen für Erwachsene (Adulting Fails)",
         "intro": "Jetzt kommt der Teil, in dem ihr merkt, dass man mit 30 zwar Rechnungen bekommt, aber nicht automatisch Kompetenz. Willkommen im Club der Leute, die Mülltrennung googeln, während der Rücken bereits kündigt. Adulting ist ein Scam.",
-        "question_count": 30,
+        "question_count": 29,
         "difficulty": "medium",
         "default_question_type": "multiple_choice",
         "default_points": 1,
@@ -6174,67 +5822,6 @@
               "match_strategy": "alias_or_option_id"
             },
             "explanation": "ELSTER – Elektronische Steuererklärung. Das offizielle Portal der Hölle, in dem wir jährlich unsere Existenz rechtfertigen müssen.",
-            "tags": [
-              "adulting",
-              "haushalt",
-              "steuern",
-              "alltag",
-              "wissen"
-            ],
-            "source": {
-              "imported_from_category_name": "Gefährliches Halbwissen für Erwachsene (Adulting Fails)"
-            },
-            "validation": {
-              "auto_generated_options": true,
-              "needs_manual_review": false,
-              "review_flags": []
-            }
-          },
-          {
-            "id": "q-09-02-731a3c8f32",
-            "legacy_question_id": 2,
-            "category_id": "cat-09",
-            "order_in_category": 2,
-            "order_global": 202,
-            "type": "multiple_choice",
-            "difficulty": "medium",
-            "difficulty_score": 3,
-            "points": 1,
-            "prompt": "In welche Tonne gehört ein alter, trockener Zeitungsstapel?",
-            "options": [
-              {
-                "id": "q-09-02-731a3c8f32-opt-1",
-                "text": "Restmüll",
-                "is_correct": false
-              },
-              {
-                "id": "q-09-02-731a3c8f32-opt-2",
-                "text": "Gelber Sack",
-                "is_correct": false
-              },
-              {
-                "id": "q-09-02-731a3c8f32-opt-3",
-                "text": "Papiertonne",
-                "is_correct": true
-              },
-              {
-                "id": "q-09-02-731a3c8f32-opt-4",
-                "text": "Bio-Tonne",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-09-02-731a3c8f32-opt-3",
-            "answer": {
-              "canonical": "In die Papiertonne",
-              "aliases": [
-                "In die Papiertonne",
-                "in die papiertonne"
-              ],
-              "alternatives": [],
-              "case_sensitive": false,
-              "match_strategy": "alias_or_option_id"
-            },
-            "explanation": "Zeitungen und unbedrucktes Papier gehören immer in die Papiertonne – das gilt bundesweit. Bei beschichteten Papierverpackungen kann je nach Gemeinde auch der Gelbe Sack zuständig sein.",
             "tags": [
               "adulting",
               "haushalt",
