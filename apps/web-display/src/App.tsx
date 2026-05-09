@@ -137,7 +137,7 @@ export function App() {
         )}
 
         {s.screen === "question" && s.question && (
-          <div className="display-question" data-fading={s.isFadingOut || undefined}>
+          <div className="display-question" key={s.question.questionId} data-fading={s.isFadingOut || undefined}>
             <div className="display-question-meta">
               Frage {s.question.questionIndex + 1} / {s.question.totalQuestionCount}
               <span className="display-question-type">
