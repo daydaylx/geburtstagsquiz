@@ -35,26 +35,57 @@ cleanup() {
   local f pid
   for f in "$STATE_DIR"/*.pid; do
     [[ -f "$f" ]] || continue
-    pid="$(cat "$f")" || continue
-    kill -TERM "$pid" 2>/dev/null || true
+    pid="$(cat "$f" 2>/dev/null || true)"
+    terminate_process "$pid"
   done
   sleep 2
   for f in "$STATE_DIR"/*.pid; do
     [[ -f "$f" ]] || continue
-    pid="$(cat "$f")" || continue
-    kill -0 "$pid" 2>/dev/null && kill -KILL "$pid" 2>/dev/null || true
+    pid="$(cat "$f" 2>/dev/null || true)"
+    process_running "$pid" && force_kill_process "$pid"
     rm -f "$f"
   done
   printf "${GREEN}✓  Gestoppt.${NC}\n\n"
 }
 
 # ── Hilfsfunktionen ────────────────────────────────────────────────────────────
+is_pid() {
+  [[ "${1:-}" =~ ^[0-9]+$ ]]
+}
+
+process_running() {
+  local pid="${1:-}"
+  is_pid "$pid" || return 1
+  kill -0 -- "-$pid" 2>/dev/null || kill -0 "$pid" 2>/dev/null
+}
+
+terminate_process() {
+  local pid="${1:-}"
+  is_pid "$pid" || return 0
+  kill -TERM -- "-$pid" 2>/dev/null || kill -TERM "$pid" 2>/dev/null || true
+}
+
+force_kill_process() {
+  local pid="${1:-}"
+  is_pid "$pid" || return 0
+  kill -KILL -- "-$pid" 2>/dev/null || kill -KILL "$pid" 2>/dev/null || true
+}
+
 stop_previous() {
-  local f pid
+  local f pid found=0
   for f in "$STATE_DIR"/*.pid; do
     [[ -f "$f" ]] || continue
-    pid="$(cat "$f")" || continue
-    kill -TERM "$pid" 2>/dev/null || true
+    found=1
+    pid="$(cat "$f" 2>/dev/null || true)"
+    terminate_process "$pid"
+  done
+  if (( found == 1 )); then
+    sleep 2
+  fi
+  for f in "$STATE_DIR"/*.pid; do
+    [[ -f "$f" ]] || continue
+    pid="$(cat "$f" 2>/dev/null || true)"
+    process_running "$pid" && force_kill_process "$pid"
     rm -f "$f"
   done
 }
@@ -62,14 +93,96 @@ stop_previous() {
 start_bg() {
   local name="$1"; shift
   mkdir -p "$LOG_DIR"
-  (cd "$PROJECT_DIR" && exec "$@") >"$LOG_DIR/$name.log" 2>&1 &
+  (cd "$PROJECT_DIR" && exec setsid "$@") >"$LOG_DIR/$name.log" 2>&1 &
   printf "%d" "$!" >"$STATE_DIR/$name.pid"
 }
 
+port_listener_pids() {
+  local port="$1"
+  ss -H -ltnp "sport = :$port" 2>/dev/null \
+    | sed -nE 's/.*pid=([0-9]+).*/\1/p' \
+    | sort -u || true
+}
+
+pid_command() {
+  local pid="$1"
+  tr '\0' ' ' <"/proc/$pid/cmdline" 2>/dev/null || true
+}
+
+pid_cwd() {
+  local pid="$1"
+  readlink "/proc/$pid/cwd" 2>/dev/null || true
+}
+
+pid_belongs_to_project() {
+  local pid="$1" cmd cwd
+  cmd="$(pid_command "$pid")"
+  cwd="$(pid_cwd "$pid")"
+  [[ "$cmd" == *"$PROJECT_DIR"* || "$cwd" == "$PROJECT_DIR" || "$cwd" == "$PROJECT_DIR/"* ]]
+}
+
+describe_pid() {
+  local pid="$1" cmd
+  cmd="$(pid_command "$pid")"
+  if [[ -n "$cmd" ]]; then
+    printf "PID %s (%s)" "$pid" "$cmd"
+  else
+    printf "PID %s" "$pid"
+  fi
+}
+
+stop_project_port_listeners() {
+  local port pid stopped=0 foreign=0
+  for port in "$@"; do
+    while IFS= read -r pid; do
+      [[ -n "$pid" ]] || continue
+      if pid_belongs_to_project "$pid"; then
+        kill -TERM "$pid" 2>/dev/null || true
+        stopped=1
+      else
+        fail "Port $port belegt durch anderen Prozess: $(describe_pid "$pid")"
+        foreign=1
+      fi
+    done < <(port_listener_pids "$port")
+  done
+
+  (( foreign == 0 )) || die "Benötigte Ports sind belegt."
+
+  if (( stopped == 1 )); then
+    sleep 2
+    for port in "$@"; do
+      while IFS= read -r pid; do
+        [[ -n "$pid" ]] || continue
+        pid_belongs_to_project "$pid" && kill -KILL "$pid" 2>/dev/null || true
+      done < <(port_listener_pids "$port")
+    done
+    sleep 0.5
+  fi
+}
+
+assert_ports_free() {
+  local port pid occupied=0
+  for port in "$@"; do
+    while IFS= read -r pid; do
+      [[ -n "$pid" ]] || continue
+      fail "Port $port weiterhin belegt: $(describe_pid "$pid")"
+      occupied=1
+    done < <(port_listener_pids "$port")
+  done
+  (( occupied == 0 )) || die "Benötigte Ports sind nicht frei."
+}
+
 wait_health() {
-  local name="$1" url="$2" i=0
+  local name="$1" url="$2" pid_file="${3:-}" i=0 pid
   printf "    %-14s" "$name"
   until curl -sf --max-time 2 "$url" >/dev/null 2>&1; do
+    if [[ -n "$pid_file" && -f "$pid_file" ]]; then
+      pid="$(cat "$pid_file" 2>/dev/null || true)"
+      if ! process_running "$pid"; then
+        printf " ${RED}ABGESTÜRZT${NC}\n"
+        die "$name abgestürzt — Log: $LOG_DIR/$name.log"
+      fi
+    fi
     if (( i++ > 90 )); then
       printf " ${RED}TIMEOUT${NC}\n"
       die "$name nicht bereit — Log: $LOG_DIR/$name.log"
@@ -148,6 +261,8 @@ check_prereqs() {
   local mode="$1"
   command -v corepack >/dev/null || die "corepack nicht gefunden."
   command -v curl     >/dev/null || die "curl nicht gefunden."
+  command -v ss       >/dev/null || die "ss nicht gefunden."
+  command -v setsid   >/dev/null || die "setsid nicht gefunden."
   [[ -d "$PROJECT_DIR/node_modules" ]] || die "node_modules fehlt — bitte: corepack pnpm install"
   if [[ "$mode" == "tunnel" ]]; then
     command -v cloudflared >/dev/null || die "cloudflared nicht gefunden (erwartet in PATH)."
@@ -171,6 +286,8 @@ main() {
 
   step "Räume vorherigen Lauf auf"
   stop_previous
+  stop_project_port_listeners 3001 5173 5174 5175
+  assert_ports_free 3001 5173 5174 5175
   ok "Bereit"
 
   trap cleanup EXIT INT TERM
@@ -201,15 +318,15 @@ main() {
 
   step "Starte Server"
   start_bg server corepack pnpm --filter @quiz/server dev
-  wait_health "Server" "http://localhost:3001/health"
+  wait_health "Server" "http://localhost:3001/health" "$STATE_DIR/server.pid"
 
   step "Starte Frontends"
   start_bg display corepack pnpm --filter @quiz/web-display dev -- --host 0.0.0.0 --port 5175 --strictPort
   start_bg host    corepack pnpm --filter @quiz/web-host    dev -- --host 0.0.0.0 --port 5173 --strictPort
   start_bg player  corepack pnpm --filter @quiz/web-player  dev -- --host 0.0.0.0 --port 5174 --strictPort
-  wait_health "Display" "http://localhost:5175"
-  wait_health "Host"    "http://localhost:5173"
-  wait_health "Player"  "http://localhost:5174"
+  wait_health "Display" "http://localhost:5175" "$STATE_DIR/display.pid"
+  wait_health "Host"    "http://localhost:5173" "$STATE_DIR/host.pid"
+  wait_health "Player"  "http://localhost:5174" "$STATE_DIR/player.pid"
 
   if [[ "$mode" == "tunnel" ]]; then
     step "Starte Cloudflare Tunnel"
@@ -234,8 +351,9 @@ main() {
       [[ -f "$f" ]] || continue
       pid="$(cat "$f")" || continue
       name="$(basename "$f" .pid)"
-      if ! kill -0 "$pid" 2>/dev/null; then
+      if ! process_running "$pid"; then
         fail "$name abgestürzt — Log: $LOG_DIR/$name.log"
+        exit 1
       fi
     done
   done
