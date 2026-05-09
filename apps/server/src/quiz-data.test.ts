@@ -139,8 +139,8 @@ describe("quiz source files", () => {
       }
     }
 
-    expect(rawQuestionCount).toBe(482);
-    expect(seenIds.size).toBe(482);
+    expect(rawQuestionCount).toBe(386);
+    expect(seenIds.size).toBe(386);
     expect(issues).toEqual([]);
   });
 });
@@ -260,7 +260,7 @@ describe("getDefaultQuiz catalog invariants", () => {
       }
     }
 
-    expect(quiz.questions).toHaveLength(482);
+    expect(quiz.questions).toHaveLength(386);
     expect(new Set(ids).size).toBe(ids.length);
     expect(issues).toEqual([]);
   });

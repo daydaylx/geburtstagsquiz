@@ -602,4 +602,182 @@ Basis: Issues #40, #41, #42
 | `corepack pnpm typecheck` | ✓ alle 9 Pakete fehlerfrei |
 | `corepack pnpm test` | ✓ 160/160 Tests bestanden |
 | `corepack pnpm build` | ✓ alle 4 Apps gebaut |
+
+---
+
+## Entschlackung Issue #44 (2026-05-09)
+
+> Basis: 482 Fragen nach PR #43
+
+### Ziel
+
+TV-/Serien-/Promi-Fragen, Random-Trivia, nicht errätbare Schätzfragen und thematische Duplikate entfernen. Qualität vor Menge.
+
+### Entfernte Fragen – V4 (30 Entfernungen, 207 → 177)
+
+| ID | Kategorie | Grund |
+|---|---|---|
+| q-01-10-new | cat-01 | Falscher-Moody-Zungentic – zu spezifisches Filmdetail |
+| q-01-e02-0ed6866105 | cat-01 | HP-Filmbudget $125M – nicht errätbar |
+| q-01-e03-a6553820f8 | cat-01 | HP-Box-Office $1342M – nicht errätbar |
+| q-03-e01-b4f45030f1 | cat-03 | MySpace 75,9M Nutzer – nicht errätbar |
+| q-03-e02-cb56fcabf0 | cat-03 | YouTube-Kaufpreis 1310M€ – nicht errätbar |
+| q-03-e03-b05498e1e6 | cat-03 | Facebook 2004-Nutzer 1,0M – nicht errätbar |
+| q-04-03-b91d0aec59 | cat-04 | Parental Control – US-MTV-Show, kein DE-Millennial-Touchstone |
+| q-04-06-69a35e4d74 | cat-04 | Big Brother Gewinner „John" – Zlatko war der Star, John vergessen |
+| q-04-09-42a89c9ab5 | cat-04 | Marijke Amado / Mini Playback Show – 80er/frühe 90er, kaum bekannt |
+| q-04-12-a015ede7fc | cat-04 | Joe Millionaire – US Reality-Show, kaum bekannt in DE |
+| q-04-25-73cac13595 | cat-04 | Zimmer frei! / Götz Alsmann – WDR-Nischen-Talkshow |
+| q-05-e01-17bf04c35b | cat-05 | Partyfass 10 Halbe – triviale Rechenaufgabe |
+| q-05-e02-4d430361dd | cat-05 | Red Bull Zuckergehalt 27,5g – nicht errätbar |
+| q-05-e03-1f23da5f70 | cat-05 | Smirnoff Ice 5,0% ABV – nicht errätbar |
+| q-06-09-d5f36a6140 | cat-06 | Sarah Connor & Marc Terenzi Doku-Soap – zu nischige Promi-Details |
+| q-06-13-ef29db8405 | cat-06 | Heidi Klum & Seal Ehegelübde-Erneuerungen – reines Promi-Klatsch-Trivia |
+| q-06-15-e635ddb041 | cat-06 | GNTM „Zack die Bohne!" Gina-Lisa – zu spezifische Reality-TV-Promi |
+| q-06-17-f35e9c1fce | cat-06 | The O.C. / Indie-Rock-Trend – zu vage und nischig |
+| q-06-e01-efc82aae93 | cat-06 | Britney Vegas-Ehe 55h – nicht errätbar |
+| q-07-e02-158977001a | cat-07 | Game Boy Verkaufszahlen 118,7M – nicht errätbar |
+| q-07-e03-52b027ab0a | cat-07 | Tamagotchi 40M in 3 Jahren – nicht errätbar |
+| q-07-e04-4073853fbd | cat-07 | Nokia 3310 Display 84 Pixel – nicht errätbar |
+| q-08-24-0271acbb7c | cat-08 | TRL auf MTV – US-zentriert, kein DE-Kultformat |
+| q-08-e01-26b596c217 | cat-08 | Dragostea Din Tei Chart-Wochen – nicht errätbar |
+| q-09-e01-c4ce8bab00 | cat-09 | Kaffeekonsum 167L/Jahr – langweiliger Random-Stat |
+| q-09-e02-f64f016e43 | cat-09 | Fleischkonsum 52kg/Jahr – langweiliger Random-Stat |
+| q-09-e04-eefb0daff9 | cat-09 | 121 E-Mails/Tag – langweiliger Random-Stat |
+| q-09-m7404ef4ed3 | cat-09 | 77% Kaffeetrinker – langweiliger Random-Stat |
+| q-10-e01-89d163ce7d | cat-10 | SMS-Rekord 2012 59,8 Mrd. – nicht errätbar |
+| q-10-e02-b0f83de864 | cat-10 | Nokia 3310 Gewicht 133g – nicht errätbar |
+
+### Entfernte Fragen – V5 (66 Entfernungen, 275 → 209)
+
+| ID | Kategorie | Grund |
+|---|---|---|
+| q-01-06 | cat-01 | Buch-vs-Film-Wissen (Gillyweed-Geber) – zu spezifisch |
+| q-01-09 | cat-01 | Marauders Todesreihenfolge Ranking – zu detailliertes HP-Lore |
+| q-01-10 | cat-01 | Asphodel/Wormwood Fan-Deutung – Fan-Theorie-Spezialwissen |
+| q-01-12 | cat-01 | Anzahl Voldemort-Schauspieler – reines Trivia-Zählen |
+| q-01-15 | cat-01 | Slughorn verschüttet Wein – Duplikat V4 q-01-12 |
+| q-01-16 | cat-01 | Screen-Time-Ranking 8 Filme – niemand kennt Statistiken |
+| q-01-17 | cat-01 | 142 Hogwarts-Treppen – nicht errätbar |
+| q-01-21 | cat-01 | „Der Klitterer" Magazin – Duplikat V4 q-01-14 |
+| q-01-24 | cat-01 | HP-Filmbudget 125M$ – Duplikat V4 q-01-e02 |
+| q-03-09 | cat-03 | ICQ UIN 9 Ziffern – zu spezifische Zahl |
+| q-03-10 | cat-03 | MySpace Tom – Duplikat V4 q-03-22 |
+| q-03-13 | cat-03 | Erstes YouTube-Video 19 Sek. – nicht errätbar |
+| q-03-15 | cat-03 | ICQ Release-Jahr 1996 – reines Datumstrivia |
+| q-04-01-275ee72c42 | cat-04 | Room Raiders – US-MTV-Show |
+| q-04-02-c5be5cbd7c | cat-04 | Next! – US-MTV-Show |
+| q-04-03-logic-kader | cat-04 | Kader Loth gewann Die Alm – zu obskurer Trash-Promi |
+| q-04-05-mistake-alm | cat-04 | Die Alm vor Dschungelcamp – zu spezifische TV-Zeitlinie |
+| q-04-09-estimate-jamba | cat-04 | Jamba Umsatz 500M€ – nicht errätbar |
+| q-04-10-logic-gerner | cat-04 | GZSZ Jo Gerner meiste Hochzeiten – Seifenoper-Spezialwissen |
+| q-04-12-duel-bb | cat-04 | Big Brother 70.000 Bewerbungen – nicht errätbar |
+| q-04-13-mistake-pimp | cat-04 | Pimp My Ride mech. Defekte – Duplikat V4 q-04-13 |
+| q-04-15-41f1ae9ced | cat-04 | SSDSGPS Stefan Raab Show – zu obskur |
+| q-04-18-397c18dfae | cat-04 | Tine Wittler / Einsatz in 4 Wänden – kaum bekannte TV-Person |
+| q-04-19-ranking-trash | cat-04 | Trash-Ikonen Ranking (Kader Loth, Melanie Müller) – zu obskure Personen |
+| q-04-22-803f4a54d8 | cat-04 | Palina Rojinski MTV Home – kaum als Ikone bekannt |
+| q-04-24-sudden-9live | cat-04 | 9Live-Anruf 50 Cent – nicht errätbar |
+| q-04-e01-b137796e03 | cat-04 | Zlatko 41 Tage im Haus – nicht errätbar |
+| q-04-e02-adddcf4169 | cat-04 | DSDS-Finale 12,8M Zuschauer – nicht errätbar |
+| q-04-e03-5dc7eb08d2 | cat-04 | GNTM 19 Staffeln – kein Party-Wert |
+| q-05-02 | cat-05 | Zuckerkonsum durch Alkohol 3,5kg – langweiliger Stat |
+| q-05-08 | cat-05 | Red Bull 27,5g Zucker – Duplikat V4 q-05-e02 |
+| q-05-18 | cat-05 | Größtes Bierglas 2082L – nicht errätbar |
+| q-05-24 | cat-05 | 35 Shots in 0,7L – triviale Rechenaufgabe |
+| q-06-07 | cat-06 | Britney Vegas-Ehe 55h (estimate_duel) – Duplikat V4 q-06-e01 |
+| q-06-09 | cat-06 | YouTube-Kaufpreis 1,65 Mrd.$ – kein Nostalgie-Moment |
+| q-06-10 | cat-06 | Paris Hilton It-Girl – Duplikat V4 q-06-05 |
+| q-06-12 | cat-06 | Sarah Connor Marc Terenzi – Duplikat V4 q-06-09 |
+| q-06-13 | cat-06 | Napster Filesharing – Duplikat V4 q-06-10 |
+| q-06-14 | cat-06 | Emo schwarzer Seitenscheitel – Duplikat V4 q-06-12 |
+| q-06-15 | cat-06 | Cosmopolitan via Sex and the City – Duplikat V4 q-06-14 |
+| q-06-16 | cat-06 | GNTM Gina-Lisa „Zack die Bohne" – Duplikat V4 q-06-15 |
+| q-06-17 | cat-06 | iPhone 2007 Copy-Paste – Duplikat V4 q-06-16 |
+| q-06-18 | cat-06 | Jackass „do not attempt" – Duplikat V4 q-06-18 |
+| q-06-19 | cat-06 | DSDS Alexander Klaws – Duplikat V4 q-06-19 |
+| q-06-20 | cat-06 | Nokia 3310 unzerstörbar – Duplikat V4 q-06-20 |
+| q-06-22 | cat-06 | Pamela Anderson Sextape – Duplikat V4 q-06-23 |
+| q-06-24 | cat-06 | Boygroup Gründungsjahr-Ranking – zu obskure Details |
+| q-06-25 | cat-06 | ProSieben Klingelton-Einnahmen – nicht errätbar |
+| q-07-07 | cat-07 | Game Boy Gewicht 300g – Schätzung niemand kennt |
+| q-07-11 | cat-07 | Minesweeper „3 mit 3 Nachbarn" – Duplikat q-07-02 |
+| q-07-19 | cat-07 | Monkey Island Insult-Fencing – zu nischiges Spezialwissen |
+| q-07-20 | cat-07 | CRT-Monitor Gewicht 25kg – vage Schätzung |
+| q-07-26 | cat-07 | Minesweeper Maximalzahl 8 – drittes Minesweeper-Thema |
+| q-07-28 | cat-07 | Game Boy Display 160×144 Pixel – nicht errätbar |
+| q-08-01 | cat-08 | Schnappi 10 Wochen Platz 1 – nicht errätbar |
+| q-08-02 | cat-08 | Boyband Gründungsjahr-Ranking – zu spezifische Jahreszahlen |
+| q-08-07 | cat-08 | *NSYNC erste Verkaufswoche 2,41M – reines Trivia |
+| q-08-08 | cat-08 | US5 bedeutet „Us/Wir" – kaum bekanntes Backstory-Detail |
+| q-08-12 | cat-08 | VIVA Einstellung 2018 – nicht errätbar |
+| q-08-15 | cat-08 | Jamba Sparabo 4,99€/Monat – nicht errätbar |
+| q-09-02 | cat-09 | Klospülung 9 Liter – langweiliges Trivia |
+| q-09-06 | cat-09 | Haushaltsmüll 476kg/Jahr – langweiliger Stat |
+| q-09-18 | cat-09 | Bierkasten = 10 Liter – triviale Rechenaufgabe |
+| q-09-24 | cat-09 | Werbungskostenpauschbetrag 1.230€ – jahrgebunden und zu spezifisch |
+| q-10-02 | cat-10 | Nokia 3310 Standby 260h – nicht errätbar |
+| q-10-07 | cat-10 | CRT-Monitor Gewicht 22–25kg – nicht errätbar |
+
+### Behalten trotz TV/Promi/Serie
+
+| ID | Grund fürs Behalten |
+|---|---|
+| q-04-04 (V4+V5) | Dschungelcamp Känguru-Hoden – absolut ikonisch deutsch |
+| q-04-05-9e64f181f0 (V4) | Günther Jauch bei Wer wird Millionär – Millennial-Allgemeinwissen |
+| q-04-07-pattern-catchphrase (V5) | TV-Catchphrase-Muster (Big Brother, GNTM) – breit bekannt |
+| q-04-08-36f4d1e2a0 (V5) | Arabella Kiesbauer Vaterschaftstests-Talkshow – ikonisches DE-TV |
+| q-04-11-6591ed9193 (V5) | Barbara Salesch Gerichtsshow – Millennial-Kindheitstraumata |
+| q-04-19-bf1675c548 (V4) | Takeshi's Castle General Lee – Kindheitserinnerung |
+| q-06-01 (V4+V5) | Britney rasiert Kopf 2007 – internationale Pop-Ikone |
+| q-06-03 (V4+V5) | Kanye/Taylor VMAs 2009 – ikonisches Internet-Meme |
+| q-06-11-5ed6bf0b49 (V4) | Michael Jackson Tod 2009 – historisches Ereignis |
+| q-06-20-82e0f32865 (V4) | Nokia 3310 unzerstörbar – Meme-Status |
+| q-08-01-8ccf55f992 (V4) | Tokio Hotel „Durch den Monsun" – DE-Millennial-Kultband |
+
+### Statistik
+
+| Datei | Fragen vorher | Entfernt | Fragen nachher |
+|---|---:|---:|---:|
+| v4_release_candidate.json | 207 | 30 | 177 |
+| v5_expanded.json | 275 | 66 | 209 |
+| **Gesamt** | **482** | **96** | **386** |
+
+### Kategorie-Counts nach Entfernung (V4)
+
+| Kategorie | Vorher | Nachher |
+|---|---:|---:|
+| cat-01 | 24 | 21 |
+| cat-03 | 29 | 26 |
+| cat-04 | 13 | 8 |
+| cat-05 | 26 | 23 |
+| cat-06 | 23 | 18 |
+| cat-07 | 10 | 7 |
+| cat-08 | 26 | 24 |
+| cat-09 | 29 | 25 |
+| cat-10 | 27 | 25 |
+
+### Kategorie-Counts nach Entfernung (V5)
+
+| Kategorie | Vorher | Nachher |
+|---|---:|---:|
+| cat-01 | 21 | 12 |
+| cat-02 | 78 | 78 |
+| cat-03 | 15 | 11 |
+| cat-04 | 27 | 11 |
+| cat-05 | 25 | 21 |
+| cat-06 | 25 | 10 |
+| cat-07 | 30 | 24 |
+| cat-08 | 14 | 8 |
+| cat-09 | 25 | 21 |
+| cat-10 | 15 | 13 |
+
+### Ausgeführte Befehle
+
+| Befehl | Ergebnis |
+|---|---|
+| `node scripts/audit-questions.mjs` | ✓ 386 Fragen, 0 Duplikate, 0 Lange Prompts |
+| `corepack pnpm typecheck` | ✓ alle 9 Pakete fehlerfrei |
+| `corepack pnpm test` | ✓ 160/160 Tests bestanden |
+| `corepack pnpm build` | ✓ alle 4 Apps gebaut |
 | `node scripts/audit-questions.mjs` | ✓ 482 Fragen, 0 Duplikate, 0 Estimate-Fehler, 0 Ranking-Fehler |

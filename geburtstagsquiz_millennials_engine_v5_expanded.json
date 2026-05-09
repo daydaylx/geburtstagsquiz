@@ -47,7 +47,7 @@
     },
     "stats": {
       "total_categories": 10,
-      "total_questions": 275,
+      "total_questions": 209,
       "engine_question_type": "multiple_choice",
       "generated_options_per_question": 4
     },
@@ -68,7 +68,7 @@
         "slug": "harry-potter-nur-filme-harter-schwierigkeitsgrad",
         "name": "Harry Potter (Nur Filme, harter Schwierigkeitsgrad)",
         "intro": "Ihr habt die Filme natürlich „alle oft gesehen“. Klar. Und trotzdem werdet ihr gleich mit dem Gesicht zuerst in euren eigenen Butterbier-Eimer fallen. Zeit für ein bisschen Realitätscheck.",
-        "question_count": 21,
+        "question_count": 12,
         "difficulty": "hard",
         "default_question_type": "standard",
         "default_points": 1,
@@ -206,37 +206,6 @@
             "points": 2
           },
           {
-            "id": "q-01-06",
-            "type": "pattern",
-            "prompt": "Welche Hürde auf dem Weg zum Stein der Weisen wurde im ersten Film komplett gestrichen, während sie im Buch ein ganzes Kapitel einnahm?",
-            "options": [
-              {
-                "id": "q-01-06-opt-1",
-                "text": "Snape's Zaubertrank-Rätsel",
-                "is_correct": true
-              },
-              {
-                "id": "q-01-06-opt-2",
-                "text": "Das Schachspiel",
-                "is_correct": false
-              },
-              {
-                "id": "q-01-06-opt-3",
-                "text": "Die fliegenden Schlüssel",
-                "is_correct": false
-              },
-              {
-                "id": "q-01-06-opt-4",
-                "text": "Die Teufelsschlinge",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-01-06-opt-1",
-            "explanation": "Snapes Logikrätsel mit den Fläschchen fehlt im Film. Wahrscheinlich war es zu wenig 'Action' für das Finale, oder man wollte nicht zeigen, dass Hermine die einzige ist, die logisch denken kann.",
-            "difficulty": "hard",
-            "points": 1
-          },
-          {
             "id": "q-01-08",
             "type": "majority_guess",
             "prompt": "Diskussionsrunde: Welcher dieser Charaktere wäre auf einem 10-stündigen Roadtrip im selben Auto am anstrengendsten?",
@@ -260,69 +229,6 @@
             ],
             "explanation": "Die Mehrheit entscheidet, wer das Auto zuerst verlassen muss. Lockhart klaut das Radio, Umbridge verbietet Snacks, Bellatrix sticht die Reifen auf und Myrtle flutet den Fußraum. Wählt euer Gift.",
             "difficulty": "medium",
-            "points": 2
-          },
-          {
-            "id": "q-01-09",
-            "type": "ranking",
-            "prompt": "Ordne die 'Rumtreiber' (Marauders) nach der Reihenfolge ihres Todes in den Filmen (zuerst gestorben oben).",
-            "items": [
-              {
-                "id": "item-james",
-                "text": "James Potter (Krone)"
-              },
-              {
-                "id": "item-sirius",
-                "text": "Sirius Black (Tatze)"
-              },
-              {
-                "id": "item-peter",
-                "text": "Peter Pettigrew (Wurmschwanz)"
-              },
-              {
-                "id": "item-remus",
-                "text": "Remus Lupin (Moony)"
-              }
-            ],
-            "correct_order": [
-              "item-james",
-              "item-sirius",
-              "item-peter",
-              "item-remus"
-            ],
-            "explanation": "James (vor der Serie), Sirius (Teil 5), Peter (Teil 7.2 - im Film stirbt er eher beiläufig), Remus (Schlacht von Hogwarts). Die tragischste Boygroup der Geschichte.",
-            "difficulty": "hard",
-            "points": 2
-          },
-          {
-            "id": "q-01-10",
-            "type": "common_mistake",
-            "prompt": "Welche Fan-Deutung steckt hinter Snapes ersten Zaubertrank-Worten an Harry ('Asphodel' und 'Wormwood')?",
-            "options": [
-              {
-                "id": "q-01-10-opt-1",
-                "text": "Sie lassen sich als Trauer und Reue um Lily lesen",
-                "is_correct": true
-              },
-              {
-                "id": "q-01-10-opt-2",
-                "text": "Sie verraten die Zutaten des Vielsafttranks",
-                "is_correct": false
-              },
-              {
-                "id": "q-01-10-opt-3",
-                "text": "Sie sind ein Code fuer den Stein der Weisen",
-                "is_correct": false
-              },
-              {
-                "id": "q-01-10-opt-4",
-                "text": "Sie nennen heimlich den Aufenthaltsort von Sirius",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-01-10-opt-1",
-            "explanation": "Das ist eine bekannte Fan-Deutung ueber Blumensprache: Asphodel wird mit Trauer verbunden, Wormwood mit Bitterkeit. Im Film wird diese Bedeutung aber nicht ausdruecklich erklaert.",
-            "difficulty": "hard",
             "points": 2
           },
           {
@@ -355,21 +261,6 @@
             "explanation": "Nur das Tagebuch (Teil 2) und das Diadem (Teil 7.2). Den Ring erledigte Dumbledore, das Medaillon Ron, den Pokal Hermine, Nagini Neville und den Horkrux in Harry zerstörte Voldemort selbst. Harry ist also eher der Teamkapitän als der Vollstrecker.",
             "difficulty": "hard",
             "points": 2
-          },
-          {
-            "id": "q-01-12",
-            "type": "estimate_duel",
-            "prompt": "Wie viele verschiedene Schauspieler haben Lord Voldemort (in all seinen Formen, inkl. Rückblenden und CGI) in den Filmen verkörpert?",
-            "answer": {
-              "canonical": "6 Schauspieler",
-              "reference_value": 6,
-              "unit": "Schauspieler",
-              "context": "Credits Check"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "Es sind 6: Richard Bremmer (Teil 1), Ian Hart (Stimme Teil 1), Christian Coulson (Teil 2), Ralph Fiennes (Hauptdarsteller), Hero Fiennes Tiffin (Teil 6, 11 Jahre), Frank Dillane (Teil 6, 16 Jahre). Er hat mehr Gesichter als ein Millennial auf Instagram.",
-            "difficulty": "hard",
-            "points": 1
           },
           {
             "id": "q-01-13",
@@ -431,84 +322,6 @@
             "correct_option_id": "q-01-14-opt-1",
             "explanation": "Fred stirbt in der Schlacht von Hogwarts. George ueberlebt, hatte aber vorher bereits ein Ohr verloren.",
             "difficulty": "medium",
-            "points": 1
-          },
-          {
-            "id": "q-01-15",
-            "type": "standard",
-            "prompt": "Was verschüttet Horace Slughorn in Hagrids Hütte, bevor sie Aragog die letzte Ehre erweisen?",
-            "options": [
-              {
-                "id": "q-01-15-opt-1",
-                "text": "Wein",
-                "is_correct": true
-              },
-              {
-                "id": "q-01-15-opt-2",
-                "text": "Butterbier",
-                "is_correct": false
-              },
-              {
-                "id": "q-01-15-opt-3",
-                "text": "Felix Felicis",
-                "is_correct": false
-              },
-              {
-                "id": "q-01-15-opt-4",
-                "text": "Feuerwhisky",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-01-15-opt-1",
-            "explanation": "Guter alter Wein. Slughorn ist der Typ, der auf einer Beerdigung erst mal den Catering-Check macht. Ein Opportunist mit Geschmack, selbst wenn es um Riesenspinnen geht.",
-            "difficulty": "hard",
-            "points": 1
-          },
-          {
-            "id": "q-01-16",
-            "type": "ranking",
-            "prompt": "Ranking: Wer hat über alle 8 Filme hinweg die meiste Screen-Time? (Meiste oben)",
-            "items": [
-              {
-                "id": "item-dumbledore",
-                "text": "Albus Dumbledore"
-              },
-              {
-                "id": "item-hagrid",
-                "text": "Rubeus Hagrid"
-              },
-              {
-                "id": "item-snape",
-                "text": "Severus Snape"
-              },
-              {
-                "id": "item-draco",
-                "text": "Draco Malfoy"
-              }
-            ],
-            "correct_order": [
-              "item-dumbledore",
-              "item-hagrid",
-              "item-snape",
-              "item-draco"
-            ],
-            "explanation": "Dumbledore (~77 Min), Hagrid (~45 Min), Snape (~43 Min) und Draco (~31 Min). Draco ist eigentlich kaum da, aber sein blondiertes Haar brennt sich einfach ins Gedächtnis.",
-            "difficulty": "hard",
-            "points": 2
-          },
-          {
-            "id": "q-01-17",
-            "type": "sudden_death_estimate",
-            "prompt": "Schnellschätzung: Wie viele bewegliche Treppen gibt es offiziell im Schloss Hogwarts?",
-            "answer": {
-              "canonical": "142",
-              "reference_value": 142,
-              "unit": "Treppen",
-              "context": "Hogwarts Architecture"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "142 Treppen. Wer sich über 3 Etagen im Fitnessstudio beschwert, sollte mal einen Tag in Hogwarts verbringen. Ohne Aufzug.",
-            "difficulty": "hard",
             "points": 1
           },
           {
@@ -574,37 +387,6 @@
             "points": 1
           },
           {
-            "id": "q-01-21",
-            "type": "standard",
-            "prompt": "Wie heißt das alternative Magazin, das Xenophilius Lovegood herausgibt?",
-            "options": [
-              {
-                "id": "q-01-21-opt-1",
-                "text": "Der Klitterer",
-                "is_correct": true
-              },
-              {
-                "id": "q-01-21-opt-2",
-                "text": "Der Tagesprophet",
-                "is_correct": false
-              },
-              {
-                "id": "q-01-21-opt-3",
-                "text": "Hexenwoche",
-                "is_correct": false
-              },
-              {
-                "id": "q-01-21-opt-4",
-                "text": "Zauberer-Gazette",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-01-21-opt-1",
-            "explanation": "Der Klitterer (The Quibbler). Die einzige seriöse Quelle für News über schrumpfhörnige Schnarcher. Quasi das Reddit der Zaubererwelt, nur mit mehr Papierschnittwunden.",
-            "difficulty": "medium",
-            "points": 1
-          },
-          {
             "id": "q-01-22",
             "type": "logic",
             "prompt": "Wer hat Bellatrix Lestrange in der finalen Schlacht von Hogwarts getötet?",
@@ -633,21 +415,6 @@
             "correct_option_id": "q-01-22-opt-1",
             "explanation": "Molly Weasley besiegt Bellatrix in der finalen Schlacht. Der Moment funktioniert, weil Molly nicht nur Mutter, sondern eine ernstzunehmende Hexe ist.",
             "difficulty": "medium",
-            "points": 1
-          },
-          {
-            "id": "q-01-24",
-            "type": "estimate",
-            "prompt": "Was war das Produktionsbudget für den ersten Film 'Harry Potter und der Stein der Weisen' (in Millionen US-Dollar)?",
-            "answer": {
-              "canonical": "125 Millionen USD",
-              "reference_value": 125,
-              "unit": "Millionen USD",
-              "context": "Initial Investment"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "125 Millionen Dollar. Klingt heute nach wenig, aber 2001 hätte man dafür fast ganz London kaufen können. Ein magisches Investment.",
-            "difficulty": "hard",
             "points": 1
           },
           {
@@ -3345,52 +3112,6 @@
             "points": 1
           },
           {
-            "id": "q-03-09",
-            "type": "estimate",
-            "prompt": "Wie viele Ziffern hatte eine standardmäßige ICQ-Nummer (UIN) für Nutzer ab dem Jahr 2000?",
-            "answer": {
-              "canonical": "9 Ziffern",
-              "reference_value": 9,
-              "unit": "Ziffern",
-              "context": "Standard UIN Length"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "Die meisten hatten 9-stellige Nummern. Wer eine 6-stellige hatte, war ein Internet-Opa.",
-            "difficulty": "medium",
-            "points": 1
-          },
-          {
-            "id": "q-03-10",
-            "type": "fast_guess",
-            "prompt": "Wie hieß der 'erste Freund', den JEDER MySpace-Nutzer automatisch in seiner Liste hatte?",
-            "options": [
-              {
-                "id": "q-03-10-opt-1",
-                "text": "Tom",
-                "is_correct": true
-              },
-              {
-                "id": "q-03-10-opt-2",
-                "text": "Chris",
-                "is_correct": false
-              },
-              {
-                "id": "q-03-10-opt-3",
-                "text": "Mark",
-                "is_correct": false
-              },
-              {
-                "id": "q-03-10-opt-4",
-                "text": "Brad",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-03-10-opt-1",
-            "explanation": "Tom Anderson. Sein verpixeltes Profilbild im weißen T-Shirt ist legendär.",
-            "difficulty": "easy",
-            "points": 1
-          },
-          {
             "id": "q-03-11",
             "type": "majority_guess",
             "prompt": "Was war das schlimmste Verbrechen an der Ästhetik in einem SchülerVZ-Profil?",
@@ -3448,21 +3169,6 @@
             "points": 1
           },
           {
-            "id": "q-03-13",
-            "type": "estimate",
-            "prompt": "Wie viele Sekunden dauerte das erste jemals auf YouTube hochgeladene Video ('Me at the zoo')?",
-            "answer": {
-              "canonical": "19 Sekunden",
-              "reference_value": 19,
-              "unit": "Sekunden",
-              "context": "First YouTube Video"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "Nur 19 Sekunden. Jawed Karim vor Elefanten. Ein Meilenstein.",
-            "difficulty": "hard",
-            "points": 2
-          },
-          {
             "id": "q-03-14",
             "type": "common_mistake",
             "prompt": "In alten Chaträumen war 'ASL' der Standard. Wofür stand das 'L'?",
@@ -3492,24 +3198,9 @@
             "explanation": "Age, Sex, Location. Die heilige Dreifaltigkeit des anonymen Chats.",
             "difficulty": "easy",
             "points": 1
-          },
-          {
-            "id": "q-03-15",
-            "type": "sudden_death_estimate",
-            "prompt": "In welchem Jahr wurde ICQ offiziell veröffentlicht?",
-            "answer": {
-              "canonical": "1996",
-              "reference_value": 1996,
-              "unit": "Jahr",
-              "context": "ICQ Release"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "1996. Damals war das Internet noch aus Holz, aber chatten ging schon.",
-            "difficulty": "hard",
-            "points": 2
           }
         ],
-        "question_count": 15
+        "question_count": 11
       },
       {
         "category_id": "cat-04",
@@ -3517,99 +3208,6 @@
         "name": "90er/00er Trash-TV & kollektives Trauma",
         "intro": "Fernsehen war damals kein Medium, sondern ein Gewaltverbrechen an Würde und Geschmack. Und natürlich habt ihr es trotzdem geguckt wie religiöse Pflichtveranstaltungen. Zeit für eine Runde kollektives Fremdschämen.",
         "questions": [
-          {
-            "id": "q-04-01-275ee72c42",
-            "type": "standard",
-            "prompt": "Welche MTV-Show untersuchte Jugendzimmer unter UV-Licht auf 'biologische Rückstände' – eine hygienische Rasterfahndung?",
-            "options": [
-              {
-                "id": "q-04-01-opt-1",
-                "text": "Room Raiders",
-                "is_correct": true
-              },
-              {
-                "id": "q-04-01-opt-2",
-                "text": "Cribs",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-01-opt-3",
-                "text": "Date My Mom",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-01-opt-4",
-                "text": "Pimp My Life",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-04-01-opt-1",
-            "explanation": "Room Raiders. Wer erinnert sich nicht an die verzweifelten Gesichter, wenn unter UV-Licht die Flecken auf der Bettwäsche sichtbar wurden? Hygiene-Horror pur.",
-            "difficulty": "medium_hard",
-            "points": 1
-          },
-          {
-            "id": "q-04-02-c5be5cbd7c",
-            "type": "standard",
-            "prompt": "In welcher Dating-Show reichte ein falscher Satz für 'Next!' – und der Bus wurde zum Symbol der Wegwerfgesellschaft?",
-            "options": [
-              {
-                "id": "q-04-02-opt-1",
-                "text": "Next",
-                "is_correct": true
-              },
-              {
-                "id": "q-04-02-opt-2",
-                "text": "The Bus",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-02-opt-3",
-                "text": "Dismissed",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-02-opt-4",
-                "text": "Flavor of Love",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-04-02-opt-1",
-            "explanation": "Next. Wer hier länger als 10 Sekunden überlebte, galt schon fast als heiratswillig. Ein Albtraum für das Selbstwertgefühl.",
-            "difficulty": "medium_hard",
-            "points": 1
-          },
-          {
-            "id": "q-04-03-logic-kader",
-            "type": "logic",
-            "prompt": "Welches Trash-Format hat Kader Loth als einziges als Siegerin verlassen?",
-            "options": [
-              {
-                "id": "q-04-03-opt-1",
-                "text": "Die Alm (2004)",
-                "is_correct": true
-              },
-              {
-                "id": "q-04-03-opt-2",
-                "text": "Big Brother",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-03-opt-3",
-                "text": "Ich bin ein Star – Holt mich hier raus!",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-03-opt-4",
-                "text": "Die Burg",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-04-03-opt-1",
-            "explanation": "Kader Loth gewann 2004 die erste Staffel von 'Die Alm'. Es war der Moment, in dem Deutschland lernte, dass man für Berühmtheit absolut kein Talent braucht, außer Präsenz.",
-            "difficulty": "hard",
-            "points": 2
-          },
           {
             "id": "q-04-04-ranking-starts",
             "type": "ranking",
@@ -3641,37 +3239,6 @@
             "explanation": "Start-Reihenfolge: Big Brother (2000), DSDS (2002), Dschungelcamp (2004), GNTM (2006). Kultureller Verfall in Echtzeit.",
             "difficulty": "medium_hard",
             "points": 2
-          },
-          {
-            "id": "q-04-05-mistake-alm",
-            "type": "common_mistake",
-            "prompt": "Welche ProSieben-Show ließ Promis auf einer Alm Kuhfladen wiegen – BEVOR das Dschungelcamp das Genre in Deutschland populär machte?",
-            "options": [
-              {
-                "id": "q-04-05-opt-1",
-                "text": "Die Alm",
-                "is_correct": true
-              },
-              {
-                "id": "q-04-05-opt-2",
-                "text": "Die Burg",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-05-opt-3",
-                "text": "Das Sommerhaus der Stars",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-05-opt-4",
-                "text": "Promi-Boxen",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-04-05-opt-1",
-            "explanation": "'Die Alm' startete kurz vor dem Dschungel-Hype 2004 auf ProSieben und etablierte das Prinzip 'Promis in den Dreck schicken' als Quotenhit.",
-            "difficulty": "medium",
-            "points": 1
           },
           {
             "id": "q-04-06-majority-shame",
@@ -3766,52 +3333,6 @@
             "points": 1
           },
           {
-            "id": "q-04-09-estimate-jamba",
-            "type": "estimate",
-            "prompt": "Wie viele Millionen Euro setzte die Firma Jamba im Rekordjahr 2004 allein mit Klingeltönen wie dem 'Crazy Frog' oder 'Sweety' um?",
-            "answer": {
-              "canonical": "500 Millionen Euro",
-              "reference_value": 500,
-              "unit": "Millionen Euro",
-              "context": "Weltweiter Umsatz Jamba 2004"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "Unglaubliche 500 Millionen Euro. Wir haben unser Taschengeld buchstäblich für einen nackten blauen Frosch verbrannt, der Motorradgeräusche macht.",
-            "difficulty": "hard",
-            "points": 2
-          },
-          {
-            "id": "q-04-10-logic-gerner",
-            "type": "logic",
-            "prompt": "Wer hält in GZSZ den inoffiziellen Rekord für die meisten Hochzeiten in der Seriengeschichte?",
-            "options": [
-              {
-                "id": "q-04-10-opt-1",
-                "text": "Jo Gerner",
-                "is_correct": true
-              },
-              {
-                "id": "q-04-10-opt-2",
-                "text": "Leon Moreno",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-10-opt-3",
-                "text": "John Bachmann",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-10-opt-4",
-                "text": "Katrin Flemming",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-04-10-opt-1",
-            "explanation": "Wolfgang Bahro alias Jo Gerner. Er ist das personifizierte Überleben im Berliner Kiez. Seine Heirats- und Intrigengeschichte ist länger als die Bibel.",
-            "difficulty": "medium",
-            "points": 1
-          },
-          {
             "id": "q-04-11-6591ed9193",
             "type": "standard",
             "prompt": "Welche Gerichtsshow-Richterin brachte bei, dass Nachbarschaftsstreitigkeiten im deutschen TV gefühlt lebenslänglich geben?",
@@ -3843,52 +3364,6 @@
             "points": 1
           },
           {
-            "id": "q-04-12-duel-bb",
-            "type": "estimate_duel",
-            "prompt": "Wie viele Menschen bewarben sich 2000 bei RTL II für die erste 'Big Brother'-Staffel (100 Tage Einschluss)?",
-            "answer": {
-              "canonical": "70000",
-              "reference_value": 70000,
-              "unit": "Bewerber",
-              "context": "Big Brother Staffel 1 Casting"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "Über 70.000 Menschen wollten ins Haus. Am Ende wurden Zlatko, Jürgen und Co. zu den ersten richtigen Reality-Stars Deutschlands.",
-            "difficulty": "hard",
-            "points": 2
-          },
-          {
-            "id": "q-04-13-mistake-pimp",
-            "type": "common_mistake",
-            "prompt": "Common Mistake: Was passierte bei 'Pimp My Ride' wirklich mit den mechanischen Defekten der Autos?",
-            "options": [
-              {
-                "id": "q-04-13-opt-1",
-                "text": "Sie wurden oft gar nicht repariert (nur Optik).",
-                "is_correct": true
-              },
-              {
-                "id": "q-04-13-opt-2",
-                "text": "Die Motoren wurden immer gegen Rennmotoren getauscht.",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-13-opt-3",
-                "text": "Xzibit kaufte den Besitzern danach neue Neuwagen.",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-13-opt-4",
-                "text": "Die Autos wurden alle vom TÜV abgenommen.",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-04-13-opt-1",
-            "explanation": "Mehrere Teilnehmer berichteten später, dass die Autos zwar 10 Bildschirme und einen Schokobrunnen hatten, aber oft kaum fahrbereit waren oder kurz darauf den Geist aufgaben.",
-            "difficulty": "medium_hard",
-            "points": 1
-          },
-          {
             "id": "q-04-14-fast-cribs",
             "type": "fast_guess",
             "prompt": "Vervollständige den legendären 'MTV Cribs'-Satz, der in fast jedem Schlafzimmer eines Rappers fiel: 'And this is the bedroom...'",
@@ -3916,37 +3391,6 @@
             ],
             "correct_option_id": "q-04-14-opt-1",
             "explanation": "'Where the magic happens' – der Satz wurde so oft benutzt, dass man glaubte, Millennial-Rapper hätten magische Kräfte im Bett (oder einfach nur Satin-Bettwäsche).",
-            "difficulty": "medium",
-            "points": 1
-          },
-          {
-            "id": "q-04-15-41f1ae9ced",
-            "type": "standard",
-            "prompt": "Wie hieß die Show, in der Stefan Raab nach dem 'Superstar' suchte, aber eigentlich nur die Musikindustrie (und Dieter Bohlen) trollte?",
-            "options": [
-              {
-                "id": "q-04-15-opt-1",
-                "text": "SSDSGPS",
-                "is_correct": true
-              },
-              {
-                "id": "q-04-15-opt-2",
-                "text": "Popstars",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-15-opt-3",
-                "text": "X-Factor",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-15-opt-4",
-                "text": "Star Search",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-04-15-opt-1",
-            "explanation": "Stefan sucht den Super-Grand-Prix-Star. Daraus ging Max Mutzke hervor, der tatsächlich singen konnte – im krassen Gegensatz zu vielen DSDS-Kandidaten.",
             "difficulty": "medium",
             "points": 1
           },
@@ -4013,69 +3457,6 @@
             "points": 1
           },
           {
-            "id": "q-04-18-397c18dfae",
-            "type": "standard",
-            "prompt": "Wer war das Gesicht von 'Einsatz in 4 Wänden' und stellte bevorzugt lila Wände vor braune Sofas?",
-            "options": [
-              {
-                "id": "q-04-18-opt-1",
-                "text": "Tine Wittler",
-                "is_correct": true
-              },
-              {
-                "id": "q-04-18-opt-2",
-                "text": "Enie van de Meiklokjes",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-18-opt-3",
-                "text": "Vera Int-Veen",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-18-opt-4",
-                "text": "Sonya Kraus",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-04-18-opt-1",
-            "explanation": "Tine Wittler. Sie kam, sah und dekorierte alles mit Organza-Stoffen und Wandtattoos. Wir haben es geliebt (oder zumindest fassungslos zugeschaut).",
-            "difficulty": "medium",
-            "points": 1
-          },
-          {
-            "id": "q-04-19-ranking-trash",
-            "type": "ranking",
-            "prompt": "Sortiere diese 'Trash-Ikonen' nach dem Jahr ihrer ersten großen TV-Präsenz (von alt nach jung).",
-            "items": [
-              {
-                "id": "A",
-                "label": "Zlatko Trpkovski (Big Brother)"
-              },
-              {
-                "id": "B",
-                "label": "Kader Loth (Die Alm)"
-              },
-              {
-                "id": "C",
-                "label": "Daniela Katzenberger (Auf und davon)"
-              },
-              {
-                "id": "D",
-                "label": "Melanie Müller (Der Bachelor)"
-              }
-            ],
-            "correct_order": [
-              "A",
-              "B",
-              "C",
-              "D"
-            ],
-            "explanation": "Zlatko (2000), Kader Loth (2004 Die Alm), Katzenberger (2007), Melanie Müller (2013). Trash-Evolution über 13 Jahre.",
-            "difficulty": "hard",
-            "points": 2
-          },
-          {
             "id": "q-04-20-e8d767902d",
             "type": "standard",
             "prompt": "Welche Serie zeigte 2003, dass reiche Teenager in Kalifornien nur weinen oder im Meer surfen können?",
@@ -4138,37 +3519,6 @@
             "points": 1
           },
           {
-            "id": "q-04-22-803f4a54d8",
-            "type": "standard",
-            "prompt": "Wer war die 'Quoten-Frau' und der Ruhepol zwischen Joko und Klaas in der MTV-Ära (MTV Home)?",
-            "options": [
-              {
-                "id": "q-04-22-opt-1",
-                "text": "Palina Rojinski",
-                "is_correct": true
-              },
-              {
-                "id": "q-04-22-opt-2",
-                "text": "Gülcan Kamps",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-22-opt-3",
-                "text": "Collien Ulmen-Fernandes",
-                "is_correct": false
-              },
-              {
-                "id": "q-04-22-opt-4",
-                "text": "Charlotte Roche",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-04-22-opt-1",
-            "explanation": "Palina Rojinski startete bei MTV Home als Sidekick und wurde schnell zum Star. Sie war die Einzige, die das Chaos bändigen konnte.",
-            "difficulty": "medium",
-            "points": 1
-          },
-          {
             "id": "q-04-23-b038fa9207",
             "type": "standard",
             "prompt": "Welches Duo erfand das Konzept 'Berühmt sein fürs Berühmt sein' und scheiterte in 'The Simple Life' glorreich am Landleben?",
@@ -4198,76 +3548,16 @@
             "explanation": "Paris und Nicole. 'That's hot.' Sie zeigten uns, dass man mit einer pinken Handtasche und null Ahnung von Landwirtschaft Millionen verdienen kann.",
             "difficulty": "medium",
             "points": 1
-          },
-          {
-            "id": "q-04-24-sudden-9live",
-            "type": "sudden_death_estimate",
-            "prompt": "Sudden Death: Wie viele Cent kostete ein Anruf aus dem deutschen Festnetz bei der 9Live-Hotline (Hot Button) in den Hochzeiten der Abzocke?",
-            "answer": {
-              "canonical": "50 Cent",
-              "reference_value": 50,
-              "unit": "Cent",
-              "context": "9Live Anrufkosten"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "50 Cent pro Anruf. Und meistens kam man eh nicht durch, während Max Schradin im Studio so tat, als würde er gleich explodieren.",
-            "difficulty": "medium",
-            "points": 2
-          },
-          {
-            "id": "q-04-e01-b137796e03",
-            "type": "estimate",
-            "prompt": "Wie viele Tage verbrachte Zlatko in der allerersten Big-Brother-Staffel im Haus?",
-            "answer": {
-              "canonical": "41 Tage",
-              "reference_value": 41,
-              "unit": "Tage",
-              "context": "RTL II, Big Brother Staffel 1 (2000)"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "Nach 41 Tagen war Schluss. Es fühlte sich an wie ein ganzes Jahrzehnt Fernsehgeschichte, das an diesem Tag endete.",
-            "difficulty": "medium",
-            "points": 1
-          },
-          {
-            "id": "q-04-e02-adddcf4169",
-            "type": "estimate",
-            "prompt": "Wie viele Millionen Zuschauer sahen 2003 das Finale der ersten DSDS-Staffel (Sieg von Alexander Klaws)?",
-            "answer": {
-              "canonical": "12.8 Millionen",
-              "reference_value": 12.8,
-              "unit": "Millionen",
-              "context": "Deutschland, Finale 2003"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "Unglaubliche 12,8 Millionen Menschen. Das war die Zeit, als Deutschland noch geschlossen vor der Röhre saß, um einen Musical-Sänger zu wählen.",
-            "difficulty": "medium",
-            "points": 1
-          },
-          {
-            "id": "q-04-e03-5dc7eb08d2",
-            "type": "estimate",
-            "prompt": "Wie viele Staffeln von 'Germany's Next Topmodel' wurden bis einschließlich 2024 insgesamt ausgestrahlt?",
-            "answer": {
-              "canonical": "19 Staffeln",
-              "reference_value": 19,
-              "unit": "Staffeln",
-              "context": "ProSieben, GNTM Historie"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "19 Staffeln. Seit 2006 sucht Heidi jedes Jahr ein neues 'Meedchen'. Ein Ende ist nicht in Sicht.",
-            "difficulty": "medium",
-            "points": 1
           }
         ],
-        "question_count": 27
+        "question_count": 11
       },
       {
         "category_id": "cat-05",
         "slug": "saufen-feiern-toxische-jugend-drinks",
         "name": "Saufen, Feiern & toxische Jugend-Drinks",
         "intro": "Ah ja, die glorreiche Zeit, in der man billigen Fusel mit noch billigerem Energy mischte und das „Vorglühen“ nannte, als wäre es ein Kulturbeitrag. Eure Leber würde gern klagen, hat aber keine Kraft mehr. Zeit für einen Kater-Rückblick.",
-        "question_count": 25,
+        "question_count": 21,
         "difficulty": "medium",
         "questions": [
           {
@@ -4301,22 +3591,6 @@
             "difficulty": "medium",
             "category_id": "cat-05",
             "points": 1
-          },
-          {
-            "id": "q-05-02",
-            "type": "estimate",
-            "prompt": "Wie viele Kilogramm Zucker konsumiert ein Deutscher durchschnittlich pro Jahr allein über alkoholische Mixgetränke und Bier?",
-            "answer": {
-              "reference_value": 3.5,
-              "unit": "kg",
-              "canonical": "3,5 kg",
-              "context": "Pro-Kopf-Verbrauch Deutschland"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "Etwa 3,5 kg reiner Zucker. Kein Wunder, dass der Kater am nächsten Tag hämmert wie eine Presslufthupe.",
-            "difficulty": "hard",
-            "category_id": "cat-05",
-            "points": 2
           },
           {
             "id": "q-05-03",
@@ -4474,22 +3748,6 @@
             ],
             "correct_option_id": "q-05-07-opt-1",
             "explanation": "Die ersten drei sind klassische 'Gefäß-Getränke' für Gruppen (Eimer/Schüssel). Ein Hugo ist ein Einzel-Drink für Leute, die Minze im Glas mögen.",
-            "difficulty": "medium",
-            "category_id": "cat-05",
-            "points": 1
-          },
-          {
-            "id": "q-05-08",
-            "type": "estimate_duel",
-            "prompt": "Wie viele Gramm Zucker stecken in einer Standard-Dose (250ml) des klassischen Red Bull?",
-            "answer": {
-              "reference_value": 27.5,
-              "unit": "g",
-              "canonical": "27,5 g",
-              "context": "Standard-Dose (250ml)"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "27,5 Gramm – das sind etwa 9 Stück Würfelzucker. Dein Herz rast, dein Zahnarzt weint.",
             "difficulty": "medium",
             "category_id": "cat-05",
             "points": 1
@@ -4762,22 +4020,6 @@
             "points": 1
           },
           {
-            "id": "q-05-18",
-            "type": "estimate",
-            "prompt": "Wie viele Liter Bier passten in das größte jemals für ein Fest gebraute Bierglas?",
-            "answer": {
-              "reference_value": 2082,
-              "unit": "Liter",
-              "canonical": "2082 Liter",
-              "context": "Weltrekord 2014"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "Im Jahr 2014 wurde in England ein Glas mit 2082 Litern gefüllt. Das wäre selbst für ein ganzes Dorf ein ordentliches 'Vorglühen'.",
-            "difficulty": "hard",
-            "category_id": "cat-05",
-            "points": 2
-          },
-          {
             "id": "q-05-19",
             "type": "majority_guess",
             "prompt": "Welche 'Kater-Nahrung' ist der absolute heilige Gral nach einer durchzechten Nacht?",
@@ -4937,22 +4179,6 @@
             "points": 1
           },
           {
-            "id": "q-05-24",
-            "type": "estimate",
-            "prompt": "Wie viele 2-cl-Shots passen rechnerisch in eine 0,7-Liter-Flasche?",
-            "answer": {
-              "canonical": "35 Shots",
-              "reference_value": 35,
-              "unit": "Shots",
-              "context": "0,7 Liter sind 70 cl; geteilt durch 2 cl ergibt das 35"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "0,7 Liter sind 70 cl. Bei 2 cl pro Shot landet man bei 35 kleinen Glaesern, bevor Eis, Kleckern und schlechte Entscheidungen dazwischenfunken.",
-            "difficulty": "hard",
-            "category_id": "cat-05",
-            "points": 2
-          },
-          {
             "id": "q-05-25",
             "type": "ranking",
             "prompt": "Sortiere diese Party-Phasen nach dem üblichen zeitlichen Ablauf einer legendären Nacht!",
@@ -4992,7 +4218,7 @@
         "slug": "absurde-skandale-popkultur-meltdowns",
         "name": "Absurde Skandale & Popkultur-Meltdowns",
         "intro": "Nichts eint eine Gesellschaft so sehr wie kollektive Empörung über Promis, die sich benehmen wie Promis. Damals war jede Woche ein Fiebertraum mit Paparazzi-Blitz und moralischer Panik. Schnallt euch an, es wird peinlich.",
-        "question_count": 25,
+        "question_count": 10,
         "difficulty": "medium_hard",
         "default_question_type": "standard",
         "default_points": 1,
@@ -5187,21 +4413,6 @@
             "points": 2
           },
           {
-            "id": "q-06-07",
-            "type": "estimate_duel",
-            "prompt": "Wie viele Stunden hielt die berüchtigte Las-Vegas-Ehe von Britney Spears und ihrem Jugendfreund Jason Alexander im Jahr 2004?",
-            "answer": {
-              "canonical": "55 Stunden",
-              "reference_value": 55,
-              "unit": "Stunden",
-              "context": "Januar 2004, Las Vegas"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "55 Stunden. Das ist weniger Zeit, als manche Millennials heute brauchen, um sich für eine Netflix-Serie zu entscheiden.",
-            "difficulty": "medium",
-            "points": 2
-          },
-          {
             "id": "q-06-08",
             "type": "fast_guess",
             "prompt": "Kurze Reaktionszeit: Wie hieß der Typ von MySpace, der automatisch unser aller erster 'Freund' war?",
@@ -5229,52 +4440,6 @@
             ],
             "correct_option_id": "q-06-08-opt-1",
             "explanation": "MySpace-Tom. Er lächelte uns immer im weißen T-Shirt an. Der einzige Freund, der uns nie aus seiner Top 8 geworfen hat.",
-            "difficulty": "easy",
-            "points": 1
-          },
-          {
-            "id": "q-06-09",
-            "type": "sudden_death_estimate",
-            "prompt": "Wie viele Milliarden Dollar blätterte Google im Jahr 2006 hin, um die damals noch junge Plattform 'YouTube' zu kaufen?",
-            "answer": {
-              "canonical": "1,65 Milliarden $",
-              "reference_value": 1.65,
-              "unit": "Milliarden $",
-              "context": "YouTube Übernahme 2006"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "1,65 Milliarden Dollar. Damals hielten das alle für wahnsinnig. Heute kostet allein das Marketing für ein neues iPhone wahrscheinlich mehr.",
-            "difficulty": "hard",
-            "points": 3
-          },
-          {
-            "id": "q-06-10",
-            "type": "standard",
-            "prompt": "Welche Erbin war die 'Urmutter' der It-Girls und wurde durch ein Sextape sowie 'The Simple Life' weltberühmt?",
-            "options": [
-              {
-                "id": "q-06-10-opt-1",
-                "text": "Paris Hilton",
-                "is_correct": true
-              },
-              {
-                "id": "q-06-10-opt-2",
-                "text": "Nicole Richie",
-                "is_correct": false
-              },
-              {
-                "id": "q-06-10-opt-3",
-                "text": "Kim Kardashian",
-                "is_correct": false
-              },
-              {
-                "id": "q-06-10-opt-4",
-                "text": "Lindsay Lohan",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-06-10-opt-1",
-            "explanation": "'That's hot.' Paris hat bewiesen, dass man absolut gar nichts können muss, um ein Weltstar zu sein. Ein echtes Vorbild für die heutige Influencer-Hölle.",
             "difficulty": "easy",
             "points": 1
           },
@@ -5310,285 +4475,6 @@
             "points": 1
           },
           {
-            "id": "q-06-12",
-            "type": "standard",
-            "prompt": "In welcher Doku-Soap konnten wir Sarah Connor dabei zuschauen, wie sie Marc Terenzi 'The beautifullest thing' nannte?",
-            "options": [
-              {
-                "id": "q-06-12-opt-1",
-                "text": "Sarah & Marc in Love",
-                "is_correct": true
-              },
-              {
-                "id": "q-06-12-opt-2",
-                "text": "Connor's World",
-                "is_correct": false
-              },
-              {
-                "id": "q-06-12-opt-3",
-                "text": "Popstar-Hochzeit",
-                "is_correct": false
-              },
-              {
-                "id": "q-06-12-opt-4",
-                "text": "Marc's Magic",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-06-12-opt-1",
-            "explanation": "Wir durften live zusehen, wie eine Ehe zerfällt, während Marc verzweifelt versuchte, Deutsch zu lernen. Fremdscham pur in 4:3-Optik.",
-            "difficulty": "medium",
-            "points": 1
-          },
-          {
-            "id": "q-06-13",
-            "type": "standard",
-            "prompt": "Welches Filesharing-Netzwerk wurde von der Musikindustrie als 'Eldorado für Piraten' bekämpft und musste 2001 schließen?",
-            "options": [
-              {
-                "id": "q-06-13-opt-1",
-                "text": "Napster",
-                "is_correct": true
-              },
-              {
-                "id": "q-06-13-opt-2",
-                "text": "iTunes Store",
-                "is_correct": false
-              },
-              {
-                "id": "q-06-13-opt-3",
-                "text": "MyVideo",
-                "is_correct": false
-              },
-              {
-                "id": "q-06-13-opt-4",
-                "text": "Spotify",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-06-13-opt-1",
-            "explanation": "Wir haben 4 Stunden gewartet, um einen Song runterzuladen, der am Ende nur 30 Sekunden Rauschen war. Der Nervenkitzel des frühen Internets.",
-            "difficulty": "easy",
-            "points": 1
-          },
-          {
-            "id": "q-06-14",
-            "type": "standard",
-            "prompt": "Was war das typische Merkmal der 'Emo'-Welle in den mittleren 2000ern?",
-            "options": [
-              {
-                "id": "q-06-14-opt-1",
-                "text": "Schwarzer Seitenscheitel, der ein Auge verdeckt",
-                "is_correct": true
-              },
-              {
-                "id": "q-06-14-opt-2",
-                "text": "Neonfarbene Schlaghosen",
-                "is_correct": false
-              },
-              {
-                "id": "q-06-14-opt-3",
-                "text": "Goldketten und Baggy Pants",
-                "is_correct": false
-              },
-              {
-                "id": "q-06-14-opt-4",
-                "text": "Karierte Westen und Zylinder",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-06-14-opt-1",
-            "explanation": "Dazu noch schwarz lackierte Fingernägel und Checkered Vans. Wir waren alle so tiefgründig und missverstanden, während wir Tokio Hotel auf dem iPod hörten.",
-            "difficulty": "easy",
-            "points": 1
-          },
-          {
-            "id": "q-06-15",
-            "type": "standard",
-            "prompt": "Welches Pink-Getränk wurde durch 'Sex and the City' zum ultimativen Lifestyle-Accessoire für Millennials?",
-            "options": [
-              {
-                "id": "q-06-15-opt-1",
-                "text": "Cosmopolitan",
-                "is_correct": true
-              },
-              {
-                "id": "q-06-15-opt-2",
-                "text": "Aperol Spritz",
-                "is_correct": false
-              },
-              {
-                "id": "q-06-15-opt-3",
-                "text": "Hugo",
-                "is_correct": false
-              },
-              {
-                "id": "q-06-15-opt-4",
-                "text": "Fritz-Kola",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-06-15-opt-1",
-            "explanation": "Wir dachten, wir wären Carrie Bradshaw, sahen nach drei Gläsern aber eher aus wie Steve Buscemi nach einer Nachtschicht. Aber Hauptsache: Manhattans Vibe.",
-            "difficulty": "easy",
-            "points": 1
-          },
-          {
-            "id": "q-06-16",
-            "type": "standard",
-            "prompt": "Welcher GNTM-Moment von Gina-Lisa Lohfink wurde zum geflügelten Wort der späten 2000er?",
-            "options": [
-              {
-                "id": "q-06-16-opt-1",
-                "text": "Zack die Bohne!",
-                "is_correct": true
-              },
-              {
-                "id": "q-06-16-opt-2",
-                "text": "Ich habe heute kein Foto für dich.",
-                "is_correct": false
-              },
-              {
-                "id": "q-06-16-opt-3",
-                "text": "Heul leise!",
-                "is_correct": false
-              },
-              {
-                "id": "q-06-16-opt-4",
-                "text": "Das ist der Wahnsinn!",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-06-16-opt-1",
-            "explanation": "Gina-Lisa und Sarah Knappik waren das dynamische Duo des Grauens. 'Zack die Bohne' wurde zur Lebensphilosophie für Leute, die eigentlich nichts zu sagen hatten.",
-            "difficulty": "easy",
-            "points": 1
-          },
-          {
-            "id": "q-06-17",
-            "type": "standard",
-            "prompt": "Was fehlte dem ersten iPhone (2007) im Vergleich zu fast allen anderen Handys, was heute völlig absurd klingt?",
-            "options": [
-              {
-                "id": "q-06-17-opt-1",
-                "text": "Die Copy-Paste-Funktion",
-                "is_correct": true
-              },
-              {
-                "id": "q-06-17-opt-2",
-                "text": "Eine Taschenrechner-App",
-                "is_correct": false
-              },
-              {
-                "id": "q-06-17-opt-3",
-                "text": "Ein Touchscreen",
-                "is_correct": false
-              },
-              {
-                "id": "q-06-17-opt-4",
-                "text": "Die Möglichkeit zu telefonieren",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-06-17-opt-1",
-            "explanation": "Ein 'revolutionäres' Gerät, auf dem man keinen Text kopieren konnte. Steve Jobs’ Realitätsverzerrungsfeld war so stark, dass wir es trotzdem alle wollten.",
-            "difficulty": "medium",
-            "points": 2
-          },
-          {
-            "id": "q-06-18",
-            "type": "standard",
-            "prompt": "Welche MTV-Serie startete mit der Warnung 'Do not attempt this at home' und zeigte Leute, die sich in Dixi-Klos katapultierten?",
-            "options": [
-              {
-                "id": "q-06-18-opt-1",
-                "text": "Jackass",
-                "is_correct": true
-              },
-              {
-                "id": "q-06-18-opt-2",
-                "text": "Punk'd",
-                "is_correct": false
-              },
-              {
-                "id": "q-06-18-opt-3",
-                "text": "Pimp My Ride",
-                "is_correct": false
-              },
-              {
-                "id": "q-06-18-opt-4",
-                "text": "Viva La Bam",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-06-18-opt-1",
-            "explanation": "Johnny Knoxville und seine Gang haben bewiesen, dass Schmerz + Kamera = Erfolg. Der Vorläufer jeder dummen YouTube-Challenge.",
-            "difficulty": "easy",
-            "points": 1
-          },
-          {
-            "id": "q-06-19",
-            "type": "standard",
-            "prompt": "Wer wurde 2003 der allererste Sieger von 'Deutschland sucht den Superstar' (DSDS)?",
-            "options": [
-              {
-                "id": "q-06-19-opt-1",
-                "text": "Alexander Klaws",
-                "is_correct": true
-              },
-              {
-                "id": "q-06-19-opt-2",
-                "text": "Daniel Küblböck",
-                "is_correct": false
-              },
-              {
-                "id": "q-06-19-opt-3",
-                "text": "Juliette Schoppmann",
-                "is_correct": false
-              },
-              {
-                "id": "q-06-19-opt-4",
-                "text": "Mark Medlock",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-06-19-opt-1",
-            "explanation": "Alexander sang 'Take Me Tonight' und wir saßen gespannt vor der Röhre. Küblböck wurde Dritter und die Nation war gespalten wie nie zuvor.",
-            "difficulty": "easy",
-            "points": 1
-          },
-          {
-            "id": "q-06-20",
-            "type": "standard",
-            "prompt": "Was war das legendäre Feature des Nokia 3310, das es heute noch zum 'Chuck Norris' der Handys macht?",
-            "options": [
-              {
-                "id": "q-06-20-opt-1",
-                "text": "Seine extreme Unzerstörbarkeit",
-                "is_correct": true
-              },
-              {
-                "id": "q-06-20-opt-2",
-                "text": "Sein 4K-Display",
-                "is_correct": false
-              },
-              {
-                "id": "q-06-20-opt-3",
-                "text": "Die eingebaute Kaffeemaschine",
-                "is_correct": false
-              },
-              {
-                "id": "q-06-20-opt-4",
-                "text": "Dass es fliegen konnte",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-06-20-opt-1",
-            "explanation": "Man konnte es aus dem 4. Stock werfen, es hat den Asphalt zertrümmert und danach konnte man noch eine Runde Snake spielen. Akkuzeit? Wochen!",
-            "difficulty": "easy",
-            "points": 1
-          },
-          {
             "id": "q-06-21",
             "type": "standard",
             "prompt": "Welcher Berliner Rapper trat 2003 mit einer silbernen Totenkopfmaske auf und schockierte die Elternschaft?",
@@ -5620,37 +4506,6 @@
             "points": 1
           },
           {
-            "id": "q-06-22",
-            "type": "standard",
-            "prompt": "Welcher Hollywood-Star sorgte mit einem von einer Yacht gestohlenen Sextape für den ersten echten Internet-Promi-Skandal?",
-            "options": [
-              {
-                "id": "q-06-22-opt-1",
-                "text": "Pamela Anderson",
-                "is_correct": true
-              },
-              {
-                "id": "q-06-22-opt-2",
-                "text": "Angelina Jolie",
-                "is_correct": false
-              },
-              {
-                "id": "q-06-22-opt-3",
-                "text": "Cameron Diaz",
-                "is_correct": false
-              },
-              {
-                "id": "q-06-22-opt-4",
-                "text": "Jennifer Lopez",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-06-22-opt-1",
-            "explanation": "Pam & Tommy Lee. Es war das erste Mal, dass das Internet für etwas anderes als Militärkommunikation benutzt wurde... oh wait, eigentlich war es genau dafür da: Pornos.",
-            "difficulty": "medium",
-            "points": 2
-          },
-          {
             "id": "q-06-23",
             "type": "standard",
             "prompt": "Wovor hatten 1999 alle Angst, als die Uhr auf Mitternacht zum Jahr 2000 zusteuerte?",
@@ -5680,53 +4535,6 @@
             "explanation": "Wir dachten, Flugzeuge fallen vom Himmel und Toaster fangen an zu brennen. Am Ende passierte: nichts. Außer einer fetten Party.",
             "difficulty": "easy",
             "points": 1
-          },
-          {
-            "id": "q-06-24",
-            "type": "ranking",
-            "prompt": "Ordne diese 'Boygroups' nach dem Jahr ihrer Gründung (älteste zuerst).",
-            "items": [
-              {
-                "id": "it-backstreet",
-                "text": "Backstreet Boys"
-              },
-              {
-                "id": "it-nsync",
-                "text": "N'Sync"
-              },
-              {
-                "id": "it-overground",
-                "text": "Overground"
-              },
-              {
-                "id": "it-one-direction",
-                "text": "One Direction"
-              }
-            ],
-            "correct_order": [
-              "it-backstreet",
-              "it-nsync",
-              "it-overground",
-              "it-one-direction"
-            ],
-            "explanation": "BSB (1993), N'Sync (1995), Overground (2003 - DSDS-Welle) und 1D (2010). Ein Zeitstrahl der Gänsehaut und Fehlentscheidungen.",
-            "difficulty": "hard",
-            "points": 2
-          },
-          {
-            "id": "q-06-25",
-            "type": "estimate",
-            "prompt": "Wie viele Millionen Euro zahlte das ProSieben-Publikum schätzungsweise im Jahr 2004 insgesamt für Klingelton-Abos?",
-            "answer": {
-              "canonical": "Hunderte Millionen",
-              "reference_value": 300,
-              "unit": "Millionen €",
-              "context": "Jamba & Co Jahresumsatz"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "Es waren weit ueber 300 Millionen Euro in der Hochphase. Wir haben buchstaeblich unser Taschengeld fuer verpixelte Klingeltoene verbrannt.",
-            "difficulty": "hard",
-            "points": 2
           }
         ]
       },
@@ -5735,7 +4543,7 @@
         "slug": "gaming-frust-pixel-nostalgie",
         "name": "Gaming-Frust & Pixel-Nostalgie",
         "intro": "Willkommen im digitalen Fegefeuer. Hier geht es um blaue Panzer, tote Tamagotchis und den Schweiß von LAN-Partys. Wer bei 'Oben, Oben, Unten, Unten' keine Gänsehaut bekommt, hat nie wirklich gelebt.",
-        "question_count": 30,
+        "question_count": 24,
         "difficulty": "medium_hard",
         "default_question_type": "standard",
         "default_points": 1,
@@ -5927,18 +4735,6 @@
             "difficulty": "medium"
           },
           {
-            "id": "q-07-07",
-            "type": "estimate",
-            "prompt": "Wie viele Gramm wog der originale 'Graue Klotz' (Game Boy Classic) inklusive der 4 AA-Batterien?",
-            "answer": {
-              "reference_value": 300,
-              "unit": "Gramm",
-              "canonical": "300g"
-            },
-            "explanation": "Ca. 220g ohne Batterien, knapp 300g mit. Das war echtes Hanteltraining während der Autofahrt in den Urlaub.",
-            "difficulty": "hard"
-          },
-          {
             "id": "q-07-08",
             "type": "logic",
             "prompt": "Pokémon Gen 1: Welcher Typ war so 'kaputt' programmiert, dass er gegen seinen eigentlichen Schwachpunkt 'Geist' komplett immun war?",
@@ -6027,36 +4823,6 @@
             "correct_option_id": "q-07-10-opt-1",
             "explanation": "Leiter weg = Tod durch Ertrinken. Es war unser erster bewusster Kontakt mit sadistischer Machtausübung im Kinderzimmer.",
             "difficulty": "easy"
-          },
-          {
-            "id": "q-07-11",
-            "type": "logic",
-            "prompt": "Minesweeper-Logik: Ein geoeffnetes Feld zeigt eine '3' und hat genau drei ungeoeffnete Nachbarfelder. Was folgt sicher?",
-            "options": [
-              {
-                "id": "q-07-11-opt-1",
-                "text": "Alle drei ungeoeffneten Nachbarn sind Minen",
-                "is_correct": true
-              },
-              {
-                "id": "q-07-11-opt-2",
-                "text": "Genau ein Nachbar ist eine Mine",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-11-opt-3",
-                "text": "Keiner der Nachbarn ist eine Mine",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-11-opt-4",
-                "text": "Es ist grundsaetzlich nicht entscheidbar",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-07-11-opt-1",
-            "explanation": "Die Zahl gibt an, wie viele Minen in den Nachbarfeldern liegen. Wenn bei einer 3 nur noch drei verdeckte Nachbarn uebrig sind, muessen alle drei Minen sein.",
-            "difficulty": "medium"
           },
           {
             "id": "q-07-12",
@@ -6269,48 +5035,6 @@
             "difficulty": "medium"
           },
           {
-            "id": "q-07-19",
-            "type": "logic",
-            "prompt": "Monkey Island: Du wirst gefragt: 'Du kämpfst wie ein dummer Bauer!'. Was ist die einzig korrekte Antwort?",
-            "options": [
-              {
-                "id": "q-07-19-opt-1",
-                "text": "Wie passend. Du kämpfst wie eine Kuh.",
-                "is_correct": true
-              },
-              {
-                "id": "q-07-19-opt-2",
-                "text": "Deine Mutter auch!",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-19-opt-3",
-                "text": "Auge um Auge, Zahn um Zahn.",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-19-opt-4",
-                "text": "Ich bin Gummi, du bist Stahl.",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-07-19-opt-1",
-            "explanation": "Beleidigungsfechten! Wer die Antwort nicht auswendig kennt, hat Guybrush Threepwood nie wirklich geliebt.",
-            "difficulty": "medium"
-          },
-          {
-            "id": "q-07-20",
-            "type": "sudden_death_estimate",
-            "prompt": "Wie viele Kilogramm wog ein typischer 19-Zoll-Röhrenmonitor (CRT), den man zu einer LAN-Party schleppen musste?",
-            "answer": {
-              "reference_value": 25,
-              "unit": "kg",
-              "canonical": "25kg"
-            },
-            "explanation": "Rund 20-30 kg pure Sperrigkeit. Wer das in den dritten Stock getragen hat, brauchte kein Fitnessstudio mehr.",
-            "difficulty": "hard"
-          },
-          {
             "id": "q-07-21",
             "type": "logic",
             "prompt": "Wie viele einzelne Quadrate bilden ein 'Tetromino' (ein klassisches Tetris-Teil)?",
@@ -6461,36 +5185,6 @@
             "difficulty": "medium"
           },
           {
-            "id": "q-07-26",
-            "type": "logic",
-            "prompt": "Minesweeper: Was ist die höchste Zahl, die auf einem einzelnen aufgedeckten Feld erscheinen kann?",
-            "options": [
-              {
-                "id": "q-07-26-opt-1",
-                "text": "8",
-                "is_correct": true
-              },
-              {
-                "id": "q-07-26-opt-2",
-                "text": "4",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-26-opt-3",
-                "text": "9",
-                "is_correct": false
-              },
-              {
-                "id": "q-07-26-opt-4",
-                "text": "6",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "q-07-26-opt-1",
-            "explanation": "Ein Feld kann maximal von 8 anderen Feldern (und damit 8 Minen) umgeben sein.",
-            "difficulty": "medium"
-          },
-          {
             "id": "q-07-27",
             "type": "standard",
             "prompt": "In 'Age of Empires II' konnte man ein hochmodernes Auto spawnen. Welchen Cheat-Code musste man dafür eingeben?",
@@ -6519,18 +5213,6 @@
             "correct_option_id": "q-07-27-opt-1",
             "explanation": "Ein blauer AC Cobra mit Maschinengewehren gegen mittelalterliche Ritter – die Definition von 'Fairplay'.",
             "difficulty": "medium"
-          },
-          {
-            "id": "q-07-28",
-            "type": "estimate",
-            "prompt": "Wie viele Pixel (Breite x Höhe) hatte das Display des originalen Game Boy?",
-            "answer": {
-              "reference_value": 23040,
-              "unit": "Pixel",
-              "canonical": "160x144"
-            },
-            "explanation": "160x144 Pixel. Das sind insgesamt nur 23.040 Bildpunkte – weniger als ein winziges App-Icon heute.",
-            "difficulty": "hard"
           },
           {
             "id": "q-07-29",
@@ -6582,7 +5264,7 @@
         "slug": "musikalische-jugendsunden-emo-phasen",
         "name": "Musikalische Jugendsünden & Emo-Phasen",
         "intro": "Jetzt betreten wir den Friedhof eurer Playlist-Historie. Boybands, Emo-Bangs und Klingeltöne – also genau der akustische Sondermüll, den ihr heute heimlich noch mitsingen könnt. Setzt euren seitlichen Pony zurecht, es wird peinlich.",
-        "question_count": 14,
+        "question_count": 8,
         "difficulty": "medium",
         "default_question_type": "multiple_choice",
         "tags": [
@@ -6594,63 +5276,6 @@
           "2000er"
         ],
         "questions": [
-          {
-            "id": "q-08-01",
-            "type": "estimate",
-            "difficulty": "medium",
-            "difficulty_score": 3,
-            "points": 1,
-            "prompt": "Wie viele Wochen stand 'Schnappi, das kleine Krokodil' 2005 auf Platz 1 der deutschen Charts?",
-            "answer": {
-              "canonical": "10 Wochen",
-              "reference_value": 10,
-              "unit": "Wochen"
-            },
-            "explanation": "Zehn lange, schmerzhafte Wochen. Der Song wurde ursprünglich 2001 für die Sendung mit der Maus aufgenommen, bevor er als Jamba-Klingelton die Weltherrschaft übernahm.",
-            "tags": [
-              "musik",
-              "charts",
-              "2000er"
-            ]
-          },
-          {
-            "id": "q-08-02",
-            "type": "ranking",
-            "difficulty": "medium",
-            "difficulty_score": 3,
-            "points": 2,
-            "prompt": "Sortiere diese Boybands nach dem Jahr ihrer Gründung – von der „ältesten“ zur „jüngsten“.",
-            "items": [
-              {
-                "id": "tt",
-                "text": "Take That"
-              },
-              {
-                "id": "bsb",
-                "text": "Backstreet Boys"
-              },
-              {
-                "id": "nsync",
-                "text": "*NSYNC"
-              },
-              {
-                "id": "wl",
-                "text": "Westlife"
-              }
-            ],
-            "correct_order": [
-              "tt",
-              "bsb",
-              "nsync",
-              "wl"
-            ],
-            "explanation": "Take That starteten 1990, BSB 1993, *NSYNC 1995 und Westlife bildeten 1998 den Abschluss der großen 90er-Welle.",
-            "tags": [
-              "boybands",
-              "musik",
-              "ranking"
-            ]
-          },
           {
             "id": "q-08-03",
             "type": "pattern",
@@ -6756,64 +5381,6 @@
               "fashion",
               "trends",
               "majority_guess"
-            ]
-          },
-          {
-            "id": "q-08-07",
-            "type": "estimate_duel",
-            "difficulty": "hard",
-            "difficulty_score": 5,
-            "points": 2,
-            "prompt": "Wie viele Millionen Exemplare verkaufte *NSYNC 'No Strings Attached' allein in der ersten Verkaufswoche (US-Rekord 2000)?",
-            "answer": {
-              "canonical": "2.41 Millionen",
-              "reference_value": 2.41,
-              "unit": "Millionen"
-            },
-            "explanation": "2,41 Millionen Alben in 7 Tagen. Erst Adele konnte diesen Rekord 2015 mit '25' brechen. Justin Timberlake war damals offiziell der Gott der Vorstädte.",
-            "tags": [
-              "records",
-              "musik",
-              "nsync",
-              "estimate_duel"
-            ]
-          },
-          {
-            "id": "q-08-08",
-            "type": "standard",
-            "difficulty": "medium",
-            "difficulty_score": 3,
-            "points": 1,
-            "prompt": "Die Casting-Band US5 (Maria) bestand aus 5 Jungs aus verschiedenen Ländern. Was bedeutete das „US“ in ihrem Namen laut Management offiziell?",
-            "options": [
-              {
-                "id": "opt-1",
-                "text": "United States (wegen der US-Mitglieder)",
-                "is_correct": false
-              },
-              {
-                "id": "opt-2",
-                "text": "Us (Englisch für 'Wir/Uns')",
-                "is_correct": true
-              },
-              {
-                "id": "opt-3",
-                "text": "Universal Stars",
-                "is_correct": false
-              },
-              {
-                "id": "opt-4",
-                "text": "Underground Singers",
-                "is_correct": false
-              }
-            ],
-            "correct_option_id": "opt-2",
-            "explanation": "Es sollte 'Wir' bedeuten. Dass Richie und Chris tatsächlich aus den USA kamen, war nur ein praktischer Zufall für das Marketing.",
-            "tags": [
-              "casting",
-              "musik",
-              "us5",
-              "standard"
             ]
           },
           {
@@ -6930,26 +5497,6 @@
             ]
           },
           {
-            "id": "q-08-12",
-            "type": "estimate",
-            "difficulty": "hard",
-            "difficulty_score": 5,
-            "points": 2,
-            "prompt": "In welchem Jahr wurde der deutsche Musiksender VIVA, der unsere Jugend mit Interaktiv und Clip-Shows prägte, endgültig eingestellt?",
-            "answer": {
-              "canonical": "2018",
-              "reference_value": 2018,
-              "unit": "Jahr"
-            },
-            "explanation": "Am 31. Dezember 2018 war Schluss. VIVA starb leise, nachdem es jahrelang nur noch Sendeplatz-Hülle für MTV war. Ein Stück deutscher Popkultur ging zu Grabe.",
-            "tags": [
-              "viva",
-              "tv",
-              "2000er",
-              "estimate"
-            ]
-          },
-          {
             "id": "q-08-13",
             "type": "common_mistake",
             "difficulty": "medium",
@@ -7022,26 +5569,6 @@
               "lyrics",
               "logic"
             ]
-          },
-          {
-            "id": "q-08-15",
-            "type": "sudden_death_estimate",
-            "difficulty": "hard",
-            "difficulty_score": 5,
-            "points": 3,
-            "prompt": "Was kostete ein Jamba-Sparabo (3 Klingeltöne pro Monat) im Jahr 2004 typischerweise pro Monat?",
-            "answer": {
-              "canonical": "4,99 Euro",
-              "reference_value": 4.99,
-              "unit": "Euro"
-            },
-            "explanation": "4,99 Euro pro Monat. Das entsprach damals etwa 20 Minuten Gesprächsguthaben oder dem sozialen Ruin, wenn man vergaß, es zu kündigen.",
-            "tags": [
-              "jamba",
-              "money",
-              "2000er",
-              "sudden_death_estimate"
-            ]
           }
         ]
       },
@@ -7074,18 +5601,6 @@
               }
             ],
             "explanation": "Das ist keine belastbare Studie, sondern eine Mehrheitsfrage ueber ehrliches Haushaltsverhalten. Die Gruppe entscheidet, welche Ausrede gewinnt."
-          },
-          {
-            "id": "q-09-02",
-            "type": "estimate",
-            "prompt": "Wie viele Liter Wasser verbraucht eine klassische Toilettenspülung (altes Modell, ohne Spartaste) pro Gang?",
-            "answer": {
-              "canonical": "9 Liter",
-              "reference_value": 9,
-              "unit": "Liter",
-              "context": "Moderne Spülungen brauchen nur 3-6 Liter, aber die alten Kästen ballern ordentlich was weg."
-            },
-            "scoring_rule": "closest_wins"
           },
           {
             "id": "q-09-03",
@@ -7144,18 +5659,6 @@
               "canonical": "Nein, er gehört in den Restmüll.",
               "context": "Verschmutzte Pappe stört das Recycling. Nur saubere Kartons dürfen in die blaue Tonne."
             }
-          },
-          {
-            "id": "q-09-06",
-            "type": "estimate",
-            "prompt": "Wie viele Kilogramm Haushaltsmüll produziert ein Durchschnittsdeutscher pro Jahr?",
-            "answer": {
-              "canonical": "476 kg",
-              "reference_value": 476,
-              "unit": "kg",
-              "context": "Stand 2022. Das ist fast eine halbe Tonne pro Person!"
-            },
-            "scoring_rule": "closest_wins"
           },
           {
             "id": "q-09-07",
@@ -7415,19 +5918,6 @@
             "scoring_rule": "closest_wins"
           },
           {
-            "id": "q-09-18",
-            "type": "estimate",
-            "prompt": "Wie viele Liter Bier stecken in einem Kasten mit 20 Flaschen à 0,5 Liter?",
-            "answer": {
-              "canonical": "10 Liter",
-              "reference_value": 10,
-              "unit": "Liter",
-              "context": "20 Flaschen mal 0,5 Liter"
-            },
-            "scoring_rule": "closest_wins",
-            "explanation": "20 mal 0,5 Liter ergibt 10 Liter. Das ist die seltene Adulting-Mathe, die sogar nach zwei Runden noch fair bleibt."
-          },
-          {
             "id": "q-09-19",
             "type": "ranking",
             "prompt": "Sortiere diese Lebensmittel nach grobem CO2-Fussabdruck pro Kilogramm, von niedriger zu hoeher.",
@@ -7545,18 +6035,6 @@
             }
           },
           {
-            "id": "q-09-24",
-            "type": "estimate",
-            "prompt": "Wie hoch ist die Pauschale für 'Werbungskosten' bei der Einkommensteuererklärung (Arbeitnehmerpauschbetrag) aktuell (2024)?",
-            "answer": {
-              "canonical": "1.230 €",
-              "reference_value": 1230,
-              "unit": "Euro",
-              "context": "Diesen Betrag zieht das Finanzamt automatisch ab, ohne dass du Belege einreichen musst."
-            },
-            "scoring_rule": "closest_wins"
-          },
-          {
             "id": "q-09-25",
             "type": "common_mistake",
             "prompt": "Was passiert mit deinem Körper mit 30, wenn du 'einfach nur falsch aufgewacht' bist?",
@@ -7588,7 +6066,7 @@
             }
           }
         ],
-        "question_count": 25
+        "question_count": 21
       },
       {
         "category_id": "cat-10",
@@ -7613,18 +6091,6 @@
               ]
             },
             "explanation": "Das Piepen und Rauschen des Modems war unverkennbar und machte heimliches Surfen fast unmoeglich."
-          },
-          {
-            "id": "q-10-02",
-            "type": "estimate",
-            "prompt": "Wie viele Stunden hielt der Akku des Nokia 3310 laut Hersteller im Standby-Modus durch?",
-            "answer": {
-              "canonical": "260 Stunden",
-              "reference_value": 260,
-              "unit": "Stunden",
-              "context": "Das sind fast 11 Tage. Heute feiern wir uns schon, wenn das Smartphone den Weg vom Ladekabel bis zur Kaffeemaschine überlebt, ohne auf 90% zu droppen."
-            },
-            "scoring_rule": "closest_wins"
           },
           {
             "id": "q-10-03",
@@ -7717,18 +6183,6 @@
               }
             ],
             "explanation": "Als harte Prozentzahl waere das kaum sauber belegbar. Als Mehrheitsfrage trifft es die Erinnerung an Tauschboersen-Chaos deutlich besser."
-          },
-          {
-            "id": "q-10-07",
-            "type": "estimate",
-            "prompt": "Wie viele Kilogramm wog ein typischer 19-Zoll-Röhrenmonitor (CRT) aus dem Jahr 2002 ungefähr?",
-            "answer": {
-              "canonical": "ca. 22-25 kg",
-              "reference_value": 22,
-              "unit": "kg",
-              "context": "Wer so ein Teil hatte, war der König der LAN, hatte aber am nächsten Tag einen Bandscheibenvorfall und zwei Wochen lang blaue Flecken an den Unterarmen."
-            },
-            "scoring_rule": "closest_wins"
           },
           {
             "id": "q-10-08",
@@ -7893,7 +6347,7 @@
             "explanation": "Phantom-Vibrationen sind ein bekanntes Alltagsphaenomen. Statt eine wackelige Prozentzahl zu raten, entscheidet hier die Erfahrung der Runde."
           }
         ],
-        "question_count": 15
+        "question_count": 13
       }
     ],
     "question_index": [
