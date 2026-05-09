@@ -12,28 +12,29 @@ Jede Aenderung muss gegen diese Frage bestehen: Hilft sie, den Quiz-Abend verlae
 
 ### Vier Services
 
-| Service | Package | Port | Rolle |
-|---|---|---|---|
-| Server | `apps/server` | `3001` | Authoritative WebSocket-API, Timer, Punkte, Raeume |
-| Display/TV | `apps/web-display` | `5175` | Publikumsbildschirm: Lobby, QR-Codes, Fragen, Reveal, Scoreboard |
-| Host | `apps/web-host` | `5173` | Spielleitungs-Controller: Start, Einstellungen, Fortschritt, Fallbacks |
-| Player | `apps/web-player` | `5174` | Smartphone-UI: Join, Antwort-Controller, Status |
+| Service    | Package            | Port   | Rolle                                                                  |
+| ---------- | ------------------ | ------ | ---------------------------------------------------------------------- |
+| Server     | `apps/server`      | `3001` | Authoritative WebSocket-API, Timer, Punkte, Raeume                     |
+| Display/TV | `apps/web-display` | `5175` | Publikumsbildschirm: Lobby, QR-Codes, Fragen, Reveal, Scoreboard       |
+| Host       | `apps/web-host`    | `5173` | Spielleitungs-Controller: Start, Einstellungen, Fortschritt, Fallbacks |
+| Player     | `apps/web-player`  | `5174` | Smartphone-UI: Join, Antwort-Controller, Status                        |
 
 ### Shared Packages
 
-| Package | Zweck |
-|---|---|
-| `packages/shared-types` | TypeScript-Interfaces und Enums (`RoomState`, `GameState`, `PlayerState`, `QuestionType`, `Question`, `Player`, `Room`, `Answer`, `GamePlan`, etc.) |
-| `packages/shared-protocol` | Eventnamen (`EVENTS`), Zod-Payload-Schemas, Envelope-Parsing und Serialisierung. Definiert das gesamte WebSocket-Protokoll. |
-| `packages/shared-utils` | Kleine Helfer: Join-Code-Validierung, Namensnormalisierung, Netzwerk-Helfer |
-| `packages/shared-hooks` | React-Hook `useWebSocket` mit Auto-Reconnect, wird von allen drei Web-Apps genutzt |
-| `packages/quiz-engine` | Reine Auswertungs- und Scoreboard-Logik ohne Side-Effects (`evaluateMultipleChoice`, `evaluateEstimate`, `evaluateRanking`, etc.) |
+| Package                    | Zweck                                                                                                                                               |
+| -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `packages/shared-types`    | TypeScript-Interfaces und Enums (`RoomState`, `GameState`, `PlayerState`, `QuestionType`, `Question`, `Player`, `Room`, `Answer`, `GamePlan`, etc.) |
+| `packages/shared-protocol` | Eventnamen (`EVENTS`), Zod-Payload-Schemas, Envelope-Parsing und Serialisierung. Definiert das gesamte WebSocket-Protokoll.                         |
+| `packages/shared-utils`    | Kleine Helfer: Join-Code-Validierung, Namensnormalisierung, Netzwerk-Helfer                                                                         |
+| `packages/shared-hooks`    | React-Hook `useWebSocket` mit Auto-Reconnect, wird von allen drei Web-Apps genutzt                                                                  |
+| `packages/quiz-engine`     | Reine Auswertungs- und Scoreboard-Logik ohne Side-Effects (`evaluateMultipleChoice`, `evaluateEstimate`, `evaluateRanking`, etc.)                   |
 
 ### Authoritative Server-Architektur
 
 Der Server (`apps/server`) ist die alleinige Spielwahrheit. Display, Host und Player zeigen Zustand an oder senden Absichten (Intents), entscheiden aber keine Spielwahrheiten.
 
 Alle relevanten States:
+
 - **RoomState**: `waiting` → `in_game` → `completed` → `closed` (`created` existiert im Enum, wird aber nicht als Laufzeit-Zustand genutzt)
 - **GameState**: `idle` → `question_active` → `answer_locked` → `revealing` → `scoreboard` → `completed`
 - **PlayerState**: `ready` → `answering` → `answered` / `disconnected`
@@ -97,6 +98,7 @@ corepack pnpm run review:questions          # Fragenreview-Tool (Browser-UI auf 
 ## Test-Scope
 
 Tests liegen in:
+
 - `packages/*/src/**/*.test.ts` — Unit-Tests fuer shared packages und quiz-engine
 - `apps/server/src/**/*.test.ts` — Serverseitige Tests
 
@@ -129,6 +131,7 @@ Events sind nach Rolle und Richtung aufgeteilt:
 - `SERVER_TO_DISPLAY_EVENT_SCHEMAS` / `SERVER_TO_HOST_EVENT_SCHEMAS` / `SERVER_TO_PLAYER_EVENT_SCHEMAS`
 
 **Beim Aendern eines Events** muessen konsistent aktualisiert werden:
+
 1. Eventkonstante in `events.ts`
 2. Payload-Schema in `schemas.ts`
 3. Zugehoerige Richtungs-Map (z.B. `HOST_TO_SERVER_EVENT_SCHEMAS`)
@@ -139,6 +142,7 @@ Events sind nach Rolle und Richtung aufgeteilt:
 Der Server-Message-Handler (`apps/server/src/index.ts`) dispatched per `switch(event)` an Handler-Funktionen. Rolle-basierte Zugriffskontrolle erfolgt ueber `isEventAllowedForRole()` vor dem Dispatch.
 
 Server-seitiges Senden:
+
 - `sendEvent(socket, event, payload)` — Einzeln
 - `sendToDisplay/sendToHost/sendToPlayers(room, event, payload)` — Per Rolle
 - `broadcastToAllRoomClients/broadcastToHostAndDisplay(room, event, payload)` — Gruppen
@@ -153,6 +157,7 @@ Display und Host erhalten `question:show` mit vollstaendiger Frage inklusive Opt
 ### State-Management
 
 Globaler In-Memory-State in `apps/server/src/state.ts`:
+
 - `roomsById: Map<string, RoomRecord>`
 - `roomIdByJoinCode: Map<string, string>`
 - `roomIdByHostToken: Map<string, string>`
@@ -162,33 +167,33 @@ Keine Persistenz, keine Datenbank. Bei Serverneustart ist alles weg.
 
 ### Module-Aufteilung
 
-| Datei | Zuständigkeit |
-|---|---|
-| `index.ts` | HTTP-Server, WebSocket-Server, Message-Dispatch, Rollen-Auth |
-| `state.ts` | Globale Maps und Helfer |
-| `server-types.ts` | `TrackedWebSocket`, `SessionRecord`, `RoomRecord` |
-| `config.ts` | Port, Origins, Grace-Zeiten, Timer-Konstanten |
-| `protocol.ts` | `sendEvent`, `sendProtocolError`, `toLobbyUpdatePayload` |
-| `connection.ts` | `sendToDisplay/Host/Players`, `broadcastToAllRoomClients`, `syncSessionToRoomState` |
-| `session.ts` | Socket-Close-Handler, Disconnect-Grace-Logik |
-| `room.ts` | Raum-Erstellung, Join-Code-Generierung, `closeRoom`, `removePlayerFromRoom` |
-| `lobby.ts` | Room-Join, Host-Connect, Connection-Resume, Settings-Update, Kategorie-Voting |
-| `game.ts` | Spiel-Start, Frage-Ablauf, Antwort-Annahme, Reveal, Scoreboard, Finish |
-| `game-plan.ts` | GamePlan-Aufloesung, Demo-Frage, Fragen-Auswahl, Katalog-Summary |
-| `game-scoreboard.ts` | Scoreboard-Berechnung, Score-Changes, Final-Stats |
-| `room-selectors.ts` | Reine Selektoren auf RoomRecord |
-| `room-timers.ts` | Timer-Cleanup |
-| `quiz-data.ts` | Quiz-JSON laden und parsen |
-| `question-payloads.ts` | Question → QuestionShow/Controller-Payload-Transformation |
-| `answer-validation.ts` | Antwort-Validierung gegen Fragetyp |
+| Datei                  | Zuständigkeit                                                                       |
+| ---------------------- | ----------------------------------------------------------------------------------- |
+| `index.ts`             | HTTP-Server, WebSocket-Server, Message-Dispatch, Rollen-Auth                        |
+| `state.ts`             | Globale Maps und Helfer                                                             |
+| `server-types.ts`      | `TrackedWebSocket`, `SessionRecord`, `RoomRecord`                                   |
+| `config.ts`            | Port, Origins, Grace-Zeiten, Timer-Konstanten                                       |
+| `protocol.ts`          | `sendEvent`, `sendProtocolError`, `toLobbyUpdatePayload`                            |
+| `connection.ts`        | `sendToDisplay/Host/Players`, `broadcastToAllRoomClients`, `syncSessionToRoomState` |
+| `session.ts`           | Socket-Close-Handler, Disconnect-Grace-Logik                                        |
+| `room.ts`              | Raum-Erstellung, Join-Code-Generierung, `closeRoom`, `removePlayerFromRoom`         |
+| `lobby.ts`             | Room-Join, Host-Connect, Connection-Resume, Settings-Update, Kategorie-Voting       |
+| `game.ts`              | Spiel-Start, Frage-Ablauf, Antwort-Annahme, Reveal, Scoreboard, Finish              |
+| `game-plan.ts`         | GamePlan-Aufloesung, Demo-Frage, Fragen-Auswahl, Katalog-Summary                    |
+| `game-scoreboard.ts`   | Scoreboard-Berechnung, Score-Changes, Final-Stats                                   |
+| `room-selectors.ts`    | Reine Selektoren auf RoomRecord                                                     |
+| `room-timers.ts`       | Timer-Cleanup                                                                       |
+| `quiz-data.ts`         | Quiz-JSON laden und parsen                                                          |
+| `question-payloads.ts` | Question → QuestionShow/Controller-Payload-Transformation                           |
+| `answer-validation.ts` | Antwort-Validierung gegen Fragetyp                                                  |
 
 ### Disconnect-Grace-Zeiten
 
-| Rolle | Grace-Zeit | Konsequenz |
-|---|---|---|
-| Display | 45s | Raum wird geschlossen |
-| Host | 5min | Raum wird geschlossen |
-| Player | 30s | Spieler wird aus dem Raum entfernt |
+| Rolle   | Grace-Zeit | Konsequenz                         |
+| ------- | ---------- | ---------------------------------- |
+| Display | 45s        | Raum wird geschlossen              |
+| Host    | 5min       | Raum wird geschlossen              |
+| Player  | 30s        | Spieler wird aus dem Raum entfernt |
 
 Konfiguriert in `apps/server/src/config.ts`.
 
@@ -237,7 +242,7 @@ src/
 
 ## Quiz-Daten
 
-Fragenkatalog als JSON-Datei im Repo-Root (`geburtstagsquiz_millennials_engine_v5_expanded.json`), geladen von `apps/server/src/quiz-data.ts`.
+Fragenkatalog als 10 kategorisierte JSON-Dateien in `data/quiz/questions/cat-*.json` (386 Fragen), geladen von `apps/server/src/quiz-data.ts`.
 
 Fragetypen: `multiple_choice`, `estimate`, `majority_guess`, `ranking`, `logic`, `open_text`.
 
