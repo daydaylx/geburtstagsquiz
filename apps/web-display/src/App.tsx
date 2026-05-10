@@ -71,35 +71,37 @@ export function App() {
           <div className="display-setup">
             <div className="display-setup-hero">
               <p className="display-setup-label">Geburtstags-Quiz</p>
-              <h1>Quiz Display</h1>
+              <h1>Display wartet auf Host</h1>
               <p className="display-setup-hint">
-                Dieser Bildschirm ist das Spielfeld – stell ihn gut sichtbar für alle auf.
+                Öffne das Display-Fenster über den Host-Controller und zieh es auf den HDMI-TV.
               </p>
             </div>
             <div className="display-setup-steps">
               <div className="display-setup-step">
                 <span className="display-setup-step-num">1</span>
-                <span>Quizraum erstellen</span>
+                <span>Host lokal öffnen</span>
               </div>
               <div className="display-setup-step-arrow">→</div>
               <div className="display-setup-step">
                 <span className="display-setup-step-num">2</span>
-                <span>QR-Code zeigen, Spieler beitreten lassen</span>
+                <span>Raum erstellen</span>
               </div>
               <div className="display-setup-step-arrow">→</div>
               <div className="display-setup-step">
                 <span className="display-setup-step-num">3</span>
-                <span>Host-Gerät verbinden &amp; Quiz starten</span>
+                <span>Display öffnen</span>
               </div>
             </div>
-            <button
-              className="display-create-btn"
-              disabled={s.isCreatingRoom || connectionState !== "connected"}
-              onClick={s.handleCreateRoom}
-              type="button"
-            >
-              {s.isCreatingRoom ? "Erstelle Raum…" : "Quizraum erstellen"}
-            </button>
+            {s.canCreateRoomFromDisplay && (
+              <button
+                className="display-create-btn"
+                disabled={s.isCreatingRoom || connectionState !== "connected"}
+                onClick={s.handleCreateRoom}
+                type="button"
+              >
+                {s.isCreatingRoom ? "Erstelle Raum…" : "Fallback-Raum erstellen"}
+              </button>
+            )}
             {s.notice && <p className="display-notice">{s.notice}</p>}
           </div>
         )}
@@ -117,7 +119,6 @@ export function App() {
             {!s.hostPaired && (
               <div className="display-qr-block display-qr-block--host">
                 <h2>Host pairen</h2>
-                {s.hostQrUrl && <img src={s.hostQrUrl} alt="Host-QR-Code" />}
                 <p className="display-host-pending">Warte auf Host…</p>
               </div>
             )}

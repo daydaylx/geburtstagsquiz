@@ -10,12 +10,7 @@ import { GameState, PlayerState, RoomState, type Player } from "@quiz/shared-typ
 import { normalizePlayerName } from "@quiz/shared-utils";
 
 import type { RoomRecord, SessionRecord, TrackedWebSocket } from "./server-types.js";
-import {
-  PROTOCOL_ERROR_CODES,
-  sendEvent,
-  sendProtocolError,
-  toLobbyUpdatePayload,
-} from "./protocol.js";
+import { PROTOCOL_ERROR_CODES, sendEvent, sendProtocolError } from "./protocol.js";
 import {
   roomsById,
   roomIdByJoinCode,
@@ -26,6 +21,7 @@ import {
 } from "./state.js";
 import { attachSocketToSession, generateUniqueJoinCode } from "./room.js";
 import {
+  broadcastLobbyUpdate as broadcastRoleAwareLobbyUpdate,
   broadcastToAllRoomClients,
   sendToDisplay,
   sendToHost,
@@ -147,13 +143,18 @@ export function handleHostConnect(
     return;
   }
 
-  if (room.hostTokenUsed) {
+  if (room.hostTokenUsed && room.hostConnected) {
     sendProtocolError(socket, PROTOCOL_ERROR_CODES.NOT_AUTHORIZED, "Host token already used", {
       event: EVENTS.HOST_CONNECT,
       roomId: room.id,
       questionId: null,
     });
     return;
+  }
+
+  // Cleanup old host session if it exists (e.g. from a disconnected previous session)
+  if (room.hostSessionId) {
+    sessionsById.delete(room.hostSessionId);
   }
 
   const hostSessionId = randomUUID();
@@ -184,6 +185,7 @@ export function handleHostConnect(
     joinCode: room.joinCode,
     roomState: room.state,
     gameState: room.gameState,
+    displayConnectToken: room.displayConnectToken,
   });
   sendEvent(socket, EVENTS.CATALOG_SUMMARY, buildCatalogSummary(getDefaultQuiz()));
 
@@ -253,6 +255,7 @@ export function resumeSession(
       sessionId: session.sessionId,
       joinCode: room.joinCode,
       gameState: room.gameState,
+      displayConnectToken: !room.displayConnected ? room.displayConnectToken : null,
     });
     sendEvent(socket, EVENTS.CATALOG_SUMMARY, buildCatalogSummary(getDefaultQuiz()));
 
@@ -427,11 +430,7 @@ export function handleRoomSettingsUpdate(
 }
 
 export function broadcastLobbyUpdate(room: RoomRecord): void {
-  if (room.state === RoomState.Closed) {
-    return;
-  }
-
-  broadcastToAllRoomClients(room, EVENTS.LOBBY_UPDATE, toLobbyUpdatePayload(room));
+  broadcastRoleAwareLobbyUpdate(room);
 }
 
 function tallyVotes(categoryVotes: Map<string, string>): Record<string, number> {
@@ -447,6 +446,15 @@ export function handleCategoryVote(socket: TrackedWebSocket, payload: CategoryVo
 
   if (!session || session.role !== "player" || !session.playerId) {
     sendProtocolError(socket, PROTOCOL_ERROR_CODES.NOT_AUTHORIZED, "Only players can vote", {
+      event: EVENTS.CATEGORY_VOTE,
+      roomId: payload.roomId,
+      questionId: null,
+    });
+    return;
+  }
+
+  if (session.roomId !== payload.roomId) {
+    sendProtocolError(socket, PROTOCOL_ERROR_CODES.NOT_AUTHORIZED, "Player is not in this room", {
       event: EVENTS.CATEGORY_VOTE,
       roomId: payload.roomId,
       questionId: null,
@@ -544,6 +552,7 @@ export function handleHostCreateRoom(
     hostDisconnectTimer: null,
     playerDisconnectTimers: new Map(),
     countdownTimer: null,
+    countdownStartedAt: null,
     questionTimer: null,
     timerTickInterval: null,
     revealTimer: null,
@@ -611,7 +620,7 @@ export function handleDisplayConnectRoom(
   if (
     !room.displayConnectToken ||
     room.displayConnectToken !== payload.displayConnectToken ||
-    room.displayConnectTokenUsed
+    (room.displayConnectTokenUsed && room.displayConnected)
   ) {
     sendProtocolError(
       socket,
@@ -638,6 +647,11 @@ export function handleDisplayConnectRoom(
       },
     );
     return;
+  }
+
+  // Cleanup old display session if it exists
+  if (room.displaySessionId) {
+    sessionsById.delete(room.displaySessionId);
   }
 
   const displaySessionId = randomUUID();

@@ -31,10 +31,10 @@ import {
 function getHostErrorMessage(code: string, fallback: string): string {
   switch (code) {
     case PROTOCOL_ERROR_CODES.NOT_AUTHORIZED:
-      return "Dieser Host-Code wurde bereits verwendet. Bitte dasselbe Gerät und denselben Browser verwenden oder auf dem TV-Display einen neuen Raum erstellen.";
+      return "Dieser Host-Code wurde bereits verwendet. Bitte denselben Browser verwenden oder im Host einen neuen Raum erstellen.";
     case PROTOCOL_ERROR_CODES.SESSION_NOT_FOUND:
     case PROTOCOL_ERROR_CODES.ROOM_NOT_FOUND:
-      return "Die Sitzung wurde nicht gefunden oder der Raum wurde geschlossen. Bitte auf dem TV-Display einen neuen Raum erstellen.";
+      return "Die Sitzung wurde nicht gefunden oder der Raum wurde geschlossen. Bitte im Host einen neuen Raum erstellen.";
     default:
       return fallback;
   }
@@ -192,7 +192,7 @@ export function useHostSession(deps: {
     if (!hostToken) {
       setNotice({
         kind: "error",
-        text: "Kein Host-Token vorhanden. Bitte QR-Code auf dem TV scannen.",
+        text: "Kein Host-Token vorhanden. Bitte im Host einen neuen Raum erstellen.",
       });
       return;
     }
@@ -254,6 +254,7 @@ export function useHostSession(deps: {
           roomId: parsedEnvelope.data.payload.roomId,
           joinCode: parsedEnvelope.data.payload.joinCode,
         });
+        setDisplayConnectToken(parsedEnvelope.data.payload.displayConnectToken ?? null);
         setShowAnswerTextOnPlayerDevices(false);
         setScreen("lobby");
         setIsConnectingHost(false);
@@ -279,6 +280,7 @@ export function useHostSession(deps: {
           roomId: parsedEnvelope.data.payload.roomId,
           joinCode: parsedEnvelope.data.payload.joinCode,
         });
+        setDisplayConnectToken(parsedEnvelope.data.payload.displayConnectToken ?? null);
         if (parsedEnvelope.data.payload.roomState === "waiting") {
           setScreen("lobby");
         } else {
@@ -459,10 +461,8 @@ export function useHostSession(deps: {
   });
 
   const handleRestartInfo = useEffectEvent(() => {
-    setNotice({
-      kind: "info",
-      text: "Seite neu laden und einen neuen Raum erstellen.",
-    });
+    updateStoredSession(null);
+    window.location.href = window.location.pathname;
   });
 
   const handleStartGame = useEffectEvent(() => {
