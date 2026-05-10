@@ -28,6 +28,8 @@ export interface RoomRecord extends Room {
   hostTokenUsed: boolean;
   displayToken: string;
   displaySessionId: string | null;
+  displayConnectToken: string | null;
+  displayConnectTokenUsed: boolean;
   displayDisconnectTimer: ReturnType<typeof setTimeout> | null;
   hostDisconnectTimer: ReturnType<typeof setTimeout> | null;
   playerDisconnectTimers: Map<string, ReturnType<typeof setTimeout>>;

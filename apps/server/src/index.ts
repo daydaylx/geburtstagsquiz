@@ -17,6 +17,8 @@ import {
   handleRoomSettingsUpdate,
   handleHostConnect,
   handleCategoryVote,
+  handleHostCreateRoom,
+  handleDisplayConnectRoom,
 } from "./lobby.js";
 import { handleSocketClose } from "./session.js";
 import {
@@ -165,7 +167,6 @@ if (HOST) {
 
 import { isEventAllowedForRole } from "./role-auth.js";
 
-
 function handleSocketMessage(socket: TrackedWebSocket, rawMessage: string): void {
   const parsedEnvelope = parseClientToServerEnvelope(rawMessage);
 
@@ -195,6 +196,14 @@ function handleSocketMessage(socket: TrackedWebSocket, rawMessage: string): void
   switch (event) {
     case EVENTS.DISPLAY_CREATE_ROOM:
       handleDisplayCreateRoom(socket, parsedEnvelope.data.payload);
+      return;
+
+    case EVENTS.DISPLAY_CONNECT_ROOM:
+      handleDisplayConnectRoom(socket, parsedEnvelope.data.payload);
+      return;
+
+    case EVENTS.HOST_CREATE_ROOM:
+      handleHostCreateRoom(socket, parsedEnvelope.data.payload);
       return;
 
     case EVENTS.HOST_CONNECT:

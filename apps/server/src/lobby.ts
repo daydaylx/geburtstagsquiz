@@ -1,6 +1,11 @@
 import { randomUUID } from "node:crypto";
 
-import { EVENTS, type CategoryVotePayload } from "@quiz/shared-protocol";
+import {
+  EVENTS,
+  type CategoryVotePayload,
+  type DisplayConnectRoomPayload,
+  type HostCreateRoomPayload,
+} from "@quiz/shared-protocol";
 import { GameState, PlayerState, RoomState, type Player } from "@quiz/shared-types";
 import { normalizePlayerName } from "@quiz/shared-utils";
 
@@ -13,12 +18,13 @@ import {
 } from "./protocol.js";
 import {
   roomsById,
+  roomIdByJoinCode,
   roomIdByHostToken,
   sessionsById,
-  getRoomByJoinCode,
   logRoomEvent,
+  getRoomByJoinCode,
 } from "./state.js";
-import { attachSocketToSession } from "./room.js";
+import { attachSocketToSession, generateUniqueJoinCode } from "./room.js";
 import {
   broadcastToAllRoomClients,
   sendToDisplay,
@@ -488,4 +494,182 @@ export function handleCategoryVote(socket: TrackedWebSocket, payload: CategoryVo
     roomId: room.id,
     votes: tallyVotes(room.categoryVotes),
   });
+}
+
+export function handleHostCreateRoom(
+  socket: TrackedWebSocket,
+  payload: HostCreateRoomPayload,
+): void {
+  if (socket.sessionId) {
+    sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "Socket is already assigned", {
+      event: EVENTS.HOST_CREATE_ROOM,
+      roomId: null,
+      questionId: null,
+    });
+    return;
+  }
+
+  const roomId = randomUUID();
+  const hostSessionId = randomUUID();
+  const joinCode = generateUniqueJoinCode();
+  const hostToken = randomUUID().replace(/-/g, "") + randomUUID().replace(/-/g, "");
+  const displayToken = randomUUID();
+  const displayConnectToken = randomUUID();
+  const now = Date.now();
+
+  const room: RoomRecord = {
+    id: roomId,
+    joinCode,
+    state: RoomState.Waiting,
+    hostName: "",
+    hostSessionId,
+    hostConnected: true,
+    displayConnected: false,
+    hostToken,
+    hostTokenUsed: true,
+    displayToken,
+    displaySessionId: null,
+    displayConnectToken,
+    displayConnectTokenUsed: false,
+    settings: {
+      showAnswerTextOnPlayerDevices: false,
+    },
+    players: [],
+    quiz: null,
+    currentQuestionIndex: null,
+    gameState: null,
+    createdAt: now,
+    lastActivityAt: now,
+    displayDisconnectTimer: null,
+    hostDisconnectTimer: null,
+    playerDisconnectTimers: new Map(),
+    countdownTimer: null,
+    questionTimer: null,
+    timerTickInterval: null,
+    revealTimer: null,
+    currentAnswers: new Map(),
+    nextQuestionReadyPlayerIds: new Set(),
+    questionStartedAt: null,
+    lastRoundResult: null,
+    lastScoreChanges: [],
+    completedRoundResults: [],
+    completedAnswers: [],
+    categoryVotes: new Map(),
+  };
+
+  const session: SessionRecord = {
+    sessionId: hostSessionId,
+    role: "host",
+    roomId,
+    socket,
+  };
+
+  roomsById.set(roomId, room);
+  roomIdByJoinCode.set(joinCode, roomId);
+  roomIdByHostToken.set(hostToken, roomId);
+  sessionsById.set(hostSessionId, session);
+  attachSocketToSession(socket, session);
+
+  logRoomEvent("host:create-room", room, {
+    hostSessionId,
+    clientInfo: payload.clientInfo,
+  });
+
+  sendEvent(socket, EVENTS.HOST_ROOM_CREATED, {
+    roomId,
+    hostSessionId,
+    joinCode,
+    displayConnectToken,
+  });
+  sendEvent(socket, EVENTS.CATALOG_SUMMARY, buildCatalogSummary(getDefaultQuiz()));
+}
+
+export function handleDisplayConnectRoom(
+  socket: TrackedWebSocket,
+  payload: DisplayConnectRoomPayload,
+): void {
+  if (socket.sessionId) {
+    sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "Socket is already assigned", {
+      event: EVENTS.DISPLAY_CONNECT_ROOM,
+      roomId: null,
+      questionId: null,
+    });
+    return;
+  }
+
+  const room = roomsById.get(payload.roomId);
+
+  if (!room) {
+    sendProtocolError(socket, PROTOCOL_ERROR_CODES.ROOM_NOT_FOUND, "Room not found", {
+      event: EVENTS.DISPLAY_CONNECT_ROOM,
+      roomId: payload.roomId,
+      questionId: null,
+    });
+    return;
+  }
+
+  if (
+    !room.displayConnectToken ||
+    room.displayConnectToken !== payload.displayConnectToken ||
+    room.displayConnectTokenUsed
+  ) {
+    sendProtocolError(
+      socket,
+      PROTOCOL_ERROR_CODES.NOT_AUTHORIZED,
+      "Invalid or already used display connect token",
+      {
+        event: EVENTS.DISPLAY_CONNECT_ROOM,
+        roomId: room.id,
+        questionId: null,
+      },
+    );
+    return;
+  }
+
+  if (room.state !== RoomState.Waiting) {
+    sendProtocolError(
+      socket,
+      PROTOCOL_ERROR_CODES.INVALID_STATE,
+      "Cannot connect display after game has started",
+      {
+        event: EVENTS.DISPLAY_CONNECT_ROOM,
+        roomId: room.id,
+        questionId: null,
+      },
+    );
+    return;
+  }
+
+  const displaySessionId = randomUUID();
+  const displayToken = randomUUID();
+  const now = Date.now();
+
+  const session: SessionRecord = {
+    sessionId: displaySessionId,
+    role: "display",
+    roomId: room.id,
+    socket,
+  };
+
+  room.displaySessionId = displaySessionId;
+  room.displayToken = displayToken;
+  room.displayConnected = true;
+  room.displayConnectTokenUsed = true;
+  room.lastActivityAt = now;
+
+  sessionsById.set(displaySessionId, session);
+  attachSocketToSession(socket, session);
+
+  logRoomEvent("display:connect-room", room, { displaySessionId });
+
+  sendEvent(socket, EVENTS.DISPLAY_ROOM_CONNECTED, {
+    roomId: room.id,
+    displaySessionId,
+    displayToken,
+    joinCode: room.joinCode,
+    hostConnected: room.hostConnected,
+  });
+
+  sendToHost(room, EVENTS.HOST_DISPLAY_PAIRED, { displayConnected: true });
+  broadcastLobbyUpdate(room);
 }

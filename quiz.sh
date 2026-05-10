@@ -200,7 +200,8 @@ pick_mode() {
     whiptail \
       --title "  🎂  Geburtstagsquiz  " \
       --menu "\nModus wählen:" \
-      13 54 3 \
+      15 60 4 \
+      "hybrid" "Hybrid-Modus  →  Host/Display lokal + Player via Tunnel" \
       "tunnel" "Tunnel-Modus  →  quiz.disaai.de" \
       "lokal"  "Lokal-Modus   →  localhost" \
       "exit"   "Beenden" \
@@ -222,6 +223,11 @@ show_dashboard() {
     tv="https://tv.$DOMAIN"
     host="https://host.$DOMAIN"
     player="https://play.$DOMAIN"
+  elif [[ "$mode" == "hybrid" ]]; then
+    server="http://localhost:3001"
+    tv="http://localhost:5175"
+    host="http://localhost:5173"
+    player="https://play.$DOMAIN"
   else
     server="http://localhost:3001"
     tv="http://localhost:5175"
@@ -239,6 +245,10 @@ show_dashboard() {
   printf "   ${GREEN}✓${NC}  Spieler     ${DIM}→${NC}  %s\n" "$player"
   if [[ "$mode" == "tunnel" ]]; then
     printf "   ${GREEN}✓${NC}  Tunnel      ${DIM}→${NC}  aktiv (cloudflared)\n"
+  fi
+  if [[ "$mode" == "hybrid" ]]; then
+    printf "\n   ${YELLOW}${BOLD}⚠  Hybrid-Modus:${NC} Cloudflare Tunnel muss separat laufen.\n"
+    printf "      Tunnel starten: ${DIM}cloudflared tunnel --config .cloudflared/config.yml run quiz${NC}\n"
   fi
   printf "\n   ${DIM}Logs:${NC}  %s\n" "$LOG_DIR"
   printf "\n${BLUE}${BOLD}%s${NC}\n" "$SEP"
@@ -268,6 +278,10 @@ check_prereqs() {
     command -v cloudflared >/dev/null || die "cloudflared nicht gefunden (erwartet in PATH)."
     [[ -f "$CONFIG_FILE" ]]           || die "Tunnel-Config fehlt: $CONFIG_FILE"
   fi
+  if [[ "$mode" == "hybrid" ]]; then
+    printf "\n${YELLOW}${BOLD}⚠  Hybrid-Modus:${NC} Cloudflare Tunnel wird NICHT automatisch gestartet.\n"
+    printf "   Stelle sicher, dass %s erreichbar ist.\n\n" "wss://api.$DOMAIN"
+  fi
 }
 
 # ── Hauptprogramm ──────────────────────────────────────────────────────────────
@@ -279,8 +293,13 @@ main() {
   [[ "$mode" == "exit" ]] && exit 0
 
   clear
-  printf "\n${BOLD}${CYAN}🎂 Geburtstagsquiz${NC}  –  Modus: ${BOLD}%s${NC}\n" \
-    "$( [[ "$mode" == "tunnel" ]] && echo "Tunnel (quiz.disaai.de)" || echo "Lokal (localhost)" )"
+  local mode_label
+  case "$mode" in
+    tunnel) mode_label="Tunnel (quiz.disaai.de)" ;;
+    hybrid) mode_label="Hybrid (Host/Display lokal + Player via Tunnel)" ;;
+    *)      mode_label="Lokal (localhost)" ;;
+  esac
+  printf "\n${BOLD}${CYAN}🎂 Geburtstagsquiz${NC}  –  Modus: ${BOLD}%s${NC}\n" "$mode_label"
 
   check_prereqs "$mode"
 
@@ -303,6 +322,12 @@ main() {
     export VITE_PLAYER_JOIN_BASE_URL="https://play.$DOMAIN"
     export VITE_SERVER_SOCKET_URL="wss://api.$DOMAIN"
     export ALLOWED_ORIGINS="http://localhost:5173,http://localhost:5174,http://localhost:5175,http://127.0.0.1:5173,http://127.0.0.1:5174,http://127.0.0.1:5175,https://tv.$DOMAIN,https://host.$DOMAIN,https://play.$DOMAIN"
+  elif [[ "$mode" == "hybrid" ]]; then
+    export VITE_DISPLAY_URL="http://localhost:5175"
+    export VITE_HOST_URL="http://localhost:5173"
+    export VITE_PLAYER_JOIN_BASE_URL="https://play.$DOMAIN"
+    export VITE_SERVER_SOCKET_URL="ws://localhost:3001"
+    export ALLOWED_ORIGINS="http://localhost:5173,http://localhost:5174,http://localhost:5175,http://127.0.0.1:5173,http://127.0.0.1:5174,http://127.0.0.1:5175,https://tv.$DOMAIN,https://host.$DOMAIN,https://play.$DOMAIN"
   else
     export VITE_PUBLIC_HOST="localhost"
     export VITE_SERVER_PORT="3001"
@@ -321,9 +346,19 @@ main() {
   wait_health "Server" "http://localhost:3001/health" "$STATE_DIR/server.pid"
 
   step "Starte Frontends"
-  start_bg display corepack pnpm --filter @quiz/web-display dev -- --host 0.0.0.0 --port 5175 --strictPort
-  start_bg host    corepack pnpm --filter @quiz/web-host    dev -- --host 0.0.0.0 --port 5173 --strictPort
-  start_bg player  corepack pnpm --filter @quiz/web-player  dev -- --host 0.0.0.0 --port 5174 --strictPort
+  if [[ "$mode" == "hybrid" ]]; then
+    # Player braucht die Tunnel-WebSocket-URL; Host und Display verbinden lokal
+    local saved_socket_url="$VITE_SERVER_SOCKET_URL"
+    export VITE_SERVER_SOCKET_URL="wss://api.$DOMAIN"
+    start_bg player corepack pnpm --filter @quiz/web-player dev -- --host 0.0.0.0 --port 5174 --strictPort
+    export VITE_SERVER_SOCKET_URL="$saved_socket_url"
+    start_bg display corepack pnpm --filter @quiz/web-display dev -- --host 0.0.0.0 --port 5175 --strictPort
+    start_bg host    corepack pnpm --filter @quiz/web-host    dev -- --host 0.0.0.0 --port 5173 --strictPort
+  else
+    start_bg display corepack pnpm --filter @quiz/web-display dev -- --host 0.0.0.0 --port 5175 --strictPort
+    start_bg host    corepack pnpm --filter @quiz/web-host    dev -- --host 0.0.0.0 --port 5173 --strictPort
+    start_bg player  corepack pnpm --filter @quiz/web-player  dev -- --host 0.0.0.0 --port 5174 --strictPort
+  fi
   wait_health "Display" "http://localhost:5175" "$STATE_DIR/display.pid"
   wait_health "Host"    "http://localhost:5173" "$STATE_DIR/host.pid"
   wait_health "Player"  "http://localhost:5174" "$STATE_DIR/player.pid"

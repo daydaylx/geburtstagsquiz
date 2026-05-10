@@ -192,6 +192,8 @@ export function handleDisplayCreateRoom(
     hostTokenUsed: false,
     displayToken,
     displaySessionId,
+    displayConnectToken: null,
+    displayConnectTokenUsed: false,
     settings: {
       showAnswerTextOnPlayerDevices: false,
     },

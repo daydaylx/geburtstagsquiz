@@ -85,9 +85,22 @@ export function App() {
       return (
         <div className="host-panel-content host-lobby-stage">
           <p className="host-section-label host-section-label--compact">Status</p>
-          <h2 className="host-stage-title">Verbunden mit TV-Display</h2>
+          <h2 className="host-stage-title">
+            {s.displayConnected ? "Verbunden mit TV-Display" : "Warte auf TV-Display"}
+          </h2>
+          {!s.displayConnected && s.displayConnectToken && (
+            <button
+              className="host-action-button host-action-button--secondary"
+              onClick={s.handleOpenDisplay}
+              type="button"
+            >
+              Display öffnen
+            </button>
+          )}
           <p className="host-lobby-hint">
-            Warte auf Spieler... Die Spieler können über den QR-Code am Fernseher beitreten.
+            {s.displayConnected
+              ? "Warte auf Spieler... Die Spieler können über den QR-Code am Fernseher beitreten."
+              : "Klicke auf 'Display öffnen' und ziehe das Fenster auf den HDMI-TV."}
           </p>
           <div className="host-lobby-stats">
             <div className="host-stat-card">
@@ -405,14 +418,33 @@ export function App() {
       {s.screen === "start" && !s.roomInfo ? (
         <section className="host-panel host-start-panel">
           <div className="host-start-container">
-            <h2 className="host-stage-title host-stage-title--hero">
-              {s.isConnectingHost ? "Verbindung wird hergestellt..." : "Warte auf Host-Verbindung"}
-            </h2>
-            <p className="host-start-hint">
-              {urlParams.get("hostToken")
-                ? "Der Server koppelt dein Gerät gerade als Spielleiter."
-                : "Bitte scanne den Host-QR-Code auf dem TV-Display, um das Quiz zu steuern."}
-            </p>
+            {urlParams.get("hostToken") ? (
+              <>
+                <h2 className="host-stage-title host-stage-title--hero">
+                  {s.isConnectingHost
+                    ? "Verbindung wird hergestellt..."
+                    : "Warte auf Host-Verbindung"}
+                </h2>
+                <p className="host-start-hint">
+                  Der Server koppelt dein Gerät gerade als Spielleiter.
+                </p>
+              </>
+            ) : (
+              <>
+                <h2 className="host-stage-title host-stage-title--hero">Geburtstagsquiz</h2>
+                <p className="host-start-hint">
+                  Erstelle einen Raum, dann öffne das Display-Fenster auf dem HDMI-TV.
+                </p>
+                <button
+                  className="host-action-button host-action-button--primary"
+                  disabled={s.isConnectingHost}
+                  onClick={s.handleCreateRoom}
+                  type="button"
+                >
+                  {s.isConnectingHost ? "Erstelle Raum..." : "Raum erstellen"}
+                </button>
+              </>
+            )}
           </div>
         </section>
       ) : s.roomInfo ? (

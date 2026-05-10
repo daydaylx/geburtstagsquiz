@@ -2,10 +2,7 @@ import type { EventName } from "@quiz/shared-protocol";
 import { EVENTS } from "@quiz/shared-protocol";
 import type { ClientRole } from "@quiz/shared-types";
 
-export function isEventAllowedForRole(
-  event: EventName,
-  role: ClientRole | null,
-): boolean {
+export function isEventAllowedForRole(event: EventName, role: ClientRole | null): boolean {
   const hostOnlyEvents: EventName[] = [
     EVENTS.GAME_START,
     EVENTS.GAME_NEXT_QUESTION,
@@ -21,16 +18,21 @@ export function isEventAllowedForRole(
     EVENTS.NEXT_QUESTION_READY,
     EVENTS.CATEGORY_VOTE,
   ];
-  const displayOnlyEvents: EventName[] = [EVENTS.DISPLAY_CREATE_ROOM];
+  const displayOnlyEvents: EventName[] = [EVENTS.DISPLAY_CREATE_ROOM, EVENTS.DISPLAY_CONNECT_ROOM];
 
   if (role === "display") {
-    return ![...hostOnlyEvents, ...playerOnlyEvents].includes(event);
+    return ![...hostOnlyEvents, ...playerOnlyEvents, EVENTS.HOST_CREATE_ROOM].includes(event);
   }
   if (role === "host") {
     return ![...playerOnlyEvents, ...displayOnlyEvents].includes(event);
   }
   if (role === "player") {
-    return ![...hostOnlyEvents, ...displayOnlyEvents, EVENTS.HOST_CONNECT].includes(event);
+    return ![
+      ...hostOnlyEvents,
+      ...displayOnlyEvents,
+      EVENTS.HOST_CONNECT,
+      EVENTS.HOST_CREATE_ROOM,
+    ].includes(event);
   }
   return true;
 }

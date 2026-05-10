@@ -1,4 +1,4 @@
-import { useEffectEvent, useRef, useState } from "react";
+import { useEffect, useEffectEvent, useRef, useState } from "react";
 
 import {
   EVENTS,
@@ -428,7 +428,9 @@ export function usePlayerSession(deps: {
     }
   });
 
-  onMessage(handleServerMessage);
+  useEffect(() => {
+    onMessage(handleServerMessage);
+  }, [onMessage, handleServerMessage]);
 
   const isJoiningRef = useRef(false);
 

@@ -158,9 +158,12 @@ export const NumberAnswerSchema = z
 export const RankingAnswerSchema = z
   .object({
     type: z.literal("ranking"),
-    value: z.array(z.string().min(1)).min(1).refine((arr) => new Set(arr).size === arr.length, {
-      message: "Ranking items must be unique",
-    }),
+    value: z
+      .array(z.string().min(1))
+      .min(1)
+      .refine((arr) => new Set(arr).size === arr.length, {
+        message: "Ranking items must be unique",
+      }),
   })
   .strict();
 
@@ -359,6 +362,44 @@ export const HostConnectedPayloadSchema = z
     joinCode: joinCodeSchema,
     roomState: RoomStateSchema,
     gameState: GameStateSchema.nullable().optional(),
+  })
+  .strict();
+
+export const HostCreateRoomPayloadSchema = z
+  .object({
+    clientInfo: ClientInfoSchema.optional(),
+  })
+  .strict();
+
+export const HostRoomCreatedPayloadSchema = z
+  .object({
+    roomId: idSchema,
+    hostSessionId: idSchema,
+    joinCode: joinCodeSchema,
+    displayConnectToken: idSchema,
+  })
+  .strict();
+
+export const HostDisplayPairedPayloadSchema = z
+  .object({
+    displayConnected: z.boolean(),
+  })
+  .strict();
+
+export const DisplayConnectRoomPayloadSchema = z
+  .object({
+    roomId: idSchema,
+    displayConnectToken: idSchema,
+  })
+  .strict();
+
+export const DisplayRoomConnectedPayloadSchema = z
+  .object({
+    roomId: idSchema,
+    displaySessionId: idSchema,
+    displayToken: idSchema,
+    joinCode: joinCodeSchema,
+    hostConnected: z.boolean(),
   })
   .strict();
 
@@ -734,10 +775,12 @@ export const ErrorPayloadSchema = z
 
 export const DISPLAY_TO_SERVER_EVENT_SCHEMAS = {
   [EVENTS.DISPLAY_CREATE_ROOM]: DisplayCreateRoomPayloadSchema,
+  [EVENTS.DISPLAY_CONNECT_ROOM]: DisplayConnectRoomPayloadSchema,
   [EVENTS.CONNECTION_RESUME]: ConnectionResumePayloadSchema,
 } as const;
 
 export const HOST_TO_SERVER_EVENT_SCHEMAS = {
+  [EVENTS.HOST_CREATE_ROOM]: HostCreateRoomPayloadSchema,
   [EVENTS.HOST_CONNECT]: HostConnectPayloadSchema,
   [EVENTS.CONNECTION_RESUME]: ConnectionResumePayloadSchema,
   [EVENTS.ROOM_SETTINGS_UPDATE]: RoomSettingsUpdatePayloadSchema,
@@ -767,6 +810,7 @@ export const CLIENT_TO_SERVER_EVENT_SCHEMAS = {
 export const SERVER_TO_DISPLAY_EVENT_SCHEMAS = {
   [EVENTS.DISPLAY_ROOM_CREATED]: DisplayRoomCreatedPayloadSchema,
   [EVENTS.DISPLAY_HOST_PAIRED]: DisplayHostPairedPayloadSchema,
+  [EVENTS.DISPLAY_ROOM_CONNECTED]: DisplayRoomConnectedPayloadSchema,
   [EVENTS.CONNECTION_ACK]: ConnectionAckPayloadSchema,
   [EVENTS.CONNECTION_RESUMED]: ConnectionResumedPayloadSchema,
   [EVENTS.LOBBY_UPDATE]: LobbyUpdatePayloadSchema,
@@ -787,6 +831,8 @@ export const SERVER_TO_DISPLAY_EVENT_SCHEMAS = {
 
 export const SERVER_TO_HOST_EVENT_SCHEMAS = {
   [EVENTS.HOST_CONNECTED]: HostConnectedPayloadSchema,
+  [EVENTS.HOST_ROOM_CREATED]: HostRoomCreatedPayloadSchema,
+  [EVENTS.HOST_DISPLAY_PAIRED]: HostDisplayPairedPayloadSchema,
   [EVENTS.CATALOG_SUMMARY]: CatalogSummaryPayloadSchema,
   [EVENTS.CONNECTION_ACK]: ConnectionAckPayloadSchema,
   [EVENTS.CONNECTION_RESUMED]: ConnectionResumedPayloadSchema,
@@ -843,6 +889,11 @@ export type ConnectionResumedPayload = z.infer<typeof ConnectionResumedPayloadSc
 export type DisplayCreateRoomPayload = z.infer<typeof DisplayCreateRoomPayloadSchema>;
 export type DisplayRoomCreatedPayload = z.infer<typeof DisplayRoomCreatedPayloadSchema>;
 export type DisplayHostPairedPayload = z.infer<typeof DisplayHostPairedPayloadSchema>;
+export type DisplayConnectRoomPayload = z.infer<typeof DisplayConnectRoomPayloadSchema>;
+export type DisplayRoomConnectedPayload = z.infer<typeof DisplayRoomConnectedPayloadSchema>;
+export type HostCreateRoomPayload = z.infer<typeof HostCreateRoomPayloadSchema>;
+export type HostRoomCreatedPayload = z.infer<typeof HostRoomCreatedPayloadSchema>;
+export type HostDisplayPairedPayload = z.infer<typeof HostDisplayPairedPayloadSchema>;
 export type HostConnectPayload = z.infer<typeof HostConnectPayloadSchema>;
 export type HostConnectedPayload = z.infer<typeof HostConnectedPayloadSchema>;
 export type CatalogSummaryPayload = z.infer<typeof CatalogSummaryPayloadSchema>;

@@ -179,6 +179,16 @@ export function useDisplaySession(deps: {
             roomId: stored.roomId,
             sessionId: stored.displaySessionId,
           });
+        } else {
+          const urlParams = new URLSearchParams(window.location.search);
+          const displayToken = urlParams.get("displayToken");
+          const roomId = urlParams.get("roomId");
+          if (displayToken && roomId) {
+            sendEvent(EVENTS.DISPLAY_CONNECT_ROOM, {
+              roomId,
+              displayConnectToken: displayToken,
+            });
+          }
         }
         return;
       }
@@ -241,6 +251,27 @@ export function useDisplaySession(deps: {
         setIsCreatingRoom(false);
         isCreatingRoomRef.current = false;
         generateQrCodes(payload.joinCode, payload.hostToken);
+        setScreen("lobby");
+        return;
+      }
+
+      case EVENTS.DISPLAY_ROOM_CONNECTED: {
+        const payload = parsedEnvelope.data.payload;
+        const session: DisplayStoredSession = {
+          roomId: payload.roomId,
+          displaySessionId: payload.displaySessionId,
+          displayToken: payload.displayToken,
+        };
+        updateStoredSession(session);
+        setRoomInfo({
+          roomId: payload.roomId,
+          joinCode: payload.joinCode,
+          hostToken: "",
+          displaySessionId: payload.displaySessionId,
+          displayToken: payload.displayToken,
+        });
+        setHostPaired(payload.hostConnected);
+        generateQrCodes(payload.joinCode, "");
         setScreen("lobby");
         return;
       }
@@ -398,7 +429,9 @@ export function useDisplaySession(deps: {
     }
   });
 
-  onMessage(handleServerMessage);
+  useEffect(() => {
+    onMessage(handleServerMessage);
+  }, [onMessage, handleServerMessage]);
 
   useEffect(() => {
     return () => {

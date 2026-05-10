@@ -29,6 +29,15 @@ export function applyFallbackPlayerOrigin(url: URL): void {
   url.port = "";
 }
 
+export function getDisplayUrl(displayConnectToken: string, roomId: string): string {
+  const envUrl = getViteEnv("VITE_DISPLAY_URL");
+  const base = envUrl ?? `${window.location.protocol}//${window.location.hostname}:5175`;
+  const url = new URL(base);
+  url.searchParams.set("displayToken", displayConnectToken);
+  url.searchParams.set("roomId", roomId);
+  return url.toString();
+}
+
 export function getPlayerJoinUrl(joinCode: string): string {
   const envUrl = getViteEnv("VITE_PLAYER_JOIN_BASE_URL");
   if (envUrl) {

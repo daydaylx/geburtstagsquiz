@@ -2,7 +2,8 @@
 import process from "node:process";
 import { randomUUID } from "node:crypto";
 
-const WS_URL = process.env.SMOKE_WS_URL ?? process.env.VITE_SERVER_SOCKET_URL ?? "ws://localhost:3001";
+const WS_URL =
+  process.env.SMOKE_WS_URL ?? process.env.VITE_SERVER_SOCKET_URL ?? "ws://localhost:3001";
 const TIMEOUT_MS = Number(process.env.SMOKE_TIMEOUT_MS ?? "15000");
 
 const WebSocketCtor =
@@ -13,7 +14,10 @@ function withTimeout(promise, label) {
   return Promise.race([
     promise.finally(() => clearTimeout(timeout)),
     new Promise((_, reject) => {
-      timeout = setTimeout(() => reject(new Error(`${label} timed out after ${TIMEOUT_MS}ms`)), TIMEOUT_MS);
+      timeout = setTimeout(
+        () => reject(new Error(`${label} timed out after ${TIMEOUT_MS}ms`)),
+        TIMEOUT_MS,
+      );
     }),
   ]);
 }
@@ -127,9 +131,7 @@ function makeSmokeGamePlan(catalog) {
     categoryIds: catalog.categories.map((category) => category.id),
     questionTypes: catalog.questionTypes
       .map((entry) => entry.type)
-      .filter((type) =>
-        ["multiple_choice", "logic", "majority_guess", "estimate"].includes(type),
-      ),
+      .filter((type) => ["multiple_choice", "logic", "majority_guess", "estimate"].includes(type)),
     timerMs: 90000,
     revealDurationMs: 30000,
     revealMode: "manual_with_fallback",
@@ -371,9 +373,63 @@ try {
   clients.push(await resumeSession("host-resume", hostConnected.hostSessionId, room.roomId));
   clients.push(await resumeSession("player-1-resume", joined1.sessionId, room.roomId));
 
-  console.log("smoke ok: 90s timer, reveal readiness, scoreboard after question 5, final standings, reconnect");
+  console.log(
+    "smoke ok: 90s timer, reveal readiness, scoreboard after question 5, final standings, reconnect",
+  );
 } finally {
   for (const client of clients.reverse()) {
+    client.close();
+  }
+}
+
+// ── Host-first Flow Smoke Test ──────────────────────────────────────────────
+const hostFirstClients = [];
+try {
+  const host2 = await new SmokeClient("host-first-host").connect();
+  hostFirstClients.push(host2);
+  host2.send("host:create-room", { clientInfo: { deviceType: "smoke", appVersion: "local" } });
+  const roomCreated = await host2.waitFor("host:room-created");
+  await host2.waitFor("catalog:summary");
+
+  if (!roomCreated.displayConnectToken) throw new Error("Missing displayConnectToken");
+  if (!roomCreated.joinCode) throw new Error("Missing joinCode");
+  if (!roomCreated.roomId) throw new Error("Missing roomId");
+
+  const display2 = await new SmokeClient("host-first-display").connect();
+  hostFirstClients.push(display2);
+  display2.send("display:connect-room", {
+    roomId: roomCreated.roomId,
+    displayConnectToken: roomCreated.displayConnectToken,
+  });
+  const displayConnected = await display2.waitFor("display:room-connected");
+  if (!displayConnected.hostConnected) throw new Error("hostConnected must be true on display");
+  if (displayConnected.joinCode !== roomCreated.joinCode)
+    throw new Error("joinCode mismatch between host and display");
+
+  const pairedMsg = await host2.waitFor("host:display-paired");
+  if (!pairedMsg.displayConnected)
+    throw new Error("host:display-paired must have displayConnected=true");
+
+  const player3 = await new SmokeClient("host-first-player").connect();
+  hostFirstClients.push(player3);
+  player3.send("room:join", { joinCode: roomCreated.joinCode, playerName: "Smoke HF" });
+  await player3.waitFor("player:joined");
+
+  await host2.waitFor("lobby:update", (p) => p.players.some((pl) => pl.name === "Smoke HF"));
+
+  const display2Reuse = await new SmokeClient("host-first-display-resume").connect();
+  hostFirstClients.push(display2Reuse);
+  display2Reuse.send("connection:resume", {
+    roomId: roomCreated.roomId,
+    sessionId: displayConnected.displaySessionId,
+  });
+  await display2Reuse.waitFor("connection:resumed", (p) => p.role === "display");
+
+  console.log(
+    "smoke ok: host-first flow — room creation, display connect, player join, display reconnect",
+  );
+} finally {
+  for (const client of hostFirstClients.reverse()) {
     client.close();
   }
 }

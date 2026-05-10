@@ -37,6 +37,8 @@ function makeRoom(overrides: Partial<RoomRecord> = {}): RoomRecord {
     hostTokenUsed: false,
     displayToken: "display-tok",
     displaySessionId: "display-sess-id",
+    displayConnectToken: null,
+    displayConnectTokenUsed: false,
     settings: { showAnswerTextOnPlayerDevices: false },
     players: [],
     quiz: null,

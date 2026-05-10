@@ -16,6 +16,7 @@ import {
   type ScoreUpdatePayload,
   type VoteUpdatePayload,
 } from "@quiz/shared-protocol";
+import { getDisplayUrl } from "../lib/helpers.js";
 import { GameState, type GamePlan, type GamePlanPresetId } from "@quiz/shared-types";
 
 import { buildPresetGamePlan, createHostClientInfo } from "../lib/game-plan-drafts.js";
@@ -65,6 +66,8 @@ export interface UseHostSessionReturn {
   lobby: LobbyUpdatePayload | null;
   qrCodeDataUrl: string | null;
   isConnectingHost: boolean;
+  displayConnected: boolean;
+  displayConnectToken: string | null;
   question: QuestionShowPayload | null;
   remainingMs: number;
   answerProgress: AnswerProgressPayload | null;
@@ -85,6 +88,8 @@ export interface UseHostSessionReturn {
   setConfirmFinishNow: (v: boolean) => void;
   confirmRemovePlayerId: string | null;
   setConfirmRemovePlayerId: (v: string | null) => void;
+  handleCreateRoom: () => void;
+  handleOpenDisplay: () => void;
   handleRestartInfo: () => void;
   handleStartGame: () => void;
   handleAnswerTextSettingChange: (enabled: boolean) => void;
@@ -144,6 +149,8 @@ export function useHostSession(deps: {
   const [showAnswerTextOnPlayerDevices, setShowAnswerTextOnPlayerDevices] = useState(false);
   const [confirmFinishNow, setConfirmFinishNow] = useState(false);
   const [confirmRemovePlayerId, setConfirmRemovePlayerId] = useState<string | null>(null);
+  const [displayConnected, setDisplayConnected] = useState(false);
+  const [displayConnectToken, setDisplayConnectToken] = useState<string | null>(null);
 
   const hostSessionRef = useRef<HostStoredSession | null>(initialSession);
   const intentionalReconnectRef = useRef(false);
@@ -177,6 +184,8 @@ export function useHostSession(deps: {
     setSelectedPlanMode("normal_evening");
     setCountdownSeconds(0);
     setShowAnswerTextOnPlayerDevices(false);
+    setDisplayConnected(false);
+    setDisplayConnectToken(null);
   });
 
   const connectHostOnCurrentSocket = useEffectEvent(() => {
@@ -218,6 +227,22 @@ export function useHostSession(deps: {
           pendingHostConnectRef.current = false;
           connectHostOnCurrentSocket();
         }
+        return;
+
+      case EVENTS.HOST_ROOM_CREATED: {
+        const p = parsedEnvelope.data.payload;
+        updateStoredSession({ roomId: p.roomId, sessionId: p.hostSessionId });
+        setRoomInfo({ roomId: p.roomId, joinCode: p.joinCode });
+        setDisplayConnectToken(p.displayConnectToken);
+        setShowAnswerTextOnPlayerDevices(false);
+        setScreen("lobby");
+        setIsConnectingHost(false);
+        setNotice(null);
+        return;
+      }
+
+      case EVENTS.HOST_DISPLAY_PAIRED:
+        setDisplayConnected(parsedEnvelope.data.payload.displayConnected);
         return;
 
       case EVENTS.HOST_CONNECTED:
@@ -271,6 +296,7 @@ export function useHostSession(deps: {
 
       case EVENTS.LOBBY_UPDATE:
         setLobby(parsedEnvelope.data.payload);
+        setDisplayConnected(parsedEnvelope.data.payload.displayConnected);
         setShowAnswerTextOnPlayerDevices(
           parsedEnvelope.data.payload.settings.showAnswerTextOnPlayerDevices,
         );
@@ -384,7 +410,9 @@ export function useHostSession(deps: {
     }
   });
 
-  onMessage(handleServerMessage);
+  useEffect(() => {
+    onMessage(handleServerMessage);
+  }, [onMessage, handleServerMessage]);
 
   useEffect(() => {
     if (!roomInfo?.joinCode) {
@@ -408,10 +436,32 @@ export function useHostSession(deps: {
     return () => window.clearInterval(timer);
   }, [screen]);
 
+  const handleCreateRoom = useEffectEvent(() => {
+    setIsConnectingHost(true);
+    setNotice(null);
+    const sent = sendEvent(EVENTS.HOST_CREATE_ROOM, { clientInfo: createHostClientInfo() });
+    if (!sent) {
+      setIsConnectingHost(false);
+      setNotice({ kind: "error", text: "Server ist nicht verbunden. Bitte kurz warten." });
+    }
+  });
+
+  const handleOpenDisplay = useEffectEvent(() => {
+    if (!roomInfo || !displayConnectToken) return;
+    const url = getDisplayUrl(displayConnectToken, roomInfo.roomId);
+    const popup = window.open(url, "_blank", "noopener");
+    if (!popup) {
+      setNotice({
+        kind: "info",
+        text: `Display-Fenster wurde blockiert. Bitte manuell öffnen: ${url}`,
+      });
+    }
+  });
+
   const handleRestartInfo = useEffectEvent(() => {
     setNotice({
       kind: "info",
-      text: "Um ein neues Spiel zu starten, klicke bitte am TV-Bildschirm auf 'Neues Quiz'.",
+      text: "Seite neu laden und einen neuen Raum erstellen.",
     });
   });
 
@@ -490,6 +540,8 @@ export function useHostSession(deps: {
     lobby,
     qrCodeDataUrl,
     isConnectingHost,
+    displayConnected,
+    displayConnectToken,
     question,
     remainingMs,
     answerProgress,
@@ -510,6 +562,8 @@ export function useHostSession(deps: {
     setConfirmFinishNow,
     confirmRemovePlayerId,
     setConfirmRemovePlayerId,
+    handleCreateRoom,
+    handleOpenDisplay,
     handleRestartInfo,
     handleStartGame,
     handleAnswerTextSettingChange,
