@@ -16,7 +16,8 @@ Dieses Repo ist kein Produkt, keine Plattform und kein langfristiges System. Zie
 ## Wofuer dieses Repo da ist
 
 - Host erstellt einen Raum
-- Display/TV zeigt Host- und Player-QRs
+- Host zeigt Raumcode, Player-Link, Player-QR und Display-Status
+- Host oeffnet das Display als Popout fuer den HDMI-TV
 - Spieler treten mit dem Handy bei
 - Lobby aktualisiert sich live
 - Host behaelt Status, Fortschritt, Einstellungen und Spieler in einer uebersichtlichen Steueransicht im Blick
@@ -102,7 +103,7 @@ Fuer den Abendbetrieb gibt es ein einheitliches Startskript (`quiz.sh`), das alt
 ./quiz.sh
 ```
 
-Im Menue "Lokal" (localhost) oder "Tunnel" (quiz.disaai.de) waehlen. Ctrl+C stoppt alle Dienste sauber.
+Im Menue "Lokal", "Hybrid" oder "Tunnel" waehlen. Der Host ist der Einstieg unter `http://localhost:5173`; dort Raum erstellen und per Button "Display oeffnen" das TV-Fenster starten. Ctrl+C stoppt alle Dienste sauber.
 
 Fuer einen lokalen Protokoll-Smoke-Test bei laufendem Server:
 
@@ -110,7 +111,7 @@ Fuer einen lokalen Protokoll-Smoke-Test bei laufendem Server:
 corepack pnpm run smoke:local
 ```
 
-Der Test erstellt einen Display-Raum, koppelt den Host, liest den Fragenkatalog, startet einen 90s-Spielplan, prueft Reveal-Bereitschaft, Scoreboard nach Frage 5, Endstand und Resume-Snapshots.
+Der Test nutzt den Host-first Flow, verbindet das Display per `display:connect-room`, laesst zwei Player joinen, startet einen 90s-Spielplan, prueft Reveal-Bereitschaft, Scoreboard nach Frage 5, Endstand und Resume-Snapshots. Zusaetzlich prueft er den versteckten Display-first Fallback kurz weiter.
 
 ## Cloudflare Tunnel
 
@@ -125,6 +126,7 @@ Die passenden Beispielwerte stehen in `.env.local.example` und `.env.tunnel.exam
 
 - lokal: `VITE_DISPLAY_URL=http://localhost:5175`, `VITE_HOST_URL=http://localhost:5173`, `VITE_PLAYER_JOIN_BASE_URL=http://localhost:5174`, `VITE_SERVER_SOCKET_URL=ws://localhost:3001`
 - Tunnel: `VITE_DISPLAY_URL=https://tv.quiz.disaai.de`, `VITE_HOST_URL=https://host.quiz.disaai.de`, `VITE_PLAYER_JOIN_BASE_URL=https://play.quiz.disaai.de`, `VITE_SERVER_SOCKET_URL=wss://api.quiz.disaai.de`
+- Hybrid: Host und Display lokal, Player-Link/QR auf `https://play.quiz.disaai.de`, Player-WebSocket auf `wss://api.quiz.disaai.de`; siehe `.env.hybrid.example` und `quiz.sh`.
 
 Details stehen in `docs/DEPLOYMENT-CLOUDFLARE-TUNNEL.md`. Die Beispielconfig liegt in `deploy/cloudflare-tunnel.example.yml`; echte `.cloudflared/`-Configs und Credentials gehoeren nicht ins Repo.
 

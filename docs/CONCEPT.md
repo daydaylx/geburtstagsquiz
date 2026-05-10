@@ -6,14 +6,16 @@ Ein browserbasiertes Geburtstagsquiz fuer Gruppen mit getrennten Rollen:
 
 - **Display/TV**
   - Lobby
-  - Host- und Player-QRs
+  - Player-QR und Raumcode
   - Fragen
   - Timer
   - Aufloesung
   - Rangliste
 
 - **Host-Controller**
-  - Host-Kopplung
+  - Raum-Erstellung
+  - Display-Popout
+  - Player-Link und Player-QR
   - Spielstart
   - Lobby-Einstellungen
   - Fortschritt und Verbindungsstatus
@@ -35,18 +37,19 @@ Ein browserbasiertes Geburtstagsquiz fuer Gruppen mit getrennten Rollen:
 
 ## Standard-Ablauf
 
-1. Display/TV oeffnet `apps/web-display`.
-2. Display erstellt einen Raum.
-3. Server erzeugt Room-ID, Join-Code, Display-Session und Host-Token.
-4. Display zeigt Host-QR und Player-QR.
-5. Host koppelt sich ueber die Host-UI mit dem Raum.
-6. Spieler scannen den Player-QR oder geben den Join-Code ein.
-7. Server aktualisiert die Lobby live fuer Display, Host und Player.
-8. Host startet das Spiel.
-9. Display zeigt die Frage, Player antworten ueber Handys.
-10. Server wertet aus.
-11. Display, Host und Player sehen die Aufloesung; alle 5 echten Fragen folgt zusaetzlich die Rangliste.
-12. Player melden sich im Reveal und auf der Rangliste bereit fuer die naechste Frage.
+1. Host oeffnet `apps/web-host`.
+2. Host erstellt einen Raum.
+3. Server erzeugt Room-ID, Join-Code, Host-Session und Display-Kopplungstoken.
+4. Host zeigt Raumcode, Player-Link, Player-QR und Display-Status.
+5. Host oeffnet das Display als Popout fuer den HDMI-TV.
+6. Display verbindet sich automatisch mit dem Raum.
+7. Spieler scannen den Player-QR oder geben den Join-Code ein.
+8. Server aktualisiert die Lobby live fuer Display, Host und Player.
+9. Host startet das Spiel.
+10. Display zeigt die Frage, Player antworten ueber Handys.
+11. Server wertet aus.
+12. Display, Host und Player sehen die Aufloesung; alle 5 echten Fragen folgt zusaetzlich die Rangliste.
+13. Player melden sich im Reveal und auf der Rangliste bereit fuer die naechste Frage.
 
 ## Lokales Betriebsmodell
 
@@ -92,12 +95,14 @@ Diese Subdomains sind nur fuer den spaeteren Tunnelbetrieb gedacht. `disaai.de`,
 
 ### Display -> Server
 
-- Raum erstellen
+- Display mit Host-Raum verbinden
+- Raum erstellen nur als versteckter Fallback
 - Verbindung wieder aufnehmen
 
 ### Host -> Server
 
-- Host koppeln
+- Raum erstellen
+- Host koppeln nur als versteckter Legacy-Fallback
 - Spiel starten
 - Lobby-Einstellungen setzen
 - manuell weiterschalten, falls noetig

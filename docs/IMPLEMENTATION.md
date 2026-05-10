@@ -6,8 +6,8 @@ Gebaut wird kein grosses Quiz-System, sondern ein funktionierendes Geburtstagsqu
 
 Erfolg bedeutet:
 
-- Display/TV kann einen Raum erstellen und QR-Codes anzeigen.
-- Host kann sich mit dem Display-Raum koppeln.
+- Host kann einen Raum erstellen und zeigt Raumcode, Player-Link, Player-QR und Display-Status.
+- Host kann das Display als Popout fuer den HDMI-TV oeffnen.
 - Spieler koennen einfach joinen.
 - Fragen erscheinen vollstaendig auf dem Display/TV.
 - Host sieht Status, Fortschritt und Fallback-Aktionen.
@@ -39,31 +39,33 @@ Abnahme:
 
 ## Primaerer Spielablauf
 
-### 1. Display-Raum erstellen
+### 1. Host-Raum erstellen
 
 Sicherstellen:
 
-- Display sendet `display:create-room`.
-- Server erstellt Raum, Join-Code, Display-Session und Host-Token.
-- Display zeigt Host-QR und Player-QR.
+- Host sendet `host:create-room`.
+- Server erstellt Raum, Join-Code, Host-Session und Display-Kopplungstoken.
+- Host zeigt Raumcode, Player-Link, Player-QR und Display-Status.
 
 Abnahme:
 
-- Display zeigt einen Join-Code.
-- Host-QR zeigt auf Host-UI.
-- Player-QR zeigt auf Player-UI.
+- Host zeigt einen Join-Code.
+- Player-Link und Player-QR zeigen im Hybrid-/Partymodus auf `https://play.quiz.disaai.de`.
+- Kein Player-QR zeigt im Partybetrieb auf `localhost`.
 
-### 2. Host koppeln
+### 2. Display oeffnen
 
 Sicherstellen:
 
-- Host verbindet sich per `host:connect`.
-- Display erhaelt `display:host-paired`.
+- Host oeffnet das Display per Button "Display oeffnen".
+- Display verbindet sich per `display:connect-room`.
+- Host erhaelt `host:display-paired`.
 - Host sieht Raumstatus, Join-Code, Spieler und Einstellungen.
 
 Abnahme:
 
-- Host kann den vom Display erstellten Raum steuern.
+- Display zeigt nur Publikumssicht.
+- Display zeigt keine Host-Steuerung, keine Tokens und keine Spielplan-Interna.
 - Kein zweiter Raum entsteht versehentlich.
 
 ### 3. Spieler joinen

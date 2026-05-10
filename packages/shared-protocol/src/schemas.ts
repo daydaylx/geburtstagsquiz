@@ -297,6 +297,7 @@ export const ConnectionResumedPayloadSchema = z
     currentAnswer: AnswerSchema.nullable().optional(),
     hostConnected: z.boolean().optional(),
     hostToken: z.string().nullable().optional(),
+    displayConnectToken: z.string().nullable().optional(),
   })
   .strict();
 
@@ -362,6 +363,7 @@ export const HostConnectedPayloadSchema = z
     joinCode: joinCodeSchema,
     roomState: RoomStateSchema,
     gameState: GameStateSchema.nullable().optional(),
+    displayConnectToken: z.string().nullable().optional(),
   })
   .strict();
 
@@ -452,7 +454,7 @@ export const GameStartedPayloadSchema = z
   .object({
     roomId: idSchema,
     roomState: z.literal(RoomState.InGame),
-    gameState: z.literal(GameState.Idle),
+    gameState: GameStateSchema,
     questionIndex: z.number().int().nonnegative(),
     totalQuestionCount: z.number().int().nonnegative(),
     resolvedGamePlan: ResolvedGamePlanSchema,

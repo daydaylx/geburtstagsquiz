@@ -16,7 +16,7 @@ import {
 } from "@quiz/shared-protocol";
 import { GameState, RoomState } from "@quiz/shared-types";
 
-import { getHostJoinUrl, getPlayerJoinUrl } from "../lib/helpers.js";
+import { getPlayerJoinUrl } from "../lib/helpers.js";
 import {
   clearDisplayStoredSession,
   loadDisplayStoredSession,
@@ -41,7 +41,6 @@ export interface UseDisplaySessionReturn {
   hostPaired: boolean;
   lobby: LobbyUpdatePayload | null;
   playerQrUrl: string | null;
-  hostQrUrl: string | null;
   notice: string | null;
   isCreatingRoom: boolean;
   question: QuestionShowPayload | null;
@@ -59,6 +58,7 @@ export interface UseDisplaySessionReturn {
   displayShowLevel: DisplayShowLevel;
   isFadingOut: boolean;
   votes: Record<string, number>;
+  canCreateRoomFromDisplay: boolean;
   handleCreateRoom: () => void;
 }
 
@@ -73,13 +73,17 @@ export function useDisplaySession(deps: {
 }): UseDisplaySessionReturn {
   const { sendEvent, onMessage, notifyConnected, connectionState } = deps;
   const initialSession = loadDisplayStoredSession();
+  const initialUrlParams = new URLSearchParams(window.location.search);
+  const canCreateRoomFromDisplay =
+    initialUrlParams.get("displayCreate") === "1" ||
+    ((import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env
+      ?.VITE_ENABLE_DISPLAY_CREATE_ROOM === "true");
 
   const [screen, setScreen] = useState<DisplayScreen>("setup");
   const [roomInfo, setRoomInfo] = useState<DisplayRoomInfo | null>(null);
   const [hostPaired, setHostPaired] = useState(false);
   const [lobby, setLobby] = useState<LobbyUpdatePayload | null>(null);
   const [playerQrUrl, setPlayerQrUrl] = useState<string | null>(null);
-  const [hostQrUrl, setHostQrUrl] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [isCreatingRoom, setIsCreatingRoom] = useState(false);
 
@@ -137,7 +141,6 @@ export function useDisplaySession(deps: {
     setHostPaired(false);
     setLobby(null);
     setPlayerQrUrl(null);
-    setHostQrUrl(null);
     setIsCreatingRoom(false);
     setQuestion(null);
     setRemainingMs(0);
@@ -153,17 +156,10 @@ export function useDisplaySession(deps: {
     displaySessionRef.current = null;
   });
 
-  const generateQrCodes = useEffectEvent((joinCode: string, hostToken: string) => {
+  const generateQrCodes = useEffectEvent((joinCode: string, _hostToken: string) => {
     QRCode.toDataURL(getPlayerJoinUrl(joinCode), { margin: 1, width: 400 })
       .then((url) => setPlayerQrUrl(url))
       .catch(() => setPlayerQrUrl(null));
-    if (hostToken) {
-      QRCode.toDataURL(getHostJoinUrl(hostToken), { margin: 1, width: 400 })
-        .then((url) => setHostQrUrl(url))
-        .catch(() => setHostQrUrl(null));
-    } else {
-      setHostQrUrl(null);
-    }
   });
 
   const handleServerMessage = useEffectEvent((rawMessage: string) => {
@@ -181,7 +177,8 @@ export function useDisplaySession(deps: {
           });
         } else {
           const urlParams = new URLSearchParams(window.location.search);
-          const displayToken = urlParams.get("displayToken");
+          const displayToken =
+            urlParams.get("displayConnectToken") ?? urlParams.get("displayToken");
           const roomId = urlParams.get("roomId");
           if (displayToken && roomId) {
             sendEvent(EVENTS.DISPLAY_CONNECT_ROOM, {
@@ -465,7 +462,6 @@ export function useDisplaySession(deps: {
     hostPaired,
     lobby,
     playerQrUrl,
-    hostQrUrl,
     notice,
     isCreatingRoom,
     question,
@@ -483,6 +479,7 @@ export function useDisplaySession(deps: {
     displayShowLevel,
     isFadingOut,
     votes,
+    canCreateRoomFromDisplay,
     handleCreateRoom,
   };
 }

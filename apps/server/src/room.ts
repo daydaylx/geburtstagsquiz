@@ -207,6 +207,7 @@ export function handleDisplayCreateRoom(
     hostDisconnectTimer: null,
     playerDisconnectTimers: new Map(),
     countdownTimer: null,
+    countdownStartedAt: null,
     questionTimer: null,
     timerTickInterval: null,
     revealTimer: null,

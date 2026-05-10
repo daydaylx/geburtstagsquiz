@@ -12,7 +12,11 @@ import type { Question, ResolvedGamePlan, SubmittedAnswer } from "@quiz/shared-t
 import { PROTOCOL_ERROR_CODES, sendEvent, sendProtocolError } from "./protocol.js";
 import type { RoomRecord, TrackedWebSocket } from "./server-types.js";
 import { roomsById, sessionsById, logRoomEvent } from "./state.js";
-import { broadcastToAllRoomClients, broadcastToHostAndDisplay } from "./connection.js";
+import {
+  broadcastLobbyUpdate,
+  broadcastToAllRoomClients,
+  broadcastToHostAndDisplay,
+} from "./connection.js";
 import { getDefaultQuiz } from "./quiz-data.js";
 import { isAnswerValidForQuestion } from "./answer-validation.js";
 import { removePlayerFromRoom } from "./room.js";
@@ -84,32 +88,8 @@ function sendQuestionToRoom(
 
 export function handleGameStart(socket: TrackedWebSocket, payload: GameStartPayload): void {
   const { roomId } = payload;
-  const session = socket.sessionId ? sessionsById.get(socket.sessionId) : null;
-
-  if (!session || session.role !== "host") {
-    sendProtocolError(
-      socket,
-      PROTOCOL_ERROR_CODES.NOT_AUTHORIZED,
-      "Only the host can start the game",
-      {
-        event: EVENTS.GAME_START,
-        roomId,
-        questionId: null,
-      },
-    );
-    return;
-  }
-
-  const room = roomsById.get(roomId);
-
-  if (!room) {
-    sendProtocolError(socket, PROTOCOL_ERROR_CODES.ROOM_NOT_FOUND, "Room not found", {
-      event: EVENTS.GAME_START,
-      roomId,
-      questionId: null,
-    });
-    return;
-  }
+  const room = getAuthorizedHostRoom(socket, roomId, EVENTS.GAME_START);
+  if (!room) return;
 
   if (room.state !== RoomState.Waiting) {
     sendProtocolError(
@@ -200,32 +180,8 @@ export function handleGameStart(socket: TrackedWebSocket, payload: GameStartPayl
 }
 
 export function handleGameNextQuestion(socket: TrackedWebSocket, roomId: string): void {
-  const session = socket.sessionId ? sessionsById.get(socket.sessionId) : null;
-
-  if (!session || session.role !== "host") {
-    sendProtocolError(
-      socket,
-      PROTOCOL_ERROR_CODES.NOT_AUTHORIZED,
-      "Only the host can advance questions",
-      {
-        event: EVENTS.GAME_NEXT_QUESTION,
-        roomId,
-        questionId: null,
-      },
-    );
-    return;
-  }
-
-  const room = roomsById.get(roomId);
-
-  if (!room) {
-    sendProtocolError(socket, PROTOCOL_ERROR_CODES.ROOM_NOT_FOUND, "Room not found", {
-      event: EVENTS.GAME_NEXT_QUESTION,
-      roomId,
-      questionId: null,
-    });
-    return;
-  }
+  const room = getAuthorizedHostRoom(socket, roomId, EVENTS.GAME_NEXT_QUESTION);
+  if (!room) return;
 
   if (room.state !== RoomState.InGame) {
     sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "No game in progress", {
@@ -391,20 +347,7 @@ export function handlePlayerRemove(
   }
 
   removePlayerFromRoom(room, payload.playerId);
-  broadcastToAllRoomClients(room, EVENTS.LOBBY_UPDATE, {
-    roomId: room.id,
-    roomState: room.state,
-    hostConnected: room.hostConnected,
-    displayConnected: room.displayConnected,
-    settings: room.settings,
-    players: room.players.map((entry) => ({
-      playerId: entry.id,
-      name: entry.name,
-      connected: entry.state !== PlayerState.Disconnected,
-      score: entry.score,
-    })),
-    playerCount: room.players.length,
-  });
+  broadcastLobbyUpdate(room);
   handleAnswerEligibilityChanged(room);
   handleScoreboardReadinessChanged(room);
 }
@@ -668,6 +611,7 @@ function startQuestion(room: RoomRecord): void {
     const countdownMs = 2_500;
     room.gameState = GameState.Idle;
     room.questionStartedAt = null;
+    room.countdownStartedAt = Date.now();
     broadcastToAllRoomClients(room, EVENTS.QUESTION_COUNTDOWN, {
       roomId: room.id,
       questionIndex: getVisibleQuestionIndex(room),
@@ -679,6 +623,7 @@ function startQuestion(room: RoomRecord): void {
 
     room.countdownTimer = setTimeout(() => {
       room.countdownTimer = null;
+      room.countdownStartedAt = null;
       if (
         room.state !== RoomState.InGame ||
         !room.quiz ||

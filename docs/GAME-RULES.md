@@ -75,8 +75,8 @@ Im mitgelieferten Standard-Quiz sind die Fragen fest bepunktet. Fuer den Abend w
 
 Das Display/TV:
 
-- erstellt den primaeren Raum
-- zeigt Host- und Player-QRs
+- verbindet sich mit dem vom Host erstellten Raum
+- zeigt Player-QR und Raumcode
 - zeigt Join-Code und Lobby fuer den Raum
 - zeigt Fragen gross und lesbar
 - zeigt Aufloesung, Rangliste und Endstand
@@ -86,7 +86,9 @@ Das Display/TV:
 
 Der Host:
 
-- koppelt sich per Host-QR oder Host-Token mit dem Display-Raum
+- erstellt den Raum
+- zeigt Raumcode, Player-Link, Player-QR und Display-Status
+- oeffnet das Display-Fenster fuer den HDMI-TV
 - waehlt vor Spielstart Preset oder freie Auswahl
 - sieht den vom Server gelieferten Fragenkatalog als Grundlage fuer Kategorien und Fragetypen
 - startet das Spiel mit finalem Spielplan
@@ -105,7 +107,7 @@ Die Spieler:
 
 - treten per Code oder QR bei
 - geben einen Namen ein
-- schauen waehrend aktiver Fragen auf den Host-Bildschirm
+- schauen waehrend aktiver Fragen auf den Display/TV-Bildschirm
 - senden eine Antwort pro Frage
 - sehen, ob die Antwort angenommen wurde
 - sehen bei der Aufloesung richtig/falsch, Punkte fuer die Frage, bei faelligen Zwischenstaenden die Rangliste und am Schluss den Endstand

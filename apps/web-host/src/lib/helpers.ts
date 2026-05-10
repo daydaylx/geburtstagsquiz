@@ -33,7 +33,7 @@ export function getDisplayUrl(displayConnectToken: string, roomId: string): stri
   const envUrl = getViteEnv("VITE_DISPLAY_URL");
   const base = envUrl ?? `${window.location.protocol}//${window.location.hostname}:5175`;
   const url = new URL(base);
-  url.searchParams.set("displayToken", displayConnectToken);
+  url.searchParams.set("displayConnectToken", displayConnectToken);
   url.searchParams.set("roomId", roomId);
   return url.toString();
 }

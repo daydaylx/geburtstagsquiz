@@ -31,21 +31,21 @@ cleanup() {
   [[ "$_cleanup_done" == "1" ]] && return
   _cleanup_done=1
   trap - EXIT INT TERM
-  printf "\n${YELLOW}${BOLD}⏹  Stoppe alle Dienste...${NC}\n"
+  printf "\n%s%s⏹  Stoppe alle Dienste...%s\n" "$YELLOW" "$BOLD" "$NC"
   local f pid
   for f in "$STATE_DIR"/*.pid; do
     [[ -f "$f" ]] || continue
-    pid="$(cat "$f" 2>/dev/null || true)"
+    pid="$(read_pid_file "$f")" || continue
     terminate_process "$pid"
   done
   sleep 2
   for f in "$STATE_DIR"/*.pid; do
     [[ -f "$f" ]] || continue
-    pid="$(cat "$f" 2>/dev/null || true)"
+    pid="$(read_pid_file "$f")" || continue
     process_running "$pid" && force_kill_process "$pid"
     rm -f "$f"
   done
-  printf "${GREEN}✓  Gestoppt.${NC}\n\n"
+  printf "%s✓  Gestoppt.%s\n\n" "$GREEN" "$NC"
 }
 
 # ── Hilfsfunktionen ────────────────────────────────────────────────────────────
@@ -71,12 +71,25 @@ force_kill_process() {
   kill -KILL -- "-$pid" 2>/dev/null || kill -KILL "$pid" 2>/dev/null || true
 }
 
+read_pid_file() {
+  local f="$1" pid
+  [[ -f "$f" ]] || return 1
+  pid="$(cat "$f" 2>/dev/null || true)"
+  if is_pid "$pid"; then
+    printf "%s" "$pid"
+    return 0
+  fi
+  fail "Ignoriere ungueltige PID-Datei: $f (${pid:-leer})"
+  rm -f "$f"
+  return 1
+}
+
 stop_previous() {
   local f pid found=0
   for f in "$STATE_DIR"/*.pid; do
     [[ -f "$f" ]] || continue
     found=1
-    pid="$(cat "$f" 2>/dev/null || true)"
+    pid="$(read_pid_file "$f")" || continue
     terminate_process "$pid"
   done
   if (( found == 1 )); then
@@ -84,17 +97,18 @@ stop_previous() {
   fi
   for f in "$STATE_DIR"/*.pid; do
     [[ -f "$f" ]] || continue
-    pid="$(cat "$f" 2>/dev/null || true)"
+    pid="$(read_pid_file "$f")" || continue
     process_running "$pid" && force_kill_process "$pid"
     rm -f "$f"
   done
 }
 
 start_bg() {
-  local name="$1"; shift
+  local name="$1" pid; shift
   mkdir -p "$LOG_DIR"
   (cd "$PROJECT_DIR" && exec setsid "$@") >"$LOG_DIR/$name.log" 2>&1 &
-  printf "%d" "$!" >"$STATE_DIR/$name.pid"
+  pid="$!"
+  printf "%s\n" "$pid" >"$STATE_DIR/$name.pid"
 }
 
 port_listener_pids() {
@@ -153,7 +167,9 @@ stop_project_port_listeners() {
     for port in "$@"; do
       while IFS= read -r pid; do
         [[ -n "$pid" ]] || continue
-        pid_belongs_to_project "$pid" && kill -KILL "$pid" 2>/dev/null || true
+        if pid_belongs_to_project "$pid"; then
+          kill -KILL "$pid" 2>/dev/null || true
+        fi
       done < <(port_listener_pids "$port")
     done
     sleep 0.5
@@ -177,20 +193,65 @@ wait_health() {
   printf "    %-14s" "$name"
   until curl -sf --max-time 2 "$url" >/dev/null 2>&1; do
     if [[ -n "$pid_file" && -f "$pid_file" ]]; then
-      pid="$(cat "$pid_file" 2>/dev/null || true)"
+      pid="$(read_pid_file "$pid_file")" || {
+        printf " %sABGESTÜRZT%s\n" "$RED" "$NC"
+        die "$name hat keine gueltige PID — Log: $LOG_DIR/$name.log"
+      }
       if ! process_running "$pid"; then
-        printf " ${RED}ABGESTÜRZT${NC}\n"
+        printf " %sABGESTÜRZT%s\n" "$RED" "$NC"
         die "$name abgestürzt — Log: $LOG_DIR/$name.log"
       fi
     fi
     if (( i++ > 90 )); then
-      printf " ${RED}TIMEOUT${NC}\n"
+      printf " %sTIMEOUT%s\n" "$RED" "$NC"
       die "$name nicht bereit — Log: $LOG_DIR/$name.log"
     fi
     printf "."
     sleep 0.5
   done
-  printf " ${GREEN}✓${NC}\n"
+  printf " %s✓%s\n" "$GREEN" "$NC"
+}
+
+wait_public_url() {
+  local name="$1" url="$2" i=0 response body http_status curl_status
+  printf "    %-14s" "$name"
+  while true; do
+    set +e
+    response="$(curl -sS --max-time 5 --write-out $'\n%{http_code}' "$url" 2>&1)"
+    curl_status="$?"
+    set -e
+    http_status="${response##*$'\n'}"
+    body="${response%$'\n'*}"
+    if [[
+      "$curl_status" == "0" &&
+      "$http_status" =~ ^[0-9]+$ &&
+      "$http_status" -ge 200 &&
+      "$http_status" -lt 400 &&
+      "$body" != *"error code: 1033"*
+    ]]; then
+      printf " %s✓%s\n" "$GREEN" "$NC"
+      return 0
+    fi
+    if (( i++ > 18 )); then
+      printf " %sTIMEOUT%s\n" "$RED" "$NC"
+      if [[ "$body" == *"error code: 1033"* ]]; then
+        die "$name nicht erreichbar: Cloudflare 1033. Tunnel ist nicht aktiv oder nicht mit Cloudflare verbunden."
+      fi
+      die "$name nicht erreichbar: $url (HTTP ${http_status:-unbekannt}, curl $curl_status)"
+    fi
+    printf "."
+    sleep 2
+  done
+}
+
+open_browser_url() {
+  local url="$1"
+  [[ "${OPEN_HOST_BROWSER:-true}" == "true" ]] || return 0
+  if command -v xdg-open >/dev/null; then
+    xdg-open "$url" >/dev/null 2>&1 &
+  elif command -v open >/dev/null; then
+    open "$url" >/dev/null 2>&1 &
+  fi
 }
 
 # ── Menü (whiptail) ────────────────────────────────────────────────────────────
@@ -236,24 +297,26 @@ show_dashboard() {
   fi
 
   clear
-  printf "\n${BLUE}${BOLD}%s${NC}\n" "$SEP"
-  printf "${BLUE}${BOLD}   🎂  GEBURTSTAGSQUIZ LÄUFT  🎉${NC}\n"
-  printf "${BLUE}${BOLD}%s${NC}\n\n" "$SEP"
-  printf "   ${GREEN}✓${NC}  Server      ${DIM}→${NC}  %s\n" "$server"
-  printf "   ${GREEN}✓${NC}  TV-Display  ${DIM}→${NC}  %s\n" "$tv"
-  printf "   ${GREEN}✓${NC}  Host        ${DIM}→${NC}  %s\n" "$host"
-  printf "   ${GREEN}✓${NC}  Spieler     ${DIM}→${NC}  %s\n" "$player"
+  printf "\n%s%s%s%s\n" "$BLUE" "$BOLD" "$SEP" "$NC"
+  printf "%s%s   🎂  GEBURTSTAGSQUIZ LÄUFT  🎉%s\n" "$BLUE" "$BOLD" "$NC"
+  printf "%s%s%s%s\n\n" "$BLUE" "$BOLD" "$SEP" "$NC"
+  printf "   %s✓%s  Server      %s→%s  %s\n" "$GREEN" "$NC" "$DIM" "$NC" "$server"
+  printf "   %s✓%s  TV-Display  %s→%s  %s\n" "$GREEN" "$NC" "$DIM" "$NC" "$tv"
+  printf "   %s✓%s  Host        %s→%s  %s  %s(Start hier)%s\n" "$GREEN" "$NC" "$DIM" "$NC" "$host" "$BOLD" "$NC"
+  printf "   %s✓%s  Spieler     %s→%s  %s\n" "$GREEN" "$NC" "$DIM" "$NC" "$player"
   if [[ "$mode" == "tunnel" ]]; then
-    printf "   ${GREEN}✓${NC}  Tunnel      ${DIM}→${NC}  aktiv (cloudflared)\n"
+    printf "   %s✓%s  Tunnel      %s→%s  aktiv (cloudflared)\n" "$GREEN" "$NC" "$DIM" "$NC"
   fi
   if [[ "$mode" == "hybrid" ]]; then
-    printf "\n   ${YELLOW}${BOLD}⚠  Hybrid-Modus:${NC} Cloudflare Tunnel muss separat laufen.\n"
-    printf "      Tunnel starten: ${DIM}cloudflared tunnel --config .cloudflared/config.yml run quiz${NC}\n"
+    printf "\n   %s%s⚠  Hybrid-Modus:%s Cloudflare Tunnel muss separat laufen.\n" "$YELLOW" "$BOLD" "$NC"
+    printf "      Tunnel starten: %scloudflared tunnel --config .cloudflared/config.yml run quiz%s\n" "$DIM" "$NC"
+    printf "      Player-QR im Host zeigt auf: %shttps://play.%s%s\n" "$BOLD" "$DOMAIN" "$NC"
   fi
+  printf "\n   Ablauf: Host öffnet Raum → Button \"Display öffnen\" → TV-Fenster auf HDMI ziehen.\n"
   printf "\n   ${DIM}Logs:${NC}  %s\n" "$LOG_DIR"
-  printf "\n${BLUE}${BOLD}%s${NC}\n" "$SEP"
-  printf "   ${YELLOW}${BOLD}Ctrl+C zum sauberen Stoppen${NC}\n"
-  printf "${BLUE}${BOLD}%s${NC}\n\n" "$SEP"
+  printf "\n%s%s%s%s\n" "$BLUE" "$BOLD" "$SEP" "$NC"
+  printf "   %s%sCtrl+C zum sauberen Stoppen%s\n" "$YELLOW" "$BOLD" "$NC"
+  printf "%s%s%s%s\n\n" "$BLUE" "$BOLD" "$SEP" "$NC"
 
   local qrpkg="$PROJECT_DIR/apps/web-host/node_modules/qrcode/lib/index.js"
   if [[ -f "$qrpkg" ]]; then
@@ -279,7 +342,7 @@ check_prereqs() {
     [[ -f "$CONFIG_FILE" ]]           || die "Tunnel-Config fehlt: $CONFIG_FILE"
   fi
   if [[ "$mode" == "hybrid" ]]; then
-    printf "\n${YELLOW}${BOLD}⚠  Hybrid-Modus:${NC} Cloudflare Tunnel wird NICHT automatisch gestartet.\n"
+    printf "\n%s%s⚠  Hybrid-Modus:%s Cloudflare Tunnel wird NICHT automatisch gestartet.\n" "$YELLOW" "$BOLD" "$NC"
     printf "   Stelle sicher, dass %s erreichbar ist.\n\n" "wss://api.$DOMAIN"
   fi
 }
@@ -374,6 +437,18 @@ main() {
       die "Tunnel konnte nicht gestartet werden."
     }
     ok "Tunnel läuft (PID $tp)"
+
+    step "Pruefe oeffentliche Tunnel-URLs"
+    wait_public_url "API" "https://api.$DOMAIN/health"
+    wait_public_url "TV-Display" "https://tv.$DOMAIN"
+    wait_public_url "Host" "https://host.$DOMAIN"
+    wait_public_url "Spieler" "https://play.$DOMAIN"
+  fi
+
+  if [[ "$mode" == "tunnel" ]]; then
+    open_browser_url "https://host.$DOMAIN"
+  else
+    open_browser_url "http://localhost:5173"
   fi
 
   show_dashboard "$mode"
@@ -384,7 +459,7 @@ main() {
     sleep 5
     for f in "$STATE_DIR"/*.pid; do
       [[ -f "$f" ]] || continue
-      pid="$(cat "$f")" || continue
+      pid="$(read_pid_file "$f")" || continue
       name="$(basename "$f" .pid)"
       if ! process_running "$pid"; then
         fail "$name abgestürzt — Log: $LOG_DIR/$name.log"

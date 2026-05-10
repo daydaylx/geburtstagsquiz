@@ -49,17 +49,3 @@ export function getPlayerJoinUrl(joinCode: string): string {
   return url.toString();
 }
 
-export function getHostJoinUrl(hostToken: string): string {
-  const envUrl = getViteEnv("VITE_HOST_URL");
-  if (envUrl) {
-    const url = new URL(envUrl);
-    url.searchParams.set("hostToken", hostToken);
-    return url.toString();
-  }
-
-  const url = new URL(window.location.href);
-  applyFallbackUiOrigin(url, "host", "VITE_HOST_PORT", "5173");
-  url.pathname = "/";
-  url.search = new URLSearchParams({ hostToken }).toString();
-  return url.toString();
-}

@@ -50,6 +50,7 @@ function makeRoom(overrides: Partial<RoomRecord> = {}): RoomRecord {
     hostDisconnectTimer: null,
     playerDisconnectTimers: new Map(),
     countdownTimer: null,
+    countdownStartedAt: null,
     questionTimer: null,
     timerTickInterval: null,
     revealTimer: null,
@@ -236,12 +237,13 @@ describe("handleHostConnect", () => {
     expect(sessionsById.size).toBe(0);
   });
 
-  it("rejects already-used hostToken", () => {
+  it("rejects hostToken if host is already connected", () => {
     const displaySocket = makeMockSocket();
     handleDisplayCreateRoom(displaySocket, {});
 
     const room = roomsById.values().next().value as RoomRecord;
     room.hostTokenUsed = true;
+    room.hostConnected = true;
 
     const hostSocket = makeMockSocket();
     handleHostConnect(hostSocket, { hostToken: room.hostToken });
@@ -249,6 +251,23 @@ describe("handleHostConnect", () => {
     const sessions = [...sessionsById.values()];
     const hostSession = sessions.find((s) => s.role === "host");
     expect(hostSession).toBeUndefined();
+  });
+
+  it("allows hostToken if host is disconnected (reconnect via token)", () => {
+    const displaySocket = makeMockSocket();
+    handleDisplayCreateRoom(displaySocket, {});
+
+    const room = roomsById.values().next().value as RoomRecord;
+    room.hostTokenUsed = true;
+    room.hostConnected = false;
+
+    const hostSocket = makeMockSocket();
+    handleHostConnect(hostSocket, { hostToken: room.hostToken });
+
+    const sessions = [...sessionsById.values()];
+    const hostSession = sessions.find((s) => s.role === "host");
+    expect(hostSession).toBeDefined();
+    expect(hostSession?.role).toBe("host");
   });
 
   it("pairs host with valid token, creates host session", () => {

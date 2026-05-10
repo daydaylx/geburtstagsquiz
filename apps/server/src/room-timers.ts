@@ -4,6 +4,7 @@ export function clearActiveRoomTimers(room: RoomRecord): void {
   if (room.countdownTimer) {
     clearTimeout(room.countdownTimer);
     room.countdownTimer = null;
+    room.countdownStartedAt = null;
   }
 
   if (room.questionTimer) {

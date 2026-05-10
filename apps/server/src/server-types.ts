@@ -34,6 +34,7 @@ export interface RoomRecord extends Room {
   hostDisconnectTimer: ReturnType<typeof setTimeout> | null;
   playerDisconnectTimers: Map<string, ReturnType<typeof setTimeout>>;
   countdownTimer: ReturnType<typeof setTimeout> | null;
+  countdownStartedAt: number | null;
   questionTimer: ReturnType<typeof setTimeout> | null;
   timerTickInterval: ReturnType<typeof setInterval> | null;
   revealTimer: ReturnType<typeof setTimeout> | null;

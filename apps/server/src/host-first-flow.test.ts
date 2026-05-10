@@ -1,11 +1,16 @@
 import { beforeEach, describe, expect, it } from "vitest";
 
 import { EVENTS } from "@quiz/shared-protocol";
-import { RoomState } from "@quiz/shared-types";
+import { QuestionType, RoomState } from "@quiz/shared-types";
 
 import { isEventAllowedForRole } from "./role-auth.js";
-import { roomsById, roomIdByJoinCode, sessionsById } from "./state.js";
-import { handleHostCreateRoom, handleDisplayConnectRoom } from "./lobby.js";
+import { roomsById, roomIdByJoinCode, roomIdByHostToken, sessionsById } from "./state.js";
+import {
+  handleConnectionResume,
+  handleDisplayConnectRoom,
+  handleHostCreateRoom,
+  handleRoomSettingsUpdate,
+} from "./lobby.js";
 import type { RoomRecord, TrackedWebSocket } from "./server-types.js";
 
 function makeMockSocket(sessionId: string | null = null): TrackedWebSocket {
@@ -29,6 +34,7 @@ function getSent(socket: TrackedWebSocket): Array<{ event: string; payload: unkn
 beforeEach(() => {
   roomsById.clear();
   roomIdByJoinCode.clear();
+  roomIdByHostToken.clear();
   sessionsById.clear();
 });
 
@@ -74,6 +80,45 @@ describe("handleHostCreateRoom", () => {
     const messages = getSent(socket);
     const catalog = messages.find((m) => m.event === EVENTS.CATALOG_SUMMARY);
     expect(catalog).toBeDefined();
+  });
+
+  it("returns unused displayConnectToken to host on resume before display connects", () => {
+    const socket = makeMockSocket();
+    handleHostCreateRoom(socket, {});
+    const room = [...roomsById.values()][0] as RoomRecord;
+    const token = room.displayConnectToken;
+
+    const resumedSocket = makeMockSocket();
+    handleConnectionResume(resumedSocket, { roomId: room.id, sessionId: room.hostSessionId });
+
+    const messages = getSent(resumedSocket);
+    const resumed = messages.find((m) => m.event === EVENTS.CONNECTION_RESUMED);
+    expect(resumed).toBeDefined();
+    expect((resumed!.payload as { displayConnectToken: string | null }).displayConnectToken).toBe(
+      token,
+    );
+  });
+
+  it("does not return displayConnectToken to host after display is paired", () => {
+    const socket = makeMockSocket();
+    handleHostCreateRoom(socket, {});
+    const room = [...roomsById.values()][0] as RoomRecord;
+
+    const displaySocket = makeMockSocket();
+    handleDisplayConnectRoom(displaySocket, {
+      roomId: room.id,
+      displayConnectToken: room.displayConnectToken!,
+    });
+
+    const resumedSocket = makeMockSocket();
+    handleConnectionResume(resumedSocket, { roomId: room.id, sessionId: room.hostSessionId });
+
+    const messages = getSent(resumedSocket);
+    const resumed = messages.find((m) => m.event === EVENTS.CONNECTION_RESUMED);
+    expect(resumed).toBeDefined();
+    expect((resumed!.payload as { displayConnectToken?: string | null }).displayConnectToken).toBe(
+      null,
+    );
   });
 
   it("rejects if socket already has a session", () => {
@@ -150,6 +195,49 @@ describe("handleDisplayConnectRoom", () => {
     const paired = messages.slice(sentBefore).find((m) => m.event === EVENTS.HOST_DISPLAY_PAIRED);
     expect(paired).toBeDefined();
     expect((paired!.payload as { displayConnected: boolean }).displayConnected).toBe(true);
+  });
+
+  it("keeps gamePlanDraft out of display lobby updates", () => {
+    const { room, hostSocket } = setupRoom();
+    const displaySocket = makeMockSocket();
+    handleDisplayConnectRoom(displaySocket, {
+      roomId: room.id,
+      displayConnectToken: room.displayConnectToken!,
+    });
+
+    handleRoomSettingsUpdate(hostSocket, {
+      roomId: room.id,
+      showAnswerTextOnPlayerDevices: false,
+      gamePlanDraft: {
+        mode: "custom",
+        questionCount: 1,
+        categoryIds: ["cat-01"],
+        questionTypes: [QuestionType.MultipleChoice],
+        timerMs: 90000,
+        revealDurationMs: 30000,
+        revealMode: "manual_with_fallback",
+        showAnswerTextOnPlayerDevices: false,
+        enableDemoQuestion: false,
+        displayShowLevel: "minimal",
+        rankingScoringMode: "partial_with_bonus",
+      },
+    });
+
+    const displayLobby = getSent(displaySocket)
+      .filter((m) => m.event === EVENTS.LOBBY_UPDATE)
+      .at(-1);
+    const hostLobby = getSent(hostSocket)
+      .filter((m) => m.event === EVENTS.LOBBY_UPDATE)
+      .at(-1);
+
+    expect(displayLobby).toBeDefined();
+    expect(hostLobby).toBeDefined();
+    expect((displayLobby!.payload as { settings: Record<string, unknown> }).settings).not.toHaveProperty(
+      "gamePlanDraft",
+    );
+    expect((hostLobby!.payload as { settings: Record<string, unknown> }).settings).toHaveProperty(
+      "gamePlanDraft",
+    );
   });
 
   it("rejects invalid displayConnectToken", () => {

@@ -27,8 +27,13 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 
 ```json
 {
-  "event": "display:create-room",
-  "payload": {}
+  "event": "host:create-room",
+  "payload": {
+    "clientInfo": {
+      "deviceType": "browser",
+      "appVersion": "local"
+    }
+  }
 }
 ```
 
@@ -37,11 +42,13 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 ### Display darf senden
 
 - `connection:resume`
-- `display:create-room`
+- `display:connect-room`
+- `display:create-room` nur als versteckter Fallback/Legacy-Pfad
 
 ### Host darf senden
 
 - `connection:resume`
+- `host:create-room`
 - `host:connect`
 - `room:settings:update`
 - `game:start`
@@ -58,6 +65,7 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 - `connection:resume`
 - `answer:submit`
 - `next-question:ready`
+- `category:vote`
 
 ### Server sendet
 
@@ -72,11 +80,16 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 | --- | --- | --- | --- |
 | `connection:ack` | Server -> Client | Technische Socket-Bestaetigung | `connectionId`, `serverTime` |
 | `connection:resume` | Client -> Server | Bestehende Sitzung wieder aufnehmen | `sessionId`, `roomId` |
-| `connection:resumed` | Server -> Client | Resume bestaetigt | `role`, `roomId`, `roomState`, optional `gameState`, `sessionId`, `joinCode`, optional `playerId`, optional `playerState`, optional `currentAnswer` |
-| `display:create-room` | Display -> Server | Primaeren 3-UI-Raum anlegen | optional `clientInfo` |
-| `display:room-created` | Server -> Display | Display-Raum wurde erstellt | `roomId`, `displaySessionId`, `displayToken`, `joinCode`, `hostToken` |
+| `connection:resumed` | Server -> Client | Resume bestaetigt | `role`, `roomId`, `roomState`, optional `gameState`, `sessionId`, `joinCode`, optional `playerId`, optional `playerState`, optional `currentAnswer`, optional `displayConnectToken` fuer Host vor Display-Kopplung |
+| `host:create-room` | Host -> Server | Primaeren Host-first Raum anlegen | optional `clientInfo` |
+| `host:room-created` | Server -> Host | Host-first Raum wurde erstellt | `roomId`, `hostSessionId`, `joinCode`, `displayConnectToken` |
+| `display:connect-room` | Display -> Server | Display mit Host-first Raum koppeln | `roomId`, `displayConnectToken` |
+| `display:room-connected` | Server -> Display | Display-Kopplung bestaetigt | `roomId`, `displaySessionId`, `displayToken`, `joinCode`, `hostConnected` |
+| `host:display-paired` | Server -> Host | Display wurde verbunden | `displayConnected` |
+| `display:create-room` | Display -> Server | Legacy-/Fallback-Raum anlegen | optional `clientInfo` |
+| `display:room-created` | Server -> Display | Legacy-Display-Raum wurde erstellt | `roomId`, `displaySessionId`, `displayToken`, `joinCode`, `hostToken` |
 | `display:host-paired` | Server -> Display | Host wurde mit Display-Raum verbunden | `hostConnected` |
-| `host:connect` | Host -> Server | Host per Display-Token verbinden | `hostToken`, optional `clientInfo` |
+| `host:connect` | Host -> Server | Legacy-Host per Display-Token verbinden | `hostToken`, optional `clientInfo` |
 | `host:connected` | Server -> Host | Host-Verbindung bestaetigt | `roomId`, `hostSessionId`, `joinCode`, `roomState`, optional `gameState` |
 | `catalog:summary` | Server -> Host | Verfuegbare Kategorien und Fragetypen fuer Spielplaene | `totalQuestions`, `maxQuestionCount`, `categories`, `questionTypes` |
 | `room:settings:update` | Host -> Server | Lobby-Einstellungen setzen | `roomId`, `showAnswerTextOnPlayerDevices`, optional `gamePlanDraft` |
@@ -168,17 +181,24 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 
 ## Typische Eventfolgen
 
-### Raum erstellen und joinen
+### Host-first Raum erstellen und joinen
 
 1. Server sendet `connection:ack`
-2. Display sendet `display:create-room`
-3. Server sendet `display:room-created`
-4. Host sendet `host:connect`
-5. Server sendet `host:connected`
-6. Server sendet `catalog:summary` an den Host
+2. Host sendet `host:create-room`
+3. Server sendet `host:room-created` und `catalog:summary`
+4. Host oeffnet Display-URL mit `roomId` und `displayConnectToken`
+5. Display sendet `display:connect-room`
+6. Server sendet `display:room-connected` und `host:display-paired`
 7. Player sendet `room:join`
 8. Server sendet `player:joined`
-9. Server verteilt `lobby:update`
+9. Server verteilt rollenbereinigte `lobby:update`
+
+### Legacy Display-first Fallback
+
+1. Display sendet `display:create-room`
+2. Server sendet `display:room-created`
+3. Host sendet `host:connect`
+4. Server sendet `host:connected` und `catalog:summary`
 
 ### Spielrunde
 

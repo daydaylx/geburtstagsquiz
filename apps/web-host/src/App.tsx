@@ -1,8 +1,7 @@
 import { QuestionType } from "@quiz/shared-types";
-import { isLoopbackHostname } from "@quiz/shared-utils";
 
 import { HostGamePlanBuilder } from "./components/HostGamePlanBuilder.js";
-import { getPublicHost, getPlayerJoinUrl } from "./lib/helpers.js";
+import { getPlayerJoinUrl } from "./lib/helpers.js";
 import { useWebSocket, type ConnectionState } from "@quiz/shared-hooks";
 import { getAnswerDisplayLabel } from "./lib/labels.js";
 import { useHostSession } from "./hooks/useHostSession.js";
@@ -27,7 +26,6 @@ export function App() {
   const { connectionState, sendEvent, onMessage, notifyConnected, closeSocket } = useWebSocket();
   const s = useHostSession({ sendEvent, onMessage, notifyConnected, closeSocket, connectionState });
 
-  const loopback = isLoopbackHostname(getPublicHost());
   const connectedPlayerCount = s.lobby?.players.filter((p) => p.connected).length ?? 0;
   const timerSeconds = Math.ceil((s.remainingMs ?? 0) / 1000);
   const isTimerWarning = s.remainingMs > 0 && timerSeconds <= 10;
@@ -99,7 +97,7 @@ export function App() {
           )}
           <p className="host-lobby-hint">
             {s.displayConnected
-              ? "Warte auf Spieler... Die Spieler können über den QR-Code am Fernseher beitreten."
+              ? "Warte auf Spieler... Die Spieler können über den QR-Code am Host oder Fernseher beitreten."
               : "Klicke auf 'Display öffnen' und ziehe das Fenster auf den HDMI-TV."}
           </p>
           <div className="host-lobby-stats">
@@ -454,7 +452,7 @@ export function App() {
               <div className="host-card host-card--dark">
                 <p className="host-section-label host-section-label--muted">Raum</p>
                 <p className="host-join-code">{s.roomInfo.joinCode}</p>
-                {!loopback && s.qrCodeDataUrl && (
+                {s.qrCodeDataUrl && (
                   <div className="host-qr-mini">
                     <img alt="Join QR" src={s.qrCodeDataUrl} />
                   </div>
@@ -468,9 +466,22 @@ export function App() {
                       title="Link kopieren"
                       type="button"
                     >
-                      📋
+                      Link kopieren
                     </button>
                   </div>
+                )}
+                <div className="host-display-status-row">
+                  <span className="host-control-label">Display</span>
+                  <strong>{s.displayConnected ? "Verbunden" : "Nicht verbunden"}</strong>
+                </div>
+                {!s.displayConnected && s.displayConnectToken && (
+                  <button
+                    className="host-action-button host-action-button--secondary host-display-open-sidebar"
+                    onClick={s.handleOpenDisplay}
+                    type="button"
+                  >
+                    Display öffnen
+                  </button>
                 )}
               </div>
               <div className="host-panel host-side-panel">

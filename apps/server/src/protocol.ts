@@ -9,7 +9,7 @@ import {
   type ServerToClientEventName,
   type ServerToClientEventPayloadMap,
 } from "@quiz/shared-protocol";
-import { PlayerState, RoomState } from "@quiz/shared-types";
+import { PlayerState, RoomState, type ClientRole } from "@quiz/shared-types";
 
 import type { RoomRecord, TrackedWebSocket } from "./server-types.js";
 import { getDefaultQuiz } from "./quiz-data.js";
@@ -39,18 +39,22 @@ export function sendProtocolError(
   });
 }
 
-export function toLobbyUpdatePayload(room: RoomRecord): LobbyUpdatePayload {
+export function toLobbyUpdatePayload(room: RoomRecord, role: ClientRole): LobbyUpdatePayload {
   const categories =
     room.state === RoomState.Waiting
       ? getDefaultQuiz().categories.map((c) => ({ id: c.id, name: c.name }))
       : undefined;
+  const settings =
+    role === "host"
+      ? room.settings
+      : { showAnswerTextOnPlayerDevices: room.settings.showAnswerTextOnPlayerDevices };
 
   return {
     roomId: room.id,
     roomState: room.state,
     hostConnected: room.hostConnected,
     displayConnected: room.displayConnected,
-    settings: room.settings,
+    settings,
     players: room.players.map((player) => ({
       playerId: player.id,
       name: player.name,

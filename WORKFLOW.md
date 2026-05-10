@@ -65,15 +65,15 @@ corepack pnpm dev
 Lokale Services:
 
 - Server/API: `http://localhost:3001`
-- Display/TV: `http://localhost:5175`
 - Host: `http://localhost:5173`
+- Display/TV: `http://localhost:5175`
 - Player: `http://localhost:5174`
 
 Startreihenfolge, falls manuell gestartet wird:
 
 1. `corepack pnpm --filter @quiz/server run dev`
-2. `corepack pnpm --filter @quiz/web-display run dev`
-3. `corepack pnpm --filter @quiz/web-host run dev`
+2. `corepack pnpm --filter @quiz/web-host run dev`
+3. `corepack pnpm --filter @quiz/web-display run dev`
 4. `corepack pnpm --filter @quiz/web-player run dev`
 
 Fuer den Abend-/Hotspotbetrieb:
@@ -82,7 +82,7 @@ Fuer den Abend-/Hotspotbetrieb:
 ./quiz.sh
 ```
 
-Im Menue "Lokal" oder "Tunnel" waehlen. Ctrl+C stoppt alle Dienste sauber.
+Im Menue "Lokal", "Hybrid" oder "Tunnel" waehlen. Der Host ist der Startpunkt; im Host Raum erstellen und "Display oeffnen" fuer den HDMI-TV nutzen. Ctrl+C stoppt alle Dienste sauber.
 
 ## 4. Lokaler Smoke-Test
 
@@ -92,7 +92,7 @@ Bei laufendem Server:
 corepack pnpm run smoke:local
 ```
 
-Der Smoke-Test verbindet Display, Host und zwei Player, erstellt einen Raum, koppelt den Host, startet einen 90s-Spielplan, prueft Reveal-Bereitschaft, Scoreboard nach Frage 5, Endstand und Resume-Snapshots.
+Der Smoke-Test erstellt den Raum ueber den Host, verbindet das Display per Popout-Token, verbindet zwei Player, startet einen 90s-Spielplan, prueft Reveal-Bereitschaft, Scoreboard nach Frage 5, Endstand und Resume-Snapshots. Der versteckte Display-first Fallback wird kurz separat geprueft.
 
 Wenn der Smoke-Test nicht passt:
 
@@ -154,8 +154,8 @@ Ohne explizites `[CONFIRM]` sind verboten:
 - Host-Controller laedt auf Port `5173`.
 - Player-UI laedt auf Port `5174`.
 - Server-Health antwortet auf Port `3001`.
-- Display kann einen Raum erstellen.
-- Host kann sich per Host-Token/QR mit dem Display-Raum koppeln.
+- Host kann einen Raum erstellen.
+- Host kann das Display per Button als Popout verbinden.
 - Player koennen per Join-Code oder QR beitreten.
 - Eine Frage laeuft von Start ueber Antwort bis Reveal durch; das Scoreboard erscheint nur nach faelligen 5er-Intervallen.
 - Server entscheidet Timer, Antwortannahme und Punkte.

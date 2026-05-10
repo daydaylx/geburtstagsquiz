@@ -18,6 +18,37 @@ type BroadcastOptions = {
   excludeSessionIds?: Set<string>;
 };
 
+export function sendLobbyUpdateToSession(session: SessionRecord, room: RoomRecord): void {
+  sendEvent(session.socket, EVENTS.LOBBY_UPDATE, toLobbyUpdatePayload(room, session.role));
+}
+
+export function broadcastLobbyUpdate(room: RoomRecord): void {
+  if (room.state === RoomState.Closed) {
+    return;
+  }
+
+  if (room.hostSessionId) {
+    const hostSession = sessionsById.get(room.hostSessionId);
+    if (hostSession) {
+      sendLobbyUpdateToSession(hostSession, room);
+    }
+  }
+
+  if (room.displaySessionId) {
+    const displaySession = sessionsById.get(room.displaySessionId);
+    if (displaySession) {
+      sendLobbyUpdateToSession(displaySession, room);
+    }
+  }
+
+  for (const player of room.players) {
+    const playerSession = sessionsById.get(player.sessionId);
+    if (playerSession) {
+      sendLobbyUpdateToSession(playerSession, room);
+    }
+  }
+}
+
 export function sendToDisplay<TEvent extends ServerToClientEventName>(
   room: RoomRecord,
   event: TEvent,
@@ -149,7 +180,7 @@ export function syncSessionToRoomState(session: SessionRecord, room: RoomRecord)
     return;
   }
 
-  sendEvent(socket, EVENTS.LOBBY_UPDATE, toLobbyUpdatePayload(room));
+  sendLobbyUpdateToSession(session, room);
 
   if (room.state === RoomState.Waiting) {
     return;
@@ -196,16 +227,31 @@ export function syncSessionToRoomState(session: SessionRecord, room: RoomRecord)
     });
   }
 
+  sendEvent(socket, EVENTS.GAME_STARTED, {
+    roomId: room.id,
+    roomState: RoomState.InGame,
+    gameState: room.gameState,
+    questionIndex: getVisibleQuestionIndex(room),
+    totalQuestionCount,
+    resolvedGamePlan: room.resolvedGamePlan!,
+  });
+
   switch (room.gameState) {
     case GameState.Idle:
-      sendEvent(socket, EVENTS.GAME_STARTED, {
-        roomId: room.id,
-        roomState: RoomState.InGame,
-        gameState: GameState.Idle,
-        questionIndex: getVisibleQuestionIndex(room),
-        totalQuestionCount,
-        resolvedGamePlan: room.resolvedGamePlan!,
-      });
+      if (room.countdownTimer && room.countdownStartedAt && room.quiz) {
+        const countdownMs = 2_500;
+        const remaining = Math.max(0, countdownMs - (Date.now() - room.countdownStartedAt));
+        const currentQuestion = room.quiz.questions[room.currentQuestionIndex ?? 0];
+        sendEvent(socket, EVENTS.QUESTION_COUNTDOWN, {
+          roomId: room.id,
+          questionIndex: getVisibleQuestionIndex(room),
+          totalQuestionCount,
+          countdownMs: remaining,
+          displayShowLevel: room.resolvedGamePlan!.displayShowLevel,
+          ...(currentQuestion?.isDemoQuestion ? { isDemoQuestion: true } : {}),
+        });
+      }
+
       return;
 
     case GameState.QuestionActive: {
@@ -290,17 +336,6 @@ export function syncSessionToRoomState(session: SessionRecord, room: RoomRecord)
         });
         sendNextQuestionReadyProgress(socket, room, question.id);
       }
-      return;
-
-    case GameState.Completed:
-      sendEvent(socket, EVENTS.GAME_FINISHED, {
-        roomId: room.id,
-        roomState: RoomState.Completed,
-        gameState: GameState.Completed,
-        totalQuestionCount: getTotalQuestionCount(room),
-        finalScoreboard: scoreboard,
-        finalStats: buildFinalStats(room),
-      });
       return;
   }
 }

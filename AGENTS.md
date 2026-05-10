@@ -86,13 +86,13 @@ Bei laufendem Server (`localhost:3001`):
 corepack pnpm run smoke:local
 ```
 
-Verbindet Display, Host und zwei Player per WebSocket, erstellt einen Raum, koppelt den Host, startet einen 90s-Spielplan und prueft den gesamten Spielablauf bis Endstand und Resume-Snapshots.
+Verbindet Host, Display und zwei Player per WebSocket, erstellt den Raum ueber den Host, koppelt das Display per Popout-Token, startet einen 90s-Spielplan und prueft den gesamten Spielablauf bis Endstand und Resume-Snapshots. Der Legacy-Display-first-Fallback wird kurz separat geprueft.
 
 ### Tools
 
 ```bash
 corepack pnpm run review:questions          # Fragenreview-Tool (Browser-UI auf temporaerem Port)
-./quiz.sh                                   # Abend-/Hotspot-Startmenue (Lokal oder Tunnel)
+./quiz.sh                                   # Abend-/Hotspot-Startmenue (Lokal, Hybrid oder Tunnel)
 ```
 
 ## Test-Scope
@@ -177,7 +177,7 @@ Keine Persistenz, keine Datenbank. Bei Serverneustart ist alles weg.
 | `connection.ts`        | `sendToDisplay/Host/Players`, `broadcastToAllRoomClients`, `syncSessionToRoomState` |
 | `session.ts`           | Socket-Close-Handler, Disconnect-Grace-Logik                                        |
 | `room.ts`              | Raum-Erstellung, Join-Code-Generierung, `closeRoom`, `removePlayerFromRoom`         |
-| `lobby.ts`             | Room-Join, Host-Connect, Connection-Resume, Settings-Update, Kategorie-Voting       |
+| `lobby.ts`             | Room-Join, Host-/Display-Connect, Connection-Resume, Settings-Update, Kategorie-Voting |
 | `game.ts`              | Spiel-Start, Frage-Ablauf, Antwort-Annahme, Reveal, Scoreboard, Finish              |
 | `game-plan.ts`         | GamePlan-Aufloesung, Demo-Frage, Fragen-Auswahl, Katalog-Summary                    |
 | `game-scoreboard.ts`   | Scoreboard-Berechnung, Score-Changes, Final-Stats                                   |

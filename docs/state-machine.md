@@ -69,9 +69,10 @@ Hinweise:
 
 ### Raum erstellen
 
-- Display erstellt den primaeren Raum per `display:create-room`
-- Host koppelt sich danach per `host:connect`
+- Host erstellt den primaeren Raum per `host:create-room`
+- Host oeffnet das Display per Popout-Link; Display koppelt sich per `display:connect-room`
 - Raum landet direkt in `waiting`
+- `display:create-room` und `host:connect` bleiben nur als versteckter Legacy-/Fallback-Pfad erhalten.
 
 ### Spiel starten
 
@@ -120,7 +121,7 @@ Hinweise:
 - Bei Host-Disconnect bleibt der Raum zunaechst bestehen.
 - Aktuelle Grace-Zeit im Code: `5min`.
 - Danach wird der Raum geschlossen.
-- **Host-Recovery funktioniert nur im gleichen Browser** (gespeicherte `sessionId` via `CONNECTION_RESUME`). Ein anderer Browser besitzt kein gespeichertes Token und erhaelt `NOT_AUTHORIZED` ("Host token already used"), da das Token Einmal-Tokens sind. In diesem Fall muss auf dem TV-Display ein neuer Raum erstellt werden.
+- **Host-Recovery funktioniert nur im gleichen Browser** (gespeicherte `sessionId` via `CONNECTION_RESUME`). Vor Display-Kopplung bekommt der Host den unbenutzten `displayConnectToken` beim Resume erneut, damit "Display oeffnen" weiter funktioniert. Ein anderer Browser besitzt keine gespeicherte Sitzung; in diesem Fall muss im Host ein neuer Raum erstellt werden.
 - Nach Ablauf der Grace-Zeit wird der Raum serverseitig geschlossen. Ein Reconnect-Versuch liefert dann `ROOM_NOT_FOUND` oder `SESSION_NOT_FOUND`. Auch hier muss ein neuer Raum erstellt werden.
 
 ### Display

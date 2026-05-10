@@ -123,37 +123,35 @@ Ohne `[CONFIRM]` duerfen keine DNS-Eintraege angelegt, geaendert, geloescht oder
 
 ```bash
 corepack pnpm install --frozen-lockfile
-corepack pnpm dev
+./quiz.sh
 ```
 
 Dann pruefen:
 
 ```text
-Display: http://localhost:5175
 Host:    http://localhost:5173
+Display: http://localhost:5175
 Player:  http://localhost:5174
 Server:  http://localhost:3001/health
 WS:      ws://localhost:3001
 ```
 
-Alternativ fuer den Abendbetrieb mit lokalem Hotspot:
+Der Host ist der Startpunkt. Dort Raum erstellen und "Display oeffnen" nutzen.
 
-```bash
-./start_local_game_host.sh
+Manueller Dev-Start bleibt moeglich mit `corepack pnpm dev`; danach ebenfalls im Host starten.
+
+## Hybrid-Modus: Host/Display lokal, Player oeffentlich
+
+Im Menue von `./quiz.sh` den Hybrid-Modus waehlen. Dann gilt:
+
+```text
+Host:    http://localhost:5173
+Display: http://localhost:5175
+Player:  https://play.quiz.disaai.de
+API/WS:  wss://api.quiz.disaai.de
 ```
 
-Standard: Das Skript startet alle vier Dienste und oeffnet die Display-URL.
-
-Nuetzliche Overrides:
-
-```env
-DISPLAY_WEB_PORT=5175
-HOST_WEB_PORT=5173
-PLAYER_WEB_PORT=5174
-SERVER_PORT=3001
-OPEN_DISPLAY_BROWSER=true
-OPEN_HOST_BROWSER=false
-```
+Der Host und das Display verbinden sich lokal per `ws://localhost:3001`. Die Player-UI wird lokal auf Port `5174` gestartet, ist aber ueber den Tunnel unter `https://play.quiz.disaai.de` erreichbar und verbindet sich mit `wss://api.quiz.disaai.de`. Der Player-QR im Host und Display muss in diesem Modus auf `https://play.quiz.disaai.de?joinCode=<code>` zeigen.
 
 ## Startreihenfolge Mit Tunnel
 
@@ -165,12 +163,6 @@ OPEN_HOST_BROWSER=false
 cloudflared tunnel --config .cloudflared/config.yml run <tunnel-name>
 ```
 
-oder, wenn die lokale Config im Repo-Arbeitsverzeichnis liegt:
-
-```bash
-CONFIRM_CLOUDFLARE_TUNNEL_START=1 ./start_tunnel.sh
-```
-
 Dann oeffnen:
 
 ```text
@@ -180,17 +172,17 @@ https://play.quiz.disaai.de
 wss://api.quiz.disaai.de
 ```
 
-`start_tunnel.sh` und `start_domain_quiz.sh` brechen ohne `CONFIRM_CLOUDFLARE_TUNNEL_START=1` ab. Das ist Absicht: Der Tunnel darf erst nach stabilem lokalem Smoke-Test und expliziter Cloudflare-Freigabe gestartet werden.
+Dieses Repo enthaelt keine separaten `start_tunnel.sh`- oder `start_domain_quiz.sh`-Wrapper. `quiz.sh` ist der unterstuetzte Einstieg. Cloudflare-/DNS-Aenderungen brauchen weiterhin explizites `[CONFIRM]`; ein bestehender Tunnel darf erst nach stabilem lokalem Smoke-Test genutzt werden.
 
 ## QR-Code-Test
 
-1. `https://tv.quiz.disaai.de` oder lokal `http://localhost:5175` oeffnen.
-2. Raum am Display erstellen.
-3. Host-QR muss auf `https://host.quiz.disaai.de?hostToken=<token>` zeigen.
-4. Player-QR muss auf `https://play.quiz.disaai.de?joinCode=<code>` zeigen.
-5. Im lokalen Modus entsprechend `localhost:5173` und `localhost:5174`.
+1. Host unter `http://localhost:5173` oeffnen.
+2. Raum im Host erstellen.
+3. Display per Button "Display oeffnen" starten.
+4. Player-QR muss im Hybrid-/Tunnelmodus auf `https://play.quiz.disaai.de?joinCode=<code>` zeigen.
+5. Im rein lokalen Modus zeigt der Player-QR entsprechend auf `localhost:5174`.
 
-Fehlerhaft waeren `localhost` im Domain-QR, `ws://api.quiz.disaai.de`, `wss://localhost:3001` oder ein Host-Token auf der TV-URL.
+Fehlerhaft waeren `localhost` im Party-/Domain-QR, `ws://api.quiz.disaai.de`, `wss://localhost:3001` oder ein Host-Token auf der TV-URL.
 
 ## WebSocket-Test
 
@@ -200,7 +192,7 @@ Bei laufenden lokalen Diensten:
 corepack pnpm run smoke:local
 ```
 
-Der Smoke-Test verbindet Display, Host und zwei Player, startet einen 90s-Spielplan, prueft Reveal-Bereitschaft, Scoreboard nach Frage 5, Endstand und Resume fuer Display, Host und einen Player.
+Der Smoke-Test erstellt den Raum ueber den Host, koppelt das Display, verbindet zwei Player, startet einen 90s-Spielplan, prueft Reveal-Bereitschaft, Scoreboard nach Frage 5, Endstand und Resume fuer Display, Host und einen Player.
 
 ## Fehlerdiagnose
 

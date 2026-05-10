@@ -58,14 +58,15 @@ Display, Host und Player sind fuer Anzeige, Eingabe und bestaetigendes Feedback 
 
 Die Display/TV-UI:
 
-- erstellt den primaeren Raum ueber `display:create-room`
-- zeigt Host-QR und Player-QR
-- zeigt oeffentliche Lobby, Fragen, Aufloesung, Rangliste und Endstand
+- verbindet sich im Hauptflow per `display:connect-room` mit dem vom Host erstellten Raum
+- zeigt Raumcode, Player-QR, oeffentliche Lobby, Fragen, Aufloesung, Rangliste und Endstand
 - ist keine Spielwahrheit
 
 Die Host-UI:
 
-- verbindet sich per Host-Token mit dem Display-Raum
+- erstellt den primaeren Raum ueber `host:create-room`
+- zeigt Raumcode, Player-Link, Player-QR und Display-Status
+- oeffnet das Display-Fenster mit einem einmaligen Display-Kopplungstoken
 - steuert Spielstart, Lobby-Einstellungen und manuelle Fallbacks
 - zeigt Status, Fortschritt und Spieleruebersicht
 - bekommt fuer Kontrolle und Fallbacks vollstaendige Fragedaten
@@ -89,8 +90,8 @@ Sie ist kein Auftrag, noch mehr Schichten zu erfinden.
 
 Relevant ist genau der Flow:
 
-1. Display-Raum erstellen
-2. Host koppeln
+1. Host-Raum erstellen
+2. Display per Host-Button oeffnen
 3. Spieler joinen
 4. Lobby sehen
 5. Spiel starten
@@ -116,8 +117,8 @@ Alles darueber hinaus ist optional und fuer dieses Repo nicht vorrangig.
 ### `apps/web-display`
 
 - Display/TV-Screen
-- Raum erstellen
-- Host- und Player-QRs
+- Host-first Display-Kopplung
+- Player-QR und Raumcode
 - Lobby fuer Publikum
 - Frageansicht
 - Aufloesung
@@ -127,7 +128,9 @@ Alles darueber hinaus ist optional und fuer dieses Repo nicht vorrangig.
 ### `apps/web-host`
 
 - Host-Controller
-- Host-Token-Kopplung
+- Raum erstellen
+- Display-Popout oeffnen
+- Player-Link und Player-QR
 - persistente Steueransicht fuer Status, Fortschritt und Spieler
 - lokale Vorbereitung fuer Kategorien/Rundenplan
 - Lobby-Einstellung fuer Antworttexte auf Player-Geraeten
@@ -164,12 +167,14 @@ Alles darueber hinaus ist optional und fuer dieses Repo nicht vorrangig.
 
 ### Display -> Server
 
-- `display:create-room`
+- `display:connect-room`
+- `display:create-room` nur als versteckter Fallback/Legacy-Pfad
 - `connection:resume`
 
 ### Host -> Server
 
-- `host:connect`
+- `host:create-room`
+- `host:connect` nur als versteckter Legacy-Fallback
 - `connection:resume`
 - `room:settings:update`
 - `game:start`

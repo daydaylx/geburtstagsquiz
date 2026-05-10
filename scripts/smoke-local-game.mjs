@@ -259,19 +259,33 @@ async function readyFromScoreboard({ room, player1, player2, joined1, joined2, q
 const clients = [];
 
 try {
-  const display = await new SmokeClient("display").connect();
-  clients.push(display);
-  display.send("display:create-room", {});
-  const room = await display.waitFor("display:room-created");
-
   const host = await new SmokeClient("host").connect();
   clients.push(host);
-  host.send("host:connect", {
-    hostToken: room.hostToken,
+  host.send("host:create-room", {
     clientInfo: { deviceType: "smoke", appVersion: "local" },
   });
-  const hostConnected = await host.waitFor("host:connected");
+  const room = await host.waitFor("host:room-created");
   const catalog = await host.waitFor("catalog:summary");
+
+  if (!room.displayConnectToken) throw new Error("Missing displayConnectToken");
+  if (!room.joinCode) throw new Error("Missing joinCode");
+  if (!room.roomId) throw new Error("Missing roomId");
+
+  const display = await new SmokeClient("display").connect();
+  clients.push(display);
+  display.send("display:connect-room", {
+    roomId: room.roomId,
+    displayConnectToken: room.displayConnectToken,
+  });
+  const displayConnected = await display.waitFor("display:room-connected");
+  if (!displayConnected.hostConnected) throw new Error("hostConnected must be true on display");
+  if (displayConnected.joinCode !== room.joinCode) {
+    throw new Error("joinCode mismatch between host and display");
+  }
+  const pairedMsg = await host.waitFor("host:display-paired");
+  if (!pairedMsg.displayConnected) {
+    throw new Error("host:display-paired must have displayConnected=true");
+  }
 
   const player1 = await new SmokeClient("player-1").connect();
   clients.push(player1);
@@ -369,12 +383,12 @@ try {
   });
   await display.waitFor("game:finished", (payload) => payload.finalScoreboard.length === 2);
 
-  clients.push(await resumeSession("display-resume", room.displaySessionId, room.roomId));
-  clients.push(await resumeSession("host-resume", hostConnected.hostSessionId, room.roomId));
+  clients.push(await resumeSession("display-resume", displayConnected.displaySessionId, room.roomId));
+  clients.push(await resumeSession("host-resume", room.hostSessionId, room.roomId));
   clients.push(await resumeSession("player-1-resume", joined1.sessionId, room.roomId));
 
   console.log(
-    "smoke ok: 90s timer, reveal readiness, scoreboard after question 5, final standings, reconnect",
+    "smoke ok: host-first flow, 90s timer, reveal readiness, scoreboard after question 5, final standings, reconnect",
   );
 } finally {
   for (const client of clients.reverse()) {
@@ -382,54 +396,32 @@ try {
   }
 }
 
-// ── Host-first Flow Smoke Test ──────────────────────────────────────────────
-const hostFirstClients = [];
+// ── Legacy Display-first fallback smoke test ───────────────────────────────
+const legacyClients = [];
 try {
-  const host2 = await new SmokeClient("host-first-host").connect();
-  hostFirstClients.push(host2);
-  host2.send("host:create-room", { clientInfo: { deviceType: "smoke", appVersion: "local" } });
-  const roomCreated = await host2.waitFor("host:room-created");
-  await host2.waitFor("catalog:summary");
+  const legacyDisplay = await new SmokeClient("legacy-display").connect();
+  legacyClients.push(legacyDisplay);
+  legacyDisplay.send("display:create-room", {});
+  const legacyRoom = await legacyDisplay.waitFor("display:room-created");
 
-  if (!roomCreated.displayConnectToken) throw new Error("Missing displayConnectToken");
-  if (!roomCreated.joinCode) throw new Error("Missing joinCode");
-  if (!roomCreated.roomId) throw new Error("Missing roomId");
-
-  const display2 = await new SmokeClient("host-first-display").connect();
-  hostFirstClients.push(display2);
-  display2.send("display:connect-room", {
-    roomId: roomCreated.roomId,
-    displayConnectToken: roomCreated.displayConnectToken,
+  const legacyHost = await new SmokeClient("legacy-host").connect();
+  legacyClients.push(legacyHost);
+  legacyHost.send("host:connect", {
+    hostToken: legacyRoom.hostToken,
+    clientInfo: { deviceType: "smoke", appVersion: "local" },
   });
-  const displayConnected = await display2.waitFor("display:room-connected");
-  if (!displayConnected.hostConnected) throw new Error("hostConnected must be true on display");
-  if (displayConnected.joinCode !== roomCreated.joinCode)
-    throw new Error("joinCode mismatch between host and display");
+  await legacyHost.waitFor("host:connected");
 
-  const pairedMsg = await host2.waitFor("host:display-paired");
-  if (!pairedMsg.displayConnected)
-    throw new Error("host:display-paired must have displayConnected=true");
-
-  const player3 = await new SmokeClient("host-first-player").connect();
-  hostFirstClients.push(player3);
-  player3.send("room:join", { joinCode: roomCreated.joinCode, playerName: "Smoke HF" });
-  await player3.waitFor("player:joined");
-
-  await host2.waitFor("lobby:update", (p) => p.players.some((pl) => pl.name === "Smoke HF"));
-
-  const display2Reuse = await new SmokeClient("host-first-display-resume").connect();
-  hostFirstClients.push(display2Reuse);
-  display2Reuse.send("connection:resume", {
-    roomId: roomCreated.roomId,
-    sessionId: displayConnected.displaySessionId,
-  });
-  await display2Reuse.waitFor("connection:resumed", (p) => p.role === "display");
+  const legacyPlayer = await new SmokeClient("legacy-player").connect();
+  legacyClients.push(legacyPlayer);
+  legacyPlayer.send("room:join", { joinCode: legacyRoom.joinCode, playerName: "Smoke Legacy" });
+  await legacyPlayer.waitFor("player:joined");
 
   console.log(
-    "smoke ok: host-first flow — room creation, display connect, player join, display reconnect",
+    "smoke ok: legacy display-first fallback — room creation, host connect, player join",
   );
 } finally {
-  for (const client of hostFirstClients.reverse()) {
+  for (const client of legacyClients.reverse()) {
     client.close();
   }
 }
