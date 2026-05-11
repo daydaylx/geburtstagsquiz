@@ -297,6 +297,7 @@ function PlayerRankingController({ session }: PlayerQuestionScreenProps) {
                   {item.text && <small>{item.text}</small>}
                   {session.answerStatus === "idle" && (
                     <button
+                      aria-label={`${item.label} entfernen`}
                       className="player-ranking-remove"
                       onClick={() =>
                         session.setRankingOrder(

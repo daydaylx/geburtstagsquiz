@@ -651,6 +651,9 @@ body {
   gap: 16px;
   flex: 1;
   min-height: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .display-option {
@@ -1192,7 +1195,7 @@ body {
 
 .display-scoreboard-entry .display-name {
   flex: 0 0 auto;
-  width: 180px;
+  width: clamp(100px, 18vw, 220px);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1472,6 +1475,13 @@ body {
   pointer-events: none;
   overflow: hidden;
   z-index: 50;
+  animation: display-confetti-fadeout 1s ease-out 10s forwards;
+}
+
+@keyframes display-confetti-fadeout {
+  to {
+    opacity: 0;
+  }
 }
 
 .display-confetti-piece {

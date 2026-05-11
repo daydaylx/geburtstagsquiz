@@ -176,29 +176,29 @@ export function App() {
             <h2 className="display-question-text">{s.question.text}</h2>
 
             {"options" in s.question && (
-              <div
+              <ul
                 className={`display-options${s.question.options.some((o) => o.label.length > 40) ? " display-options--long" : ""}`}
               >
                 {s.question.options.map((opt, index) => (
-                  <div key={opt.id} className="display-option" data-option-index={index}>
+                  <li key={opt.id} className="display-option" data-option-index={index}>
                     <span className="display-option-label">{getAnswerDisplayLabel(index)}</span>
                     <span className="display-option-text">{opt.label}</span>
-                  </div>
+                  </li>
                 ))}
-              </div>
+              </ul>
             )}
 
             {"items" in s.question && (
-              <div
+              <ul
                 className={`display-options${s.question.items.some((item) => item.label.length > 40) ? " display-options--long" : ""}`}
               >
                 {s.question.items.map((item, idx) => (
-                  <div key={item.id} className="display-option">
+                  <li key={item.id} className="display-option">
                     <span className="display-option-label">{idx + 1}.</span>
                     <span className="display-option-text">{item.label}</span>
-                  </div>
+                  </li>
                 ))}
-              </div>
+              </ul>
             )}
 
             {s.question.type === QuestionType.Estimate && (
@@ -355,6 +355,7 @@ export function App() {
                       <div
                         key={rankIndex}
                         className={`display-podium-entry display-podium-entry--${rankIndex + 1}`}
+                        style={{ visibility: entry ? "visible" : "hidden" }}
                       >
                         <div className="display-podium-rank-badge">{rankIndex + 1}</div>
                         <div className="display-podium-name">{entry.name}</div>

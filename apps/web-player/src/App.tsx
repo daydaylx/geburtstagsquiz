@@ -46,7 +46,7 @@ export function App() {
       </header>
 
       {session.notice && (
-        <div className="player-notice" data-kind={session.notice.kind}>
+        <div className="player-notice" data-kind={session.notice.kind} role="alert">
           {session.notice.text}
         </div>
       )}
@@ -73,6 +73,7 @@ export function App() {
               }}
             >
               <input
+                aria-label="Raumcode"
                 autoCapitalize="characters"
                 className="player-input"
                 maxLength={6}
@@ -81,6 +82,7 @@ export function App() {
                 value={session.joinCode}
               />
               <input
+                aria-label="Dein Name"
                 autoCapitalize="words"
                 className="player-input"
                 maxLength={20}

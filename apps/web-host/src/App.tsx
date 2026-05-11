@@ -192,7 +192,13 @@ export function App() {
                   )}
               </strong>
             </div>
-            <div className="host-progress-bar">
+            <div
+              className="host-progress-bar"
+              role="progressbar"
+              aria-valuenow={Math.round(answerProgressPercent)}
+              aria-valuemin={0}
+              aria-valuemax={100}
+            >
               <div className="host-progress-fill" style={{ width: `${answerProgressPercent}%` }} />
             </div>
           </div>
@@ -288,7 +294,13 @@ export function App() {
               <span className="host-section-label host-section-label--compact">Bereit</span>
               <strong>{nextReadyLabel}</strong>
             </div>
-            <div className="host-progress-bar">
+            <div
+              className="host-progress-bar"
+              role="progressbar"
+              aria-valuenow={Math.round(nextReadyPercent)}
+              aria-valuemin={0}
+              aria-valuemax={100}
+            >
               <div className="host-progress-fill" style={{ width: `${nextReadyPercent}%` }} />
             </div>
           </div>
@@ -402,7 +414,7 @@ export function App() {
           </div>
         </div>
         {s.notice && (
-          <div className="host-notice" data-kind={s.notice.kind}>
+          <div className="host-notice" data-kind={s.notice.kind} role="alert">
             {s.notice.text}
           </div>
         )}
@@ -608,7 +620,13 @@ export function App() {
                     ? `Frage ${visibleQuestionNumber} / ${effectiveTotalQuestionCount}`
                     : "Warten..."}
                 </span>
-                <div className="host-progress-bar host-progress-bar--compact">
+                <div
+                  className="host-progress-bar host-progress-bar--compact"
+                  role="progressbar"
+                  aria-valuenow={Math.round(questionProgressPercent)}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                >
                   <div
                     className="host-progress-fill"
                     style={{ width: `${questionProgressPercent}%` }}
