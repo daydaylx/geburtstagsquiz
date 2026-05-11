@@ -180,6 +180,55 @@ body {
   animation: player-timer-urgent 850ms ease-in-out infinite;
 }
 
+/* ── Reconnect Overlay ─────────────────────────────────────────────── */
+.player-reconnect-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  background: rgba(6, 9, 18, 0.82);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.player-reconnect-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 32px 40px;
+  border-radius: var(--player-radius);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.095), rgba(255, 255, 255, 0.035)),
+    var(--player-bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.5);
+  animation: player-screen-enter 0.25s ease both;
+}
+
+.player-reconnect-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid rgba(255, 255, 255, 0.12);
+  border-top-color: var(--player-accent);
+  border-radius: 50%;
+  animation: player-spinner 0.8s linear infinite;
+}
+
+.player-reconnect-text {
+  font-weight: 800;
+  font-size: 1rem;
+  color: var(--player-ink);
+}
+
+@keyframes player-spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 /* ── Main Content Area ─────────────────────────────────────────────── */
 .player-main {
   flex: 1;
@@ -1251,7 +1300,8 @@ body {
   .player-feedback::after,
   .player-my-rank,
   .player-controller-status[data-state="saved"],
-  .player-confetti {
+  .player-confetti,
+  .player-reconnect-spinner {
     animation: none !important;
   }
 

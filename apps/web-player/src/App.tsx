@@ -12,7 +12,7 @@ function getConnectionLabel(connectionState: ConnectionState): string {
     case "connecting":
       return "Verbinde...";
     case "reconnecting":
-      return "Re-connect...";
+      return "Neuverbindung...";
     case "connected":
       return "Online";
     default:
@@ -51,12 +51,27 @@ export function App() {
         </div>
       )}
 
+      {connectionState !== "connected" && session.screen !== "join" && (
+        <div className="player-reconnect-overlay">
+          <div className="player-reconnect-card">
+            <div className="player-reconnect-spinner" />
+            <span className="player-reconnect-text">Verbindung wird hergestellt…</span>
+          </div>
+        </div>
+      )}
+
       <div key={session.screen} className="player-main">
         {session.screen === "join" && (
           <div className="player-card">
             <span className="player-kicker">Willkommen</span>
             <h1 className="player-title">Mitspielen</h1>
-            <div className="player-join-form">
+            <form
+              className="player-join-form"
+              onSubmit={(e) => {
+                e.preventDefault();
+                session.handleJoin();
+              }}
+            >
               <input
                 autoCapitalize="characters"
                 className="player-input"
@@ -76,12 +91,11 @@ export function App() {
               <button
                 className="player-primary-button"
                 disabled={session.isJoining || session.joinCode.length !== 6 || !session.playerName}
-                onClick={session.handleJoin}
-                type="button"
+                type="submit"
               >
                 {session.isJoining ? "Beitreten…" : "Spielen"}
               </button>
-            </div>
+            </form>
           </div>
         )}
 

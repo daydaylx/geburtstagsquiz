@@ -139,6 +139,7 @@ export function usePlayerSession(deps: {
   const lastJoinAttemptRef = useRef<JoinAttempt | null>(null);
   const resumedAnswerRef = useRef<ConnectionResumedPayload["currentAnswer"] | null>(null);
   const intentionalReconnectRef = useRef(false);
+  const submitTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const updateStoredSession = useEffectEvent((session: PlayerStoredSession | null) => {
     playerSessionRef.current = session;
@@ -147,6 +148,7 @@ export function usePlayerSession(deps: {
   });
 
   const resetToJoin = useEffectEvent(() => {
+    if (submitTimeoutRef.current) { clearTimeout(submitTimeoutRef.current); submitTimeoutRef.current = null; }
     setLobby(null);
     setRoomId(null);
     setIsJoining(false);
@@ -193,6 +195,17 @@ export function usePlayerSession(deps: {
     if (!sent) {
       setAnswerStatus("idle");
       setNotice({ kind: "error", text: "Keine Verbindung zum Server." });
+    } else {
+      if (submitTimeoutRef.current) clearTimeout(submitTimeoutRef.current);
+      submitTimeoutRef.current = setTimeout(() => {
+        setAnswerStatus((curr) => {
+          if (curr === "submitting") {
+            setNotice({ kind: "error", text: "Antwort konnte nicht zugestellt werden." });
+            return "idle";
+          }
+          return curr;
+        });
+      }, 10_000);
     }
   });
 
@@ -315,6 +328,7 @@ export function usePlayerSession(deps: {
 
       case EVENTS.QUESTION_CONTROLLER: {
         if (!playerSessionRef.current) return;
+        if (submitTimeoutRef.current) { clearTimeout(submitTimeoutRef.current); submitTimeoutRef.current = null; }
         const resumedAnswer = resumedAnswerRef.current;
         setQuestion(parsedEnvelope.data.payload);
         setRemainingMs(parsedEnvelope.data.payload.durationMs);
@@ -339,11 +353,13 @@ export function usePlayerSession(deps: {
         return;
 
       case EVENTS.ANSWER_ACCEPTED:
+        if (submitTimeoutRef.current) { clearTimeout(submitTimeoutRef.current); submitTimeoutRef.current = null; }
         setNotice(null);
         setAnswerStatus("accepted");
         return;
 
       case EVENTS.ANSWER_REJECTED:
+        if (submitTimeoutRef.current) { clearTimeout(submitTimeoutRef.current); submitTimeoutRef.current = null; }
         switch (parsedEnvelope.data.payload.reason) {
           case "duplicate":
             setAnswerStatus("accepted");
@@ -366,6 +382,7 @@ export function usePlayerSession(deps: {
         return;
 
       case EVENTS.QUESTION_CLOSE:
+        if (submitTimeoutRef.current) { clearTimeout(submitTimeoutRef.current); submitTimeoutRef.current = null; }
         setRemainingMs(0);
         setAnswerStatus((curr) => (curr === "idle" || curr === "submitting" ? "locked" : curr));
         return;
@@ -431,6 +448,12 @@ export function usePlayerSession(deps: {
   useEffect(() => {
     onMessage(handleServerMessage);
   }, [onMessage, handleServerMessage]);
+
+  useEffect(() => {
+    return () => {
+      if (submitTimeoutRef.current) clearTimeout(submitTimeoutRef.current);
+    };
+  }, []);
 
   const isJoiningRef = useRef(false);
 

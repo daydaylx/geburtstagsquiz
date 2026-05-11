@@ -328,6 +328,8 @@ export function useHostSession(deps: {
             ? parsedEnvelope.data.payload.resolvedGamePlan.presetId
             : "custom",
         );
+        setConfirmFinishNow(false);
+        setConfirmRemovePlayerId(null);
         setScreen("question");
         return;
 
@@ -335,6 +337,8 @@ export function useHostSession(deps: {
         setCountdownSeconds(Math.ceil(parsedEnvelope.data.payload.countdownMs / 1000));
         setCurrentQuestionIndex(parsedEnvelope.data.payload.questionIndex);
         setTotalQuestionCount(parsedEnvelope.data.payload.totalQuestionCount);
+        setConfirmFinishNow(false);
+        setConfirmRemovePlayerId(null);
         setScreen("countdown");
         return;
 
@@ -343,6 +347,8 @@ export function useHostSession(deps: {
         setRemainingMs(parsedEnvelope.data.payload.durationMs);
         setCurrentQuestionIndex(parsedEnvelope.data.payload.questionIndex);
         setTotalQuestionCount(parsedEnvelope.data.payload.totalQuestionCount);
+        setConfirmFinishNow(false);
+        setConfirmRemovePlayerId(null);
         setScreen("question");
         setAnswerProgress(null);
         setRevealExplanation(null);
@@ -363,7 +369,24 @@ export function useHostSession(deps: {
         setRevealExplanation(parsedEnvelope.data.payload.explanation ?? null);
         setRoundResults(parsedEnvelope.data.payload.playerResults);
         setNextQuestionReadyProgress(null);
+        setConfirmFinishNow(false);
+        setConfirmRemovePlayerId(null);
         setScreen("reveal");
+        return;
+
+      case EVENTS.SCORE_UPDATE:
+        setScoreboard(parsedEnvelope.data.payload);
+        setNextQuestionReadyProgress(null);
+        setConfirmFinishNow(false);
+        setConfirmRemovePlayerId(null);
+        setScreen("scoreboard");
+        return;
+
+      case EVENTS.GAME_FINISHED:
+        setFinalResult(parsedEnvelope.data.payload);
+        setConfirmFinishNow(false);
+        setConfirmRemovePlayerId(null);
+        setScreen("finished");
         return;
 
       case EVENTS.SCORE_UPDATE:
@@ -451,7 +474,7 @@ export function useHostSession(deps: {
   const handleOpenDisplay = useEffectEvent(() => {
     if (!roomInfo || !displayConnectToken) return;
     const url = getDisplayUrl(displayConnectToken, roomInfo.roomId);
-    const popup = window.open(url, "_blank", "noopener");
+    const popup = window.open(url, "quiz-display", "noopener");
     if (!popup) {
       setNotice({
         kind: "info",

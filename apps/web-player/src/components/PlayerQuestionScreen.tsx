@@ -242,7 +242,7 @@ export function PlayerRevealScreen({ session }: PlayerQuestionScreenProps) {
         onClick={session.handleReadyForNextQuestion}
         type="button"
       >
-        {session.isReadyForNext ? "Warten…" : "Ich bin bereit"}
+        {session.isReadyForNext ? "Warten…" : "Weiter"}
       </button>
     </>
   );

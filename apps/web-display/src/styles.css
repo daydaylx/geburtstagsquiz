@@ -465,6 +465,30 @@ body {
   text-align: center;
 }
 
+.display-notice-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.display-retry-btn {
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 10px 28px;
+  border-radius: 8px;
+  background: var(--display-accent);
+  color: #000;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.15s;
+}
+
+.display-retry-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
 /* ── Lobby ─────────────────────────────────────────────────────────── */
 
 .display-lobby {

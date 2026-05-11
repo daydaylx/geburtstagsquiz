@@ -24,6 +24,12 @@ import {
   type DisplayStoredSession,
 } from "../storage.js";
 
+function cleanUrlParams(): void {
+  if (window.location.search) {
+    window.history.replaceState({}, "", window.location.pathname);
+  }
+}
+
 export type DisplayScreen = "setup" | "lobby" | "question" | "reveal" | "scoreboard" | "finished";
 export type DisplayShowLevel = "minimal" | "normal" | "high";
 
@@ -59,7 +65,10 @@ export interface UseDisplaySessionReturn {
   isFadingOut: boolean;
   votes: Record<string, number>;
   canCreateRoomFromDisplay: boolean;
+  canRetryConnect: boolean;
   handleCreateRoom: () => void;
+  handleRetryConnect: () => void;
+  handleRetryQr: () => void;
 }
 
 export function useDisplaySession(deps: {
@@ -72,8 +81,17 @@ export function useDisplaySession(deps: {
   connectionState: string;
 }): UseDisplaySessionReturn {
   const { sendEvent, onMessage, notifyConnected, connectionState } = deps;
-  const initialSession = loadDisplayStoredSession();
   const initialUrlParams = new URLSearchParams(window.location.search);
+  const urlDisplayConnectToken = initialUrlParams.get("displayConnectToken");
+  const urlRoomId = initialUrlParams.get("roomId");
+  const hasDisplayConnectParams = !!urlDisplayConnectToken && !!urlRoomId;
+
+  let initialSession = loadDisplayStoredSession();
+  if (hasDisplayConnectParams && initialSession && initialSession.roomId !== urlRoomId) {
+    clearDisplayStoredSession();
+    initialSession = null;
+  }
+
   const canCreateRoomFromDisplay =
     initialUrlParams.get("displayCreate") === "1" ||
     ((import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env
@@ -154,12 +172,19 @@ export function useDisplaySession(deps: {
     setFinalResult(null);
     setDisplayShowLevel("high");
     displaySessionRef.current = null;
+    cleanUrlParams();
   });
 
   const generateQrCodes = useEffectEvent((joinCode: string, _hostToken: string) => {
     QRCode.toDataURL(getPlayerJoinUrl(joinCode), { margin: 1, width: 400 })
-      .then((url) => setPlayerQrUrl(url))
-      .catch(() => setPlayerQrUrl(null));
+      .then((url) => {
+        setPlayerQrUrl(url);
+        if (notice === "QR-Code konnte nicht generiert werden.") setNotice(null);
+      })
+      .catch(() => {
+        setPlayerQrUrl(null);
+        setNotice("QR-Code konnte nicht generiert werden.");
+      });
   });
 
   const handleServerMessage = useEffectEvent((rawMessage: string) => {
@@ -269,6 +294,7 @@ export function useDisplaySession(deps: {
         });
         setHostPaired(payload.hostConnected);
         generateQrCodes(payload.joinCode, "");
+        cleanUrlParams();
         setScreen("lobby");
         return;
       }
@@ -298,6 +324,7 @@ export function useDisplaySession(deps: {
         setScoreboard(null);
         setScoreChanges([]);
         setNextQuestionReadyProgress(null);
+        setIsFadingOut(true);
         return;
       }
 
@@ -456,6 +483,34 @@ export function useDisplaySession(deps: {
     }
   });
 
+  const handleRetryConnect = useEffectEvent(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get("displayConnectToken") ?? urlParams.get("displayToken");
+    const roomId = urlParams.get("roomId");
+    if (token && roomId) {
+      setNotice(null);
+      sendEvent(EVENTS.DISPLAY_CONNECT_ROOM, {
+        roomId,
+        displayConnectToken: token,
+      });
+    }
+  });
+
+  const handleRetryQr = useEffectEvent(() => {
+    if (roomInfo) {
+      setNotice(null);
+      generateQrCodes(roomInfo.joinCode, roomInfo.hostToken);
+    }
+  });
+
+  const canRetryConnect =
+    screen === "setup" &&
+    !!notice &&
+    (() => {
+      const p = new URLSearchParams(window.location.search);
+      return !!(p.get("displayConnectToken") ?? p.get("displayToken")) && !!p.get("roomId");
+    })();
+
   return {
     screen,
     roomInfo,
@@ -480,6 +535,9 @@ export function useDisplaySession(deps: {
     isFadingOut,
     votes,
     canCreateRoomFromDisplay,
+    canRetryConnect,
     handleCreateRoom,
+    handleRetryConnect,
+    handleRetryQr,
   };
 }

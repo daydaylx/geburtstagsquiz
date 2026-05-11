@@ -462,7 +462,11 @@ export function App() {
                     <p className="host-join-url host-join-url--sidebar">{playerJoinUrl}</p>
                     <button
                       className="host-copy-url-button"
-                      onClick={() => navigator.clipboard.writeText(playerJoinUrl)}
+                      onClick={() =>
+                        navigator.clipboard.writeText(playerJoinUrl).catch(() => {
+                          /* clipboard not available */
+                        })
+                      }
                       title="Link kopieren"
                       type="button"
                     >
@@ -509,7 +513,11 @@ export function App() {
               </div>
             </aside>
 
-            <section className="host-panel host-stage-panel">{renderStagePanel()}</section>
+            <section className="host-panel host-stage-panel">
+              <div key={s.screen} className="host-stage-animate">
+                {renderStagePanel()}
+              </div>
+            </section>
 
             <aside className="host-sidebar-col">
               <div className="host-panel host-side-panel">

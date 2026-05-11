@@ -102,7 +102,21 @@ export function App() {
                 {s.isCreatingRoom ? "Erstelle Raum…" : "Fallback-Raum erstellen"}
               </button>
             )}
-            {s.notice && <p className="display-notice">{s.notice}</p>}
+            {s.notice && (
+              <div className="display-notice-block">
+                <p className="display-notice">{s.notice}</p>
+                {s.canRetryConnect && (
+                  <button
+                    className="display-retry-btn"
+                    disabled={connectionState !== "connected"}
+                    onClick={s.handleRetryConnect}
+                    type="button"
+                  >
+                    Erneut versuchen
+                  </button>
+                )}
+              </div>
+            )}
           </div>
         )}
 
@@ -112,7 +126,20 @@ export function App() {
           >
             <div className="display-qr-block display-qr-block--primary">
               <h2>Beitreten</h2>
-              {s.playerQrUrl && <img src={s.playerQrUrl} alt="Player-QR-Code" />}
+              {s.playerQrUrl ? (
+                <img src={s.playerQrUrl} alt="Player-QR-Code" />
+              ) : s.screen === "lobby" ? (
+                <div className="display-qr-error">
+                  <p>QR-Code nicht verfügbar</p>
+                  <button
+                    className="display-retry-btn"
+                    onClick={s.handleRetryQr}
+                    type="button"
+                  >
+                    Erneut generieren
+                  </button>
+                </div>
+              ) : null}
               <code className="display-join-code">{s.roomInfo.joinCode}</code>
             </div>
 

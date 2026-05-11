@@ -426,6 +426,10 @@ button {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  max-height: 360px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
 }
 .host-player-item {
   display: flex;
@@ -810,6 +814,11 @@ button {
   color: #ffd6d6;
 }
 
+.host-stage-animate {
+  display: contents;
+  animation: host-stage-in 320ms ease-out both;
+}
+
 .host-lobby-stage {
   display: flex;
   flex-direction: column;
@@ -817,7 +826,6 @@ button {
   align-items: center;
   text-align: center;
   gap: 18px;
-  animation: host-stage-in 320ms ease-out both;
 }
 
 .host-lobby-hint {
@@ -1420,6 +1428,11 @@ button {
 
 /* ── Mobile (900px) ────────────────────────────────────────────────── */
 @media (max-width: 900px) {
+  body {
+    overflow: auto;
+    height: auto;
+  }
+
   .host-shell {
     padding: 10px;
     gap: 10px;
