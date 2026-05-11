@@ -1,10 +1,11 @@
 import { QuestionType } from "@quiz/shared-types";
 import { useWebSocket, type ConnectionState } from "@quiz/shared-hooks";
 import { DisplayRevealScreen } from "./components/DisplayRevealScreen.js";
+import { DisplayLobbyScreen } from "./components/DisplayLobbyScreen.js";
+import { DisplayScoreboardScreen } from "./components/DisplayScoreboardScreen.js";
+import { DisplayFinishedScreen } from "./components/DisplayFinishedScreen.js";
 import { getAnswerDisplayLabel, getQuestionTypeLabel } from "./lib/labels.js";
 import { useDisplaySession } from "./hooks/useDisplaySession.js";
-
-const CONFETTI_COLORS = ["#ff6b6b", "#ffd500", "#00d4ff", "#00e676", "#c061cb"];
 
 function getConnectionLabel(state: ConnectionState): string {
   switch (state) {
@@ -120,49 +121,7 @@ export function App() {
           </div>
         )}
 
-        {s.screen === "lobby" && s.roomInfo && (
-          <div
-            className={`display-lobby ${s.hostPaired ? "display-lobby--host-paired" : "display-lobby--pre-host"}`}
-          >
-            <div className="display-qr-block display-qr-block--primary">
-              <h2>Beitreten</h2>
-              {s.playerQrUrl ? (
-                <img src={s.playerQrUrl} alt="Player-QR-Code" />
-              ) : s.screen === "lobby" ? (
-                <div className="display-qr-error">
-                  <p>QR-Code nicht verfügbar</p>
-                  <button
-                    className="display-retry-btn"
-                    onClick={s.handleRetryQr}
-                    type="button"
-                  >
-                    Erneut generieren
-                  </button>
-                </div>
-              ) : null}
-              <code className="display-join-code">{s.roomInfo.joinCode}</code>
-            </div>
-
-            {!s.hostPaired && (
-              <div className="display-qr-block display-qr-block--host">
-                <h2>Host pairen</h2>
-                <p className="display-host-pending">Warte auf Host…</p>
-              </div>
-            )}
-
-            {s.hostPaired && (
-              <div className="display-host-connected">
-                <span className="display-host-connected-dot" aria-hidden="true" />
-                Host verbunden
-              </div>
-            )}
-
-            <div className="display-player-count">
-              <span className="display-player-count-number">{s.lobby?.playerCount ?? 0}</span>{" "}
-              Spieler
-            </div>
-          </div>
-        )}
+        {s.screen === "lobby" && <DisplayLobbyScreen session={s} />}
 
         {s.screen === "question" && s.question && (
           <div className="display-question" key={s.question.questionId} data-fading={s.isFadingOut || undefined}>
@@ -267,168 +226,16 @@ export function App() {
           />
         )}
 
-        {s.screen === "scoreboard" && s.scoreboard && (
-          <div className="display-scoreboard" data-fading={s.isFadingOut || undefined}>
-            <h2>Zwischenstand</h2>
-            <ol className="display-scoreboard-list">
-              {(() => {
-                const highestScore = s.scoreboard.scoreboard[0]?.score ?? 0;
-                const maxScore = Math.max(highestScore, s.question?.totalQuestionCount ?? 10, 10);
-                return s.scoreboard.scoreboard.slice(0, 8).map((entry, i) => {
-                  const change = s.scoreChanges.find((c) => c.playerId === entry.playerId);
-                  const rankDelta = change ? change.previousRank - change.rank : 0;
-                  const progressPercent = Math.min(
-                    100,
-                    Math.max(0, (entry.score / maxScore) * 100),
-                  );
-                  return (
-                    <li
-                      key={entry.playerId}
-                      className="display-scoreboard-entry"
-                      data-rank={i + 1}
-                      data-changed={change && change.delta > 0 ? "true" : undefined}
-                    >
-                      <span className="display-rank">{i + 1}.</span>
-                      {rankDelta !== 0 && (
-                        <span
-                          className="display-rank-change"
-                          data-direction={rankDelta > 0 ? "up" : "down"}
-                        >
-                          {rankDelta > 0 ? `▲${rankDelta}` : `▼${Math.abs(rankDelta)}`}
-                        </span>
-                      )}
-                      <span className="display-name">{entry.name}</span>
-                      <div
-                        className="display-progress-track"
-                        style={{ "--progress": `${progressPercent}%` } as React.CSSProperties}
-                      >
-                        <span className="display-progress-label">Start</span>
-                        <div className="display-progress-bar">
-                          <div className="display-progress-fill" />
-                          <div className="display-progress-marker" />
-                        </div>
-                        <span className="display-progress-label">Ziel</span>
-                      </div>
-                      {change && change.delta > 0 && (
-                        <span className="display-score-delta">+{change.delta}</span>
-                      )}
-                      <span className="display-score">{entry.score}</span>
-                    </li>
-                  );
-                });
-              })()}
-            </ol>
-            {visibleReadyProgress && (
-              <div
-                className="display-ready-block"
-                data-all-ready={readyProgressAllReady ? "true" : undefined}
-              >
-                <div className="display-ready-label">
-                  {readyProgressAllReady
-                    ? "Alle bereit!"
-                    : `${visibleReadyProgress.readyCount} / ${visibleReadyProgress.totalEligiblePlayers} bereit`}
-                </div>
-                <div className="display-ready-track">
-                  <div
-                    className="display-ready-fill"
-                    style={{ width: `${readyProgressPercent}%` }}
-                  />
-                </div>
-              </div>
-            )}
-          </div>
+        {s.screen === "scoreboard" && (
+          <DisplayScoreboardScreen
+            session={s}
+            readyProgressAllReady={readyProgressAllReady}
+            readyProgressPercent={readyProgressPercent}
+            visibleReadyProgress={visibleReadyProgress}
+          />
         )}
 
-        {s.screen === "finished" &&
-          s.finalResult &&
-          (() => {
-            const fr = s.finalResult!;
-            return (
-              <div className="display-finished" data-fading={s.isFadingOut || undefined}>
-                <h1>Quiz beendet!</h1>
-
-                <div className="display-podium">
-                  {[1, 0, 2].map((rankIndex) => {
-                    const entry = fr.finalScoreboard[rankIndex];
-                    if (!entry) return null;
-                    return (
-                      <div
-                        key={rankIndex}
-                        className={`display-podium-entry display-podium-entry--${rankIndex + 1}`}
-                        style={{ visibility: entry ? "visible" : "hidden" }}
-                      >
-                        <div className="display-podium-rank-badge">{rankIndex + 1}</div>
-                        <div className="display-podium-name">{entry.name}</div>
-                        <div className="display-podium-score">{entry.score} Pkt</div>
-                      </div>
-                    );
-                  })}
-                </div>
-
-                {fr.finalScoreboard.length > 3 && (
-                  <ol className="display-scoreboard-list">
-                    {fr.finalScoreboard.slice(3, 8).map((entry, i) => (
-                      <li
-                        key={entry.playerId}
-                        className="display-scoreboard-entry"
-                        data-rank={i + 4}
-                      >
-                        <span className="display-rank">{i + 4}.</span>
-                        <span className="display-name">{entry.name}</span>
-                        <span className="display-score">{entry.score}</span>
-                      </li>
-                    ))}
-                  </ol>
-                )}
-
-                {fr.finalStats && (
-                  <div className="display-final-stats">
-                    {fr.finalStats.mostCorrect && (
-                      <div className="display-final-stat">
-                        <span className="display-final-stat-label">Meiste richtig</span>
-                        <span className="display-final-stat-value">
-                          {fr.finalStats.mostCorrect.name} · {fr.finalStats.mostCorrect.count}×
-                        </span>
-                      </div>
-                    )}
-                    {fr.finalStats.fastestAnswer && (
-                      <div className="display-final-stat">
-                        <span className="display-final-stat-label">Schnellste Antwort</span>
-                        <span className="display-final-stat-value">
-                          {fr.finalStats.fastestAnswer.name}
-                        </span>
-                      </div>
-                    )}
-                    {fr.finalStats.closestGap && (
-                      <div className="display-final-stat">
-                        <span className="display-final-stat-label">Knappster Abstand</span>
-                        <span className="display-final-stat-value">
-                          {fr.finalStats.closestGap.points} Punkte
-                        </span>
-                      </div>
-                    )}
-                  </div>
-                )}
-
-                {s.displayShowLevel !== "minimal" && (
-                  <div className="display-confetti" aria-hidden="true">
-                    {Array.from({ length: 30 }).map((_, i) => (
-                      <div
-                        key={i}
-                        className="display-confetti-piece"
-                        style={{
-                          left: `${(i * 3.37) % 100}%`,
-                          animationDelay: `${(i * 0.12) % 1.8}s`,
-                          animationDuration: `${2.8 + ((i * 0.07) % 1.5)}s`,
-                          background: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
-                        }}
-                      />
-                    ))}
-                  </div>
-                )}
-              </div>
-            );
-          })()}
+        {s.screen === "finished" && <DisplayFinishedScreen session={s} />}
       </div>
     </div>
   );

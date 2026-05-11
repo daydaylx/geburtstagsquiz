@@ -1617,6 +1617,44 @@ body {
   }
 }
 
+/* ── Responsive: narrow width (portrait / ultra-wide) ──────────────── */
+
+@media (max-width: 600px) {
+  .display-options {
+    grid-template-columns: 1fr;
+  }
+
+  .display-options--long {
+    grid-template-columns: 1fr;
+  }
+
+  .display-scoreboard-entry {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .display-progress-track {
+    display: none;
+  }
+
+  .display-podium {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .display-podium-entry--1 {
+    order: -1;
+  }
+
+  .display-lobby--pre-host {
+    grid-template-columns: 1fr;
+  }
+
+  .display-qr-block--host {
+    display: none;
+  }
+}
+
 /* ── Rang-Änderung ─────────────────────────────────────────────────── */
 
 .display-rank-change {
