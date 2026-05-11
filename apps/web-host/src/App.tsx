@@ -1,10 +1,11 @@
-import { QuestionType } from "@quiz/shared-types";
-
-import { HostGamePlanBuilder } from "./components/HostGamePlanBuilder.js";
-import { getPlayerJoinUrl } from "./lib/helpers.js";
 import { useWebSocket, type ConnectionState } from "@quiz/shared-hooks";
-import { getAnswerDisplayLabel } from "./lib/labels.js";
+import { getPlayerJoinUrl } from "./lib/helpers.js";
 import { useHostSession } from "./hooks/useHostSession.js";
+import { HostLobbyStage } from "./components/HostLobbyStage.js";
+import { HostCountdownStage } from "./components/HostCountdownStage.js";
+import { HostQuestionStage } from "./components/HostQuestionStage.js";
+import { HostRevealStage } from "./components/HostRevealStage.js";
+import { HostScoreboardStage } from "./components/HostScoreboardStage.js";
 
 const FLOW_STEPS = ["Lobby", "Kategorien", "Frage", "Auflösung", "Endstand"] as const;
 
@@ -80,289 +81,48 @@ export function App() {
 
   const renderStagePanel = () => {
     if (s.screen === "lobby" && s.roomInfo) {
-      return (
-        <div className="host-panel-content host-lobby-stage">
-          <p className="host-section-label host-section-label--compact">Status</p>
-          <h2 className="host-stage-title">
-            {s.displayConnected ? "Verbunden mit TV-Display" : "Warte auf TV-Display"}
-          </h2>
-          {!s.displayConnected && s.displayConnectToken && (
-            <button
-              className="host-action-button host-action-button--secondary"
-              onClick={s.handleOpenDisplay}
-              type="button"
-            >
-              Display öffnen
-            </button>
-          )}
-          <p className="host-lobby-hint">
-            {s.displayConnected
-              ? "Warte auf Spieler... Die Spieler können über den QR-Code am Host oder Fernseher beitreten."
-              : "Klicke auf 'Display öffnen' und ziehe das Fenster auf den HDMI-TV."}
-          </p>
-          <div className="host-lobby-stats">
-            <div className="host-stat-card">
-              <span className="host-stat-value">{connectedPlayerCount}</span>
-              <span className="host-stat-label">Spieler bereit</span>
-            </div>
-            <div className="host-stat-card">
-              <span className="host-stat-value">{s.gamePlanDraft?.questionCount ?? "-"}</span>
-              <span className="host-stat-label">Fragen</span>
-            </div>
-          </div>
-          <HostGamePlanBuilder session={s} />
-        </div>
-      );
+      return <HostLobbyStage session={s} connectedPlayerCount={connectedPlayerCount} />;
     }
 
     if (s.screen === "countdown") {
-      return (
-        <div className="host-panel-content host-countdown-panel">
-          <p className="host-section-label">Nächste Frage</p>
-          <div className="host-countdown-number">
-            {s.countdownSeconds > 0 ? s.countdownSeconds : "Frage!"}
-          </div>
-          <p className="host-lobby-hint">Timer startet gleich auf dem TV.</p>
-        </div>
-      );
+      return <HostCountdownStage session={s} />;
     }
 
     if (s.screen === "question" && s.question) {
       return (
-        <div className="host-panel-content">
-          <div className="host-stage-head">
-            <p className="host-section-label">
-              {s.question.isDemoQuestion
-                ? "Testfrage"
-                : `Frage ${currentQuestionNumber}${effectiveTotalQuestionCount ? ` / ${effectiveTotalQuestionCount}` : ""}`}
-            </p>
-            <div
-              className="host-timer-shell"
-              data-urgent={isTimerUrgent ? "true" : undefined}
-              data-warning={isTimerWarning ? "true" : undefined}
-            >
-              <div className="host-timer">{timerSeconds}s</div>
-            </div>
-          </div>
-          <h3 className="host-question-text">{s.question.text}</h3>
-          {(s.question.type === QuestionType.MultipleChoice ||
-            s.question.type === QuestionType.Logic ||
-            s.question.type === QuestionType.MajorityGuess) && (
-            <div className="host-options-grid">
-              {s.question.options.map((opt, index) => (
-                <div className="host-option-card" key={opt.id}>
-                  <span className="host-option-id">{getAnswerDisplayLabel(index)}</span>
-                  <span className="host-option-label">{opt.label}</span>
-                </div>
-              ))}
-            </div>
-          )}
-          {s.question.type === QuestionType.Estimate && (
-            <div className="host-estimate-display">
-              Schätzungen laufen... ({s.question.unit} · {s.question.context})
-            </div>
-          )}
-          {s.question.type === QuestionType.OpenText && (
-            <div className="host-estimate-display">Texteingaben laufen...</div>
-          )}
-          {s.question.type === QuestionType.Ranking && (
-            <div className="host-ranking-list">
-              {s.question.items.map((item, index) => (
-                <div className="host-ranking-item" key={item.id}>
-                  <span className="host-option-id">{getAnswerDisplayLabel(index)}</span>
-                  <span>{item.label}</span>
-                </div>
-              ))}
-            </div>
-          )}
-          <div className="host-progress-block">
-            <div className="host-bar-meta">
-              <span className="host-section-label host-section-label--compact">Antworten</span>
-              <strong>
-                {s.answerProgress?.answeredCount || 0} /{" "}
-                {s.answerProgress?.totalEligiblePlayers || 0}
-                {s.answerProgress &&
-                  s.answerProgress.totalEligiblePlayers - s.answerProgress.answeredCount > 0 && (
-                    <span className="host-pending-count">
-                      {" "}
-                      · {s.answerProgress.totalEligiblePlayers -
-                        s.answerProgress.answeredCount}{" "}
-                      noch offen
-                    </span>
-                  )}
-              </strong>
-            </div>
-            <div
-              className="host-progress-bar"
-              role="progressbar"
-              aria-valuenow={Math.round(answerProgressPercent)}
-              aria-valuemin={0}
-              aria-valuemax={100}
-            >
-              <div className="host-progress-fill" style={{ width: `${answerProgressPercent}%` }} />
-            </div>
-          </div>
-          {s.answerProgress?.totalEligiblePlayers === 0 && (
-            <p className="host-zero-players-hint">
-              Keine Spieler verbunden – warte auf Reconnect oder gehe manuell weiter.
-            </p>
-          )}
-        </div>
+        <HostQuestionStage
+          session={s}
+          currentQuestionNumber={currentQuestionNumber}
+          effectiveTotalQuestionCount={effectiveTotalQuestionCount}
+          timerSeconds={timerSeconds}
+          isTimerWarning={isTimerWarning}
+          isTimerUrgent={isTimerUrgent}
+          answerProgressPercent={answerProgressPercent}
+        />
       );
     }
 
     if (s.screen === "reveal" && s.question) {
       return (
-        <div className="host-panel-content">
-          <p className="host-section-label">Auflösung läuft</p>
-          <h3 className="host-question-text">{s.question.text}</h3>
-          {(s.question.type === QuestionType.MultipleChoice ||
-            s.question.type === QuestionType.Logic ||
-            s.question.type === QuestionType.MajorityGuess) && (
-            <div className="host-options-grid host-options-grid--reveal">
-              {s.question.options.map((opt, index) => {
-                const isCorrectAnswer =
-                  (s.revealedAnswer?.type === "option" && s.revealedAnswer.value === opt.id) ||
-                  (s.revealedAnswer?.type === "options" && s.revealedAnswer.value.includes(opt.id));
-                return (
-                  <div
-                    className="host-option-card"
-                    data-state={isCorrectAnswer ? "correct" : "dimmed"}
-                    key={opt.id}
-                  >
-                    <span className="host-option-id">{getAnswerDisplayLabel(index)}</span>
-                    <span className="host-option-label">{opt.label}</span>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-          {s.question.type === QuestionType.Estimate && s.revealedAnswer?.type === "number" && (
-            <div className="host-estimate-display host-estimate-display--reveal">
-              <span>Richtig: </span>
-              <strong className="host-estimate-correct-value">
-                {s.revealedAnswer.value} {s.question.unit}
-              </strong>
-              <span className="host-estimate-context">({s.question.context})</span>
-            </div>
-          )}
-          {s.question.type === QuestionType.OpenText && s.revealedAnswer?.type === "text" && (
-            <div className="host-estimate-display host-estimate-display--reveal">
-              <span>Richtig: </span>
-              <strong className="host-estimate-correct-value">{s.revealedAnswer.value}</strong>
-            </div>
-          )}
-          {s.question.type === QuestionType.Ranking &&
-            s.revealedAnswer?.type === "ranking" &&
-            (() => {
-              const q = s.question!;
-              return (
-                <div className="host-ranking-list">
-                  {s.revealedAnswer.value.map((id, i) => {
-                    const itemIndex = q.items.findIndex((x) => x.id === id);
-                    const item = itemIndex >= 0 ? q.items[itemIndex] : undefined;
-                    return (
-                      <div className="host-ranking-item host-ranking-item--reveal" key={id}>
-                        <span className="host-ranking-position">{i + 1}.</span>
-                        <span className="host-option-id">
-                          {itemIndex >= 0 ? getAnswerDisplayLabel(itemIndex) : id}
-                        </span>
-                        <span>{item?.label ?? id}</span>
-                      </div>
-                    );
-                  })}
-                </div>
-              );
-            })()}
-          {s.revealExplanation && <p className="host-explanation">{s.revealExplanation}</p>}
-          <div className="host-round-summary">
-            <div className="host-round-summary-card" data-state="correct">
-              <p className="host-control-label">Richtig</p>
-              <p>{correctRoundCount}</p>
-            </div>
-            <div className="host-round-summary-card" data-state="wrong">
-              <p className="host-control-label">Falsch</p>
-              <p>{wrongRoundCount}</p>
-            </div>
-            <div className="host-round-summary-card" data-state="missing">
-              <p className="host-control-label">Keine Antwort</p>
-              <p>{missingRoundCount}</p>
-            </div>
-          </div>
-          <div className="host-progress-block">
-            <div className="host-bar-meta">
-              <span className="host-section-label host-section-label--compact">Bereit</span>
-              <strong>{nextReadyLabel}</strong>
-            </div>
-            <div
-              className="host-progress-bar"
-              role="progressbar"
-              aria-valuenow={Math.round(nextReadyPercent)}
-              aria-valuemin={0}
-              aria-valuemax={100}
-            >
-              <div className="host-progress-fill" style={{ width: `${nextReadyPercent}%` }} />
-            </div>
-          </div>
-          {s.gamePlanDraft?.revealMode === "manual_with_fallback" && (
-            <p className="host-reveal-fallback-hint">Auto-weiter in ~30s falls kein Klick.</p>
-          )}
-          {s.nextQuestionReadyProgress?.totalEligiblePlayers === 0 && (
-            <p className="host-zero-players-hint">
-              Keine Spieler verbunden – warte auf Reconnect oder gehe manuell weiter.
-            </p>
-          )}
-        </div>
+        <HostRevealStage
+          session={s}
+          correctRoundCount={correctRoundCount}
+          wrongRoundCount={wrongRoundCount}
+          missingRoundCount={missingRoundCount}
+          nextReadyLabel={nextReadyLabel}
+          nextReadyPercent={nextReadyPercent}
+        />
       );
     }
 
     if (s.screen === "scoreboard" || s.screen === "finished") {
       return (
-        <div className="host-panel-content">
-          <p className="host-section-label">
-            {s.screen === "finished" ? "Endstand" : `Zwischenstand (${nextReadyLabel})`}
-          </p>
-          <div
-            className="host-scoreboard-list"
-            data-final={s.screen === "finished" ? "true" : undefined}
-          >
-            {latestScoreboard.map((entry, index) => {
-              const gap =
-                index > 0 && latestScoreboard[0] ? latestScoreboard[0].score - entry.score : 0;
-              return (
-                <article
-                  className="host-scoreboard-item"
-                  data-placement={index < 3 ? String(index + 1) : undefined}
-                  key={entry.playerId}
-                >
-                  <div className="host-scoreboard-main">
-                    <span className="host-scoreboard-rank">{index + 1}.</span>
-                    <span className="host-scoreboard-name">{entry.name}</span>
-                  </div>
-                  <div className="host-scoreboard-score">
-                    {entry.score}
-                    {gap > 0 && <span className="host-score-gap">−{gap}</span>}
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-          {s.screen === "scoreboard" && latestScoreChanges.length > 0 && (
-            <div className="host-score-change-list">
-              {latestScoreChanges.slice(0, 4).map((change) => (
-                <div className="host-score-change" key={change.playerId}>
-                  +{change.delta} Punkte für {change.name}
-                  {change.previousRank !== change.rank ? ` · jetzt Platz ${change.rank}` : ""}
-                </div>
-              ))}
-            </div>
-          )}
-          {s.screen === "scoreboard" && s.nextQuestionReadyProgress?.totalEligiblePlayers === 0 && (
-            <p className="host-zero-players-hint">
-              Keine Spieler verbunden – warte auf Reconnect oder gehe manuell weiter.
-            </p>
-          )}
-        </div>
+        <HostScoreboardStage
+          session={s}
+          latestScoreboard={latestScoreboard}
+          latestScoreChanges={latestScoreChanges}
+          nextReadyLabel={nextReadyLabel}
+        />
       );
     }
 
