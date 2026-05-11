@@ -1,23 +1,18 @@
 #!/usr/bin/env node
-import process from "node:process";
 import { randomUUID } from "node:crypto";
+import process from "node:process";
 
-const WS_URL =
-  process.env.SMOKE_WS_URL ?? process.env.VITE_SERVER_SOCKET_URL ?? "ws://localhost:3001";
+const WS_URL = process.env.SMOKE_WS_URL ?? process.env.VITE_SERVER_SOCKET_URL ?? "ws://localhost:3001";
 const TIMEOUT_MS = Number(process.env.SMOKE_TIMEOUT_MS ?? "15000");
 
-const WebSocketCtor =
-  globalThis.WebSocket ?? (await import("ws").then((module) => module.WebSocket));
+const WebSocketCtor = globalThis.WebSocket ?? (await import("ws").then((module) => module.WebSocket));
 
 function withTimeout(promise, label) {
   let timeout;
   return Promise.race([
     promise.finally(() => clearTimeout(timeout)),
     new Promise((_, reject) => {
-      timeout = setTimeout(
-        () => reject(new Error(`${label} timed out after ${TIMEOUT_MS}ms`)),
-        TIMEOUT_MS,
-      );
+      timeout = setTimeout(() => reject(new Error(`${label} timed out after ${TIMEOUT_MS}ms`)), TIMEOUT_MS);
     }),
   ]);
 }
@@ -65,9 +60,7 @@ class SmokeClient {
   }
 
   waitFor(event, predicate = () => true) {
-    const existing = this.messages.find(
-      (message) => message.event === event && predicate(message.payload),
-    );
+    const existing = this.messages.find((message) => message.event === event && predicate(message.payload));
     if (existing) {
       return Promise.resolve(existing.payload);
     }
@@ -149,20 +142,8 @@ async function resumeSession(label, sessionId, roomId) {
   return client;
 }
 
-async function answerCurrentQuestion({
-  room,
-  display,
-  host,
-  player1,
-  player2,
-  joined1,
-  joined2,
-  questionIndex,
-}) {
-  const displayQuestion = await display.waitFor(
-    "question:show",
-    (payload) => payload.questionIndex === questionIndex,
-  );
+async function answerCurrentQuestion({ room, display, host, player1, player2, joined1, joined2, questionIndex }) {
+  const displayQuestion = await display.waitFor("question:show", (payload) => payload.questionIndex === questionIndex);
   const playerQuestion1 = await player1.waitFor(
     "question:controller",
     (payload) => payload.questionId === displayQuestion.questionId,
@@ -196,14 +177,8 @@ async function answerCurrentQuestion({
     requestId: randomUUID(),
   });
 
-  await player1.waitFor(
-    "answer:accepted",
-    (payload) => payload.questionId === displayQuestion.questionId,
-  );
-  await player2.waitFor(
-    "answer:accepted",
-    (payload) => payload.questionId === displayQuestion.questionId,
-  );
+  await player1.waitFor("answer:accepted", (payload) => payload.questionId === displayQuestion.questionId);
+  await player2.waitFor("answer:accepted", (payload) => payload.questionId === displayQuestion.questionId);
   await display.waitFor(
     "answer:progress",
     (payload) => payload.questionId === displayQuestion.questionId && payload.answeredCount === 2,
@@ -223,10 +198,7 @@ async function answerCurrentQuestion({
   );
   assertNonEmptyString(displayReveal.explanation, "display reveal explanation");
   assertNonEmptyString(hostReveal.explanation, "host reveal explanation");
-  await player1.waitFor(
-    "question:reveal",
-    (payload) => payload.questionId === displayQuestion.questionId,
-  );
+  await player1.waitFor("question:reveal", (payload) => payload.questionId === displayQuestion.questionId);
   await display.waitFor(
     "next-question:ready-progress",
     (payload) =>
@@ -343,14 +315,8 @@ try {
     "score:update",
     (payload) => payload.questionId === fifthQuestion.questionId,
   );
-  const hostScore = await host.waitFor(
-    "score:update",
-    (payload) => payload.questionId === fifthQuestion.questionId,
-  );
-  await player1.waitFor(
-    "score:update",
-    (payload) => payload.questionId === fifthQuestion.questionId,
-  );
+  const hostScore = await host.waitFor("score:update", (payload) => payload.questionId === fifthQuestion.questionId);
+  await player1.waitFor("score:update", (payload) => payload.questionId === fifthQuestion.questionId);
   if (!Array.isArray(displayScore.scoreChanges) || !Array.isArray(hostScore.scoreChanges)) {
     throw new Error("score:update must include scoreChanges arrays");
   }
@@ -417,9 +383,7 @@ try {
   legacyPlayer.send("room:join", { joinCode: legacyRoom.joinCode, playerName: "Smoke Legacy" });
   await legacyPlayer.waitFor("player:joined");
 
-  console.log(
-    "smoke ok: legacy display-first fallback — room creation, host connect, player join",
-  );
+  console.log("smoke ok: legacy display-first fallback — room creation, host connect, player join");
 } finally {
   for (const client of legacyClients.reverse()) {
     client.close();

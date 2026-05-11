@@ -1,5 +1,5 @@
+import { type Answer, type Question, QuestionType } from "@quiz/shared-types";
 import { describe, expect, it } from "vitest";
-import { QuestionType, type Answer, type Question } from "@quiz/shared-types";
 
 import { isAnswerValidForQuestion } from "./answer-validation.js";
 
@@ -72,9 +72,7 @@ describe("isAnswerValidForQuestion", () => {
 
   it("accepts only finite numbers for estimate questions", () => {
     expect(isAnswerValidForQuestion(estimateQuestion, { type: "number", value: 41.5 })).toBe(true);
-    expect(isAnswerValidForQuestion(estimateQuestion, { type: "number", value: Infinity })).toBe(
-      false,
-    );
+    expect(isAnswerValidForQuestion(estimateQuestion, { type: "number", value: Infinity })).toBe(false);
     expect(isAnswerValidForQuestion(estimateQuestion, { type: "option", value: "A" })).toBe(false);
   });
 
@@ -85,32 +83,20 @@ describe("isAnswerValidForQuestion", () => {
   });
 
   it("requires every ranking item exactly once", () => {
-    expect(
-      isAnswerValidForQuestion(rankingQuestion, { type: "ranking", value: ["C", "A", "B"] }),
-    ).toBe(true);
-    expect(
-      isAnswerValidForQuestion(rankingQuestion, { type: "ranking", value: ["A", "A", "B"] }),
-    ).toBe(false);
-    expect(
-      isAnswerValidForQuestion(rankingQuestion, { type: "ranking", value: ["A", "B"] }),
-    ).toBe(false);
-    expect(
-      isAnswerValidForQuestion(rankingQuestion, { type: "ranking", value: ["A", "B", "X"] }),
-    ).toBe(false);
+    expect(isAnswerValidForQuestion(rankingQuestion, { type: "ranking", value: ["C", "A", "B"] })).toBe(true);
+    expect(isAnswerValidForQuestion(rankingQuestion, { type: "ranking", value: ["A", "A", "B"] })).toBe(false);
+    expect(isAnswerValidForQuestion(rankingQuestion, { type: "ranking", value: ["A", "B"] })).toBe(false);
+    expect(isAnswerValidForQuestion(rankingQuestion, { type: "ranking", value: ["A", "B", "X"] })).toBe(false);
     expect(isAnswerValidForQuestion(rankingQuestion, { type: "ranking", value: [] })).toBe(false);
   });
 
   it("handles decimal values for estimate questions", () => {
-    expect(isAnswerValidForQuestion(estimateQuestion, { type: "number", value: 3.14159 })).toBe(
-      true,
-    );
+    expect(isAnswerValidForQuestion(estimateQuestion, { type: "number", value: Math.PI })).toBe(true);
     expect(isAnswerValidForQuestion(estimateQuestion, { type: "number", value: -10 })).toBe(true);
   });
 
   it("accepts non-empty text for open text questions", () => {
-    expect(isAnswerValidForQuestion(openTextQuestion, { type: "text", value: "Antwort" })).toBe(
-      true,
-    );
+    expect(isAnswerValidForQuestion(openTextQuestion, { type: "text", value: "Antwort" })).toBe(true);
     expect(isAnswerValidForQuestion(openTextQuestion, { type: "text", value: "   " })).toBe(false);
     expect(isAnswerValidForQuestion(openTextQuestion, { type: "option", value: "A" })).toBe(false);
   });

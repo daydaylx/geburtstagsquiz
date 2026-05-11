@@ -1,13 +1,6 @@
+import { type GamePlan, type Player, PlayerState, type Question, QuestionType, type Quiz } from "@quiz/shared-types";
 import { describe, expect, it } from "vitest";
-import {
-  PlayerState,
-  QuestionType,
-  type GamePlan,
-  type Player,
-  type Question,
-  type Quiz,
-} from "@quiz/shared-types";
-
+import { QUESTION_DURATION_MS } from "./config.js";
 import { getAnswerProgress } from "./game.js";
 import {
   buildCatalogSummary,
@@ -17,7 +10,6 @@ import {
   resolveGamePlan,
   selectQuestionsForGamePlan,
 } from "./game-plan.js";
-import { QUESTION_DURATION_MS } from "./config.js";
 import { getDefaultQuiz } from "./quiz-data.js";
 
 function makePlayer(id: string, state: PlayerState): Player {
@@ -236,9 +228,7 @@ describe("game plan selection", () => {
     expect(catalog.maxQuestionCount).toBe(386);
     expect(catalog.categories.length).toBeGreaterThan(0);
     expect(catalog.categories.some((category) => category.id === "cat-01")).toBe(true);
-    expect(catalog.questionTypes.some((entry) => entry.type === QuestionType.MultipleChoice)).toBe(
-      true,
-    );
+    expect(catalog.questionTypes.some((entry) => entry.type === QuestionType.MultipleChoice)).toBe(true);
   });
 
   it("uses 90 seconds as the default question timer", () => {
@@ -308,9 +298,7 @@ describe("game plan selection", () => {
     expect(new Set(selectedIds).size).toBe(selectedIds.length);
     expect(selected.every((question) => question.categoryId === "cat-a")).toBe(true);
     expect(
-      selected.every((question) =>
-        [QuestionType.MultipleChoice, QuestionType.Estimate].includes(question.type),
-      ),
+      selected.every((question) => [QuestionType.MultipleChoice, QuestionType.Estimate].includes(question.type)),
     ).toBe(true);
     expect(selected.every((question) => question.durationMs === 45_000)).toBe(true);
   });

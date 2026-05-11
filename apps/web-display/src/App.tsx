@@ -1,11 +1,11 @@
+import { type ConnectionState, useWebSocket } from "@quiz/shared-hooks";
 import { QuestionType } from "@quiz/shared-types";
-import { useWebSocket, type ConnectionState } from "@quiz/shared-hooks";
-import { DisplayRevealScreen } from "./components/DisplayRevealScreen.js";
-import { DisplayLobbyScreen } from "./components/DisplayLobbyScreen.js";
-import { DisplayScoreboardScreen } from "./components/DisplayScoreboardScreen.js";
 import { DisplayFinishedScreen } from "./components/DisplayFinishedScreen.js";
-import { getAnswerDisplayLabel, getQuestionTypeLabel } from "./lib/labels.js";
+import { DisplayLobbyScreen } from "./components/DisplayLobbyScreen.js";
+import { DisplayRevealScreen } from "./components/DisplayRevealScreen.js";
+import { DisplayScoreboardScreen } from "./components/DisplayScoreboardScreen.js";
 import { useDisplaySession } from "./hooks/useDisplaySession.js";
+import { getAnswerDisplayLabel, getQuestionTypeLabel } from "./lib/labels.js";
 
 function getConnectionLabel(state: ConnectionState): string {
   switch (state) {
@@ -34,9 +34,7 @@ export function App() {
   const wrongCount = s.roundResults.filter((r) => !r.isCorrect && r.answer !== null).length;
   const noneCount = s.roundResults.filter((r) => r.answer === null).length;
   const visibleReadyProgress =
-    s.question &&
-    s.nextQuestionReadyProgress &&
-    s.nextQuestionReadyProgress.questionId === s.question.questionId
+    s.question && s.nextQuestionReadyProgress && s.nextQuestionReadyProgress.questionId === s.question.questionId
       ? s.nextQuestionReadyProgress
       : null;
   const readyProgressAllReady =
@@ -45,9 +43,7 @@ export function App() {
     visibleReadyProgress.readyCount >= visibleReadyProgress.totalEligiblePlayers;
   const readyProgressPercent =
     visibleReadyProgress && visibleReadyProgress.totalEligiblePlayers > 0
-      ? Math.round(
-          (visibleReadyProgress.readyCount / visibleReadyProgress.totalEligiblePlayers) * 100,
-        )
+      ? Math.round((visibleReadyProgress.readyCount / visibleReadyProgress.totalEligiblePlayers) * 100)
       : 0;
 
   return (
@@ -166,13 +162,11 @@ export function App() {
               </p>
             )}
 
-            {s.question.type === QuestionType.OpenText && (
-              <p className="display-estimate-context">Freitextantwort</p>
-            )}
+            {s.question.type === QuestionType.OpenText && <p className="display-estimate-context">Freitextantwort</p>}
 
             <div className="display-footer">
               <div className="display-timer-wrap">
-                <svg className="display-timer-svg" viewBox="0 0 100 100">
+                <svg className="display-timer-svg" viewBox="0 0 100 100" aria-hidden="true">
                   <circle cx="50" cy="50" r={RING_R} className="display-timer-track" />
                   <circle
                     cx="50"
@@ -195,8 +189,7 @@ export function App() {
               {s.answerProgress && (
                 <div className="display-answer-progress">
                   <span>
-                    {s.answerProgress.answeredCount} / {s.answerProgress.totalEligiblePlayers}{" "}
-                    geantwortet
+                    {s.answerProgress.answeredCount} / {s.answerProgress.totalEligiblePlayers} geantwortet
                   </span>
                   {s.answerProgress.totalEligiblePlayers > 0 && (
                     <div className="display-progress-bar">

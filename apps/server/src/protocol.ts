@@ -1,18 +1,16 @@
-import { WebSocket } from "ws";
-
 import {
-  EVENTS,
-  PROTOCOL_ERROR_CODES,
-  serializeEnvelope,
   type ErrorPayload,
+  EVENTS,
   type LobbyUpdatePayload,
+  PROTOCOL_ERROR_CODES,
   type ServerToClientEventName,
   type ServerToClientEventPayloadMap,
+  serializeEnvelope,
 } from "@quiz/shared-protocol";
-import { PlayerState, RoomState, type ClientRole } from "@quiz/shared-types";
-
-import type { RoomRecord, TrackedWebSocket } from "./server-types.js";
+import { type ClientRole, PlayerState, RoomState } from "@quiz/shared-types";
+import { WebSocket } from "ws";
 import { getDefaultQuiz } from "./quiz-data.js";
+import type { RoomRecord, TrackedWebSocket } from "./server-types.js";
 
 export function sendEvent<TEvent extends ServerToClientEventName>(
   socket: TrackedWebSocket | null | undefined,
@@ -41,13 +39,9 @@ export function sendProtocolError(
 
 export function toLobbyUpdatePayload(room: RoomRecord, role: ClientRole): LobbyUpdatePayload {
   const categories =
-    room.state === RoomState.Waiting
-      ? getDefaultQuiz().categories.map((c) => ({ id: c.id, name: c.name }))
-      : undefined;
+    room.state === RoomState.Waiting ? getDefaultQuiz().categories.map((c) => ({ id: c.id, name: c.name })) : undefined;
   const settings =
-    role === "host"
-      ? room.settings
-      : { showAnswerTextOnPlayerDevices: room.settings.showAnswerTextOnPlayerDevices };
+    role === "host" ? room.settings : { showAnswerTextOnPlayerDevices: room.settings.showAnswerTextOnPlayerDevices };
 
   return {
     roomId: room.id,

@@ -1,4 +1,4 @@
-import type { RoomRecord, SessionRecord, TrackedWebSocket } from "./server-types.js";
+import type { RoomRecord, SessionRecord } from "./server-types.js";
 
 export const roomsById = new Map<string, RoomRecord>();
 export const roomIdByJoinCode = new Map<string, string>();

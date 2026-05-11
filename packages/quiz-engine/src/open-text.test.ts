@@ -1,5 +1,5 @@
+import { type OpenTextQuestion, QuestionType, type SubmittedAnswer } from "@quiz/shared-types";
 import { describe, expect, it } from "vitest";
-import { QuestionType, type OpenTextQuestion, type SubmittedAnswer } from "@quiz/shared-types";
 
 import { evaluateOpenText, normalizeTextAnswer } from "./open-text.js";
 

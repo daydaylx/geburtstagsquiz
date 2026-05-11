@@ -1,13 +1,10 @@
-import { describe, expect, it, beforeEach } from "vitest";
-
 import { EVENTS } from "@quiz/shared-protocol";
-import { RoomState } from "@quiz/shared-types";
-
-import { isEventAllowedForRole } from "./role-auth.js";
-import { roomsById, roomIdByJoinCode, roomIdByHostToken, sessionsById } from "./state.js";
-import { handleDisplayCreateRoom, closeRoom } from "./room.js";
+import { beforeEach, describe, expect, it } from "vitest";
 import { handleHostConnect } from "./lobby.js";
+import { isEventAllowedForRole } from "./role-auth.js";
+import { closeRoom, handleDisplayCreateRoom } from "./room.js";
 import type { RoomRecord, SessionRecord, TrackedWebSocket } from "./server-types.js";
+import { roomIdByHostToken, roomIdByJoinCode, roomsById, sessionsById } from "./state.js";
 
 function makeMockSocket(sessionId: string | null = null): TrackedWebSocket {
   const sent: string[] = [];
@@ -21,50 +18,6 @@ function makeMockSocket(sessionId: string | null = null): TrackedWebSocket {
     ping: () => {},
     _sent: sent,
   } as unknown as TrackedWebSocket;
-}
-
-function makeRoom(overrides: Partial<RoomRecord> = {}): RoomRecord {
-  const roomId = "room-test-" + Math.random().toString(36).slice(2);
-  const room: RoomRecord = {
-    id: roomId,
-    joinCode: "TEST1",
-    state: RoomState.Waiting,
-    hostName: "",
-    hostSessionId: "",
-    hostConnected: false,
-    displayConnected: false,
-    hostToken: "valid-host-token",
-    hostTokenUsed: false,
-    displayToken: "display-tok",
-    displaySessionId: "display-sess-id",
-    displayConnectToken: null,
-    displayConnectTokenUsed: false,
-    settings: { showAnswerTextOnPlayerDevices: false },
-    players: [],
-    quiz: null,
-    currentQuestionIndex: null,
-    gameState: null,
-    createdAt: Date.now(),
-    lastActivityAt: Date.now(),
-    displayDisconnectTimer: null,
-    hostDisconnectTimer: null,
-    playerDisconnectTimers: new Map(),
-    countdownTimer: null,
-    countdownStartedAt: null,
-    questionTimer: null,
-    timerTickInterval: null,
-    revealTimer: null,
-    currentAnswers: new Map(),
-    nextQuestionReadyPlayerIds: new Set(),
-    questionStartedAt: null,
-    lastRoundResult: null,
-    lastScoreChanges: [],
-    completedRoundResults: [],
-    completedAnswers: [],
-    categoryVotes: new Map(),
-    ...overrides,
-  };
-  return room;
 }
 
 describe("isEventAllowedForRole – authorization guards", () => {

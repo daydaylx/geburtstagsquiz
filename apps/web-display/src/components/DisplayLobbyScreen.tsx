@@ -4,9 +4,7 @@ export function DisplayLobbyScreen({ session: s }: { session: UseDisplaySessionR
   if (!s.roomInfo) return null;
 
   return (
-    <div
-      className={`display-lobby ${s.hostPaired ? "display-lobby--host-paired" : "display-lobby--pre-host"}`}
-    >
+    <div className={`display-lobby ${s.hostPaired ? "display-lobby--host-paired" : "display-lobby--pre-host"}`}>
       <div className="display-qr-block display-qr-block--primary">
         <h2>Beitreten</h2>
         {s.playerQrUrl ? (

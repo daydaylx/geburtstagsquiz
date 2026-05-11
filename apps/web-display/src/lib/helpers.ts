@@ -48,4 +48,3 @@ export function getPlayerJoinUrl(joinCode: string): string {
   url.search = new URLSearchParams({ joinCode }).toString();
   return url.toString();
 }
-

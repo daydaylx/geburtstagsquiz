@@ -13,9 +13,7 @@ export function HostLobbyStage({
   return (
     <div className="host-panel-content host-lobby-stage">
       <p className="host-section-label host-section-label--compact">Status</p>
-      <h2 className="host-stage-title">
-        {s.displayConnected ? "Verbunden mit TV-Display" : "Warte auf TV-Display"}
-      </h2>
+      <h2 className="host-stage-title">{s.displayConnected ? "Verbunden mit TV-Display" : "Warte auf TV-Display"}</h2>
       {!s.displayConnected && s.displayConnectToken && (
         <button
           className="host-action-button host-action-button--secondary"

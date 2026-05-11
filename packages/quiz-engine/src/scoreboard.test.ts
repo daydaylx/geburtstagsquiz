@@ -1,7 +1,6 @@
-import { describe, expect, it } from "vitest";
-
-import { createInitialScoreboard, applyRoundResultToScoreboard } from "./scoreboard.js";
 import type { RoundResult } from "@quiz/shared-types";
+import { describe, expect, it } from "vitest";
+import { applyRoundResultToScoreboard, createInitialScoreboard } from "./scoreboard.js";
 
 describe("createInitialScoreboard", () => {
   it("creates entries for all players with score 0", () => {
@@ -105,12 +104,12 @@ describe("applyRoundResultToScoreboard", () => {
   it("adds missing players from the players list with score 0", () => {
     const initialPlayers = [{ id: "p1", name: "Alice" }];
     const scoreboard = createInitialScoreboard(initialPlayers);
-    
+
     const currentPlayers = [
       { id: "p1", name: "Alice" },
       { id: "p2", name: "Bob" },
     ];
-    
+
     const roundResult: RoundResult = {
       questionId: "q1",
       correctAnswer: { type: "option", value: "A" },

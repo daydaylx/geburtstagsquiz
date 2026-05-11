@@ -1,11 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import {
-  parseClientToServerEnvelope,
-  parseServerToClientEnvelope,
-  serializeEnvelope,
-  EVENTS,
-} from "./index.js";
+import { EVENTS, parseClientToServerEnvelope, parseServerToClientEnvelope, serializeEnvelope } from "./index.js";
 
 const sampleGamePlan = {
   mode: "preset" as const,
@@ -437,9 +432,7 @@ describe("parseServerToClientEnvelope", () => {
 
     expect(result.success).toBe(true);
     if (result.success && result.data.event === EVENTS.QUESTION_REVEAL) {
-      expect(result.data.payload.explanation).toBe(
-        "Die erste Pille nimmst du sofort – macht genau 1 Stunde.",
-      );
+      expect(result.data.payload.explanation).toBe("Die erste Pille nimmst du sofort – macht genau 1 Stunde.");
     }
   });
 

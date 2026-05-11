@@ -1,4 +1,4 @@
-import { QuestionType } from "./enums.js";
+import type { QuestionType } from "./enums.js";
 
 export interface QuestionOption {
   id: string;

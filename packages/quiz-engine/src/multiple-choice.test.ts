@@ -1,6 +1,6 @@
-import { describe, expect, it } from "vitest";
-import { QuestionType } from "@quiz/shared-types";
 import type { MultipleChoiceQuestion, SubmittedAnswer } from "@quiz/shared-types";
+import { QuestionType } from "@quiz/shared-types";
+import { describe, expect, it } from "vitest";
 
 import { evaluateMultipleChoice, scoreMultipleChoice } from "./multiple-choice.js";
 
@@ -22,11 +22,7 @@ function makeQuestion(overrides?: Partial<MultipleChoiceQuestion>): MultipleChoi
   };
 }
 
-function makeAnswer(
-  playerId: string,
-  value: string,
-  overrides?: Partial<SubmittedAnswer>,
-): SubmittedAnswer {
+function makeAnswer(playerId: string, value: string, overrides?: Partial<SubmittedAnswer>): SubmittedAnswer {
   return {
     playerId,
     questionId: "q1",

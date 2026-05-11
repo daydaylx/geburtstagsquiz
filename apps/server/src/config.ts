@@ -11,9 +11,7 @@ export const DEFAULT_ALLOWED_ORIGINS = [
   "https://host.quiz.disaai.de",
   "https://play.quiz.disaai.de",
 ] as const;
-export const ALLOWED_ORIGINS = parseAllowedOrigins(
-  process.env.ALLOWED_ORIGINS ?? DEFAULT_ALLOWED_ORIGINS.join(","),
-);
+export const ALLOWED_ORIGINS = parseAllowedOrigins(process.env.ALLOWED_ORIGINS ?? DEFAULT_ALLOWED_ORIGINS.join(","));
 export const HEARTBEAT_INTERVAL_MS = 15_000;
 export const PLAYER_DISCONNECT_GRACE_MS = 30_000;
 export const HOST_DISCONNECT_GRACE_MS = 5 * 60_000;

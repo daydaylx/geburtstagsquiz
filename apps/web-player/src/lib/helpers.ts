@@ -1,5 +1,5 @@
 import { PROTOCOL_ERROR_CODES, type QuestionControllerPayload } from "@quiz/shared-protocol";
-import { QuestionType, type CorrectAnswer } from "@quiz/shared-types";
+import { type CorrectAnswer, QuestionType } from "@quiz/shared-types";
 
 export function getProtocolErrorMessage(code: string, fallback: string): string {
   switch (code) {
@@ -35,16 +35,9 @@ export function getQuestionKindLabel(type: QuestionType): string {
   }
 }
 
-export function getOptionAnswerLabel(
-  id: string,
-  question?: QuestionControllerPayload | null,
-): string {
+export function getOptionAnswerLabel(id: string, question?: QuestionControllerPayload | null): string {
   const entries =
-    question && "options" in question
-      ? question.options
-      : question && "items" in question
-        ? question.items
-        : [];
+    question && "options" in question ? question.options : question && "items" in question ? question.items : [];
   const entry = entries.find((option) => option.id === id);
   return entry?.text ? `${entry.label}: ${entry.text}` : (entry?.label ?? id);
 }

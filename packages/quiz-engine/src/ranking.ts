@@ -1,9 +1,9 @@
 import type {
   CorrectAnswer,
   PlayerRoundResult,
-  RankingScoringMode,
   RankingAnswer,
   RankingQuestion,
+  RankingScoringMode,
   RoundResult,
   SubmittedAnswer,
 } from "@quiz/shared-types";
@@ -14,7 +14,6 @@ export function evaluateRanking(
   scoringMode: RankingScoringMode = "exact",
 ): RoundResult {
   const correctAnswer: CorrectAnswer = { type: "ranking", value: question.correctOrder };
-  const correctKey = question.correctOrder.join(",");
 
   const playerResults: PlayerRoundResult[] = answers.map((sub) => {
     if (sub.answer.type !== "ranking") {
@@ -31,9 +30,7 @@ export function evaluateRanking(
         .slice(0, maxLen)
         .filter((itemId, index) => itemId === question.correctOrder[index]).length;
       const bonusPoints = isCorrect ? 1 : 0;
-      const proportionalPoints = Math.round(
-        (exactPositions / question.correctOrder.length) * question.points,
-      );
+      const proportionalPoints = Math.round((exactPositions / question.correctOrder.length) * question.points);
 
       return {
         playerId: sub.playerId,

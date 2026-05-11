@@ -1,5 +1,5 @@
+import { type GamePlan, type Question, QuestionType } from "@quiz/shared-types";
 import { describe, expect, it } from "vitest";
-import { QuestionType, type GamePlan, type Question } from "@quiz/shared-types";
 
 import {
   buildCatalogSummary,
@@ -140,11 +140,7 @@ describe("selectQuestionsForGamePlan", () => {
     const catB = Array.from({ length: 7 }, (_, i) => makeMCQuestion(`b${i}`, "cat-b"));
     const quiz = makeTestQuiz([...catA, ...catB]);
     const catalog = buildCatalogSummary(quiz);
-    const resolved = resolveGamePlan(
-      makeCustomPlan({ questionCount: 5, categoryIds: ["cat-a"] }),
-      catalog,
-      quiz,
-    );
+    const resolved = resolveGamePlan(makeCustomPlan({ questionCount: 5, categoryIds: ["cat-a"] }), catalog, quiz);
 
     const selected = selectQuestionsForGamePlan(quiz.questions, resolved);
 
@@ -167,11 +163,7 @@ describe("selectQuestionsForGamePlan", () => {
     const questions = Array.from({ length: 10 }, (_, i) => makeMCQuestion(`q${i}`));
     const quiz = makeTestQuiz(questions);
     const catalog = buildCatalogSummary(quiz);
-    const resolved = resolveGamePlan(
-      makeCustomPlan({ questionCount: 5, timerMs: 45_000 }),
-      catalog,
-      quiz,
-    );
+    const resolved = resolveGamePlan(makeCustomPlan({ questionCount: 5, timerMs: 45_000 }), catalog, quiz);
 
     const selected = selectQuestionsForGamePlan(quiz.questions, resolved);
 

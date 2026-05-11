@@ -1,5 +1,5 @@
-import { type QuestionControllerPayload, type QuestionShowPayload } from "@quiz/shared-protocol";
-import { QuestionType, type Question } from "@quiz/shared-types";
+import type { QuestionControllerPayload, QuestionShowPayload } from "@quiz/shared-protocol";
+import { type Question, QuestionType } from "@quiz/shared-types";
 
 import type { RoomRecord } from "./server-types.js";
 
@@ -21,9 +21,7 @@ export function getVisibleQuestionIndex(room: RoomRecord): number {
     return 0;
   }
 
-  return room.quiz.questions
-    .slice(0, room.currentQuestionIndex)
-    .filter((question) => !question.isDemoQuestion).length;
+  return room.quiz.questions.slice(0, room.currentQuestionIndex).filter((question) => !question.isDemoQuestion).length;
 }
 
 export function toQuestionShowPayload(

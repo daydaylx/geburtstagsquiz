@@ -14,16 +14,10 @@ export function HostScoreboardStage({
 }) {
   return (
     <div className="host-panel-content">
-      <p className="host-section-label">
-        {s.screen === "finished" ? "Endstand" : `Zwischenstand (${nextReadyLabel})`}
-      </p>
-      <div
-        className="host-scoreboard-list"
-        data-final={s.screen === "finished" ? "true" : undefined}
-      >
+      <p className="host-section-label">{s.screen === "finished" ? "Endstand" : `Zwischenstand (${nextReadyLabel})`}</p>
+      <div className="host-scoreboard-list" data-final={s.screen === "finished" ? "true" : undefined}>
         {latestScoreboard.map((entry, index) => {
-          const gap =
-            index > 0 && latestScoreboard[0] ? latestScoreboard[0].score - entry.score : 0;
+          const gap = index > 0 && latestScoreboard[0] ? latestScoreboard[0].score - entry.score : 0;
           return (
             <article
               className="host-scoreboard-item"

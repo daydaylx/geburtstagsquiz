@@ -1,6 +1,6 @@
-import { describe, expect, it } from "vitest";
-import { QuestionType } from "@quiz/shared-types";
 import type { RankingQuestion, SubmittedAnswer } from "@quiz/shared-types";
+import { QuestionType } from "@quiz/shared-types";
+import { describe, expect, it } from "vitest";
 
 import { evaluateRanking } from "./ranking.js";
 
@@ -21,11 +21,7 @@ function makeQuestion(overrides?: Partial<RankingQuestion>): RankingQuestion {
   };
 }
 
-function makeAnswer(
-  playerId: string,
-  value: string[],
-  overrides?: Partial<SubmittedAnswer>,
-): SubmittedAnswer {
+function makeAnswer(playerId: string, value: string[], overrides?: Partial<SubmittedAnswer>): SubmittedAnswer {
   return {
     playerId,
     questionId: "q1",
@@ -80,10 +76,7 @@ describe("evaluateRanking", () => {
 
   it("handles mix of correct and incorrect answers", () => {
     const question = makeQuestion();
-    const answers = [
-      makeAnswer("p1", ["A", "B", "C"]),
-      makeAnswer("p2", ["A", "C", "B"]),
-    ];
+    const answers = [makeAnswer("p1", ["A", "B", "C"]), makeAnswer("p2", ["A", "C", "B"])];
 
     const result = evaluateRanking(question, answers);
 

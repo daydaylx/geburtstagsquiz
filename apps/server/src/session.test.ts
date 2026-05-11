@@ -1,17 +1,16 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { WebSocket } from "ws";
-
-import { roomsById, roomIdByHostToken, roomIdByJoinCode, sessionsById } from "./state.js";
-import { handleDisplayCreateRoom } from "./room.js";
-import { handleConnectionResume, handleHostConnect } from "./lobby.js";
-import { handleSocketClose } from "./session.js";
 import { HOST_DISCONNECT_GRACE_MS } from "./config.js";
+import { handleConnectionResume, handleHostConnect } from "./lobby.js";
+import { handleDisplayCreateRoom } from "./room.js";
 import type { RoomRecord, TrackedWebSocket } from "./server-types.js";
+import { handleSocketClose } from "./session.js";
+import { roomIdByHostToken, roomIdByJoinCode, roomsById, sessionsById } from "./state.js";
 
 function makeMockSocket(): TrackedWebSocket {
   const sent: string[] = [];
   return {
-    connectionId: "conn-" + Math.random().toString(36).slice(2),
+    connectionId: `conn-${Math.random().toString(36).slice(2)}`,
     isAlive: true,
     sessionId: null,
     readyState: WebSocket.OPEN,

@@ -1,6 +1,6 @@
-import { describe, it, expect } from "vitest";
-import { evaluateEstimate } from "./estimate.js";
 import { QuestionType } from "@quiz/shared-types";
+import { describe, expect, it } from "vitest";
+import { evaluateEstimate } from "./estimate.js";
 
 describe("evaluateEstimate", () => {
   const question = {
@@ -23,10 +23,10 @@ describe("evaluateEstimate", () => {
 
     const result = evaluateEstimate(question, answers);
 
-    expect(result.playerResults.find(r => r.playerId === "p2")?.isCorrect).toBe(true);
-    expect(result.playerResults.find(r => r.playerId === "p2")?.pointsEarned).toBe(10);
-    expect(result.playerResults.find(r => r.playerId === "p1")?.isCorrect).toBe(false);
-    expect(result.playerResults.find(r => r.playerId === "p3")?.isCorrect).toBe(false);
+    expect(result.playerResults.find((r) => r.playerId === "p2")?.isCorrect).toBe(true);
+    expect(result.playerResults.find((r) => r.playerId === "p2")?.pointsEarned).toBe(10);
+    expect(result.playerResults.find((r) => r.playerId === "p1")?.isCorrect).toBe(false);
+    expect(result.playerResults.find((r) => r.playerId === "p3")?.isCorrect).toBe(false);
   });
 
   it("should award points to multiple players if they have the same distance", () => {
@@ -37,8 +37,8 @@ describe("evaluateEstimate", () => {
 
     const result = evaluateEstimate(question, answers);
 
-    expect(result.playerResults.find(r => r.playerId === "p1")?.isCorrect).toBe(true);
-    expect(result.playerResults.find(r => r.playerId === "p2")?.isCorrect).toBe(true);
+    expect(result.playerResults.find((r) => r.playerId === "p1")?.isCorrect).toBe(true);
+    expect(result.playerResults.find((r) => r.playerId === "p2")?.isCorrect).toBe(true);
   });
 
   it("should handle non-numeric answers gracefully", () => {
@@ -49,9 +49,9 @@ describe("evaluateEstimate", () => {
 
     const result = evaluateEstimate(question, answers);
 
-    expect(result.playerResults.find(r => r.playerId === "p1")?.isCorrect).toBe(false);
-    expect(result.playerResults.find(r => r.playerId === "p1")?.pointsEarned).toBe(0);
-    expect(result.playerResults.find(r => r.playerId === "p2")?.isCorrect).toBe(true);
+    expect(result.playerResults.find((r) => r.playerId === "p1")?.isCorrect).toBe(false);
+    expect(result.playerResults.find((r) => r.playerId === "p1")?.pointsEarned).toBe(0);
+    expect(result.playerResults.find((r) => r.playerId === "p2")?.isCorrect).toBe(true);
   });
 
   it("should handle empty answers array", () => {

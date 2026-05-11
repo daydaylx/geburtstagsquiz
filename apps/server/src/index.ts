@@ -1,36 +1,34 @@
 import { randomUUID } from "node:crypto";
 import { createServer } from "node:http";
-
+import { EVENTS, parseClientToServerEnvelope } from "@quiz/shared-protocol";
 import { WebSocketServer } from "ws";
 
-import { EVENTS, parseClientToServerEnvelope, type EventName } from "@quiz/shared-protocol";
-import { type ClientRole } from "@quiz/shared-types";
-
-import { HEARTBEAT_INTERVAL_MS, HOST, PORT, isOriginAllowed } from "./config.js";
-import { PROTOCOL_ERROR_CODES, sendEvent, sendProtocolError } from "./protocol.js";
-import type { TrackedWebSocket } from "./server-types.js";
-import { roomsById, sessionsById } from "./state.js";
-import { toKnownEventName, closeRoom, handleDisplayCreateRoom } from "./room.js";
+import { HEARTBEAT_INTERVAL_MS, HOST, isOriginAllowed, PORT } from "./config.js";
 import {
-  handleRoomJoin,
-  handleConnectionResume,
-  handleRoomSettingsUpdate,
-  handleHostConnect,
-  handleCategoryVote,
-  handleHostCreateRoom,
-  handleDisplayConnectRoom,
-} from "./lobby.js";
-import { handleSocketClose } from "./session.js";
-import {
-  handleGameStart,
-  handleGameNextQuestion,
-  handleGameShowScoreboard,
+  handleAnswerSubmit,
   handleGameFinishNow,
+  handleGameNextQuestion,
+  handleGameRestart,
+  handleGameShowScoreboard,
+  handleGameStart,
+  handleNextQuestionReady,
   handlePlayerRemove,
   handleQuestionForceClose,
-  handleAnswerSubmit,
-  handleNextQuestionReady,
 } from "./game.js";
+import {
+  handleCategoryVote,
+  handleConnectionResume,
+  handleDisplayConnectRoom,
+  handleHostConnect,
+  handleHostCreateRoom,
+  handleRoomJoin,
+  handleRoomSettingsUpdate,
+} from "./lobby.js";
+import { PROTOCOL_ERROR_CODES, sendEvent, sendProtocolError } from "./protocol.js";
+import { closeRoom, handleDisplayCreateRoom, toKnownEventName } from "./room.js";
+import type { TrackedWebSocket } from "./server-types.js";
+import { handleSocketClose } from "./session.js";
+import { roomsById, sessionsById } from "./state.js";
 
 const server = createServer((request, response) => {
   const origin = request.headers.origin;
@@ -261,6 +259,10 @@ function handleSocketMessage(socket: TrackedWebSocket, rawMessage: string): void
     case EVENTS.CATEGORY_VOTE:
       handleCategoryVote(socket, parsedEnvelope.data.payload);
       return;
+
+    case EVENTS.GAME_RESTART:
+      handleGameRestart(socket, parsedEnvelope.data.payload.roomId);
+      return;
   }
 }
 
@@ -279,16 +281,11 @@ function handleRoomClose(socket: TrackedWebSocket, roomId: string): void {
   const session = socket.sessionId ? sessionsById.get(socket.sessionId) : null;
 
   if (!session || session.role !== "host" || session.roomId !== room.id) {
-    sendProtocolError(
-      socket,
-      PROTOCOL_ERROR_CODES.NOT_AUTHORIZED,
-      "Only the host can close a room",
-      {
-        event: EVENTS.ROOM_CLOSE,
-        roomId,
-        questionId: null,
-      },
-    );
+    sendProtocolError(socket, PROTOCOL_ERROR_CODES.NOT_AUTHORIZED, "Only the host can close a room", {
+      event: EVENTS.ROOM_CLOSE,
+      roomId,
+      questionId: null,
+    });
     return;
   }
 

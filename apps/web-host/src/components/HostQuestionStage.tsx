@@ -55,9 +55,7 @@ export function HostQuestionStage({
           Schätzungen laufen... ({s.question.unit} · {s.question.context})
         </div>
       )}
-      {s.question.type === QuestionType.OpenText && (
-        <div className="host-estimate-display">Texteingaben laufen...</div>
-      )}
+      {s.question.type === QuestionType.OpenText && <div className="host-estimate-display">Texteingaben laufen...</div>}
       {s.question.type === QuestionType.Ranking && (
         <div className="host-ranking-list">
           {s.question.items.map((item, index) => (
@@ -72,16 +70,13 @@ export function HostQuestionStage({
         <div className="host-bar-meta">
           <span className="host-section-label host-section-label--compact">Antworten</span>
           <strong>
-            {s.answerProgress?.answeredCount || 0} /{" "}
-            {s.answerProgress?.totalEligiblePlayers || 0}
-            {s.answerProgress &&
-              s.answerProgress.totalEligiblePlayers - s.answerProgress.answeredCount > 0 && (
-                <span className="host-pending-count">
-                  {" "}
-                  · {s.answerProgress.totalEligiblePlayers - s.answerProgress.answeredCount} noch
-                  offen
-                </span>
-              )}
+            {s.answerProgress?.answeredCount || 0} / {s.answerProgress?.totalEligiblePlayers || 0}
+            {s.answerProgress && s.answerProgress.totalEligiblePlayers - s.answerProgress.answeredCount > 0 && (
+              <span className="host-pending-count">
+                {" "}
+                · {s.answerProgress.totalEligiblePlayers - s.answerProgress.answeredCount} noch offen
+              </span>
+            )}
           </strong>
         </div>
         <div

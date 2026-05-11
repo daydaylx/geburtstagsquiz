@@ -1,11 +1,6 @@
-import { QuestionType } from "./enums.js";
+import type { QuestionType } from "./enums.js";
 
-export const GAME_PLAN_PRESET_IDS = [
-  "quick_dirty",
-  "normal_evening",
-  "full_evening",
-  "chaos_party",
-] as const;
+export const GAME_PLAN_PRESET_IDS = ["quick_dirty", "normal_evening", "full_evening", "chaos_party"] as const;
 
 export type GamePlanPresetId = (typeof GAME_PLAN_PRESET_IDS)[number];
 export type GamePlanMode = "preset" | "custom";

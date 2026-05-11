@@ -1,31 +1,28 @@
-import { useEffect, useEffectEvent, useRef, useState } from "react";
-import QRCode from "qrcode";
-
 import {
-  EVENTS,
-  PROTOCOL_ERROR_CODES,
-  parseServerToClientEnvelope,
   type AnswerProgressPayload,
   type CatalogSummaryPayload,
   type ClientToServerEventPayloadMap,
+  EVENTS,
   type GameFinishedPayload,
   type LobbyUpdatePayload,
   type NextQuestionReadyProgressPayload,
+  PROTOCOL_ERROR_CODES,
+  parseServerToClientEnvelope,
   type QuestionRevealPayload,
   type QuestionShowPayload,
   type ScoreUpdatePayload,
   type VoteUpdatePayload,
 } from "@quiz/shared-protocol";
-import { getDisplayUrl } from "../lib/helpers.js";
-import { GameState, type GamePlan, type GamePlanPresetId } from "@quiz/shared-types";
-
+import { type GamePlan, type GamePlanPresetId, GameState } from "@quiz/shared-types";
+import QRCode from "qrcode";
+import { useEffect, useEffectEvent, useRef, useState } from "react";
 import { buildPresetGamePlan, createHostClientInfo } from "../lib/game-plan-drafts.js";
-import { getPlayerJoinUrl } from "../lib/helpers.js";
+import { getDisplayUrl, getPlayerJoinUrl } from "../lib/helpers.js";
 import {
   clearHostStoredSession,
+  type HostStoredSession,
   loadHostStoredSession,
   saveHostStoredSession,
-  type HostStoredSession,
 } from "../storage.js";
 
 function getHostErrorMessage(code: string, fallback: string): string {
@@ -40,14 +37,7 @@ function getHostErrorMessage(code: string, fallback: string): string {
   }
 }
 
-export type HostScreen =
-  | "start"
-  | "lobby"
-  | "countdown"
-  | "question"
-  | "reveal"
-  | "scoreboard"
-  | "finished";
+export type HostScreen = "start" | "lobby" | "countdown" | "question" | "reveal" | "scoreboard" | "finished";
 
 export interface HostRoomInfo {
   roomId: string;
@@ -128,23 +118,20 @@ export function useHostSession(deps: {
   const [question, setQuestion] = useState<QuestionShowPayload | null>(null);
   const [remainingMs, setRemainingMs] = useState<number>(0);
   const [answerProgress, setAnswerProgress] = useState<AnswerProgressPayload | null>(null);
-  const [revealedAnswer, setRevealedAnswer] = useState<
-    QuestionRevealPayload["correctAnswer"] | null
-  >(null);
+  const [revealedAnswer, setRevealedAnswer] = useState<QuestionRevealPayload["correctAnswer"] | null>(null);
   const [revealExplanation, setRevealExplanation] = useState<string | null>(null);
   const [roundResults, setRoundResults] = useState<QuestionRevealPayload["playerResults"]>([]);
   const [scoreboard, setScoreboard] = useState<ScoreUpdatePayload | null>(null);
-  const [nextQuestionReadyProgress, setNextQuestionReadyProgress] =
-    useState<NextQuestionReadyProgressPayload | null>(null);
+  const [nextQuestionReadyProgress, setNextQuestionReadyProgress] = useState<NextQuestionReadyProgressPayload | null>(
+    null,
+  );
   const [finalResult, setFinalResult] = useState<GameFinishedPayload | null>(null);
   const [votes, setVotes] = useState<Record<string, number>>({});
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number | null>(null);
   const [totalQuestionCount, setTotalQuestionCount] = useState<number | null>(null);
   const [catalog, setCatalog] = useState<CatalogSummaryPayload | null>(null);
   const [gamePlanDraft, setGamePlanDraft] = useState<GamePlan | null>(null);
-  const [selectedPlanMode, setSelectedPlanMode] = useState<GamePlanPresetId | "custom">(
-    "normal_evening",
-  );
+  const [selectedPlanMode, setSelectedPlanMode] = useState<GamePlanPresetId | "custom">("normal_evening");
   const [countdownSeconds, setCountdownSeconds] = useState(0);
   const [showAnswerTextOnPlayerDevices, setShowAnswerTextOnPlayerDevices] = useState(false);
   const [confirmFinishNow, setConfirmFinishNow] = useState(false);
@@ -261,18 +248,15 @@ export function useHostSession(deps: {
         setNotice(null);
         return;
 
-      case EVENTS.CATALOG_SUMMARY:
+      case EVENTS.CATALOG_SUMMARY: {
         const catalogPayload = parsedEnvelope.data.payload;
         setCatalog(catalogPayload);
         setGamePlanDraft((current) => {
           if (current) return current;
-          return buildPresetGamePlan(
-            "normal_evening",
-            catalogPayload,
-            showAnswerTextOnPlayerDevices,
-          );
+          return buildPresetGamePlan("normal_evening", catalogPayload, showAnswerTextOnPlayerDevices);
         });
         return;
+      }
 
       case EVENTS.CONNECTION_RESUMED:
         if (parsedEnvelope.data.payload.role !== "host") return;
@@ -299,9 +283,7 @@ export function useHostSession(deps: {
       case EVENTS.LOBBY_UPDATE:
         setLobby(parsedEnvelope.data.payload);
         setDisplayConnected(parsedEnvelope.data.payload.displayConnected);
-        setShowAnswerTextOnPlayerDevices(
-          parsedEnvelope.data.payload.settings.showAnswerTextOnPlayerDevices,
-        );
+        setShowAnswerTextOnPlayerDevices(parsedEnvelope.data.payload.settings.showAnswerTextOnPlayerDevices);
         if (parsedEnvelope.data.payload.settings.gamePlanDraft) {
           setGamePlanDraft(parsedEnvelope.data.payload.settings.gamePlanDraft);
           setSelectedPlanMode(
@@ -389,19 +371,33 @@ export function useHostSession(deps: {
         setScreen("finished");
         return;
 
-      case EVENTS.SCORE_UPDATE:
-        setScoreboard(parsedEnvelope.data.payload);
+      case EVENTS.ROOM_RESET: {
+        const resetPayload = parsedEnvelope.data.payload;
+        setRoomInfo({
+          roomId: resetPayload.roomId,
+          joinCode: resetPayload.joinCode,
+        });
+        setQuestion(null);
+        setRemainingMs(0);
+        setAnswerProgress(null);
+        setRevealedAnswer(null);
+        setRevealExplanation(null);
+        setRoundResults([]);
+        setScoreboard(null);
         setNextQuestionReadyProgress(null);
-        setScreen("scoreboard");
+        setFinalResult(null);
+        setCurrentQuestionIndex(null);
+        setTotalQuestionCount(null);
+        setCatalog(null);
+        setGamePlanDraft(null);
+        setSelectedPlanMode("normal_evening");
+        setScreen("lobby");
+        setNotice(null);
         return;
+      }
 
       case EVENTS.NEXT_QUESTION_READY_PROGRESS:
         setNextQuestionReadyProgress(parsedEnvelope.data.payload);
-        return;
-
-      case EVENTS.GAME_FINISHED:
-        setFinalResult(parsedEnvelope.data.payload);
-        setScreen("finished");
         return;
 
       case EVENTS.ROOM_CLOSED:
@@ -423,10 +419,7 @@ export function useHostSession(deps: {
         }
         setNotice({
           kind: "error",
-          text: getHostErrorMessage(
-            parsedEnvelope.data.payload.code,
-            parsedEnvelope.data.payload.message,
-          ),
+          text: getHostErrorMessage(parsedEnvelope.data.payload.code, parsedEnvelope.data.payload.message),
         });
         return;
 
@@ -437,7 +430,7 @@ export function useHostSession(deps: {
 
   useEffect(() => {
     onMessage(handleServerMessage);
-  }, [onMessage, handleServerMessage]);
+  }, [onMessage]);
 
   useEffect(() => {
     if (!roomInfo?.joinCode) {
@@ -459,7 +452,7 @@ export function useHostSession(deps: {
     }, 1000);
 
     return () => window.clearInterval(timer);
-  }, [screen]);
+  }, [screen, countdownSeconds]);
 
   const handleCreateRoom = useEffectEvent(() => {
     setIsConnectingHost(true);
@@ -484,8 +477,16 @@ export function useHostSession(deps: {
   });
 
   const handleRestartInfo = useEffectEvent(() => {
-    updateStoredSession(null);
-    window.location.href = window.location.pathname;
+    if (roomInfo) {
+      const sent = sendEvent(EVENTS.GAME_RESTART, { roomId: roomInfo.roomId });
+      if (!sent) {
+        updateStoredSession(null);
+        window.location.href = window.location.pathname;
+      }
+    } else {
+      updateStoredSession(null);
+      window.location.href = window.location.pathname;
+    }
   });
 
   const handleStartGame = useEffectEvent(() => {
@@ -499,9 +500,7 @@ export function useHostSession(deps: {
     if (!roomInfo || screen !== "lobby") return;
     setShowAnswerTextOnPlayerDevices(enabled);
     setNotice(null);
-    const nextDraft = gamePlanDraft
-      ? { ...gamePlanDraft, showAnswerTextOnPlayerDevices: enabled }
-      : null;
+    const nextDraft = gamePlanDraft ? { ...gamePlanDraft, showAnswerTextOnPlayerDevices: enabled } : null;
     if (nextDraft) setGamePlanDraft(nextDraft);
     const sent = sendEvent(EVENTS.ROOM_SETTINGS_UPDATE, {
       roomId: roomInfo.roomId,

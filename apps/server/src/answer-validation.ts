@@ -1,14 +1,11 @@
-import { QuestionType, type Answer, type Question } from "@quiz/shared-types";
+import { type Answer, type Question, QuestionType } from "@quiz/shared-types";
 
 export function isAnswerValidForQuestion(question: Question, answer: Answer): boolean {
   switch (question.type) {
     case QuestionType.MultipleChoice:
     case QuestionType.Logic:
     case QuestionType.MajorityGuess:
-      return (
-        answer.type === "option" &&
-        question.options.some((option) => option.id === answer.value)
-      );
+      return answer.type === "option" && question.options.some((option) => option.id === answer.value);
 
     case QuestionType.Estimate:
       return answer.type === "number" && Number.isFinite(answer.value);

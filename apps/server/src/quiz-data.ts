@@ -3,10 +3,10 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import {
-  QuestionType,
   type Question,
   type QuestionMetadata,
   type QuestionOption,
+  QuestionType,
   type Quiz,
   type QuizCategory,
 } from "@quiz/shared-types";
@@ -138,11 +138,7 @@ function toQuestionOptions(options: RawOption[] | undefined, questionId: string)
   }));
 }
 
-function getCorrectOptionId(
-  question: RawQuestion,
-  rawOptions: RawOption[],
-  options: QuestionOption[],
-): string {
+function getCorrectOptionId(question: RawQuestion, rawOptions: RawOption[], options: QuestionOption[]): string {
   if (question.correct_option_id) {
     if (!options.some((option) => option.id === question.correct_option_id)) {
       throw new Error(`Question ${question.id} references an unknown correct_option_id`);
@@ -151,9 +147,7 @@ function getCorrectOptionId(
     return question.correct_option_id;
   }
 
-  const correctIndex = rawOptions.findIndex(
-    (option) => typeof option !== "string" && option.is_correct === true,
-  );
+  const correctIndex = rawOptions.findIndex((option) => typeof option !== "string" && option.is_correct === true);
   if (correctIndex < 0) {
     throw new Error(`Question ${question.id} is missing a correct option`);
   }
@@ -170,8 +164,7 @@ function hasCorrectOption(question: RawQuestion): boolean {
     Array.isArray(question.options) &&
     question.options.length > 0 &&
     Boolean(
-      question.correct_option_id ||
-      question.options.some((option) => typeof option !== "string" && option.is_correct),
+      question.correct_option_id || question.options.some((option) => typeof option !== "string" && option.is_correct),
     )
   );
 }
@@ -189,10 +182,7 @@ function hasRankingAnswer(question: RawQuestion): boolean {
 
 function toQuestionMetadata(category: RawCategory, question: RawQuestion): QuestionMetadata {
   const categoryId =
-    category.category_id ??
-    category.id ??
-    category.slug ??
-    `category-${question.id.split("-").slice(0, 2).join("-")}`;
+    category.category_id ?? category.id ?? category.slug ?? `category-${question.id.split("-").slice(0, 2).join("-")}`;
 
   return {
     categoryId,

@@ -1,5 +1,5 @@
 import type { CatalogSummaryPayload } from "@quiz/shared-protocol";
-import { QuestionType, type GamePlan, type GamePlanPresetId } from "@quiz/shared-types";
+import { type GamePlan, type GamePlanPresetId, QuestionType } from "@quiz/shared-types";
 
 const DEFAULT_CUSTOM_TYPES = [
   QuestionType.MultipleChoice,
@@ -22,7 +22,7 @@ function getDefaultCategoryIds(catalog: CatalogSummaryPayload, includeHard: bool
 export function buildPresetGamePlan(
   presetId: GamePlanPresetId,
   catalog: CatalogSummaryPayload,
-  showAnswerTextOnPlayerDevices: boolean,
+  _showAnswerTextOnPlayerDevices: boolean,
 ): GamePlan {
   const includeHard = presetId === "normal_evening" || presetId === "full_evening";
   const categoryIds = getDefaultCategoryIds(catalog, includeHard);
@@ -77,11 +77,9 @@ export function buildPresetGamePlan(
       mode: "preset",
       presetId,
       questionCount: 18,
-      questionTypes: [
-        QuestionType.MultipleChoice,
-        QuestionType.MajorityGuess,
-        QuestionType.Estimate,
-      ].filter((type) => allTypes.includes(type)),
+      questionTypes: [QuestionType.MultipleChoice, QuestionType.MajorityGuess, QuestionType.Estimate].filter((type) =>
+        allTypes.includes(type),
+      ),
       timerMs: 90_000,
       revealDurationMs: 30_000,
       revealMode: "manual",
@@ -98,10 +96,7 @@ export function buildPresetGamePlan(
   };
 }
 
-export function buildCustomGamePlan(
-  catalog: CatalogSummaryPayload,
-  showAnswerTextOnPlayerDevices: boolean,
-): GamePlan {
+export function buildCustomGamePlan(catalog: CatalogSummaryPayload, _showAnswerTextOnPlayerDevices: boolean): GamePlan {
   const allTypes = getAvailableQuestionTypes(catalog);
 
   return {

@@ -4,9 +4,7 @@ import { PlayerConfetti } from "./PlayerQuestionScreen.js";
 export function PlayerFinishedScreen({ session: s }: { session: UsePlayerSessionReturn }) {
   return (
     <>
-      {s.ownFinalPlacement >= 0 && s.ownFinalPlacement <= 2 && (
-        <PlayerConfetti count={20} />
-      )}
+      {s.ownFinalPlacement >= 0 && s.ownFinalPlacement <= 2 && <PlayerConfetti count={20} />}
       <div className="player-card player-finished-card">
         <span className="player-kicker">Quiz beendet</span>
         <div className="player-finished-trophy" aria-hidden="true">
@@ -30,8 +28,13 @@ export function PlayerFinishedScreen({ session: s }: { session: UsePlayerSession
         <div className="player-my-rank-value player-final-rank">
           {s.ownFinalPlacement >= 0 ? `#${s.ownFinalPlacement + 1}` : "-"}
         </div>
-        <button className="player-primary-button" onClick={() => window.location.reload()}>
-          Nochmal spielen
+        <button
+          type="button"
+          className="player-primary-button"
+          onClick={s.handlePlayAgain}
+          disabled={s.waitingForRestart}
+        >
+          {s.waitingForRestart ? "Warte auf Host\u2026" : "Nochmal spielen"}
         </button>
       </div>
     </>

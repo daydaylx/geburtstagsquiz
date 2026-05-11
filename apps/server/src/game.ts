@@ -1,4 +1,3 @@
-import { EVENTS, type GameStartPayload, type QuestionShowPayload } from "@quiz/shared-protocol";
 import {
   evaluateEstimate,
   evaluateMajorityGuess,
@@ -6,31 +5,21 @@ import {
   evaluateOpenText,
   evaluateRanking,
 } from "@quiz/quiz-engine";
-import { GameState, PlayerState, QuestionType, RoomState } from "@quiz/shared-types";
+import { EVENTS, type GameStartPayload, type QuestionShowPayload } from "@quiz/shared-protocol";
 import type { Question, ResolvedGamePlan, SubmittedAnswer } from "@quiz/shared-types";
-
-import { PROTOCOL_ERROR_CODES, sendEvent, sendProtocolError } from "./protocol.js";
-import type { RoomRecord, TrackedWebSocket } from "./server-types.js";
-import { roomsById, sessionsById, logRoomEvent } from "./state.js";
+import { GameState, PlayerState, QuestionType, RoomState } from "@quiz/shared-types";
+import { isAnswerValidForQuestion } from "./answer-validation.js";
 import {
   broadcastLobbyUpdate,
   broadcastToAllRoomClients,
   broadcastToHostAndDisplay,
+  sendToHost,
 } from "./connection.js";
-import { getDefaultQuiz } from "./quiz-data.js";
-import { isAnswerValidForQuestion } from "./answer-validation.js";
-import { removePlayerFromRoom } from "./room.js";
 import {
-  getTotalQuestionCount,
-  getVisibleQuestionIndex,
-  toQuestionControllerPayload,
-  toQuestionShowPayload,
-} from "./question-payloads.js";
-import {
-  GamePlanValidationError,
   buildCatalogSummary,
   buildDefaultGamePlan,
   createDemoQuestion,
+  GamePlanValidationError,
   resolveGamePlan,
   selectQuestionsForGamePlan,
 } from "./game-plan.js";
@@ -40,9 +29,19 @@ import {
   isLastQuestion,
   shouldShowScoreboardAfterCurrentQuestion,
 } from "./game-scoreboard.js";
+import { PROTOCOL_ERROR_CODES, sendEvent, sendProtocolError } from "./protocol.js";
+import {
+  getTotalQuestionCount,
+  getVisibleQuestionIndex,
+  toQuestionControllerPayload,
+  toQuestionShowPayload,
+} from "./question-payloads.js";
+import { getDefaultQuiz } from "./quiz-data.js";
+import { closeRoom, removePlayerFromRoom } from "./room.js";
 import { getConnectedPlayers, getSortedScoreboard } from "./room-selectors.js";
 import { clearActiveRoomTimers } from "./room-timers.js";
-import { closeRoom } from "./room.js";
+import type { RoomRecord, TrackedWebSocket } from "./server-types.js";
+import { logRoomEvent, roomsById, sessionsById } from "./state.js";
 
 const COMPLETED_ROOM_TTL_MS = 10 * 60_000;
 
@@ -54,26 +53,14 @@ function sendQuestionForCurrentRole(
   gameState: QuestionShowPayload["gameState"],
 ): void {
   if (role === "host" || role === "display") {
-    sendEvent(
-      sessionSocket,
-      EVENTS.QUESTION_SHOW,
-      toQuestionShowPayload(room, question, gameState),
-    );
+    sendEvent(sessionSocket, EVENTS.QUESTION_SHOW, toQuestionShowPayload(room, question, gameState));
     return;
   }
 
-  sendEvent(
-    sessionSocket,
-    EVENTS.QUESTION_CONTROLLER,
-    toQuestionControllerPayload(room, question, gameState),
-  );
+  sendEvent(sessionSocket, EVENTS.QUESTION_CONTROLLER, toQuestionControllerPayload(room, question, gameState));
 }
 
-function sendQuestionToRoom(
-  room: RoomRecord,
-  question: Question,
-  gameState: QuestionShowPayload["gameState"],
-): void {
+function sendQuestionToRoom(room: RoomRecord, question: Question, gameState: QuestionShowPayload["gameState"]): void {
   const displaySession = room.displaySessionId ? sessionsById.get(room.displaySessionId) : null;
   sendQuestionForCurrentRole(displaySession?.socket, "display", room, question, gameState);
 
@@ -92,32 +79,22 @@ export function handleGameStart(socket: TrackedWebSocket, payload: GameStartPayl
   if (!room) return;
 
   if (room.state !== RoomState.Waiting) {
-    sendProtocolError(
-      socket,
-      PROTOCOL_ERROR_CODES.INVALID_STATE,
-      "Game can only be started from waiting state",
-      {
-        event: EVENTS.GAME_START,
-        roomId: room.id,
-        questionId: null,
-      },
-    );
+    sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "Game can only be started from waiting state", {
+      event: EVENTS.GAME_START,
+      roomId: room.id,
+      questionId: null,
+    });
     return;
   }
 
   const connectedPlayers = getConnectedPlayers(room);
 
   if (connectedPlayers.length === 0) {
-    sendProtocolError(
-      socket,
-      PROTOCOL_ERROR_CODES.INVALID_STATE,
-      "Need at least 1 connected player to start",
-      {
-        event: EVENTS.GAME_START,
-        roomId: room.id,
-        questionId: null,
-      },
-    );
+    sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "Need at least 1 connected player to start", {
+      event: EVENTS.GAME_START,
+      roomId: room.id,
+      questionId: null,
+    });
     return;
   }
 
@@ -133,9 +110,7 @@ export function handleGameStart(socket: TrackedWebSocket, payload: GameStartPayl
     selectedQuestions = selectQuestionsForGamePlan(defaultQuiz.questions, resolvedGamePlan);
   } catch (error) {
     const message =
-      error instanceof GamePlanValidationError
-        ? error.message
-        : "Spielplan konnte nicht validiert werden.";
+      error instanceof GamePlanValidationError ? error.message : "Spielplan konnte nicht validiert werden.";
     sendProtocolError(socket, PROTOCOL_ERROR_CODES.GAME_PLAN_INVALID, message, {
       event: EVENTS.GAME_START,
       roomId: room.id,
@@ -193,16 +168,11 @@ export function handleGameNextQuestion(socket: TrackedWebSocket, roomId: string)
   }
 
   if (room.gameState !== GameState.Scoreboard && room.gameState !== GameState.Revealing) {
-    sendProtocolError(
-      socket,
-      PROTOCOL_ERROR_CODES.INVALID_STATE,
-      "Cannot advance from current state",
-      {
-        event: EVENTS.GAME_NEXT_QUESTION,
-        roomId: room.id,
-        questionId: null,
-      },
-    );
+    sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "Cannot advance from current state", {
+      event: EVENTS.GAME_NEXT_QUESTION,
+      roomId: room.id,
+      questionId: null,
+    });
     return;
   }
 
@@ -367,11 +337,7 @@ export function handleAnswerSubmit(
     return;
   }
 
-  if (
-    !room.quiz ||
-    room.currentQuestionIndex === null ||
-    room.currentQuestionIndex >= room.quiz.questions.length
-  ) {
+  if (!room.quiz || room.currentQuestionIndex === null || room.currentQuestionIndex >= room.quiz.questions.length) {
     sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "No active question", {
       event: EVENTS.ANSWER_SUBMIT,
       roomId: room.id,
@@ -414,16 +380,11 @@ export function handleAnswerSubmit(
   const player = room.players.find((p) => p.id === session.playerId);
 
   if (!player || player.state === PlayerState.Disconnected) {
-    sendProtocolError(
-      socket,
-      PROTOCOL_ERROR_CODES.PLAYER_NOT_FOUND,
-      "Player not found or disconnected",
-      {
-        event: EVENTS.ANSWER_SUBMIT,
-        roomId: room.id,
-        questionId: payload.questionId,
-      },
-    );
+    sendProtocolError(socket, PROTOCOL_ERROR_CODES.PLAYER_NOT_FOUND, "Player not found or disconnected", {
+      event: EVENTS.ANSWER_SUBMIT,
+      roomId: room.id,
+      questionId: payload.questionId,
+    });
     return;
   }
 
@@ -525,11 +486,7 @@ export function handleNextQuestionReady(
     return;
   }
 
-  if (
-    !room.quiz ||
-    room.currentQuestionIndex === null ||
-    room.currentQuestionIndex >= room.quiz.questions.length
-  ) {
+  if (!room.quiz || room.currentQuestionIndex === null || room.currentQuestionIndex >= room.quiz.questions.length) {
     sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "No active question", {
       event: EVENTS.NEXT_QUESTION_READY,
       roomId: room.id,
@@ -572,16 +529,11 @@ export function handleNextQuestionReady(
   const player = room.players.find((entry) => entry.id === session.playerId);
 
   if (!player || player.state === PlayerState.Disconnected) {
-    sendProtocolError(
-      socket,
-      PROTOCOL_ERROR_CODES.PLAYER_NOT_FOUND,
-      "Player not found or disconnected",
-      {
-        event: EVENTS.NEXT_QUESTION_READY,
-        roomId: room.id,
-        questionId: payload.questionId,
-      },
-    );
+    sendProtocolError(socket, PROTOCOL_ERROR_CODES.PLAYER_NOT_FOUND, "Player not found or disconnected", {
+      event: EVENTS.NEXT_QUESTION_READY,
+      roomId: room.id,
+      questionId: payload.questionId,
+    });
     return;
   }
 
@@ -597,11 +549,7 @@ export function handleNextQuestionReady(
 }
 
 function startQuestion(room: RoomRecord): void {
-  if (
-    !room.quiz ||
-    room.currentQuestionIndex === null ||
-    room.currentQuestionIndex >= room.quiz.questions.length
-  )
+  if (!room.quiz || room.currentQuestionIndex === null || room.currentQuestionIndex >= room.quiz.questions.length)
     return;
 
   clearActiveRoomTimers(room);
@@ -699,11 +647,7 @@ export function handleAnswerEligibilityChanged(room: RoomRecord): void {
     return;
   }
 
-  if (
-    !room.quiz ||
-    room.currentQuestionIndex === null ||
-    room.currentQuestionIndex >= room.quiz.questions.length
-  ) {
+  if (!room.quiz || room.currentQuestionIndex === null || room.currentQuestionIndex >= room.quiz.questions.length) {
     return;
   }
 
@@ -717,10 +661,7 @@ export function handleAnswerEligibilityChanged(room: RoomRecord): void {
     totalEligiblePlayers: progress.totalEligiblePlayers,
   });
 
-  if (
-    progress.totalEligiblePlayers > 0 &&
-    progress.answeredCount >= progress.totalEligiblePlayers
-  ) {
+  if (progress.totalEligiblePlayers > 0 && progress.answeredCount >= progress.totalEligiblePlayers) {
     closeQuestion(room);
   }
 }
@@ -751,11 +692,7 @@ function closeQuestion(room: RoomRecord): void {
 
   room.gameState = GameState.AnswerLocked;
 
-  if (
-    !room.quiz ||
-    room.currentQuestionIndex === null ||
-    room.currentQuestionIndex >= room.quiz.questions.length
-  )
+  if (!room.quiz || room.currentQuestionIndex === null || room.currentQuestionIndex >= room.quiz.questions.length)
     return;
 
   const question = room.quiz.questions[room.currentQuestionIndex];
@@ -787,11 +724,7 @@ function evaluateQuestion(room: RoomRecord, question: Question): void {
       case QuestionType.Estimate:
         return evaluateEstimate(question, answers);
       case QuestionType.Ranking:
-        return evaluateRanking(
-          question,
-          answers,
-          room.resolvedGamePlan?.rankingScoringMode ?? "exact",
-        );
+        return evaluateRanking(question, answers, room.resolvedGamePlan?.rankingScoringMode ?? "exact");
       case QuestionType.OpenText:
         return evaluateOpenText(question, answers);
     }
@@ -877,11 +810,7 @@ export function handleScoreboardReadinessChanged(room: RoomRecord): void {
     return;
   }
 
-  if (
-    !room.quiz ||
-    room.currentQuestionIndex === null ||
-    room.currentQuestionIndex >= room.quiz.questions.length
-  ) {
+  if (!room.quiz || room.currentQuestionIndex === null || room.currentQuestionIndex >= room.quiz.questions.length) {
     return;
   }
 
@@ -988,9 +917,72 @@ function finishGame(room: RoomRecord): void {
     finalStats: buildFinalStats(room),
   });
 
-  setTimeout(() => {
+  room.completedRoomTtlTimer = setTimeout(() => {
     if (room.state === RoomState.Completed) {
       closeRoom(room, "Completed room auto-cleanup");
     }
   }, COMPLETED_ROOM_TTL_MS);
+}
+
+export function handleGameRestart(socket: TrackedWebSocket, roomId: string): void {
+  const room = roomsById.get(roomId);
+
+  if (!room) {
+    sendProtocolError(socket, PROTOCOL_ERROR_CODES.ROOM_NOT_FOUND, "Room not found", {
+      event: EVENTS.GAME_RESTART,
+      roomId,
+      questionId: null,
+    });
+    return;
+  }
+
+  const session = socket.sessionId ? sessionsById.get(socket.sessionId) : null;
+  if (!session || session.role !== "host" || session.roomId !== room.id) {
+    sendProtocolError(socket, PROTOCOL_ERROR_CODES.NOT_AUTHORIZED, "Only the host can restart", {
+      event: EVENTS.GAME_RESTART,
+      roomId: room.id,
+      questionId: null,
+    });
+    return;
+  }
+
+  if (room.state !== RoomState.Completed) {
+    sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "Room is not in completed state", {
+      event: EVENTS.GAME_RESTART,
+      roomId: room.id,
+      questionId: null,
+    });
+    return;
+  }
+
+  clearActiveRoomTimers(room);
+
+  room.state = RoomState.Waiting;
+  room.gameState = null;
+  room.quiz = null;
+  room.currentQuestionIndex = null;
+  room.currentAnswers.clear();
+  room.nextQuestionReadyPlayerIds.clear();
+  room.questionStartedAt = null;
+  room.lastRoundResult = null;
+  room.lastScoreChanges = [];
+  room.completedRoundResults = [];
+  room.completedAnswers = [];
+  room.categoryVotes.clear();
+
+  for (const player of room.players) {
+    player.state = PlayerState.Ready;
+    player.score = 0;
+  }
+
+  logRoomEvent("game:restart", room, {});
+
+  broadcastToAllRoomClients(room, EVENTS.ROOM_RESET, {
+    roomId: room.id,
+    roomState: RoomState.Waiting,
+    joinCode: room.joinCode,
+  });
+
+  broadcastLobbyUpdate(room);
+  sendToHost(room, EVENTS.CATALOG_SUMMARY, buildCatalogSummary(getDefaultQuiz()));
 }

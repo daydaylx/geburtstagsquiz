@@ -1,22 +1,20 @@
-import { beforeEach, describe, expect, it } from "vitest";
-
 import { EVENTS } from "@quiz/shared-protocol";
 import { QuestionType, RoomState } from "@quiz/shared-types";
-
-import { isEventAllowedForRole } from "./role-auth.js";
-import { roomsById, roomIdByJoinCode, roomIdByHostToken, sessionsById } from "./state.js";
+import { beforeEach, describe, expect, it } from "vitest";
 import {
   handleConnectionResume,
   handleDisplayConnectRoom,
   handleHostCreateRoom,
   handleRoomSettingsUpdate,
 } from "./lobby.js";
+import { isEventAllowedForRole } from "./role-auth.js";
 import type { RoomRecord, TrackedWebSocket } from "./server-types.js";
+import { roomIdByHostToken, roomIdByJoinCode, roomsById, sessionsById } from "./state.js";
 
 function makeMockSocket(sessionId: string | null = null): TrackedWebSocket {
   const sent: string[] = [];
   return {
-    connectionId: "conn-" + Math.random().toString(36).slice(2),
+    connectionId: `conn-${Math.random().toString(36).slice(2)}`,
     isAlive: true,
     sessionId,
     readyState: 1,
@@ -94,9 +92,7 @@ describe("handleHostCreateRoom", () => {
     const messages = getSent(resumedSocket);
     const resumed = messages.find((m) => m.event === EVENTS.CONNECTION_RESUMED);
     expect(resumed).toBeDefined();
-    expect((resumed!.payload as { displayConnectToken: string | null }).displayConnectToken).toBe(
-      token,
-    );
+    expect((resumed!.payload as { displayConnectToken: string | null }).displayConnectToken).toBe(token);
   });
 
   it("does not return displayConnectToken to host after display is paired", () => {
@@ -116,9 +112,7 @@ describe("handleHostCreateRoom", () => {
     const messages = getSent(resumedSocket);
     const resumed = messages.find((m) => m.event === EVENTS.CONNECTION_RESUMED);
     expect(resumed).toBeDefined();
-    expect((resumed!.payload as { displayConnectToken?: string | null }).displayConnectToken).toBe(
-      null,
-    );
+    expect((resumed!.payload as { displayConnectToken?: string | null }).displayConnectToken).toBe(null);
   });
 
   it("rejects if socket already has a session", () => {
@@ -235,9 +229,7 @@ describe("handleDisplayConnectRoom", () => {
     expect((displayLobby!.payload as { settings: Record<string, unknown> }).settings).not.toHaveProperty(
       "gamePlanDraft",
     );
-    expect((hostLobby!.payload as { settings: Record<string, unknown> }).settings).toHaveProperty(
-      "gamePlanDraft",
-    );
+    expect((hostLobby!.payload as { settings: Record<string, unknown> }).settings).toHaveProperty("gamePlanDraft");
   });
 
   it("rejects invalid displayConnectToken", () => {

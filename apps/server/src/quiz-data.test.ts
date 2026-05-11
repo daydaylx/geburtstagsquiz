@@ -1,8 +1,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
-
+import { type Question, type QuestionOption, QuestionType } from "@quiz/shared-types";
 import { describe, expect, it } from "vitest";
-import { QuestionType, type Question, type QuestionOption } from "@quiz/shared-types";
 
 import { QUESTION_DURATION_MS } from "./config.js";
 import { getDefaultQuiz } from "./quiz-data.js";
@@ -41,16 +40,10 @@ function readCategoryFiles(): RawCategoryFile[] {
 }
 
 function getRawOptionId(option: RawOption, index: number): string {
-  return typeof option === "string"
-    ? String.fromCharCode(65 + index)
-    : (option.id ?? `OPT-${index + 1}`);
+  return typeof option === "string" ? String.fromCharCode(65 + index) : (option.id ?? `OPT-${index + 1}`);
 }
 
-function collectOptionIssues(
-  question: Question,
-  options: QuestionOption[],
-  minCount: number,
-): string[] {
+function collectOptionIssues(question: Question, options: QuestionOption[], minCount: number): string[] {
   const issues: string[] = [];
   const optionIds = options.map((option) => option.id);
 
@@ -78,10 +71,7 @@ describe("quiz source files", () => {
     for (const categoryFile of readCategoryFiles()) {
       const catId = categoryFile.category_id ?? "unknown";
 
-      if (
-        categoryFile.question_count !== undefined &&
-        categoryFile.question_count !== categoryFile.questions.length
-      ) {
+      if (categoryFile.question_count !== undefined && categoryFile.question_count !== categoryFile.questions.length) {
         issues.push(`${catId}: question_count mismatch`);
       }
 

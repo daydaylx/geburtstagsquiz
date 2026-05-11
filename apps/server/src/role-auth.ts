@@ -13,11 +13,7 @@ export function isEventAllowedForRole(event: EventName, role: ClientRole | null)
     EVENTS.ROOM_SETTINGS_UPDATE,
     EVENTS.ROOM_CLOSE,
   ];
-  const playerOnlyEvents: EventName[] = [
-    EVENTS.ANSWER_SUBMIT,
-    EVENTS.NEXT_QUESTION_READY,
-    EVENTS.CATEGORY_VOTE,
-  ];
+  const playerOnlyEvents: EventName[] = [EVENTS.ANSWER_SUBMIT, EVENTS.NEXT_QUESTION_READY, EVENTS.CATEGORY_VOTE];
   const displayOnlyEvents: EventName[] = [EVENTS.DISPLAY_CREATE_ROOM, EVENTS.DISPLAY_CONNECT_ROOM];
 
   if (role === "display") {
@@ -27,12 +23,7 @@ export function isEventAllowedForRole(event: EventName, role: ClientRole | null)
     return ![...playerOnlyEvents, ...displayOnlyEvents].includes(event);
   }
   if (role === "player") {
-    return ![
-      ...hostOnlyEvents,
-      ...displayOnlyEvents,
-      EVENTS.HOST_CONNECT,
-      EVENTS.HOST_CREATE_ROOM,
-    ].includes(event);
+    return ![...hostOnlyEvents, ...displayOnlyEvents, EVENTS.HOST_CONNECT, EVENTS.HOST_CREATE_ROOM].includes(event);
   }
   return true;
 }

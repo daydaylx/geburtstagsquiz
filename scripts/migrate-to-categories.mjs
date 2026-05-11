@@ -3,8 +3,8 @@
 // Liest v4/v5-Quelldateien und schreibt 10 Kategorie-Dateien nach data/quiz/questions/.
 // Die Quelldateien liegen jetzt in archive/, nicht im Repo-Root.
 // Zum erneuten Ausführen: SOURCE_FILES auf archive/<dateiname> anpassen.
-import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
-import { resolve, dirname } from "node:path";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -95,7 +95,7 @@ for (const [catId, entry] of sortedCategories) {
     questions,
   };
 
-  writeFileSync(outFile, JSON.stringify(output, null, 2) + "\n", "utf8");
+  writeFileSync(outFile, `${JSON.stringify(output, null, 2)}\n`, "utf8");
   totalWritten += questions.length;
   report.push({
     catId,
@@ -124,6 +124,4 @@ if (totalWritten !== 386) {
   process.exit(1);
 }
 
-console.log(
-  `[OK] Migration abgeschlossen: ${totalWritten} Fragen in ${report.length} Kategorie-Dateien.`,
-);
+console.log(`[OK] Migration abgeschlossen: ${totalWritten} Fragen in ${report.length} Kategorie-Dateien.`);

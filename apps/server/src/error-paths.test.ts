@@ -1,22 +1,20 @@
+import { EVENTS, PROTOCOL_ERROR_CODES } from "@quiz/shared-protocol";
+import type { Question } from "@quiz/shared-types";
+import { GameState, PlayerState, QuestionType } from "@quiz/shared-types";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { WebSocket } from "ws";
-
-import { EVENTS, PROTOCOL_ERROR_CODES } from "@quiz/shared-protocol";
-import { GameState, PlayerState, QuestionType } from "@quiz/shared-types";
-import type { Question } from "@quiz/shared-types";
-
-import { roomsById, roomIdByJoinCode, roomIdByHostToken, sessionsById } from "./state.js";
-import { handleDisplayCreateRoom } from "./room.js";
-import { handleConnectionResume, handleHostConnect, handleRoomJoin } from "./lobby.js";
-import { handleGameStart, handleAnswerSubmit } from "./game.js";
+import { handleAnswerSubmit, handleGameStart } from "./game.js";
 import { buildCatalogSummary, buildDefaultGamePlan } from "./game-plan.js";
+import { handleConnectionResume, handleHostConnect, handleRoomJoin } from "./lobby.js";
 import { getDefaultQuiz } from "./quiz-data.js";
+import { handleDisplayCreateRoom } from "./room.js";
 import type { RoomRecord, SessionRecord, TrackedWebSocket } from "./server-types.js";
+import { roomIdByHostToken, roomIdByJoinCode, roomsById, sessionsById } from "./state.js";
 
 function makeMockSocket(): TrackedWebSocket {
   const sent: any[] = [];
   return {
-    connectionId: "conn-" + Math.random().toString(36).slice(2),
+    connectionId: `conn-${Math.random().toString(36).slice(2)}`,
     isAlive: true,
     sessionId: null,
     readyState: WebSocket.OPEN,

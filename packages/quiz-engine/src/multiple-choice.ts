@@ -18,23 +18,16 @@ function toCorrectAnswer(question: OptionQuestion): CorrectAnswer {
   };
 }
 
-export function scoreMultipleChoice(
-  isCorrect: boolean,
-  points = DEFAULT_MULTIPLE_CHOICE_POINTS,
-): number {
+export function scoreMultipleChoice(isCorrect: boolean, points = DEFAULT_MULTIPLE_CHOICE_POINTS): number {
   return isCorrect ? points : 0;
 }
 
-export function evaluateMultipleChoice(
-  question: OptionQuestion,
-  answers: SubmittedAnswer[],
-): RoundResult {
+export function evaluateMultipleChoice(question: OptionQuestion, answers: SubmittedAnswer[]): RoundResult {
   const correctAnswer = toCorrectAnswer(question);
 
   const playerResults: PlayerRoundResult[] = answers.map((submittedAnswer) => {
     const isCorrect =
-      submittedAnswer.answer.type === correctAnswer.type &&
-      submittedAnswer.answer.value === correctAnswer.value;
+      submittedAnswer.answer.type === correctAnswer.type && submittedAnswer.answer.value === correctAnswer.value;
 
     return {
       playerId: submittedAnswer.playerId,

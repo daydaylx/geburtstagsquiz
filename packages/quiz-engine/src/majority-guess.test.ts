@@ -1,5 +1,5 @@
+import { type MajorityGuessQuestion, QuestionType, type SubmittedAnswer } from "@quiz/shared-types";
 import { describe, expect, it } from "vitest";
-import { QuestionType, type MajorityGuessQuestion, type SubmittedAnswer } from "@quiz/shared-types";
 
 import { evaluateMajorityGuess } from "./majority-guess.js";
 

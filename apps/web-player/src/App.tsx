@@ -1,10 +1,10 @@
-import { useWebSocket, type ConnectionState } from "@quiz/shared-hooks";
-import { usePlayerSession } from "./hooks/usePlayerSession.js";
-import { PlayerQuestionScreen, PlayerRevealScreen } from "./components/PlayerQuestionScreen.js";
+import { type ConnectionState, useWebSocket } from "@quiz/shared-hooks";
+import { PlayerFinishedScreen } from "./components/PlayerFinishedScreen.js";
 import { PlayerJoinScreen } from "./components/PlayerJoinScreen.js";
 import { PlayerLobbyScreen } from "./components/PlayerLobbyScreen.js";
+import { PlayerQuestionScreen, PlayerRevealScreen } from "./components/PlayerQuestionScreen.js";
 import { PlayerScoreboardScreen } from "./components/PlayerScoreboardScreen.js";
-import { PlayerFinishedScreen } from "./components/PlayerFinishedScreen.js";
+import { usePlayerSession } from "./hooks/usePlayerSession.js";
 
 function getConnectionLabel(connectionState: ConnectionState): string {
   switch (connectionState) {
@@ -24,11 +24,7 @@ export function App() {
   const session = usePlayerSession({ sendEvent, onMessage, notifyConnected });
 
   return (
-    <main
-      className="player-shell"
-      data-answer-status={session.answerStatus}
-      data-screen={session.screen}
-    >
+    <main className="player-shell" data-answer-status={session.answerStatus} data-screen={session.screen}>
       <header className="player-header">
         <div className="player-status" data-state={connectionState}>
           {getConnectionLabel(connectionState)}
@@ -62,9 +58,7 @@ export function App() {
       <div key={session.screen} className="player-main">
         {session.screen === "join" && <PlayerJoinScreen session={session} />}
         {session.screen === "lobby" && <PlayerLobbyScreen session={session} />}
-        {session.screen === "question" && session.question && (
-          <PlayerQuestionScreen session={session} />
-        )}
+        {session.screen === "question" && session.question && <PlayerQuestionScreen session={session} />}
         {session.screen === "reveal" && <PlayerRevealScreen session={session} />}
         {session.screen === "scoreboard" && <PlayerScoreboardScreen session={session} />}
         {session.screen === "finished" && <PlayerFinishedScreen session={session} />}

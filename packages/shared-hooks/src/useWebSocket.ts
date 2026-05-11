@@ -1,7 +1,6 @@
-import { useEffect, useEffectEvent, useRef, useState } from "react";
-
-import { serializeEnvelope, type ClientToServerEventPayloadMap } from "@quiz/shared-protocol";
+import { type ClientToServerEventPayloadMap, serializeEnvelope } from "@quiz/shared-protocol";
 import { getReconnectDelay } from "@quiz/shared-utils";
+import { useEffect, useEffectEvent, useRef, useState } from "react";
 
 import { getServerSocketUrl } from "./helpers.js";
 

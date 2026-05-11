@@ -1,25 +1,13 @@
 import { randomUUID } from "node:crypto";
 
 import {
-  EVENTS,
   type CategoryVotePayload,
   type DisplayConnectRoomPayload,
+  EVENTS,
   type HostCreateRoomPayload,
 } from "@quiz/shared-protocol";
-import { GameState, PlayerState, RoomState, type Player } from "@quiz/shared-types";
+import { GameState, type Player, PlayerState, RoomState } from "@quiz/shared-types";
 import { normalizePlayerName } from "@quiz/shared-utils";
-
-import type { RoomRecord, SessionRecord, TrackedWebSocket } from "./server-types.js";
-import { PROTOCOL_ERROR_CODES, sendEvent, sendProtocolError } from "./protocol.js";
-import {
-  roomsById,
-  roomIdByJoinCode,
-  roomIdByHostToken,
-  sessionsById,
-  logRoomEvent,
-  getRoomByJoinCode,
-} from "./state.js";
-import { attachSocketToSession, generateUniqueJoinCode } from "./room.js";
 import {
   broadcastLobbyUpdate as broadcastRoleAwareLobbyUpdate,
   broadcastToAllRoomClients,
@@ -28,9 +16,20 @@ import {
   sendToPlayers,
   syncSessionToRoomState,
 } from "./connection.js";
-import { buildCatalogSummary } from "./game-plan.js";
 import { handleAnswerEligibilityChanged, handleScoreboardReadinessChanged } from "./game.js";
+import { buildCatalogSummary } from "./game-plan.js";
+import { PROTOCOL_ERROR_CODES, sendEvent, sendProtocolError } from "./protocol.js";
 import { getDefaultQuiz } from "./quiz-data.js";
+import { attachSocketToSession, generateUniqueJoinCode } from "./room.js";
+import type { RoomRecord, SessionRecord, TrackedWebSocket } from "./server-types.js";
+import {
+  getRoomByJoinCode,
+  logRoomEvent,
+  roomIdByHostToken,
+  roomIdByJoinCode,
+  roomsById,
+  sessionsById,
+} from "./state.js";
 
 export function handleRoomJoin(
   socket: TrackedWebSocket,
@@ -68,11 +67,7 @@ export function handleRoomJoin(
   if (payload.sessionId) {
     const existingSession = sessionsById.get(payload.sessionId);
 
-    if (
-      existingSession &&
-      existingSession.role === "player" &&
-      existingSession.roomId === room.id
-    ) {
+    if (existingSession && existingSession.role === "player" && existingSession.roomId === room.id) {
       resumeSession(socket, existingSession, room, EVENTS.ROOM_JOIN);
       return;
     }
@@ -285,9 +280,7 @@ export function resumeSession(
   if (room.state === RoomState.Waiting) {
     player.state = PlayerState.Ready;
   } else if (room.gameState === GameState.QuestionActive) {
-    player.state = room.currentAnswers.has(player.id)
-      ? PlayerState.Answered
-      : PlayerState.Answering;
+    player.state = room.currentAnswers.has(player.id) ? PlayerState.Answered : PlayerState.Answering;
   } else if (room.currentAnswers.has(player.id)) {
     player.state = PlayerState.Answered;
   } else {
@@ -387,30 +380,20 @@ export function handleRoomSettingsUpdate(
   const session = socket.sessionId ? sessionsById.get(socket.sessionId) : null;
 
   if (!session || session.role !== "host" || session.roomId !== room.id) {
-    sendProtocolError(
-      socket,
-      PROTOCOL_ERROR_CODES.NOT_AUTHORIZED,
-      "Only the host can update room settings",
-      {
-        event: EVENTS.ROOM_SETTINGS_UPDATE,
-        roomId: room.id,
-        questionId: null,
-      },
-    );
+    sendProtocolError(socket, PROTOCOL_ERROR_CODES.NOT_AUTHORIZED, "Only the host can update room settings", {
+      event: EVENTS.ROOM_SETTINGS_UPDATE,
+      roomId: room.id,
+      questionId: null,
+    });
     return;
   }
 
   if (room.state !== RoomState.Waiting) {
-    sendProtocolError(
-      socket,
-      PROTOCOL_ERROR_CODES.INVALID_STATE,
-      "Room settings can only be changed in the lobby",
-      {
-        event: EVENTS.ROOM_SETTINGS_UPDATE,
-        roomId: room.id,
-        questionId: null,
-      },
-    );
+    sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "Room settings can only be changed in the lobby", {
+      event: EVENTS.ROOM_SETTINGS_UPDATE,
+      roomId: room.id,
+      questionId: null,
+    });
     return;
   }
 
@@ -486,12 +469,11 @@ export function handleCategoryVote(socket: TrackedWebSocket, payload: CategoryVo
   const categoryExists = quiz.categories.some((c) => c.id === payload.categoryId);
 
   if (!categoryExists) {
-    sendProtocolError(
-      socket,
-      PROTOCOL_ERROR_CODES.INVALID_PAYLOAD,
-      `Unknown category: ${payload.categoryId}`,
-      { event: EVENTS.CATEGORY_VOTE, roomId: room.id, questionId: null },
-    );
+    sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_PAYLOAD, `Unknown category: ${payload.categoryId}`, {
+      event: EVENTS.CATEGORY_VOTE,
+      roomId: room.id,
+      questionId: null,
+    });
     return;
   }
 
@@ -504,10 +486,7 @@ export function handleCategoryVote(socket: TrackedWebSocket, payload: CategoryVo
   });
 }
 
-export function handleHostCreateRoom(
-  socket: TrackedWebSocket,
-  payload: HostCreateRoomPayload,
-): void {
+export function handleHostCreateRoom(socket: TrackedWebSocket, payload: HostCreateRoomPayload): void {
   if (socket.sessionId) {
     sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "Socket is already assigned", {
       event: EVENTS.HOST_CREATE_ROOM,
@@ -556,6 +535,7 @@ export function handleHostCreateRoom(
     questionTimer: null,
     timerTickInterval: null,
     revealTimer: null,
+    completedRoomTtlTimer: null,
     currentAnswers: new Map(),
     nextQuestionReadyPlayerIds: new Set(),
     questionStartedAt: null,
@@ -593,10 +573,7 @@ export function handleHostCreateRoom(
   sendEvent(socket, EVENTS.CATALOG_SUMMARY, buildCatalogSummary(getDefaultQuiz()));
 }
 
-export function handleDisplayConnectRoom(
-  socket: TrackedWebSocket,
-  payload: DisplayConnectRoomPayload,
-): void {
+export function handleDisplayConnectRoom(socket: TrackedWebSocket, payload: DisplayConnectRoomPayload): void {
   if (socket.sessionId) {
     sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "Socket is already assigned", {
       event: EVENTS.DISPLAY_CONNECT_ROOM,
@@ -622,30 +599,20 @@ export function handleDisplayConnectRoom(
     room.displayConnectToken !== payload.displayConnectToken ||
     (room.displayConnectTokenUsed && room.displayConnected)
   ) {
-    sendProtocolError(
-      socket,
-      PROTOCOL_ERROR_CODES.NOT_AUTHORIZED,
-      "Invalid or already used display connect token",
-      {
-        event: EVENTS.DISPLAY_CONNECT_ROOM,
-        roomId: room.id,
-        questionId: null,
-      },
-    );
+    sendProtocolError(socket, PROTOCOL_ERROR_CODES.NOT_AUTHORIZED, "Invalid or already used display connect token", {
+      event: EVENTS.DISPLAY_CONNECT_ROOM,
+      roomId: room.id,
+      questionId: null,
+    });
     return;
   }
 
   if (room.state !== RoomState.Waiting) {
-    sendProtocolError(
-      socket,
-      PROTOCOL_ERROR_CODES.INVALID_STATE,
-      "Cannot connect display after game has started",
-      {
-        event: EVENTS.DISPLAY_CONNECT_ROOM,
-        roomId: room.id,
-        questionId: null,
-      },
-    );
+    sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "Cannot connect display after game has started", {
+      event: EVENTS.DISPLAY_CONNECT_ROOM,
+      roomId: room.id,
+      questionId: null,
+    });
     return;
   }
 

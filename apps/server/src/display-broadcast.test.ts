@@ -1,28 +1,22 @@
-import { WebSocket } from "ws";
-import { describe, expect, it, beforeEach, afterEach, vi } from "vitest";
-
 import { EVENTS } from "@quiz/shared-protocol";
-import { GameState, PlayerState, RoomState, QuestionType } from "@quiz/shared-types";
 import type { Question } from "@quiz/shared-types";
-
-import { roomsById, roomIdByJoinCode, roomIdByHostToken, sessionsById } from "./state.js";
-import { handleDisplayCreateRoom } from "./room.js";
-import { handleHostConnect, handleRoomJoin } from "./lobby.js";
-import { handleGameStart, handleAnswerSubmit, handleNextQuestionReady } from "./game.js";
-import { syncSessionToRoomState } from "./connection.js";
+import { GameState, QuestionType, RoomState } from "@quiz/shared-types";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { WebSocket } from "ws";
 import { QUESTION_DURATION_MS } from "./config.js";
-import {
-  buildCatalogSummary,
-  buildDefaultGamePlan,
-  MANUAL_REVEAL_FALLBACK_MS,
-} from "./game-plan.js";
+import { syncSessionToRoomState } from "./connection.js";
+import { handleAnswerSubmit, handleGameStart, handleNextQuestionReady } from "./game.js";
+import { buildCatalogSummary, buildDefaultGamePlan, MANUAL_REVEAL_FALLBACK_MS } from "./game-plan.js";
+import { handleHostConnect, handleRoomJoin } from "./lobby.js";
 import { getDefaultQuiz } from "./quiz-data.js";
-import type { RoomRecord, TrackedWebSocket, SessionRecord } from "./server-types.js";
+import { handleDisplayCreateRoom } from "./room.js";
+import type { RoomRecord, SessionRecord, TrackedWebSocket } from "./server-types.js";
+import { roomIdByHostToken, roomIdByJoinCode, roomsById, sessionsById } from "./state.js";
 
 function makeMockSocket(): TrackedWebSocket {
   const sent: any[] = [];
   const socket = {
-    connectionId: "conn-" + Math.random().toString(36).slice(2),
+    connectionId: `conn-${Math.random().toString(36).slice(2)}`,
     isAlive: true,
     sessionId: null,
     readyState: WebSocket.OPEN,

@@ -1,19 +1,15 @@
-import { describe, expect, it } from "vitest";
 import {
-  PlayerState,
-  QuestionType,
   type Player,
+  PlayerState,
   type Question,
+  QuestionType,
   type RoundResult,
   type ScoreboardEntry,
   type SubmittedAnswer,
 } from "@quiz/shared-types";
+import { describe, expect, it } from "vitest";
 
-import {
-  buildFinalStats,
-  buildScoreChanges,
-  shouldShowScoreboardAfterCurrentQuestion,
-} from "./game-scoreboard.js";
+import { buildFinalStats, buildScoreChanges, shouldShowScoreboardAfterCurrentQuestion } from "./game-scoreboard.js";
 import type { RoomRecord } from "./server-types.js";
 
 function makeMCQuestion(id: string): Question {

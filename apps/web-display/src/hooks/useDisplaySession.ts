@@ -1,27 +1,26 @@
-import { useEffect, useEffectEvent, useRef, useState } from "react";
-import QRCode from "qrcode";
-
 import {
-  EVENTS,
-  parseServerToClientEnvelope,
-  type ClientToServerEventPayloadMap,
   type AnswerProgressPayload,
+  type ClientToServerEventPayloadMap,
+  EVENTS,
   type GameFinishedPayload,
   type LobbyUpdatePayload,
   type NextQuestionReadyProgressPayload,
+  parseServerToClientEnvelope,
   type QuestionRevealPayload,
   type QuestionShowPayload,
   type ScoreUpdatePayload,
   type VoteUpdatePayload,
 } from "@quiz/shared-protocol";
 import { GameState, RoomState } from "@quiz/shared-types";
+import QRCode from "qrcode";
+import { useEffect, useEffectEvent, useRef, useState } from "react";
 
 import { getPlayerJoinUrl } from "../lib/helpers.js";
 import {
   clearDisplayStoredSession,
+  type DisplayStoredSession,
   loadDisplayStoredSession,
   saveDisplayStoredSession,
-  type DisplayStoredSession,
 } from "../storage.js";
 
 function cleanUrlParams(): void {
@@ -94,8 +93,8 @@ export function useDisplaySession(deps: {
 
   const canCreateRoomFromDisplay =
     initialUrlParams.get("displayCreate") === "1" ||
-    ((import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env
-      ?.VITE_ENABLE_DISPLAY_CREATE_ROOM === "true");
+    (import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env?.VITE_ENABLE_DISPLAY_CREATE_ROOM ===
+      "true";
 
   const [screen, setScreen] = useState<DisplayScreen>("setup");
   const [roomInfo, setRoomInfo] = useState<DisplayRoomInfo | null>(null);
@@ -109,15 +108,14 @@ export function useDisplaySession(deps: {
   const [remainingMs, setRemainingMs] = useState(0);
   const [totalMs, setTotalMs] = useState(0);
   const [answerProgress, setAnswerProgress] = useState<AnswerProgressPayload | null>(null);
-  const [revealedAnswer, setRevealedAnswer] = useState<
-    QuestionRevealPayload["correctAnswer"] | null
-  >(null);
+  const [revealedAnswer, setRevealedAnswer] = useState<QuestionRevealPayload["correctAnswer"] | null>(null);
   const [revealExplanation, setRevealExplanation] = useState<string | null>(null);
   const [roundResults, setRoundResults] = useState<QuestionRevealPayload["playerResults"]>([]);
   const [scoreboard, setScoreboard] = useState<ScoreUpdatePayload | null>(null);
   const [scoreChanges, setScoreChanges] = useState<ScoreUpdatePayload["scoreChanges"]>([]);
-  const [nextQuestionReadyProgress, setNextQuestionReadyProgress] =
-    useState<NextQuestionReadyProgressPayload | null>(null);
+  const [nextQuestionReadyProgress, setNextQuestionReadyProgress] = useState<NextQuestionReadyProgressPayload | null>(
+    null,
+  );
   const [finalResult, setFinalResult] = useState<GameFinishedPayload | null>(null);
   const [preCountdown, setPreCountdown] = useState<number | null>(null);
   const [votes, setVotes] = useState<Record<string, number>>({});
@@ -202,8 +200,7 @@ export function useDisplaySession(deps: {
           });
         } else {
           const urlParams = new URLSearchParams(window.location.search);
-          const displayToken =
-            urlParams.get("displayConnectToken") ?? urlParams.get("displayToken");
+          const displayToken = urlParams.get("displayConnectToken") ?? urlParams.get("displayToken");
           const roomId = urlParams.get("roomId");
           if (displayToken && roomId) {
             sendEvent(EVENTS.DISPLAY_CONNECT_ROOM, {
@@ -434,6 +431,28 @@ export function useDisplaySession(deps: {
         return;
       }
 
+      case EVENTS.ROOM_RESET: {
+        const resetPayload = parsedEnvelope.data.payload;
+        setRoomInfo((prev) =>
+          prev ? { ...prev, roomId: resetPayload.roomId, joinCode: resetPayload.joinCode } : prev,
+        );
+        setPreCountdown(null);
+        setQuestion(null);
+        setRemainingMs(0);
+        setAnswerProgress(null);
+        setRevealedAnswer(null);
+        setRevealExplanation(null);
+        setRoundResults([]);
+        setScoreboard(null);
+        setScoreChanges([]);
+        setNextQuestionReadyProgress(null);
+        setFinalResult(null);
+        setDisplayShowLevel("high");
+        setScreen("lobby");
+        setNotice(null);
+        return;
+      }
+
       case EVENTS.ROOM_CLOSED: {
         updateStoredSession(null);
         resetToSetup();
@@ -455,7 +474,7 @@ export function useDisplaySession(deps: {
 
   useEffect(() => {
     onMessage(handleServerMessage);
-  }, [onMessage, handleServerMessage]);
+  }, [onMessage]);
 
   useEffect(() => {
     return () => {

@@ -31,11 +31,7 @@ export function DisplayFinishedScreen({ session: s }: { session: UseDisplaySessi
       {fr.finalScoreboard.length > 3 && (
         <ol className="display-scoreboard-list">
           {fr.finalScoreboard.slice(3, 8).map((entry, i) => (
-            <li
-              key={entry.playerId}
-              className="display-scoreboard-entry"
-              data-rank={i + 4}
-            >
+            <li key={entry.playerId} className="display-scoreboard-entry" data-rank={i + 4}>
               <span className="display-rank">{i + 4}.</span>
               <span className="display-name">{entry.name}</span>
               <span className="display-score">{entry.score}</span>
@@ -57,17 +53,13 @@ export function DisplayFinishedScreen({ session: s }: { session: UseDisplaySessi
           {fr.finalStats.fastestAnswer && (
             <div className="display-final-stat">
               <span className="display-final-stat-label">Schnellste Antwort</span>
-              <span className="display-final-stat-value">
-                {fr.finalStats.fastestAnswer.name}
-              </span>
+              <span className="display-final-stat-value">{fr.finalStats.fastestAnswer.name}</span>
             </div>
           )}
           {fr.finalStats.closestGap && (
             <div className="display-final-stat">
               <span className="display-final-stat-label">Knappster Abstand</span>
-              <span className="display-final-stat-value">
-                {fr.finalStats.closestGap.points} Punkte
-              </span>
+              <span className="display-final-stat-value">{fr.finalStats.closestGap.points} Punkte</span>
             </div>
           )}
         </div>

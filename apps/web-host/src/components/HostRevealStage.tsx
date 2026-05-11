@@ -32,11 +32,7 @@ export function HostRevealStage({
               (s.revealedAnswer?.type === "option" && s.revealedAnswer.value === opt.id) ||
               (s.revealedAnswer?.type === "options" && s.revealedAnswer.value.includes(opt.id));
             return (
-              <div
-                className="host-option-card"
-                data-state={isCorrectAnswer ? "correct" : "dimmed"}
-                key={opt.id}
-              >
+              <div className="host-option-card" data-state={isCorrectAnswer ? "correct" : "dimmed"} key={opt.id}>
                 <span className="host-option-id">{getAnswerDisplayLabel(index)}</span>
                 <span className="host-option-label">{opt.label}</span>
               </div>
@@ -71,9 +67,7 @@ export function HostRevealStage({
                 return (
                   <div className="host-ranking-item host-ranking-item--reveal" key={id}>
                     <span className="host-ranking-position">{i + 1}.</span>
-                    <span className="host-option-id">
-                      {itemIndex >= 0 ? getAnswerDisplayLabel(itemIndex) : id}
-                    </span>
+                    <span className="host-option-id">{itemIndex >= 0 ? getAnswerDisplayLabel(itemIndex) : id}</span>
                     <span>{item?.label ?? id}</span>
                   </div>
                 );

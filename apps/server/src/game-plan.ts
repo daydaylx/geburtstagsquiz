@@ -1,10 +1,10 @@
 import {
-  QuestionType,
   type CatalogCategorySummary,
   type CatalogQuestionTypeSummary,
   type GamePlan,
   type GamePlanPresetId,
   type Question,
+  QuestionType,
   type Quiz,
   type QuizCatalogSummary,
   type ResolvedGamePlan,
@@ -89,17 +89,13 @@ function summarizeQuestionTypes(questions: Question[]): CatalogQuestionTypeSumma
     counts.set(question.type, (counts.get(question.type) ?? 0) + 1);
   }
 
-  return [...counts.entries()]
-    .map(([type, count]) => ({ type, count }))
-    .sort((a, b) => a.type.localeCompare(b.type));
+  return [...counts.entries()].map(([type, count]) => ({ type, count })).sort((a, b) => a.type.localeCompare(b.type));
 }
 
 export function buildCatalogSummary(quiz: Quiz): QuizCatalogSummary {
   const categories: CatalogCategorySummary[] = quiz.categories
     .map((category) => {
-      const categoryQuestions = quiz.questions.filter(
-        (question) => question.categoryId === category.id,
-      );
+      const categoryQuestions = quiz.questions.filter((question) => question.categoryId === category.id);
 
       return {
         ...category,
@@ -156,11 +152,7 @@ function filterQuestionsForPlan(questions: Question[], plan: GamePlan): Question
   );
 }
 
-export function resolveGamePlan(
-  plan: GamePlan,
-  catalog: QuizCatalogSummary,
-  quiz: Quiz,
-): ResolvedGamePlan {
+export function resolveGamePlan(plan: GamePlan, catalog: QuizCatalogSummary, quiz: Quiz): ResolvedGamePlan {
   if (plan.mode === "preset" && !plan.presetId) {
     throw new GamePlanValidationError("Preset-Spielplan braucht eine presetId.");
   }
@@ -175,9 +167,7 @@ export function resolveGamePlan(
 
   if (
     plan.revealMode !== "manual" &&
-    !ALLOWED_REVEAL_DURATION_MS.includes(
-      plan.revealDurationMs as (typeof ALLOWED_REVEAL_DURATION_MS)[number],
-    )
+    !ALLOWED_REVEAL_DURATION_MS.includes(plan.revealDurationMs as (typeof ALLOWED_REVEAL_DURATION_MS)[number])
   ) {
     throw new GamePlanValidationError("Ungültige Reveal-Dauer.");
   }
@@ -273,9 +263,7 @@ export function selectQuestionsForGamePlan(
       const pool = poolsByType.get(type) ?? [];
       return pool.length > 0 && (countsByType.get(type) ?? 0) < getTypeCap(plan, type);
     });
-    const fallbackCandidates = plan.questionTypes.filter(
-      (type) => (poolsByType.get(type)?.length ?? 0) > 0,
-    );
+    const fallbackCandidates = plan.questionTypes.filter((type) => (poolsByType.get(type)?.length ?? 0) > 0);
     const usableCandidates = candidates.length > 0 ? candidates : fallbackCandidates;
 
     if (usableCandidates.length === 0) {
@@ -324,8 +312,7 @@ export function createDemoQuestion(plan: ResolvedGamePlan): Question {
     correctOptionId: "D",
     durationMs: plan.timerMs,
     points: 0,
-    explanation:
-      "Die Testfrage zählt nicht in die Punkte. Wichtig ist nur, dass alle Handys reagieren.",
+    explanation: "Die Testfrage zählt nicht in die Punkte. Wichtig ist nur, dass alle Handys reagieren.",
     categoryId: "__demo",
     categoryName: "Demo",
     categorySlug: "demo",

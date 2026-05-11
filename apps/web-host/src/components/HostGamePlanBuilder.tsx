@@ -1,20 +1,10 @@
-import { type GamePlanPresetId, type RevealMode } from "@quiz/shared-types";
+import type { GamePlanPresetId, RevealMode } from "@quiz/shared-types";
 
 import type { UseHostSessionReturn } from "../hooks/useHostSession.js";
 import { buildCustomGamePlan, buildPresetGamePlan } from "../lib/game-plan-drafts.js";
-import {
-  getPresetHint,
-  getPresetLabel,
-  getQuestionTypeLabel,
-  getShowLevelLabel,
-} from "../lib/labels.js";
+import { getPresetHint, getPresetLabel, getQuestionTypeLabel, getShowLevelLabel } from "../lib/labels.js";
 
-const PRESET_IDS: GamePlanPresetId[] = [
-  "quick_dirty",
-  "normal_evening",
-  "full_evening",
-  "chaos_party",
-];
+const PRESET_IDS: GamePlanPresetId[] = ["quick_dirty", "normal_evening", "full_evening", "chaos_party"];
 const QUESTION_COUNT_CHOICES = [10, 15, 20, 25, 30] as const;
 const TIMER_CHOICES = [20_000, 30_000, 45_000, 60_000, 90_000] as const;
 const REVEAL_CHOICES: Array<{ label: string; value: number; mode: RevealMode }> = [
@@ -22,10 +12,7 @@ const REVEAL_CHOICES: Array<{ label: string; value: number; mode: RevealMode }> 
   { label: "Manuell (30s Fallback)", value: 30_000, mode: "manual_with_fallback" },
 ];
 
-function getTopVotedCategoryId(
-  votes: Record<string, number>,
-  categories: { id: string }[],
-): string | null {
+function getTopVotedCategoryId(votes: Record<string, number>, categories: { id: string }[]): string | null {
   const sorted = categories
     .map((c) => ({ id: c.id, count: votes[c.id] ?? 0 }))
     .filter((e) => e.count > 0)
@@ -50,9 +37,7 @@ export function HostGamePlanBuilder({ session: s }: HostGamePlanBuilderProps) {
       </div>
       {(() => {
         const topId = getTopVotedCategoryId(s.votes, s.catalog!.categories);
-        const topName = topId
-          ? (s.catalog!.categories.find((c) => c.id === topId)?.name ?? topId)
-          : null;
+        const topName = topId ? (s.catalog!.categories.find((c) => c.id === topId)?.name ?? topId) : null;
         const topCount = topId ? (s.votes[topId] ?? 0) : 0;
         return topId ? (
           <button
@@ -82,11 +67,7 @@ export function HostGamePlanBuilder({ session: s }: HostGamePlanBuilderProps) {
             onClick={() => {
               s.setSelectedPlanMode(presetId);
               s.handlePlanDraftChange(
-                buildPresetGamePlan(
-                  presetId,
-                  s.catalog!,
-                  s.gamePlanDraft!.showAnswerTextOnPlayerDevices,
-                ),
+                buildPresetGamePlan(presetId, s.catalog!, s.gamePlanDraft!.showAnswerTextOnPlayerDevices),
               );
             }}
             type="button"
@@ -100,9 +81,7 @@ export function HostGamePlanBuilder({ session: s }: HostGamePlanBuilderProps) {
           data-active={s.selectedPlanMode === "custom" ? "true" : undefined}
           onClick={() => {
             s.setSelectedPlanMode("custom");
-            s.handlePlanDraftChange(
-              buildCustomGamePlan(s.catalog!, s.gamePlanDraft!.showAnswerTextOnPlayerDevices),
-            );
+            s.handlePlanDraftChange(buildCustomGamePlan(s.catalog!, s.gamePlanDraft!.showAnswerTextOnPlayerDevices));
           }}
           type="button"
         >
@@ -152,10 +131,7 @@ function HostCustomGamePlanBuilder({ session: s }: HostGamePlanBuilderProps) {
           max={s.catalog!.maxQuestionCount}
           min={5}
           onChange={(event) => {
-            const nextCount = Math.max(
-              5,
-              Math.min(s.catalog!.maxQuestionCount, Number(event.target.value) || 5),
-            );
+            const nextCount = Math.max(5, Math.min(s.catalog!.maxQuestionCount, Number(event.target.value) || 5));
             s.handlePlanDraftChange({ ...s.gamePlanDraft!, questionCount: nextCount });
           }}
           type="number"
@@ -183,8 +159,7 @@ function HostCustomGamePlanBuilder({ session: s }: HostGamePlanBuilderProps) {
           {REVEAL_CHOICES.map((choice) => (
             <button
               data-active={
-                s.gamePlanDraft!.revealDurationMs === choice.value &&
-                s.gamePlanDraft!.revealMode === choice.mode
+                s.gamePlanDraft!.revealDurationMs === choice.value && s.gamePlanDraft!.revealMode === choice.mode
                   ? "true"
                   : undefined
               }
@@ -208,9 +183,7 @@ function HostCustomGamePlanBuilder({ session: s }: HostGamePlanBuilderProps) {
         <div className="host-segmented">
           {(["minimal", "normal", "high"] as const).map((displayShowLevel) => (
             <button
-              data-active={
-                s.gamePlanDraft!.displayShowLevel === displayShowLevel ? "true" : undefined
-              }
+              data-active={s.gamePlanDraft!.displayShowLevel === displayShowLevel ? "true" : undefined}
               key={displayShowLevel}
               onClick={() => s.handlePlanDraftChange({ ...s.gamePlanDraft!, displayShowLevel })}
               type="button"
@@ -237,14 +210,9 @@ function HostCustomGamePlanBuilder({ session: s }: HostGamePlanBuilderProps) {
         {s.catalog!.categories.map((category) => {
           const voteCount = s.votes[category.id] ?? 0;
           const isTopVoted =
-            voteCount > 0 &&
-            voteCount === Math.max(...s.catalog!.categories.map((c) => s.votes[c.id] ?? 0));
+            voteCount > 0 && voteCount === Math.max(...s.catalog!.categories.map((c) => s.votes[c.id] ?? 0));
           return (
-            <label
-              className="host-checkbox-pill"
-              data-top-vote={isTopVoted ? "true" : undefined}
-              key={category.id}
-            >
+            <label className="host-checkbox-pill" data-top-vote={isTopVoted ? "true" : undefined} key={category.id}>
               <input
                 checked={s.gamePlanDraft!.categoryIds.includes(category.id)}
                 onChange={(event) => {

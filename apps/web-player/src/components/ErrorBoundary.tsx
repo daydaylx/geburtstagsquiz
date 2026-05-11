@@ -38,9 +38,7 @@ export class ErrorBoundary extends Component<Props, State> {
           }}
         >
           <h1 style={{ fontSize: "1.5rem", margin: 0 }}>Etwas ist schiefgelaufen</h1>
-          <p style={{ margin: 0, opacity: 0.6, fontSize: "0.9rem" }}>
-            Ein unerwarteter Fehler ist aufgetreten.
-          </p>
+          <p style={{ margin: 0, opacity: 0.6, fontSize: "0.9rem" }}>Ein unerwarteter Fehler ist aufgetreten.</p>
           <button
             onClick={() => window.location.reload()}
             style={{

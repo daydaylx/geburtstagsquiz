@@ -9,9 +9,14 @@
     "typecheck": "corepack pnpm -r run typecheck",
     "review:questions": "node tools/question-review/server.mjs",
     "smoke:local": "node scripts/smoke-local-game.mjs",
-    "test": "vitest run"
+    "test": "vitest run",
+    "lint": "biome check apps packages scripts",
+    "lint:fix": "biome check --write apps packages scripts",
+    "format": "biome format --write apps packages scripts",
+    "check": "biome check --write apps packages scripts"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.4.15",
     "typescript": "^5.7.0",
     "vitest": "^3.0.0"
   },

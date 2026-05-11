@@ -36,9 +36,7 @@ export function DisplayRevealScreen({
         <ol className="display-reveal-ranking">
           {s.revealedAnswer.value.map((itemId, pos) => {
             const item =
-              s.question && "items" in s.question
-                ? s.question.items.find((entry) => entry.id === itemId)
-                : undefined;
+              s.question && "items" in s.question ? s.question.items.find((entry) => entry.id === itemId) : undefined;
             return (
               <li className="display-reveal-ranking-item" key={itemId}>
                 <span className="display-reveal-rank-pos">{pos + 1}.</span>
@@ -70,12 +68,8 @@ export function DisplayRevealScreen({
       )}
 
       <div className="display-reveal-stats">
-        <span className="display-reveal-stat display-reveal-stat--correct">
-          ✓ {correctCount} richtig
-        </span>
-        <span className="display-reveal-stat display-reveal-stat--wrong">
-          ✗ {wrongCount} falsch
-        </span>
+        <span className="display-reveal-stat display-reveal-stat--correct">✓ {correctCount} richtig</span>
+        <span className="display-reveal-stat display-reveal-stat--wrong">✗ {wrongCount} falsch</span>
         <span className="display-reveal-stat">— {noneCount} keine</span>
       </div>
 
@@ -86,10 +80,7 @@ export function DisplayRevealScreen({
         </div>
       )}
       {visibleReadyProgress && (
-        <div
-          className="display-ready-block"
-          data-all-ready={readyProgressAllReady ? "true" : undefined}
-        >
+        <div className="display-ready-block" data-all-ready={readyProgressAllReady ? "true" : undefined}>
           <div className="display-ready-label">
             {readyProgressAllReady
               ? "Alle bereit!"
@@ -119,14 +110,10 @@ function DisplayRevealOptions({
       {revealedAnswer?.type === "option" &&
         (() => {
           const correctOpt = question.options.find((option) => option.id === revealedAnswer.value);
-          const correctIndex = correctOpt
-            ? question.options.findIndex((option) => option.id === correctOpt.id)
-            : -1;
+          const correctIndex = correctOpt ? question.options.findIndex((option) => option.id === correctOpt.id) : -1;
           return correctOpt ? (
             <div className="display-reveal-correct-card">
-              <span className="display-reveal-correct-label">
-                {getAnswerDisplayLabel(correctIndex)}
-              </span>
+              <span className="display-reveal-correct-label">{getAnswerDisplayLabel(correctIndex)}</span>
               <span className="display-reveal-correct-text">{correctOpt.label}</span>
             </div>
           ) : null;
@@ -137,9 +124,7 @@ function DisplayRevealOptions({
           const optIndex = opt ? question.options.findIndex((option) => option.id === opt.id) : -1;
           return opt ? (
             <div className="display-reveal-correct-card" key={id}>
-              <span className="display-reveal-correct-label">
-                {getAnswerDisplayLabel(optIndex)}
-              </span>
+              <span className="display-reveal-correct-label">{getAnswerDisplayLabel(optIndex)}</span>
               <span className="display-reveal-correct-text">{opt.label}</span>
             </div>
           ) : null;

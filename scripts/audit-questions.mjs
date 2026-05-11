@@ -2,7 +2,7 @@
 // Strukturelle Analyse des Fragenkatalogs (Kategorie-Dateien).
 // Ausgabe: JSON auf stdout.
 import { readdirSync, readFileSync } from "node:fs";
-import { resolve, join, dirname } from "node:path";
+import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -12,14 +12,7 @@ const FILES = readdirSync(CATEGORIES_DIR)
   .sort()
   .map((f) => join(CATEGORIES_DIR, f));
 
-const SUPPORTED_TYPES = new Set([
-  "multiple_choice",
-  "estimate",
-  "majority_guess",
-  "ranking",
-  "logic",
-  "open_text",
-]);
+const SUPPORTED_TYPES = new Set(["multiple_choice", "estimate", "majority_guess", "ranking", "logic", "open_text"]);
 
 function loadFile(filename) {
   return JSON.parse(readFileSync(filename, "utf8"));
@@ -64,7 +57,7 @@ function auditFile(filename) {
         type,
         len: prompt.length,
         catId,
-        prompt: prompt.slice(0, 80) + "…",
+        prompt: `${prompt.slice(0, 80)}…`,
       });
     }
 
@@ -98,7 +91,7 @@ function auditFile(filename) {
     // estimate
     if (type === "estimate") {
       const val = q.answer?.reference_value ?? q.correct_value;
-      if (val === undefined || val === null || typeof val !== "number" || isNaN(val)) {
+      if (val === undefined || val === null || typeof val !== "number" || Number.isNaN(val)) {
         estimateErrors.push({
           id: q.id,
           catId,
@@ -193,4 +186,4 @@ const summary = {
   duplicates,
 };
 
-process.stdout.write(JSON.stringify(summary, null, 2) + "\n");
+process.stdout.write(`${JSON.stringify(summary, null, 2)}\n`);

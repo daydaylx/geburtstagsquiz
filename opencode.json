@@ -1,0 +1,44 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "lsp": true,
+  "formatter": true,
+  "instructions": ["AGENTS.md", "WORKFLOW.md", "CLAUDE.md"],
+  "plugin": ["./.opencode/plugins/env-protection.mjs"],
+  "watcher": {
+    "ignore": ["node_modules/**", "dist/**", ".git/**", "data/**"]
+  },
+  "mcp": {
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp",
+      "enabled": true
+    },
+    "gh_grep": {
+      "type": "remote",
+      "url": "https://mcp.grep.app",
+      "enabled": true
+    }
+  },
+  "command": {
+    "typecheck": {
+      "description": "TypeScript typecheck ueber alle Packages",
+      "template": "Fuehre `corepack pnpm typecheck` aus und zeige alle Fehler."
+    },
+    "test": {
+      "description": "Vitest-Tests ausfuehren",
+      "template": "Fuehre `corepack pnpm test` aus und zeige Ergebnisse und ggf. Fehler."
+    },
+    "build": {
+      "description": "Alle Packages bauen",
+      "template": "Fuehre `corepack pnpm build` aus und zeige das Ergebnis."
+    },
+    "smoke": {
+      "description": "Lokalen Smoke-Test ausfuehren",
+      "template": "Stelle sicher dass der Server auf localhost:3001 laeuft, dann fuehre `corepack pnpm run smoke:local` aus."
+    },
+    "dev": {
+      "description": "Alle 4 Services parallel starten",
+      "template": "Fuehre `corepack pnpm dev` aus um alle Services zu starten."
+    }
+  }
+}

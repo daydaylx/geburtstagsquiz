@@ -7,9 +7,7 @@ export function PlayerScoreboardScreen({ session: s }: { session: UsePlayerSessi
         <div className="player-my-rank">
           <div className="player-my-rank-label">Dein Platz</div>
           <div className="player-my-rank-value">{s.ownScoreboardPlacement + 1}.</div>
-          <div className="player-my-rank-score">
-            {s.ownScoreboardEntry.score} Punkte
-          </div>
+          <div className="player-my-rank-score">{s.ownScoreboardEntry.score} Punkte</div>
         </div>
       )}
       <div className="player-card">

@@ -1,4 +1,4 @@
-import { QuestionType, type DisplayShowLevel, type GamePlanPresetId } from "@quiz/shared-types";
+import { type DisplayShowLevel, type GamePlanPresetId, QuestionType } from "@quiz/shared-types";
 
 export function getAnswerDisplayLabel(index: number): string {
   return index < 26 ? String.fromCharCode(65 + index) : `${index + 1}`;

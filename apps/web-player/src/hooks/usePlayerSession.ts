@@ -1,29 +1,28 @@
-import { useEffect, useEffectEvent, useRef, useState } from "react";
-
 import {
-  EVENTS,
-  PROTOCOL_ERROR_CODES,
-  parseServerToClientEnvelope,
   type ClientToServerEventPayloadMap,
   type ConnectionResumedPayload,
+  EVENTS,
   type GameFinishedPayload,
   type LobbyCategory,
   type LobbyUpdatePayload,
   type NextQuestionReadyProgressPayload,
+  PROTOCOL_ERROR_CODES,
+  parseServerToClientEnvelope,
   type QuestionControllerPayload,
   type QuestionRevealPayload,
   type ScoreUpdatePayload,
   type VoteUpdatePayload,
 } from "@quiz/shared-protocol";
-import { GameState, QuestionType, type Answer } from "@quiz/shared-types";
+import { type Answer, GameState } from "@quiz/shared-types";
 import { normalizeJoinCode, normalizePlayerName } from "@quiz/shared-utils";
+import { useEffect, useEffectEvent, useRef, useState } from "react";
 
 import { getProtocolErrorMessage } from "../lib/helpers.js";
 import {
   clearPlayerStoredSession,
   loadPlayerStoredSession,
-  savePlayerStoredSession,
   type PlayerStoredSession,
+  savePlayerStoredSession,
 } from "../storage.js";
 
 export interface PlayerNotice {
@@ -83,6 +82,8 @@ export interface UsePlayerSessionReturn {
   handleSubmitRanking: (order: string[]) => void;
   handleSubmitText: (value: string) => void;
   handleReadyForNextQuestion: () => void;
+  handlePlayAgain: () => void;
+  waitingForRestart: boolean;
   setJoinCode: (v: string) => void;
   setPlayerName: (v: string) => void;
   setEstimateValue: (v: string) => void;
@@ -121,19 +122,19 @@ export function usePlayerSession(deps: {
   const [textAnswerValue, setTextAnswerValue] = useState<string>("");
   const [rankingOrder, setRankingOrder] = useState<string[]>([]);
   const [answerStatus, setAnswerStatus] = useState<AnswerStatus>("idle");
-  const [correctAnswer, setCorrectAnswer] = useState<QuestionRevealPayload["correctAnswer"] | null>(
-    null,
-  );
+  const [correctAnswer, setCorrectAnswer] = useState<QuestionRevealPayload["correctAnswer"] | null>(null);
   const [revealExplanation, setRevealExplanation] = useState<string | null>(null);
   const [roundResults, setRoundResults] = useState<QuestionRevealPayload["playerResults"]>([]);
   const [scoreboard, setScoreboard] = useState<ScoreUpdatePayload | null>(null);
-  const [nextQuestionReadyProgress, setNextQuestionReadyProgress] =
-    useState<NextQuestionReadyProgressPayload | null>(null);
+  const [nextQuestionReadyProgress, setNextQuestionReadyProgress] = useState<NextQuestionReadyProgressPayload | null>(
+    null,
+  );
   const [locallyReadyQuestionId, setLocallyReadyQuestionId] = useState<string | null>(null);
   const [finalResult, setFinalResult] = useState<GameFinishedPayload | null>(null);
   const [categories, setCategories] = useState<LobbyCategory[]>([]);
   const [votes, setVotes] = useState<Record<string, number>>({});
   const [myVote, setMyVote] = useState<string | null>(null);
+  const [waitingForRestart, setWaitingForRestart] = useState(false);
 
   const playerSessionRef = useRef<PlayerStoredSession | null>(initialSession);
   const lastJoinAttemptRef = useRef<JoinAttempt | null>(null);
@@ -148,7 +149,10 @@ export function usePlayerSession(deps: {
   });
 
   const resetToJoin = useEffectEvent(() => {
-    if (submitTimeoutRef.current) { clearTimeout(submitTimeoutRef.current); submitTimeoutRef.current = null; }
+    if (submitTimeoutRef.current) {
+      clearTimeout(submitTimeoutRef.current);
+      submitTimeoutRef.current = null;
+    }
     setLobby(null);
     setRoomId(null);
     setIsJoining(false);
@@ -282,8 +286,7 @@ export function usePlayerSession(deps: {
       case EVENTS.CONNECTION_RESUMED: {
         if (parsedEnvelope.data.payload.role !== "player") return;
         const resumedPayload = parsedEnvelope.data.payload as ConnectionResumedPayload;
-        const resumedPlayerName =
-          playerSessionRef.current?.playerName ?? normalizePlayerName(playerName);
+        const resumedPlayerName = playerSessionRef.current?.playerName ?? normalizePlayerName(playerName);
         updateStoredSession({
           roomId: resumedPayload.roomId,
           sessionId: resumedPayload.sessionId,
@@ -328,7 +331,10 @@ export function usePlayerSession(deps: {
 
       case EVENTS.QUESTION_CONTROLLER: {
         if (!playerSessionRef.current) return;
-        if (submitTimeoutRef.current) { clearTimeout(submitTimeoutRef.current); submitTimeoutRef.current = null; }
+        if (submitTimeoutRef.current) {
+          clearTimeout(submitTimeoutRef.current);
+          submitTimeoutRef.current = null;
+        }
         const resumedAnswer = resumedAnswerRef.current;
         setQuestion(parsedEnvelope.data.payload);
         setRemainingMs(parsedEnvelope.data.payload.durationMs);
@@ -353,13 +359,19 @@ export function usePlayerSession(deps: {
         return;
 
       case EVENTS.ANSWER_ACCEPTED:
-        if (submitTimeoutRef.current) { clearTimeout(submitTimeoutRef.current); submitTimeoutRef.current = null; }
+        if (submitTimeoutRef.current) {
+          clearTimeout(submitTimeoutRef.current);
+          submitTimeoutRef.current = null;
+        }
         setNotice(null);
         setAnswerStatus("accepted");
         return;
 
       case EVENTS.ANSWER_REJECTED:
-        if (submitTimeoutRef.current) { clearTimeout(submitTimeoutRef.current); submitTimeoutRef.current = null; }
+        if (submitTimeoutRef.current) {
+          clearTimeout(submitTimeoutRef.current);
+          submitTimeoutRef.current = null;
+        }
         switch (parsedEnvelope.data.payload.reason) {
           case "duplicate":
             setAnswerStatus("accepted");
@@ -382,7 +394,10 @@ export function usePlayerSession(deps: {
         return;
 
       case EVENTS.QUESTION_CLOSE:
-        if (submitTimeoutRef.current) { clearTimeout(submitTimeoutRef.current); submitTimeoutRef.current = null; }
+        if (submitTimeoutRef.current) {
+          clearTimeout(submitTimeoutRef.current);
+          submitTimeoutRef.current = null;
+        }
         setRemainingMs(0);
         setAnswerStatus((curr) => (curr === "idle" || curr === "submitting" ? "locked" : curr));
         return;
@@ -413,10 +428,44 @@ export function usePlayerSession(deps: {
         setScreen("finished");
         return;
 
+      case EVENTS.ROOM_RESET: {
+        const resetPayload = parsedEnvelope.data.payload;
+        updateStoredSession({
+          roomId: resetPayload.roomId,
+          sessionId: playerSessionRef.current?.sessionId ?? "",
+          playerId: playerSessionRef.current?.playerId ?? "",
+          playerName: playerSessionRef.current?.playerName ?? "",
+          joinCode: resetPayload.joinCode,
+        });
+        setRoomId(resetPayload.roomId);
+        setJoinCode(resetPayload.joinCode);
+        setQuestion(null);
+        setRemainingMs(0);
+        setSelectedOptionId(null);
+        setAnswerStatus("idle");
+        setCorrectAnswer(null);
+        setRevealExplanation(null);
+        setRoundResults([]);
+        setScoreboard(null);
+        setNextQuestionReadyProgress(null);
+        setFinalResult(null);
+        setEstimateValue("");
+        setTextAnswerValue("");
+        setRankingOrder([]);
+        setCategories([]);
+        setVotes({});
+        setMyVote(null);
+        setScreen("lobby");
+        setNotice(null);
+        setWaitingForRestart(false);
+        return;
+      }
+
       case EVENTS.ROOM_CLOSED:
         updateStoredSession(null);
         resetToJoin();
         setNotice({ kind: "info", text: "Raum geschlossen. Bitte neu beitreten." });
+        setWaitingForRestart(false);
         return;
 
       case EVENTS.ERROR_PROTOCOL: {
@@ -447,7 +496,7 @@ export function usePlayerSession(deps: {
 
   useEffect(() => {
     onMessage(handleServerMessage);
-  }, [onMessage, handleServerMessage]);
+  }, [onMessage]);
 
   useEffect(() => {
     return () => {
@@ -487,17 +536,17 @@ export function usePlayerSession(deps: {
     }
   });
 
+  const handlePlayAgain = useEffectEvent(() => {
+    setWaitingForRestart(true);
+  });
+
   const playerSession = playerSessionRef.current;
   const ownPlayerId = playerSession?.playerId ?? "";
   const timerSeconds = Math.ceil((remainingMs ?? 0) / 1000);
   const isTimerWarning = remainingMs > 0 && timerSeconds <= 10;
   const isTimerUrgent = remainingMs > 0 && timerSeconds <= 5;
   const ownRoundResult = roundResults.find((r) => r.playerId === ownPlayerId) ?? null;
-  const selfRevealState = ownRoundResult?.isCorrect
-    ? "correct"
-    : ownRoundResult?.answer
-      ? "wrong"
-      : "missing";
+  const selfRevealState = ownRoundResult?.isCorrect ? "correct" : ownRoundResult?.answer ? "wrong" : "missing";
   const selfRevealLabel =
     selfRevealState === "correct"
       ? "RICHTIG!"
@@ -505,13 +554,9 @@ export function usePlayerSession(deps: {
         ? "LEIDER FALSCH"
         : "KEINE ANTWORT GEWERTET";
 
-  const ownScoreboardPlacement = scoreboard
-    ? scoreboard.scoreboard.findIndex((e) => e.playerId === ownPlayerId)
-    : -1;
+  const ownScoreboardPlacement = scoreboard ? scoreboard.scoreboard.findIndex((e) => e.playerId === ownPlayerId) : -1;
   const ownScoreboardEntry =
-    ownScoreboardPlacement >= 0 && scoreboard
-      ? scoreboard.scoreboard[ownScoreboardPlacement]
-      : null;
+    ownScoreboardPlacement >= 0 && scoreboard ? scoreboard.scoreboard[ownScoreboardPlacement] : null;
   const ownFinalPlacement = finalResult
     ? finalResult.finalScoreboard.findIndex((entry) => entry.playerId === ownPlayerId)
     : -1;
@@ -567,6 +612,8 @@ export function usePlayerSession(deps: {
     handleSubmitRanking,
     handleSubmitText,
     handleReadyForNextQuestion,
+    handlePlayAgain,
+    waitingForRestart,
     setJoinCode,
     setPlayerName,
     setEstimateValue,

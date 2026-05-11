@@ -7,10 +7,7 @@ import type {
   SubmittedAnswer,
 } from "@quiz/shared-types";
 
-export function evaluateEstimate(
-  question: EstimateQuestion,
-  answers: SubmittedAnswer[],
-): RoundResult {
+export function evaluateEstimate(question: EstimateQuestion, answers: SubmittedAnswer[]): RoundResult {
   const correctAnswer: CorrectAnswer = { type: "number", value: question.correctValue };
 
   const numericAnswers = answers.filter(
@@ -27,8 +24,7 @@ export function evaluateEstimate(
     if (sub.answer.type !== "number") {
       return { playerId: sub.playerId, answer: sub.answer, isCorrect: false, pointsEarned: 0 };
     }
-    const isClosest =
-      numericAnswers.length > 0 && Math.abs(sub.answer.value - question.correctValue) === minDist;
+    const isClosest = numericAnswers.length > 0 && Math.abs(sub.answer.value - question.correctValue) === minDist;
     return {
       playerId: sub.playerId,
       answer: sub.answer,

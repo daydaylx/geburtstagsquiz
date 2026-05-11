@@ -1,20 +1,12 @@
-import { randomUUID } from "node:crypto";
-import { randomInt } from "node:crypto";
+import { randomInt, randomUUID } from "node:crypto";
 
 import { EVENTS } from "@quiz/shared-protocol";
-import { RoomState, type Player } from "@quiz/shared-types";
-import { JOIN_CODE_ALPHABET, JOIN_CODE_LENGTH, normalizePlayerName } from "@quiz/shared-utils";
-
-import type { RoomRecord, SessionRecord, TrackedWebSocket } from "./server-types.js";
+import { RoomState } from "@quiz/shared-types";
+import { JOIN_CODE_ALPHABET, JOIN_CODE_LENGTH } from "@quiz/shared-utils";
 import { PROTOCOL_ERROR_CODES, sendEvent, sendProtocolError } from "./protocol.js";
-import {
-  roomsById,
-  roomIdByJoinCode,
-  roomIdByHostToken,
-  sessionsById,
-  logRoomEvent,
-} from "./state.js";
 import { clearActiveRoomTimers } from "./room-timers.js";
+import type { RoomRecord, SessionRecord, TrackedWebSocket } from "./server-types.js";
+import { logRoomEvent, roomIdByHostToken, roomIdByJoinCode, roomsById, sessionsById } from "./state.js";
 
 function generateHostToken(): string {
   return randomUUID().replace(/-/g, "") + randomUUID().replace(/-/g, "");
@@ -211,6 +203,7 @@ export function handleDisplayCreateRoom(
     questionTimer: null,
     timerTickInterval: null,
     revealTimer: null,
+    completedRoomTtlTimer: null,
     currentAnswers: new Map(),
     nextQuestionReadyPlayerIds: new Set(),
     questionStartedAt: null,
@@ -248,9 +241,7 @@ export function handleDisplayCreateRoom(
   });
 }
 
-export function toKnownEventName(
-  event: string | undefined,
-): import("@quiz/shared-protocol").EventName | undefined {
+export function toKnownEventName(event: string | undefined): import("@quiz/shared-protocol").EventName | undefined {
   if (!event) {
     return undefined;
   }

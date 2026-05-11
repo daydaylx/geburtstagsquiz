@@ -35,10 +35,7 @@ export function DisplayScoreboardScreen({
             >
               <span className="display-rank">{i + 1}.</span>
               {rankDelta !== 0 && (
-                <span
-                  className="display-rank-change"
-                  data-direction={rankDelta > 0 ? "up" : "down"}
-                >
+                <span className="display-rank-change" data-direction={rankDelta > 0 ? "up" : "down"}>
                   {rankDelta > 0 ? `▲${rankDelta}` : `▼${Math.abs(rankDelta)}`}
                 </span>
               )}
@@ -54,19 +51,14 @@ export function DisplayScoreboardScreen({
                 </div>
                 <span className="display-progress-label">Ziel</span>
               </div>
-              {change && change.delta > 0 && (
-                <span className="display-score-delta">+{change.delta}</span>
-              )}
+              {change && change.delta > 0 && <span className="display-score-delta">+{change.delta}</span>}
               <span className="display-score">{entry.score}</span>
             </li>
           );
         })}
       </ol>
       {visibleReadyProgress && (
-        <div
-          className="display-ready-block"
-          data-all-ready={readyProgressAllReady ? "true" : undefined}
-        >
+        <div className="display-ready-block" data-all-ready={readyProgressAllReady ? "true" : undefined}>
           <div className="display-ready-label">
             {readyProgressAllReady
               ? "Alle bereit!"

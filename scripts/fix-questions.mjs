@@ -2,7 +2,7 @@
 // Wendet alle Audit-Fixes auf die Kategorie-Dateien in data/quiz/questions/ an.
 // Aufruf: node scripts/fix-questions.mjs
 import { readdirSync, readFileSync, writeFileSync } from "node:fs";
-import { resolve, join, dirname } from "node:path";
+import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -20,7 +20,7 @@ const modifiedFiles = new Set();
 
 function save(entry) {
   entry.data.question_count = entry.data.questions.length;
-  writeFileSync(entry.filename, JSON.stringify(entry.data, null, 2) + "\n", "utf8");
+  writeFileSync(entry.filename, `${JSON.stringify(entry.data, null, 2)}\n`, "utf8");
 }
 
 function findQuestion(id) {
@@ -120,8 +120,7 @@ withQuestion("q-06-24-bedb3b28b0", (q) => {
   const correctOpt = q.options.find((o) => o.is_correct);
   correctOpt.text =
     "Computer-Software speicherte Jahreszahlen nur zweistellig - das Jahr 2000 haette als '00' gelesen werden und Abstauerze verursachen koennen";
-  q.explanation =
-    "Y2K war kein Angriff, sondern ein Programmierfehler. '00' waere als 1900 interpretiert worden.";
+  q.explanation = "Y2K war kein Angriff, sondern ein Programmierfehler. '00' waere als 1900 interpretiert worden.";
   console.log("✓ v4 q-06-24: Y2K-Framing korrigiert");
 });
 
@@ -277,23 +276,19 @@ const promptFixes = [
   },
   {
     id: "q-04-10-logic-gerner",
-    prompt:
-      "Wer hält in GZSZ den inoffiziellen Rekord für die meisten Hochzeiten in der Seriengeschichte?",
+    prompt: "Wer hält in GZSZ den inoffiziellen Rekord für die meisten Hochzeiten in der Seriengeschichte?",
   },
   {
     id: "q-05-05",
-    prompt:
-      "Vorglüh-Check: 0,7l Wodka (37,5%) + 20 Flaschen Bier (0,5l, 5%). Wie viel Liter reiner Alkohol sind das?",
+    prompt: "Vorglüh-Check: 0,7l Wodka (37,5%) + 20 Flaschen Bier (0,5l, 5%). Wie viel Liter reiner Alkohol sind das?",
   },
   {
     id: "q-05-16",
-    prompt:
-      "Freund A bringt 6 Bier, B bringt 4, C bringt 0 und zahlt 10 €. Wer bekommt wie viel von den 10 €?",
+    prompt: "Freund A bringt 6 Bier, B bringt 4, C bringt 0 und zahlt 10 €. Wer bekommt wie viel von den 10 €?",
   },
   {
     id: "q-08-01",
-    prompt:
-      "Wie viele Wochen stand 'Schnappi, das kleine Krokodil' 2005 auf Platz 1 der deutschen Charts?",
+    prompt: "Wie viele Wochen stand 'Schnappi, das kleine Krokodil' 2005 auf Platz 1 der deutschen Charts?",
   },
   {
     id: "q-08-06",
@@ -317,13 +312,11 @@ const promptFixes = [
   },
   {
     id: "q-10-02",
-    prompt:
-      "Wie viele Stunden hielt der Akku des Nokia 3310 laut Hersteller im Standby-Modus durch?",
+    prompt: "Wie viele Stunden hielt der Akku des Nokia 3310 laut Hersteller im Standby-Modus durch?",
   },
   {
     id: "q-10-07",
-    prompt:
-      "Wie viele Kilogramm wog ein typischer 19-Zoll-Röhrenmonitor (CRT) aus dem Jahr 2002 ungefähr?",
+    prompt: "Wie viele Kilogramm wog ein typischer 19-Zoll-Röhrenmonitor (CRT) aus dem Jahr 2002 ungefähr?",
   },
 ];
 

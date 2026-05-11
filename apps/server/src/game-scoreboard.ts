@@ -1,15 +1,12 @@
 import type { GameFinalStats, ScoreboardEntry, ScoreChange } from "@quiz/shared-types";
-
-import type { RoomRecord } from "./server-types.js";
 import { getSortedScoreboard } from "./room-selectors.js";
+import type { RoomRecord } from "./server-types.js";
 
 const SCOREBOARD_INTERVAL = 5;
 
 export function isLastQuestion(room: RoomRecord): boolean {
   return (
-    !!room.quiz &&
-    room.currentQuestionIndex !== null &&
-    room.currentQuestionIndex + 1 >= room.quiz.questions.length
+    !!room.quiz && room.currentQuestionIndex !== null && room.currentQuestionIndex + 1 >= room.quiz.questions.length
   );
 }
 
@@ -32,10 +29,7 @@ export function buildScoreChanges(
   nextScoreboard: ScoreboardEntry[],
 ): ScoreChange[] {
   const previousByPlayerId = new Map(
-    previousScoreboard.map((entry, index) => [
-      entry.playerId,
-      { score: entry.score, rank: index + 1 },
-    ]),
+    previousScoreboard.map((entry, index) => [entry.playerId, { score: entry.score, rank: index + 1 }]),
   );
 
   return nextScoreboard
@@ -71,10 +65,7 @@ export function buildFinalStats(room: RoomRecord): GameFinalStats | undefined {
   for (const result of completedResults) {
     for (const playerResult of result.playerResults) {
       if (playerResult.isCorrect) {
-        correctCounts.set(
-          playerResult.playerId,
-          (correctCounts.get(playerResult.playerId) ?? 0) + 1,
-        );
+        correctCounts.set(playerResult.playerId, (correctCounts.get(playerResult.playerId) ?? 0) + 1);
       }
     }
   }
@@ -90,9 +81,7 @@ export function buildFinalStats(room: RoomRecord): GameFinalStats | undefined {
 
   const mostCorrectEntry = [...correctCounts.entries()].sort((a, b) => b[1] - a[1])[0];
   const scoreboard = getSortedScoreboard(room);
-  const gaps = scoreboard
-    .slice(1)
-    .map((entry, index) => Math.abs(scoreboard[index].score - entry.score));
+  const gaps = scoreboard.slice(1).map((entry, index) => Math.abs(scoreboard[index].score - entry.score));
   const closestGap = gaps.length ? Math.min(...gaps) : undefined;
 
   return {
@@ -128,7 +117,6 @@ function getAnsweredVisibleQuestionNumber(room: RoomRecord): number {
     return 0;
   }
 
-  return room.quiz.questions
-    .slice(0, room.currentQuestionIndex + 1)
-    .filter((question) => !question.isDemoQuestion).length;
+  return room.quiz.questions.slice(0, room.currentQuestionIndex + 1).filter((question) => !question.isDemoQuestion)
+    .length;
 }

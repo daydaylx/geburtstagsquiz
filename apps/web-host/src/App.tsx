@@ -1,11 +1,11 @@
-import { useWebSocket, type ConnectionState } from "@quiz/shared-hooks";
-import { getPlayerJoinUrl } from "./lib/helpers.js";
-import { useHostSession } from "./hooks/useHostSession.js";
-import { HostLobbyStage } from "./components/HostLobbyStage.js";
+import { type ConnectionState, useWebSocket } from "@quiz/shared-hooks";
 import { HostCountdownStage } from "./components/HostCountdownStage.js";
+import { HostLobbyStage } from "./components/HostLobbyStage.js";
 import { HostQuestionStage } from "./components/HostQuestionStage.js";
 import { HostRevealStage } from "./components/HostRevealStage.js";
 import { HostScoreboardStage } from "./components/HostScoreboardStage.js";
+import { useHostSession } from "./hooks/useHostSession.js";
+import { getPlayerJoinUrl } from "./lib/helpers.js";
 
 const FLOW_STEPS = ["Lobby", "Kategorien", "Frage", "Auflösung", "Endstand"] as const;
 
@@ -45,20 +45,14 @@ export function App() {
     : "Warte auf Bereitmeldungen";
   const nextReadyPercent =
     s.nextQuestionReadyProgress && s.nextQuestionReadyProgress.totalEligiblePlayers > 0
-      ? (s.nextQuestionReadyProgress.readyCount /
-          s.nextQuestionReadyProgress.totalEligiblePlayers) *
-        100
+      ? (s.nextQuestionReadyProgress.readyCount / s.nextQuestionReadyProgress.totalEligiblePlayers) * 100
       : 0;
   const latestScoreChanges = s.scoreboard?.scoreChanges ?? [];
 
   const effectiveTotalQuestionCount =
-    s.totalQuestionCount ??
-    s.question?.totalQuestionCount ??
-    s.finalResult?.totalQuestionCount ??
-    null;
+    s.totalQuestionCount ?? s.question?.totalQuestionCount ?? s.finalResult?.totalQuestionCount ?? null;
   const currentQuestionNumber = s.currentQuestionIndex !== null ? s.currentQuestionIndex + 1 : 0;
-  const visibleQuestionNumber =
-    s.screen === "finished" ? effectiveTotalQuestionCount || 0 : currentQuestionNumber;
+  const visibleQuestionNumber = s.screen === "finished" ? effectiveTotalQuestionCount || 0 : currentQuestionNumber;
   const questionProgressPercent = effectiveTotalQuestionCount
     ? (visibleQuestionNumber / effectiveTotalQuestionCount) * 100
     : 0;
@@ -143,10 +137,7 @@ export function App() {
               : "Warten...";
   const isPrimaryDisabled =
     s.screen === "lobby"
-      ? connectionState !== "connected" ||
-        connectedPlayerCount === 0 ||
-        !s.gamePlanDraft ||
-        !s.catalog
+      ? connectionState !== "connected" || connectedPlayerCount === 0 || !s.gamePlanDraft || !s.catalog
       : s.screen === "question"
         ? false
         : s.screen === "reveal" || s.screen === "scoreboard"
@@ -191,20 +182,14 @@ export function App() {
             {urlParams.get("hostToken") ? (
               <>
                 <h2 className="host-stage-title host-stage-title--hero">
-                  {s.isConnectingHost
-                    ? "Verbindung wird hergestellt..."
-                    : "Warte auf Host-Verbindung"}
+                  {s.isConnectingHost ? "Verbindung wird hergestellt..." : "Warte auf Host-Verbindung"}
                 </h2>
-                <p className="host-start-hint">
-                  Der Server koppelt dein Gerät gerade als Spielleiter.
-                </p>
+                <p className="host-start-hint">Der Server koppelt dein Gerät gerade als Spielleiter.</p>
               </>
             ) : (
               <>
                 <h2 className="host-stage-title host-stage-title--hero">Geburtstagsquiz</h2>
-                <p className="host-start-hint">
-                  Erstelle einen Raum, dann öffne das Display-Fenster auf dem HDMI-TV.
-                </p>
+                <p className="host-start-hint">Erstelle einen Raum, dann öffne das Display-Fenster auf dem HDMI-TV.</p>
                 <button
                   className="host-action-button host-action-button--primary"
                   disabled={s.isConnectingHost}
@@ -366,11 +351,7 @@ export function App() {
               <div className="host-control-metric">
                 <span className="host-control-label">Status</span>
                 <span className="host-control-value">
-                  {s.screen === "finished"
-                    ? "Beendet"
-                    : s.screen === "lobby"
-                      ? "Lobby offen"
-                      : "Quiz läuft"}
+                  {s.screen === "finished" ? "Beendet" : s.screen === "lobby" ? "Lobby offen" : "Quiz läuft"}
                 </span>
               </div>
               <div className="host-control-metric">
@@ -387,21 +368,14 @@ export function App() {
                   aria-valuemin={0}
                   aria-valuemax={100}
                 >
-                  <div
-                    className="host-progress-fill"
-                    style={{ width: `${questionProgressPercent}%` }}
-                  />
+                  <div className="host-progress-fill" style={{ width: `${questionProgressPercent}%` }} />
                 </div>
               </div>
             </div>
             {["countdown", "question", "reveal", "scoreboard"].includes(s.screen) && (
               <div className="host-fallback-actions">
                 {canManuallyShowScoreboard && (
-                  <button
-                    className="host-secondary-button"
-                    onClick={s.handleShowScoreboard}
-                    type="button"
-                  >
+                  <button className="host-secondary-button" onClick={s.handleShowScoreboard} type="button">
                     Scoreboard anzeigen
                   </button>
                 )}
@@ -426,11 +400,7 @@ export function App() {
                     </button>
                   </>
                 ) : (
-                  <button
-                    className="host-secondary-button"
-                    onClick={() => s.setConfirmFinishNow(true)}
-                    type="button"
-                  >
+                  <button className="host-secondary-button" onClick={() => s.setConfirmFinishNow(true)} type="button">
                     Spiel beenden
                   </button>
                 )}

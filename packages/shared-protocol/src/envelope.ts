@@ -1,13 +1,7 @@
 import { z } from "zod";
 
-import type {
-  ClientToServerEventName,
-  ServerToClientEventName,
-} from "./events.js";
-import {
-  CLIENT_TO_SERVER_EVENT_SCHEMAS,
-  SERVER_TO_CLIENT_EVENT_SCHEMAS,
-} from "./schemas.js";
+import type { ClientToServerEventName, ServerToClientEventName } from "./events.js";
+import { CLIENT_TO_SERVER_EVENT_SCHEMAS, SERVER_TO_CLIENT_EVENT_SCHEMAS } from "./schemas.js";
 
 type EnvelopeSchemaMap = Record<string, z.ZodTypeAny>;
 
@@ -43,9 +37,7 @@ const SocketEnvelopeBaseSchema = z
 function parseEnvelope<TSchemas extends EnvelopeSchemaMap>(
   rawMessage: string,
   schemas: TSchemas,
-):
-  | { success: true; data: EnvelopeFromSchemaMap<TSchemas> }
-  | { success: false; error: string; event?: string } {
+): { success: true; data: EnvelopeFromSchemaMap<TSchemas> } | { success: false; error: string; event?: string } {
   let parsedJson: unknown;
 
   try {
@@ -103,10 +95,7 @@ export function parseServerToClientEnvelope(rawMessage: string) {
   return parseEnvelope(rawMessage, SERVER_TO_CLIENT_EVENT_SCHEMAS);
 }
 
-export function serializeEnvelope<TEvent extends string, TPayload>(
-  event: TEvent,
-  payload: TPayload,
-): string {
+export function serializeEnvelope<TEvent extends string, TPayload>(event: TEvent, payload: TPayload): string {
   return JSON.stringify({
     event,
     payload,

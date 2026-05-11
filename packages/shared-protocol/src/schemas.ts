@@ -1,5 +1,3 @@
-import { z } from "zod";
-
 import {
   CLIENT_ROLES,
   GAME_PLAN_PRESET_IDS,
@@ -16,6 +14,7 @@ import {
   PLAYER_NAME_MAX_LENGTH,
   PLAYER_NAME_MIN_LENGTH,
 } from "@quiz/shared-utils";
+import { z } from "zod";
 
 import { PROTOCOL_ERROR_CODE_VALUES } from "./error-codes.js";
 import { EVENTS } from "./events.js";
@@ -759,6 +758,20 @@ export const RoomClosedPayloadSchema = z
   })
   .strict();
 
+export const GameRestartPayloadSchema = z
+  .object({
+    roomId: idSchema,
+  })
+  .strict();
+
+export const RoomResetPayloadSchema = z
+  .object({
+    roomId: idSchema,
+    roomState: z.literal(RoomState.Waiting),
+    joinCode: idSchema,
+  })
+  .strict();
+
 export const ProtocolErrorCodeSchema = z.enum(PROTOCOL_ERROR_CODE_VALUES);
 
 export const ErrorPayloadSchema = z
@@ -793,6 +806,7 @@ export const HOST_TO_SERVER_EVENT_SCHEMAS = {
   [EVENTS.GAME_FINISH_NOW]: GameFinishNowPayloadSchema,
   [EVENTS.PLAYER_REMOVE]: PlayerRemovePayloadSchema,
   [EVENTS.ROOM_CLOSE]: RoomClosePayloadSchema,
+  [EVENTS.GAME_RESTART]: GameRestartPayloadSchema,
 } as const;
 
 export const PLAYER_TO_SERVER_EVENT_SCHEMAS = {
@@ -826,6 +840,7 @@ export const SERVER_TO_DISPLAY_EVENT_SCHEMAS = {
   [EVENTS.SCORE_UPDATE]: ScoreUpdatePayloadSchema,
   [EVENTS.NEXT_QUESTION_READY_PROGRESS]: NextQuestionReadyProgressPayloadSchema,
   [EVENTS.GAME_FINISHED]: GameFinishedPayloadSchema,
+  [EVENTS.ROOM_RESET]: RoomResetPayloadSchema,
   [EVENTS.ROOM_CLOSED]: RoomClosedPayloadSchema,
   [EVENTS.ERROR_PROTOCOL]: ErrorPayloadSchema,
   [EVENTS.VOTE_UPDATE]: VoteUpdatePayloadSchema,
@@ -851,6 +866,7 @@ export const SERVER_TO_HOST_EVENT_SCHEMAS = {
   [EVENTS.SCORE_UPDATE]: ScoreUpdatePayloadSchema,
   [EVENTS.NEXT_QUESTION_READY_PROGRESS]: NextQuestionReadyProgressPayloadSchema,
   [EVENTS.GAME_FINISHED]: GameFinishedPayloadSchema,
+  [EVENTS.ROOM_RESET]: RoomResetPayloadSchema,
   [EVENTS.ROOM_CLOSED]: RoomClosedPayloadSchema,
   [EVENTS.ERROR_PROTOCOL]: ErrorPayloadSchema,
   [EVENTS.VOTE_UPDATE]: VoteUpdatePayloadSchema,
@@ -874,6 +890,7 @@ export const SERVER_TO_PLAYER_EVENT_SCHEMAS = {
   [EVENTS.SCORE_UPDATE]: ScoreUpdatePayloadSchema,
   [EVENTS.NEXT_QUESTION_READY_PROGRESS]: NextQuestionReadyProgressPayloadSchema,
   [EVENTS.GAME_FINISHED]: GameFinishedPayloadSchema,
+  [EVENTS.ROOM_RESET]: RoomResetPayloadSchema,
   [EVENTS.ROOM_CLOSED]: RoomClosedPayloadSchema,
   [EVENTS.ERROR_PROTOCOL]: ErrorPayloadSchema,
   [EVENTS.VOTE_UPDATE]: VoteUpdatePayloadSchema,
@@ -920,9 +937,7 @@ export type QuestionForceClosePayload = z.infer<typeof QuestionForceClosePayload
 export type QuestionRevealPayload = z.infer<typeof QuestionRevealPayloadSchema>;
 export type ScoreUpdatePayload = z.infer<typeof ScoreUpdatePayloadSchema>;
 export type NextQuestionReadyPayload = z.infer<typeof NextQuestionReadyPayloadSchema>;
-export type NextQuestionReadyProgressPayload = z.infer<
-  typeof NextQuestionReadyProgressPayloadSchema
->;
+export type NextQuestionReadyProgressPayload = z.infer<typeof NextQuestionReadyProgressPayloadSchema>;
 export type GameNextQuestionPayload = z.infer<typeof GameNextQuestionPayloadSchema>;
 export type GameShowScoreboardPayload = z.infer<typeof GameShowScoreboardPayloadSchema>;
 export type GameFinishNowPayload = z.infer<typeof GameFinishNowPayloadSchema>;
@@ -930,6 +945,8 @@ export type PlayerRemovePayload = z.infer<typeof PlayerRemovePayloadSchema>;
 export type GameFinishedPayload = z.infer<typeof GameFinishedPayloadSchema>;
 export type RoomClosePayload = z.infer<typeof RoomClosePayloadSchema>;
 export type RoomClosedPayload = z.infer<typeof RoomClosedPayloadSchema>;
+export type GameRestartPayload = z.infer<typeof GameRestartPayloadSchema>;
+export type RoomResetPayload = z.infer<typeof RoomResetPayloadSchema>;
 export type ErrorPayload = z.infer<typeof ErrorPayloadSchema>;
 export type CategoryVotePayload = z.infer<typeof CategoryVotePayloadSchema>;
 export type VoteUpdatePayload = z.infer<typeof VoteUpdatePayloadSchema>;

@@ -1,18 +1,17 @@
-import { EVENTS, type QuestionShowPayload } from "@quiz/shared-protocol";
-import { GameState, RoomState, type Question } from "@quiz/shared-types";
 import type { ServerToClientEventName, ServerToClientEventPayloadMap } from "@quiz/shared-protocol";
-
-import type { RoomRecord, SessionRecord, TrackedWebSocket } from "./server-types.js";
+import { EVENTS, type QuestionShowPayload } from "@quiz/shared-protocol";
+import { GameState, type Question, RoomState } from "@quiz/shared-types";
+import { buildFinalStats } from "./game-scoreboard.js";
 import { sendEvent, toLobbyUpdatePayload } from "./protocol.js";
-import { sessionsById } from "./state.js";
 import {
   getTotalQuestionCount,
   getVisibleQuestionIndex,
   toQuestionControllerPayload,
   toQuestionShowPayload,
 } from "./question-payloads.js";
-import { buildFinalStats } from "./game-scoreboard.js";
 import { getConnectedPlayers, getCurrentQuestion, getSortedScoreboard } from "./room-selectors.js";
+import type { RoomRecord, SessionRecord, TrackedWebSocket } from "./server-types.js";
+import { sessionsById } from "./state.js";
 
 type BroadcastOptions = {
   excludeSessionIds?: Set<string>;
@@ -146,18 +145,10 @@ function sendQuestionForSession(
     return;
   }
 
-  sendEvent(
-    socket,
-    EVENTS.QUESTION_CONTROLLER,
-    toQuestionControllerPayload(room, question, gameState),
-  );
+  sendEvent(socket, EVENTS.QUESTION_CONTROLLER, toQuestionControllerPayload(room, question, gameState));
 }
 
-function sendNextQuestionReadyProgress(
-  socket: TrackedWebSocket,
-  room: RoomRecord,
-  questionId: string,
-): void {
+function sendNextQuestionReadyProgress(socket: TrackedWebSocket, room: RoomRecord, questionId: string): void {
   const connectedPlayers = getConnectedPlayers(room);
   const readyPlayerIds = connectedPlayers
     .filter((player) => room.nextQuestionReadyPlayerIds.has(player.id))
@@ -214,9 +205,7 @@ export function syncSessionToRoomState(session: SessionRecord, room: RoomRecord)
 
   const scoreboard = getSortedScoreboard(room);
   const totalQuestionCount = getTotalQuestionCount(room);
-  const playerAnswer = session.playerId
-    ? (room.currentAnswers.get(session.playerId) ?? null)
-    : null;
+  const playerAnswer = session.playerId ? (room.currentAnswers.get(session.playerId) ?? null) : null;
 
   if (playerAnswer) {
     sendEvent(socket, EVENTS.ANSWER_ACCEPTED, {

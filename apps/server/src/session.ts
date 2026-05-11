@@ -1,18 +1,13 @@
 import { EVENTS } from "@quiz/shared-protocol";
 import { PlayerState, RoomState } from "@quiz/shared-types";
 
-import {
-  DISPLAY_DISCONNECT_GRACE_MS,
-  HOST_DISCONNECT_GRACE_MS,
-  PLAYER_DISCONNECT_GRACE_MS,
-} from "./config.js";
-import { PROTOCOL_ERROR_CODES, sendProtocolError } from "./protocol.js";
-import type { RoomRecord, TrackedWebSocket } from "./server-types.js";
-import { roomsById, sessionsById, logRoomEvent } from "./state.js";
+import { DISPLAY_DISCONNECT_GRACE_MS, HOST_DISCONNECT_GRACE_MS, PLAYER_DISCONNECT_GRACE_MS } from "./config.js";
 import { sendToHost, sendToPlayers } from "./connection.js";
-import { closeRoom, removePlayerFromRoom } from "./room.js";
-import { broadcastLobbyUpdate } from "./lobby.js";
 import { handleAnswerEligibilityChanged, handleScoreboardReadinessChanged } from "./game.js";
+import { broadcastLobbyUpdate } from "./lobby.js";
+import { closeRoom, removePlayerFromRoom } from "./room.js";
+import type { TrackedWebSocket } from "./server-types.js";
+import { logRoomEvent, roomsById, sessionsById } from "./state.js";
 
 export function handleSocketClose(socket: TrackedWebSocket): void {
   if (!socket.sessionId) {
@@ -67,6 +62,11 @@ export function handleSocketClose(socket: TrackedWebSocket): void {
     }
 
     room.hostConnected = false;
+
+    if (room.state === RoomState.Completed) {
+      closeRoom(room, "Host left completed room");
+      return;
+    }
 
     if (room.hostDisconnectTimer) {
       clearTimeout(room.hostDisconnectTimer);

@@ -1,11 +1,7 @@
 import { QuestionType } from "@quiz/shared-types";
 
 import type { UsePlayerSessionReturn } from "../hooks/usePlayerSession.js";
-import {
-  formatControllerAnswer,
-  getOptionAnswerLabel,
-  getQuestionKindLabel,
-} from "../lib/helpers.js";
+import { formatControllerAnswer, getOptionAnswerLabel, getQuestionKindLabel } from "../lib/helpers.js";
 
 interface PlayerQuestionScreenProps {
   session: UsePlayerSessionReturn;
@@ -34,9 +30,7 @@ export function PlayerQuestionScreen({ session }: PlayerQuestionScreenProps) {
           {session.answerStatus === "accepted" ? "Antwort gespeichert" : "Schau auf den Bildschirm"}
         </h2>
         <p className="player-controller-copy">
-          {session.answerStatus === "accepted"
-            ? "Warte auf die Auflösung."
-            : "Die Frage steht auf dem TV."}
+          {session.answerStatus === "accepted" ? "Warte auf die Auflösung." : "Die Frage steht auf dem TV."}
         </p>
         {session.answerStatus === "submitting" && (
           <div className="player-controller-status" data-state="submitting">
@@ -46,9 +40,7 @@ export function PlayerQuestionScreen({ session }: PlayerQuestionScreenProps) {
         {session.answerStatus === "accepted" && (
           <div className="player-controller-status" data-state="saved">
             {session.selectedOptionId && (
-              <span>
-                ✓ {getOptionAnswerLabel(session.selectedOptionId, session.question)} gewählt
-              </span>
+              <span>✓ {getOptionAnswerLabel(session.selectedOptionId, session.question)} gewählt</span>
             )}
             {!session.selectedOptionId && session.estimateValue && (
               <span>
@@ -56,12 +48,8 @@ export function PlayerQuestionScreen({ session }: PlayerQuestionScreenProps) {
                 {session.question.type === QuestionType.Estimate && session.question.unit}
               </span>
             )}
-            {!session.selectedOptionId && session.textAnswerValue && (
-              <span>✓ Antwort gespeichert</span>
-            )}
-            {!session.selectedOptionId && session.rankingOrder.length > 0 && (
-              <span>✓ Reihenfolge gespeichert</span>
-            )}
+            {!session.selectedOptionId && session.textAnswerValue && <span>✓ Antwort gespeichert</span>}
+            {!session.selectedOptionId && session.rankingOrder.length > 0 && <span>✓ Reihenfolge gespeichert</span>}
           </div>
         )}
         {session.answerStatus === "locked" && (
@@ -155,9 +143,7 @@ export function PlayerQuestionScreen({ session }: PlayerQuestionScreenProps) {
         </form>
       )}
 
-      {session.question.type === QuestionType.Ranking && (
-        <PlayerRankingController session={session} />
-      )}
+      {session.question.type === QuestionType.Ranking && <PlayerRankingController session={session} />}
     </>
   );
 }
@@ -194,16 +180,12 @@ export function PlayerRevealScreen({ session }: PlayerQuestionScreenProps) {
       <div className="player-card">
         <span className="player-kicker">Auflösung</span>
         <h2 className="player-title">Schau auf den Bildschirm</h2>
-        <p className="player-points-earned">
-          {session.ownRoundResult?.pointsEarned ?? 0} Punkte verdient.
-        </p>
+        <p className="player-points-earned">{session.ownRoundResult?.pointsEarned ?? 0} Punkte verdient.</p>
         {session.ownRoundResult?.detail?.exactPositions !== undefined && (
           <p className="player-muted-copy player-muted-copy--compact">
-            {session.ownRoundResult.detail.exactPositions} /{" "}
-            {session.ownRoundResult.detail.totalPositions ?? "?"} Positionen richtig
-            {session.ownRoundResult.detail.bonusPoints
-              ? `, ${session.ownRoundResult.detail.bonusPoints} Bonus`
-              : ""}
+            {session.ownRoundResult.detail.exactPositions} / {session.ownRoundResult.detail.totalPositions ?? "?"}{" "}
+            Positionen richtig
+            {session.ownRoundResult.detail.bonusPoints ? `, ${session.ownRoundResult.detail.bonusPoints} Bonus` : ""}
           </p>
         )}
         <div className="player-result-lines">
@@ -213,9 +195,7 @@ export function PlayerRevealScreen({ session }: PlayerQuestionScreenProps) {
               {formatControllerAnswer(
                 session.ownRoundResult?.answer ?? null,
                 session.question,
-                session.question && session.question.type === QuestionType.Estimate
-                  ? session.question.unit
-                  : undefined,
+                session.question && session.question.type === QuestionType.Estimate ? session.question.unit : undefined,
               )}
             </strong>
           </div>
@@ -225,16 +205,12 @@ export function PlayerRevealScreen({ session }: PlayerQuestionScreenProps) {
               {formatControllerAnswer(
                 session.correctAnswer,
                 session.question,
-                session.question && session.question.type === QuestionType.Estimate
-                  ? session.question.unit
-                  : undefined,
+                session.question && session.question.type === QuestionType.Estimate ? session.question.unit : undefined,
               )}
             </strong>
           </div>
         </div>
-        {session.revealExplanation && (
-          <p className="player-explanation">{session.revealExplanation}</p>
-        )}
+        {session.revealExplanation && <p className="player-explanation">{session.revealExplanation}</p>}
       </div>
       <button
         className="player-primary-button player-ready-button"
@@ -260,9 +236,7 @@ function PlayerRankingController({ session }: PlayerQuestionScreenProps) {
     <div className="player-ranking-area">
       <p className="player-ranking-instruction">
         Tippe die Elemente in der richtigen Reihenfolge an.
-        {remaining.length > 0 && (
-          <span className="player-ranking-remaining"> Noch {remaining.length} auswählen.</span>
-        )}
+        {remaining.length > 0 && <span className="player-ranking-remaining"> Noch {remaining.length} auswählen.</span>}
       </p>
       {remaining.length > 0 && (
         <>
@@ -300,9 +274,7 @@ function PlayerRankingController({ session }: PlayerQuestionScreenProps) {
                       aria-label={`${item.label} entfernen`}
                       className="player-ranking-remove"
                       onClick={() =>
-                        session.setRankingOrder(
-                          session.rankingOrder.filter((entry) => entry !== filledId),
-                        )
+                        session.setRankingOrder(session.rankingOrder.filter((entry) => entry !== filledId))
                       }
                       type="button"
                     >
@@ -319,19 +291,13 @@ function PlayerRankingController({ session }: PlayerQuestionScreenProps) {
       </div>
       <div className="player-ranking-actions">
         {session.rankingOrder.length > 0 && session.answerStatus === "idle" && (
-          <button
-            className="player-ranking-reset"
-            onClick={() => session.setRankingOrder([])}
-            type="button"
-          >
+          <button className="player-ranking-reset" onClick={() => session.setRankingOrder([])} type="button">
             Zurücksetzen
           </button>
         )}
         <button
           className="player-primary-button player-ranking-submit"
-          disabled={
-            session.rankingOrder.length < question.items.length || session.answerStatus !== "idle"
-          }
+          disabled={session.rankingOrder.length < question.items.length || session.answerStatus !== "idle"}
           onClick={() => session.handleSubmitRanking(session.rankingOrder)}
           type="button"
         >
