@@ -59,7 +59,7 @@ export function PlayerQuestionScreen({ session }: PlayerQuestionScreenProps) {
         )}
         {session.answerStatus === "rejected" && (
           <div className="player-controller-status" data-state="error">
-            Antwort nicht angekommen – nochmal tippen
+            Antwort wurde nicht angenommen
           </div>
         )}
       </div>
@@ -126,7 +126,7 @@ export function PlayerQuestionScreen({ session }: PlayerQuestionScreenProps) {
           }}
         >
           <input
-            className="player-estimate-input"
+            className="player-estimate-input player-text-answer-input"
             disabled={session.answerStatus !== "idle"}
             onChange={(e) => session.setTextAnswerValue(e.target.value)}
             placeholder="Antwort eingeben..."

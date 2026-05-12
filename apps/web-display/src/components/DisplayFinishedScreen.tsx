@@ -13,16 +13,16 @@ export function DisplayFinishedScreen({ session: s }: { session: UseDisplaySessi
       <div className="display-podium">
         {[1, 0, 2].map((rankIndex) => {
           const entry = fr.finalScoreboard[rankIndex];
-          if (!entry) return null;
           return (
             <div
               key={rankIndex}
+              aria-hidden={entry ? undefined : true}
               className={`display-podium-entry display-podium-entry--${rankIndex + 1}`}
               style={{ visibility: entry ? "visible" : "hidden" }}
             >
               <div className="display-podium-rank-badge">{rankIndex + 1}</div>
-              <div className="display-podium-name">{entry.name}</div>
-              <div className="display-podium-score">{entry.score} Pkt</div>
+              <div className="display-podium-name">{entry?.name ?? "Platzhalter"}</div>
+              <div className="display-podium-score">{entry ? `${entry.score} Pkt` : "0 Pkt"}</div>
             </div>
           );
         })}
