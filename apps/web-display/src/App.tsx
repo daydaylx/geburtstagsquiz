@@ -47,7 +47,7 @@ export function App() {
       : 0;
 
   return (
-    <div className="display-shell">
+    <div className="display-shell" data-screen={s.screen}>
       <div className="display-topbar">
         <span className="display-brand">Quiz Display</span>
         <span className="display-conn" data-state={connectionState}>

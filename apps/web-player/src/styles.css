@@ -1,17 +1,28 @@
 /* ── Design Tokens ─────────────────────────────────────────────────── */
 :root {
-  --player-bg: #060912;
-  --player-bg-card: rgba(6, 10, 19, 0.84);
-  --player-accent: #f6c76a;
-  --player-accent-soft: rgba(246, 199, 106, 0.16);
-  --player-accent-glow: rgba(246, 199, 106, 0.22);
-  --player-cyan: #38bdf8;
-  --player-green: #22c55e;
-  --player-red: #ef4444;
+  --bg-black: #020408;
+  --bg-card: #0f172a;
+  --bg-card-active: #1e293b;
+  --accent-gold: #f6c76a;
+  --accent-cyan: #06b6d4;
+  --color-success: #22c55e;
+  --color-error: #ef4444;
+  --solid-border: #24334f;
+  --solid-border-strong: #334767;
+  --solid-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.7);
+  --solid-shadow-lg: 0 18px 46px -8px rgba(0, 0, 0, 0.78);
+  --player-bg: var(--bg-black);
+  --player-bg-card: var(--bg-card);
+  --player-accent: var(--accent-gold);
+  --player-accent-soft: #2f2618;
+  --player-accent-glow: rgba(0, 0, 0, 0.62);
+  --player-cyan: var(--accent-cyan);
+  --player-green: var(--color-success);
+  --player-red: var(--color-error);
   --player-amber: #f59e0b;
   --player-ink: #f0f4f8;
-  --player-ink-soft: rgba(240, 244, 248, 0.6);
-  --player-line: rgba(255, 255, 255, 0.1);
+  --player-ink-soft: #b8c2d4;
+  --player-line: var(--solid-border);
   --player-radius: 10px;
   /* Motion */
   --dur-fast: 150ms;
@@ -45,10 +56,7 @@ body {
   height: 100dvh;
   overflow: hidden;
   background-color: var(--player-bg);
-  background-image:
-    linear-gradient(145deg, rgba(18, 61, 122, 0.34), transparent 42%),
-    linear-gradient(225deg, rgba(217, 54, 131, 0.16), transparent 46%),
-    linear-gradient(180deg, #111a2a 0%, #060912 52%, #03050a 100%);
+  background-image: none;
   color: var(--player-ink);
 }
 
@@ -70,9 +78,7 @@ body {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background:
-    linear-gradient(90deg, rgba(246, 199, 106, 0.07), transparent 38%, rgba(56, 189, 248, 0.06)),
-    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.018) 0 1px, transparent 1px 72px);
+  background: none;
   opacity: 0.64;
 }
 
@@ -82,9 +88,7 @@ body {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background:
-    radial-gradient(ellipse at 25% 75%, rgba(246, 199, 106, 0.1), transparent 55%),
-    radial-gradient(ellipse at 75% 25%, rgba(56, 189, 248, 0.07), transparent 55%);
+  background: none;
   z-index: 0;
 }
 
@@ -186,8 +190,6 @@ body {
   inset: 0;
   z-index: 150;
   background: rgba(6, 9, 18, 0.82);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -200,9 +202,7 @@ body {
   gap: 18px;
   padding: 32px 40px;
   border-radius: var(--player-radius);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.095), rgba(255, 255, 255, 0.035)),
-    var(--player-bg-card);
+  background: var(--player-bg-card);
   border: 1px solid rgba(255, 255, 255, 0.16);
   box-shadow: 0 16px 44px rgba(0, 0, 0, 0.5);
   animation: player-screen-enter 0.25s ease both;
@@ -245,16 +245,12 @@ body {
 
 /* ── Card ──────────────────────────────────────────────────────────── */
 .player-card {
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.095), rgba(255, 255, 255, 0.035)),
-    var(--player-bg-card);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: var(--player-bg-card);
   padding: 24px 20px;
   border-radius: var(--player-radius);
   box-shadow:
     0 16px 44px rgba(0, 0, 0, 0.34),
-    inset 0 1px 0 rgba(255, 255, 255, 0.11);
+    0 0 0 rgba(0, 0, 0, 0);
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   min-width: 0;
@@ -351,7 +347,7 @@ body {
   margin-top: 20px;
   padding: 16px;
   border-radius: var(--player-radius);
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--bg-card-active);
   border: 1px solid var(--player-line);
   font-weight: 800;
   font-size: 1.05rem;
@@ -361,9 +357,7 @@ body {
 .player-controller-status[data-state="saved"] {
   color: #baffce;
   border-color: rgba(34, 197, 94, 0.55);
-  background:
-    linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(34, 197, 94, 0.08)),
-    rgba(255, 255, 255, 0.04);
+  background: var(--player-green);
   font-size: 1.15rem;
   padding: 22px;
   box-shadow: 0 0 24px rgba(34, 197, 94, 0.12);
@@ -403,9 +397,7 @@ body {
   padding: 16px 20px;
   border-radius: var(--player-radius);
   border: 2px solid rgba(255, 255, 255, 0.16);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03)),
-    rgba(255, 255, 255, 0.03);
+  background: var(--bg-card-active);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -436,36 +428,28 @@ body {
 /* Option-Farbcodierung passend zum Display-Screen */
 .player-controller-option[data-option-index="0"] {
   border-color: rgba(56, 189, 248, 0.55);
-  background:
-    linear-gradient(180deg, rgba(56, 189, 248, 0.1), rgba(56, 189, 248, 0.04)),
-    rgba(255, 255, 255, 0.03);
+  background: var(--bg-card-active);
 }
 .player-controller-option[data-option-index="0"] .player-controller-option-id {
   color: var(--player-cyan);
 }
 .player-controller-option[data-option-index="1"] {
   border-color: rgba(246, 199, 106, 0.55);
-  background:
-    linear-gradient(180deg, rgba(246, 199, 106, 0.1), rgba(246, 199, 106, 0.04)),
-    rgba(255, 255, 255, 0.03);
+  background: var(--bg-card-active);
 }
 .player-controller-option[data-option-index="1"] .player-controller-option-id {
   color: var(--player-accent);
 }
 .player-controller-option[data-option-index="2"] {
   border-color: rgba(34, 197, 94, 0.55);
-  background:
-    linear-gradient(180deg, rgba(34, 197, 94, 0.1), rgba(34, 197, 94, 0.04)),
-    rgba(255, 255, 255, 0.03);
+  background: var(--bg-card-active);
 }
 .player-controller-option[data-option-index="2"] .player-controller-option-id {
   color: var(--player-green);
 }
 .player-controller-option[data-option-index="3"] {
   border-color: rgba(245, 158, 11, 0.55);
-  background:
-    linear-gradient(180deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.04)),
-    rgba(255, 255, 255, 0.03);
+  background: var(--bg-card-active);
 }
 .player-controller-option[data-option-index="3"] .player-controller-option-id {
   color: var(--player-amber);
@@ -474,9 +458,7 @@ body {
 .player-controller-option[data-state="selected"] {
   color: #fff8e6;
   border-color: rgba(246, 199, 106, 0.75);
-  background:
-    linear-gradient(135deg, rgba(246, 199, 106, 0.22), rgba(18, 61, 122, 0.14)),
-    rgba(255, 255, 255, 0.05);
+  background: var(--player-accent);
   box-shadow:
     0 0 28px rgba(246, 199, 106, 0.18),
     inset 0 0 12px rgba(246, 199, 106, 0.06);
@@ -534,13 +516,13 @@ body {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  background: none;
   transform: translateX(-110%);
   animation: player-feedback-sheen 620ms ease-out 80ms both;
 }
 
 .player-feedback[data-state="correct"] {
-  background: linear-gradient(135deg, rgba(34, 197, 94, 0.95), rgba(246, 199, 106, 0.8));
+  background: var(--player-green);
   color: #031006;
   box-shadow:
     0 0 48px rgba(34, 197, 94, 0.35),
@@ -549,7 +531,7 @@ body {
 }
 
 .player-feedback[data-state="wrong"] {
-  background: linear-gradient(135deg, rgba(126, 22, 32, 0.95), rgba(180, 40, 80, 0.7));
+  background: var(--player-red);
   color: #fff;
   box-shadow:
     0 0 30px rgba(239, 68, 68, 0.2),
@@ -558,7 +540,7 @@ body {
 }
 
 .player-feedback[data-state="missing"] {
-  background: linear-gradient(135deg, rgba(100, 80, 30, 0.9), rgba(140, 110, 40, 0.7));
+  background: var(--player-amber);
   color: #ffecc8;
   box-shadow: 0 0 24px rgba(245, 158, 11, 0.12);
 }
@@ -597,7 +579,7 @@ body {
   max-width: 100%;
   min-width: 0;
   min-height: 60px;
-  background: linear-gradient(135deg, var(--player-accent), #ffdf9a);
+  background: var(--player-accent);
   color: #170f02;
   border: none;
   border-radius: var(--player-radius);
@@ -626,7 +608,7 @@ body {
 
 .player-primary-button:disabled {
   opacity: 0.35;
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--bg-card-active);
   color: var(--player-ink-soft);
   box-shadow: none;
   cursor: not-allowed;
@@ -696,7 +678,7 @@ body {
   gap: 12px;
   padding: 16px 18px;
   border-radius: var(--player-radius);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--player-bg-card);
   border: var(--player-border-glass, 1px solid rgba(255, 255, 255, 0.1));
   color: #fff;
 }
@@ -721,7 +703,7 @@ body {
   margin: 16px 0 0;
   padding: 12px 16px;
   border-radius: var(--player-radius);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--player-bg-card);
   border-left: 3px solid rgba(255, 255, 255, 0.2);
   color: rgba(255, 255, 255, 0.65);
   font-size: 0.85rem;
@@ -743,9 +725,7 @@ body {
 /* ── Scoreboard (My Rank) ──────────────────────────────────────────── */
 .player-my-rank {
   border: 1px solid rgba(246, 199, 106, 0.5);
-  background:
-    linear-gradient(180deg, rgba(246, 199, 106, 0.18), rgba(18, 61, 122, 0.16)),
-    rgba(255, 255, 255, 0.055);
+  background: var(--bg-card-active);
   color: #fff;
   padding: 24px;
   border-radius: var(--player-radius);
@@ -788,7 +768,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 14px 18px;
-  background: rgba(255, 255, 255, 0.055);
+  background: var(--player-bg-card);
   border-radius: var(--player-radius);
   border: 1px solid rgba(255, 255, 255, 0.14);
   font-size: 1rem;
@@ -814,7 +794,7 @@ body {
   align-items: stretch;
   gap: 8px;
   padding: 16px 20px;
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--player-bg-card);
   border-radius: var(--player-radius);
   border: 1px solid rgba(255, 255, 255, 0.06);
   font-size: 0.95rem;
@@ -863,7 +843,7 @@ body {
 
 .player-category-bar-track {
   height: 4px;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--bg-card-active);
   border-radius: 99px;
   overflow: hidden;
 }
@@ -903,7 +883,7 @@ body {
   gap: 8px;
   padding: 16px;
   border-radius: var(--player-radius);
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--player-bg-card);
   border: 1px dashed rgba(255, 255, 255, 0.08);
 }
 
@@ -915,7 +895,7 @@ body {
   padding: 14px 20px;
   border-radius: var(--player-radius);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--player-bg-card);
   display: flex;
   flex-direction: column;
   gap: 2px;
@@ -956,7 +936,7 @@ body {
   gap: 12px;
   padding: 14px 16px;
   border-radius: var(--player-radius);
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--player-bg-card);
   border: 1.5px dashed rgba(246, 199, 106, 0.15);
   font-weight: 700;
   font-size: 1rem;
@@ -968,9 +948,7 @@ body {
 }
 
 .player-ranking-slot[data-filled="true"] {
-  background:
-    linear-gradient(90deg, rgba(246, 199, 106, 0.14), rgba(18, 61, 122, 0.1)),
-    rgba(255, 255, 255, 0.03);
+  background: var(--player-accent);
   border: 1.5px solid rgba(246, 199, 106, 0.4);
   box-shadow: 0 0 12px rgba(246, 199, 106, 0.06);
 }
@@ -1013,7 +991,7 @@ body {
 
 .player-ranking-remove {
   margin-left: auto;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--bg-card-active);
   border: 1px solid rgba(255, 255, 255, 0.12);
   color: rgba(255, 255, 255, 0.6);
   font-size: 1rem;
@@ -1429,4 +1407,248 @@ body {
   .player-primary-button:active:not(:disabled) {
     transform: none;
   }
+}
+
+/* ── Solid Show V2: high contrast, solid controls ─────────────────── */
+
+body {
+  background: var(--bg-black);
+  background-image: none;
+}
+
+.player-shell {
+  --player-phase-header: var(--bg-card);
+  --player-phase-text: var(--player-ink);
+  --player-phase-accent: var(--accent-gold);
+  background: var(--bg-black);
+}
+
+.player-shell::before,
+.player-shell::after {
+  display: none;
+}
+
+.player-shell[data-screen="join"],
+.player-shell[data-screen="lobby"] {
+  --player-phase-header: var(--bg-card);
+  --player-phase-text: var(--player-ink);
+  --player-phase-accent: var(--accent-gold);
+}
+
+.player-shell[data-screen="question"] {
+  --player-phase-header: var(--accent-cyan);
+  --player-phase-text: #021116;
+  --player-phase-accent: var(--accent-cyan);
+}
+
+.player-shell[data-screen="reveal"] {
+  --player-phase-header: var(--color-success);
+  --player-phase-text: #031006;
+  --player-phase-accent: var(--color-success);
+}
+
+.player-shell[data-screen="scoreboard"] {
+  --player-phase-header: var(--accent-gold);
+  --player-phase-text: #170f02;
+  --player-phase-accent: var(--accent-gold);
+}
+
+.player-shell[data-screen="finished"] {
+  --player-phase-header: var(--color-success);
+  --player-phase-text: #031006;
+  --player-phase-accent: var(--color-success);
+}
+
+.player-header {
+  padding: 12px 14px;
+  border: 0;
+  border-bottom: 4px solid var(--player-phase-accent);
+  border-radius: var(--player-radius);
+  background: var(--player-phase-header);
+  box-shadow: var(--solid-shadow);
+  color: var(--player-phase-text);
+}
+
+.player-status {
+  color: var(--player-phase-text);
+}
+
+.player-status::before,
+.player-status[data-state="connecting"]::before,
+.player-status[data-state="reconnecting"]::before,
+.player-status[data-state="offline"]::before {
+  box-shadow: none;
+}
+
+.player-card,
+.player-reconnect-card,
+.player-controller-status,
+.player-controller-option,
+.player-input,
+.player-estimate-input,
+.player-result-lines > div,
+.player-explanation,
+.player-my-rank,
+.player-scoreboard-item,
+.player-category-item,
+.player-ranking-pool,
+.player-ranking-item,
+.player-ranking-slot,
+.player-ranking-remove,
+.player-ranking-reset,
+.player-notice {
+  background: var(--bg-card);
+  border: 2px solid var(--solid-border);
+  box-shadow: var(--solid-shadow);
+}
+
+.player-card,
+.player-my-rank {
+  border-left: 6px solid var(--player-phase-accent);
+}
+
+.player-reconnect-overlay {
+  background: var(--bg-black);
+}
+
+.player-controller-card[data-status="accepted"] {
+  border-color: var(--color-success);
+  box-shadow: var(--solid-shadow);
+}
+
+.player-controller-status[data-state="saved"] {
+  background: var(--color-success);
+  border-color: var(--color-success);
+  box-shadow: var(--solid-shadow);
+  color: #031006;
+}
+
+.player-controller-status[data-state="locked"] {
+  background: var(--player-amber);
+  border-color: var(--player-amber);
+  color: #170f02;
+}
+
+.player-controller-status[data-state="error"],
+.player-notice {
+  background: var(--color-error);
+  border-color: var(--color-error);
+  color: #fff;
+}
+
+.player-controller-option {
+  background: var(--bg-card-active);
+  border-color: var(--solid-border-strong);
+}
+
+.player-controller-option[data-option-index="0"] {
+  --player-option-color: var(--player-cyan);
+}
+
+.player-controller-option[data-option-index="1"] {
+  --player-option-color: var(--player-accent);
+}
+
+.player-controller-option[data-option-index="2"] {
+  --player-option-color: var(--player-green);
+}
+
+.player-controller-option[data-option-index="3"] {
+  --player-option-color: var(--player-amber);
+}
+
+.player-controller-option[data-option-index] {
+  border-left: 8px solid var(--player-option-color);
+}
+
+.player-controller-option[data-state="selected"] {
+  background: var(--accent-gold);
+  border-color: var(--accent-gold);
+  box-shadow: var(--solid-shadow-lg);
+  color: #170f02;
+}
+
+.player-controller-option[data-state="selected"] .player-controller-option-text,
+.player-controller-option[data-state="selected"] .player-controller-option-id {
+  color: #170f02;
+}
+
+.player-controller-option-text {
+  color: var(--player-ink);
+}
+
+.player-controller-options[data-status="accepted"] .player-controller-option:not([data-state="selected"]) {
+  filter: none;
+  opacity: 0.35;
+}
+
+.player-feedback {
+  border: 2px solid var(--solid-border);
+  box-shadow: var(--solid-shadow);
+}
+
+.player-feedback::after {
+  display: none;
+}
+
+.player-feedback[data-state="correct"] {
+  background: var(--color-success);
+  color: #031006;
+  box-shadow: var(--solid-shadow-lg);
+}
+
+.player-feedback[data-state="wrong"] {
+  background: var(--color-error);
+  color: #fff;
+  box-shadow: var(--solid-shadow-lg);
+}
+
+.player-feedback[data-state="missing"] {
+  background: var(--player-amber);
+  color: #170f02;
+  box-shadow: var(--solid-shadow);
+}
+
+.player-primary-button {
+  background: var(--accent-gold);
+  border: 2px solid var(--accent-gold);
+  box-shadow: var(--solid-shadow);
+  color: #170f02;
+}
+
+.player-primary-button:hover:not(:disabled) {
+  box-shadow: var(--solid-shadow-lg);
+}
+
+.player-primary-button:disabled {
+  background: var(--bg-card-active);
+  border-color: var(--solid-border);
+  color: var(--player-ink-soft);
+}
+
+.player-category-item[data-selected="true"],
+.player-ranking-slot[data-filled="true"],
+.player-scoreboard-item[data-self="true"] {
+  background: var(--accent-gold);
+  border-color: var(--accent-gold);
+  color: #170f02;
+}
+
+.player-category-votes,
+.player-category-bar {
+  background: var(--accent-gold);
+  color: #170f02;
+}
+
+.player-ranking-pos {
+  color: var(--accent-gold);
+}
+
+.player-category-bar-track {
+  background: var(--bg-card-active);
+}
+
+.player-points-earned,
+.player-my-rank-value {
+  text-shadow: none;
 }

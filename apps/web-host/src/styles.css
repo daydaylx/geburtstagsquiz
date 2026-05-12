@@ -1,32 +1,44 @@
 :root {
-  /* Colors - Deep Dark Base */
-  --host-bg-top: #0b0f19;
-  --host-bg-bottom: #05070a;
+  --bg-black: #020408;
+  --bg-card: #0f172a;
+  --bg-card-active: #1e293b;
+  --accent-gold: #f6c76a;
+  --accent-cyan: #06b6d4;
+  --color-success: #22c55e;
+  --color-error: #ef4444;
+  --solid-border: #24334f;
+  --solid-border-strong: #334767;
+  --solid-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.7);
+  --solid-shadow-lg: 0 18px 46px -8px rgba(0, 0, 0, 0.78);
 
-  /* Glasmorphism */
-  --host-glass: rgba(255, 255, 255, 0.04);
-  --host-glass-border: rgba(255, 255, 255, 0.1);
-  --host-glass-top: rgba(255, 255, 255, 0.15);
-  --host-panel: rgba(255, 255, 255, 0.05);
-  --host-panel-strong: rgba(0, 0, 0, 0.4);
+  /* Colors - Solid Show Base */
+  --host-bg-top: var(--bg-black);
+  --host-bg-bottom: var(--bg-black);
+
+  /* Solid panes */
+  --host-glass: var(--bg-card);
+  --host-glass-border: var(--solid-border);
+  --host-glass-top: var(--solid-border-strong);
+  --host-panel: var(--bg-card);
+  --host-panel-strong: #050914;
 
   /* Accents */
-  --host-gold: #f6c76a;
-  --host-gold-soft: rgba(246, 199, 106, 0.16);
-  --host-cyan: #38bdf8;
+  --host-gold: var(--accent-gold);
+  --host-gold-soft: #2f2618;
+  --host-cyan: var(--accent-cyan);
   --host-amber: #f59e0b;
   --host-accent: var(--host-gold);
 
   /* Typography & Lines */
   --host-ink: #f0f4f8;
-  --host-ink-soft: rgba(240, 244, 248, 0.6);
-  --host-line: rgba(255, 255, 255, 0.08);
+  --host-ink-soft: #b8c2d4;
+  --host-line: var(--solid-border);
 
   /* Functional Colors */
-  --host-green: #22c55e;
-  --host-green-soft: rgba(34, 197, 94, 0.1);
-  --host-red: #ef4444;
-  --host-red-soft: rgba(239, 68, 68, 0.1);
+  --host-green: var(--color-success);
+  --host-green-soft: #0d2f1a;
+  --host-red: var(--color-error);
+  --host-red-soft: #351019;
 
   /* Layout */
   --host-radius: 8px;
@@ -62,10 +74,7 @@ body {
   height: 100vh;
   overflow: hidden;
   background-color: #050810;
-  background-image:
-    linear-gradient(115deg, rgba(18, 61, 122, 0.36), transparent 34%),
-    linear-gradient(245deg, rgba(246, 199, 106, 0.08), transparent 38%),
-    linear-gradient(180deg, #111a2a 0%, #060912 48%, #03050a 100%);
+  background-image: none;
   color: var(--host-ink);
 }
 
@@ -117,7 +126,7 @@ button {
 .host-status {
   padding: 6px 14px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--host-panel);
   font-size: 0.8rem;
   font-weight: 700;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -155,8 +164,6 @@ button {
   display: flex;
   flex-direction: column;
   background: var(--host-glass);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
   border-radius: 24px;
   overflow: hidden;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
@@ -174,7 +181,7 @@ button {
   width: 6px;
 }
 .host-panel-content::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--bg-card-active);
   border-radius: 10px;
 }
 
@@ -198,7 +205,7 @@ button {
 
 .host-card {
   padding: 24px;
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--host-panel);
   border-radius: 20px;
   border: 1px solid var(--host-line);
 }
@@ -265,7 +272,7 @@ button {
   padding: 8px 10px;
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.07);
+  background: var(--bg-card-active);
   cursor: pointer;
   color: #fff;
   font-size: 0.72rem;
@@ -276,7 +283,7 @@ button {
 }
 
 .host-copy-url-button:active {
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--bg-card-active);
 }
 
 .host-display-status-row {
@@ -328,7 +335,7 @@ button {
 
 .host-option-card {
   padding: 24px;
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--host-panel);
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
@@ -343,7 +350,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--bg-card-active);
   color: #fff;
   border-radius: 12px;
   font-weight: 900;
@@ -373,7 +380,7 @@ button {
   width: 58px;
   height: 32px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--bg-card-active);
   position: relative;
   transition: all 0.2s ease;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -431,7 +438,7 @@ button {
   align-items: center;
   justify-content: space-between;
   padding: 14px 18px;
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--host-panel);
   border-radius: 14px;
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
@@ -464,7 +471,6 @@ button {
   justify-content: space-between;
   padding: 20px 32px;
   background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(16px);
   border-radius: 24px;
   color: white;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -495,7 +501,7 @@ button {
 }
 
 .host-primary-button {
-  background: linear-gradient(135deg, var(--host-gold), #ffdf9a);
+  background: var(--host-gold);
   color: #05070a;
   border: none;
   padding: 16px 48px;
@@ -533,7 +539,7 @@ button {
   justify-content: space-between;
   align-items: center;
   padding: 16px 24px;
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--host-panel);
   border-radius: 18px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   transition: transform 0.2s;
@@ -571,13 +577,13 @@ button {
 /* Progress bar */
 .host-progress-bar {
   height: 10px;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--host-panel);
   border-radius: 5px;
   overflow: hidden;
 }
 .host-progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--host-cyan), var(--host-gold));
+  background: var(--host-cyan);
   transition: width var(--dur-slow) cubic-bezier(0.1, 0.8, 0.2, 1);
 }
 
@@ -595,7 +601,7 @@ button {
 .host-estimate-display {
   padding: 24px 32px;
   border-radius: 20px;
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--host-panel);
   color: var(--host-ink-soft);
   font-size: 1.2rem;
   margin: 20px 0;
@@ -619,7 +625,7 @@ button {
 .host-ranking-item {
   padding: 16px 24px;
   border-radius: 16px;
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--host-panel);
   display: flex;
   align-items: center;
   gap: 16px;
@@ -658,7 +664,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--bg-card-active);
   font-size: 0.8rem;
   font-weight: 900;
 }
@@ -684,15 +690,7 @@ button {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background:
-    linear-gradient(
-      90deg,
-      rgba(246, 199, 106, 0.08),
-      transparent 22%,
-      transparent 78%,
-      rgba(56, 189, 248, 0.05)
-    ),
-    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.025) 0 1px, transparent 1px 84px);
+  background: none;
   opacity: 0.7;
 }
 
@@ -733,32 +731,28 @@ button {
 }
 
 .host-panel {
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.095), rgba(255, 255, 255, 0.035)),
-    rgba(6, 10, 19, 0.84);
+  background: var(--host-panel);
   border-color: rgba(255, 255, 255, 0.16);
   box-shadow:
     0 18px 55px rgba(0, 0, 0, 0.42),
-    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    0 0 0 rgba(0, 0, 0, 0);
 }
 
 .host-stage-panel {
   border-color: rgba(246, 199, 106, 0.28);
-  background:
-    linear-gradient(180deg, rgba(18, 61, 122, 0.32), rgba(6, 10, 19, 0.88)), rgba(6, 10, 19, 0.9);
+  background: var(--bg-card-active);
   box-shadow:
     0 24px 70px rgba(0, 0, 0, 0.52),
     inset 0 0 0 1px rgba(246, 199, 106, 0.08);
 }
 
 .host-card {
-  background: rgba(255, 255, 255, 0.055);
+  background: var(--host-panel);
   border-color: rgba(255, 255, 255, 0.12);
 }
 
 .host-card--dark {
-  background:
-    linear-gradient(180deg, rgba(18, 61, 122, 0.36), rgba(0, 0, 0, 0.26)), rgba(5, 8, 16, 0.82);
+  background: var(--bg-card-active);
   border-color: rgba(246, 199, 106, 0.38);
   box-shadow: inset 0 0 24px rgba(246, 199, 106, 0.08);
 }
@@ -839,7 +833,7 @@ button {
   min-width: 120px;
   padding: 12px 16px;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--bg-card-active);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -886,9 +880,7 @@ button {
   min-width: 118px;
   padding: 4px;
   border-radius: var(--host-radius);
-  background:
-    linear-gradient(135deg, rgba(246, 199, 106, 0.32), rgba(56, 189, 248, 0.12)),
-    rgba(255, 255, 255, 0.05);
+  background: var(--bg-card-active);
   border: 1px solid rgba(255, 255, 255, 0.16);
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.32);
 }
@@ -929,13 +921,13 @@ button {
 
 .host-option-card {
   min-height: 96px;
-  background: rgba(255, 255, 255, 0.07);
+  background: var(--bg-card-active);
   border-color: rgba(255, 255, 255, 0.14);
 }
 
 .host-option-id {
   border-radius: 6px;
-  background: linear-gradient(180deg, rgba(246, 199, 106, 0.28), rgba(255, 255, 255, 0.08));
+  background: var(--bg-card-active);
   color: #fff8e6;
 }
 
@@ -943,9 +935,7 @@ button {
 .host-option-card[data-correct="true"] {
   position: relative;
   border-color: rgba(34, 197, 94, 0.7);
-  background:
-    linear-gradient(135deg, rgba(34, 197, 94, 0.18), rgba(246, 199, 106, 0.08)),
-    rgba(255, 255, 255, 0.08);
+  background: var(--host-green);
   box-shadow:
     0 0 22px rgba(34, 197, 94, 0.16),
     inset 0 0 0 1px rgba(255, 255, 255, 0.12);
@@ -965,9 +955,7 @@ button {
 
 .host-estimate-display {
   border-radius: var(--host-radius);
-  background:
-    linear-gradient(135deg, rgba(18, 61, 122, 0.24), rgba(255, 255, 255, 0.055)),
-    rgba(255, 255, 255, 0.04);
+  background: var(--host-panel);
   border-color: rgba(255, 255, 255, 0.13);
 }
 
@@ -1012,7 +1000,7 @@ button {
 
 .host-progress-bar {
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--bg-card-active);
 }
 
 .host-progress-bar--compact {
@@ -1021,14 +1009,14 @@ button {
 }
 
 .host-progress-fill {
-  background: linear-gradient(90deg, var(--host-gold), var(--host-cyan));
+  background: var(--host-cyan);
 }
 
 .host-explanation {
   margin: 20px 0 0;
   padding: 14px 18px;
   border-radius: var(--host-radius);
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--bg-card-active);
   border-left: 3px solid var(--host-gold);
   color: rgba(255, 255, 255, 0.82);
   font-size: 1rem;
@@ -1046,7 +1034,7 @@ button {
   padding: 22px 18px;
   border-radius: var(--host-radius);
   text-align: center;
-  background: rgba(255, 255, 255, 0.055);
+  background: var(--host-panel);
   border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
@@ -1103,9 +1091,7 @@ button {
 .host-scoreboard-item {
   min-height: 64px;
   animation: host-scoreboard-rise 360ms ease-out both;
-  background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.035)),
-    rgba(255, 255, 255, 0.035);
+  background: var(--host-panel);
 }
 
 .host-scoreboard-item:nth-child(2) {
@@ -1173,9 +1159,7 @@ button {
 }
 
 .host-scoreboard-item[data-placement="1"] {
-  background:
-    linear-gradient(90deg, rgba(246, 199, 106, 0.28), rgba(56, 189, 248, 0.08)),
-    rgba(255, 255, 255, 0.06);
+  background: var(--bg-card-active);
   border-color: rgba(246, 199, 106, 0.72);
   box-shadow: 0 0 32px rgba(246, 199, 106, 0.18);
 }
@@ -1231,8 +1215,7 @@ button {
 }
 
 .host-controls {
-  background:
-    linear-gradient(90deg, rgba(18, 61, 122, 0.34), rgba(5, 8, 16, 0.84)), rgba(0, 0, 0, 0.5);
+  background: var(--bg-card-active);
 }
 
 .host-start-panel {
@@ -1261,7 +1244,7 @@ button {
 
 .host-primary-button {
   border-radius: var(--host-radius);
-  background: linear-gradient(135deg, var(--host-gold), #ffdf9a);
+  background: var(--host-gold);
   color: #170f02;
   letter-spacing: 0;
   box-shadow: 0 12px 28px rgba(246, 199, 106, 0.24);
@@ -1599,7 +1582,7 @@ button {
 .host-preset-button {
   min-height: 86px;
   padding: 14px 16px;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--host-panel);
   border: 1px solid rgba(255, 255, 255, 0.12);
   color: var(--host-ink);
   text-align: left;
@@ -1609,7 +1592,7 @@ button {
 }
 
 .host-preset-button:hover {
-  background: rgba(255, 255, 255, 0.09);
+  background: var(--bg-card-active);
   border-color: rgba(255, 255, 255, 0.22);
 }
 
@@ -1660,7 +1643,7 @@ button {
 
 .host-segmented button {
   padding: 8px 12px;
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--bg-card-active);
   border: 1px solid rgba(255, 255, 255, 0.12);
   color: var(--host-ink);
   font-size: 0.85rem;
@@ -1671,7 +1654,7 @@ button {
 }
 
 .host-segmented button:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--bg-card-active);
   border-color: rgba(255, 255, 255, 0.22);
 }
 
@@ -1708,7 +1691,7 @@ button {
   align-items: center;
   gap: 8px;
   padding: 10px 12px;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--host-panel);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: var(--host-ink);
   font-size: 0.85rem;
@@ -1803,7 +1786,7 @@ button {
 
 .host-secondary-button {
   padding: 12px 18px;
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--bg-card-active);
   color: var(--host-ink);
   border: 1px solid rgba(255, 255, 255, 0.14);
   font-weight: 900;
@@ -1813,7 +1796,7 @@ button {
 }
 
 .host-secondary-button:hover {
-  background: rgba(255, 255, 255, 0.11);
+  background: var(--bg-card-active);
   border-color: rgba(255, 255, 255, 0.28);
 }
 
@@ -1849,4 +1832,233 @@ button {
     animation: none !important;
     transition: none !important;
   }
+}
+
+/* ── Solid Show V2: high contrast, solid panes ────────────────────── */
+
+body {
+  background: var(--bg-black);
+  background-image: none;
+}
+
+.host-shell {
+  --host-phase-header: var(--bg-card);
+  --host-phase-text: var(--host-ink);
+  --host-phase-accent: var(--accent-gold);
+  background: var(--bg-black);
+}
+
+.host-shell::before {
+  display: none;
+}
+
+.host-shell[data-screen="start"],
+.host-shell[data-screen="lobby"] {
+  --host-phase-header: var(--bg-card);
+  --host-phase-text: var(--host-ink);
+  --host-phase-accent: var(--accent-gold);
+}
+
+.host-shell[data-screen="countdown"],
+.host-shell[data-screen="question"] {
+  --host-phase-header: var(--accent-cyan);
+  --host-phase-text: #021116;
+  --host-phase-accent: var(--accent-cyan);
+}
+
+.host-shell[data-screen="reveal"] {
+  --host-phase-header: var(--color-success);
+  --host-phase-text: #031006;
+  --host-phase-accent: var(--color-success);
+}
+
+.host-shell[data-screen="scoreboard"] {
+  --host-phase-header: var(--accent-gold);
+  --host-phase-text: #170f02;
+  --host-phase-accent: var(--accent-gold);
+}
+
+.host-shell[data-screen="finished"] {
+  --host-phase-header: var(--color-success);
+  --host-phase-text: #031006;
+  --host-phase-accent: var(--color-success);
+}
+
+.host-header {
+  margin: -18px -18px 0;
+  padding: 18px 28px;
+  background: var(--host-phase-header);
+  border-bottom: 4px solid var(--host-phase-accent);
+  box-shadow: var(--solid-shadow);
+  color: var(--host-phase-text);
+}
+
+.host-title {
+  color: var(--host-phase-text);
+  text-shadow: none;
+}
+
+.host-status,
+.host-notice {
+  background: var(--bg-black);
+  border: 2px solid var(--bg-black);
+  color: var(--host-ink);
+}
+
+.host-status::before,
+.host-player-status-dot[data-connected="true"] {
+  box-shadow: none;
+}
+
+.host-panel,
+.host-stage-panel,
+.host-card,
+.host-card--dark,
+.host-controls,
+.host-option-card,
+.host-estimate-display,
+.host-ranking-item,
+.host-scoreboard-item,
+.host-player-item,
+.host-stat-card,
+.host-round-summary-card,
+.host-flow-item[data-state="current"] {
+  background: var(--bg-card);
+  border: 2px solid var(--solid-border);
+  box-shadow: var(--solid-shadow);
+}
+
+.host-stage-panel,
+.host-card--dark,
+.host-start-panel {
+  background: var(--bg-card-active);
+  border-left: 6px solid var(--host-phase-accent);
+}
+
+.host-panel-content::-webkit-scrollbar-thumb {
+  background: var(--solid-border-strong);
+}
+
+.host-question-text,
+.host-join-code,
+.host-stage-title--hero,
+.host-estimate-correct-value {
+  text-shadow: none;
+}
+
+.host-option-card {
+  min-height: 96px;
+  border-left: 6px solid var(--solid-border-strong);
+}
+
+.host-option-id,
+.host-flow-index {
+  background: var(--bg-card-active);
+  color: var(--host-ink);
+}
+
+.host-option-card[data-state="correct"],
+.host-option-card[data-correct="true"] {
+  background: var(--color-success);
+  border-color: var(--color-success);
+  box-shadow: var(--solid-shadow-lg);
+  color: #031006;
+}
+
+.host-option-card[data-state="correct"] .host-option-id,
+.host-option-card[data-correct="true"] .host-option-id,
+.host-flow-item[data-state="done"] .host-flow-index {
+  background: #031006;
+  color: var(--color-success);
+}
+
+.host-option-card[data-state="correct"] .host-option-label,
+.host-option-card[data-correct="true"] .host-option-label {
+  color: #031006;
+}
+
+.host-flow-item[data-state="current"] {
+  border-left: 6px solid var(--accent-gold);
+  opacity: 1;
+}
+
+.host-flow-item[data-state="current"] .host-flow-index {
+  background: var(--accent-gold);
+  color: #170f02;
+}
+
+.host-controls {
+  background: var(--bg-card-active);
+  border-top: 4px solid var(--host-phase-accent);
+}
+
+.host-primary-button,
+.host-action-button--primary {
+  background: var(--accent-gold);
+  border: 2px solid var(--accent-gold);
+  box-shadow: var(--solid-shadow);
+  color: #170f02;
+}
+
+.host-primary-button:hover:not(:disabled),
+.host-action-button--primary:hover:not(:disabled) {
+  box-shadow: var(--solid-shadow-lg);
+  filter: brightness(1.04);
+}
+
+.host-secondary-button,
+.host-action-button--secondary,
+.host-copy-url-button,
+.host-small-cancel-button {
+  background: var(--bg-card);
+  border: 2px solid var(--solid-border);
+  color: var(--host-ink);
+}
+
+.host-small-danger-button,
+.host-secondary-button--danger {
+  background: var(--color-error);
+  border: 2px solid var(--color-error);
+  color: #fff;
+}
+
+.host-toggle-track,
+.host-progress-bar,
+.host-player-list:empty::after {
+  background: var(--bg-card-active);
+  border: 2px solid var(--solid-border);
+}
+
+.host-toggle-row input:checked + .host-toggle-track,
+.host-player-status-dot[data-connected="true"] {
+  background: var(--color-success);
+  box-shadow: none;
+}
+
+.host-progress-fill {
+  background: var(--accent-cyan);
+}
+
+.host-scoreboard-item {
+  border-left: 6px solid var(--solid-border-strong);
+}
+
+.host-scoreboard-item[data-placement="1"] {
+  background: var(--bg-card-active);
+  border-color: var(--solid-border-strong);
+  border-left-color: var(--accent-gold);
+  box-shadow: var(--solid-shadow-lg);
+}
+
+.host-scoreboard-item[data-placement="2"] {
+  background: var(--bg-card);
+  border-color: var(--solid-border);
+  border-left-color: #dbe7ff;
+  box-shadow: var(--solid-shadow);
+}
+
+.host-scoreboard-item[data-placement="3"] {
+  background: var(--bg-card);
+  border-color: var(--solid-border);
+  border-left-color: #e7b38a;
 }
