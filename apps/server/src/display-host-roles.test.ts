@@ -41,6 +41,7 @@ describe("isEventAllowedForRole – authorization guards", () => {
     EVENTS.QUESTION_FORCE_CLOSE,
     EVENTS.GAME_SHOW_SCOREBOARD,
     EVENTS.GAME_FINISH_NOW,
+    EVENTS.GAME_RESTART,
     EVENTS.PLAYER_REMOVE,
   ])("display cannot send host fallback event %s", (event) => {
     expect(isEventAllowedForRole(event, "display")).toBe(false);
@@ -78,6 +79,7 @@ describe("isEventAllowedForRole – authorization guards", () => {
     EVENTS.QUESTION_FORCE_CLOSE,
     EVENTS.GAME_SHOW_SCOREBOARD,
     EVENTS.GAME_FINISH_NOW,
+    EVENTS.GAME_RESTART,
     EVENTS.PLAYER_REMOVE,
   ])("host can send fallback event %s", (event) => {
     expect(isEventAllowedForRole(event, "host")).toBe(true);
@@ -107,6 +109,7 @@ describe("isEventAllowedForRole – authorization guards", () => {
     EVENTS.QUESTION_FORCE_CLOSE,
     EVENTS.GAME_SHOW_SCOREBOARD,
     EVENTS.GAME_FINISH_NOW,
+    EVENTS.GAME_RESTART,
     EVENTS.PLAYER_REMOVE,
   ])("player cannot send host fallback event %s", (event) => {
     expect(isEventAllowedForRole(event, "player")).toBe(false);

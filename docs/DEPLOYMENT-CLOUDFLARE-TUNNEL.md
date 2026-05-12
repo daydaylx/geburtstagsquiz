@@ -157,10 +157,10 @@ Der Host und das Display verbinden sich lokal per `ws://localhost:3001`. Die Pla
 
 1. Lokale Dienste starten und pruefen.
 2. Echte lokale Tunnel-Config aus `deploy/cloudflare-tunnel.example.yml` ableiten.
-3. Tunnel starten:
+3. Tunnel-Modus ueber `quiz.sh` mit expliziter lokaler Bestaetigung starten:
 
 ```bash
-cloudflared tunnel --config .cloudflared/config.yml run <tunnel-name>
+CONFIRM_CLOUDFLARE_TUNNEL_START=1 ./quiz.sh
 ```
 
 Dann oeffnen:

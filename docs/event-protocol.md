@@ -56,6 +56,7 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 - `question:force-close`
 - `game:show-scoreboard`
 - `game:finish-now`
+- `game:restart`
 - `player:remove`
 - `room:close`
 
@@ -98,6 +99,7 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 | `player:remove` | Host -> Server | Spieler aus dem Raum entfernen | `roomId`, `playerId` |
 | `room:close` | Host -> Server | Raum beenden | `roomId` |
 | `room:closed` | Server -> Display/Host/Player | Raum ist endgueltig zu | `roomId`, `roomState` |
+| `room:reset` | Server -> Display/Host/Player | Beendeten Raum fuer ein neues Spiel zurueck in die Lobby setzen | `roomId`, `roomState`, `joinCode` |
 
 ### Lobby und Verbindungssicht
 
@@ -113,7 +115,7 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 | --- | --- | --- | --- |
 | `game:start` | Host -> Server | Quiz mit finalem Spielplan starten | `roomId`, `gamePlan` |
 | `game:started` | Server -> Display/Host/Player | Spiel ist gestartet | `roomId`, `roomState`, `gameState`, `questionIndex`, `totalQuestionCount`, `resolvedGamePlan` |
-| `question:countdown` | Server -> Display/Host/Player | Kurzer Show-Countdown vor einer Frage | `roomId`, `questionId`, `questionIndex`, `totalQuestionCount`, `countdownMs`, `gameState` |
+| `question:countdown` | Server -> Display/Host/Player | Kurzer Show-Countdown vor einer Frage | `roomId`, `questionIndex`, `totalQuestionCount`, `countdownMs`, `displayShowLevel`, optional `isDemoQuestion` |
 | `question:show` | Server -> Display/Host | Vollstaendige Frage freigeben | `roomId`, `questionId`, `questionIndex`, `totalQuestionCount`, `type`, `text`, je nach Typ `options`/`items`/`unit`/`context`, `durationMs`, `gameState`, optional `isDemoQuestion` |
 | `question:controller` | Server -> Player | Reduzierte Controller-Daten freigeben | `roomId`, `questionId`, `questionIndex`, `totalQuestionCount`, `type`, je nach Typ Options-/Item-IDs, optional Antworttexte oder `unit`, `durationMs`, `gameState`, optional `isDemoQuestion` |
 | `question:timer` | Server -> Display/Host/Player | Verbleibende Fragezeit anzeigen | `roomId`, `questionId`, `remainingMs` |
@@ -131,6 +133,7 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 | `game:show-scoreboard` | Host -> Server | Reveal ueberspringen und Rangliste zeigen | `roomId` |
 | `game:finish-now` | Host -> Server | Spiel mit aktuellem Stand beenden | `roomId` |
 | `game:finished` | Server -> Display/Host/Player | Quiz ist zu Ende | `roomId`, `roomState`, `gameState`, `totalQuestionCount`, `finalScoreboard`, optional `finalStats` |
+| `game:restart` | Host -> Server | Abgeschlossenen Raum fuer ein neues Spiel zuruecksetzen | `roomId` |
 
 ### Fehler
 

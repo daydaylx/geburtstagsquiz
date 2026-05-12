@@ -340,6 +340,8 @@ check_prereqs() {
   if [[ "$mode" == "tunnel" ]]; then
     command -v cloudflared >/dev/null || die "cloudflared nicht gefunden (erwartet in PATH)."
     [[ -f "$CONFIG_FILE" ]]           || die "Tunnel-Config fehlt: $CONFIG_FILE"
+    [[ "${CONFIRM_CLOUDFLARE_TUNNEL_START:-}" == "1" ]] ||
+      die "Tunnel-Modus braucht CONFIRM_CLOUDFLARE_TUNNEL_START=1, z.B. CONFIRM_CLOUDFLARE_TUNNEL_START=1 ./quiz.sh"
   fi
   if [[ "$mode" == "hybrid" ]]; then
     printf "\n%s%s⚠  Hybrid-Modus:%s Cloudflare Tunnel wird NICHT automatisch gestartet.\n" "$YELLOW" "$BOLD" "$NC"
