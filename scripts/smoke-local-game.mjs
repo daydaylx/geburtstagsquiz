@@ -349,13 +349,62 @@ try {
   });
   await display.waitFor("game:finished", (payload) => payload.finalScoreboard.length === 2);
 
+  // ── Restart flow ──────────────────────────────────────────────────────────
+  host.send("game:restart", { roomId: room.roomId });
+
+  const hostReset = await host.waitFor("room:reset", (payload) => payload.roomId === room.roomId);
+  const displayReset = await display.waitFor("room:reset", (payload) => payload.roomId === room.roomId);
+  const p1Reset = await player1.waitFor("room:reset", (payload) => payload.roomId === room.roomId);
+  const p2Reset = await player2.waitFor("room:reset", (payload) => payload.roomId === room.roomId);
+
+  if (hostReset.roomState !== "waiting") throw new Error("room:reset roomState must be waiting");
+  if (hostReset.joinCode !== room.joinCode) throw new Error("joinCode must survive restart");
+  if (displayReset.roomState !== "waiting") throw new Error("display room:reset roomState must be waiting");
+  if (p1Reset.roomState !== "waiting") throw new Error("player-1 room:reset roomState must be waiting");
+  if (p2Reset.roomState !== "waiting") throw new Error("player-2 room:reset roomState must be waiting");
+
+  await host.waitFor("lobby:update", (payload) => payload.playerCount === 2);
+  await display.waitFor("lobby:update", (payload) => payload.playerCount === 2);
+  await player1.waitFor("lobby:update", (payload) => payload.playerCount === 2);
+  await player2.waitFor("lobby:update", (payload) => payload.playerCount === 2);
+
+  const secondCatalog = await host.waitFor("catalog:summary");
+
+  host.send("game:start", { roomId: room.roomId, gamePlan: makeSmokeGamePlan(secondCatalog) });
+
+  await display.waitFor("game:started", (payload) => payload.roomState === "in_game");
+  await host.waitFor("game:started", (payload) => payload.roomState === "in_game");
+  await player1.waitFor("game:started", (payload) => payload.roomState === "in_game");
+  await player2.waitFor("game:started", (payload) => payload.roomState === "in_game");
+
+  const secondQuestion = await answerCurrentQuestion({
+    room,
+    display,
+    host,
+    player1,
+    player2,
+    joined1,
+    joined2,
+    questionIndex: 0,
+  });
+  await readyFromReveal({
+    room,
+    player1,
+    player2,
+    joined1,
+    joined2,
+    questionId: secondQuestion.questionId,
+  });
+
+  await display.waitFor("game:finished", (payload) => payload.finalScoreboard.length === 2);
+
+  console.log(
+    "smoke ok: host-first flow, 90s timer, reveal readiness, scoreboard after question 5, final standings, reconnect, restart, second game",
+  );
+
   clients.push(await resumeSession("display-resume", displayConnected.displaySessionId, room.roomId));
   clients.push(await resumeSession("host-resume", room.hostSessionId, room.roomId));
   clients.push(await resumeSession("player-1-resume", joined1.sessionId, room.roomId));
-
-  console.log(
-    "smoke ok: host-first flow, 90s timer, reveal readiness, scoreboard after question 5, final standings, reconnect",
-  );
 } finally {
   for (const client of clients.reverse()) {
     client.close();
