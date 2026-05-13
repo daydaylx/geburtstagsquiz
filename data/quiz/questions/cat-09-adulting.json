@@ -1063,22 +1063,22 @@
       "options": [
         {
           "id": "q-09-19-be189a5f35-opt-1",
-          "text": "Gilt nur für Getränke",
+          "text": "MHD gilt nur für Getränke, Verbrauchsdatum nur für Tiefkühlware",
           "is_correct": false
         },
         {
           "id": "q-09-19-be189a5f35-opt-2",
-          "text": "MHD ist Empfehlung, Verbrauchsdatum ist Sicherheitslimit",
+          "text": "MHD ist Qualitätsdatum, Verbrauchsdatum ist Sicherheitsfrist",
           "is_correct": true
         },
         {
           "id": "q-09-19-be189a5f35-opt-3",
-          "text": "Es ist dasselbe",
+          "text": "MHD und Verbrauchsdatum meinen dasselbe mit anderem Etikett",
           "is_correct": false
         },
         {
           "id": "q-09-19-be189a5f35-opt-4",
-          "text": "Gilt nur in Deutschland",
+          "text": "MHD verbietet Verkauf, Verbrauchsdatum erlaubt Verkauf weiter",
           "is_correct": false
         }
       ],
@@ -1520,28 +1520,61 @@
       "id": "q-09-03",
       "type": "logic",
       "prompt": "Mietmathe: Kaltmiete 600 €, Nebenkosten 150 €, Strom 80 € direkt an Versorger. Was überweist du an den Vermieter?",
-      "answer": {
-        "canonical": "750 €",
-        "reference_value": 750,
-        "unit": "Euro",
-        "context": "Der Strom geht direkt an den Versorger, nicht an den Vermieter (es sei denn, es ist eine Pauschalmiete, was hier nicht steht)."
-      },
-      "scoring_rule": "exact_match"
+      "options": [
+        {
+          "id": "q-09-03-opt-1",
+          "text": "600 €",
+          "is_correct": false
+        },
+        {
+          "id": "q-09-03-opt-2",
+          "text": "750 €",
+          "is_correct": true
+        },
+        {
+          "id": "q-09-03-opt-3",
+          "text": "830 €",
+          "is_correct": false
+        },
+        {
+          "id": "q-09-03-opt-4",
+          "text": "680 €",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-09-03-opt-2",
+      "explanation": "Der Strom geht direkt an den Versorger, nicht an den Vermieter. An den Vermieter gehen nur Kaltmiete plus Nebenkosten: 600 € + 150 € = 750 €."
     },
     {
       "id": "q-09-04",
       "type": "ranking",
       "prompt": "Sortiere diese Haushalts-Gegenstände nach ihrem Potenzial, eine Waschmaschine zu ruinieren (von 'nervig' bis 'Totalschaden').",
-      "answer": {
-        "canonical_order": [
-          "Vergessenes Papiertaschentuch",
-          "Einzelne 10-Cent-Münze",
-          "BH-Bügel (ohne Wäschenetz)",
-          "Ein dicker Kieselstein im Profil der Wanderschuhe"
-        ],
-        "context": "Das Taschentuch macht nur Dreck, die Münze klappert, aber der BH-Bügel durchbohrt die Trommel."
-      },
-      "scoring_rule": "exact_order"
+      "items": [
+        {
+          "id": "q-09-04-item-bh",
+          "text": "BH-Bügel (ohne Wäschenetz)"
+        },
+        {
+          "id": "q-09-04-item-tissue",
+          "text": "Vergessenes Papiertaschentuch"
+        },
+        {
+          "id": "q-09-04-item-stone",
+          "text": "Ein dicker Kieselstein im Profil der Wanderschuhe"
+        },
+        {
+          "id": "q-09-04-item-coin",
+          "text": "Einzelne 10-Cent-Münze"
+        }
+      ],
+      "correct_order": [
+        "q-09-04-item-tissue",
+        "q-09-04-item-coin",
+        "q-09-04-item-bh",
+        "q-09-04-item-stone"
+      ],
+      "scoring_rule": "exact_order",
+      "explanation": "Das Taschentuch macht nur Dreck, die Münze klappert, aber der BH-Bügel durchbohrt die Trommel."
     },
     {
       "id": "q-09-05",
@@ -1655,10 +1688,12 @@
           "is_correct": false
         }
       ],
+      "correct_option_id": "opt-2",
       "answer": {
         "canonical": "Stoßlüften",
         "context": "Kipplüften kühlt nur die Wände aus und fördert Schimmel. Stoßlüften tauscht die Luft aus, ohne dass die Wände auskühlen."
-      }
+      },
+      "explanation": "Kipplüften kühlt nur die Wände aus und fördert Schimmel. Stoßlüften tauscht die Luft aus, ohne dass die Wände auskühlen."
     },
     {
       "id": "q-09-10",
@@ -1668,7 +1703,7 @@
         "canonical": "3,10 Euro",
         "reference_value": 3.1,
         "unit": "Euro",
-        "context": "20 x 0,08 Euro Flaschenpfand plus 1,50 Euro Kastenpfand"
+        "context": "Pfandsystem Deutschland"
       },
       "scoring_rule": "closest_wins",
       "explanation": "Bei vielen Bierkaesten sind es 20 Mehrwegflaschen zu je 8 Cent plus 1,50 Euro fuer den Kasten. Macht zusammen 3,10 Euro Pfand."
@@ -1724,16 +1759,32 @@
       "id": "q-09-13",
       "type": "ranking",
       "prompt": "Sortiere diese Lebensmittel nach ihrem Kaloriengehalt pro 100g (von 'Heiligenschein' bis 'Kalorienbombe').",
-      "answer": {
-        "canonical_order": [
-          "Gurke",
-          "Magerquark",
-          "Avocado",
-          "Butter"
-        ],
-        "context": "Gurke (15 kcal), Quark (70 kcal), Avocado (160 kcal), Butter (740 kcal)."
-      },
-      "scoring_rule": "exact_order"
+      "items": [
+        {
+          "id": "q-09-13-item-butter",
+          "text": "Butter"
+        },
+        {
+          "id": "q-09-13-item-cucumber",
+          "text": "Gurke"
+        },
+        {
+          "id": "q-09-13-item-avocado",
+          "text": "Avocado"
+        },
+        {
+          "id": "q-09-13-item-quark",
+          "text": "Magerquark"
+        }
+      ],
+      "correct_order": [
+        "q-09-13-item-cucumber",
+        "q-09-13-item-quark",
+        "q-09-13-item-avocado",
+        "q-09-13-item-butter"
+      ],
+      "scoring_rule": "exact_order",
+      "explanation": "Gurke (15 kcal), Quark (70 kcal), Avocado (160 kcal), Butter (740 kcal)."
     },
     {
       "id": "q-09-14",
@@ -1771,22 +1822,22 @@
       "options": [
         {
           "id": "opt-1",
-          "text": "Das Geschirr wird nicht sauber.",
+          "text": "Es löst Kalk schlecht und lässt weiße Beläge auf Gläsern zurück.",
           "is_correct": false
         },
         {
           "id": "opt-2",
-          "text": "Die Maschine explodiert.",
+          "text": "Es verfärbt Edelstahlteile dauerhaft blau und greift Dichtungen an.",
           "is_correct": false
         },
         {
           "id": "opt-3",
-          "text": "Es entsteht eine extreme Schaumbildung, die aus der Maschine austritt.",
+          "text": "Es schäumt viel zu stark und kann aus der Maschine austreten.",
           "is_correct": true
         },
         {
           "id": "opt-4",
-          "text": "Es passiert gar nichts, es ist dasselbe.",
+          "text": "Es blockiert das Salzfach und stoppt dadurch den Waschgang.",
           "is_correct": false
         }
       ],
@@ -1821,30 +1872,47 @@
     },
     {
       "id": "q-09-17",
-      "type": "logic",
+      "type": "estimate",
       "prompt": "Ein Produkt wirbt mit '20% mehr Inhalt gratis'. Wie viel Prozent des neuen Gesamtinhalts hast du dann eigentlich geschenkt bekommen?",
       "answer": {
         "canonical": "16,6 %",
         "reference_value": 16.6,
         "unit": "%",
-        "context": "Wenn vorher 100g drin waren, sind jetzt 120g drin. 20g von 120g sind 1/6, also ca. 16,6%."
+        "context": "Anteil am neuen Gesamtinhalt"
       },
-      "scoring_rule": "closest_wins"
+      "scoring_rule": "closest_wins",
+      "explanation": "Wenn vorher 100g drin waren, sind jetzt 120g drin. 20g von 120g sind 1/6, also ca. 16,6%."
     },
     {
       "id": "q-09-19",
       "type": "ranking",
       "prompt": "Sortiere diese Lebensmittel nach grobem CO2-Fussabdruck pro Kilogramm, von niedriger zu hoeher.",
-      "answer": {
-        "canonical_order": [
-          "Haehnchen",
-          "Schwein",
-          "Kaese",
-          "Rindfleisch"
-        ],
-        "context": "Rindfleisch liegt typischerweise deutlich hoeher als Schwein oder Haehnchen; Kaese ist als tierisches Produkt ebenfalls relevant, aber kein Fleisch."
-      },
-      "scoring_rule": "exact_order"
+      "items": [
+        {
+          "id": "q-09-19-item-cheese",
+          "text": "Kaese"
+        },
+        {
+          "id": "q-09-19-item-beef",
+          "text": "Rindfleisch"
+        },
+        {
+          "id": "q-09-19-item-chicken",
+          "text": "Haehnchen"
+        },
+        {
+          "id": "q-09-19-item-pork",
+          "text": "Schwein"
+        }
+      ],
+      "correct_order": [
+        "q-09-19-item-chicken",
+        "q-09-19-item-pork",
+        "q-09-19-item-cheese",
+        "q-09-19-item-beef"
+      ],
+      "scoring_rule": "exact_order",
+      "explanation": "Rindfleisch liegt typischerweise deutlich hoeher als Schwein oder Haehnchen; Kaese ist als tierisches Produkt ebenfalls relevant, aber kein Fleisch."
     },
     {
       "id": "q-09-20",

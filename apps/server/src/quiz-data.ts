@@ -248,7 +248,7 @@ function toEstimateQuestion(question: RawQuestion, metadata: QuestionMetadata): 
     text: question.prompt,
     correctValue: answer.reference_value,
     unit: requireText(answer.unit, "answer.unit", question.id),
-    context: answer.context || answer.canonical || "Referenzwert",
+    context: answer.context || "Referenzwert",
     durationMs: QUESTION_DURATION_MS,
     points: toPoints(question.points),
     ...(getExplanation(question) ? { explanation: getExplanation(question) } : {}),

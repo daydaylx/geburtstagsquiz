@@ -512,7 +512,6 @@ export const QuestionShowPayloadSchema = z.discriminatedUnion("type", [
       ...questionShowBaseFields,
       type: z.literal(QuestionType.Estimate),
       unit: z.string().min(1),
-      context: z.string().min(1),
     })
     .strict(),
   z
@@ -663,6 +662,7 @@ export const QuestionRevealPayloadSchema = z
     playerResults: z.array(PlayerRoundResultSchema),
     gameState: z.literal(GameState.Revealing),
     explanation: z.string().optional(),
+    estimateContext: z.string().min(1).optional(),
   })
   .strict();
 

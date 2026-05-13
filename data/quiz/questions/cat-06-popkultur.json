@@ -687,20 +687,20 @@
       "prompt": "Bringe diese Reality-TV-Highlights in die richtige chronologische Reihenfolge (zuerst passiert).",
       "items": [
         {
-          "id": "it-osbournes",
-          "text": "The Osbournes (MTV)"
-        },
-        {
           "id": "it-simplelife",
           "text": "The Simple Life (Paris & Nicole)"
         },
         {
-          "id": "it-sarahmarc",
-          "text": "Sarah & Marc in Love"
-        },
-        {
           "id": "it-kardashians",
           "text": "Keeping Up with the Kardashians"
+        },
+        {
+          "id": "it-osbournes",
+          "text": "The Osbournes (MTV)"
+        },
+        {
+          "id": "it-sarahmarc",
+          "text": "Sarah & Marc in Love"
         }
       ],
       "correct_order": [

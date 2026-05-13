@@ -83,7 +83,7 @@
       "difficulty": "medium_hard",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Welche Konsole nutzte Module statt CDs und blies sie bei Problemen legendär unnötig an?",
+      "prompt": "Welche 90er-Konsole von Nintendo blieb bei Modulen statt CDs und wurde bei Problemen legendär angepustet?",
       "options": [
         {
           "id": "q-07-07-508618c674-opt-1",
@@ -385,19 +385,19 @@
       "items": [
         {
           "id": "A",
-          "label": "PlayStation 2 (2000)"
+          "label": "PlayStation 2"
         },
         {
           "id": "B",
-          "label": "Super Nintendo (1992)"
+          "label": "Super Nintendo"
         },
         {
           "id": "C",
-          "label": "Xbox 360 (2005)"
+          "label": "Xbox 360"
         },
         {
           "id": "D",
-          "label": "Nintendo 64 (1997)"
+          "label": "Nintendo 64"
         }
       ],
       "correct_order": [
@@ -406,7 +406,7 @@
         "A",
         "C"
       ],
-      "explanation": "SNES und N64 prägten die 90er, die PS2 startete das Millenium und die Xbox 360 brachte uns HD-Gaming.",
+      "explanation": "In Deutschland kam das Super Nintendo 1992, Nintendo 64 1997, PlayStation 2 2000 und Xbox 360 2005.",
       "difficulty": "medium",
       "points": 2,
       "category_id": "cat-07"
@@ -835,20 +835,20 @@
       "prompt": "Sortiere diese Konsolen nach Europa-Release, aelteste zuerst.",
       "items": [
         {
-          "id": "A",
-          "label": "NES (Nintendo Entertainment System)"
-        },
-        {
-          "id": "B",
-          "label": "Sega Mega Drive"
-        },
-        {
           "id": "C",
           "label": "Nintendo 64"
         },
         {
           "id": "D",
           "label": "PlayStation 2"
+        },
+        {
+          "id": "A",
+          "label": "NES (Nintendo Entertainment System)"
+        },
+        {
+          "id": "B",
+          "label": "Sega Mega Drive"
         }
       ],
       "correct_order": [
@@ -1015,20 +1015,20 @@
       "prompt": "Sortiere diese Mario-Kart-Titel nach ihrem Release-Jahr (älteste zuerst).",
       "items": [
         {
-          "id": "A",
-          "label": "Super Mario Kart (SNES)"
-        },
-        {
           "id": "B",
           "label": "Mario Kart 64"
         },
         {
-          "id": "C",
-          "label": "Mario Kart: Double Dash!! (GameCube)"
-        },
-        {
           "id": "D",
           "label": "Mario Kart Wii"
+        },
+        {
+          "id": "A",
+          "label": "Super Mario Kart (SNES)"
+        },
+        {
+          "id": "C",
+          "label": "Mario Kart: Double Dash!! (GameCube)"
         }
       ],
       "correct_order": [
@@ -1102,13 +1102,31 @@
     },
     {
       "id": "q-07-30",
-      "type": "sudden_death_estimate",
+      "type": "multiple_choice",
       "prompt": "Wie viele Pokémon gab es in der allerersten Generation (Rot/Blau) inklusive des geheimen Mew?",
-      "answer": {
-        "reference_value": 151,
-        "unit": "Pokémon",
-        "canonical": "151"
-      },
+      "options": [
+        {
+          "id": "q-07-30-opt-1",
+          "text": "150",
+          "is_correct": false
+        },
+        {
+          "id": "q-07-30-opt-2",
+          "text": "151",
+          "is_correct": true
+        },
+        {
+          "id": "q-07-30-opt-3",
+          "text": "152",
+          "is_correct": false
+        },
+        {
+          "id": "q-07-30-opt-4",
+          "text": "251",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-07-30-opt-2",
       "explanation": "Gotta catch 'em all! Es waren 151. Wer heute behauptet, er kenne alle 1000+, lügt oder hat zu viel Freizeit.",
       "difficulty": "medium"
     }

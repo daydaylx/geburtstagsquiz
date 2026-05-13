@@ -157,9 +157,7 @@ export function App() {
             )}
 
             {s.question.type === QuestionType.Estimate && (
-              <p className="display-estimate-context">
-                {s.question.context} ({s.question.unit})
-              </p>
+              <p className="display-estimate-context">Schätzung in {s.question.unit}</p>
             )}
 
             {s.question.type === QuestionType.OpenText && <p className="display-estimate-context">Freitextantwort</p>}

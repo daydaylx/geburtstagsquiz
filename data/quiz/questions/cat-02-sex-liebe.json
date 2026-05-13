@@ -4,7 +4,7 @@
   "name": "Sex, Liebe & expliziter Bullshit",
   "difficulty": "medium_hard",
   "tags": [],
-  "question_count": 78,
+  "question_count": 76,
   "questions": [
     {
       "id": "q-02-01-c95a802a2d",
@@ -871,38 +871,6 @@
       "category_id": "cat-02"
     },
     {
-      "id": "q-02-new-01-pegging",
-      "prompt": "Was versteht man in der Sexualität unter dem Begriff „Pegging“?",
-      "options": [
-        {
-          "id": "q-02-new-01-opt-1",
-          "text": "Wenn eine Frau einen Mann mit einem Umgeschnalldildo (Strap-on) anal penetriert",
-          "is_correct": true
-        },
-        {
-          "id": "q-02-new-01-opt-2",
-          "text": "Das Befestigen des Partners mit Wäscheklammern (Pegs) am Bettgestell",
-          "is_correct": false
-        },
-        {
-          "id": "q-02-new-01-opt-3",
-          "text": "Das systematische Bewerten von Sex-Dates auf einer Skala von 1 bis 10",
-          "is_correct": false
-        },
-        {
-          "id": "q-02-new-01-opt-4",
-          "text": "Ein Fetisch für Holzbeine und Piratenkostüme",
-          "is_correct": false
-        }
-      ],
-      "correct_option_id": "q-02-new-01-opt-1",
-      "explanation": "Ein wunderbarer Rollentausch, der toxische Männlichkeit in Sekundenbruchteilen zum Einsturz bringt. Männer entdecken plötzlich am eigenen Leib, warum Entspannung wichtig ist und dass Vorbereitung im Bett vielleicht doch keine so schlechte Idee ist.",
-      "difficulty": "medium",
-      "category_id": "cat-02",
-      "type": "multiple_choice",
-      "points": 1
-    },
-    {
       "id": "q-02-new-02-edging",
       "prompt": "Was genau ist das Ziel beim sogenannten „Edging“?",
       "options": [
@@ -1159,38 +1127,6 @@
       "points": 1
     },
     {
-      "id": "q-02-new-10-vanilla-sex",
-      "prompt": "Was versteht man unter dem Begriff „Vanilla Sex“?",
-      "options": [
-        {
-          "id": "q-02-new-10-opt-1",
-          "text": "Ganz gewöhnlichen, konventionellen Sex ohne Kinks oder BDSM-Elemente",
-          "is_correct": true
-        },
-        {
-          "id": "q-02-new-10-opt-2",
-          "text": "Sex, der ausschließlich mit Speiseeis oder Lebensmittelaromen stattfindet",
-          "is_correct": false
-        },
-        {
-          "id": "q-02-new-10-opt-3",
-          "text": "Sex bei grellem, hellem Licht und steriler Umgebung",
-          "is_correct": false
-        },
-        {
-          "id": "q-02-new-10-opt-4",
-          "text": "Wenn beide Partner blonde Haare haben",
-          "is_correct": false
-        }
-      ],
-      "correct_option_id": "q-02-new-10-opt-1",
-      "explanation": "Die Missionarstellung der Seele. Aufregend wie ein Mittwochabend im leeren IKEA, aber hey – es funktioniert, niemand verletzt sich aus Versehen mit einem Lederriemen und man kann danach direkt einschlafen.",
-      "difficulty": "easy",
-      "category_id": "cat-02",
-      "type": "multiple_choice",
-      "points": 1
-    },
-    {
       "id": "q-02-new-11-snowballing",
       "prompt": "Wenn jemand „Snowballing“ vorschlägt, was hat er dann vor?",
       "options": [
@@ -1356,22 +1292,22 @@
       "options": [
         {
           "id": "q-02-new-16-opt-1",
-          "text": "Das plötzliche Ausstoßen größerer Mengen Flüssigkeit aus den weiblichen Skene-Drüsen/Harnröhre während des Orgasmus",
+          "text": "Flüssigkeit tritt bei sexueller Erregung aus Harnröhre oder Skene-Drüsen aus",
           "is_correct": true
         },
         {
           "id": "q-02-new-16-opt-2",
-          "text": "Ein Wasserpistolen-Fetisch für heiße Sommertage im Schlafzimmer",
+          "text": "Schweiß tritt durch Angst und Adrenalin bei einem BDSM-Spiel aus",
           "is_correct": false
         },
         {
           "id": "q-02-new-16-opt-3",
-          "text": "Extremes, angstbedingtes Schwitzen während eines BDSM-Spiels",
+          "text": "Wasser wird als Rollenspiel absichtlich auf den Körper gespritzt",
           "is_correct": false
         },
         {
           "id": "q-02-new-16-opt-4",
-          "text": "Das Verwenden von Sprühsahne auf dem Körper des Partners",
+          "text": "Sahne oder Gleitgel wird beim Vorspiel auf den Körper gesprüht",
           "is_correct": false
         }
       ],
@@ -1740,22 +1676,22 @@
       "options": [
         {
           "id": "q-02-new-28-opt-1",
-          "text": "Das Urinieren auf den Partner",
+          "text": "Urin wird im einvernehmlichen Spiel auf den Körper des Partners abgegeben",
           "is_correct": true
         },
         {
           "id": "q-02-new-28-opt-2",
-          "text": "Das Einreiben des Körpers mit teurer, goldener Bodylotion oder Blattgold",
+          "text": "Goldfarbene Bodylotion wird als Rollenspiel auf die Haut aufgetragen",
           "is_correct": false
         },
         {
           "id": "q-02-new-28-opt-3",
-          "text": "Sex unter einem prunkvollen, goldfarbenen Kronleuchter",
+          "text": "Champagner wird beim Vorspiel über den Körper des Partners gegossen",
           "is_correct": false
         },
         {
           "id": "q-02-new-28-opt-4",
-          "text": "Das Baden in schäumendem, extrem teurem Champagner",
+          "text": "Sex findet bewusst unter goldener Beleuchtung oder Dekoration statt",
           "is_correct": false
         }
       ],

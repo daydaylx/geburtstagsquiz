@@ -1641,22 +1641,22 @@
       "options": [
         {
           "id": "opt-1",
-          "text": "Es ist eine lautmalerische spanische Fehlinterpretation von 'Rapper's Delight'",
+          "text": "Eine spanische Verhörung von 'Rapper's Delight'",
           "is_correct": true
         },
         {
           "id": "opt-2",
-          "text": "Es ist ein alter Maya-Fluch",
+          "text": "Ein alter Partyreim aus Andalusien",
           "is_correct": false
         },
         {
           "id": "opt-3",
-          "text": "Die Sängerinnen waren betrunken",
+          "text": "Ein absichtlich rückwärts gesungener Text",
           "is_correct": false
         },
         {
           "id": "opt-4",
-          "text": "Es ist rückwärts abgespielte Werbung für Ketchup",
+          "text": "Ein Werbejingle für Ketchup aus den 90ern",
           "is_correct": false
         }
       ],
@@ -1678,20 +1678,20 @@
       "prompt": "In einer Reihenfolge haben wir unsere Zeit im Internet verschwendet? Ordne die Plattformen nach ihrem Launch (älteste zuerst).",
       "items": [
         {
-          "id": "myspace",
-          "text": "MySpace"
-        },
-        {
           "id": "schuelervz",
           "text": "SchülerVZ"
         },
         {
-          "id": "facebook",
-          "text": "Facebook (in Deutschland)"
-        },
-        {
           "id": "tiktok",
           "text": "TikTok"
+        },
+        {
+          "id": "myspace",
+          "text": "MySpace"
+        },
+        {
+          "id": "facebook",
+          "text": "Facebook (in Deutschland)"
         }
       ],
       "correct_order": [
@@ -1787,7 +1787,7 @@
       "difficulty": "medium",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Backstreet Boys 'I Want It That Way': Warum ergibt die Antwort 'Ain't nothin' but a heartache' auf 'Tell me why' textlich keinen Sinn?",
+      "prompt": "Backstreet Boys 'I Want It That Way': Welche Erklärung wird oft für den seltsam unlogischen Refrain genannt?",
       "options": [
         {
           "id": "q-08-14-opt-1",

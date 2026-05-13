@@ -436,6 +436,27 @@ describe("parseServerToClientEnvelope", () => {
     }
   });
 
+  it("passes estimate context through only in question:reveal payload", () => {
+    const envelope = JSON.stringify({
+      event: EVENTS.QUESTION_REVEAL,
+      payload: {
+        roomId: "room-1",
+        questionId: "q-est-01",
+        correctAnswer: { type: "number", value: 160 },
+        playerResults: [],
+        gameState: "revealing",
+        estimateContext: "Standard-SMS-Limit",
+      },
+    });
+
+    const result = parseServerToClientEnvelope(envelope);
+
+    expect(result.success).toBe(true);
+    if (result.success && result.data.event === EVENTS.QUESTION_REVEAL) {
+      expect(result.data.payload.estimateContext).toBe("Standard-SMS-Limit");
+    }
+  });
+
   it("accepts question:reveal payloads with multiple correct options", () => {
     const envelope = JSON.stringify({
       event: EVENTS.QUESTION_REVEAL,
@@ -519,7 +540,6 @@ describe("parseServerToClientEnvelope", () => {
         type: "estimate",
         text: "Wie lang ist der durchschnittliche erigierte Penis? (cm)",
         unit: "cm",
-        context: "weltweit, BJU International 2015",
         durationMs: 20000,
         gameState: "question_active",
       },
@@ -530,7 +550,30 @@ describe("parseServerToClientEnvelope", () => {
     expect(result.success).toBe(true);
     if (result.success && result.data.event === EVENTS.QUESTION_SHOW) {
       expect(result.data.payload.type).toBe("estimate");
+      expect(result.data.payload).not.toHaveProperty("context");
     }
+  });
+
+  it("rejects estimate question:show payloads that include context before reveal", () => {
+    const envelope = JSON.stringify({
+      event: EVENTS.QUESTION_SHOW,
+      payload: {
+        roomId: "room-1",
+        questionId: "q-est-01",
+        questionIndex: 3,
+        totalQuestionCount: 10,
+        type: "estimate",
+        text: "Wie viele Zeichen hatte eine SMS?",
+        unit: "Zeichen",
+        context: "Standard-SMS-Limit",
+        durationMs: 20000,
+        gameState: "question_active",
+      },
+    });
+
+    const result = parseServerToClientEnvelope(envelope);
+
+    expect(result.success).toBe(false);
   });
 
   it("accepts a valid ranking question:show payload", () => {

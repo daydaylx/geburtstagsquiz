@@ -59,7 +59,6 @@ export function toQuestionShowPayload(
       ...baseShowFields,
       type: question.type,
       unit: question.unit,
-      context: question.context,
     };
   }
 

@@ -268,20 +268,20 @@
       "prompt": "Sortiere den kulturellen Verfall nach seinem Startdatum im deutschen Fernsehen (von alt nach jung).",
       "items": [
         {
-          "id": "A",
-          "label": "Big Brother (RTL II)"
-        },
-        {
-          "id": "B",
-          "label": "Deutschland sucht den Superstar (RTL)"
-        },
-        {
           "id": "C",
           "label": "Ich bin ein Star – Holt mich hier raus! (RTL)"
         },
         {
+          "id": "A",
+          "label": "Big Brother (RTL II)"
+        },
+        {
           "id": "D",
           "label": "Germany's Next Topmodel (ProSieben)"
+        },
+        {
+          "id": "B",
+          "label": "Deutschland sucht den Superstar (RTL)"
         }
       ],
       "correct_order": [

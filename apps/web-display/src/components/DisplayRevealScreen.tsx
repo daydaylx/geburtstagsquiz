@@ -53,7 +53,7 @@ export function DisplayRevealScreen({
             <span className="display-reveal-estimate-value">{s.revealedAnswer.value}</span>
             <span className="display-reveal-estimate-unit">{s.question.unit}</span>
           </div>
-          <p className="display-reveal-estimate-context">{s.question.context}</p>
+          {s.revealEstimateContext && <p className="display-reveal-estimate-context">{s.revealEstimateContext}</p>}
         </div>
       )}
 

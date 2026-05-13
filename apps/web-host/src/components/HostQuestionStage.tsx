@@ -51,9 +51,7 @@ export function HostQuestionStage({
         </div>
       )}
       {s.question.type === QuestionType.Estimate && (
-        <div className="host-estimate-display">
-          Schätzungen laufen... ({s.question.unit} · {s.question.context})
-        </div>
+        <div className="host-estimate-display">Schätzungen laufen... ({s.question.unit})</div>
       )}
       {s.question.type === QuestionType.OpenText && <div className="host-estimate-display">Texteingaben laufen...</div>}
       {s.question.type === QuestionType.Ranking && (

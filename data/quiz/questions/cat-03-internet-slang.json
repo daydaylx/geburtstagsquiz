@@ -813,19 +813,19 @@
       "items": [
         {
           "id": "A",
-          "label": "WhatsApp (2009)"
+          "label": "WhatsApp"
         },
         {
           "id": "B",
-          "label": "ICQ (1996)"
+          "label": "ICQ"
         },
         {
           "id": "C",
-          "label": "Telegram (2013)"
+          "label": "Telegram"
         },
         {
           "id": "D",
-          "label": "Signal (2014)"
+          "label": "Signal"
         }
       ],
       "correct_order": [
@@ -834,7 +834,7 @@
         "C",
         "D"
       ],
-      "explanation": "ICQ war der Urvater, WhatsApp kam erst über ein Jahrzehnt später. Telegram und Signal sind die modernen Nachzügler.",
+      "explanation": "ICQ startete 1996, WhatsApp 2009, Telegram 2013 und Signal 2014.",
       "difficulty": "medium",
       "points": 2,
       "category_id": "cat-03"
@@ -872,15 +872,31 @@
     },
     {
       "id": "q-03-02",
-      "type": "estimate",
+      "type": "multiple_choice",
       "prompt": "Wie viele Zeichen durfte eine einzige SMS maximal lang sein, bevor sie als zwei Nachrichten abgerechnet wurde?",
-      "answer": {
-        "canonical": "160 Zeichen",
-        "reference_value": 160,
-        "unit": "Zeichen",
-        "context": "Standard-SMS-Limit"
-      },
-      "scoring_rule": "closest_wins",
+      "options": [
+        {
+          "id": "q-03-02-opt-1",
+          "text": "140 Zeichen",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-02-opt-2",
+          "text": "160 Zeichen",
+          "is_correct": true
+        },
+        {
+          "id": "q-03-02-opt-3",
+          "text": "180 Zeichen",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-02-opt-4",
+          "text": "255 Zeichen",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-03-02-opt-2",
       "explanation": "160 Zeichen. Das ist auch der Grund, warum wir 'hdl gdln' und andere Abkürzungs-Verbrechen begangen haben. Jedes 'e' war bares Geld wert.",
       "difficulty": "easy",
       "points": 1
@@ -891,20 +907,20 @@
       "prompt": "Ordne diese digitalen Fossilien nach ihrem Erscheinungsjahr (ältestes zuerst).",
       "items": [
         {
-          "id": "item-icq",
-          "text": "ICQ (Messenger)"
-        },
-        {
-          "id": "item-myspace",
-          "text": "MySpace"
-        },
-        {
           "id": "item-facebook",
           "text": "Facebook (TheFacebook)"
         },
         {
           "id": "item-svz",
           "text": "SchülerVZ"
+        },
+        {
+          "id": "item-icq",
+          "text": "ICQ (Messenger)"
+        },
+        {
+          "id": "item-myspace",
+          "text": "MySpace"
         }
       ],
       "correct_order": [
@@ -976,15 +992,31 @@
     },
     {
       "id": "q-03-06",
-      "type": "estimate_duel",
+      "type": "multiple_choice",
       "prompt": "In den MySpace-Zeiten: Wie viele 'Top Friends' konntest du am Anfang maximal auf deiner Profilseite präsentieren?",
-      "answer": {
-        "canonical": "8 Freunde",
-        "reference_value": 8,
-        "unit": "Freunde",
-        "context": "Original Top 8"
-      },
-      "scoring_rule": "closest_wins",
+      "options": [
+        {
+          "id": "q-03-06-opt-1",
+          "text": "4 Freunde",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-06-opt-2",
+          "text": "6 Freunde",
+          "is_correct": false
+        },
+        {
+          "id": "q-03-06-opt-3",
+          "text": "8 Freunde",
+          "is_correct": true
+        },
+        {
+          "id": "q-03-06-opt-4",
+          "text": "10 Freunde",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-03-06-opt-3",
       "explanation": "Die legendären 'Top 8'. Nichts hat mehr Freundschaften zerstört als der Wechsel von Platz 3 auf Platz 9.",
       "difficulty": "hard",
       "points": 2

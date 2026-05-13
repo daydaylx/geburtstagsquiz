@@ -775,6 +775,7 @@ function evaluateQuestion(room: RoomRecord, question: Question): void {
     playerResults: roundResult.playerResults,
     gameState: GameState.Revealing,
     explanation: question.explanation,
+    ...(question.type === QuestionType.Estimate ? { estimateContext: question.context } : {}),
   });
 
   broadcastNextQuestionReadyProgress(room, question.id, GameState.Revealing);

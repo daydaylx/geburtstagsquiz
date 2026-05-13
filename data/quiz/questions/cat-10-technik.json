@@ -1483,19 +1483,19 @@
       "items": [
         {
           "id": "A",
-          "label": "Blu-ray (25 GB)"
+          "label": "Blu-ray"
         },
         {
           "id": "B",
-          "label": "Floppy Disk (1.44 MB)"
+          "label": "Floppy Disk"
         },
         {
           "id": "C",
-          "label": "DVD (4.7 GB)"
+          "label": "DVD"
         },
         {
           "id": "D",
-          "label": "CD (700 MB)"
+          "label": "CD"
         }
       ],
       "correct_order": [
@@ -1504,7 +1504,7 @@
         "C",
         "A"
       ],
-      "explanation": "Von der Diskette bis zur Blu-ray – ein Weg voller Kratzer, Lesefehler und 'Bitte Disk 2 einlegen'.",
+      "explanation": "Typische Reihenfolge: Floppy Disk (1,44 MB), CD (700 MB), DVD (4,7 GB), Blu-ray (25 GB).",
       "difficulty": "medium",
       "points": 2,
       "category_id": "cat-10"
@@ -1569,31 +1569,61 @@
       "id": "q-10-04",
       "type": "ranking",
       "prompt": "Dein digitales Erbe: Sortiere diese Speichermedien nach ihrer typischen Kapazität, beginnend mit dem kleinsten.",
-      "answer": {
-        "canonical_order": [
-          "3,5 Zoll Diskette (1,44 MB)",
-          "Zip-Disk (100 MB)",
-          "CD-ROM (700 MB)",
-          "DVD (4,7 GB)"
-        ],
-        "context": "Typische Groessenordnung: Diskette 1,44 MB, Zip-Disk 100 MB, CD-ROM rund 700 MB und DVD 4,7 GB."
-      },
-      "scoring_rule": "exact_order"
+      "items": [
+        {
+          "id": "q-10-04-item-cd",
+          "text": "CD-ROM"
+        },
+        {
+          "id": "q-10-04-item-floppy",
+          "text": "3,5 Zoll Diskette"
+        },
+        {
+          "id": "q-10-04-item-dvd",
+          "text": "DVD"
+        },
+        {
+          "id": "q-10-04-item-zip",
+          "text": "Zip-Disk"
+        }
+      ],
+      "correct_order": [
+        "q-10-04-item-floppy",
+        "q-10-04-item-zip",
+        "q-10-04-item-cd",
+        "q-10-04-item-dvd"
+      ],
+      "scoring_rule": "exact_order",
+      "explanation": "Typische Groessenordnung: Diskette 1,44 MB, Zip-Disk 100 MB, CD-ROM rund 700 MB und DVD 4,7 GB."
     },
     {
       "id": "q-10-05",
-      "type": "common_mistake",
+      "type": "multiple_choice",
       "prompt": "Was passiert technisch wirklich, wenn man einen USB-Stick unter Windows einfach abzieht – ohne 'Sicher entfernen'?",
-      "answer": {
-        "canonical": "Absolut gar nichts",
-        "aliases": [
-          "Nichts",
-          "Kein Datenverlust",
-          "Nix",
-          "Nichts passiert"
-        ]
-      },
-      "explanation": "Solange nicht aktiv geschrieben wird, passiert gar nichts. Wir haben alle umsonst jahrelang diesen Klick-Stress und die Todesangst vor Datenverlust gehabt."
+      "options": [
+        {
+          "id": "q-10-05-opt-1",
+          "text": "Meist nichts, solange kein Schreibvorgang oder Schreibcache offen ist",
+          "is_correct": true
+        },
+        {
+          "id": "q-10-05-opt-2",
+          "text": "Windows löscht den Stick sofort aus Sicherheitsgründen",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-05-opt-3",
+          "text": "Der Stick wird dadurch dauerhaft schreibgeschützt",
+          "is_correct": false
+        },
+        {
+          "id": "q-10-05-opt-4",
+          "text": "Jede Datei auf dem Stick wird automatisch beschädigt",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-10-05-opt-1",
+      "explanation": "Windows nutzt fuer viele USB-Sticks standardmaessig schnelles Entfernen. Kritisch wird es vor allem, wenn gerade geschrieben wird oder Schreibcache aktiv ist."
     },
     {
       "id": "q-10-06",

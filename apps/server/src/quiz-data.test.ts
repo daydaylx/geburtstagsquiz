@@ -62,6 +62,37 @@ function collectOptionIssues(question: Question, options: QuestionOption[], minC
   return issues;
 }
 
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function numericTextVariants(value: number): string[] {
+  const normalized = String(value);
+  return [...new Set([normalized, normalized.replace(".", ",")])];
+}
+
+function containsStandaloneNumber(text: string, value: number): boolean {
+  return numericTextVariants(value).some((variant) => {
+    const pattern = new RegExp(`(^|[^0-9])${escapeRegExp(variant)}($|[^0-9])`);
+    return pattern.test(text);
+  });
+}
+
+function hasVisibleRankingSortKey(question: Extract<Question, { type: QuestionType.Ranking }>): boolean {
+  const prompt = question.text.toLowerCase();
+  const labels = question.items.map((item) => item.label);
+
+  if (/(release|erscheinungsjahr|launch|startdatum|chronologisch)/.test(prompt)) {
+    return labels.some((label) => /\b(19|20)\d{2}\b/.test(label));
+  }
+
+  if (/kapazität/.test(prompt)) {
+    return labels.some((label) => /\b\d+(?:[,.]\d+)?\s?(?:kb|mb|gb|tb)\b/i.test(label));
+  }
+
+  return false;
+}
+
 describe("quiz source files", () => {
   it("keep raw question ids and metadata consistent", () => {
     const issues: string[] = [];
@@ -107,8 +138,8 @@ describe("quiz source files", () => {
       }
     }
 
-    expect(rawQuestionCount).toBe(386);
-    expect(seenIds.size).toBe(386);
+    expect(rawQuestionCount).toBe(380);
+    expect(seenIds.size).toBe(380);
     expect(issues).toEqual([]);
   });
 });
@@ -197,6 +228,12 @@ describe("getDefaultQuiz catalog invariants", () => {
           if (!question.context.trim()) {
             issues.push(`${question.id}: empty estimate context`);
           }
+          if (containsStandaloneNumber(question.text, question.correctValue)) {
+            issues.push(`${question.id}: estimate prompt leaks correct value`);
+          }
+          if (containsStandaloneNumber(question.context, question.correctValue)) {
+            issues.push(`${question.id}: estimate context leaks correct value`);
+          }
           break;
 
         case QuestionType.Ranking: {
@@ -210,6 +247,12 @@ describe("getDefaultQuiz catalog invariants", () => {
             question.correctOrder.some((itemId) => !itemIds.has(itemId))
           ) {
             issues.push(`${question.id}: invalid correctOrder`);
+          }
+          if (question.items.map((item) => item.id).join("|") === question.correctOrder.join("|")) {
+            issues.push(`${question.id}: ranking items are already in correct order`);
+          }
+          if (hasVisibleRankingSortKey(question)) {
+            issues.push(`${question.id}: ranking item label leaks sort key`);
           }
           break;
         }
@@ -228,7 +271,7 @@ describe("getDefaultQuiz catalog invariants", () => {
       }
     }
 
-    expect(quiz.questions).toHaveLength(386);
+    expect(quiz.questions).toHaveLength(380);
     expect(new Set(ids).size).toBe(ids.length);
     expect(issues).toEqual([]);
   });

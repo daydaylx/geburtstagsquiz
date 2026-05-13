@@ -54,6 +54,7 @@ export interface UseDisplaySessionReturn {
   answerProgress: AnswerProgressPayload | null;
   revealedAnswer: QuestionRevealPayload["correctAnswer"] | null;
   revealExplanation: string | null;
+  revealEstimateContext: string | null;
   roundResults: QuestionRevealPayload["playerResults"];
   scoreboard: ScoreUpdatePayload | null;
   scoreChanges: ScoreUpdatePayload["scoreChanges"];
@@ -110,6 +111,7 @@ export function useDisplaySession(deps: {
   const [answerProgress, setAnswerProgress] = useState<AnswerProgressPayload | null>(null);
   const [revealedAnswer, setRevealedAnswer] = useState<QuestionRevealPayload["correctAnswer"] | null>(null);
   const [revealExplanation, setRevealExplanation] = useState<string | null>(null);
+  const [revealEstimateContext, setRevealEstimateContext] = useState<string | null>(null);
   const [roundResults, setRoundResults] = useState<QuestionRevealPayload["playerResults"]>([]);
   const [scoreboard, setScoreboard] = useState<ScoreUpdatePayload | null>(null);
   const [scoreChanges, setScoreChanges] = useState<ScoreUpdatePayload["scoreChanges"]>([]);
@@ -163,6 +165,7 @@ export function useDisplaySession(deps: {
     setAnswerProgress(null);
     setRevealedAnswer(null);
     setRevealExplanation(null);
+    setRevealEstimateContext(null);
     setRoundResults([]);
     setScoreboard(null);
     setScoreChanges([]);
@@ -317,6 +320,7 @@ export function useDisplaySession(deps: {
         setAnswerProgress(null);
         setRevealedAnswer(null);
         setRevealExplanation(null);
+        setRevealEstimateContext(null);
         setRoundResults([]);
         setScoreboard(null);
         setScoreChanges([]);
@@ -358,6 +362,7 @@ export function useDisplaySession(deps: {
         setAnswerProgress(null);
         setRevealedAnswer(null);
         setRevealExplanation(null);
+        setRevealEstimateContext(null);
         setRoundResults([]);
         setScoreboard(null);
         setScoreChanges([]);
@@ -392,6 +397,7 @@ export function useDisplaySession(deps: {
         const payload = parsedEnvelope.data.payload;
         setRevealedAnswer(payload.correctAnswer);
         setRevealExplanation(payload.explanation ?? null);
+        setRevealEstimateContext(payload.estimateContext ?? null);
         setRoundResults(payload.playerResults);
         setNextQuestionReadyProgress(null);
         setIsFadingOut(true);
@@ -442,6 +448,7 @@ export function useDisplaySession(deps: {
         setAnswerProgress(null);
         setRevealedAnswer(null);
         setRevealExplanation(null);
+        setRevealEstimateContext(null);
         setRoundResults([]);
         setScoreboard(null);
         setScoreChanges([]);
@@ -544,6 +551,7 @@ export function useDisplaySession(deps: {
     answerProgress,
     revealedAnswer,
     revealExplanation,
+    revealEstimateContext,
     roundResults,
     scoreboard,
     scoreChanges,

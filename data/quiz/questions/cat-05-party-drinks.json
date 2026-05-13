@@ -4,7 +4,7 @@
   "name": "Saufen, Feiern & toxische Jugend-Drinks",
   "difficulty": "medium",
   "tags": [],
-  "question_count": 44,
+  "question_count": 43,
   "questions": [
     {
       "id": "q-05-01-dcbbe9ff6d",
@@ -583,38 +583,6 @@
       "points": 1
     },
     {
-      "id": "q-05-21-e6c973030f",
-      "prompt": "Was ist die Strafe bei 'Ich hab noch nie', wenn man es DOCH getan hat?",
-      "options": [
-        {
-          "id": "q-05-21-e6c973030f-opt-1",
-          "text": "Man muss trinken",
-          "is_correct": true
-        },
-        {
-          "id": "q-05-21-e6c973030f-opt-2",
-          "text": "Man muss den Raum verlassen",
-          "is_correct": false
-        },
-        {
-          "id": "q-05-21-e6c973030f-opt-3",
-          "text": "Man muss 5 Euro in die Kasse zahlen",
-          "is_correct": false
-        },
-        {
-          "id": "q-05-21-e6c973030f-opt-4",
-          "text": "Man muss ein peinliches Geheimnis bei Facebook posten",
-          "is_correct": false
-        }
-      ],
-      "correct_option_id": "q-05-21-e6c973030f-opt-1",
-      "explanation": "Trinken. Die beste Methode, um herauszufinden, wer von seinen Freunden der größte Wildfang (oder Lügner) ist. Fremdscham vorprogrammiert.",
-      "difficulty": "medium",
-      "category_id": "cat-05",
-      "type": "multiple_choice",
-      "points": 1
-    },
-    {
       "id": "q-05-22-da75306604",
       "prompt": "Hilft ein 'Konterbier' wirklich gegen den Kater?",
       "options": [
@@ -780,20 +748,20 @@
       "prompt": "Sortiere diese Kult-Getraenke nach ihrem Zuckergehalt pro 100 ml, von wenig zu viel.",
       "items": [
         {
-          "id": "q-05-03-item-1",
-          "text": "Pils (herb)"
-        },
-        {
-          "id": "q-05-03-item-2",
-          "text": "Weißwein-Schorle"
-        },
-        {
           "id": "q-05-03-item-3",
           "text": "Gin Tonic (Standard)"
         },
         {
+          "id": "q-05-03-item-1",
+          "text": "Pils (herb)"
+        },
+        {
           "id": "q-05-03-item-4",
           "text": "Bacardi Breezer"
+        },
+        {
+          "id": "q-05-03-item-2",
+          "text": "Weißwein-Schorle"
         }
       ],
       "correct_order": [
@@ -1000,15 +968,31 @@
     },
     {
       "id": "q-05-11",
-      "type": "sudden_death_estimate",
+      "type": "multiple_choice",
       "prompt": "Ab welchem Promillewert gilt man in Deutschland beim Fahrradfahren als 'absolut fahruntüchtig' (Straftat)?",
-      "answer": {
-        "reference_value": 1.6,
-        "unit": "Promille",
-        "canonical": "1,6 Promille",
-        "context": "StVZO Deutschland"
-      },
-      "scoring_rule": "closest_wins",
+      "options": [
+        {
+          "id": "q-05-11-opt-1",
+          "text": "0,5 Promille",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-11-opt-2",
+          "text": "1,1 Promille",
+          "is_correct": false
+        },
+        {
+          "id": "q-05-11-opt-3",
+          "text": "1,6 Promille",
+          "is_correct": true
+        },
+        {
+          "id": "q-05-11-opt-4",
+          "text": "2,0 Promille",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-05-11-opt-3",
       "explanation": "1,6 Promille. Wer darüber liegt, darf zur MPU – auch ohne Auto. Die 'Leiche' auf dem Hollandrad wird teuer.",
       "difficulty": "hard",
       "category_id": "cat-05",
@@ -1366,20 +1350,20 @@
       "prompt": "Sortiere diese Party-Phasen nach dem üblichen zeitlichen Ablauf einer legendären Nacht!",
       "items": [
         {
-          "id": "q-05-25-item-1",
-          "text": "Vorglühen (Kapitalismus-Widerstand)"
-        },
-        {
           "id": "q-05-25-item-2",
           "text": "Der 'Warum-bin-ich-hier' Moment im Club"
         },
         {
-          "id": "q-05-25-item-3",
-          "text": "Döner-Inhalation am Bahnhof"
-        },
-        {
           "id": "q-05-25-item-4",
           "text": "Hangxiety (WhatsApp-Check)"
+        },
+        {
+          "id": "q-05-25-item-1",
+          "text": "Vorglühen (Kapitalismus-Widerstand)"
+        },
+        {
+          "id": "q-05-25-item-3",
+          "text": "Döner-Inhalation am Bahnhof"
         }
       ],
       "correct_order": [

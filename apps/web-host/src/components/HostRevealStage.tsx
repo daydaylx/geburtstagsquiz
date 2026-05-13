@@ -46,7 +46,7 @@ export function HostRevealStage({
           <strong className="host-estimate-correct-value">
             {s.revealedAnswer.value} {s.question.unit}
           </strong>
-          <span className="host-estimate-context">({s.question.context})</span>
+          {s.revealEstimateContext && <span className="host-estimate-context">({s.revealEstimateContext})</span>}
         </div>
       )}
       {s.question.type === QuestionType.OpenText && s.revealedAnswer?.type === "text" && (

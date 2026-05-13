@@ -63,6 +63,7 @@ export interface UseHostSessionReturn {
   answerProgress: AnswerProgressPayload | null;
   revealedAnswer: QuestionRevealPayload["correctAnswer"] | null;
   revealExplanation: string | null;
+  revealEstimateContext: string | null;
   roundResults: QuestionRevealPayload["playerResults"];
   scoreboard: ScoreUpdatePayload | null;
   nextQuestionReadyProgress: NextQuestionReadyProgressPayload | null;
@@ -120,6 +121,7 @@ export function useHostSession(deps: {
   const [answerProgress, setAnswerProgress] = useState<AnswerProgressPayload | null>(null);
   const [revealedAnswer, setRevealedAnswer] = useState<QuestionRevealPayload["correctAnswer"] | null>(null);
   const [revealExplanation, setRevealExplanation] = useState<string | null>(null);
+  const [revealEstimateContext, setRevealEstimateContext] = useState<string | null>(null);
   const [roundResults, setRoundResults] = useState<QuestionRevealPayload["playerResults"]>([]);
   const [scoreboard, setScoreboard] = useState<ScoreUpdatePayload | null>(null);
   const [nextQuestionReadyProgress, setNextQuestionReadyProgress] = useState<NextQuestionReadyProgressPayload | null>(
@@ -160,6 +162,7 @@ export function useHostSession(deps: {
     setAnswerProgress(null);
     setRevealedAnswer(null);
     setRevealExplanation(null);
+    setRevealEstimateContext(null);
     setRoundResults([]);
     setScoreboard(null);
     setNextQuestionReadyProgress(null);
@@ -334,6 +337,7 @@ export function useHostSession(deps: {
         setScreen("question");
         setAnswerProgress(null);
         setRevealExplanation(null);
+        setRevealEstimateContext(null);
         setScoreboard(null);
         setNextQuestionReadyProgress(null);
         return;
@@ -349,6 +353,7 @@ export function useHostSession(deps: {
       case EVENTS.QUESTION_REVEAL:
         setRevealedAnswer(parsedEnvelope.data.payload.correctAnswer);
         setRevealExplanation(parsedEnvelope.data.payload.explanation ?? null);
+        setRevealEstimateContext(parsedEnvelope.data.payload.estimateContext ?? null);
         setRoundResults(parsedEnvelope.data.payload.playerResults);
         setNextQuestionReadyProgress(null);
         setConfirmFinishNow(false);
@@ -382,6 +387,7 @@ export function useHostSession(deps: {
         setAnswerProgress(null);
         setRevealedAnswer(null);
         setRevealExplanation(null);
+        setRevealEstimateContext(null);
         setRoundResults([]);
         setScoreboard(null);
         setNextQuestionReadyProgress(null);
@@ -569,6 +575,7 @@ export function useHostSession(deps: {
     answerProgress,
     revealedAnswer,
     revealExplanation,
+    revealEstimateContext,
     roundResults,
     scoreboard,
     nextQuestionReadyProgress,

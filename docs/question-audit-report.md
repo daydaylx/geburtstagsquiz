@@ -1,5 +1,7 @@
 # Fragenkatalog-Audit – Geburtstagsquiz
 
+> Historisch: Dieser Audit beschreibt einen alten 502-Fragen-Stand. Der aktuelle Review fuer den 380-Fragen-Katalog steht in `docs/question-content-review-2026-05-13.md`.
+
 > Erstellt: 2026-05-03 · Basis: v4 (220 Fragen) + v5 (282 Fragen) = 502 gesamt
 
 ---

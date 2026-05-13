@@ -1,6 +1,6 @@
 import type { ServerToClientEventName, ServerToClientEventPayloadMap } from "@quiz/shared-protocol";
 import { EVENTS, type QuestionShowPayload } from "@quiz/shared-protocol";
-import { GameState, type Question, RoomState } from "@quiz/shared-types";
+import { GameState, type Question, QuestionType, RoomState } from "@quiz/shared-types";
 import { buildFinalStats } from "./game-scoreboard.js";
 import { sendEvent, toLobbyUpdatePayload } from "./protocol.js";
 import {
@@ -290,6 +290,7 @@ export function syncSessionToRoomState(session: SessionRecord, room: RoomRecord)
           playerResults: roundResult.playerResults,
           gameState: GameState.Revealing,
           explanation: question.explanation,
+          ...(question.type === QuestionType.Estimate ? { estimateContext: question.context } : {}),
         });
         sendNextQuestionReadyProgress(socket, room, question.id);
       }
@@ -315,6 +316,7 @@ export function syncSessionToRoomState(session: SessionRecord, room: RoomRecord)
           playerResults: roundResult.playerResults,
           gameState: GameState.Revealing,
           explanation: question.explanation,
+          ...(question.type === QuestionType.Estimate ? { estimateContext: question.context } : {}),
         });
         sendEvent(socket, EVENTS.SCORE_UPDATE, {
           roomId: room.id,

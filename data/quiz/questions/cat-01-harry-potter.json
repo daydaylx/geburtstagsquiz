@@ -10,7 +10,7 @@
     "popkultur",
     "schwer"
   ],
-  "question_count": 33,
+  "question_count": 30,
   "questions": [
     {
       "id": "q-01-01-6a920e98bc",
@@ -685,37 +685,6 @@
       "points": 1
     },
     {
-      "id": "q-01-01",
-      "type": "standard",
-      "prompt": "Wie lautet das allererste Gryffindor-Passwort, das wir im ersten Film hören?",
-      "options": [
-        {
-          "id": "q-01-01-opt-1",
-          "text": "Caput Draconis",
-          "is_correct": true
-        },
-        {
-          "id": "q-01-01-opt-2",
-          "text": "Draco Dormiens",
-          "is_correct": false
-        },
-        {
-          "id": "q-01-01-opt-3",
-          "text": "Schweineschnauze",
-          "is_correct": false
-        },
-        {
-          "id": "q-01-01-opt-4",
-          "text": "Fortuna Major",
-          "is_correct": false
-        }
-      ],
-      "correct_option_id": "q-01-01-opt-1",
-      "explanation": "Es ist 'Caput Draconis' (Drachenkopf). Percy Weasley fuehrt die Erstklaessler an, als waere er der CEO von Gryffindor. Spaeter gab es Passwoerter wie 'Banane', was die Sicherheit in Hogwarts perfekt zusammenfasst.",
-      "difficulty": "hard",
-      "points": 1
-    },
-    {
       "id": "q-01-02",
       "type": "logic",
       "prompt": "Logik-Check: Wer ist am Ende des 7. Teils der wahre Gebieter des Elderstabs, nachdem Harry Draco in Malfoy Manor entwaffnet hat?",
@@ -783,20 +752,20 @@
       "prompt": "Ordne die Horkruxe nach der Reihenfolge ihrer Zerstörung in der Filmreihe (zuerst zerstört oben).",
       "items": [
         {
-          "id": "item-diary",
-          "text": "Tom Riddles Tagebuch"
-        },
-        {
           "id": "item-locket",
           "text": "Salazar Slytherins Medaillon"
         },
         {
-          "id": "item-cup",
-          "text": "Helga Hufflepuffs Trinkpokal"
-        },
-        {
           "id": "item-nagini",
           "text": "Nagini (die Schlange)"
+        },
+        {
+          "id": "item-diary",
+          "text": "Tom Riddles Tagebuch"
+        },
+        {
+          "id": "item-cup",
+          "text": "Helga Hufflepuffs Trinkpokal"
         }
       ],
       "correct_order": [
@@ -867,37 +836,6 @@
       "points": 2
     },
     {
-      "id": "q-01-13",
-      "type": "standard",
-      "prompt": "Welchen Tier-Kopfschmuck trägt Luna Lovegood im sechsten Film auf der Quidditch-Tribüne?",
-      "options": [
-        {
-          "id": "q-01-13-opt-1",
-          "text": "Einen brüllenden Löwen",
-          "is_correct": true
-        },
-        {
-          "id": "q-01-13-opt-2",
-          "text": "Einen Adler mit beweglichen Flügeln",
-          "is_correct": false
-        },
-        {
-          "id": "q-01-13-opt-3",
-          "text": "Einen Niffler, der nach Gold schnappt",
-          "is_correct": false
-        },
-        {
-          "id": "q-01-13-opt-4",
-          "text": "Einen schrumpfhörnigen Schnarcher",
-          "is_correct": false
-        }
-      ],
-      "correct_option_id": "q-01-13-opt-1",
-      "explanation": "Der riesige Löwenkopf. Luna ist die einzige, die Camp-Aesthetics in Hogwarts wirklich verstanden hat. Wir alle brauchen diesen Vibe an einem Montagmorgen.",
-      "difficulty": "medium",
-      "points": 1
-    },
-    {
       "id": "q-01-14",
       "type": "fast_guess",
       "prompt": "Kurze Reaktionszeit: Welcher der Weasley-Zwillinge stirbt in der Schlacht von Hogwarts?",
@@ -925,37 +863,6 @@
       ],
       "correct_option_id": "q-01-14-opt-1",
       "explanation": "Fred stirbt in der Schlacht von Hogwarts. George ueberlebt, hatte aber vorher bereits ein Ohr verloren.",
-      "difficulty": "medium",
-      "points": 1
-    },
-    {
-      "id": "q-01-18",
-      "type": "standard",
-      "prompt": "Welches 'Opfer' muss erbracht werden, um den Eingang zur Horkrux-Höhle in 'Der Halbblutprinz' zu öffnen?",
-      "options": [
-        {
-          "id": "q-01-18-opt-1",
-          "text": "Blut",
-          "is_correct": true
-        },
-        {
-          "id": "q-01-18-opt-2",
-          "text": "Eine schmerzhafte Erinnerung",
-          "is_correct": false
-        },
-        {
-          "id": "q-01-18-opt-3",
-          "text": "Ein geliebter Gegenstand",
-          "is_correct": false
-        },
-        {
-          "id": "q-01-18-opt-4",
-          "text": "Tränen der Reue",
-          "is_correct": false
-        }
-      ],
-      "correct_option_id": "q-01-18-opt-1",
-      "explanation": "Blut. Voldemort ist sehr altmodisch, was seine Alarmanlagen angeht. Dumbledore schneidet sich ohne Zögern – harte Schale, weicher Kern, eiserne Disziplin.",
       "difficulty": "medium",
       "points": 1
     },
