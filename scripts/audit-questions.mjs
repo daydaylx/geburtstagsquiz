@@ -12,7 +12,14 @@ const FILES = readdirSync(CATEGORIES_DIR)
   .sort()
   .map((f) => join(CATEGORIES_DIR, f));
 
-const SUPPORTED_TYPES = new Set(["multiple_choice", "estimate", "majority_guess", "ranking", "logic", "open_text"]);
+const SUPPORTED_TYPES = new Set([
+  "multiple_choice",
+  "estimate",
+  "majority_guess",
+  "ranking",
+  "logic",
+  "open_text",
+]);
 
 function loadFile(filename) {
   return JSON.parse(readFileSync(filename, "utf8"));
@@ -37,6 +44,7 @@ function auditFile(filename) {
   const noExplanation = [];
   const estimateErrors = [];
   const rankingErrors = [];
+  const leakFindings = [];
   const catDist = {};
 
   for (const q of questions) {
@@ -125,6 +133,116 @@ function auditFile(filename) {
         });
       }
     }
+
+    // ── Fairness / Leak-Checks ────────────────────────────────────────
+
+    if (type === "estimate") {
+      const refVal = q.answer?.reference_value;
+      const canonical = String(q.answer?.canonical ?? "");
+      const answerContext = String(q.answer?.context ?? "");
+
+      // P0: Referenzwert als Zahl im sichtbaren Prompt
+      if (typeof refVal === "number" && prompt.includes(String(refVal))) {
+        leakFindings.push({
+          severity: "P0",
+          id: q.id,
+          catId,
+          field: "prompt",
+          reason: `reference_value ${refVal} im sichtbaren Prompt`,
+        });
+      }
+      // P0: Canonical-Wert im sichtbaren Prompt
+      if (canonical && prompt.includes(canonical)) {
+        leakFindings.push({
+          severity: "P0",
+          id: q.id,
+          catId,
+          field: "prompt",
+          reason: `answer.canonical "${canonical}" im sichtbaren Prompt`,
+        });
+      }
+      // P1: answer.context enthält Referenzwert (Datenfeld-Check – wird serverseitig aktuell nicht gesendet)
+      if (typeof refVal === "number" && answerContext.includes(String(refVal))) {
+        leakFindings.push({
+          severity: "P1",
+          id: q.id,
+          catId,
+          field: "answer.context",
+          reason: `reference_value ${refVal} in answer.context – serverseitig nicht gesendet, aber Datenfeld beachten`,
+        });
+      }
+      // P1: answer.context enthält canonical
+      if (canonical && answerContext.includes(canonical)) {
+        leakFindings.push({
+          severity: "P1",
+          id: q.id,
+          catId,
+          field: "answer.context",
+          reason: `answer.canonical "${canonical}" in answer.context – serverseitig nicht gesendet, aber Datenfeld beachten`,
+        });
+      }
+    }
+
+    if (type === "ranking") {
+      const items = q.items ?? [];
+      // Erkennt Wert+Einheit im Label (z.B. "700 MB", "25 kg", "3,5 €")
+      const valueWithUnit =
+        /\b\d[\d.,]*\s*(MB|GB|KB|TB|kg|g\b|t\b|cm|mm\b|m\b|km|€|\$|BPM|bpm|Hz|GHz|MHz|W\b|PS\b|%|ml|l\b|min\b|h\b|cal|kcal|km\/h|m\/s)/i;
+      // Schlüsselwörter im Prompt, nach denen sortiert wird
+      const metricSort =
+        /Größe|Speicher|Gewicht|Preis|Dauer|BPM|Hz|Volumen|Länge|Breite|Höhe|Distanz|Entfernung|Auflage|Stückzahl|Kaloriengehalt|Kalorien|Leistung|Kapazität/i;
+      // Eigenständige Jahreszahl (19xx oder 20xx)
+      const standaloneYear = /(?<![A-Za-z0-9])(19|20)\d{2}(?![A-Za-z0-9])/;
+      const yearSort = /Jahr|Release|Erschein|älteste|neuste|chronolog|Datum|Veröffentlich/i;
+
+      for (const item of items) {
+        const label = typeof item === "string" ? item : (item.label ?? item.text ?? "");
+
+        // P0: Label mit Wert+Einheit wenn Prompt nach dieser Metrik sortiert
+        if (valueWithUnit.test(label) && metricSort.test(prompt)) {
+          leakFindings.push({
+            severity: "P0",
+            id: q.id,
+            catId,
+            field: `items[${item.id ?? label}].label`,
+            reason: `Item-Label "${label}" enthält Wert+Einheit, Prompt sortiert nach Metrik`,
+          });
+        }
+        // P1: Eigenständige Jahreszahl im Label wenn Prompt nach Jahr/Release sortiert
+        // (Ausnahme: Produktnamen wie "Nintendo 64" oder "Xbox 360" enthalten keine 4-stelligen Jahre)
+        if (standaloneYear.test(label) && yearSort.test(prompt)) {
+          leakFindings.push({
+            severity: "P1",
+            id: q.id,
+            catId,
+            field: `items[${item.id ?? label}].label`,
+            reason: `Item-Label "${label}" enthält Jahreszahl, Prompt sortiert nach Datum/Release`,
+          });
+        }
+      }
+    }
+
+    // MC/Logic P2: Korrekte Antwort deutlich länger als alle falschen
+    if (type === "multiple_choice" || type === "logic") {
+      const opts = q.options ?? [];
+      const correctOpt = opts.find((o) => o.id === q.correct_option_id);
+      if (correctOpt && opts.length >= 2) {
+        const correctLen = (correctOpt.text ?? "").length;
+        const otherLens = opts
+          .filter((o) => o.id !== q.correct_option_id)
+          .map((o) => (o.text ?? "").length);
+        const avgOtherLen = otherLens.reduce((a, b) => a + b, 0) / otherLens.length;
+        if (correctLen > avgOtherLen * 1.8 && correctLen > avgOtherLen + 20) {
+          leakFindings.push({
+            severity: "P2",
+            id: q.id,
+            catId,
+            field: `options[${q.correct_option_id}]`,
+            reason: `Richtige Antwort (${correctLen} Zeichen) deutlich länger als Ø der falschen (${Math.round(avgOtherLen)}) – könnte auffallen`,
+          });
+        }
+      }
+    }
   }
 
   return {
@@ -136,6 +254,7 @@ function auditFile(filename) {
     integrityErrors,
     estimateErrors,
     rankingErrors,
+    leakFindings,
     longPrompts,
     noExplanation,
     catDistribution: catDist,
@@ -166,6 +285,10 @@ function findDuplicates(filesResults) {
 const results = FILES.map(auditFile);
 const duplicates = findDuplicates(results);
 
+const allLeakFindings = results.flatMap((r) =>
+  r.leakFindings.map((f) => ({ ...f, file: r.filename })),
+);
+
 const summary = {
   files: results.map(({ filename, totalQuestions, byType, unsupportedCount, catDistribution }) => ({
     filename,
@@ -182,8 +305,44 @@ const summary = {
   totalLongPrompts: results.reduce((s, r) => s + r.longPrompts.length, 0),
   totalNoExplanation: results.reduce((s, r) => s + r.noExplanation.length, 0),
   totalDuplicates: duplicates.length,
+  totalLeakFindings: allLeakFindings.length,
+  leakFindingsByLevel: {
+    P0: allLeakFindings.filter((f) => f.severity === "P0").length,
+    P1: allLeakFindings.filter((f) => f.severity === "P1").length,
+    P2: allLeakFindings.filter((f) => f.severity === "P2").length,
+  },
   details: results,
   duplicates,
+  leakFindings: allLeakFindings,
 };
+
+// Menschenlesbare Fairness-Zusammenfassung auf stderr
+const p0 = allLeakFindings.filter((f) => f.severity === "P0");
+
+if (allLeakFindings.length === 0) {
+  process.stderr.write("✓ Keine Fairness-Leaks gefunden.\n");
+} else {
+  process.stderr.write(`\n=== FAIRNESS-AUDIT (${allLeakFindings.length} Befunde) ===\n\n`);
+  for (const sev of ["P0", "P1", "P2"]) {
+    const findings = allLeakFindings.filter((f) => f.severity === sev);
+    if (findings.length === 0) continue;
+    const label =
+      sev === "P0"
+        ? "Lösung direkt sichtbar"
+        : sev === "P1"
+          ? "Starker Lösungshinweis"
+          : "Mögliche Unfairness";
+    process.stderr.write(`${sev} – ${label} (${findings.length}):\n`);
+    for (const f of findings) {
+      process.stderr.write(`  [${f.id}] ${f.catId} · ${f.field}\n    ${f.reason}\n`);
+    }
+    process.stderr.write("\n");
+  }
+}
+
+if (p0.length > 0) {
+  process.stderr.write(`FEHLER: ${p0.length} P0-Leak(s) gefunden – Quiz wäre unfair!\n`);
+  process.exitCode = 1;
+}
 
 process.stdout.write(`${JSON.stringify(summary, null, 2)}\n`);
