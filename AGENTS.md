@@ -189,13 +189,13 @@ Keine Persistenz, keine Datenbank. Bei Serverneustart ist alles weg.
 
 ### Disconnect-Grace-Zeiten
 
-| Rolle   | Grace-Zeit | Konsequenz                         |
-| ------- | ---------- | ---------------------------------- |
-| Display | 45s        | Raum wird geschlossen              |
-| Host    | 5min       | Raum wird geschlossen              |
-| Player  | 30s        | Spieler wird aus dem Raum entfernt |
+| Rolle   | Grace-Zeit | Konsequenz                                                      |
+| ------- | ---------- | --------------------------------------------------------------- |
+| Display | 45s        | Display wird als getrennt markiert, Lobby-Update gesendet       |
+| Host    | 5min       | Raum wird geschlossen (`closeRoom`)                             |
+| Player  | 30s        | Spieler wird aus dem Raum entfernt (`removePlayerFromRoom`)     |
 
-Konfiguriert in `apps/server/src/config.ts`.
+Konfiguriert in `apps/server/src/config.ts`. Display schließt den Raum **nicht** — nur der Host-Disconnect schließt den Raum.
 
 ## Web-App-Struktur
 
@@ -227,6 +227,23 @@ src/
 - Lokal: Vite-Proxy leitet `/ws` an `ws://localhost:3001` weiter
 - Tunnel: `VITE_SERVER_SOCKET_URL` Environment-Variable
 - Auto-Reconnect mit exponentiellem Backoff (`getReconnectDelay`)
+
+### Env-Variablen
+
+| Variable | Verbraucher | Lokal | Tunnel | Beschreibung |
+|---|---|---|---|---|
+| `PORT` | Server | `3001` | `3001` | Server-Port |
+| `HOST` | Server | `0.0.0.0` | `0.0.0.0` | Server-Bind-Adresse |
+| `VITE_SERVER_SOCKET_URL` | shared-hooks | `ws://localhost:3001` | `wss://api.quiz.disaai.de` | WebSocket-URL. Ohne diese nutzt der Client den Vite-Proxy `/ws` |
+| `VITE_PUBLIC_HOST` | Host, Display | `localhost` | entfällt | Hostname fuer URL-Konstruktion. Fallback: `window.location.hostname` |
+| `VITE_PLAYER_PORT` | Host, Display | `5174` | entfällt | Expliziter Player-Port. Fallback: Loopback→`5174`, Subdomain→Rewrite |
+| `VITE_DISPLAY_URL` | Host | `http://localhost:5175` | `https://tv.quiz.disaai.de` | Display-URL fuer Popout-Link |
+| `VITE_PLAYER_JOIN_BASE_URL` | Host, Display | `http://localhost:5174` | `https://play.quiz.disaai.de` | Basis-URL fuer Player-Join/QR |
+| `VITE_HOST_URL` | quiz.sh (nicht im TS-Code) | `http://localhost:5173` | `https://host.quiz.disaai.de` | Nur fuer quiz.sh-Startmenue |
+| `VITE_HOST_PORT` | quiz.sh (nicht im TS-Code) | `5173` | entfällt | Nur fuer quiz.sh-Startmenue |
+| `ALLOWED_ORIGINS` | Server | localhost-Origins | localhost + Domain-Origins | CORS/WebSocket-Origin-Whitelist, kommagetrennt |
+
+Fallback-Chain fuer Player-URLs (Host + Display): `VITE_PLAYER_JOIN_BASE_URL` → `VITE_PUBLIC_HOST` + `VITE_PLAYER_PORT` → Loopback + Default-Port → Subdomain-Rewrite.
 
 ## Codekonventionen
 

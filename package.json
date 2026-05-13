@@ -13,7 +13,7 @@
     "lint": "biome check apps packages scripts",
     "lint:fix": "biome check --write apps packages scripts",
     "format": "biome format --write apps packages scripts",
-    "check": "biome check --write apps packages scripts"
+    "check": "biome check apps packages scripts"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.15",
