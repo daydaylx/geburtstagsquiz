@@ -4,7 +4,22 @@ import { useEffect, useEffectEvent, useRef, useState } from "react";
 
 import { getServerSocketUrl } from "./helpers.js";
 
-export type ConnectionState = "connecting" | "connected" | "reconnecting";
+/**
+ * Maximalzahl aufeinanderfolgender Reconnect-Versuche ohne erfolgreiche
+ * Verbindung. Nach diesem Schwellwert wird der Zustand "connectionerror"
+ * gesetzt; automatische Reconnect-Versuche laufen weiter.
+ */
+const MAX_RECONNECT_ATTEMPTS = 6;
+
+/**
+ * Verfügbare WebSocket-Verbindungszustände.
+ * - connecting:       Erste Verbindung wird aufgebaut (TCP-Handshake offen)
+ * - connected:        Verbindung aktiv, CONNECTION_ACK vom Server empfangen
+ * - reconnecting:     Verbindung verloren, automatischer Reconnect läuft
+ * - connectionerror:  Mehrere Reconnects fehlgeschlagen, Reconnect läuft weiter
+ * - disconnected:     Verbindung bewusst geschlossen (durch Client)
+ */
+export type ConnectionState = "connecting" | "connected" | "reconnecting" | "connectionerror" | "disconnected";
 
 export function useWebSocket() {
   const [connectionState, setConnectionState] = useState<ConnectionState>("connecting");
@@ -14,6 +29,9 @@ export function useWebSocket() {
   const reconnectAttemptRef = useRef(0);
   const shouldReconnectRef = useRef(true);
   const messageHandlerRef = useRef<((raw: string) => void) | null>(null);
+
+  const getRecoverableConnectionState = () =>
+    reconnectAttemptRef.current >= MAX_RECONNECT_ATTEMPTS ? "connectionerror" : "reconnecting";
 
   const clearReconnectTimer = useEffectEvent(() => {
     if (reconnectTimerRef.current !== null) {
@@ -37,6 +55,7 @@ export function useWebSocket() {
   const scheduleReconnect = useEffectEvent(() => {
     if (!shouldReconnectRef.current) return;
     clearReconnectTimer();
+    setConnectionState(getRecoverableConnectionState());
     const delay = getReconnectDelay(reconnectAttemptRef.current);
     reconnectTimerRef.current = window.setTimeout(() => {
       reconnectAttemptRef.current += 1;
@@ -55,7 +74,7 @@ export function useWebSocket() {
     });
     socket.addEventListener("error", () => {
       if (socketRef.current === socket) {
-        setConnectionState("reconnecting");
+        setConnectionState(getRecoverableConnectionState());
       }
     });
     socket.addEventListener("message", (e) => {
@@ -64,7 +83,7 @@ export function useWebSocket() {
     });
     socket.addEventListener("close", () => {
       if (socketRef.current === socket) {
-        setConnectionState("reconnecting");
+        if (!shouldReconnectRef.current) return;
         scheduleReconnect();
       }
     });
@@ -93,6 +112,7 @@ export function useWebSocket() {
     clearReconnectTimer();
     const ws = socketRef.current;
     socketRef.current = null;
+    setConnectionState("disconnected");
     ws?.close();
   });
 

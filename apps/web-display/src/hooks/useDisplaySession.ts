@@ -145,6 +145,7 @@ export function useDisplaySession(deps: {
   });
 
   const resetToSetup = useEffectEvent(() => {
+    // Geschlossene oder ungueltige Display-Sessions muessen neu vom Host gekoppelt werden.
     if (preCountdownTimerRef.current !== null) {
       clearInterval(preCountdownTimerRef.current);
       preCountdownTimerRef.current = null;
@@ -171,6 +172,7 @@ export function useDisplaySession(deps: {
     setScoreChanges([]);
     setNextQuestionReadyProgress(null);
     setFinalResult(null);
+    setVotes({});
     setDisplayShowLevel("high");
     displaySessionRef.current = null;
     cleanUrlParams();
@@ -193,6 +195,7 @@ export function useDisplaySession(deps: {
     if (!parsedEnvelope.success) return;
 
     switch (parsedEnvelope.data.event) {
+      // --- Connection & Resume ---
       case EVENTS.CONNECTION_ACK: {
         notifyConnected();
         const stored = displaySessionRef.current;
@@ -254,6 +257,7 @@ export function useDisplaySession(deps: {
         return;
       }
 
+      // --- Lobby ---
       case EVENTS.DISPLAY_ROOM_CREATED: {
         const payload = parsedEnvelope.data.payload;
         const session: DisplayStoredSession = {
@@ -313,6 +317,7 @@ export function useDisplaySession(deps: {
         return;
       }
 
+      // --- Game Flow: Countdown → Question → Answer → Reveal → Scoreboard ---
       case EVENTS.GAME_STARTED: {
         const payload = parsedEnvelope.data.payload;
         setDisplayShowLevel(payload.resolvedGamePlan.displayShowLevel);
@@ -426,6 +431,7 @@ export function useDisplaySession(deps: {
         return;
       }
 
+      // --- Game End & Restart ---
       case EVENTS.GAME_FINISHED: {
         const finishedPayload = parsedEnvelope.data.payload;
         setFinalResult(finishedPayload);
@@ -439,6 +445,7 @@ export function useDisplaySession(deps: {
 
       case EVENTS.ROOM_RESET: {
         const resetPayload = parsedEnvelope.data.payload;
+        // Host-Neustart behaelt die Display-Kopplung und setzt nur Spiel-/Votingdaten zurueck.
         setRoomInfo((prev) =>
           prev ? { ...prev, roomId: resetPayload.roomId, joinCode: resetPayload.joinCode } : prev,
         );
@@ -454,13 +461,16 @@ export function useDisplaySession(deps: {
         setScoreChanges([]);
         setNextQuestionReadyProgress(null);
         setFinalResult(null);
+        setVotes({});
         setDisplayShowLevel("high");
         setScreen("lobby");
         setNotice(null);
         return;
       }
 
+      // --- Cleanup & Errors ---
       case EVENTS.ROOM_CLOSED: {
+        // Raum geschlossen: lokale Kopplung verwerfen und wieder auf Host warten.
         updateStoredSession(null);
         resetToSetup();
         return;

@@ -83,6 +83,7 @@ export interface UsePlayerSessionReturn {
   handleSubmitText: (value: string) => void;
   handleReadyForNextQuestion: () => void;
   handlePlayAgain: () => void;
+  handleCancelRestart: () => void;
   waitingForRestart: boolean;
   setJoinCode: (v: string) => void;
   setPlayerName: (v: string) => void;
@@ -149,6 +150,7 @@ export function usePlayerSession(deps: {
   });
 
   const resetToJoin = useEffectEvent(() => {
+    // Geschlossene oder ungueltige Sessions verlieren ihre Resume-Daten und starten frisch im Join-Screen.
     if (submitTimeoutRef.current) {
       clearTimeout(submitTimeoutRef.current);
       submitTimeoutRef.current = null;
@@ -173,6 +175,7 @@ export function usePlayerSession(deps: {
     setCategories([]);
     setVotes({});
     setMyVote(null);
+    setWaitingForRestart(false);
   });
 
   const handleCategoryVote = useEffectEvent((categoryId: string) => {
@@ -252,6 +255,7 @@ export function usePlayerSession(deps: {
     if (!parsedEnvelope.success) return;
 
     switch (parsedEnvelope.data.event) {
+      // --- Connection & Resume ---
       case EVENTS.CONNECTION_ACK:
         notifyConnected();
         intentionalReconnectRef.current = false;
@@ -279,6 +283,7 @@ export function usePlayerSession(deps: {
         setPlayerName(joinAttempt.playerName);
         setIsJoining(false);
         isJoiningRef.current = false;
+        setWaitingForRestart(false);
         setScreen("lobby");
         return;
       }
@@ -304,17 +309,23 @@ export function usePlayerSession(deps: {
         setJoinCode(resumedPayload.joinCode);
         setPlayerName(resumedPlayerName);
         if (resumedPayload.roomState === "waiting") {
+          setWaitingForRestart(false);
           setScreen("lobby");
         } else {
           const gs = resumedPayload.gameState;
-          if (gs === GameState.Revealing) setScreen("reveal");
-          else if (gs === GameState.Scoreboard) setScreen("scoreboard");
-          else if (gs === GameState.Completed) setScreen("finished");
-          else setScreen("question");
+          if (gs === GameState.Completed) {
+            setScreen("finished");
+          } else {
+            setWaitingForRestart(false);
+            if (gs === GameState.Revealing) setScreen("reveal");
+            else if (gs === GameState.Scoreboard) setScreen("scoreboard");
+            else setScreen("question");
+          }
         }
         return;
       }
 
+      // --- Lobby ---
       case EVENTS.LOBBY_UPDATE: {
         const lobbyPayload = parsedEnvelope.data.payload;
         setLobby(lobbyPayload);
@@ -326,6 +337,7 @@ export function usePlayerSession(deps: {
         setVotes((parsedEnvelope.data.payload as VoteUpdatePayload).votes);
         return;
 
+      // --- Game Flow: Question → Answer → Reveal → Scoreboard ---
       case EVENTS.QUESTION_COUNTDOWN:
         return;
 
@@ -350,6 +362,7 @@ export function usePlayerSession(deps: {
         setNextQuestionReadyProgress(null);
         setLocallyReadyQuestionId(null);
         setScreen("question");
+        setWaitingForRestart(false);
         resumedAnswerRef.current = null;
         return;
       }
@@ -423,13 +436,16 @@ export function usePlayerSession(deps: {
         setNextQuestionReadyProgress(parsedEnvelope.data.payload);
         return;
 
+      // --- Game End & Restart ---
       case EVENTS.GAME_FINISHED:
         setFinalResult(parsedEnvelope.data.payload);
+        setWaitingForRestart(false);
         setScreen("finished");
         return;
 
       case EVENTS.ROOM_RESET: {
         const resetPayload = parsedEnvelope.data.payload;
+        // Ein Host-Neustart erhaelt die Session, setzt aber alle lokalen Runden- und Votingdaten zurueck.
         updateStoredSession({
           roomId: resetPayload.roomId,
           sessionId: playerSessionRef.current?.sessionId ?? "",
@@ -461,11 +477,12 @@ export function usePlayerSession(deps: {
         return;
       }
 
+      // --- Cleanup & Errors ---
       case EVENTS.ROOM_CLOSED:
+        // Raum geschlossen: lokale Resume-Daten sind wertlos und der Player muss neu beitreten.
         updateStoredSession(null);
         resetToJoin();
         setNotice({ kind: "info", text: "Raum geschlossen. Bitte neu beitreten." });
-        setWaitingForRestart(false);
         return;
 
       case EVENTS.ERROR_PROTOCOL: {
@@ -513,6 +530,7 @@ export function usePlayerSession(deps: {
     setJoinCode(njc);
     setPlayerName(npn);
     setNotice(null);
+    setWaitingForRestart(false);
 
     if (njc.length !== 6 || npn.length === 0) {
       setIsJoining(false);
@@ -537,7 +555,15 @@ export function usePlayerSession(deps: {
   });
 
   const handlePlayAgain = useEffectEvent(() => {
+    setNotice(null);
     setWaitingForRestart(true);
+  });
+
+  const handleCancelRestart = useEffectEvent(() => {
+    setNotice(null);
+    setWaitingForRestart(false);
+    updateStoredSession(null);
+    resetToJoin();
   });
 
   const playerSession = playerSessionRef.current;
@@ -613,6 +639,7 @@ export function usePlayerSession(deps: {
     handleSubmitText,
     handleReadyForNextQuestion,
     handlePlayAgain,
+    handleCancelRestart,
     waitingForRestart,
     setJoinCode,
     setPlayerName,

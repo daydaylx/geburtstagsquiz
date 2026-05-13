@@ -12,16 +12,25 @@ function getConnectionLabel(connectionState: ConnectionState): string {
       return "Verbinde...";
     case "reconnecting":
       return "Neuverbindung...";
+    case "connectionerror":
+      return "Server nicht erreichbar";
     case "connected":
       return "Online";
-    default:
-      return "Offline";
+    case "disconnected":
+      return "Getrennt";
   }
 }
 
 export function App() {
   const { connectionState, sendEvent, onMessage, notifyConnected } = useWebSocket();
   const session = usePlayerSession({ sendEvent, onMessage, notifyConnected });
+  const showReconnectOverlay =
+    (connectionState === "connecting" || connectionState === "reconnecting" || connectionState === "connectionerror") &&
+    session.screen !== "join";
+  const reconnectText =
+    connectionState === "connectionerror"
+      ? "Server nicht erreichbar. Neuverbindung läuft..."
+      : "Verbindung wird hergestellt...";
 
   return (
     <main className="player-shell" data-answer-status={session.answerStatus} data-screen={session.screen}>
@@ -46,11 +55,11 @@ export function App() {
         </div>
       )}
 
-      {connectionState !== "connected" && session.screen !== "join" && (
+      {showReconnectOverlay && (
         <div className="player-reconnect-overlay">
           <div className="player-reconnect-card">
             <div className="player-reconnect-spinner" />
-            <span className="player-reconnect-text">Verbindung wird hergestellt…</span>
+            <span className="player-reconnect-text">{reconnectText}</span>
           </div>
         </div>
       )}

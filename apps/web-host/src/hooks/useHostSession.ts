@@ -152,6 +152,7 @@ export function useHostSession(deps: {
   });
 
   const resetLobbyState = useEffectEvent(() => {
+    // Geschlossene oder ungueltige Host-Sessions koennen nicht resumed werden.
     setRoomInfo(null);
     setLobby(null);
     setQrCodeDataUrl(null);
@@ -172,8 +173,11 @@ export function useHostSession(deps: {
     setCatalog(null);
     setGamePlanDraft(null);
     setSelectedPlanMode("normal_evening");
+    setVotes({});
     setCountdownSeconds(0);
     setShowAnswerTextOnPlayerDevices(false);
+    setConfirmFinishNow(false);
+    setConfirmRemovePlayerId(null);
     setDisplayConnected(false);
     setDisplayConnectToken(null);
   });
@@ -205,6 +209,7 @@ export function useHostSession(deps: {
     if (!parsedEnvelope.success) return;
 
     switch (parsedEnvelope.data.event) {
+      // --- Connection & Resume ---
       case EVENTS.CONNECTION_ACK:
         notifyConnected();
         intentionalReconnectRef.current = false;
@@ -279,6 +284,7 @@ export function useHostSession(deps: {
         }
         return;
 
+      // --- Lobby ---
       case EVENTS.VOTE_UPDATE:
         setVotes((parsedEnvelope.data.payload as VoteUpdatePayload).votes);
         return;
@@ -305,6 +311,7 @@ export function useHostSession(deps: {
         return;
       }
 
+      // --- Game Flow: Countdown → Question → Answer → Reveal → Scoreboard ---
       case EVENTS.GAME_STARTED:
         setGamePlanDraft(parsedEnvelope.data.payload.resolvedGamePlan);
         setSelectedPlanMode(
@@ -369,6 +376,7 @@ export function useHostSession(deps: {
         setScreen("scoreboard");
         return;
 
+      // --- Game End & Restart ---
       case EVENTS.GAME_FINISHED:
         setFinalResult(parsedEnvelope.data.payload);
         setConfirmFinishNow(false);
@@ -378,6 +386,7 @@ export function useHostSession(deps: {
 
       case EVENTS.ROOM_RESET: {
         const resetPayload = parsedEnvelope.data.payload;
+        // Host-Neustart behaelt den Raum, entfernt aber alle laufenden Runden- und Votingdaten.
         setRoomInfo({
           roomId: resetPayload.roomId,
           joinCode: resetPayload.joinCode,
@@ -397,6 +406,7 @@ export function useHostSession(deps: {
         setCatalog(null);
         setGamePlanDraft(null);
         setSelectedPlanMode("normal_evening");
+        setVotes({});
         setScreen("lobby");
         setNotice(null);
         return;
@@ -407,6 +417,7 @@ export function useHostSession(deps: {
         return;
 
       case EVENTS.ROOM_CLOSED:
+        // Raum geschlossen: lokale Host-Session verwerfen und zur Startansicht zurueck.
         resetLobbyState();
         updateStoredSession(null);
         return;
@@ -417,6 +428,7 @@ export function useHostSession(deps: {
           parsedEnvelope.data.payload.code === PROTOCOL_ERROR_CODES.SESSION_NOT_FOUND ||
           parsedEnvelope.data.payload.code === PROTOCOL_ERROR_CODES.ROOM_NOT_FOUND
         ) {
+          // Eine nicht mehr gueltige Session darf nicht weiter automatisch resumed werden.
           updateStoredSession(null);
           resetLobbyState();
           if (pendingHostConnectRef.current) {

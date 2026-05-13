@@ -724,6 +724,12 @@ button {
   box-shadow: 0 0 10px var(--host-amber);
 }
 
+.host-status[data-state="connectionerror"]::before,
+.host-status[data-state="disconnected"]::before {
+  background: var(--host-red);
+  box-shadow: 0 0 8px var(--host-red);
+}
+
 .host-panel,
 .host-card,
 .host-controls {

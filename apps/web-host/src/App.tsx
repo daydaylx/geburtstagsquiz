@@ -15,10 +15,12 @@ function getConnectionLabel(connectionState: ConnectionState): string {
       return "Verbinde...";
     case "reconnecting":
       return "Neuverbindung...";
+    case "connectionerror":
+      return "Server nicht erreichbar";
     case "connected":
       return "Online";
-    default:
-      return "Offline";
+    case "disconnected":
+      return "Getrennt";
   }
 }
 

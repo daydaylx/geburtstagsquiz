@@ -1,11 +1,10 @@
 import { type ConnectionState, useWebSocket } from "@quiz/shared-hooks";
-import { QuestionType } from "@quiz/shared-types";
 import { DisplayFinishedScreen } from "./components/DisplayFinishedScreen.js";
 import { DisplayLobbyScreen } from "./components/DisplayLobbyScreen.js";
+import { DisplayQuestionScreen } from "./components/DisplayQuestionScreen.js";
 import { DisplayRevealScreen } from "./components/DisplayRevealScreen.js";
 import { DisplayScoreboardScreen } from "./components/DisplayScoreboardScreen.js";
 import { useDisplaySession } from "./hooks/useDisplaySession.js";
-import { getAnswerDisplayLabel, getQuestionTypeLabel } from "./lib/labels.js";
 
 function getConnectionLabel(state: ConnectionState): string {
   switch (state) {
@@ -13,8 +12,39 @@ function getConnectionLabel(state: ConnectionState): string {
       return "Verbinde...";
     case "reconnecting":
       return "Neuverbindung...";
+    case "connectionerror":
+      return "Server nicht erreichbar";
     case "connected":
       return "Online";
+    case "disconnected":
+      return "Getrennt";
+  }
+}
+
+function getConnectionOverlayCopy(state: ConnectionState): { title: string; detail: string } | null {
+  switch (state) {
+    case "connecting":
+      return {
+        title: "Verbindung wird hergestellt",
+        detail: "Das Display wartet auf den Quiz-Server.",
+      };
+    case "reconnecting":
+      return {
+        title: "Verbindung unterbrochen",
+        detail: "Das Display verbindet sich automatisch wieder. Bitte Server oder Netzwerk nicht neu laden, wenn der Host noch läuft.",
+      };
+    case "connectionerror":
+      return {
+        title: "Server nicht erreichbar",
+        detail: "Bitte im Host prüfen, ob quiz.sh oder der Server noch läuft. Das Display versucht weiter, sich zu verbinden.",
+      };
+    case "disconnected":
+      return {
+        title: "Display getrennt",
+        detail: "Die Verbindung wurde beendet. Bitte das Display-Fenster über den Host erneut öffnen.",
+      };
+    case "connected":
+      return null;
   }
 }
 
@@ -45,6 +75,9 @@ export function App() {
     visibleReadyProgress && visibleReadyProgress.totalEligiblePlayers > 0
       ? Math.round((visibleReadyProgress.readyCount / visibleReadyProgress.totalEligiblePlayers) * 100)
       : 0;
+  const connectionOverlay = getConnectionOverlayCopy(connectionState);
+  const showConnectionOverlay =
+    !!connectionOverlay && (connectionState !== "connecting" || s.screen !== "setup" || !!s.roomInfo);
 
   return (
     <div className="display-shell" data-screen={s.screen}>
@@ -120,89 +153,14 @@ export function App() {
         {s.screen === "lobby" && <DisplayLobbyScreen session={s} />}
 
         {s.screen === "question" && s.question && (
-          <div className="display-question" key={s.question.questionId} data-fading={s.isFadingOut || undefined}>
-            <div className="display-question-meta">
-              Frage {s.question.questionIndex + 1} / {s.question.totalQuestionCount}
-              <span className="display-question-type">
-                {" · "}
-                {getQuestionTypeLabel(s.question.type)}
-              </span>
-            </div>
-            <h2 className="display-question-text">{s.question.text}</h2>
-
-            {"options" in s.question && (
-              <ul
-                className={`display-options${s.question.options.some((o) => o.label.length > 40) ? " display-options--long" : ""}`}
-              >
-                {s.question.options.map((opt, index) => (
-                  <li key={opt.id} className="display-option" data-option-index={index}>
-                    <span className="display-option-label">{getAnswerDisplayLabel(index)}</span>
-                    <span className="display-option-text">{opt.label}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
-
-            {"items" in s.question && (
-              <ul
-                className={`display-options${s.question.items.some((item) => item.label.length > 40) ? " display-options--long" : ""}`}
-              >
-                {s.question.items.map((item, idx) => (
-                  <li key={item.id} className="display-option">
-                    <span className="display-option-label">{idx + 1}.</span>
-                    <span className="display-option-text">{item.label}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
-
-            {s.question.type === QuestionType.Estimate && (
-              <p className="display-estimate-context">Schätzung in {s.question.unit}</p>
-            )}
-
-            {s.question.type === QuestionType.OpenText && <p className="display-estimate-context">Freitextantwort</p>}
-
-            <div className="display-footer">
-              <div className="display-timer-wrap">
-                <svg className="display-timer-svg" viewBox="0 0 100 100" aria-hidden="true">
-                  <circle cx="50" cy="50" r={RING_R} className="display-timer-track" />
-                  <circle
-                    cx="50"
-                    cy="50"
-                    r={RING_R}
-                    className="display-timer-fill"
-                    data-urgent={isTimerUrgent ? "true" : undefined}
-                    data-warning={isTimerWarning ? "true" : undefined}
-                    style={{ strokeDasharray: RING_C, strokeDashoffset: ringOffset }}
-                  />
-                </svg>
-                <span
-                  className="display-timer-label"
-                  data-urgent={isTimerUrgent ? "true" : undefined}
-                  data-warning={isTimerWarning ? "true" : undefined}
-                >
-                  {s.remainingMs > 0 ? timerSeconds : "—"}
-                </span>
-              </div>
-              {s.answerProgress && (
-                <div className="display-answer-progress">
-                  <span>
-                    {s.answerProgress.answeredCount} / {s.answerProgress.totalEligiblePlayers} geantwortet
-                  </span>
-                  {s.answerProgress.totalEligiblePlayers > 0 && (
-                    <div className="display-progress-bar">
-                      <div
-                        className="display-progress-fill"
-                        style={{
-                          width: `${(s.answerProgress.answeredCount / s.answerProgress.totalEligiblePlayers) * 100}%`,
-                        }}
-                      />
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-          </div>
+          <DisplayQuestionScreen
+            isTimerUrgent={isTimerUrgent}
+            isTimerWarning={isTimerWarning}
+            ringCircumference={RING_C}
+            ringOffset={ringOffset}
+            session={s}
+            timerSeconds={timerSeconds}
+          />
         )}
 
         {s.screen === "reveal" && s.question && (
@@ -228,6 +186,16 @@ export function App() {
 
         {s.screen === "finished" && <DisplayFinishedScreen session={s} />}
       </div>
+
+      {showConnectionOverlay && connectionOverlay && (
+        <div className="display-connection-overlay" data-state={connectionState} role="status">
+          <div className="display-connection-panel">
+            <span className="display-connection-kicker">{getConnectionLabel(connectionState)}</span>
+            <h2>{connectionOverlay.title}</h2>
+            <p>{connectionOverlay.detail}</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
