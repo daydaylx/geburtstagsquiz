@@ -1,9 +1,10 @@
+import type { EstimateQuestion, SubmittedAnswer } from "@quiz/shared-types";
 import { QuestionType } from "@quiz/shared-types";
 import { describe, expect, it } from "vitest";
 import { evaluateEstimate } from "./estimate.js";
 
 describe("evaluateEstimate", () => {
-  const question = {
+  const question: EstimateQuestion = {
     id: "q-est-test",
     type: QuestionType.Estimate,
     text: "Test question",
@@ -12,14 +13,14 @@ describe("evaluateEstimate", () => {
     context: "test context",
     durationMs: 10000,
     points: 10,
-  } as const;
+  };
 
   it("should award points to the closest answer", () => {
-    const answers = [
+    const answers: SubmittedAnswer[] = [
       { playerId: "p1", questionId: "q-est-test", answer: { type: "number", value: 90 }, submittedAtMs: 100 },
       { playerId: "p2", questionId: "q-est-test", answer: { type: "number", value: 105 }, submittedAtMs: 200 },
       { playerId: "p3", questionId: "q-est-test", answer: { type: "number", value: 120 }, submittedAtMs: 300 },
-    ] as any[];
+    ];
 
     const result = evaluateEstimate(question, answers);
 
@@ -30,10 +31,10 @@ describe("evaluateEstimate", () => {
   });
 
   it("should award points to multiple players if they have the same distance", () => {
-    const answers = [
+    const answers: SubmittedAnswer[] = [
       { playerId: "p1", questionId: "q-est-test", answer: { type: "number", value: 95 }, submittedAtMs: 100 },
       { playerId: "p2", questionId: "q-est-test", answer: { type: "number", value: 105 }, submittedAtMs: 200 },
-    ] as any[];
+    ];
 
     const result = evaluateEstimate(question, answers);
 
@@ -42,10 +43,10 @@ describe("evaluateEstimate", () => {
   });
 
   it("should handle non-numeric answers gracefully", () => {
-    const answers = [
+    const answers: SubmittedAnswer[] = [
       { playerId: "p1", questionId: "q-est-test", answer: { type: "option", value: "A" }, submittedAtMs: 100 },
       { playerId: "p2", questionId: "q-est-test", answer: { type: "number", value: 100 }, submittedAtMs: 200 },
-    ] as any[];
+    ];
 
     const result = evaluateEstimate(question, answers);
 

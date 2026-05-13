@@ -12,14 +12,7 @@ const FILES = readdirSync(CATEGORIES_DIR)
   .sort()
   .map((f) => join(CATEGORIES_DIR, f));
 
-const SUPPORTED_TYPES = new Set([
-  "multiple_choice",
-  "estimate",
-  "majority_guess",
-  "ranking",
-  "logic",
-  "open_text",
-]);
+const SUPPORTED_TYPES = new Set(["multiple_choice", "estimate", "majority_guess", "ranking", "logic", "open_text"]);
 
 function loadFile(filename) {
   return JSON.parse(readFileSync(filename, "utf8"));
@@ -228,9 +221,7 @@ function auditFile(filename) {
       const correctOpt = opts.find((o) => o.id === q.correct_option_id);
       if (correctOpt && opts.length >= 2) {
         const correctLen = (correctOpt.text ?? "").length;
-        const otherLens = opts
-          .filter((o) => o.id !== q.correct_option_id)
-          .map((o) => (o.text ?? "").length);
+        const otherLens = opts.filter((o) => o.id !== q.correct_option_id).map((o) => (o.text ?? "").length);
         const avgOtherLen = otherLens.reduce((a, b) => a + b, 0) / otherLens.length;
         if (correctLen > avgOtherLen * 1.8 && correctLen > avgOtherLen + 20) {
           leakFindings.push({
@@ -285,9 +276,7 @@ function findDuplicates(filesResults) {
 const results = FILES.map(auditFile);
 const duplicates = findDuplicates(results);
 
-const allLeakFindings = results.flatMap((r) =>
-  r.leakFindings.map((f) => ({ ...f, file: r.filename })),
-);
+const allLeakFindings = results.flatMap((r) => r.leakFindings.map((f) => ({ ...f, file: r.filename })));
 
 const summary = {
   files: results.map(({ filename, totalQuestions, byType, unsupportedCount, catDistribution }) => ({
@@ -327,11 +316,7 @@ if (allLeakFindings.length === 0) {
     const findings = allLeakFindings.filter((f) => f.severity === sev);
     if (findings.length === 0) continue;
     const label =
-      sev === "P0"
-        ? "Lösung direkt sichtbar"
-        : sev === "P1"
-          ? "Starker Lösungshinweis"
-          : "Mögliche Unfairness";
+      sev === "P0" ? "Lösung direkt sichtbar" : sev === "P1" ? "Starker Lösungshinweis" : "Mögliche Unfairness";
     process.stderr.write(`${sev} – ${label} (${findings.length}):\n`);
     for (const f of findings) {
       process.stderr.write(`  [${f.id}] ${f.catId} · ${f.field}\n    ${f.reason}\n`);

@@ -15,44 +15,52 @@ export function DisplayScoreboardScreen({
 }: DisplayScoreboardScreenProps) {
   if (!s.scoreboard) return null;
 
-  const highestScore = s.scoreboard.scoreboard[0]?.score ?? 0;
-  const maxScore = Math.max(highestScore, s.question?.totalQuestionCount ?? 10, 10);
+  const visibleEntries = s.scoreboard.scoreboard.slice(0, 10);
+  const leader = visibleEntries[0];
 
   return (
     <div className="display-scoreboard" data-fading={s.isFadingOut || undefined}>
-      <h2>Zwischenstand</h2>
-      <ol className="display-scoreboard-list">
-        {s.scoreboard.scoreboard.slice(0, 8).map((entry, i) => {
+      <div className="display-scoreboard-header">
+        <div>
+          <p className="display-scoreboard-kicker">Zwischenstand</p>
+          <h2>Leaderboard</h2>
+        </div>
+        {leader && (
+          <div className="display-scoreboard-leader">
+            <span>Aktuell vorne</span>
+            <strong>{leader.name}</strong>
+            <em>{leader.score} Pkt</em>
+          </div>
+        )}
+      </div>
+
+      <ol className="display-scoreboard-list" data-count={visibleEntries.length}>
+        {visibleEntries.map((entry, i) => {
           const change = s.scoreChanges.find((c) => c.playerId === entry.playerId);
           const rankDelta = change ? change.previousRank - change.rank : 0;
-          const progressPercent = Math.min(100, Math.max(0, (entry.score / maxScore) * 100));
           return (
             <li
               key={entry.playerId}
               className="display-scoreboard-entry"
               data-rank={i + 1}
+              data-tier={i < 3 ? "top" : "field"}
               data-changed={change && change.delta > 0 ? "true" : undefined}
             >
-              <span className="display-rank">{i + 1}.</span>
+              <span className="display-rank">
+                <strong>{i + 1}</strong>
+                <span>Platz</span>
+              </span>
+              <span className="display-name">{entry.name}</span>
               {rankDelta !== 0 && (
                 <span className="display-rank-change" data-direction={rankDelta > 0 ? "up" : "down"}>
-                  {rankDelta > 0 ? `▲${rankDelta}` : `▼${Math.abs(rankDelta)}`}
+                  {rankDelta > 0 ? `▲ ${rankDelta}` : `▼ ${Math.abs(rankDelta)}`}
                 </span>
               )}
-              <span className="display-name">{entry.name}</span>
-              <div
-                className="display-progress-track"
-                style={{ "--progress": `${progressPercent}%` } as React.CSSProperties}
-              >
-                <span className="display-progress-label">Start</span>
-                <div className="display-progress-bar">
-                  <div className="display-progress-fill" />
-                  <div className="display-progress-marker" />
-                </div>
-                <span className="display-progress-label">Ziel</span>
-              </div>
               {change && change.delta > 0 && <span className="display-score-delta">+{change.delta}</span>}
-              <span className="display-score">{entry.score}</span>
+              <span className="display-score">
+                {entry.score}
+                <small>Pkt</small>
+              </span>
             </li>
           );
         })}

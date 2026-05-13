@@ -62,7 +62,7 @@ describe("evaluateRanking", () => {
       {
         playerId: "p1",
         questionId: "q1",
-        answer: { type: "option", value: "A" } as any,
+        answer: { type: "option", value: "A" },
         submittedAtMs: 1000,
         requestId: "req-1",
       },

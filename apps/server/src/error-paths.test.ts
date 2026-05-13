@@ -1,4 +1,4 @@
-import { EVENTS, PROTOCOL_ERROR_CODES } from "@quiz/shared-protocol";
+import { EVENTS, PROTOCOL_ERROR_CODES, type ServerToClientEventPayloadMap } from "@quiz/shared-protocol";
 import type { Question } from "@quiz/shared-types";
 import { GameState, PlayerState, QuestionType } from "@quiz/shared-types";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -11,27 +11,46 @@ import { handleDisplayCreateRoom } from "./room.js";
 import type { RoomRecord, SessionRecord, TrackedWebSocket } from "./server-types.js";
 import { roomIdByHostToken, roomIdByJoinCode, roomsById, sessionsById } from "./state.js";
 
+type SentMessage = {
+  [EventName in keyof ServerToClientEventPayloadMap]: {
+    event: EventName;
+    payload: ServerToClientEventPayloadMap[EventName];
+  };
+}[keyof ServerToClientEventPayloadMap];
+
+type MockTrackedWebSocket = TrackedWebSocket & { _sent: SentMessage[] };
+
 function makeMockSocket(): TrackedWebSocket {
-  const sent: any[] = [];
+  const sent: SentMessage[] = [];
   return {
     connectionId: `conn-${Math.random().toString(36).slice(2)}`,
     isAlive: true,
     sessionId: null,
     readyState: WebSocket.OPEN,
-    send: (data: string) => sent.push(JSON.parse(data)),
+    send: (data: string) => sent.push(JSON.parse(data) as SentMessage),
     close: vi.fn(),
     ping: vi.fn(),
     _sent: sent,
   } as unknown as TrackedWebSocket;
 }
 
-function getSentEvents(socket: TrackedWebSocket): string[] {
-  return (socket as any)._sent.map((msg: any) => msg.event);
+function getSentMessages(socket: TrackedWebSocket): SentMessage[] {
+  return (socket as MockTrackedWebSocket)._sent;
 }
 
-function getSentPayload(socket: TrackedWebSocket, event: string): any {
-  const matches = (socket as any)._sent.filter((msg: any) => msg.event === event);
-  return matches.length > 0 ? matches[matches.length - 1].payload : undefined;
+function getSentEvents(socket: TrackedWebSocket): string[] {
+  return getSentMessages(socket).map((msg) => msg.event);
+}
+
+function getSentPayload<E extends keyof ServerToClientEventPayloadMap>(
+  socket: TrackedWebSocket,
+  event: E,
+): ServerToClientEventPayloadMap[E] | undefined {
+  const matches = getSentMessages(socket).filter(
+    (msg): msg is Extract<SentMessage, { event: E }> => msg.event === event,
+  );
+  const latest = matches.at(-1);
+  return latest?.payload as ServerToClientEventPayloadMap[E] | undefined;
 }
 
 function makeTestGamePlan() {
@@ -78,7 +97,7 @@ describe("Error paths – join", () => {
     expect(events).toContain(EVENTS.ERROR_PROTOCOL);
 
     const errorPayload = getSentPayload(playerSocket, EVENTS.ERROR_PROTOCOL);
-    expect(errorPayload.code).toBe(PROTOCOL_ERROR_CODES.ROOM_NOT_FOUND);
+    expect(errorPayload?.code).toBe(PROTOCOL_ERROR_CODES.ROOM_NOT_FOUND);
   });
 
   it("rejects host connect with invalid host token", () => {
@@ -89,7 +108,7 @@ describe("Error paths – join", () => {
     expect(events).toContain(EVENTS.ERROR_PROTOCOL);
 
     const errorPayload = getSentPayload(badSocket, EVENTS.ERROR_PROTOCOL);
-    expect(errorPayload.code).toBe(PROTOCOL_ERROR_CODES.NOT_AUTHORIZED);
+    expect(errorPayload?.code).toBe(PROTOCOL_ERROR_CODES.NOT_AUTHORIZED);
   });
 
   it("rejects host connect with already-used host token", () => {
@@ -101,7 +120,7 @@ describe("Error paths – join", () => {
     expect(events).toContain(EVENTS.ERROR_PROTOCOL);
 
     const errorPayload = getSentPayload(secondHostSocket, EVENTS.ERROR_PROTOCOL);
-    expect(errorPayload.code).toBe(PROTOCOL_ERROR_CODES.NOT_AUTHORIZED);
+    expect(errorPayload?.code).toBe(PROTOCOL_ERROR_CODES.NOT_AUTHORIZED);
   });
 });
 
@@ -133,7 +152,7 @@ describe("Error paths – connection resume", () => {
     expect(events).toContain(EVENTS.ERROR_PROTOCOL);
 
     const errorPayload = getSentPayload(socket, EVENTS.ERROR_PROTOCOL);
-    expect(errorPayload.code).toBe(PROTOCOL_ERROR_CODES.SESSION_NOT_FOUND);
+    expect(errorPayload?.code).toBe(PROTOCOL_ERROR_CODES.SESSION_NOT_FOUND);
   });
 
   it("rejects resume with unknown roomId", () => {
@@ -149,7 +168,7 @@ describe("Error paths – connection resume", () => {
     expect(events).toContain(EVENTS.ERROR_PROTOCOL);
 
     const errorPayload = getSentPayload(socket, EVENTS.ERROR_PROTOCOL);
-    expect(errorPayload.code).toBe(PROTOCOL_ERROR_CODES.ROOM_NOT_FOUND);
+    expect(errorPayload?.code).toBe(PROTOCOL_ERROR_CODES.ROOM_NOT_FOUND);
   });
 });
 
@@ -212,7 +231,7 @@ describe("Error paths – answer submission", () => {
 
     expect(getSentEvents(playerSocket)).toContain(EVENTS.ANSWER_ACCEPTED);
 
-    (playerSocket as any)._sent.length = 0;
+    getSentMessages(playerSocket).length = 0;
 
     handleAnswerSubmit(playerSocket, {
       roomId: room.id,
@@ -238,7 +257,7 @@ describe("Error paths – answer submission", () => {
 
     const errorPayload = getSentPayload(playerSocket, EVENTS.ERROR_PROTOCOL);
     expect(errorPayload).toBeDefined();
-    expect(errorPayload.code).toBe(PROTOCOL_ERROR_CODES.INVALID_STATE);
+    expect(errorPayload?.code).toBe(PROTOCOL_ERROR_CODES.INVALID_STATE);
     expect(getSentEvents(playerSocket)).not.toContain(EVENTS.ANSWER_ACCEPTED);
   });
 });
@@ -303,9 +322,9 @@ describe("Error paths – player reconnect during question", () => {
       | { type: "number"; value: number }
       | { type: "text"; value: string } =
       "options" in question
-        ? { type: "option", value: (question as any).options[0].id }
+        ? { type: "option", value: question.options[0]?.id ?? "A" }
         : "correctValue" in question
-          ? { type: "number", value: (question as any).correctValue }
+          ? { type: "number", value: question.correctValue }
           : { type: "text", value: "test" };
 
     handleAnswerSubmit(playerSocket, {
@@ -324,6 +343,6 @@ describe("Error paths – player reconnect during question", () => {
 
     const resumePayload = getSentPayload(newSocket, EVENTS.CONNECTION_RESUMED);
     expect(resumePayload).toBeDefined();
-    expect(resumePayload.playerState).toBe(PlayerState.Answered);
+    expect(resumePayload?.playerState).toBe(PlayerState.Answered);
   });
 });

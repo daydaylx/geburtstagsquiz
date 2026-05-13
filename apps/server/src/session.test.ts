@@ -1,6 +1,6 @@
+import { RoomState } from "@quiz/shared-types";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { WebSocket } from "ws";
-import { RoomState } from "@quiz/shared-types";
 import { HOST_DISCONNECT_GRACE_MS } from "./config.js";
 import { handleConnectionResume, handleHostConnect } from "./lobby.js";
 import { handleDisplayCreateRoom } from "./room.js";

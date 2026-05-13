@@ -31,12 +31,14 @@ function getConnectionOverlayCopy(state: ConnectionState): { title: string; deta
     case "reconnecting":
       return {
         title: "Verbindung unterbrochen",
-        detail: "Das Display verbindet sich automatisch wieder. Bitte Server oder Netzwerk nicht neu laden, wenn der Host noch läuft.",
+        detail:
+          "Das Display verbindet sich automatisch wieder. Bitte Server oder Netzwerk nicht neu laden, wenn der Host noch läuft.",
       };
     case "connectionerror":
       return {
         title: "Server nicht erreichbar",
-        detail: "Bitte im Host prüfen, ob quiz.sh oder der Server noch läuft. Das Display versucht weiter, sich zu verbinden.",
+        detail:
+          "Bitte im Host prüfen, ob quiz.sh oder der Server noch läuft. Das Display versucht weiter, sich zu verbinden.",
       };
     case "disconnected":
       return {

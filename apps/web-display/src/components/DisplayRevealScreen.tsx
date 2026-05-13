@@ -3,6 +3,10 @@ import { QuestionType } from "@quiz/shared-types";
 import type { UseDisplaySessionReturn } from "../hooks/useDisplaySession.js";
 import { getAnswerDisplayLabel } from "../lib/labels.js";
 
+type DisplayQuestion = NonNullable<UseDisplaySessionReturn["question"]>;
+type DisplayQuestionWithOptions = Extract<DisplayQuestion, { options: { id: string; label: string }[] }>;
+type DisplayQuestionWithItems = Extract<DisplayQuestion, { items: { id: string; label: string }[] }>;
+
 interface DisplayRevealScreenProps {
   session: UseDisplaySessionReturn;
   correctCount: number;
@@ -27,58 +31,40 @@ export function DisplayRevealScreen({
   }
 
   return (
-    <div className="display-reveal" data-fading={s.isFadingOut || undefined}>
-      <h3 className="display-reveal-question">{s.question.text}</h3>
+    <div className="display-reveal" data-fading={s.isFadingOut || undefined} data-question-type={s.question.type}>
+      <section className="display-reveal-answer-stage" aria-label="Richtige Antwort">
+        <div className="display-reveal-header">Richtige Antwort</div>
+        <DisplayRevealAnswer question={s.question} session={s} />
+      </section>
 
-      {"options" in s.question && <DisplayRevealOptions session={s} question={s.question} />}
+      <section className="display-reveal-stats" aria-label="Rundenergebnis">
+        <span className="display-reveal-stat display-reveal-stat--correct">
+          <strong>{correctCount}</strong>
+          <span>richtig</span>
+        </span>
+        <span className="display-reveal-stat display-reveal-stat--wrong">
+          <strong>{wrongCount}</strong>
+          <span>falsch</span>
+        </span>
+        <span className="display-reveal-stat display-reveal-stat--none">
+          <strong>{noneCount}</strong>
+          <span>keine Antwort</span>
+        </span>
+      </section>
 
-      {"items" in s.question && s.revealedAnswer?.type === "ranking" && (
-        <ol className="display-reveal-ranking">
-          {s.revealedAnswer.value.map((itemId, pos) => {
-            const item =
-              s.question && "items" in s.question ? s.question.items.find((entry) => entry.id === itemId) : undefined;
-            return (
-              <li className="display-reveal-ranking-item" key={itemId}>
-                <span className="display-reveal-rank-pos">{pos + 1}.</span>
-                <span>{item?.label ?? itemId}</span>
-              </li>
-            );
-          })}
-        </ol>
-      )}
+      <div className="display-reveal-detail-grid">
+        <div className="display-reveal-question">
+          <div className="display-explanation-label">Frage</div>
+          <p>{s.question.text}</p>
+        </div>
 
-      {s.question.type === QuestionType.Estimate && s.revealedAnswer?.type === "number" && (
-        <div className="display-reveal-estimate">
-          <div className="display-reveal-estimate-main">
-            <span className="display-reveal-estimate-value">{s.revealedAnswer.value}</span>
-            <span className="display-reveal-estimate-unit">{s.question.unit}</span>
+        {s.revealExplanation && (
+          <div className="display-explanation">
+            <div className="display-explanation-label">Erklärung</div>
+            <p>{s.revealExplanation}</p>
           </div>
-          {s.revealEstimateContext && <p className="display-reveal-estimate-context">{s.revealEstimateContext}</p>}
-        </div>
-      )}
-
-      {s.question.type === QuestionType.OpenText && (
-        <div className="display-reveal-text-answer">
-          {s.revealedAnswer?.type === "text"
-            ? s.revealedAnswer.value
-            : s.revealedAnswer?.type === "options"
-              ? s.revealedAnswer.value[0]
-              : ""}
-        </div>
-      )}
-
-      <div className="display-reveal-stats">
-        <span className="display-reveal-stat display-reveal-stat--correct">✓ {correctCount} richtig</span>
-        <span className="display-reveal-stat display-reveal-stat--wrong">✗ {wrongCount} falsch</span>
-        <span className="display-reveal-stat">— {noneCount} keine</span>
+        )}
       </div>
-
-      {s.revealExplanation && (
-        <div className="display-explanation">
-          <div className="display-explanation-label">Erklärung</div>
-          <p>{s.revealExplanation}</p>
-        </div>
-      )}
       {visibleReadyProgress && (
         <div className="display-ready-block" data-all-ready={readyProgressAllReady ? "true" : undefined}>
           <div className="display-ready-label">
@@ -95,24 +81,65 @@ export function DisplayRevealScreen({
   );
 }
 
+function DisplayRevealAnswer({
+  session: s,
+  question,
+}: {
+  session: UseDisplaySessionReturn;
+  question: DisplayQuestion;
+}) {
+  if ("options" in question) {
+    return <DisplayRevealOptions question={question} session={s} />;
+  }
+
+  if ("items" in question && s.revealedAnswer?.type === "ranking") {
+    return <DisplayRevealRanking question={question} value={s.revealedAnswer.value} />;
+  }
+
+  if (question.type === QuestionType.Estimate && s.revealedAnswer?.type === "number") {
+    return (
+      <div className="display-reveal-estimate">
+        <div className="display-reveal-estimate-main">
+          <span className="display-reveal-estimate-value">{formatRevealNumber(s.revealedAnswer.value)}</span>
+          <span className="display-reveal-estimate-unit">{question.unit}</span>
+        </div>
+        {s.revealEstimateContext && <p className="display-reveal-estimate-context">{s.revealEstimateContext}</p>}
+      </div>
+    );
+  }
+
+  if (question.type === QuestionType.OpenText) {
+    return (
+      <div className="display-reveal-text-answer">
+        {s.revealedAnswer?.type === "text"
+          ? s.revealedAnswer.value
+          : s.revealedAnswer?.type === "options"
+            ? s.revealedAnswer.value[0]
+            : ""}
+      </div>
+    );
+  }
+
+  return null;
+}
+
 function DisplayRevealOptions({
   session: s,
   question,
 }: {
   session: UseDisplaySessionReturn;
-  question: Extract<NonNullable<UseDisplaySessionReturn["question"]>, { options: unknown[] }>;
+  question: DisplayQuestionWithOptions;
 }) {
   const revealedAnswer = s.revealedAnswer;
 
   return (
-    <>
-      <div className="display-reveal-header">Richtige Antwort</div>
+    <div className="display-reveal-correct-list">
       {revealedAnswer?.type === "option" &&
         (() => {
           const correctOpt = question.options.find((option) => option.id === revealedAnswer.value);
           const correctIndex = correctOpt ? question.options.findIndex((option) => option.id === correctOpt.id) : -1;
           return correctOpt ? (
-            <div className="display-reveal-correct-card">
+            <div className="display-reveal-correct-card" data-option-index={correctIndex}>
               <span className="display-reveal-correct-label">{getAnswerDisplayLabel(correctIndex)}</span>
               <span className="display-reveal-correct-text">{correctOpt.label}</span>
             </div>
@@ -123,12 +150,34 @@ function DisplayRevealOptions({
           const opt = question.options.find((option) => option.id === id);
           const optIndex = opt ? question.options.findIndex((option) => option.id === opt.id) : -1;
           return opt ? (
-            <div className="display-reveal-correct-card" key={id}>
+            <div className="display-reveal-correct-card" data-option-index={optIndex} key={id}>
               <span className="display-reveal-correct-label">{getAnswerDisplayLabel(optIndex)}</span>
               <span className="display-reveal-correct-text">{opt.label}</span>
             </div>
           ) : null;
         })}
-    </>
+    </div>
   );
+}
+
+function DisplayRevealRanking({ question, value }: { question: DisplayQuestionWithItems; value: string[] }) {
+  return (
+    <ol className="display-reveal-ranking">
+      {value.map((itemId, pos) => {
+        const item = question.items.find((entry) => entry.id === itemId);
+        return (
+          <li className="display-reveal-ranking-item" key={itemId}>
+            <span className="display-reveal-rank-pos">{pos + 1}</span>
+            <span>{item?.label ?? itemId}</span>
+          </li>
+        );
+      })}
+    </ol>
+  );
+}
+
+function formatRevealNumber(value: number): string {
+  return new Intl.NumberFormat("de-DE", {
+    maximumFractionDigits: Number.isInteger(value) ? 0 : 2,
+  }).format(value);
 }
