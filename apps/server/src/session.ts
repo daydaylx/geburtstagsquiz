@@ -63,11 +63,6 @@ export function handleSocketClose(socket: TrackedWebSocket): void {
 
     room.hostConnected = false;
 
-    if (room.state === RoomState.Completed) {
-      closeRoom(room, "Host left completed room");
-      return;
-    }
-
     if (room.hostDisconnectTimer) {
       clearTimeout(room.hostDisconnectTimer);
     }

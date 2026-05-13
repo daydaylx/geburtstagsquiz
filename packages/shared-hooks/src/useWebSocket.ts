@@ -89,11 +89,11 @@ export function useWebSocket() {
   }, []);
 
   const closeSocket = useEffectEvent(() => {
-    const prev = shouldReconnectRef.current;
     shouldReconnectRef.current = false;
     clearReconnectTimer();
-    socketRef.current?.close();
-    shouldReconnectRef.current = prev;
+    const ws = socketRef.current;
+    socketRef.current = null;
+    ws?.close();
   });
 
   return { connectionState, sendEvent, onMessage, notifyConnected, closeSocket };

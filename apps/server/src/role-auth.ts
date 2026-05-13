@@ -2,6 +2,15 @@ import type { EventName } from "@quiz/shared-protocol";
 import { EVENTS } from "@quiz/shared-protocol";
 import type { ClientRole } from "@quiz/shared-types";
 
+const UNAUTHENTICATED_ALLOWED_EVENTS: ReadonlySet<EventName> = new Set<EventName>([
+  EVENTS.HOST_CREATE_ROOM,
+  EVENTS.HOST_CONNECT,
+  EVENTS.DISPLAY_CREATE_ROOM,
+  EVENTS.DISPLAY_CONNECT_ROOM,
+  EVENTS.ROOM_JOIN,
+  EVENTS.CONNECTION_RESUME,
+]);
+
 export function isEventAllowedForRole(event: EventName, role: ClientRole | null): boolean {
   const hostOnlyEvents: EventName[] = [
     EVENTS.GAME_START,
@@ -26,5 +35,5 @@ export function isEventAllowedForRole(event: EventName, role: ClientRole | null)
   if (role === "player") {
     return ![...hostOnlyEvents, ...displayOnlyEvents, EVENTS.HOST_CONNECT, EVENTS.HOST_CREATE_ROOM].includes(event);
   }
-  return true;
+  return UNAUTHENTICATED_ALLOWED_EVENTS.has(event);
 }

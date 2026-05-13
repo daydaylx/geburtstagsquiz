@@ -126,6 +126,44 @@ describe("isEventAllowedForRole – authorization guards", () => {
   it("unbound socket (null role) can send host:connect", () => {
     expect(isEventAllowedForRole(EVENTS.HOST_CONNECT, null)).toBe(true);
   });
+
+  it("unbound socket (null role) can send host:create-room", () => {
+    expect(isEventAllowedForRole(EVENTS.HOST_CREATE_ROOM, null)).toBe(true);
+  });
+
+  it("unbound socket (null role) can send display:connect-room", () => {
+    expect(isEventAllowedForRole(EVENTS.DISPLAY_CONNECT_ROOM, null)).toBe(true);
+  });
+
+  it("unbound socket (null role) can send room:join", () => {
+    expect(isEventAllowedForRole(EVENTS.ROOM_JOIN, null)).toBe(true);
+  });
+
+  it("unbound socket (null role) can send connection:resume", () => {
+    expect(isEventAllowedForRole(EVENTS.CONNECTION_RESUME, null)).toBe(true);
+  });
+
+  it.each([
+    EVENTS.GAME_START,
+    EVENTS.GAME_NEXT_QUESTION,
+    EVENTS.GAME_RESTART,
+    EVENTS.GAME_FINISH_NOW,
+    EVENTS.GAME_SHOW_SCOREBOARD,
+    EVENTS.QUESTION_FORCE_CLOSE,
+    EVENTS.PLAYER_REMOVE,
+    EVENTS.ROOM_CLOSE,
+    EVENTS.ROOM_SETTINGS_UPDATE,
+  ])("unbound socket (null role) CANNOT send host-only event %s", (event) => {
+    expect(isEventAllowedForRole(event, null)).toBe(false);
+  });
+
+  it.each([
+    EVENTS.ANSWER_SUBMIT,
+    EVENTS.NEXT_QUESTION_READY,
+    EVENTS.CATEGORY_VOTE,
+  ])("unbound socket (null role) CANNOT send player-only event %s", (event) => {
+    expect(isEventAllowedForRole(event, null)).toBe(false);
+  });
 });
 
 describe("handleDisplayCreateRoom", () => {
