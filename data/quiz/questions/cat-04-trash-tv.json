@@ -96,7 +96,7 @@
         }
       ],
       "correct_option_id": "q-04-07-2a1f4b82bc-opt-1",
-      "explanation": "Das Zitat stammt aus einer 'Frauentausch'-Folge mit Andreas und wurde spaeter zum Internet-Meme.",
+      "explanation": "'Halt Stop!' brüllte Andreas in einer Frauentausch-Folge, als ihm die Situation entglitt — was sie augenscheinlich die ganze Zeit tat. RTL 2 hat aus Familienelend zuverlässig Internetkultur gemacht.",
       "difficulty": "medium_hard",
       "category_id": "cat-04",
       "type": "multiple_choice",
@@ -160,7 +160,7 @@
         }
       ],
       "correct_option_id": "q-04-13-85247b5309-opt-1",
-      "explanation": "Die Autos sahen zwar von außen geil aus (Bildschirme in den Reifen!), aber unter der Haube waren sie oft lebensgefährlich. Klassische Verschlimmbesserung.",
+      "explanation": "Außen: LED-Streifen, Bildschirme in den Reifen, PlayStation-Konsole im Kofferraum. Innen: Bremsen, die man lieber nicht testet. Das Auto sah aus wie ein Musikvideo und fuhr wie eine Warnung.",
       "difficulty": "medium_hard",
       "category_id": "cat-04",
       "type": "multiple_choice",
@@ -232,7 +232,7 @@
     },
     {
       "id": "q-04-24-97d8e651ce",
-      "prompt": "Welcher Sender war in Deutschland besonders fuer naechtliche Call-in-Gewinnspiele wie 'quiz fire' beruechtigt?",
+      "prompt": "Welcher Sender war in Deutschland besonders für nächtliche Call-in-Gewinnspiele wie 'quiz fire' berüchtigt?",
       "options": [
         {
           "id": "q-04-24-97d8e651ce-opt-1",
@@ -256,7 +256,7 @@
         }
       ],
       "correct_option_id": "q-04-24-97d8e651ce-opt-1",
-      "explanation": "9Live wurde zum Synonym fuer Call-in-Quizsendungen mit teuren Anrufen und sehr viel Nachtprogramm.",
+      "explanation": "9Live: Sender, der nachts Rätsel stellte, die niemand lösen konnte, während die Telefon-Hotline auf Hochtouren lief. Das Geschäftsmodell war nicht die Unterhaltung, sondern die Warteschleife.",
       "difficulty": "medium_hard",
       "category_id": "cat-04",
       "type": "multiple_choice",
@@ -290,7 +290,7 @@
         "C",
         "D"
       ],
-      "explanation": "Start-Reihenfolge: Big Brother (2000), DSDS (2002), Dschungelcamp (2004), GNTM (2006). Kultureller Verfall in Echtzeit.",
+      "explanation": "Big Brother (2000), DSDS (2002), Dschungelcamp (2004), GNTM (2006). Sechs Jahre, vier Formate — und danach erklärte die Wissenschaft den kollektiven Geschmack für klinisch tot.",
       "difficulty": "medium_hard",
       "points": 2
     },

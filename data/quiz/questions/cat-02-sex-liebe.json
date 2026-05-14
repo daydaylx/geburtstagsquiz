@@ -8,7 +8,7 @@
   "questions": [
     {
       "id": "q-02-01-c95a802a2d",
-      "prompt": "Wofür steht BDSM im ersten Buchstabenpaar?",
+      "prompt": "Wofür stehen die ersten beiden Buchstaben des Akronyms BDSM?",
       "options": [
         {
           "id": "q-02-01-c95a802a2d-opt-1",
@@ -17,22 +17,22 @@
         },
         {
           "id": "q-02-01-c95a802a2d-opt-2",
-          "text": "Brot und Dinkel-Sauerteig-Mischung",
+          "text": "Binden und Disziplinarrecht",
           "is_correct": false
         },
         {
           "id": "q-02-01-c95a802a2d-opt-3",
-          "text": "Baden und Duschen mit Seife",
+          "text": "Begehren und Dominanzspiele",
           "is_correct": false
         },
         {
           "id": "q-02-01-c95a802a2d-opt-4",
-          "text": "Besonders Dumme Sexuelle Momente",
+          "text": "Begehren, Drang, Sinnlichkeit, Macht",
           "is_correct": false
         }
       ],
       "correct_option_id": "q-02-01-c95a802a2d-opt-1",
-      "explanation": "Es steht für Bondage & Discipline. Die Dinkel-Sauerteig-Mischung ist eher was für die Millennial-Sonntage in der Bio-Bäckerei, hat aber meist weniger Fesseln.",
+      "explanation": "Bondage & Discipline — Fesseln und Regelsetzen. Das zweite Buchstabenpaar steht für Dominance & Submission, das dritte für Sadism & Masochism.",
       "difficulty": "medium_hard",
       "category_id": "cat-02",
       "type": "multiple_choice",
@@ -64,7 +64,7 @@
         }
       ],
       "correct_option_id": "q-02-02-fd211561d2-opt-1",
-      "explanation": "Es ist der Code für 'Komm vorbei, wir tun so als würden wir einen Film gucken, aber eigentlich wollen wir Sex'. Wer wirklich chillen will, sollte das explizit sagen, sonst wird's peinlich.",
+      "explanation": "Codewort für 'komm vorbei, wir starten Netflix, keiner schaut hin'. Der Film lief meistens bis Minute zwölf.",
       "difficulty": "medium_hard",
       "category_id": "cat-02",
       "type": "multiple_choice",
@@ -72,7 +72,7 @@
     },
     {
       "id": "q-02-03-aa25aa79ee",
-      "prompt": "Was ist anatomisch gesehen die Klitoris hauptsächlich?",
+      "prompt": "Was ist die Klitoris anatomisch — über das hinaus, was man von außen sieht?",
       "options": [
         {
           "id": "q-02-03-aa25aa79ee-opt-1",
@@ -86,17 +86,17 @@
         },
         {
           "id": "q-02-03-aa25aa79ee-opt-3",
-          "text": "Ein Mythos aus alten Internetforen",
+          "text": "Ein Nervenknoten ohne eigenes Gewebe",
           "is_correct": false
         },
         {
           "id": "q-02-03-aa25aa79ee-opt-4",
-          "text": "Ein Teil des Blinddarms",
+          "text": "Ein Teil der Gebärmutter",
           "is_correct": false
         }
       ],
       "correct_option_id": "q-02-03-aa25aa79ee-opt-1",
-      "explanation": "Die Klitoris ist ein riesiges Organ, das sich weit ins Innere verzweigt. Wer sie nur auf die 'Eichel' reduziert, hat im Biologie-Unterricht (oder im Schlafzimmer) nicht aufgepasst.",
+      "explanation": "Die Klitoris umfasst Schwellkörper, die sich bis zu 9 cm ins Innere des Beckens erstrecken. Der sichtbare Teil ist nur die Eichel.",
       "difficulty": "medium_hard",
       "category_id": "cat-02",
       "type": "multiple_choice",
@@ -128,7 +128,7 @@
         }
       ],
       "correct_option_id": "q-02-04-fd223c4ade-opt-1",
-      "explanation": "Cardi B meinte definitiv nicht das Internetprotokoll der 90er. Es geht um... nun ja, Feuchtigkeit. Ben Shapiro fand's gar nicht witzig, was es nur noch besser macht.",
+      "explanation": "Nicht das WAP-Protokoll aus den 90ern. Cardi B beschreibt Erregung, Ben Shapiro nahm es biologisch ernst und lieferte 2020 das unfreiwilligste Medizininterview des Jahrzehnts.",
       "difficulty": "medium_hard",
       "category_id": "cat-02",
       "type": "multiple_choice",
@@ -160,7 +160,7 @@
         }
       ],
       "correct_option_id": "q-02-05-6d6cca2547-opt-1",
-      "explanation": "Libido ist die psychische Lust, Potenz die körperliche Funktionsfähigkeit. Wenn beides nicht zusammenpasst, nennt man das meistens 'Montag'.",
+      "explanation": "Libido = psychisches Verlangen (kann hoch sein, Körper macht nicht mit). Potenz = körperliche Funktionsfähigkeit (kann vorhanden sein, Lust fehlt trotzdem).",
       "difficulty": "medium_hard",
       "category_id": "cat-02",
       "type": "multiple_choice",
@@ -192,7 +192,7 @@
         }
       ],
       "correct_option_id": "q-02-06-5956ed1b1a-opt-1",
-      "explanation": "Vanilla ist der Standard – sicher, lecker, aber für manche halt langweilig. Wie die Sorte im Kühlregal: man macht nichts falsch, aber man wird auch nicht davon auf Twitter berichten.",
+      "explanation": "Vanilla = normative Sexualität ohne Extras. Kein Urteil darin — manche brauchen kein Hot Fudge. Wird im Kink-Kontext einfach als Abgrenzungsbegriff genutzt.",
       "difficulty": "medium_hard",
       "category_id": "cat-02",
       "type": "multiple_choice",
@@ -224,7 +224,7 @@
         }
       ],
       "correct_option_id": "q-02-07-280829032d-opt-1",
-      "explanation": "Die feige Kunst, einfach nicht mehr zu antworten. Ein Klassiker in der Millennial-Dating-Hölle. Wer das macht, kommt in die visuelle Dauerschleife der Hölle.",
+      "explanation": "Keine Erklärung, kein Abschluss, nur: Stille. Wer geghosted wurde, checkt drei Wochen lang ob die eigene Nachricht auf zwei blaue Haken kommt.",
       "difficulty": "medium_hard",
       "category_id": "cat-02",
       "type": "multiple_choice",
@@ -256,7 +256,7 @@
         }
       ],
       "correct_option_id": "q-02-08-3773194093-opt-1",
-      "explanation": "Ein Spielzeug zum Umschnallen. Bringt Dynamik in die Bude und lässt Rollenbilder schneller schmelzen als ein Milka-Schokofrosch in der Sonne.",
+      "explanation": "Ein Dildo in einem Hüftgurt — nutzbar unabhängig vom eigenen Körper. Standard in lesbischem Sex, queerer Praxis und bei Paaren, die Rollen wechseln wollen.",
       "difficulty": "medium_hard",
       "category_id": "cat-02",
       "type": "multiple_choice",
@@ -288,7 +288,7 @@
         }
       ],
       "correct_option_id": "q-02-09-588235213d-opt-1",
-      "explanation": "Verbale Stimulation. Wenn man's kann: super. Wenn nicht: Es klingt schnell wie ein schlechter Porno aus den 70ern. Absolute Fremdscham-Gefahr.",
+      "explanation": "Verbale Stimulation — Worte als erotisches Mittel. Wer es gut macht, braucht Timing. Wer es schlecht macht, klingt wie ein Pornofilm ohne Soundtrack.",
       "difficulty": "medium_hard",
       "category_id": "cat-02",
       "type": "multiple_choice",
@@ -320,7 +320,7 @@
         }
       ],
       "correct_option_id": "q-02-10-9933523472-opt-1",
-      "explanation": "Ohne Konsens ist alles nichts. Ein 'Vielleicht' ist kein 'Ja'. Das sollte eigentlich Adulting-Basiswissen sein, ist aber für manche immer noch Raketenwissenschaft.",
+      "explanation": "Ohne aktive Zustimmung aller Beteiligten ist jede Handlung illegal. Kein 'Vielleicht', kein Schweigen, kein Sturheitsvorteil — nur klares Ja.",
       "difficulty": "medium_hard",
       "category_id": "cat-02",
       "type": "multiple_choice",
@@ -352,7 +352,7 @@
         }
       ],
       "correct_option_id": "q-02-11-22edecee21-opt-1",
-      "explanation": "Schmerzen beim Sex. Nichts, was man einfach ignorieren sollte. Gehört in die Kategorie: 'Dinge, über die man beim ersten Date eher nicht spricht'.",
+      "explanation": "Schmerzen beim Geschlechtsverkehr, unterschiedlicher Ursachen — von Hormonen bis Anatomie. Häufig, wenig kommuniziert, immer behandelbar.",
       "difficulty": "medium_hard",
       "category_id": "cat-02",
       "type": "multiple_choice",
@@ -384,7 +384,7 @@
         }
       ],
       "correct_option_id": "q-02-12-339adddbeb-opt-1",
-      "explanation": "Sexuell übertragbare Infektionen. Früher nannte man das STD (Disease), aber Infection klingt wohl weniger nach 'Endstation'. Testen lassen ist das neue Cool.",
+      "explanation": "STI ersetzt STD, weil Infektionen auch ohne Krankheitssymptome übertragbar sind. Regelmäßige Tests sind Hygiene, kein Bekenntnis.",
       "difficulty": "medium_hard",
       "category_id": "cat-02",
       "type": "multiple_choice",
@@ -416,7 +416,7 @@
         }
       ],
       "correct_option_id": "q-02-13-eda519290d-opt-1",
-      "explanation": "Nur Barrieren helfen gegen Keime. Die Pille schützt vor Babys, aber nicht vor dem Brennen beim Wasserlassen. Merkste selber, ne?",
+      "explanation": "Kondom ist das einzige Verhütungsmittel mit doppeltem Schutz: vor Schwangerschaft und vor den meisten sexuell übertragbaren Infektionen.",
       "difficulty": "medium_hard",
       "category_id": "cat-02",
       "type": "multiple_choice",
@@ -448,7 +448,7 @@
         }
       ],
       "correct_option_id": "q-02-14-9bf5fe9590-opt-1",
-      "explanation": "Kuscheln, Tee trinken, runterkommen. Wer danach sofort zum Dönerladen rennt, ohne den Partner zu fragen wie's geht, ist ein Arschloch. Fact.",
+      "explanation": "Runterkommen, Fürsorge, Präsenz nach intensiver Aktivität. Nicht Pflicht per Gesetz — aber wer es weglässt, hinterlässt jemanden allein.",
       "difficulty": "medium_hard",
       "category_id": "cat-02",
       "type": "multiple_choice",
@@ -480,7 +480,7 @@
         }
       ],
       "correct_option_id": "q-02-15-23bfa11944-opt-1",
-      "explanation": "Catfishing bedeutet, online mit Fotos, Namen oder Lebensgeschichte eine falsche Identitaet vorzutaeuschen. Der Schock liegt im Vertrauensbruch, nicht im Aussehen.",
+      "explanation": "Gestohlene Fotos, erfundene Namen, komplette Parallelidentität — oft monatelang aufrechterhalten. Catfishing trifft Vertrauen, nicht Eitelkeit.",
       "difficulty": "medium_hard",
       "category_id": "cat-02",
       "type": "multiple_choice",
@@ -512,7 +512,7 @@
         }
       ],
       "correct_option_id": "q-02-16-f7d3e9aaf0-opt-1",
-      "explanation": "Man macht alles, was Paare tun, will sich aber nicht festlegen. Das ultimative Commitment-Problem unserer Generation. Cringe-Faktor: hoch.",
+      "explanation": "Zusammen übernachten, gemeinsam essen, ständig texten — aber bitte kein Label. Scheitert meistens daran, dass eine Person irgendwann doch ein Label will.",
       "difficulty": "medium_hard",
       "category_id": "cat-02",
       "type": "multiple_choice",
@@ -544,7 +544,7 @@
         }
       ],
       "correct_option_id": "q-02-17-712f7d0b39-opt-1",
-      "explanation": "Digitale Vorlust. Aber Vorsicht: Einmal verschickt, ist es im Netz. Und niemand will sein bestes Stück auf der Weihnachtsfeier an der Beamer-Wand sehen.",
+      "explanation": "Explizite Nachrichten oder Bilder per Handy — verbreitet, legal unter Erwachsenen, riskant bei Vertrauensbruch. Screenshots sind für immer.",
       "difficulty": "medium_hard",
       "category_id": "cat-02",
       "type": "multiple_choice",
@@ -576,7 +576,7 @@
         }
       ],
       "correct_option_id": "q-02-18-ed01d44678-opt-1",
-      "explanation": "Er ist eher eine Zone als ein Punkt. Wer ihn sucht wie den Ausgang im Labyrinth, sollte vielleicht mal nachfragen. Kommunikation hilft!",
+      "explanation": "Eher eine empfindliche Zone als ein diskreter Punkt, ca. 5 cm von der Vaginalöffnung an der Vorderwand. Kommunikation findet ihn schneller als Intuition.",
       "difficulty": "medium_hard",
       "category_id": "cat-02",
       "type": "multiple_choice",

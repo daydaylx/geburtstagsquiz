@@ -422,7 +422,7 @@
         }
       ],
       "correct_option_id": "q-01-16-5ce93af546-opt-1",
-      "explanation": "Obliviate. Eine der traurigsten Szenen, weil sie sich selbst aus allen Familienfotos löscht. Das ultimative Ghosting-Level.",
+      "explanation": "Obliviate. Hermine löscht sich aus dem Gedächtnis ihrer Eltern und schickt sie nach Australien — damit sie in Sicherheit sind. Selbstloses Kalkül mit permanenten Kollateralschäden.",
       "difficulty": "hard",
       "category_id": "cat-01",
       "type": "multiple_choice",
@@ -454,7 +454,7 @@
         }
       ],
       "correct_option_id": "q-01-18-3959fe77b5-opt-1",
-      "explanation": "Hermine droht Draco erst mit dem Zauberstab und gibt ihm dann eine Ohrfeige. Einer der seltenen Hogwarts-Momente ganz ohne Zauberspruch.",
+      "explanation": "Hermine zückt zuerst den Zauberstab, entscheidet sich dann aber für die analoge Variante. Draco sagt danach nichts mehr. Manchmal ist Physik die überzeugendere Magie.",
       "difficulty": "hard",
       "category_id": "cat-01",
       "type": "multiple_choice",
@@ -486,7 +486,7 @@
         }
       ],
       "correct_option_id": "q-01-19-fd285a0207-opt-1",
-      "explanation": "Verteidigung gegen die dunklen Künste. Endlich mal ein kompetenter Lehrer, und dann hat er dieses kleine Vollmond-Problem. Klassisches Burnout-Risiko.",
+      "explanation": "Verteidigung gegen die dunklen Künste — und tatsächlich der erste kompetente Lehrer in diesem Fach seit Jahren. Sein einziges Problem: einmal im Monat unkontrolliert Monster werden. Fast hätte es gereicht.",
       "difficulty": "hard",
       "category_id": "cat-01",
       "type": "multiple_choice",
@@ -518,7 +518,7 @@
         }
       ],
       "correct_option_id": "q-01-20-43495be7ae-opt-1",
-      "explanation": "Schokolade hilft gegen Dementoren. Wenn wir ehrlich sind, ist Schokolade die Lösung für fast alle Millennial-Probleme. Lupin wusste Bescheid.",
+      "explanation": "Schokolade. Lupins medizinische Empfehlung nach einer Begegnung mit seelensaugenden Kreaturen klingt wie ein Marketingslogan — und ist trotzdem kanonisch richtig.",
       "difficulty": "hard",
       "category_id": "cat-01",
       "type": "multiple_choice",
@@ -550,7 +550,7 @@
         }
       ],
       "correct_option_id": "q-01-21-89c1ef5e21-opt-1",
-      "explanation": "Eine Hirschkuh. „After all this time?“ – „Always.“ Snape ist der Inbegriff von Loyalität und ungesundem Festhalten an der Vergangenheit. Wir fühlen das.",
+      "explanation": "Eine Hirschkuh — identisch mit Lily Potters Patronus. 'After all this time?' – 'Always.' Snape hat zwei Jahrzehnte Feindschaft gespielt, um ein Versprechen zu halten. Methodisch ungesund, aber filmisch brillant.",
       "difficulty": "hard",
       "category_id": "cat-01",
       "type": "multiple_choice",
@@ -582,7 +582,7 @@
         }
       ],
       "correct_option_id": "q-01-22-6f9e77ee5b-opt-1",
-      "explanation": "Sectumsempra. Harry probiert einfach Sprüche aus einem alten Schulbuch aus. Das ist so, als würde man ungeprüften Code aus dem Internet in die Produktion schieben. Mutig, aber dumm.",
+      "explanation": "Sectumsempra — annotiert als 'für Feinde' in Snapes altem Schulbuch. Harry liest das, denkt kurz nach und probiert es trotzdem aus. Ergebnis: Draco verblutet fast in einer Schultoilette.",
       "difficulty": "hard",
       "category_id": "cat-01",
       "type": "multiple_choice",
@@ -609,12 +609,12 @@
         },
         {
           "id": "q-01-23-a9ef897ed3-opt-4",
-          "text": "Seinen Stolz",
+          "text": "Hermines Katze Krätze",
           "is_correct": false
         }
       ],
       "correct_option_id": "q-01-23-a9ef897ed3-opt-1",
-      "explanation": "Ron. Weil man Freunde im See versenkt, um die Motivation zu steigern. Pädagogisch wertvoll, danke Trimagisches Komitee.",
+      "explanation": "Ron. Die zweite Aufgabe besteht darin, die eigene liebste Person aus einem See zu retten — jemand hat das Komitee wirklich sehr wortwörtlich genommen. Harry rettet nebenbei auch noch Fleur Delacours Schwester.",
       "difficulty": "hard",
       "category_id": "cat-01",
       "type": "multiple_choice",
@@ -646,7 +646,7 @@
         }
       ],
       "correct_option_id": "q-01-24-3db2618a98-opt-1",
-      "explanation": "Das Tagebuch. Mit einem Basiliskenzahn. Harry war schon damals Experte darin, fremdes Eigentum zu zerstören. Ein echter Rebell.",
+      "explanation": "Tom Riddles Tagebuch — mit einem Basiliskenzahn in der Kammer des Schreckens. Harry ist zwölf, kämpft allein gegen eine Gedächtnis-Kopie von Voldemort und improvisiert. Das Trimagische Turnier wird vergleichsweise bequem.",
       "difficulty": "hard",
       "category_id": "cat-01",
       "type": "multiple_choice",
@@ -678,7 +678,7 @@
         }
       ],
       "correct_option_id": "q-01-25-new-opt-1",
-      "explanation": "Dumbledore brauchte noch 10 Punkte für Gryffindor, also musste Nevilles Mut herhalten. Nevilles Schicksal: Der einzige Vernünftige sein und dafür versteinert werden.",
+      "explanation": "Neville stellt sich Harry, Ron und Hermine entgegen — und bekommt dafür 10 Punkte. Dann wird er von Dumbledore gelobt. Dann kommt er auf der Treppe nach oben heraus und wird sofort von Hermine versteinert. Ruhm hat seinen Preis.",
       "difficulty": "hard",
       "category_id": "cat-01",
       "type": "multiple_choice",
@@ -711,7 +711,7 @@
         }
       ],
       "correct_option_id": "q-01-02-opt-1",
-      "explanation": "Draco entwaffnete Dumbledore, Harry entwaffnete Draco. Voldemorts Denkfehler war zu glauben, dass Töten (Snape) die Herrschaft überträgt. In der Zaubererwelt gewinnt man Wandschaften wie Follower: durch reine Dominanz, nicht durch Mord.",
+      "explanation": "Draco entwaffnete Dumbledore, Harry entwaffnete Draco — damit gehört der Elderstab Harry. Voldemort glaubte, Snapes Tod reiche. Aber Wandherrschaft folgt Entwaffnung, nicht Mord. Voldemort hat nie eine FAQ gelesen.",
       "difficulty": "hard",
       "points": 2
     },
@@ -742,7 +742,7 @@
         }
       ],
       "correct_option_id": "q-01-03-opt-1",
-      "explanation": "Im Film ist es Neville! Die Macher wollten Dobby wohl das CGI-Budget sparen. Neville ist so stolz, dass er Harry fast umbringt, nur um seine Pflanzenkunde-Skills zu zeigen. Ein klassischer Neville-Moment.",
+      "explanation": "Im Film ist es Neville — nicht Dobby wie im Buch. Die Filmproduktion sparte CGI, Neville bekam einen Auftritt. Ob Harrys Kiemen und Flossen ein Beweis für Nevilles botanisches Talent sind, bleibt offen.",
       "difficulty": "hard",
       "points": 1
     },
@@ -774,7 +774,7 @@
         "item-cup",
         "item-nagini"
       ],
-      "explanation": "Tagebuch (Teil 2), Medaillon (Teil 7.1), Pokal (Teil 7.2), Nagini (Finale). Wer 'Der Ring' oder 'Das Diadem' vermisst: Die wurden zwischendurch eher beiläufig abgehakt. Nagini war das dramatische Dessert.",
+      "explanation": "Tagebuch (Teil 2), Medaillon (Teil 7.1), Pokal (Teil 7.2), Nagini (Finale). Das Diadem und der Ring fehlen in dieser Liste — beide wurden filmisch eher beiläufig erledigt. Nagini bekam dafür Neville und ein Schwert.",
       "difficulty": "hard",
       "points": 2
     },
@@ -800,7 +800,7 @@
           "text": "Moaning Myrtle (Dauergeheule auf dem Rücksitz)"
         }
       ],
-      "explanation": "Die Mehrheit entscheidet, wer das Auto zuerst verlassen muss. Lockhart klaut das Radio, Umbridge verbietet Snacks, Bellatrix sticht die Reifen auf und Myrtle flutet den Fußraum. Wählt euer Gift.",
+      "explanation": "Lockhart erklärt bei jeder Raststätte, dass er dort früher auch mal war. Umbridge verbietet ab km 50 alle Fensterkurbeln. Bellatrix singt. Myrtle weint in den Kofferraum. Es gibt keine richtige Antwort.",
       "difficulty": "medium",
       "points": 2
     },
@@ -831,7 +831,7 @@
         }
       ],
       "correct_option_id": "q-01-11-opt-1",
-      "explanation": "Nur das Tagebuch (Teil 2) und das Diadem (Teil 7.2). Den Ring erledigte Dumbledore, das Medaillon Ron, den Pokal Hermine, Nagini Neville und den Horkrux in Harry zerstörte Voldemort selbst. Harry ist also eher der Teamkapitän als der Vollstrecker.",
+      "explanation": "Tagebuch (Teil 2) und Diadem (Teil 7.2) — das war's. Dumbledore, Ron, Hermine und Neville erledigen den Rest. Voldemort zerstört den Horkrux in Harry sogar selbst. Harrys Hauptbeitrag: überleben und gut aussehen dabei.",
       "difficulty": "hard",
       "points": 2
     },
@@ -893,7 +893,7 @@
         }
       ],
       "correct_option_id": "q-01-20-opt-1",
-      "explanation": "Blau! Daniel Radcliffe vertrug die grünen Kontaktlinsen nicht. Dass ständig gesagt wird 'Du hast die Augen deiner Mutter', obwohl die Schauspielerin der Mutter teilweise braune Augen hatte, ignorieren wir einfach mal gekonnt.",
+      "explanation": "Blau — Daniel Radcliffe reagierte allergisch auf die grünen Kontaktlinsen. Harrys Filmaugen passen damit nicht zu seiner Filmmutter. Neun Filme lang sagt jemand 'Du hast die Augen deiner Mutter' und alle nicken höflich.",
       "difficulty": "medium",
       "points": 1
     },
@@ -924,7 +924,7 @@
         }
       ],
       "correct_option_id": "q-01-22-opt-1",
-      "explanation": "Molly Weasley besiegt Bellatrix in der finalen Schlacht. Der Moment funktioniert, weil Molly nicht nur Mutter, sondern eine ernstzunehmende Hexe ist.",
+      "explanation": "Molly Weasley. Bellatrix trifft Ginny mit einem Fluch — und dann dreht sich Molly um. 'Not my daughter, you bitch!' war 2011 das Laut-Aufjubeln im Kino. Verdient.",
       "difficulty": "medium",
       "points": 1
     },
@@ -955,7 +955,7 @@
         }
       ],
       "correct_option_id": "q-01-25-opt-1",
-      "explanation": "Backfire! Ron spuckt Riesen-Schnecken. Eine Lektion fürs Leben: Repariere dein Equipment mit vernünftigem Klebeband, nicht mit Tesafilm. Oder kauf einfach ein neues Handy... äh, Zauberstab.",
+      "explanation": "Der Fluch prallt auf Ron zurück — und er spuckt Schnecken. Großartig. Sein Zauberstab war mit Klebeband geflickt. Diese Szene ist zugleich die beste Werbung für regelmäßige Ausrüstungskontrollen.",
       "difficulty": "medium",
       "points": 1
     }

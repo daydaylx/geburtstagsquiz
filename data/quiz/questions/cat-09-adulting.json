@@ -22,21 +22,21 @@
       "difficulty": "medium",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Wofür steht ELSTER im deutschen Kontext?",
+      "prompt": "Wofür steht das Akronym ELSTER – das einmal im Jahr jeden Deutschen in eine milde Panik versetzt?",
       "options": [
         {
           "id": "q-09-01-aa4fa9da07-opt-1",
-          "text": "Ein Vogelbeobachtungs-Verein",
+          "text": "Ein ornithologischer Interessenverband",
           "is_correct": false
         },
         {
           "id": "q-09-01-aa4fa9da07-opt-2",
-          "text": "Ein neues Lieferdienst-Startup",
+          "text": "Ein Lieferservice-Tracking-System",
           "is_correct": false
         },
         {
           "id": "q-09-01-aa4fa9da07-opt-3",
-          "text": "Ein Code für 'Einfach liegen lassen'",
+          "text": "Ein Behörden-Aktenzeichensystem",
           "is_correct": false
         },
         {
@@ -56,7 +56,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "ELSTER – Elektronische Steuererklärung. Das offizielle Portal der Hölle, in dem wir jährlich unsere Existenz rechtfertigen müssen.",
+      "explanation": "ELektronische STeuerERklärung. Das Portal, das einen freundlich begrüßt und dann 45 Minuten lang nach Belegnummern fragt.",
       "tags": [
         "adulting",
         "haushalt",
@@ -83,11 +83,11 @@
       "difficulty": "medium",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "In welche Tonne gehört benutztes Küchenpapier meistens nicht?",
+      "prompt": "Benutztes Küchenpapier: Is ja Papier, also Papiertonne, oder? In welche Tonne gehört es wirklich?",
       "options": [
         {
           "id": "q-09-03-36cc84408e-opt-1",
-          "text": "Papiertonne (ist ja Papier)",
+          "text": "Papiertonne – ist schließlich aus Papier",
           "is_correct": false
         },
         {
@@ -97,7 +97,7 @@
         },
         {
           "id": "q-09-03-36cc84408e-opt-3",
-          "text": "Kompost",
+          "text": "Kompost, weil biologisch abbaubar",
           "is_correct": false
         },
         {
@@ -117,7 +117,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Benutztes Küchenpapier gehört NICHT ins Altpapier. Die Fasern sind zu kurz und der Dreck versaut das Recycling.",
+      "explanation": "Restmüll. Benutzte Küchentücher haben Fett, Essensreste und zu kurze Fasern – sie stören die Papierrecycling-Anlage mehr als sie helfen.",
       "tags": [
         "adulting",
         "haushalt",
@@ -144,7 +144,7 @@
       "difficulty": "medium",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Was bedeutet das Waschsymbol mit einer durchgestrichenen Schüssel?",
+      "prompt": "Waschetikett: Eine durchgestrichene Schüssel. Was bedeutet das für dein Lieblingsshirt?",
       "options": [
         {
           "id": "q-09-04-daa9e9f179-opt-1",
@@ -178,7 +178,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Nicht waschen. Das Todesurteil für jedes Kleidungsstück, das man eigentlich mag. Meistens heißt das: Ab zur teuren Reinigung.",
+      "explanation": "Nicht waschen heißt: Reinigung oder Schicksal. Wer es trotzdem probiert, verliert entweder das Stück oder seine Unschuld.",
       "tags": [
         "adulting",
         "haushalt",
@@ -205,11 +205,11 @@
       "difficulty": "medium",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Wofür ist Weichspüler nicht automatisch gut?",
+      "prompt": "Weichspüler: Mehr davon ist besser – oder? Für welche Textilien ist er tatsächlich kontraproduktiv?",
       "options": [
         {
           "id": "q-09-05-2b9ec1d12c-opt-1",
-          "text": "Seidenschals",
+          "text": "Wollpullover und Seidenschals",
           "is_correct": false
         },
         {
@@ -219,12 +219,12 @@
         },
         {
           "id": "q-09-05-2b9ec1d12c-opt-3",
-          "text": "Alte Jeans",
+          "text": "Baumwoll-T-Shirts und Jeans",
           "is_correct": false
         },
         {
           "id": "q-09-05-2b9ec1d12c-opt-4",
-          "text": "Socken",
+          "text": "Bettwäsche und Kissen",
           "is_correct": false
         }
       ],
@@ -239,7 +239,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Weichspüler zerstört die Saugkraft von Handtüchern und die Funktion von Sportkleidung. Er legt sich wie ein Film um die Fasern.",
+      "explanation": "Weichspüler legt einen Film um Fasern – schön für Baumwolle, fatal für Handtücher (verlieren Saugkraft) und Funktionskleidung (verliert Funktion).",
       "tags": [
         "adulting",
         "haushalt",
@@ -266,7 +266,7 @@
       "difficulty": "medium",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Was passiert typischerweise, wenn man rote und weiße Wäsche ohne Nachdenken zusammen wäscht?",
+      "prompt": "Erster Waschgang alleine: Rotes T-Shirt + weiße Unterwäsche, 60 Grad. Was kommt raus?",
       "options": [
         {
           "id": "q-09-06-699ef2e69d-opt-1",
@@ -300,7 +300,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Verfärbungsrisiko. Der Klassiker beim ersten Mal alleine waschen. Danach hat man ein neues Lieblingsshirt in Schweinchenrosa.",
+      "explanation": "Rosa Unterwäsche. Klassischer Initiationsritus des Alleinwohnens. Die Lektion sitzt danach für immer.",
       "tags": [
         "adulting",
         "haushalt",
@@ -327,26 +327,26 @@
       "difficulty": "medium",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Wofür ist die Kaltmiete?",
+      "prompt": "ImmoScout: '2-Zimmer, 900 € Kaltmiete'. Was ist in diesem Preis nicht enthalten?",
       "options": [
         {
           "id": "q-09-07-d565a407fa-opt-1",
-          "text": "Miete ohne Heizung/Nebenkosten",
+          "text": "Heizung, Wasser und weitere Nebenkosten",
           "is_correct": true
         },
         {
           "id": "q-09-07-d565a407fa-opt-2",
-          "text": "Miete für den Keller",
+          "text": "Strom – der wird separat vom Keller abgerechnet",
           "is_correct": false
         },
         {
           "id": "q-09-07-d565a407fa-opt-3",
-          "text": "Eine Miete, die im Winter sinkt",
+          "text": "Nichts, Kaltmiete ist der Gesamtpreis",
           "is_correct": false
         },
         {
           "id": "q-09-07-d565a407fa-opt-4",
-          "text": "Miete inklusive Eiswürfel-Flatrate",
+          "text": "Die Kaution, die erst beim Auszug fällig wird",
           "is_correct": false
         }
       ],
@@ -361,7 +361,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Kaltmiete ist der Preis für den reinen Raum. Die Zahl, die bei ImmoScout gut aussieht, bis die Nebenkosten-Realität kickt.",
+      "explanation": "Kaltmiete = nur der Raum. Die Warmmiete (mit Nebenkosten) ist die Zahl, die einen dann wirklich erschreckt.",
       "tags": [
         "adulting",
         "haushalt",
@@ -388,26 +388,26 @@
       "difficulty": "medium",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Was sind Nebenkosten in einer Wohnung typischerweise?",
+      "prompt": "Was decken Nebenkosten in einer Mietwohnung typischerweise ab?",
       "options": [
         {
           "id": "q-09-08-85835887d9-opt-1",
-          "text": "Netflix und GEZ",
+          "text": "GEZ, Streaming-Dienste und Internetanschluss",
           "is_correct": false
         },
         {
           "id": "q-09-08-85835887d9-opt-2",
-          "text": "Bestechung für den Vermieter",
+          "text": "Kleinreparaturen bis 100 € pro Schaden",
           "is_correct": false
         },
         {
           "id": "q-09-08-85835887d9-opt-3",
-          "text": "Reparaturen in der Wohnung",
+          "text": "Den Hausmeister persönlich als Dienstleistung",
           "is_correct": false
         },
         {
           "id": "q-09-08-85835887d9-opt-4",
-          "text": "Heizung, Wasser, Müll, Versicherung etc",
+          "text": "Heizung, Wasser, Müll, Hausversicherung und ähnliches",
           "is_correct": true
         }
       ],
@@ -422,7 +422,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Nebenkosten sind die schleichende Enteignung deines Kontos. Dinge, über die man sich mit 20 keine Gedanken gemacht hat.",
+      "explanation": "Heizung, Wasser, Müll, Treppenreinigung – Dinge, um die man sich mit 19 null Gedanken gemacht hat und die jetzt regelmäßig das Konto leeren.",
       "tags": [
         "adulting",
         "haushalt",
@@ -449,7 +449,7 @@
       "difficulty": "medium",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Warum ist Schimmel in der Wohnung nicht einfach nur ein „optisches Problem“?",
+      "prompt": "Kleiner schwarzer Fleck in der Ecke hinterm Schrank – warum ist Schimmel mehr als ein optisches Problem?",
       "options": [
         {
           "id": "q-09-09-8ee68dfca4-opt-1",
@@ -483,7 +483,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Schimmel ist der Endgegner beim Wohnen. Er macht krank und Lüften ist in Deutschland quasi ein Nationalsport dagegen.",
+      "explanation": "Schimmelsporen machen die Atemwege kaputt, Feuchtigkeit zerstört die Bausubstanz – und der Vermieter schiebt die Schuld gerne aufs falsche Lüften.",
       "tags": [
         "adulting",
         "haushalt",
@@ -510,7 +510,7 @@
       "difficulty": "medium",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Was ist der Unterschied zwischen Garantie und Gewährleistung?",
+      "prompt": "Du kaufst einen Toaster, der nach 14 Monaten stirbt. Worauf beruft man sich beim Händler: Garantie oder Gewährleistung – und was ist der Unterschied?",
       "options": [
         {
           "id": "q-09-10-53fcc98577-opt-1",
@@ -544,7 +544,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Gewährleistung ist dein Recht gegenüber dem Händler. Garantie ist das freiwillige Versprechen des Herstellers.",
+      "explanation": "Gewährleistung = gesetzliches Recht beim Händler (2 Jahre). Garantie = freiwilliges Versprechen vom Hersteller. Viele kennen nur die Garantie.",
       "tags": [
         "adulting",
         "haushalt",
@@ -571,26 +571,26 @@
       "difficulty": "medium",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Was ist der Sinn einer Haftpflichtversicherung?",
+      "prompt": "Du stolperst und schüttest Rotwein auf das neue Sofa deines Gastes. Welche Versicherung springt (wenn du eine hast) ein?",
       "options": [
         {
           "id": "q-09-11-f293cf97a7-opt-1",
-          "text": "Wenn man sich selbst wehtut",
+          "text": "Unfallversicherung – du warst schließlich verwickelt",
           "is_correct": false
         },
         {
           "id": "q-09-11-f293cf97a7-opt-2",
-          "text": "Wenn der Hund des Nachbarn stirbt",
+          "text": "Hausratversicherung – das Sofa steht in einem Haushalt",
           "is_correct": false
         },
         {
           "id": "q-09-11-f293cf97a7-opt-3",
-          "text": "Schäden, die man Dritten versehentlich zufügt",
+          "text": "Haftpflichtversicherung – du hast einem Dritten Schaden zugefügt",
           "is_correct": true
         },
         {
           "id": "q-09-11-f293cf97a7-opt-4",
-          "text": "Schutz gegen schlechtes Wetter beim Grillen",
+          "text": "Keine – Missgeschicke sind kein Versicherungsfall",
           "is_correct": false
         }
       ],
@@ -605,7 +605,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Haftpflicht ist die wichtigste Versicherung überhaupt. Außer du hast vor, niemals etwas von jemand anderem kaputt zu machen.",
+      "explanation": "Haftpflicht deckt Schäden, die man anderen versehentlich zufügt. Die günstigste Versicherung – und die, die man am häufigsten vergisst abzuschließen.",
       "tags": [
         "adulting",
         "haushalt",
@@ -632,26 +632,26 @@
       "difficulty": "medium",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Warum sollte man Messer meist nicht stumpf benutzen?",
+      "prompt": "Küchenweisheit: Warum ist ein stumpfes Messer gefährlicher als ein scharfes?",
       "options": [
         {
           "id": "q-09-12-3e1cb905cb-opt-1",
-          "text": "Höhere Verletzungsgefahr durch Abrutschen",
+          "text": "Man braucht mehr Kraft, das Messer rutscht ab",
           "is_correct": true
         },
         {
           "id": "q-09-12-3e1cb905cb-opt-2",
-          "text": "Weil sie in der Spülmaschine rosten",
+          "text": "Stumpfe Klingen oxidieren schneller und rosten",
           "is_correct": false
         },
         {
           "id": "q-09-12-3e1cb905cb-opt-3",
-          "text": "Weil das Fleisch dann sauer wird",
+          "text": "Schnittgut wird gequetscht statt geschnitten und verdirbt früher",
           "is_correct": false
         },
         {
           "id": "q-09-12-3e1cb905cb-opt-4",
-          "text": "Weil man sie nicht mehr schärfen kann",
+          "text": "Stumpfe Messer lassen sich nicht mehr schärfen",
           "is_correct": false
         }
       ],
@@ -666,7 +666,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Klingt paradox: Ein scharfes Messer schneidet sauber, ein stumpfes rutscht ab und landet in deinem Finger. Avocado-Toast ist gefährlich!",
+      "explanation": "Stumpf = mehr Druck nötig = höheres Rutschrisiko. Das scharfe Messer schneidet Avocados. Das stumpfe schneidet Finger.",
       "tags": [
         "adulting",
         "haushalt",
@@ -693,7 +693,7 @@
       "difficulty": "medium",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Was macht man mit einem Fettbrand auf dem Herd gerade nicht?",
+      "prompt": "Die Pfanne mit dem Öl fängt an zu brennen. Was darf auf keinen Fall passieren?",
       "options": [
         {
           "id": "q-09-13-d6db023697-opt-1",
@@ -727,7 +727,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Fettbrand + Wasser = Feuerball. Das ist Physikunterricht, der dir in der Küche das Leben (und die Kaution) rettet.",
+      "explanation": "Wasser auf Fettbrand = Dampfexplosion, die brennendes Öl verteilt. Deckel drauf, Herd aus, Küche retten.",
       "tags": [
         "adulting",
         "haushalt",
@@ -754,26 +754,26 @@
       "difficulty": "medium",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Was ist bei Rückenschmerzen durch Büroalltag oft ein Hauptfaktor?",
+      "prompt": "Du hast heute 'eigentlich nichts gemacht' – nur acht Stunden am Schreibtisch gesessen. Warum tut der Rücken trotzdem weh?",
       "options": [
         {
           "id": "q-09-14-c7321fee1a-opt-1",
-          "text": "Zu schwere Aktenordner",
+          "text": "Schwergewichtige Aktenordner beim Transport",
           "is_correct": false
         },
         {
           "id": "q-09-14-c7321fee1a-opt-2",
-          "text": "Zu viel Kaffee",
+          "text": "Koffein verspannt die Rückenmuskulatur",
           "is_correct": false
         },
         {
           "id": "q-09-14-c7321fee1a-opt-3",
-          "text": "Die falsche Tastatur",
+          "text": "Blaues Bildschirmlicht reizt die Wirbel",
           "is_correct": false
         },
         {
           "id": "q-09-14-c7321fee1a-opt-4",
-          "text": "Statische Belastung durch zu langes Sitzen",
+          "text": "Statische Dauerbelastung ohne Bewegung",
           "is_correct": true
         }
       ],
@@ -788,7 +788,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Sitzen ist das neue Rauchen. Dein Rücken rächt sich für jede Stunde, die du starr auf deine Excel-Tabellen starrst.",
+      "explanation": "Stillehalten ist kein Ausruhen für den Rücken – Muskeln ohne Bewegung verspannen. Sitzen ist das neue Rauchen, aber schlechter versichert.",
       "tags": [
         "adulting",
         "haushalt",
@@ -815,7 +815,7 @@
       "difficulty": "medium",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Wofür ist ein Pümpel da?",
+      "prompt": "Wofür braucht man einen Pümpel – und warum kauft man ihn immer zu spät?",
       "options": [
         {
           "id": "q-09-15-bcff81d88b-opt-1",
@@ -849,7 +849,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Ein Pümpel ist der Lebensretter in Momenten höchster sozialer Not. Man will ihn nicht haben, bis man ihn DRINGEND braucht.",
+      "explanation": "Zum Lösen verstopfter Abflüsse. Man kauft ihn nie auf Vorrat – sondern immer mitten in der Katastrophe.",
       "tags": [
         "adulting",
         "haushalt",
@@ -876,26 +876,26 @@
       "difficulty": "medium",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Was ist die Faustregel bei rohem Hähnchen und Schneidebrettern?",
+      "prompt": "Rohes Hähnchen auf dem Schneidebrett – was ist danach die wichtigste Regel?",
       "options": [
         {
           "id": "q-09-16-30f670d2f8-opt-1",
-          "text": "Niemals für Rohkost danach nutzen",
+          "text": "Brett nicht ohne gründliche Reinigung für Rohkost nutzen",
           "is_correct": true
         },
         {
           "id": "q-09-16-30f670d2f8-opt-2",
-          "text": "Hähnchen immer erst abwaschen",
+          "text": "Hähnchen vorher immer unter fließendem Wasser abspülen",
           "is_correct": false
         },
         {
           "id": "q-09-16-30f670d2f8-opt-3",
-          "text": "Nur Holzbretter nutzen",
+          "text": "Nur Holzbretter verwenden – Plastik baut Keime auf",
           "is_correct": false
         },
         {
           "id": "q-09-16-30f670d2f8-opt-4",
-          "text": "Auf dem Teppich schneiden",
+          "text": "Brett 30 Minuten in Essigwasser einlegen",
           "is_correct": false
         }
       ],
@@ -910,7 +910,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Salmonellen-Alarm! Wer das Brett für Hähnchen und danach für Salat nutzt, spielt russisches Roulette mit seinem Magen.",
+      "explanation": "Rohes Geflügel trägt Salmonellen. Wer dasselbe Brett danach für Salatgurken nutzt, kombiniert mutig – und riskiert Schlimmeres als schlechten Geschmack.",
       "tags": [
         "adulting",
         "haushalt",
@@ -937,7 +937,7 @@
       "difficulty": "medium",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Wofür braucht man einen FI-Schalter grob gesagt?",
+      "prompt": "Im Sicherungskasten gibt es einen FI-Schalter. Wofür ist der da?",
       "options": [
         {
           "id": "q-09-17-a13d731cc4-opt-1",
@@ -971,7 +971,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Der FI-Schalter rettet dir den Arsch, wenn Strom 'falsch' fließt. Er macht zack-aus, bevor es für dich brenzlig wird.",
+      "explanation": "Der FI-Schalter erkennt Fehlerstrom und schaltet in Millisekunden ab – bevor der Strom eine kürzere Route durch den Menschen sucht.",
       "tags": [
         "adulting",
         "haushalt",
@@ -998,16 +998,16 @@
       "difficulty": "medium",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Was bedeutet „MHD“ auf Lebensmitteln?",
+      "prompt": "MHD steht auf fast jedem Lebensmittel. Was bedeutet es?",
       "options": [
         {
           "id": "q-09-18-6a8ebd7311-opt-1",
-          "text": "Maximum Haltbarkeit Datum",
+          "text": "Maximales Haltbarkeitsdatum – danach verboten",
           "is_correct": false
         },
         {
           "id": "q-09-18-6a8ebd7311-opt-2",
-          "text": "Must Have Details",
+          "text": "Mittleres Haltbarkeitsdatum (statistischer Wert)",
           "is_correct": false
         },
         {
@@ -1017,7 +1017,7 @@
         },
         {
           "id": "q-09-18-6a8ebd7311-opt-4",
-          "text": "Meist Heute Drüber",
+          "text": "Markteinführungs-Herstelldatum",
           "is_correct": false
         }
       ],
@@ -1032,7 +1032,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "MHD bedeutet 'mindestens haltbar bis', nicht 'tödlich ab'. Vertrau deinem Geruchssinn, nicht nur dem Aufdruck.",
+      "explanation": "Mindesthaltbar – nicht 'tödlich ab'. Danach kann das Produkt noch gut sein, muss aber nicht. Nase entscheidet, nicht Aufdruck.",
       "tags": [
         "adulting",
         "haushalt",
@@ -1059,26 +1059,26 @@
       "difficulty": "medium",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Was ist der Unterschied zwischen MHD und Verbrauchsdatum?",
+      "prompt": "Hackfleisch hat ein 'Verbrauchsdatum', Joghurt ein 'MHD'. Was ist der entscheidende Unterschied?",
       "options": [
         {
           "id": "q-09-19-be189a5f35-opt-1",
-          "text": "MHD gilt nur für Getränke, Verbrauchsdatum nur für Tiefkühlware",
+          "text": "MHD gilt für Flüssigkeiten, Verbrauchsdatum für feste Lebensmittel",
           "is_correct": false
         },
         {
           "id": "q-09-19-be189a5f35-opt-2",
-          "text": "MHD ist Qualitätsdatum, Verbrauchsdatum ist Sicherheitsfrist",
+          "text": "MHD ist Qualitätsgrenze, Verbrauchsdatum ist Sicherheitsgrenze",
           "is_correct": true
         },
         {
           "id": "q-09-19-be189a5f35-opt-3",
-          "text": "MHD und Verbrauchsdatum meinen dasselbe mit anderem Etikett",
+          "text": "Beides bedeutet dasselbe – nur unterschiedliche Etiketten",
           "is_correct": false
         },
         {
           "id": "q-09-19-be189a5f35-opt-4",
-          "text": "MHD verbietet Verkauf, Verbrauchsdatum erlaubt Verkauf weiter",
+          "text": "Das Verbrauchsdatum ist immer länger als das MHD",
           "is_correct": false
         }
       ],
@@ -1093,7 +1093,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Bei Hackfleisch ist das Verbrauchsdatum ernst zu nehmen. Bei Nudeln ist das MHD eher eine vage Schätzung der Ewigkeit.",
+      "explanation": "MHD: danach kann es noch gut sein. Verbrauchsdatum: nicht ignorieren, steht auf Hackfleisch, Fisch und Co. – mit Absicht.",
       "tags": [
         "adulting",
         "haushalt",
@@ -1120,7 +1120,7 @@
       "difficulty": "medium",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Warum sollte man nasse Handtücher nicht ewig zusammengeknüllt liegen lassen?",
+      "prompt": "Handtuch nach dem Duschen zusammengeknüllt in die Tasche geworfen und vergessen. Was passiert?",
       "options": [
         {
           "id": "q-09-20-deba76a7e9-opt-1",
@@ -1154,7 +1154,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Nasse Handtücher in der Tasche vergessen – der Geruch der Schande. Wer das einmal gemacht hat, vergisst es nie wieder.",
+      "explanation": "Feuchtigkeit + Wärme + keine Luft = Schimmel und Muffgestank. Das Handtuch riecht danach wie eine Jugendherberge.",
       "tags": [
         "adulting",
         "haushalt",
@@ -1181,26 +1181,26 @@
       "difficulty": "medium",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Wofür ist Entkalker in Haushaltsgeräten gedacht?",
+      "prompt": "Die Kaffeemaschine brutzelt seltsam und braucht ewig. Was löst regelmäßiger Einsatz von Entkalker?",
       "options": [
         {
           "id": "q-09-21-1bdfbde8f1-opt-1",
-          "text": "Damit der Tee besser schmeckt",
+          "text": "Schlechten Kaffeegeschmack durch Kalkgeschmack",
           "is_correct": false
         },
         {
           "id": "q-09-21-1bdfbde8f1-opt-2",
-          "text": "Um Lebensdauer und Effizienz zu erhöhen",
+          "text": "Kalkablagerungen, die Heizleistung und Lebensdauer senken",
           "is_correct": true
         },
         {
           "id": "q-09-21-1bdfbde8f1-opt-3",
-          "text": "Um Bakterien abzutöten",
+          "text": "Bakterienbefall in der Brüheinheit",
           "is_correct": false
         },
         {
           "id": "q-09-21-1bdfbde8f1-opt-4",
-          "text": "Gegen schlechte Gerüche",
+          "text": "Muffige Gerüche aus der Warmhalteplatte",
           "is_correct": false
         }
       ],
@@ -1215,7 +1215,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Kalk ist der Feind deiner Kaffeemaschine. Adulting-Level 100: Den Entkalkungs-Rhythmus deiner Geräte im Kopf haben.",
+      "explanation": "Kalk setzt sich auf Heizelementen ab, kostet Strom und tötet Geräte früher. Entkalken alle paar Monate ist das günstigste Abo der Haushaltsführung.",
       "tags": [
         "adulting",
         "haushalt",
@@ -1242,26 +1242,26 @@
       "difficulty": "medium",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Was bedeutet „umdrehen“ bei Matratzen oder Sitzen nicht automatisch?",
+      "prompt": "Die Matratze hat eine Kuhle. Du drehst sie um. Was passiert NICHT automatisch?",
       "options": [
         {
           "id": "q-09-22-ec5ef9e357-opt-1",
-          "text": "Dass die Kuhle im Rücken verschwindet",
+          "text": "Die Kuhle und der Verschleiß verschwinden",
           "is_correct": true
         },
         {
           "id": "q-09-22-ec5ef9e357-opt-2",
-          "text": "Dass man besser schläft",
+          "text": "Frische Schlaffläche, die noch nicht eingedrückt ist",
           "is_correct": false
         },
         {
           "id": "q-09-22-ec5ef9e357-opt-3",
-          "text": "Dass die Matratze sauber wird",
+          "text": "Gleichmäßigere Abnutzung über Zeit",
           "is_correct": false
         },
         {
           "id": "q-09-22-ec5ef9e357-opt-4",
-          "text": "Dass man weniger schwitzt",
+          "text": "Luftzirkulation unter dem Kern",
           "is_correct": false
         }
       ],
@@ -1276,7 +1276,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Matratzen umdrehen ist wie ein Software-Update für den Schlaf. Hilft aber wenig, wenn das Ding schon 15 Jahre alt ist.",
+      "explanation": "Umdrehen verteilt Verschleiß gleichmäßiger – aber eine 15 Jahre alte Matratze ist auch auf der Rückseite kaputt.",
       "tags": [
         "adulting",
         "haushalt",
@@ -1303,7 +1303,7 @@
       "difficulty": "medium",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Warum ist „viel Waschmittel hilft viel“ Unsinn?",
+      "prompt": "Mehr Waschmittel = sauberere Wäsche, oder? Warum ist das Quatsch?",
       "options": [
         {
           "id": "q-09-23-96ddb6bada-opt-1",
@@ -1337,7 +1337,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Viel Waschmittel hilft NICHT viel. Es verstopft die Maschine und hinterlässt Flecken. Deine Wäsche wird nur teurer, nicht sauberer.",
+      "explanation": "Überschuss schäumt nicht weg – er bleibt in den Fasern, zieht Dreck an und belastet die Pumpe. Dosierempfehlung steht auf der Packung, weil sie stimmt.",
       "tags": [
         "adulting",
         "haushalt",
@@ -1364,26 +1364,26 @@
       "difficulty": "medium",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Was ist der erwachsene Hauptgrund, Rechnungen nicht zu ignorieren?",
+      "prompt": "Eine Rechnung liegt seit drei Wochen ungeöffnet auf dem Küchentisch. Was ist der echte Grund, sie endlich zu bezahlen?",
       "options": [
         {
           "id": "q-09-24-46b64e45c5-opt-1",
-          "text": "Postbote schimpft sonst",
+          "text": "Der Briefträger schreibt sonst eine Beschwerde",
           "is_correct": false
         },
         {
           "id": "q-09-24-46b64e45c5-opt-2",
-          "text": "Es bringt Pech",
+          "text": "Ungeöffnete Post bringt statistisch Pech",
           "is_correct": false
         },
         {
           "id": "q-09-24-46b64e45c5-opt-3",
-          "text": "Man bekommt kein Internet mehr",
+          "text": "Der Vermieter sieht es im System",
           "is_correct": false
         },
         {
           "id": "q-09-24-46b64e45c5-opt-4",
-          "text": "Mahngebühren und Schufa-Angst",
+          "text": "Mahngebühren, Schufa-Einträge und Inkasso",
           "is_correct": true
         }
       ],
@@ -1398,7 +1398,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Ignorieren macht Rechnungen nur teurer. Mahngebühren sind das Lehrgeld für Prokrastination und schlechte Planung.",
+      "explanation": "Ignorieren macht Rechnungen teurer: erst Mahngebühren, dann Inkasso, dann Schufa. Die Rechnung wird nicht kleiner, wenn man wegschaut.",
       "tags": [
         "adulting",
         "haushalt",
@@ -1425,7 +1425,7 @@
       "difficulty": "medium",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Warum tut mit 30 plötzlich der Rücken weh, obwohl man „nichts gemacht“ hat?",
+      "prompt": "Mit 30 tut der Rücken weh – obwohl man 'eigentlich nichts gemacht hat'. Was ist die ernüchternde Erklärung?",
       "options": [
         {
           "id": "q-09-25-f39bc42949-opt-1",
@@ -1459,7 +1459,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Herzlichen Glückwunsch, du bist in dem Alter, in dem Niesen eine ernsthafte Sportverletzung sein kann. Pflege deine Tempelruine!",
+      "explanation": "Verkürzte Muskeln durch stundenlanges Sitzen melden sich irgendwann mit dumpfem Schmerz. Ab 30 zählt jede Bewegungspause.",
       "tags": [
         "adulting",
         "haushalt",
@@ -1487,7 +1487,7 @@
         "context": "Statistisches Bundesamt, Durchschnitt"
       },
       "scoring_rule": "closest_wins",
-      "explanation": "30 Prozent ist die Faustregel, aber in Städten wie Berlin oder München lachen (oder weinen) wir über diesen Wert nur.",
+      "explanation": "30% Mietquote ist die Faustregel der Finanzplanung. In München oder Berlin ist das ungefähr das, was man sich beim Lesen wünscht.",
       "difficulty": "medium",
       "points": 1,
       "category_id": "cat-09"
@@ -1495,11 +1495,11 @@
     {
       "id": "q-09-01",
       "type": "majority_guess",
-      "prompt": "Adulting-Realitaetscheck: Wie saugst du meistens Staub?",
+      "prompt": "Adulting-Realitätscheck: Wie saugst du meistens Staub?",
       "options": [
         {
           "id": "q-09-01-opt-1",
-          "text": "Ich raeume vorher ordentlich frei"
+          "text": "Ich räume vorher alles ordentlich weg"
         },
         {
           "id": "q-09-01-opt-2",
@@ -1511,10 +1511,10 @@
         },
         {
           "id": "q-09-01-opt-4",
-          "text": "Ich delegiere das Problem an spaeter"
+          "text": "Ich verschiebe das Problem auf später"
         }
       ],
-      "explanation": "Das ist keine belastbare Studie, sondern eine Mehrheitsfrage ueber ehrliches Haushaltsverhalten. Die Gruppe entscheidet, welche Ausrede gewinnt."
+      "explanation": "Mehrheitsfrage: Die Gruppe entscheidet, welche Ausrede gewinnt. Antwort 4 ist ehrlicher als sie klingt."
     },
     {
       "id": "q-09-03",
@@ -1543,12 +1543,12 @@
         }
       ],
       "correct_option_id": "q-09-03-opt-2",
-      "explanation": "Der Strom geht direkt an den Versorger, nicht an den Vermieter. An den Vermieter gehen nur Kaltmiete plus Nebenkosten: 600 € + 150 € = 750 €."
+      "explanation": "Strom läuft direkt an den Versorger. An den Vermieter: Kaltmiete 600 € + Nebenkosten 150 € = 750 €. Der Rest ist dein Problem."
     },
     {
       "id": "q-09-04",
       "type": "ranking",
-      "prompt": "Sortiere diese Haushalts-Gegenstände nach ihrem Potenzial, eine Waschmaschine zu ruinieren (von 'nervig' bis 'Totalschaden').",
+      "prompt": "Sortiere nach Schadenpotenzial für die Waschmaschine – von 'lästig' bis 'Totalschaden'.",
       "items": [
         {
           "id": "q-09-04-item-bh",
@@ -1574,21 +1574,21 @@
         "q-09-04-item-stone"
       ],
       "scoring_rule": "exact_order",
-      "explanation": "Das Taschentuch macht nur Dreck, die Münze klappert, aber der BH-Bügel durchbohrt die Trommel."
+      "explanation": "Taschentuch = Fluffchaos. Münze = Klapperalarm. BH-Bügel ohne Netz = Trommeldurchbohrung. Kieselstein im Schuh = mechanischer Totalschaden."
     },
     {
       "id": "q-09-05",
       "type": "common_mistake",
-      "prompt": "Darf man den fettigen Pizzakarton (mit Käseresten) eigentlich ins Altpapier werfen?",
+      "prompt": "Freitagabend, leere Pizzaschachtel mit Käseresten. Blaue Tonne oder Restmüll?",
       "options": [
         {
           "id": "opt-1",
-          "text": "Ja, solange er aus Pappe ist.",
+          "text": "Blaue Tonne – Pappe ist Pappe.",
           "is_correct": false
         },
         {
           "id": "opt-2",
-          "text": "Nein, er gehört in den Restmüll.",
+          "text": "Restmüll – Fett stört das Recycling.",
           "is_correct": true
         },
         {
@@ -1598,7 +1598,7 @@
         },
         {
           "id": "opt-4",
-          "text": "Ja, das Fett hilft beim Recyclingprozess.",
+          "text": "Blaue Tonne – die Anlage filtert Fett automatisch heraus.",
           "is_correct": false
         }
       ],
@@ -1610,7 +1610,7 @@
     {
       "id": "q-09-07",
       "type": "fast_guess",
-      "prompt": "Was bedeutet das Waschsymbol: Ein Quadrat mit einem Kreis darin?",
+      "prompt": "Waschetikett: Ein Quadrat mit einem Kreis darin. Trockner rein oder nicht?",
       "options": [
         {
           "id": "opt-1",
@@ -1641,7 +1641,7 @@
     {
       "id": "q-09-08",
       "type": "majority_guess",
-      "prompt": "Bei welchem Adulting-Brief wuerdest du am ehesten erst mal jemanden um Hilfe bitten?",
+      "prompt": "Bei welchem Amtsbrief rufst du als erstes bei jemandem um Hilfe an?",
       "options": [
         {
           "id": "q-09-08-opt-1",
@@ -1660,31 +1660,31 @@
           "text": "Renteninformation"
         }
       ],
-      "explanation": "Das ist bewusst eine Mehrheitsfrage. Amtssprache ist der Endgegner, aber jede Runde hat ihren eigenen Angstgegner."
+      "explanation": "Mehrheitsfrage. Amtsdeutsch ist der Endgegner – jede Gruppe hat ihr eigenes Lieblingstrauma."
     },
     {
       "id": "q-09-09",
       "type": "logic",
-      "prompt": "Du willst Schimmel in der Wohnung vermeiden. Welches dieser Verhaltensweisen ist im Winter am LOGISCHSTEN?",
+      "prompt": "Winter, feuchte Luft, Schimmelgefahr. Was ist die logisch richtige Lüftungsstrategie?",
       "options": [
         {
           "id": "opt-1",
-          "text": "Das Fenster den ganzen Tag auf Kipp lassen.",
+          "text": "Fenster dauerhaft auf Kipp – sorgt für kontinuierlichen Luftwechsel.",
           "is_correct": false
         },
         {
           "id": "opt-2",
-          "text": "Zweimal täglich für 5 Minuten alle Fenster weit öffnen (Stoßlüften).",
+          "text": "Zweimal täglich kurz alle Fenster weit auf (Stoßlüften).",
           "is_correct": true
         },
         {
           "id": "opt-3",
-          "text": "Gar nicht lüften, um die Wärme drinnen zu behalten.",
+          "text": "Im Winter gar nicht lüften – Energie sparen hat Vorrang.",
           "is_correct": false
         },
         {
           "id": "opt-4",
-          "text": "Die Heizung komplett ausschalten.",
+          "text": "Heizung aus und Fenster immer zu – kalt = kein Schimmel.",
           "is_correct": false
         }
       ],
@@ -1693,12 +1693,12 @@
         "canonical": "Stoßlüften",
         "context": "Kipplüften kühlt nur die Wände aus und fördert Schimmel. Stoßlüften tauscht die Luft aus, ohne dass die Wände auskühlen."
       },
-      "explanation": "Kipplüften kühlt nur die Wände aus und fördert Schimmel. Stoßlüften tauscht die Luft aus, ohne dass die Wände auskühlen."
+      "explanation": "Kipplüften kühlt Wände aus und fördert Schimmel. Stoßlüften tauscht die feuchte Luft aus, ohne die Wand auf Kühlschranktemperatur zu bringen."
     },
     {
       "id": "q-09-10",
       "type": "estimate",
-      "prompt": "Wie viel Pfand zahlst du typischerweise fuer einen Bierkasten mit 20 Mehrwegflaschen plus Kasten?",
+      "prompt": "Wie viel Pfand zahlst du typischerweise für einen Bierkasten mit 20 Mehrwegflaschen plus Kasten?",
       "answer": {
         "canonical": "3,10 Euro",
         "reference_value": 3.1,

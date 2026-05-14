@@ -14,7 +14,7 @@
   "questions": [
     {
       "id": "q-06-01-a02a242af7",
-      "prompt": "Welche Sängerin rasierte sich 2007 öffentlich den Kopf und wurde damit zum Symbol eines Popkultur-Meltdowns?",
+      "prompt": "Welche Saengerin rasierte sich 2007 in einem Friseursalon in Tarzana den Kopf – vor laufenden Kameras und ohne offizielle Erklaerung?",
       "options": [
         {
           "id": "q-06-01-a02a242af7-opt-1",
@@ -28,7 +28,7 @@
         },
         {
           "id": "q-06-01-a02a242af7-opt-3",
-          "text": "Jeanette Biedermann",
+          "text": "Amy Winehouse",
           "is_correct": false
         },
         {
@@ -38,7 +38,7 @@
         }
       ],
       "correct_option_id": "q-06-01-a02a242af7-opt-1",
-      "explanation": "2007: Glatze statt Extensions. Britney war der Endgegner aller Friseure. Wir haben alle mitgefühlt, während wir uns parallel ein Tribal-Tattoo auf das Steißbein haben tackern lassen.",
+      "explanation": "Friseursalon Tarzana, Februar 2007: Britney griff selbst zur Maschine. Die Paparazzi hatten ihr ganzes Leben fotografiert – das war das einzige Bild, das sie selbst kontrollierte.",
       "difficulty": "medium_hard",
       "category_id": "cat-06",
       "type": "multiple_choice",
@@ -55,22 +55,22 @@
         },
         {
           "id": "q-06-02-797b29c4c5-opt-2",
-          "text": "Madonna küsste eine Background-Tänzerin zu wild",
+          "text": "Janet Jackson tanzte zu explizit fuer die Halbzeitshow",
           "is_correct": false
         },
         {
           "id": "q-06-02-797b29c4c5-opt-3",
-          "text": "Kanye West stürmte die Bühne",
+          "text": "Das Mikrofon fiel ihr aus der Hand und traf einen Zuschauer",
           "is_correct": false
         },
         {
           "id": "q-06-02-797b29c4c5-opt-4",
-          "text": "Eine Fehlfunktion der Konfetti-Kanone",
+          "text": "Sie knutschte Timberlake live auf der Buehne",
           "is_correct": false
         }
       ],
       "correct_option_id": "q-06-02-797b29c4c5-opt-1",
-      "explanation": "Ein Nippel für 0,8 Sekunden im TV und die USA erleiden einen Nervenzusammenbruch. Justin Timberlake kam davon, Janet wurde gecancelt. Klassischer 2000er-Move.",
+      "explanation": "0,8 Sekunden Halbzeitshow, 550.000 FCC-Beschwerden, eine Millionenstrafe. Timberlake entschuldigte sich nicht oeffentlich – das tat er erst 2021. Janet zahlte den Preis allein.",
       "difficulty": "medium_hard",
       "category_id": "cat-06",
       "type": "multiple_choice",
@@ -102,7 +102,7 @@
         }
       ],
       "correct_option_id": "q-06-03-1bf72f72a8-opt-1",
-      "explanation": "„Yo Taylor, I’m really happy for you, I’mma let you finish, but...“ – Der Moment, in dem Kanye offiziell zum Endgegner des Anstands wurde. Taylor sah aus, als hätte man ihr gerade ihr Pony gestohlen.",
+      "explanation": "Yo Taylor, I'm really happy for you, I'mma let you finish, but Beyonce had one of the best videos of all time. Taylor war 19, hatte gerade ihren ersten VMA gewonnen und hoerte live von jemand anderem davon.",
       "difficulty": "medium_hard",
       "category_id": "cat-06",
       "type": "multiple_choice",
@@ -110,7 +110,7 @@
     },
     {
       "id": "q-06-04-09a502d726",
-      "prompt": "Welches Jamba-Maskottchen nervte uns 2005 mit einem Klingelton bis in den Wahnsinn?",
+      "prompt": "Welches animierte Jamba-Maskottchen verdraengte 2005 mit 'Axel F' echte Musiker von Platz 1 der deutschen Charts?",
       "options": [
         {
           "id": "q-06-04-09a502d726-opt-1",
@@ -129,12 +129,12 @@
         },
         {
           "id": "q-06-04-09a502d726-opt-4",
-          "text": "Der nackte Maulwurf",
+          "text": "Gummy Bear",
           "is_correct": false
         }
       ],
       "correct_option_id": "q-06-04-09a502d726-opt-1",
-      "explanation": "Crazy Frog machte 2005 mit 'Axel F' und Jamba-Spots die Charts und Wohnzimmer unsicher. Der Klingelton war kaum zu ueberhoeren.",
+      "explanation": "Crazy Frog war urspruenglich ein Motorrad-Sound-Meme namens 'The Annoying Thing'. Jamba lizenzierte ihn, packte ihn zu 'Axel F' und landete damit auf Platz 1 in 14 Laendern.",
       "difficulty": "medium_hard",
       "category_id": "cat-06",
       "type": "multiple_choice",
@@ -142,7 +142,7 @@
     },
     {
       "id": "q-06-05-255c734412",
-      "prompt": "Welche Erbin war die „Urmutter“ der It-Girls und wurde durch ein Sextape und „The Simple Life“ berühmt?",
+      "prompt": "Welche Hotelerbin wurde 2004 durch ihre Realityshow 'The Simple Life' zum It-Girl – kurz nachdem ihr gestohlenes Sextape viral gegangen war?",
       "options": [
         {
           "id": "q-06-05-255c734412-opt-1",
@@ -161,12 +161,12 @@
         },
         {
           "id": "q-06-05-255c734412-opt-4",
-          "text": "Lindsay Lohan",
+          "text": "Nicky Hilton",
           "is_correct": false
         }
       ],
       "correct_option_id": "q-06-05-255c734412-opt-1",
-      "explanation": "„That’s hot.“ Paris hat bewiesen, dass man absolut gar nichts können muss, um ein Weltstar zu sein. Ein echtes Vorbild für die heutige Influencer-Hölle.",
+      "explanation": "That's hot. Paris bewies, dass Prominenz ohne erkennbares Talent moeglich ist – und erfand damit das Influencer-Geschaeftsmodell, bevor Instagram existierte.",
       "difficulty": "medium_hard",
       "category_id": "cat-06",
       "type": "multiple_choice",
@@ -183,22 +183,22 @@
         },
         {
           "id": "q-06-06-5c60f216b4-opt-2",
-          "text": "Der Gruschel-Button",
+          "text": "Das Profilbild-Kommentar-Ranking",
           "is_correct": false
         },
         {
           "id": "q-06-06-5c60f216b4-opt-3",
-          "text": "Der Dislike-Daumen",
+          "text": "Die Hintergrundmusik auf dem Profil",
           "is_correct": false
         },
         {
           "id": "q-06-06-5c60f216b4-opt-4",
-          "text": "Die „Wer hat mein Profil besucht“-Liste",
+          "text": "Die Zahl der Profilbesucher",
           "is_correct": false
         }
       ],
       "correct_option_id": "q-06-06-5c60f216b4-opt-1",
-      "explanation": "Wenn du von Platz 2 auf Platz 5 der „Top 8“ deines besten Freundes gerutscht bist, war das eine Kriegserklärung. MySpace-Tom war der einzige, der uns nie enttäuscht hat.",
+      "explanation": "Platz 2 auf Platz 5 – keine Nachricht noetig, die Botschaft war klar. Die Top 8 waren das erste oeffentliche Freundschafts-Ranking der Geschichte. Wir waren nicht bereit.",
       "difficulty": "medium_hard",
       "category_id": "cat-06",
       "type": "multiple_choice",
@@ -206,7 +206,7 @@
     },
     {
       "id": "q-06-07-4bba4ca4fc",
-      "prompt": "Welcher Jamba-Klingelton-Star war so erfolgreich, dass er es 2008 auf Platz 1 der Charts schaffte?",
+      "prompt": "Welcher animierte Jamba-Charakter sang 2008 'Ich bin dein Schnuffelchen' und verdraengte damit reale Musiker von Platz 1?",
       "options": [
         {
           "id": "q-06-07-4bba4ca4fc-opt-1",
@@ -215,22 +215,22 @@
         },
         {
           "id": "q-06-07-4bba4ca4fc-opt-2",
-          "text": "Mickie Krause",
+          "text": "Sweety das Kuechen",
           "is_correct": false
         },
         {
           "id": "q-06-07-4bba4ca4fc-opt-3",
-          "text": "Gummy Bear",
+          "text": "Crazy Frog",
           "is_correct": false
         },
         {
           "id": "q-06-07-4bba4ca4fc-opt-4",
-          "text": "Shaun das Schaf",
+          "text": "Gummy Bear",
           "is_correct": false
         }
       ],
       "correct_option_id": "q-06-07-4bba4ca4fc-opt-1",
-      "explanation": "Ein animierter Hase singt über das Kuscheln und verdrängt echte Musiker von Platz 1. Das war der Moment, in dem die Musikindustrie offiziell kapituliert hat.",
+      "explanation": "Schnuffel der Hase, gesungen von einer Frau mit Chipmunk-Stimme, stand 2008 auf Platz 1 der deutschen Charts. Der Klingelton-Markt hatte die Kontrolle uebernommen.",
       "difficulty": "medium_hard",
       "category_id": "cat-06",
       "type": "multiple_choice",
@@ -262,7 +262,7 @@
         }
       ],
       "correct_option_id": "q-06-08-312baa8b83-opt-1",
-      "explanation": "Wer seinen 20kg-Monitor nicht drei Stockwerke hochgeschleppt hat, hat nie geliebt. Der Geruch nach Schweiß und billiger Salami gehört zur Millennial-DNA.",
+      "explanation": "Roeehrenmonitor, Ethernet-Kabel, Pizza, kein Schlaf und Counterstrike bis 6 Uhr. Wer seinen 20-Kilo-Monitor nicht selbst getragen hat, hat nicht wirklich LAN-Party gemacht.",
       "difficulty": "medium_hard",
       "category_id": "cat-06",
       "type": "multiple_choice",
@@ -279,22 +279,22 @@
         },
         {
           "id": "q-06-10-7682eb6340-opt-2",
-          "text": "iTunes Store",
+          "text": "Limewire",
           "is_correct": false
         },
         {
           "id": "q-06-10-7682eb6340-opt-3",
-          "text": "MyVideo",
+          "text": "Audiogalaxy",
           "is_correct": false
         },
         {
           "id": "q-06-10-7682eb6340-opt-4",
-          "text": "Yahoo Music",
+          "text": "eMule",
           "is_correct": false
         }
       ],
       "correct_option_id": "q-06-10-7682eb6340-opt-1",
-      "explanation": "Wir haben 4 Stunden gewartet, um einen Song runterzuladen, der am Ende nur 30 Sekunden Rauschen oder eine Botschaft vom FBI war. Nervenkitzel pur.",
+      "explanation": "Napster wurde 2001 abgeschaltet, Kazaa uebernahm. Vier Stunden Download fuer eine MP3, die dann ein 30-Sekunden-Rauschen war – aber manchmal war es auch tatsaechlich der Song.",
       "difficulty": "medium_hard",
       "category_id": "cat-06",
       "type": "multiple_choice",
@@ -302,7 +302,7 @@
     },
     {
       "id": "q-06-11-5ed6bf0b49",
-      "prompt": "Wie hieß der „König der Popmusik“, dessen Ableben 2009 das Internet fast zum Erliegen brachte?",
+      "prompt": "Wessen Tod am 25. Juni 2009 die Google-Server mit einem noch nie dagewesenen Such-Ansturm zum Absturz brachte?",
       "options": [
         {
           "id": "q-06-11-5ed6bf0b49-opt-1",
@@ -326,7 +326,7 @@
         }
       ],
       "correct_option_id": "q-06-11-5ed6bf0b49-opt-1",
-      "explanation": "Google dachte an eine DDoS-Attacke, so viele Leute suchten nach ihm. Der King of Pop ging, und mit ihm ein riesiges Stück unserer 80er/90er/00er-Kindheit.",
+      "explanation": "Googles Server hielten die Suchanfragen zunaechst fuer eine DDoS-Attacke. Twitter, Wikipedia und TMZ brachen ebenfalls kurz zusammen. Der Koenig der Popmusik starb, und das Internet machte kurz mit.",
       "difficulty": "medium_hard",
       "category_id": "cat-06",
       "type": "multiple_choice",
@@ -343,22 +343,22 @@
         },
         {
           "id": "q-06-12-4ae5daa5e8-opt-2",
-          "text": "Neonfarbene Schlaghosen",
+          "text": "Aufgerissene Baggy Jeans und Kette",
           "is_correct": false
         },
         {
           "id": "q-06-12-4ae5daa5e8-opt-3",
-          "text": "Goldketten und Baggy Pants",
+          "text": "Polohemd unter Kapuzenpulli (Preppy-Core)",
           "is_correct": false
         },
         {
           "id": "q-06-12-4ae5daa5e8-opt-4",
-          "text": "Karierte Westen und Zylinder",
+          "text": "Bunter Rucksack und Schuettler-Frisur",
           "is_correct": false
         }
       ],
       "correct_option_id": "q-06-12-4ae5daa5e8-opt-1",
-      "explanation": "Dazu noch schwarz lackierte Fingernägel und Checkered Vans. Wir waren alle so tiefgründig und missverstanden, während wir Tokio Hotel auf dem iPod hörten.",
+      "explanation": "Schwarzer Pony, lackierte Naegel, Checkered Vans, Tokio Hotel im iPod. Wir waren so missverstanden, dass wir uns einheitlich kleideten. Das Paradox ist jetzt 20 Jahre alt.",
       "difficulty": "medium_hard",
       "category_id": "cat-06",
       "type": "multiple_choice",
@@ -390,7 +390,7 @@
         }
       ],
       "correct_option_id": "q-06-14-146b14c352-opt-1",
-      "explanation": "Pink, süß und verdammt stark. Wir dachten, wir wären Carrie Bradshaw, sahen nach drei Gläsern aber eher aus wie Steve Buscemi nach einer Nachtschicht.",
+      "explanation": "Cointreau, Cranberry, Limette, Wodka – der Cosmopolitan ist eigentlich ein guter Cocktail. 'Sex and the City' hat ihn in einen Identitaetsanker verwandelt, den man mit Absaetzen trinkt.",
       "difficulty": "medium_hard",
       "category_id": "cat-06",
       "type": "multiple_choice",
@@ -407,22 +407,22 @@
         },
         {
           "id": "q-06-16-a59d98c3a2-opt-2",
-          "text": "Man konnte damit nicht telefonieren",
+          "text": "Keine MMS-Funktion und kein 3G",
           "is_correct": false
         },
         {
           "id": "q-06-16-a59d98c3a2-opt-3",
-          "text": "Der Akku hielt nur 10 Minuten",
+          "text": "Keine Frontkamera und kein Bluetooth",
           "is_correct": false
         },
         {
           "id": "q-06-16-a59d98c3a2-opt-4",
-          "text": "Es hatte keine Kamera",
+          "text": "Kein austauschbarer Akku und kein Flash",
           "is_correct": false
         }
       ],
       "correct_option_id": "q-06-16-a59d98c3a2-opt-1",
-      "explanation": "Ein „revolutionäres“ Gerät, auf dem man keinen Text kopieren konnte. Steve Jobs’ Realitätsverzerrungsfeld war so stark, dass wir es trotzdem alle wollten.",
+      "explanation": "Kein Copy-Paste bis 2009, kein App Store bis 2008, kein MMS, kein 3G am Launch. Trotzdem standen Leute tagelang Schlange. Steve Jobs Praesentation war sein bestes Produkt.",
       "difficulty": "medium_hard",
       "category_id": "cat-06",
       "type": "multiple_choice",
@@ -439,12 +439,12 @@
         },
         {
           "id": "q-06-18-f0b0cede7c-opt-2",
-          "text": "Punk’d",
+          "text": "Wildboyz",
           "is_correct": false
         },
         {
           "id": "q-06-18-f0b0cede7c-opt-3",
-          "text": "Pimp My Ride",
+          "text": "Nitro Circus",
           "is_correct": false
         },
         {
@@ -454,7 +454,7 @@
         }
       ],
       "correct_option_id": "q-06-18-f0b0cede7c-opt-1",
-      "explanation": "„I’m Johnny Knoxville, welcome to Jackass!“ – Wir haben zugesehen, wie Leute in Dixi-Klos katapultiert wurden, und dachten: Das ist Hochkultur.",
+      "explanation": "I'm Johnny Knoxville, welcome to Jackass! – Startete 2000 auf einer Skateboard-Website, landete auf MTV und brachte uns dazu, zuzusehen, wie Menschen in Dixi-Klos katapultiert wurden. Begeistert.",
       "difficulty": "medium_hard",
       "category_id": "cat-06",
       "type": "multiple_choice",
@@ -486,7 +486,7 @@
         }
       ],
       "correct_option_id": "q-06-19-4b0829c987-opt-1",
-      "explanation": "Dieter Bohlen beleidigte Leute, und wir saßen gespannt vor der Röhre. Alexander Klaws sang 'Take Me Tonight' und wir haben uns alle ein bisschen geschämt. Zurecht.",
+      "explanation": "Erste Staffel 2002: Alexander Klaws gewann, Jurors beleidigten Teilnehmer live im TV, und 22 Millionen schauten zu. Dieter Bohlen war das Format, nicht die Musik.",
       "difficulty": "medium_hard",
       "category_id": "cat-06",
       "type": "multiple_choice",
@@ -518,7 +518,7 @@
         }
       ],
       "correct_option_id": "q-06-20-82e0f32865-opt-1",
-      "explanation": "Man konnte es aus dem 4. Stock werfen, es hat den Asphalt zertrümmert und danach konnte man noch eine Runde Snake spielen. Der Chuck Norris unter den Mobiltelefonen.",
+      "explanation": "Das 3310 ueberlebte Fallversuche, Stuerze und mindestens eine Ehe. Snake war vorinstalliert. Die Legende des unzerstoerbaren Gehaeuses ist real – und wird von jedem bestaetigt, der einen Falltest gesehen hat.",
       "difficulty": "medium_hard",
       "category_id": "cat-06",
       "type": "multiple_choice",
@@ -526,7 +526,7 @@
     },
     {
       "id": "q-06-22-14f4f41899",
-      "prompt": "Was war die größte Enttäuschung beim Kauf einer „Wundertüte“ am Kiosk?",
+      "prompt": "Was war die unvermeidliche Erkenntnis beim Oeffnen einer Wundertuete am Kiosk?",
       "options": [
         {
           "id": "q-06-22-14f4f41899-opt-1",
@@ -535,22 +535,22 @@
         },
         {
           "id": "q-06-22-14f4f41899-opt-2",
-          "text": "Dass sie zu teuer war",
+          "text": "Dass die Figuren nicht mit den eigenen Matchbox-Autos kompatibel waren",
           "is_correct": false
         },
         {
           "id": "q-06-22-14f4f41899-opt-3",
-          "text": "Dass keine Süßigkeiten drin waren",
+          "text": "Dass die Suesssigkeiten abgelaufen waren",
           "is_correct": false
         },
         {
           "id": "q-06-22-14f4f41899-opt-4",
-          "text": "Dass sie nach Plastik stank",
+          "text": "Dass der Inhalt exakt 50 Cent weniger wert war als der Kaufpreis",
           "is_correct": false
         }
       ],
       "correct_option_id": "q-06-22-14f4f41899-opt-1",
-      "explanation": "Jedes Mal gehofft auf das goldene Los, jedes Mal bekommen: einen Plastikring, eine klebrige Hand und Enttäuschung. Die perfekte Vorbereitung auf das echte Leben.",
+      "explanation": "Plastikring, klebrige Hand, miniaturisierter Kunststoff ohne Verwendungszweck. Der Kiosk verkaufte Enttaeuschung im 50-Pfennig-Format. Wir kauften trotzdem die naechste.",
       "difficulty": "medium_hard",
       "category_id": "cat-06",
       "type": "multiple_choice",
@@ -582,7 +582,7 @@
         }
       ],
       "correct_option_id": "q-06-23-2cb0289b78-opt-1",
-      "explanation": "Das Tape wurde von einer Yacht gestohlen. Es war das erste Mal, dass das Internet für etwas anderes als Pornos benutzt wurde... oh wait, es war ja ein Porno.",
+      "explanation": "Das Tape von 1995 wurde 1997 gestohlen und im Netz verbreitet – zu frueh fuer YouTube, frueh genug fuer Kazaa. Der erste virale Prominenten-Skandal des Internets, bevor das Internet wusste, was es war.",
       "difficulty": "medium_hard",
       "category_id": "cat-06",
       "type": "multiple_choice",
@@ -591,7 +591,7 @@
     {
       "id": "q-06-01",
       "type": "standard",
-      "prompt": "Welche Sängerin lieferte 2007 das ultimative Symbol für einen 'Popkultur-Meltdown', als sie sich vor Paparazzi die Haare abrasierte?",
+      "prompt": "Welche Saengerin rasierte sich 2007 in Tarzana, Kalifornien selbst den Kopf – live vor Paparazzi?",
       "options": [
         {
           "id": "q-06-01-opt-1",
@@ -610,12 +610,12 @@
         },
         {
           "id": "q-06-01-opt-4",
-          "text": "Jeanette Biedermann",
+          "text": "Amy Winehouse",
           "is_correct": false
         }
       ],
       "correct_option_id": "q-06-01-opt-1",
-      "explanation": "2007: Glatze statt Extensions. Britney war der Endgegner aller Friseure. Wir haben alle mitgefühlt, während wir uns parallel ein Tribal-Tattoo aufs Steißbein haben tackern lassen.",
+      "explanation": "Februar 2007, Friseursalon Tarzana. Britney griff zur Maschine, waehrend Kameras draufhielten. Wir alle glotzen mit, waehrend wir selbst gerade unser Steiss-Tattoo bekamen.",
       "difficulty": "easy",
       "points": 1
     },
@@ -646,38 +646,38 @@
         }
       ],
       "correct_option_id": "q-06-02-opt-1",
-      "explanation": "Ein Nippel für 0,8 Sekunden im TV und die USA erleiden einen Nervenzusammenbruch. Justin kam davon, Janet wurde gecancelt. Klassischer Sexismus der 2000er.",
+      "explanation": "550.000 FCC-Beschwerden fuer 0,8 Sekunden Hautflaeche. Timberlake kam ungeschoren davon und feierte noch jahrelang weiter. Janet verlor Radioauftritte und Engagements. Klassisch.",
       "difficulty": "medium",
       "points": 2
     },
     {
       "id": "q-06-03",
       "type": "logic",
-      "prompt": "Kanye unterbricht 2009 Taylor Swifts Dankesrede. Für welchen Award hatte Swift gewonnen, den Kanye für Beyoncé beanspruchte?",
+      "prompt": "Kanye unterbricht 2009 Taylor Swifts VMA-Dankesrede. Welche Kategorie hatte Swift gewonnen – und warum war Kanyes Argument faktisch daneben?",
       "options": [
         {
           "id": "q-06-03-opt-1",
-          "text": "Beyoncé hatte in dieser speziellen Kategorie verloren",
+          "text": "Swift gewann 'Best Female Video' – eine andere Kategorie als Beyonces 'Video of the Year'",
           "is_correct": true
         },
         {
           "id": "q-06-03-opt-2",
-          "text": "Er wollte Taylor ein Date anbieten",
+          "text": "Beyonce hatte gar nicht nominiert in Swifts Kategorie",
           "is_correct": false
         },
         {
           "id": "q-06-03-opt-3",
-          "text": "Beyoncé war gar nicht anwesend",
+          "text": "Beyonce war gar nicht bei der Verleihung anwesend",
           "is_correct": false
         },
         {
           "id": "q-06-03-opt-4",
-          "text": "Er war für die Mikrofone zuständig",
+          "text": "Kanye wollte eigentlich fuer sich selbst nominiert werden",
           "is_correct": false
         }
       ],
       "correct_option_id": "q-06-03-opt-1",
-      "explanation": "Das Paradoxon der VMAs: Taylor gewann 'Best Female Video', aber Beyoncé später 'Video of the Year'. Kanye verstand das Prinzip der Kategorien einfach nicht. Oder Hennessy.",
+      "explanation": "Taylor gewann 'Best Female Video', Beyonce gewann spaeter 'Video of the Year' – zwei getrennte Kategorien. Kanye kaempfte also fuer eine Auszeichnung, die Beyonce wenige Minuten spaeter selbst bekam.",
       "difficulty": "hard",
       "points": 2
     },
@@ -709,7 +709,7 @@
         "it-sarahmarc",
         "it-kardashians"
       ],
-      "explanation": "Ozzy murmelte 2002 los, Paris mistete 2003 Ställe aus, Sarah Connor heiratete 2005 im TV und die Kardashians starteten ihre Weltherrschaft erst 2007.",
+      "explanation": "The Osbournes starteten 2002, The Simple Life 2003, Sarah & Marc in Love 2005, Keeping Up with the Kardashians erst 2007. Reality-TV als Weltherrschaftsprojekt, chronologisch geordnet.",
       "difficulty": "hard",
       "points": 2
     },
@@ -740,7 +740,7 @@
         }
       ],
       "correct_option_id": "q-06-05-opt-1",
-      "explanation": "Ein animierter Hase singt über das Kuscheln und verdrängt echte Musiker von Platz 1. Das war der Moment, in dem die Musikindustrie offiziell kapituliert hat.",
+      "explanation": "Schnuffel der Hase folgte auf Crazy Frog und Sweety. Jamba hatte die Formel: animiertes Tier, nerviger Song, Klingelton-Abo. Die Industrie tanzte mit, weil die Zahlen stimmten.",
       "difficulty": "medium",
       "points": 1
     },
@@ -766,7 +766,7 @@
           "text": "Schweißbänder als modisches Statement"
         }
       ],
-      "explanation": "Die Mehrheit entscheidet, was schlimmer war. Aber seien wir ehrlich: Wer Ed Hardy mit Von Dutch kombiniert hat, hat heute wahrscheinlich kein Mitspracherecht mehr.",
+      "explanation": "Die Gruppe entscheidet. Aber: Von Dutch war von Anfang an ein Joke-Label, Ed Hardy war Tattoo-Kunst fuer die Masse, und Avril Lavinges Krawatte war kurz cool und dann fuer immer peinlich.",
       "difficulty": "medium",
       "points": 2
     },
@@ -797,7 +797,7 @@
         }
       ],
       "correct_option_id": "q-06-08-opt-1",
-      "explanation": "MySpace-Tom. Er lächelte uns immer im weißen T-Shirt an. Der einzige Freund, der uns nie aus seiner Top 8 geworfen hat.",
+      "explanation": "Tom Anderson, Mitgruender von MySpace, war automatisch mit jedem neuen Nutzer befreundet. Er laechelte stets in einem weissen T-Shirt und warf niemanden aus der Top 8. Ein Vorbild.",
       "difficulty": "easy",
       "points": 1
     },
@@ -828,7 +828,7 @@
         }
       ],
       "correct_option_id": "q-06-11-opt-1",
-      "explanation": "Die 'Top 8' waren das digitale Ranking deiner Loyalität. Wer abgestuft wurde, wusste sofort: Hier braut sich ein Drama zusammen.",
+      "explanation": "Die Top-8-Reihenfolge war oeffentlich sichtbar und taeglich aktualisierbar. Kein Gespraech noetig: Eine Abstufung war eine Ansage. Social Media, bevor Social Media Konzepte dafuer hatte.",
       "difficulty": "medium",
       "points": 1
     },
@@ -859,7 +859,7 @@
         }
       ],
       "correct_option_id": "q-06-21-opt-1",
-      "explanation": "Aggro Berlin brachte Gangsta-Rap in den Mainstream. Unsere Eltern dachten, das Abendland geht unter, während wir im Kinderzimmer 'Mein Block' mitgerappt haben.",
+      "explanation": "Sido trug die Totenkopfmaske, rappte ueber den Brennpunkt Maerkisches Viertel und wurde von Lehrern und Eltern offiziell verboten. Aggro Berlin machte das zum Verkaufsargument.",
       "difficulty": "easy",
       "points": 1
     },
@@ -875,22 +875,22 @@
         },
         {
           "id": "q-06-23-opt-2",
-          "text": "Angriff der Klonkrieger",
+          "text": "Einen globalen Stromausfall",
           "is_correct": false
         },
         {
           "id": "q-06-23-opt-3",
-          "text": "Dass das Bier ausgeht",
+          "text": "Den Kollaps aller Bankautomaten weltweit",
           "is_correct": false
         },
         {
           "id": "q-06-23-opt-4",
-          "text": "Dass das Internet gelöscht wird",
+          "text": "Dass alle Flugzeuge gleichzeitig abstuertzen",
           "is_correct": false
         }
       ],
       "correct_option_id": "q-06-23-opt-1",
-      "explanation": "Wir dachten, Flugzeuge fallen vom Himmel und Toaster fangen an zu brennen. Am Ende passierte: nichts. Außer einer fetten Party.",
+      "explanation": "Der Y2K-Bug war real: Systeme speicherten Jahreszahlen zweistellig. Flugzeuge, Kraftwerke, Bankautomaten – alles auf dem Pruefstand. Dann schlug die Uhr auf null. Nichts passierte. Party weiter.",
       "difficulty": "easy",
       "points": 1
     }

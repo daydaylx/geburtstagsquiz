@@ -22,7 +22,7 @@
       "difficulty": "medium",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Wie hieß das Geräusch/Signal, das ein klassisches Einwählmodem beim Verbindungsaufbau machte?",
+      "prompt": "Wie nannte man das Geräusch, das ein klassisches Einwahlmodem beim Verbindungsaufbau von sich gab?",
       "options": [
         {
           "id": "q-10-01-a724282785-opt-1",
@@ -57,7 +57,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Das Geräusch, das unsere Eltern wütend machte, weil wir die Leitung blockierten. Das Tor zur Freiheit (mit 5 KB/s).",
+      "explanation": "Modem-Handshaking: ein Chor aus Kratzen, Pfeifen und Rauschen. Wer das noch im Ohr hat, hat die Telefonleitung seiner Familie systematisch blockiert.",
       "tags": [
         "technik",
         "hardware",
@@ -118,7 +118,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Discman ohne 'Anti-Shock' war eine Mutprobe. Wer damit gejoggt ist, hat eigentlich nur 3-sekündige Snippets gehört.",
+      "explanation": "Jede Treppenstufe = neuer Song-Schnipsel. Der Anti-Shock-Modus pufferte 10 Sekunden — für Jogger trotzdem hoffnungslos.",
       "tags": [
         "technik",
         "hardware",
@@ -179,7 +179,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Nero Burning ROM. Das Wortspiel mit dem brennenden Rom haben wir erst Jahre später kapiert. Unser Tool für Mix-CDs.",
+      "explanation": "Nero Burning ROM — das Wortspiel mit Kaiser Neros brennendem Rom kapiert man erst mit 25. Vorher war's einfach das Ding für Mix-CDs.",
       "tags": [
         "technik",
         "hardware",
@@ -206,7 +206,7 @@
       "difficulty": "medium",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Was bedeutete „CD brennen“ praktisch?",
+      "prompt": "Was passierte technisch beim „CD brennen”?",
       "options": [
         {
           "id": "q-10-04-681a745dc2-opt-1",
@@ -240,7 +240,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Brennen. Ein heroischer Akt, der oft mit 'Buffer Underrun' endete. Wir haben mehr Plastik verschwendet als eine Fabrik.",
+      "explanation": "Ein Laser schmilzt mikroskopische Grübchen in die Schicht — daher 'brennen'. Buffer Underrun beim Schreiben = Rohling Schrott. Tschüss, 45 Minuten.",
       "tags": [
         "technik",
         "hardware",
@@ -267,7 +267,7 @@
       "difficulty": "medium",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Welche Dateiendung war für Musikdownloads in der Tauschbörsenära am typischsten?",
+      "prompt": "Welche Dateiendung dominierte Musikdownloads auf Kazaa, Napster & Co.?",
       "options": [
         {
           "id": "q-10-05-c51c3c5aa4-opt-1",
@@ -276,7 +276,7 @@
         },
         {
           "id": "q-10-05-c51c3c5aa4-opt-2",
-          "text": ".exe (Virus!)",
+          "text": ".exe",
           "is_correct": false
         },
         {
@@ -300,7 +300,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": ".mp3 war die Währung des frühen 21. Jahrhunderts. 128 kbps galt damals als 'High Fidelity'.",
+      "explanation": ".mp3 war die Währung des frühen Internets. 128 kbps galt als 'gut genug' — und .exe tarnten sich gern als Eminem-Songs.",
       "tags": [
         "technik",
         "hardware",
@@ -327,7 +327,7 @@
       "difficulty": "medium",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Welche Tauschbörse war berüchtigt für Viren und Fake-Dateien neben Kazaa?",
+      "prompt": "Welche Tauschbörse galt neben Kazaa als zuverlässigste Virusschleuder der 2000er?",
       "options": [
         {
           "id": "q-10-06-65bfbcc6d2-opt-1",
@@ -361,7 +361,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "LimeWire. Man wollte einen Song und bekam einen Virus, der den PC in drei Sprachen gleichzeitig abstürzen ließ.",
+      "explanation": "LimeWire: Man wollte ein Lied, bekam ein Rootkit. eMule war langsamer, aber ehrlicher. BearShare probierte es auch — niemand vermisst es.",
       "tags": [
         "technik",
         "hardware",
@@ -388,11 +388,11 @@
       "difficulty": "medium",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Welche Speicherkapazität hatte eine klassische 3,5-Zoll-Diskette meist?",
+      "prompt": "Wieviel fasste eine klassische 3,5-Zoll-HD-Diskette?",
       "options": [
         {
           "id": "q-10-07-c46b85b036-opt-1",
-          "text": "1,44 MB (reicht für ein halbes Foto)",
+          "text": "1,44 MB",
           "is_correct": true
         },
         {
@@ -422,7 +422,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "1,44 Megabyte. Das reicht heute nicht mal für ein 4K-Emoji. Damals haben wir ganze Hausarbeiten darauf gespeichert.",
+      "explanation": "1,44 MB — das schafft heute kein Desktop-Hintergrundbild. Damals passten Referate drauf, wenn man den Text klein genug machte.",
       "tags": [
         "technik",
         "hardware",
@@ -449,7 +449,7 @@
       "difficulty": "medium",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Warum war ein Röhrenmonitor im Vergleich zu heutigen Displays ein Möbelstück mit Stromanschluss?",
+      "prompt": "Was machte den Röhrenmonitor zum gefürchtetsten Umzugsgegenstand der 90er?",
       "options": [
         {
           "id": "q-10-08-e01d9ff8bd-opt-1",
@@ -458,17 +458,17 @@
         },
         {
           "id": "q-10-08-e01d9ff8bd-opt-2",
-          "text": "Man konnte ihn als Tisch nutzen",
+          "text": "Er zog mehr Strom als ein Kühlschrank",
           "is_correct": false
         },
         {
           "id": "q-10-08-e01d9ff8bd-opt-3",
-          "text": "Er war aus Holz",
+          "text": "Die Rückstrahlungshitze war das eigentliche Problem",
           "is_correct": false
         },
         {
           "id": "q-10-08-e01d9ff8bd-opt-4",
-          "text": "Keine Kabel",
+          "text": "Das Flimmern der Röhre bei schlechtem Kontrast",
           "is_correct": false
         }
       ],
@@ -483,7 +483,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Röhrenmonitore waren der Grund für unsere Rückenprobleme. Wer so ein 19-Zoll-Monster zur LAN-Party geschleppt hat, war ein Held.",
+      "explanation": "30 Kilo, 50 cm Tiefe, Strahlungsflimmern. Wer den zur LAN-Party schleppte, war entweder sehr stark oder sehr unklug — oft beides.",
       "tags": [
         "technik",
         "hardware",
@@ -544,7 +544,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "SMS. 160 Zeichen pure Emotion für 39 Pfennig. Wir haben Abkürzungen erfunden, die heute kein Linguist mehr versteht.",
+      "explanation": "160 Zeichen, 19 Cent das Stück — und wir haben trotzdem Romane verschickt, in einer Abkürzungssprache, die kein Linguist überlebt hätte.",
       "tags": [
         "technik",
         "hardware",
@@ -605,7 +605,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "T9 war Magie. Wir konnten blind unter der Schulbank Nachrichten tippen. Heute wirken wir damit wie Zauberer.",
+      "explanation": "T9 lernte dein Wörterbuch kennen und tippte halb für dich. Unter der Schulbank, ohne hinzusehen. Touchscreen-Generationen können das nicht.",
       "tags": [
         "technik",
         "hardware",
@@ -632,7 +632,7 @@
       "difficulty": "medium",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Was war der Vorteil eines Klapphandys?",
+      "prompt": "Was war der unbestrittene Hauptvorteil eines Klapphandys gegenüber einem Candy-Bar-Handy?",
       "options": [
         {
           "id": "q-10-11-f066fb2e24-opt-1",
@@ -641,17 +641,17 @@
         },
         {
           "id": "q-10-11-f066fb2e24-opt-2",
-          "text": "Besserer Empfang im Keller",
+          "text": "Größeres Display durch die Klappmechanik",
           "is_correct": false
         },
         {
           "id": "q-10-11-f066fb2e24-opt-3",
-          "text": "Eingebauter Spiegel",
+          "text": "Das Display war vor Kratzern geschützt",
           "is_correct": false
         },
         {
           "id": "q-10-11-f066fb2e24-opt-4",
-          "text": "Als Waffe nutzbar",
+          "text": "Längere Akkulaufzeit durch geringeres Display",
           "is_correct": false
         }
       ],
@@ -666,7 +666,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Klapphandys (Razr!) waren der Gipfel der Coolness. Nichts war befriedigender als ein lautes 'Klack' zum Gesprächsende.",
+      "explanation": "Motorola Razr, Nokia 8210 — das Klacken beim Auflegen war das emotionste Geräusch der Mobiltelefonie. Touchscreen kann das nicht replizieren.",
       "tags": [
         "technik",
         "hardware",
@@ -693,7 +693,7 @@
       "difficulty": "medium",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Welche Marke ist eng mit dem Kult-Handy 3310 verbunden?",
+      "prompt": "Das 3310 war ein Handy, das Fallstudien überlebt hat. Welcher Hersteller baute es?",
       "options": [
         {
           "id": "q-10-12-ba3a09612f-opt-1",
@@ -707,7 +707,7 @@
         },
         {
           "id": "q-10-12-ba3a09612f-opt-3",
-          "text": "Nokia (Unkaputtbar)",
+          "text": "Nokia",
           "is_correct": true
         },
         {
@@ -727,7 +727,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Das Nokia 3310. Wenn es runterfiel, ging der Boden kaputt, nicht das Handy. Akkulaufzeit? Mehrere Wochen.",
+      "explanation": "Nokia 3310: Akku hielt Wochen, Gehäuse überlebte Sturz vom Balkon. Siemens und Sony Ericsson hatten auch Kultmodelle — aber keinen Mythos.",
       "tags": [
         "technik",
         "hardware",
@@ -754,7 +754,7 @@
       "difficulty": "medium",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Was war ein großer Nachteil früher MP3-Player mit wenig Speicher?",
+      "prompt": "Frühe MP3-Player mit 64 MB Speicher zwangen dich morgens zu einer Entscheidung. Welche?",
       "options": [
         {
           "id": "q-10-13-9a6c710d44-opt-1",
@@ -763,17 +763,17 @@
         },
         {
           "id": "q-10-13-9a6c710d44-opt-2",
-          "text": "Man brauchte Benzin",
+          "text": "Welche Bitrate man nimmt: 128 oder 192 kbps",
           "is_correct": false
         },
         {
           "id": "q-10-13-9a6c710d44-opt-3",
-          "text": "Sie waren zu schwer",
+          "text": "Ob man AA oder AAA Batterien kaufen soll",
           "is_correct": false
         },
         {
           "id": "q-10-13-9a6c710d44-opt-4",
-          "text": "Funktion nur unter Wasser",
+          "text": "Ob die Kopfhörer wieder kompatibel sind",
           "is_correct": false
         }
       ],
@@ -788,7 +788,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Frühe MP3-Player hatten 64 MB. Man musste morgens entscheiden: Welche 15 Songs begleiten mich? Das war Charakterbildung!",
+      "explanation": "64 MB, ca. 15 Songs bei 128 kbps. Wer Eminem rauswarf und dann im Bus bereute, hat echten Schmerz gekannt.",
       "tags": [
         "technik",
         "hardware",
@@ -849,7 +849,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "VGA – der blaue Stecker mit den Schrauben, die man immer zu fest angezogen hat. Wenn ein Pin verbogen war, war alles lila.",
+      "explanation": "Video Graphics Array — blauer D-Sub-Stecker, 15 Pins, keiner saß gerade. Einen verbogen: Magenta-Bildschirm. DVI kam später, HDMI erst viel später.",
       "tags": [
         "technik",
         "hardware",
@@ -876,7 +876,7 @@
       "difficulty": "medium",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Was ist ein USB-Stick funktional?",
+      "prompt": "Was ist ein USB-Stick — und zwar technisch gesehen?",
       "options": [
         {
           "id": "q-10-15-22894dcb08-opt-1",
@@ -910,7 +910,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Der USB-Stick hat die Diskette getötet. Plötzlich 128 MB in der Hosentasche! Und man hat ihn IMMER erst beim 3. Versuch richtig eingesteckt.",
+      "explanation": "128 MB Flash-Speicher in der Hosentasche — die Diskette war erledigt. Und er passte garantiert beim dritten Versuch in den Port. Immer.",
       "tags": [
         "technik",
         "hardware",
@@ -937,21 +937,21 @@
       "difficulty": "medium",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Was war bei frühen WLAN-Verbindungen im Haushalt oft frustig?",
+      "prompt": "Was war an frühem WLAN im Haushalt das größte Problem?",
       "options": [
         {
           "id": "q-10-16-3375eefa44-opt-1",
-          "text": "Nacht-Modus",
+          "text": "Der WEP-Verschlüsselung war leicht zu knacken",
           "is_correct": false
         },
         {
           "id": "q-10-16-3375eefa44-opt-2",
-          "text": "Man konnte es riechen",
+          "text": "Die Einrichtung über Browser-Interface war zu kompliziert",
           "is_correct": false
         },
         {
           "id": "q-10-16-3375eefa44-opt-3",
-          "text": "Machte Milch sauer",
+          "text": "WLAN störte die Mikrowelle im gleichen Frequenzband",
           "is_correct": false
         },
         {
@@ -971,7 +971,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Frühes WLAN war ein Mythos. Einmal falsch geatmet oder eine Wand dazwischen, und schon war man wieder offline.",
+      "explanation": "802.11b mit maximal 11 Mbit/s — und das nur direkt neben dem Router. Durch eine Betonwand: Glückssache. Die Mikrowelle störte nebenbei auch noch.",
       "tags": [
         "technik",
         "hardware",
@@ -998,7 +998,7 @@
       "difficulty": "medium",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Was ist ein „Blue Screen“ im Windows-Alltag umgangssprachlich?",
+      "prompt": "Was steckt hinter dem Windows-Begriff „Blue Screen of Death”?",
       "options": [
         {
           "id": "q-10-17-91e8d7efc9-opt-1",
@@ -1032,7 +1032,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Der Blue Screen of Death. Der Moment, in dem dein Puls auf 180 ging, weil du seit Stunden nicht gespeichert hattest.",
+      "explanation": "BSOD: ein weißer Fehlercode auf blauem Grund, gefolgt von Neustart. Besonders beliebt nach stundenlanger, ungespeicherter Arbeit.",
       "tags": [
         "technik",
         "hardware",
@@ -1059,11 +1059,11 @@
       "difficulty": "medium",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Was war bei gebrannten CDs ein häufiger Grund dafür, dass sie im Autoradio nicht liefen?",
+      "prompt": "Du brennst die perfekte Mix-CD — und das Autoradio spielt sie nicht ab. Was ist der häufigste Grund?",
       "options": [
         {
           "id": "q-10-18-ed86c923b4-opt-1",
-          "text": "Sie waren zu rund",
+          "text": "Zu schnell gebrannt (z.B. 52x statt 4x)",
           "is_correct": false
         },
         {
@@ -1073,12 +1073,12 @@
         },
         {
           "id": "q-10-18-ed86c923b4-opt-3",
-          "text": "Zu laut gebrannt",
+          "text": "CD-RW statt CD-R verwendet",
           "is_correct": false
         },
         {
           "id": "q-10-18-ed86c923b4-opt-4",
-          "text": "Auto mochte die Musik nicht",
+          "text": "Billigmarke-Rohling mit Kratzern",
           "is_correct": false
         }
       ],
@@ -1093,7 +1093,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Daten-CD statt Audio-CD im Autoradio? Stille. Ein harter Tag für jeden Hobby-DJ der 2000er.",
+      "explanation": "Daten-CD (ISO-Format) statt Audio-CD (Red Book) — das ältere Autoradio las nur letztere. Plus: CD-RW und Billigrohlinge hatten Reflektivitätsprobleme.",
       "tags": [
         "technik",
         "hardware",
@@ -1154,7 +1154,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Winamp – 'It really whips the llama's ass!'. Wir haben Stunden mit hässlichen Skins verbracht, nur um am Ende 'Classic' zu nutzen.",
+      "explanation": "„Winamp – it really whips the llama's ass!” Stundenlanges Skin-Basteln, am Ende nutzte man Classic. Wurde 2013 eingestellt. Wir trauern noch.",
       "tags": [
         "technik",
         "hardware",
@@ -1215,7 +1215,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Defragmentieren war das digitale Zimmer-Aufräumen. Den bunten Kästchen stundenlang zuzusehen, hatte etwas Meditatives.",
+      "explanation": "Verstreute Datenfragmente werden neu geordnet, damit der Lesekopf weniger weit springen muss. SSDs brauchen das nicht — Fortschritt.",
       "tags": [
         "technik",
         "hardware",
@@ -1276,7 +1276,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Slider-Handys (Nokia 8110!) waren für die Matrix-Fans unter uns. Einmal schnippen und man war quasi Neo.",
+      "explanation": "Slider (Nokia 8110, Samsung E700): Tastatur ausfahren. Clamshell (Motorola Razr, StarTAC): aufklappen. Beide Gattungen: befriedigend zu bedienen.",
       "tags": [
         "technik",
         "hardware",
@@ -1303,16 +1303,16 @@
       "difficulty": "medium",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Warum waren frühe Digitalkameras mit winzigen Speicherkarten schnell nervig?",
+      "prompt": "Frühe Digitalkameras litten unter einem Kernproblem. Was war es?",
       "options": [
         {
           "id": "q-10-22-1a883f547d-opt-1",
-          "text": "Batterien hielten 5 Minuten",
+          "text": "Akku war nach 20–30 Fotos leer",
           "is_correct": false
         },
         {
           "id": "q-10-22-1a883f547d-opt-2",
-          "text": "Schwarz-Weiß-Bilder",
+          "text": "Die Auflösung war zu niedrig für den Druck",
           "is_correct": false
         },
         {
@@ -1322,7 +1322,7 @@
         },
         {
           "id": "q-10-22-1a883f547d-opt-4",
-          "text": "Man musste sie entwickeln lassen",
+          "text": "Das USB-Kabel zum PC passte nie",
           "is_correct": false
         }
       ],
@@ -1337,7 +1337,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Frühe Digicams mit 16 MB Karten. Man musste entscheiden: Ist Tante Ernas Lächeln wertvoller als das Bild vom Schnitzel?",
+      "explanation": "16-MB-CompactFlash-Karte: ca. 10 Fotos bei 2 Megapixeln. Urlaubserinnerungen galten als strategische Ressource, nicht als Selbstverständlichkeit.",
       "tags": [
         "technik",
         "hardware",
@@ -1398,7 +1398,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Rohlinge wurden im 50er-Spind gekauft. Die silberne Seite war empfindlicher als unser Ego nach einer ICQ-Abfuhr.",
+      "explanation": "50er-Spindel, 3 Euro. Kratzer auf der Datenseite = unlesbar. Beschriftungsmarker auf der Rückseite = auch unlesbar. Nostalgie pur.",
       "tags": [
         "technik",
         "hardware",
@@ -1459,7 +1459,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "LimeWire war wie ein Wühltisch auf einem verseuchten Flohmarkt. Man suchte Britney und bekam tanzende Hamster mit Trojanern.",
+      "explanation": "Man lud Britney herunter, startete eine .exe und installierte ungefragt drei Toolbars. Der PC lief danach wie Teer. Klassik der 2000er.",
       "tags": [
         "technik",
         "hardware",
@@ -1504,7 +1504,7 @@
         "C",
         "A"
       ],
-      "explanation": "Typische Reihenfolge: Floppy Disk (1,44 MB), CD (700 MB), DVD (4,7 GB), Blu-ray (25 GB).",
+      "explanation": "Floppy (1,44 MB) → CD (700 MB) → DVD (4,7 GB) → Blu-ray (25 GB). Vier Generationen Speicher, vier Epochen Schmerz.",
       "difficulty": "medium",
       "points": 2,
       "category_id": "cat-10"
@@ -1525,7 +1525,7 @@
           "Handshaking"
         ]
       },
-      "explanation": "Das Piepen und Rauschen des Modems war unverkennbar und machte heimliches Surfen fast unmoeglich."
+      "explanation": "Das Handshaking-Geräusch war zwei Häuser weit zu hören. Heimliches Surfen um 23 Uhr: Theorie. Praxis: Eltern stehen in der Tür."
     },
     {
       "id": "q-10-03",
@@ -1540,7 +1540,7 @@
           "Runtertakten"
         ]
       },
-      "explanation": "Die Turbo-Taste drosselte die CPU – das Gegenteil von dem was ihr Name suggeriert. Sie war für Kompatibilität mit alten Programmen gedacht, die mit Vollgas-CPU nicht liefen.",
+      "explanation": "Im Normalbetrieb lief die CPU auf Vollgeschwindigkeit. Turbo gedrückt = gedrosselt, für alte DOS-Spiele, die mit modernen Taktraten zu schnell liefen.",
       "options": [
         {
           "id": "q-10-03-opt-1",
@@ -1623,7 +1623,7 @@
         }
       ],
       "correct_option_id": "q-10-05-opt-1",
-      "explanation": "Windows nutzt fuer viele USB-Sticks standardmaessig schnelles Entfernen. Kritisch wird es vor allem, wenn gerade geschrieben wird oder Schreibcache aktiv ist."
+      "explanation": "Windows nutzt seit XP SP2 für USB-Sticks 'Schnelles Entfernen' als Standard — kein Schreibcache aktiv. Solange gerade nichts geschrieben wird: kein Problem."
     },
     {
       "id": "q-10-06",
@@ -1647,7 +1647,7 @@
           "text": "Download dauerte laenger als die Pubertaet"
         }
       ],
-      "explanation": "Als harte Prozentzahl waere das kaum sauber belegbar. Als Mehrheitsfrage trifft es die Erinnerung an Tauschboersen-Chaos deutlich besser."
+      "explanation": "Alle vier Optionen sind reale Erinnerungen. Wer gewinnt, bekommt zu Recht Nostalgieruhm — und leicht Schmerzen beim Denken an diese Jahre."
     },
     {
       "id": "q-10-08",
@@ -1661,7 +1661,7 @@
           "Büroklammer"
         ]
       },
-      "explanation": "„Es sieht so aus, als wollten Sie einen Brief schreiben...“ – NEIN, Karl, ich will nur, dass du für immer in der Hölle der User-Interfaces verschwindest!"
+      "explanation": "„Es sieht so aus, als wollten Sie einen Brief schreiben.” Niemand wollte das. Microsoft hat Karl Klammer 2003 endgültig eingestellt — still und leise, wie es sich gehört."
     },
     {
       "id": "q-10-09",
@@ -1673,7 +1673,7 @@
           "Llama"
         ]
       },
-      "explanation": "„Winamp: It really whips the llama's ass!“ – Ein Satz, der sich tiefer in das Hirn der Millennials gebrannt hat als das kleine Einmaleins."
+      "explanation": "„It really whips the llama's ass!” — Llama, Lama, egal. Der Satz sitzt tiefer als Vokabeln aus acht Jahren Schule."
     },
     {
       "id": "q-10-10",
@@ -1688,7 +1688,7 @@
           "Datenvorrat aufgebraucht"
         ]
       },
-      "explanation": "Der '30-Sekunden Anti-Shock' puffert 30 Sekunden CD-Daten im Speicher. Nach genau 31 Sekunden Vibration ist dieser Vorrat aufgebraucht – und es springt.",
+      "explanation": "Der Anti-Shock-Puffer liest die CD vor und speichert 30 Sekunden im RAM. Nach 31 Sekunden kontinuierlicher Vibration: RAM leer, Laser verloren, Sprung.",
       "options": [
         {
           "id": "q-10-10-opt-1",
@@ -1727,7 +1727,7 @@
           "Display-Tastatur"
         ]
       },
-      "explanation": "Mit dem iPhone 2007 endete die Ära, in der man blind unter der Schulbank SMS tippen konnte, und das Zeitalter des Glas-Wischens begann."
+      "explanation": "2007: Steve Jobs streicht die Tasten. Die Fähigkeit, blind zu tippen, wurde innerhalb einer Produktgeneration zur Totenkompetenz."
     },
     {
       "id": "q-10-12",
@@ -1785,7 +1785,7 @@
         }
       ],
       "correct_option_id": "q-10-14-opt-1",
-      "explanation": "T9 nutzte ein Woerterbuch: Fuer 'Hallo' drueckte man die passenden Zahlentasten nur einmal pro Buchstabe. Das war fuer geuebte Nutzer deutlich schneller als Mehrfachtippen."
+      "explanation": "T9 kombiniert Buchstabenwahrscheinlichkeit mit Wörterbuch: einmal pro Buchstabe tippen, statt dreimal auf 'DEF' für E. Geübte schafften eine SMS in Sekunden."
     },
     {
       "id": "q-10-15",
@@ -1809,7 +1809,7 @@
           "text": "Nie, ich bin innerlich frei"
         }
       ],
-      "explanation": "Phantom-Vibrationen sind ein bekanntes Alltagsphaenomen. Statt eine wackelige Prozentzahl zu raten, entscheidet hier die Erfahrung der Runde."
+      "explanation": "Phantom-Vibration: reales neurologisches Phänomen, kein Einbilden. Das Gehirn lernt Muster und sucht sie auch dann, wenn sie fehlen. Klingt wie Sucht. Ist Sucht."
     }
   ]
 }

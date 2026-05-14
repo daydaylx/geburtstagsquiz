@@ -144,26 +144,26 @@
       "difficulty": "medium_hard",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Was ist ein „Camping“-Vorwurf in Shootern?",
+      "prompt": "Welcher Spielstil wird in Online-Shootern als „Camping” bezeichnet und löst im Team-Chat sofortige Morddrohungen aus?",
       "options": [
         {
           "id": "q-07-14-7f1b532775-opt-1",
-          "text": "Dass jemand passiv an einer Stelle bleibt und dort Gegner abfängt",
+          "text": "Passiv an einer Ecke warten und Gegner beim Vorbeikommen abschießen",
           "is_correct": true
         },
         {
           "id": "q-07-14-7f1b532775-opt-2",
-          "text": "Dass jemand durch Wände schießt (Wallhack)",
+          "text": "Durch Wände schießen mit einem Wallhack-Cheat",
           "is_correct": false
         },
         {
           "id": "q-07-14-7f1b532775-opt-3",
-          "text": "Dass man nur in Fahrzeugen sitzen bleibt und nicht läuft",
+          "text": "Nur in Fahrzeugen bleiben und nie zu Fuß kämpfen",
           "is_correct": false
         },
         {
           "id": "q-07-14-7f1b532775-opt-4",
-          "text": "Dass jemand das Spiel sofort verlässt, wenn er verliert (Rage-Quit)",
+          "text": "Das Spiel sofort verlassen, bevor die Niederlage gewertet wird",
           "is_correct": false
         }
       ],
@@ -178,7 +178,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Camping. Die feigeste aller Taktiken, die in jedem Online-Chat der 2000er zu sofortigen Beleidigungen führte.",
+      "explanation": "Camping ist technisch legal und strategisch vertretbar. Das macht es nicht weniger hassenswert.",
       "tags": [
         "gaming",
         "retro",
@@ -205,26 +205,26 @@
       "difficulty": "medium_hard",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Was war bei frühen PC-Spielen oft nötig, um Multiplayer im Haushalt zu spielen?",
+      "prompt": "Was war in den frühen 2000ern nötig, um mit Freunden zuhause am PC gegeneinander zu zocken?",
       "options": [
         {
           "id": "q-07-16-30e4c35b88-opt-1",
-          "text": "Mehrere PCs, LAN-Verkabelung und oft manuelle Netzwerkeinrichtung",
+          "text": "Mehrere PCs, Netzwerkkabel und manuelle IP-Vergabe",
           "is_correct": true
         },
         {
           "id": "q-07-16-30e4c35b88-opt-2",
-          "text": "Ein einzelnes Keyboard mit Tastenteilung für zwei Spieler",
+          "text": "Zwei Tastaturen an einem PC mit geteilten Tasten",
           "is_correct": false
         },
         {
           "id": "q-07-16-30e4c35b88-opt-3",
-          "text": "Ein spezielles Adapterkabel zwischen zwei Monitoren",
+          "text": "Ein serielles Nullmodem-Kabel zwischen zwei Rechnern",
           "is_correct": false
         },
         {
           "id": "q-07-16-30e4c35b88-opt-4",
-          "text": "Eine Infrarot-Verbindung zwischen zwei Handys",
+          "text": "Bluetooth-Adapter und ein geteilter Windows-Login",
           "is_correct": false
         }
       ],
@@ -239,7 +239,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "IP-Adressen manuell vergeben (192.168.0.1...), bis alle im selben Subnetz waren. Wir waren IT-Experten, bevor wir wussten, was IT überhaupt bedeutet.",
+      "explanation": "IP-Adressen manuell vergeben, bis alle im selben Subnetz lagen. Wir waren IT-Admins, bevor wir wussten, was IT bedeutet.",
       "tags": [
         "gaming",
         "retro",
@@ -266,26 +266,26 @@
       "difficulty": "medium_hard",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Was war in Pokémon Rot/Blau der spielerische Nutzen des Fahrrads?",
+      "prompt": "Das Fahrrad in Pokémon Rot/Blau kostete genau 1.000.000 Pokédollar und war damit unbezahlbar. Was brachte es überhaupt?",
       "options": [
         {
           "id": "q-07-22-d683609ad9-opt-1",
-          "text": "Schnelleres Fortbewegen",
+          "text": "Schnelleres Laufen auf der Karte",
           "is_correct": true
         },
         {
           "id": "q-07-22-d683609ad9-opt-2",
-          "text": "Evolution auslösen ohne Levelaufstieg",
+          "text": "Evolutionen ohne Levelaufstieg auslösen",
           "is_correct": false
         },
         {
           "id": "q-07-22-d683609ad9-opt-3",
-          "text": "Versteckte Items auf der Karte aufspüren",
+          "text": "Exklusive Pokémon in Radwegen finden",
           "is_correct": false
         },
         {
           "id": "q-07-22-d683609ad9-opt-4",
-          "text": "Neue Pokémon in Gewässern angeln",
+          "text": "Neue Fischgründe auf der Karte freischalten",
           "is_correct": false
         }
       ],
@@ -300,7 +300,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Speedrun-Taktik oder einfach nur Ungeduld. In einer Zeit vor Open-World- Schnellreise war jeder Trick willkommen.",
+      "explanation": "Eine Million Pokédollar für etwas schnelleres Laufen. Und es gab eine Million davon per Gutschein gratis. Nintendo lehrt früh die Kunst des Preisauszeichnens.",
       "tags": [
         "gaming",
         "retro",
@@ -406,7 +406,7 @@
         "A",
         "C"
       ],
-      "explanation": "In Deutschland kam das Super Nintendo 1992, Nintendo 64 1997, PlayStation 2 2000 und Xbox 360 2005.",
+      "explanation": "SNES 1992, N64 1997, PS2 2000, Xbox 360 2005 – die Zeitstrahl-Chronik von Kindheitserinnerungen und weggeworfenem Taschengeld.",
       "difficulty": "medium",
       "points": 2,
       "category_id": "cat-07"
@@ -414,7 +414,7 @@
     {
       "id": "q-07-01",
       "type": "standard",
-      "prompt": "Welches Item in Mario Kart ist die personifizierte soziale Ungerechtigkeit und bestraft Erfolg mit purer, blauer Willkür?",
+      "prompt": "Welches Item in Mario Kart trifft ausschließlich den Erstplatzierten, wurde von niemandem bestellt und hat mehr Freundschaften zerstört als Monopoly?",
       "options": [
         {
           "id": "q-07-01-opt-1",
@@ -438,13 +438,13 @@
         }
       ],
       "correct_option_id": "q-07-01-opt-1",
-      "explanation": "Der blaue Panzer – der Grund, warum wir heute Vertrauensprobleme haben. Er trifft immer den Ersten und zerstört Freundschaften kurz vor der Ziellinie.",
+      "explanation": "Der blaue Panzer sucht sich selbst sein Opfer, ignoriert alle anderen und trifft kurz vor der Ziellinie. Das nennt sich 'balanciertes Spieldesign'.",
       "difficulty": "easy"
     },
     {
       "id": "q-07-02",
       "type": "logic",
-      "prompt": "Minesweeper: Ein Feld zeigt '3' und hat nur noch genau 3 ungeöffnete Nachbarn. Wie viele Minen sind darunter?",
+      "prompt": "Minesweeper-Logik: Ein Feld zeigt '3' und hat genau 3 ungeöffnete Nachbarn. Wie viele davon sind Minen?",
       "options": [
         {
           "id": "q-07-02-opt-1",
@@ -468,13 +468,13 @@
         }
       ],
       "correct_option_id": "q-07-02-opt-3",
-      "explanation": "Simpler Aha-Moment: Wenn die Zahl die Anzahl der Minen angibt und nur noch drei Felder frei sind, MÜSSEN alle drei Minen sein. Mathe für PC-Süchtige.",
+      "explanation": "Wenn die Zahl die Minenzahl angibt und genau drei freie Nachbarn übrig sind, sind alle drei Minen. Kein Raten – reine Logik. Und trotzdem sterben die Leute.",
       "difficulty": "medium"
     },
     {
       "id": "q-07-03",
       "type": "common_mistake",
-      "prompt": "Warum war das legendäre Pusten in den Game-Boy-Schlitz eigentlich eine fatale Fehlentscheidung für die Hardware?",
+      "prompt": "Wir alle haben in den Game-Boy-Modulschacht gepustet, wenn das Spiel nicht startete. Warum war das eigentlich die schlechteste Idee?",
       "options": [
         {
           "id": "q-07-03-opt-1",
@@ -498,13 +498,13 @@
         }
       ],
       "correct_option_id": "q-07-03-opt-1",
-      "explanation": "Die Feuchtigkeit lässt die Kupferkontakte oxidieren. Dass es meist trotzdem klappte, lag nur am mechanischen Abrieb beim Raus- und Reinstecken, nicht am Pusten.",
+      "explanation": "Atemfeuchte lässt Kupferkontakte oxidieren. Dass es danach lief, lag am mechanischen Abrieb beim Reinstecken – das Pusten war Plazebo mit Langzeitschäden.",
       "difficulty": "medium"
     },
     {
       "id": "q-07-04",
       "type": "majority_guess",
-      "prompt": "Was war der ultimative Stimmungskiller auf einer 2000er LAN-Party?",
+      "prompt": "LAN-Party 2002: Was hat die Stimmung am schnellsten ruiniert?",
       "options": [
         {
           "id": "q-07-04-opt-1",
@@ -527,14 +527,14 @@
           "is_correct": false
         }
       ],
-      "explanation": "Hier geht es um die Gruppenmeinung: Was hat euch damals am meisten den Nerv geraubt?",
+      "explanation": "Jede Gruppe hat ihr eigenes Trauma. Die Mehrheit entscheidet, welches Leid damals am härtesten saß.",
       "difficulty": "medium"
     },
     {
       "id": "q-07-05",
       "type": "multiple_choice",
-      "prompt": "Welcher Handheld war als Batteriefresser bekannt und brauchte sechs AA-Batterien?",
-      "explanation": "Der Sega Game Gear hatte Farbdisplay und Hintergrundbeleuchtung, bezahlte das aber mit sechs AA-Batterien und kurzer Laufzeit.",
+      "prompt": "Welcher Handheld der frühen 90er hatte ein Farbdisplay mit Hintergrundbeleuchtung – und fraß dafür sechs AA-Batterien in unter drei Stunden?",
+      "explanation": "Farbe, Licht, Stil – und eine Laufzeit kürzer als ein Schultag. Der Sega Game Gear war der SUV unter den Handhelds.",
       "difficulty": "hard",
       "options": [
         {
@@ -587,13 +587,13 @@
         }
       ],
       "correct_option_id": "q-07-06-opt-1",
-      "explanation": "30 Leben für Contra (Probotector) – der Code, der in das Gehirn jedes 90er-Kindes tätowiert ist.",
+      "explanation": "B, A, Start – 30 Leben in Contra/Probotector. Wer diesen Code nicht kennt, hat entweder eine glückliche Kindheit oder gar keine Konsole gehabt.",
       "difficulty": "medium"
     },
     {
       "id": "q-07-08",
       "type": "logic",
-      "prompt": "Pokémon Gen 1: Welcher Typ war so 'kaputt' programmiert, dass er gegen seinen eigentlichen Schwachpunkt 'Geist' komplett immun war?",
+      "prompt": "In Pokémon Gen 1 gab es einen Typen, der laut Typentabelle eigentlich schwach gegen Geist sein sollte – aber durch einen Programmierfehler komplett immun war. Welcher?",
       "options": [
         {
           "id": "q-07-08-opt-1",
@@ -617,13 +617,13 @@
         }
       ],
       "correct_option_id": "q-07-08-opt-1",
-      "explanation": "In Gen 1 war Psycho immun gegen Geist (statt schwach dagegen), was Mewtu und Simsala zu unbesiegbaren Göttern machte. Ein legendärer Programmierfehler.",
+      "explanation": "Psycho sollte schwach gegen Geist sein – war aber immun. Mewtu und Simsala danken Game Freak für diesen Fehler bis heute.",
       "difficulty": "hard"
     },
     {
       "id": "q-07-09",
       "type": "fast_guess",
-      "prompt": "Welche Konsole grüßt mit: tiefem Dröhnen, glitzerndem Twinkle-Sound – und hängt dann gerne im schwarzen Bildschirm?",
+      "prompt": "Welche Konsole begrüßt dich mit einem tiefen Dröhnen und einem gläsernen Klingen-Sound – und ließ dich danach manchmal einfach vor einem schwarzen Bildschirm stehen?",
       "options": [
         {
           "id": "q-07-09-opt-1",
@@ -647,13 +647,13 @@
         }
       ],
       "correct_option_id": "q-07-09-opt-1",
-      "explanation": "Das PS1-Startup-Geräusch ist pures Gänsehaut-Material. Wenn das Logo nicht kam, musste man die Konsole oft auf den Kopf stellen, damit der Laser wieder las.",
+      "explanation": "PS1-Startup-Sound = pavlovsches Glück. Wenn das Logo ausblieb, half nur noch die Konsole auf den Kopf stellen – weil der Laser nachließ.",
       "difficulty": "easy"
     },
     {
       "id": "q-07-10",
       "type": "standard",
-      "prompt": "In 'Die Sims' warst du Gott – bis du eine folgenschwere Entscheidung im Baumodus getroffen hast. Welche war das?",
+      "prompt": "In 'Die Sims' warst du Gott. Welche einzige Baumodus-Aktion hat dich zum Mörder gemacht?",
       "options": [
         {
           "id": "q-07-10-opt-1",
@@ -677,13 +677,13 @@
         }
       ],
       "correct_option_id": "q-07-10-opt-1",
-      "explanation": "Leiter weg = Tod durch Ertrinken. Es war unser erster bewusster Kontakt mit sadistischer Machtausübung im Kinderzimmer.",
+      "explanation": "Leiter entfernen, warten, Grabstein kassieren. Das war unser erster bewusster Kontakt mit Machtmissbrauch – und wir haben gelacht.",
       "difficulty": "easy"
     },
     {
       "id": "q-07-12",
       "type": "majority_guess",
-      "prompt": "Welcher 'Cheat' im echten Leben war im Multiplayer-Modus der unehrenhafteste?",
+      "prompt": "Splitscreen-Multiplayer: Welche echte Schummelei war damals am unehrenhaftesten?",
       "options": [
         {
           "id": "q-07-12-opt-1",
@@ -706,13 +706,13 @@
           "is_correct": false
         }
       ],
-      "explanation": "Screen-Watching hat mehr Schlägereien im Kinderzimmer ausgelöst als jedes Fußballspiel.",
+      "explanation": "Die Gruppe entscheidet. Screen-Watching war technisch kein Cheat – aber der Blick, den man dafür geerntet hat, war eindeutig.",
       "difficulty": "easy"
     },
     {
       "id": "q-07-13",
       "type": "pattern",
-      "prompt": "In Tetris wartest du verzweifelt auf das einzige Teil, das 4 Reihen gleichzeitig löschen kann. Wie heißt dieses Teil intern?",
+      "prompt": "Tetris: Nur ein Teil kann vier Reihen auf einmal löschen. Du wartest seit einer Minute. Es kommt nicht. Wie heißt es?",
       "options": [
         {
           "id": "q-07-13-opt-1",
@@ -736,13 +736,13 @@
         }
       ],
       "correct_option_id": "q-07-13-opt-1",
-      "explanation": "Nur der lange I-Block beschert dir das glorreiche 'Tetris'. Meistens kommt er genau dann nicht, wenn man ihn braucht (Tetris-Effekt).",
+      "explanation": "Nur der I-Block kann vier Reihen auf einmal löschen. Er kommt immer dann nicht, wenn der Stapel schon bedrohlich wackelt.",
       "difficulty": "medium"
     },
     {
       "id": "q-07-14",
       "type": "common_mistake",
-      "prompt": "Ein klassischer Anfängerfehler: Wer ist der Typ in der grünen Mütze, den 90% aller Mütter fälschlicherweise für 'Zelda' hielten?",
+      "prompt": "Wer ist der Typ mit der grünen Mütze, den Eltern weltweit hartnäckig 'Zelda' nennen?",
       "options": [
         {
           "id": "q-07-14-opt-1",
@@ -766,13 +766,13 @@
         }
       ],
       "correct_option_id": "q-07-14-opt-1",
-      "explanation": "Zelda ist die Prinzessin. Link ist der Held. Und ja, wir korrigieren das bis heute mit einer Mischung aus Arroganz und Verzweiflung.",
+      "explanation": "Zelda ist die Prinzessin. Link ist der Held. Dieser Irrtum begleitet Gamer seit 1986 und ist offenbar nicht auszurotten.",
       "difficulty": "easy"
     },
     {
       "id": "q-07-15",
       "type": "logic",
-      "prompt": "Was passiert in Pac-Man, wenn du Level 256 erreichst – das absolute Ende der damaligen Hardware-Kapazität?",
+      "prompt": "Was passiert in Pac-Man, wenn du Level 256 erreichst – das Ende dessen, was der 8-Bit-Zähler verarbeiten kann?",
       "options": [
         {
           "id": "q-07-15-opt-1",
@@ -796,13 +796,13 @@
         }
       ],
       "correct_option_id": "q-07-15-opt-1",
-      "explanation": "Der Integer-Overflow (8-Bit-Zähler bis 255) sorgt dafür, dass das Level nicht mehr korrekt gezeichnet werden kann. Ein legendärer Moment der Gaming-Geschichte.",
+      "explanation": "8-Bit-Zähler läuft nach 255 über, das Level wird nicht mehr korrekt gezeichnet. Wer Level 256 erreichte, hatte zu viel Zeit und zu wenig Sonne.",
       "difficulty": "hard"
     },
     {
       "id": "q-07-16",
       "type": "multiple_choice",
-      "prompt": "Welches dieser Geraete ist ohne Batterien am schwersten?",
+      "prompt": "Welches dieser Geräte ist ohne Batterien am schwersten – und damit der beste Notfallhammer in der Tasche?",
       "options": [
         {
           "id": "q-07-16-opt-1",
@@ -826,13 +826,13 @@
         }
       ],
       "correct_option_id": "q-07-16-opt-1",
-      "explanation": "Der Sega Game Gear war schon ohne Batterien ein ordentlicher Klotz. Mit sechs AA-Batterien wurde er erst recht zum Handgelenk-Training.",
+      "explanation": "Rund 400 g ohne Batterien – mit sechs AA drin näherte sich der Game Gear dem Gewicht eines Werkzeugkoffers.",
       "difficulty": "medium"
     },
     {
       "id": "q-07-17",
       "type": "ranking",
-      "prompt": "Sortiere diese Konsolen nach Europa-Release, aelteste zuerst.",
+      "prompt": "Sortiere diese Konsolen nach ihrem Europa-Release – älteste zuerst.",
       "items": [
         {
           "id": "C",
@@ -857,13 +857,13 @@
         "C",
         "D"
       ],
-      "explanation": "NES, Mega Drive, Nintendo 64 und PlayStation 2 liegen in dieser Release-Reihenfolge. Das ist sauberer als Bit-Marketing, das ab der 32/64/128-Bit-Aera stark verwischt.",
+      "explanation": "NES 1986, Mega Drive 1990, N64 1997, PS2 2000. Saubere Chronologie – anders als die 'Bit-Zahlen', mit denen Hersteller damals Werbung machten.",
       "difficulty": "medium"
     },
     {
       "id": "q-07-18",
       "type": "standard",
-      "prompt": "Welcher GTA-Cheat ist für Millennial-Zocker so wichtig wie die eigene Telefonnummer?",
+      "prompt": "Welcher GTA: San Andreas-Cheatcode sitzt bei Millennial-Zockern tiefer im Muskelgedächtnis als ihre eigene IBAN?",
       "options": [
         {
           "id": "q-07-18-opt-1",
@@ -887,13 +887,13 @@
         }
       ],
       "correct_option_id": "q-07-18-opt-1",
-      "explanation": "HESOYAM hat uns durch die brenzligsten Verfolgungsjagden in San Andreas gerettet. Ein Tastendruck, der sich ins Muskelgedächtnis gebrannt hat.",
+      "explanation": "HESOYAM: Leben, Rüstung, Geld – alles auf einmal. Wer das heute noch tippt ohne hinzuschauen, war dabei.",
       "difficulty": "medium"
     },
     {
       "id": "q-07-21",
       "type": "logic",
-      "prompt": "Wie viele einzelne Quadrate bilden ein 'Tetromino' (ein klassisches Tetris-Teil)?",
+      "prompt": "Aus wie vielen Quadraten besteht ein Tetromino – also ein klassisches Tetris-Teil?",
       "options": [
         {
           "id": "q-07-21-opt-1",
@@ -917,17 +917,17 @@
         }
       ],
       "correct_option_id": "q-07-21-opt-1",
-      "explanation": "Daher der Name 'Tetris' (von Tetra = Vier). Jedes Teil besteht aus genau vier Quadraten.",
+      "explanation": "Tetra = vier. Daher 'Tetris'. Jedes Teil, sieben Varianten, eine Mission: den I-Block warten.",
       "difficulty": "easy"
     },
     {
       "id": "q-07-22",
       "type": "standard",
-      "prompt": "Was passierte beim Tamagotchi, wenn man es drei Tage lang komplett ignorierte?",
+      "prompt": "Was passierte mit dem Tamagotchi, wenn man drei Tage lang das Schulfach wichtiger nahm als das Digitaltier?",
       "options": [
         {
           "id": "q-07-22-opt-1",
-          "text": "Es starb und verwandelte sich in ein Grabstein-Icon",
+          "text": "Es starb und zeigte ein Grabstein-Icon",
           "is_correct": true
         },
         {
@@ -937,23 +937,23 @@
         },
         {
           "id": "q-07-22-opt-3",
-          "text": "Es wurde zum Teufelchen und frass alle Vorraete",
+          "text": "Es wurde zum Teufelchen und verweigerte jeden Befehl",
           "is_correct": false
         },
         {
           "id": "q-07-22-opt-4",
-          "text": "Es versetzte sich in einen Winterschlaf",
+          "text": "Es fiel in einen Wartezustand und ließ sich wiederherstellen",
           "is_correct": false
         }
       ],
       "correct_option_id": "q-07-22-opt-1",
-      "explanation": "Der digitale Tod. Ein Trauma für Millionen Kinder, deren Eltern 'kein echtes Haustier' erlaubten.",
+      "explanation": "Digitaler Tod durch Vernachlässigung. Das erste Mal, dass uns ein Gerät ein schlechtes Gewissen einredete.",
       "difficulty": "easy"
     },
     {
       "id": "q-07-23",
       "type": "fast_guess",
-      "prompt": "Identify by Cheat: 'R1, R2, L1, X, Links, Unten, Rechts, Oben, Links, Unten, Rechts, Oben'. Was bewirkt dieser Klassiker?",
+      "prompt": "Du erkennst einen Cheatcode am Rhythmus: R1, R2, L1, X, Links, Unten, Rechts, Oben, Links, Unten, Rechts, Oben. Was bekommst du in GTA?",
       "options": [
         {
           "id": "q-07-23-opt-1",
@@ -977,13 +977,13 @@
         }
       ],
       "correct_option_id": "q-07-23-opt-1",
-      "explanation": "Der Rhythmus dieses Cheats ist tief im Muskelgedächtnis vieler PlayStation-Zocker verankert.",
+      "explanation": "Waffenpaket 1 in GTA San Andreas. Wer diesen Rhythmus blind tippt, hat zu viele Stunden auf der PlayStation verbracht – und das ist keine Kritik.",
       "difficulty": "hard"
     },
     {
       "id": "q-07-24",
       "type": "majority_guess",
-      "prompt": "Welches Spiel wurde in den Computerraum-Stunden am häufigsten heimlich gezockt?",
+      "prompt": "Der Lehrer dreht sich zur Tafel. Welches Spiel wurde in eurer Schule am häufigsten im Computerraum heimlich gezockt?",
       "options": [
         {
           "id": "q-07-24-opt-1",
@@ -1006,7 +1006,7 @@
           "is_correct": false
         }
       ],
-      "explanation": "Was war der Favorit eurer Gruppe, wenn der Lehrer nicht hingeschaut hat?",
+      "explanation": "Die Mehrheit entscheidet. Jede Schule hat ihren eigenen digitalen Untergrundklassiker.",
       "difficulty": "medium"
     },
     {
@@ -1037,13 +1037,13 @@
         "C",
         "D"
       ],
-      "explanation": "Vom Modus-7-Pixelbrei (SNES) zum chaotischen 4-Spieler-Splitscreen (N64) und den Lenkrad-Ausrastern (Wii).",
+      "explanation": "SNES 1992, N64 1996, Double Dash 2003, Wii 2008. Vom Modus-7-Pixelbrei zu Lenkrad-Ausrastern im Wohnzimmer.",
       "difficulty": "medium"
     },
     {
       "id": "q-07-27",
       "type": "standard",
-      "prompt": "In 'Age of Empires II' konnte man ein hochmodernes Auto spawnen. Welchen Cheat-Code musste man dafür eingeben?",
+      "prompt": "In Age of Empires II gibt es einen Cheatcode, der mitten ins Mittelalter einen bewaffneten Sportwagen spawnst. Welcher?",
       "options": [
         {
           "id": "q-07-27-opt-1",
@@ -1067,13 +1067,13 @@
         }
       ],
       "correct_option_id": "q-07-27-opt-1",
-      "explanation": "Ein blauer AC Cobra mit Maschinengewehren gegen mittelalterliche Ritter – die Definition von 'Fairplay'.",
+      "explanation": "Ein blauer AC Cobra mit Maschinengewehren gegen mittelalterliche Ritter. Historisch akkurat war Age of Empires sowieso nie.",
       "difficulty": "medium"
     },
     {
       "id": "q-07-29",
       "type": "common_mistake",
-      "prompt": "Konsolekrieg-Mythos: Hatte das Super Nintendo (SNES) tatsächlich 'mehr Bits' als der Sega Mega Drive?",
+      "prompt": "Konsolenkrieg der frühen 90er: Hatte das Super Nintendo (SNES) tatsächlich mehr Bits als der Sega Mega Drive?",
       "options": [
         {
           "id": "q-07-29-opt-1",
@@ -1097,13 +1097,13 @@
         }
       ],
       "correct_option_id": "q-07-29-opt-1",
-      "explanation": "Beide waren die Speerspitze der 16-Bit-Ära. Der Unterschied lag in den Spezialchips, nicht in der Bit-Zahl.",
+      "explanation": "Beide 16-Bit. Der echte Unterschied lag in Spezialchips, Farbpaletten und Spielebibliotheken – nicht in einer Zahl auf der Verpackung.",
       "difficulty": "medium"
     },
     {
       "id": "q-07-30",
       "type": "multiple_choice",
-      "prompt": "Wie viele Pokémon gab es in der allerersten Generation (Rot/Blau) inklusive des geheimen Mew?",
+      "prompt": "Wie viele Pokémon enthielt die erste Generation – inklusive des von Game Freak extra versteckten Mew?",
       "options": [
         {
           "id": "q-07-30-opt-1",
@@ -1127,7 +1127,7 @@
         }
       ],
       "correct_option_id": "q-07-30-opt-2",
-      "explanation": "Gotta catch 'em all! Es waren 151. Wer heute behauptet, er kenne alle 1000+, lügt oder hat zu viel Freizeit.",
+      "explanation": "151 – die klassische Zahl. Mew war versteckt, nicht im Pokédex gelistet und trotzdem irgendwie der berühmteste von allen.",
       "difficulty": "medium"
     }
   ]

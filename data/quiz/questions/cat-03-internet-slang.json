@@ -352,7 +352,7 @@
         }
       ],
       "correct_option_id": "q-03-11-75e907ba1d-opt-1",
-      "explanation": "Jugendwort des Jahres 2012. Die perfekte Ausrede für alles, was dumm, gefährlich oder teuer war. Heute sagen wir stattdessen: 'Ich habe keine Kontrolle mehr über mein Leben'.",
+      "explanation": "Jugendwort 2012. Rechtfertigte jede bescheuerte Entscheidung in zwei Silben. Das 'War halt so' unserer Generation, nur mit mehr Swagger.",
       "difficulty": "medium_hard",
       "category_id": "cat-03",
       "type": "multiple_choice",
@@ -369,17 +369,17 @@
         },
         {
           "id": "q-03-12-7692bfe976-opt-2",
-          "text": "Eine besonders große Banane",
+          "text": "Jemand, der sehr viel redet",
           "is_correct": false
         },
         {
           "id": "q-03-12-7692bfe976-opt-3",
-          "text": "Ein kleiner Affe",
+          "text": "Ein Verräter oder Streber",
           "is_correct": false
         },
         {
           "id": "q-03-12-7692bfe976-opt-4",
-          "text": "Ein neuer Tanzschritt",
+          "text": "Ein älterer Bruder",
           "is_correct": false
         }
       ],
@@ -416,7 +416,7 @@
         }
       ],
       "correct_option_id": "q-03-13-c4f64c8cbc-opt-1",
-      "explanation": "Die Vong-Sprache hat unsere Grammatik für Monate zerstört. Es war 1 Peak-Moment Millennial-Humor, der heute fast nur noch körperliche Schmerzen verursacht.",
+      "explanation": "Vong-Sprache: das Meme, das niemand erklärt hat und alle trotzdem sofort konnten. Was is das fuer 1 Erklärung vong Sinnhaftigkeit her.",
       "difficulty": "medium_hard",
       "category_id": "cat-03",
       "type": "multiple_choice",
@@ -448,7 +448,7 @@
         }
       ],
       "correct_option_id": "q-03-14-1b96d1e975-opt-1",
-      "explanation": "Fail-Videos waren das TikTok der 2000er. Wer sich auf die Fresse gelegt hat und dabei gefilmt wurde, war ein Epic Fail. Schadenfreude ist eben doch die schönste Freude.",
+      "explanation": "Fail-Compilations waren das primäre Freizeitprogramm vor Netflix. FailBlog, YouTube, ICQ-Weiterleitungen — wer Pech hatte, war drei Klicks entfernt von der Unsterblichkeit.",
       "difficulty": "medium_hard",
       "category_id": "cat-03",
       "type": "multiple_choice",
@@ -480,7 +480,7 @@
         }
       ],
       "correct_option_id": "q-03-15-ae7728dccf-opt-1",
-      "explanation": "404 Error: Brain not found. Ein klassischer Nerd-Witz für Leute, die zu viel Zeit vor dem Browser verbracht haben. Also für uns alle.",
+      "explanation": "'Brain: 404 Not Found.' Der älteste Nerd-Witz im Buch — und trotzdem stand er auf gefühlt jeder zweiten Tasse. Wir waren jung und fanden HTTP-Codes lustig.",
       "difficulty": "medium_hard",
       "category_id": "cat-03",
       "type": "multiple_choice",
@@ -497,22 +497,22 @@
         },
         {
           "id": "q-03-16-13a6aff138-opt-2",
-          "text": "Nano-Gnomes",
+          "text": "Chibi-Sprites",
           "is_correct": false
         },
         {
           "id": "q-03-16-13a6aff138-opt-3",
-          "text": "Sprite-Spirits",
+          "text": "Forum Dolls",
           "is_correct": false
         },
         {
           "id": "q-03-16-13a6aff138-opt-4",
-          "text": "Bit-Bunnies",
+          "text": "GIF Avatare",
           "is_correct": false
         }
       ],
       "correct_option_id": "q-03-16-13a6aff138-opt-1",
-      "explanation": "Klick auf mein Ei, damit es schlüpft! Wir haben Stunden damit verbracht, virtuelle Dracheneier in Signaturen zu pflegen. Eine Vorform von Tamagotchi-Trauma im Web.",
+      "explanation": "'Klick auf mein Ei, damit es schlüpft!' — geklaut aus dem Dragon Cave-Forum. Stunden investiert für ein Pixelbild, das nie existiert hat.",
       "difficulty": "medium_hard",
       "category_id": "cat-03",
       "type": "multiple_choice",
@@ -520,7 +520,7 @@
     },
     {
       "id": "q-03-17-387b018db7",
-      "prompt": "Welche Schriftart ist das ultimative Symbol für Internet-Cringe der 2000er?",
+      "prompt": "Welche Schriftart steht heute wie keine andere für den Cringe-Faktor der frühen Internetzeit?",
       "options": [
         {
           "id": "q-03-17-387b018db7-opt-1",
@@ -544,7 +544,7 @@
         }
       ],
       "correct_option_id": "q-03-17-387b018db7-opt-1",
-      "explanation": "Comic Sans – die Schriftart, die schreit: 'Ich habe keine Ahnung von Design, aber ich will freundlich wirken!'. Wer sie für Bewerbungen nutzt, hat die Kontrolle über sein Leben verloren.",
+      "explanation": "Comic Sans überlebte alle Designtrends, weil niemand sie ernst nahm — und sie genau deshalb überall auftauchte. Schulwebsites, Beerdigungszettel, Arztpraxen.",
       "difficulty": "medium_hard",
       "category_id": "cat-03",
       "type": "multiple_choice",
@@ -576,7 +576,7 @@
         }
       ],
       "correct_option_id": "q-03-18-765fd501f3-opt-1",
-      "explanation": "Rolling on the floor laughing. In 99% der Fälle saß man aber mit steinerner Miene vor dem Monitor und hat maximal einmal kurz durch die Nase ausgeatmet.",
+      "explanation": "Rolling on the floor laughing — obwohl man in Wirklichkeit die Augenbraue minimal hochgezogen hat. Die Vorstufe von 'lol' als totes Satzzeichen.",
       "difficulty": "medium_hard",
       "category_id": "cat-03",
       "type": "multiple_choice",
@@ -608,7 +608,7 @@
         }
       ],
       "correct_option_id": "q-03-19-5307173b6b-opt-1",
-      "explanation": "L337 5P34K. Wer das lesen kann, ist entweder ein Hacker oder hat zu viel Zeit in Counter-Strike-Foren verbracht. Oder beides.",
+      "explanation": "L337 5P34K — die Geheimsprache der frühen Netzkultur. Buchstaben durch ähnlich aussehende Zahlen ersetzen und dabei glauben, man sei unhackbar.",
       "difficulty": "medium_hard",
       "category_id": "cat-03",
       "type": "multiple_choice",
@@ -616,7 +616,7 @@
     },
     {
       "id": "q-03-20-7a5a6c1b9f",
-      "prompt": "Was passierte laut Kettenbriefen, wenn man sie NICHT an 10 Freunde weiterleitete?",
+      "prompt": "Was drohte laut E-Mail-Kettenbriefen, wenn man sie NICHT an mindestens 10 Leute weiterschickte?",
       "options": [
         {
           "id": "q-03-20-7a5a6c1b9f-opt-1",
@@ -625,22 +625,22 @@
         },
         {
           "id": "q-03-20-7a5a6c1b9f-opt-2",
-          "text": "Das Internet würde gelöscht werden",
+          "text": "Man verliert den MSN-Account",
           "is_correct": false
         },
         {
           "id": "q-03-20-7a5a6c1b9f-opt-3",
-          "text": "Bill Gates würde persönlich vorbeikommen",
+          "text": "Man bekommt einen Virus",
           "is_correct": false
         },
         {
           "id": "q-03-20-7a5a6c1b9f-opt-4",
-          "text": "Man müsste 10 Euro an ICQ zahlen",
+          "text": "Ein Geist erscheint auf dem Bildschirm",
           "is_correct": false
         }
       ],
       "correct_option_id": "q-03-20-7a5a6c1b9f-opt-1",
-      "explanation": "Diese Briefe waren purer Psychoterror für 11-Jährige. 'Wenn du das nicht weiterschickst, steht heute Nacht ein totes Mädchen an deinem Bett'. Danke für die Albträume, Internet.",
+      "explanation": "'Wenn du das nicht weiterschickst, stirbst du um Mitternacht.' Wir haben es weitergeleitet. Natürlich. Wir waren 12 und hatten Angst vor allem.",
       "difficulty": "medium_hard",
       "category_id": "cat-03",
       "type": "multiple_choice",
@@ -657,22 +657,22 @@
         },
         {
           "id": "q-03-21-9abc66630b-opt-2",
-          "text": "Eine Marke für Kuscheltiere",
+          "text": "Ein Browsergame für Grundschüler",
           "is_correct": false
         },
         {
           "id": "q-03-21-9abc66630b-opt-3",
-          "text": "Ein Vorläufer von Tinder",
+          "text": "Ein Vorläufer von StudiVZ",
           "is_correct": false
         },
         {
           "id": "q-03-21-9abc66630b-opt-4",
-          "text": "Ein anderes Wort für Gruscheln",
+          "text": "Ein IRC-Netzwerk für Erwachsene",
           "is_correct": false
         }
       ],
       "correct_option_id": "q-03-21-9abc66630b-opt-1",
-      "explanation": "Knuddels war ein deutsches Chatportal mit Bot 'James', vielen Raeumen und einem Ruf, bei dem Datenschutz und Jugendschutz nicht gerade wie Zukunftsmusik klangen.",
+      "explanation": "Knuddels: deutsches Chatportal mit Bot 'James', bunten Räumen und einem Jugendschutzkonzept, das vor allem im Nachhinein für Kopfschütteln sorgt.",
       "difficulty": "medium_hard",
       "category_id": "cat-03",
       "type": "multiple_choice",
@@ -704,7 +704,7 @@
         }
       ],
       "correct_option_id": "q-03-22-3d378ee907-opt-1",
-      "explanation": "Tom Anderson, der Gründer von MySpace. Er war unser aller erster digitaler Freund. Er hat uns nie geghostet, bis wir alle zu Facebook abgehauen sind. Sorry, Tom.",
+      "explanation": "Tom Anderson, Mitgründer von MySpace — und damit automatisch der erste Freund aller 100 Millionen Nutzer. Er sitzt heute am Strand und fotografiert Landschaften. Keine Bitterkeit.",
       "difficulty": "medium_hard",
       "category_id": "cat-03",
       "type": "multiple_choice",
@@ -721,22 +721,22 @@
         },
         {
           "id": "q-03-23-681bfb03e4-opt-2",
-          "text": "Always fast kill",
+          "text": "All friends know",
           "is_correct": false
         },
         {
           "id": "q-03-23-681bfb03e4-opt-3",
-          "text": "Account fuer Kinder",
+          "text": "Actively farming kills",
           "is_correct": false
         },
         {
           "id": "q-03-23-681bfb03e4-opt-4",
-          "text": "Automatischer Freundschaftsklick",
+          "text": "Auto friend kick",
           "is_correct": false
         }
       ],
       "correct_option_id": "q-03-23-681bfb03e4-opt-1",
-      "explanation": "AFK steht fuer 'away from keyboard': Man war kurz weg vom Rechner, meist weil Eltern, Telefon oder Tiefkuehlpizza wichtiger wurden.",
+      "explanation": "Away from keyboard — also kurz weg. Meist weil die Eltern riefen, das Abendessen fertig war oder man endlich mal pinkeln musste.",
       "difficulty": "medium_hard",
       "category_id": "cat-03",
       "type": "multiple_choice",
@@ -753,22 +753,22 @@
         },
         {
           "id": "q-03-24-9736e71b53-opt-2",
-          "text": "Only my group",
+          "text": "Oh man, great",
           "is_correct": false
         },
         {
           "id": "q-03-24-9736e71b53-opt-3",
-          "text": "Old men gaming",
+          "text": "One more go",
           "is_correct": false
         },
         {
           "id": "q-03-24-9736e71b53-opt-4",
-          "text": "Open my garage",
+          "text": "Over my ground",
           "is_correct": false
         }
       ],
       "correct_option_id": "q-03-24-9736e71b53-opt-1",
-      "explanation": "Oh my God. Inzwischen so im Sprachgebrauch verankert, dass wir es sogar laut sagen. OMG, wir werden echt alt.",
+      "explanation": "Oh my God. Heute sagen wir es laut, ohne es zu merken. Der erste Schritt zur digitalen Sprachkorruption war immer ein MSN-Chat.",
       "difficulty": "medium_hard",
       "category_id": "cat-03",
       "type": "multiple_choice",
@@ -800,7 +800,7 @@
         }
       ],
       "correct_option_id": "q-03-25-ce5747243a-opt-1",
-      "explanation": "ICQ (I Seek You). Wenn die Blume rot war, warst du 'Offline'. Wenn sie grün war, konntest du endlich deine Hausaufgaben ignorieren und mit Fremden chatten.",
+      "explanation": "ICQ — 'I Seek You'. Die grüne Blume bedeutete: jemand ist online, und vielleicht ignoriert er dich gleich auf höchstem technischen Niveau.",
       "difficulty": "medium_hard",
       "category_id": "cat-03",
       "type": "multiple_choice",
@@ -834,7 +834,7 @@
         "C",
         "D"
       ],
-      "explanation": "ICQ startete 1996, WhatsApp 2009, Telegram 2013 und Signal 2014.",
+      "explanation": "ICQ (1996) war das Original. WhatsApp (2009) hat es beerbt, Telegram (2013) und Signal (2014) kamen danach. Eine lange Abstiegsgeschichte für ICQ.",
       "difficulty": "medium",
       "points": 2,
       "category_id": "cat-03"
@@ -955,7 +955,7 @@
           "text": "Riesige Custom-Emojis, die den Text blockieren"
         }
       ],
-      "explanation": "Die Gruppe entscheidet. Nudging war physische Gewalt, aber das An-/Abmelden war psychologische Kriegsführung.",
+      "explanation": "Alles davon war Folter. Aber das An-/Abmelden für Aufmerksamkeit war strategische Psychologie — Nudging war einfach nur Aggression.",
       "difficulty": "medium",
       "points": 2
     },
@@ -986,7 +986,7 @@
         }
       ],
       "correct_option_id": "q-03-05-opt-1",
-      "explanation": "Es steht für 'Carbon Copy' (Durchschlag). Ein Relikt aus der Schreibmaschinenzeit.",
+      "explanation": "Carbon Copy — wie bei der Schreibmaschine, wo Kohlepapier für Durchschläge sorgte. Das digitale Zeitalter hat den Begriff übernommen und niemand hat es gemerkt.",
       "difficulty": "medium",
       "points": 1
     },
@@ -1017,7 +1017,7 @@
         }
       ],
       "correct_option_id": "q-03-06-opt-3",
-      "explanation": "Die legendären 'Top 8'. Nichts hat mehr Freundschaften zerstört als der Wechsel von Platz 3 auf Platz 9.",
+      "explanation": "Die Top 8 waren Machtpolitik. Dein Platz darin sagte mehr über euren Freundschaftsstatus aus als jedes Gespräch.",
       "difficulty": "hard",
       "points": 2
     },
@@ -1048,7 +1048,7 @@
         }
       ],
       "correct_option_id": "q-03-07-opt-1",
-      "explanation": "Die blauen Haken sind das moderne Endstadium dieser digitalen Folter.",
+      "explanation": "Die blauen Haken — das Endstadium der digitalen Zermürbung. Gelesen, ignoriert, und alle wissen es. Nudge war harmlos dagegen.",
       "difficulty": "medium",
       "points": 1
     },
@@ -1079,7 +1079,7 @@
         }
       ],
       "correct_option_id": "q-03-08-opt-1",
-      "explanation": "ICQ kannte Sichtbarkeitslisten: Bestimmte Kontakte konnten dich trotz Invisible-Status sehen. Invisible war also eher Tarnmodus als echte Unsichtbarkeit.",
+      "explanation": "Wer auf der Visible List stand, sah dich trotzdem. Invisible hieß: du wählst aus, wer dich sieht — digitale Selektivität avant la lettre.",
       "difficulty": "medium",
       "points": 1
     },
@@ -1136,7 +1136,7 @@
         }
       ],
       "correct_option_id": "q-03-12-opt-1",
-      "explanation": "Grüßen und Kuscheln. Heute pure Nostalgie mit hohem Fremdscham-Anteil.",
+      "explanation": "Grüßen und Kuscheln. Das Wort existiert nirgendwo sonst und hat trotzdem eine ganze Generation geprägt.",
       "difficulty": "easy",
       "points": 1
     },
@@ -1167,7 +1167,7 @@
         }
       ],
       "correct_option_id": "q-03-14-opt-1",
-      "explanation": "Age, Sex, Location. Die heilige Dreifaltigkeit des anonymen Chats.",
+      "explanation": "Age, Sex, Location — die erste Frage, die Fremde im Chat stellten. Keine Grauzone, nur Hoffnung, dass das Gegenüber nicht lügt.",
       "difficulty": "easy",
       "points": 1
     }

@@ -288,7 +288,7 @@
         }
       ],
       "correct_option_id": "q-05-10-4b3aebd3c4-opt-1",
-      "explanation": "Minze. Ohne Minze ist es nur süßes Wasser mit Rum. In den 2000ern hat jeder Barkeeper Minze gehasst, weil das Stampfen so lange dauert. Wir haben trotzdem 5 bestellt.",
+      "explanation": "Ohne Minze ist es Rum-Cola mit Limette. Barkeeper hassen Mojitos, weil das Muddle-Gerät immer verschwindet. Wir haben trotzdem fünf auf einmal bestellt.",
       "difficulty": "medium",
       "category_id": "cat-05",
       "type": "multiple_choice",
@@ -320,7 +320,7 @@
         }
       ],
       "correct_option_id": "q-05-11-a587148d2a-opt-1",
-      "explanation": "Bier und Cola. Je nach Region heisst das auch Krefelder oder einfach Colabier; die Bestellung ist weniger kompliziert als die Namensdebatte.",
+      "explanation": "In Düsseldorf heißt es Krefelder, in Bayern schaut man schief. Die Kombi klingt falsch, schmeckt okay und löst Identitätskrisen aus, die in keinem Verhältnis zum Getränk stehen.",
       "difficulty": "medium",
       "category_id": "cat-05",
       "type": "multiple_choice",
@@ -352,7 +352,7 @@
         }
       ],
       "correct_option_id": "q-05-12-81973f536c-opt-1",
-      "explanation": "Klassisches Kneipen-Duo. Das 'Adulting' unserer Väter, das wir ironisch übernommen haben, bis wir merkten, dass Korn eigentlich ganz okay ist.",
+      "explanation": "Bier plus Korn. Das Outfit unserer Väter, das wir 'ironisch' bestellten, bis wir uns dabei ertappten, es ohne Anführungszeichen zu meinen. Korn ist tatsächlich ganz okay.",
       "difficulty": "medium",
       "category_id": "cat-05",
       "type": "multiple_choice",
@@ -360,7 +360,7 @@
     },
     {
       "id": "q-05-13-60c32a85e1",
-      "prompt": "Was passiert beim Tequila-Ritual 'Silver'?",
+      "prompt": "Was ist die klassische Reihenfolge beim Tequila-Ritual mit Salz und Zitrone?",
       "options": [
         {
           "id": "q-05-13-60c32a85e1-opt-1",
@@ -369,12 +369,12 @@
         },
         {
           "id": "q-05-13-60c32a85e1-opt-2",
-          "text": "Zimt lecken, Shot trinken, Orange essen",
+          "text": "Zitrone lecken, Shot trinken, Salz auf die Wunde",
           "is_correct": false
         },
         {
           "id": "q-05-13-60c32a85e1-opt-3",
-          "text": "Zucker lecken, Shot trinken, Gurke essen",
+          "text": "Zucker lecken, Shot trinken, Orange in den Mund",
           "is_correct": false
         },
         {
@@ -384,7 +384,7 @@
         }
       ],
       "correct_option_id": "q-05-13-60c32a85e1-opt-1",
-      "explanation": "Salz und Zitrone. Der Versuch, den fiesen Geschmack von billigem Tequila zu überdecken. Spoiler: Es klappt nicht, man zieht trotzdem eine Grimasse.",
+      "explanation": "Salz betäubt, Zitrone überdeckt. Bei gutem Tequila braucht man das Ritual nicht. Bei Billigtequila hilft es auch nicht. Der Sinn liegt im Ritual selbst.",
       "difficulty": "medium",
       "category_id": "cat-05",
       "type": "multiple_choice",
@@ -416,7 +416,7 @@
         }
       ],
       "correct_option_id": "q-05-14-8b8b88842b-opt-1",
-      "explanation": "Man wacht auf und hat 200 neue WhatsApp-Nachrichten und keine Ahnung, warum man ein Verkehrsschild im Wohnzimmer stehen hat. Millennial-Horror.",
+      "explanation": "Alkohol blockiert die Hippocampus-Konsolidierung – sprich: die Kamera lief, der Recorder war aus. Man wacht auf, sieht 200 WhatsApp-Nachrichten und ein Verkehrsschild im Wohnzimmer.",
       "difficulty": "medium",
       "category_id": "cat-05",
       "type": "multiple_choice",
@@ -448,7 +448,7 @@
         }
       ],
       "correct_option_id": "q-05-15-c5205f9c74-opt-1",
-      "explanation": "Ohne Limette ist es nur Rum-Cola. Die Säure macht den Unterschied zwischen 'Genießer' und 'ich will nur schnell betrunken werden'.",
+      "explanation": "Ohne Limette ist es Rum-Cola und damit eine ernsthafte Persönlichkeitsfrage. Die Säure und ätherischen Öle der Schale machen Cuba Libre zum Cocktail statt zum Notfall.",
       "difficulty": "medium",
       "category_id": "cat-05",
       "type": "multiple_choice",
@@ -480,7 +480,7 @@
         }
       ],
       "correct_option_id": "q-05-16-b646ca4087-opt-1",
-      "explanation": "Red Solo Cups. Das Symbol jeder US-Highschool-Party, das wir Millennials übernommen haben, als wäre es unsere eigene Kultur. Hauptsache, der Ball ist klebrig.",
+      "explanation": "Red Solo Cup: US-amerikanische Plastikkultur, von Millennials importiert wie Thanksgiving. Das Spiel funktioniert theoretisch auch mit Bechern vom Discounter. Theoretisch.",
       "difficulty": "medium",
       "category_id": "cat-05",
       "type": "multiple_choice",
@@ -512,7 +512,7 @@
         }
       ],
       "correct_option_id": "q-05-18-9e1f7c5006-opt-1",
-      "explanation": "Es sollte Radfahrer nicht sofort vom Sattel hauen. Heute ist es das Getränk für Leute, die am nächsten Tag noch wissen wollen, wo sie ihr Fahrrad abgestellt haben.",
+      "explanation": "Wirt Franz Xaver Kugler soll 1922 sein Bier mit Limonade gestreckt haben, weil 13.000 Radfahrer auftauchten. Auch wenn die Geschichte ausgeschmückt klingt – das Getränk überlebte.",
       "difficulty": "medium",
       "category_id": "cat-05",
       "type": "multiple_choice",
@@ -544,7 +544,7 @@
         }
       ],
       "correct_option_id": "q-05-19-3c5b30cb20-opt-1",
-      "explanation": "Bacardi Razz steht fuer Himbeere. Meistens wurde er mit Sprite gemischt und war so suess, dass man den Jahrgang sofort wieder schmeckt.",
+      "explanation": "'Razz' ist Englisch für Himbeere. Mit Sprite und Eis serviert war er so süß, dass man ihn eher trank als aß. Heute fehlt er in keiner nostalgiebedingten Panik.",
       "difficulty": "medium",
       "category_id": "cat-05",
       "type": "multiple_choice",
@@ -576,7 +576,7 @@
         }
       ],
       "correct_option_id": "q-05-20-530d8c8719-opt-1",
-      "explanation": "Ein Blau, das in der Natur so nicht vorkommt. Es färbt die Zunge und sorgt für sehr interessante Farben beim späteren... nun ja, Wiedersehen mit dem Getränk.",
+      "explanation": "E131, ein Azofarbstoff mit industriellem Charme. Die Zunge wird blau, der Urin ebenfalls. In der Natur existiert dieses Blau nur als Warnsignal.",
       "difficulty": "medium",
       "category_id": "cat-05",
       "type": "multiple_choice",
@@ -608,7 +608,7 @@
         }
       ],
       "correct_option_id": "q-05-22-da75306604-opt-1",
-      "explanation": "Ein Konterbier ist wie ein Kredit bei der Bank: Man muss ihn später mit Zinsen zurückzahlen. Aber für den Moment fühlt man sich wie ein Gott.",
+      "explanation": "Das Konterbier verlangsamt den Methanolabbau und schiebt den Kater hinaus. Es funktioniert – genau bis zum Nachmittag, wenn er mit doppeltem Zins zurückkommt.",
       "difficulty": "medium",
       "category_id": "cat-05",
       "type": "multiple_choice",
@@ -640,7 +640,7 @@
         }
       ],
       "correct_option_id": "q-05-23-fd629b97c3-opt-1",
-      "explanation": "Wach und betrunken zugleich. Die gefährlichste Kombination seit 'Vokuhila und Schnurrbart'. Man fühlt sich unbesiegbar, bis man versucht zu stehen.",
+      "explanation": "Koffein maskiert die Benommenheit durch Alkohol – man fühlt sich nüchterner, ist es aber nicht. Der Körper liegt flach, der Kopf denkt noch, er tanzt.",
       "difficulty": "medium",
       "category_id": "cat-05",
       "type": "multiple_choice",
@@ -672,7 +672,7 @@
         }
       ],
       "correct_option_id": "q-05-24-d96b10abfe-opt-1",
-      "explanation": "Eine artistische Meisterleistung. Wer es nicht kann, hat den Korn danach auf dem Hemd. Wer es kann, hat den Korn im Kopf. Klassische Win-Loss-Situation.",
+      "explanation": "Man hält Bierglas und Kornschnapsglas gleichzeitig, trinkt beide simultan ohne zu schütten. Wer es schafft, gehört dazu. Wer es nicht schafft, riecht danach nach Korn.",
       "difficulty": "medium",
       "category_id": "cat-05",
       "type": "multiple_choice",
@@ -704,7 +704,7 @@
         }
       ],
       "correct_option_id": "q-05-25-9312ca2062-opt-1",
-      "explanation": "Meistens der Drink, der einen über die Klippe stößt. Aber hey, man will ja nichts verpassen. YOLO (vong Niceheit her).",
+      "explanation": "Absacker, Wegbier, Rausschmeißer – drei Namen, ein Ergebnis. Es ist der Drink, der morgens erklärt, warum man nachmittags noch im Dunkeln liegt.",
       "difficulty": "medium",
       "category_id": "cat-05",
       "type": "multiple_choice",
@@ -737,7 +737,7 @@
         }
       ],
       "correct_option_id": "q-05-01-opt-1",
-      "explanation": "Smirnoff Ice. Diese milchig-trübe Plörre, die nach Zitronenreiniger schmeckte, aber uns gefühlt zum König der Dorfdisco machte.",
+      "explanation": "Smirnoff Ice: trüb, zitronig, teuer nach der Alkopop-Steuer 2004. Trotzdem das unbestrittene Statussymbol, wenn man 16 war und das Budget eines Schülers hatte.",
       "difficulty": "medium",
       "category_id": "cat-05",
       "points": 1
@@ -770,7 +770,7 @@
         "q-05-03-item-3",
         "q-05-03-item-4"
       ],
-      "explanation": "Bier hat fast keinen Zucker, Weinschorle liegt hoeher, Tonic Water bringt deutlich mehr mit und Alkopops waren oft echte Zuckerbomben.",
+      "explanation": "Pils hat kaum Zucker, Schorle liegt im Mittelfeld, Tonic bringt überraschend viel mit, und der Breezer war Zucker mit Alkohol-Accessoire.",
       "difficulty": "hard",
       "category_id": "cat-05",
       "points": 2
@@ -802,7 +802,7 @@
         }
       ],
       "correct_option_id": "q-05-04-opt-1",
-      "explanation": "Das Konterbier verschiebt den Abbau von Methanol nur. Du fühlst dich kurz besser, aber der Absturz danach wird nur noch tiefer.",
+      "explanation": "Das Konterbier verlangsamt den Methanolabbau – du fühlst dich kurz besser, zahlst aber mit Verzugszinsen. Wer glaubt, es hilft, glaubt auch an heilsame Currywurst.",
       "difficulty": "medium",
       "category_id": "cat-05",
       "points": 1
@@ -865,7 +865,7 @@
           "is_correct": false
         }
       ],
-      "explanation": "Hier entscheidet die Gruppe. Aber Hand aufs Herz: Wodka-E ist der Treibstoff der verlorenen Erinnerungen.",
+      "explanation": "Die Gruppe entscheidet. Aber Wodka-Energy führt in allen informellen Umfragen seit 2003 haushoch – Taurin, Koffein und billiger Alkohol ergeben zusammen eine Art vergessene Nacht.",
       "difficulty": "low",
       "category_id": "cat-05",
       "points": 1
@@ -897,7 +897,7 @@
         }
       ],
       "correct_option_id": "q-05-07-opt-1",
-      "explanation": "Die ersten drei sind klassische 'Gefäß-Getränke' für Gruppen (Eimer/Schüssel). Ein Hugo ist ein Einzel-Drink für Leute, die Minze im Glas mögen.",
+      "explanation": "Sangria, Bowle und Kalte Ente sind Gruppen-Zubereitungen im Gefäß. Hugo ist ein Einzelglas. Außerdem erst ab 2007 populär, als Südtirol seinen Minzkomplex entdeckte.",
       "difficulty": "medium",
       "category_id": "cat-05",
       "points": 1
@@ -929,7 +929,7 @@
         }
       ],
       "correct_option_id": "q-05-09-opt-1",
-      "explanation": "Sambuca 'con la mosca' (mit der Fliege). Die Bohne soll die Süße des Anis-Likörs ausgleichen.",
+      "explanation": "Sambuca 'con la mosca' – mit der Fliege. Drei Bohnen sollen Gesundheit, Glück und Wohlstand symbolisieren. Wer sie zerkaut, bewies hauptsächlich Durchhaltevermögen.",
       "difficulty": "low",
       "category_id": "cat-05",
       "points": 1
@@ -961,7 +961,7 @@
         }
       ],
       "correct_option_id": "q-05-10-opt-1",
-      "explanation": "Die 'Death Cup' Regel ist unerbittlich. Wer den Becher unvorsichtig hält, riskiert den Absturz des ganzen Teams.",
+      "explanation": "Death Cup: Wer den Becher in der Hand hält, während der Gegner trifft, verliert sofort das Spiel. Keine Diskussion, kein Widerspruch – nur Trinken und Schande.",
       "difficulty": "medium",
       "category_id": "cat-05",
       "points": 1
@@ -993,7 +993,7 @@
         }
       ],
       "correct_option_id": "q-05-11-opt-3",
-      "explanation": "1,6 Promille. Wer darüber liegt, darf zur MPU – auch ohne Auto. Die 'Leiche' auf dem Hollandrad wird teuer.",
+      "explanation": "Ab 1,6 Promille ist Fahrradfahren eine Straftat, nicht nur eine Ordnungswidrigkeit. Inklusive Führerscheinentzug und Pflicht zur MPU. Der günstigste Taxipreis sieht plötzlich vernünftig aus.",
       "difficulty": "hard",
       "category_id": "cat-05",
       "points": 3
@@ -1002,7 +1002,7 @@
       "id": "q-05-12",
       "type": "majority_guess",
       "prompt": "Wo ist man nach einer harten Party am wahrscheinlichsten aufgewacht?",
-      "explanation": "Das ist Erfahrungs- und Gruppendynamik, keine objektiv sortierbare Wahrheit. Deshalb entscheidet hier die Mehrheit der Runde.",
+      "explanation": "Keine objektiv richtige Antwort – nur kollektive Erfahrung. Wer 'fremdes Gartenhaus' tippt, muss das bitte erklären.",
       "difficulty": "medium",
       "category_id": "cat-05",
       "points": 1,
@@ -1052,7 +1052,7 @@
         }
       ],
       "correct_option_id": "q-05-13-opt-1",
-      "explanation": "Hangxiety (Hangover + Anxiety). Die Angst vor dem, was man getan hat, während das Gehirn auf 'Standby' war.",
+      "explanation": "Hangxiety: Kater trifft Angst. Cortisol steigt, Alkohol ist abgebaut, das soziale Gedächtnis kommt stückchenweise zurück – meistens genau dann, wenn man es am wenigsten braucht.",
       "difficulty": "medium",
       "category_id": "cat-05",
       "points": 1
@@ -1084,7 +1084,7 @@
         }
       ],
       "correct_option_id": "q-05-14-opt-1",
-      "explanation": "Der billige 'Mixto' Tequila wird einfach gefärbt. Echter gereifter Tequila heißt 'Reposado' und ist meist deutlich teurer.",
+      "explanation": "'Mixto'-Tequila enthält nur 51 % Agave, der Rest ist Zucker – und das Goldene kommt aus der Tube. Echter Reposado lagert in Eichenfässern; das kostet dann auch entsprechend.",
       "difficulty": "hard",
       "category_id": "cat-05",
       "points": 1
@@ -1116,7 +1116,7 @@
         }
       ],
       "correct_option_id": "q-05-15-opt-1",
-      "explanation": "Der Farbstoff E131 sorgt für ein Blau, das in der Natur so nicht vorkommt und jeden Verdacht beim Zähneputzen sofort bestätigt.",
+      "explanation": "Farbstoff E131, auch Patentblau V. Färbt Zunge, Zähne und alles, was später noch damit in Kontakt kommt, in einem Blau, das kein Naturwesen je produziert hat.",
       "difficulty": "low",
       "category_id": "cat-05",
       "points": 1
@@ -1148,7 +1148,7 @@
         }
       ],
       "correct_option_id": "q-05-16-opt-1",
-      "explanation": "10 Flaschen durch 3 Leute = 3,33 pro Kopf. Freund 1 hat 2,67 Flaschen 'zu viel', Freund 2 hat 0,67 'zu viel'. Freund 1 hat also 80% des Überschusses geliefert.",
+      "explanation": "10 Flaschen geteilt durch 3 = 3,33 pro Kopf. Freund A lieferte 2,67 zu viel, Freund B 0,67 zu viel. Verhältnis 4:1, also bekommt A 8 €, B 2 €. Mathematik endet Freundschaften.",
       "difficulty": "hard",
       "category_id": "cat-05",
       "points": 2
@@ -1180,7 +1180,7 @@
         }
       ],
       "correct_option_id": "q-05-17-opt-1",
-      "explanation": "Kleiner Feigling basiert auf Feige und Wodka. Der Clou ist das rituelle Klopfen mit dem Deckel auf die Nase.",
+      "explanation": "Kleiner Feigling: Feige trifft Wodka bei 20 %. Das Deckel-auf-die-Nase-Klopfen ist kein Trinkritual, sondern Marketingerfindung – hat aber auch funktioniert.",
       "difficulty": "low",
       "category_id": "cat-05",
       "points": 1
@@ -1211,7 +1211,7 @@
           "is_correct": false
         }
       ],
-      "explanation": "Döner gewinnt fast immer. Die Kombination aus Fett, Salz und zweifelhafter Fleischherkunft ist physiologisch unbesiegbar.",
+      "explanation": "Die Gruppe entscheidet. Wissenschaftlich gewinnt der Döner: Fett, Salz, Kohlenhydrate, Protein, 4 Uhr nachts. Physiologisch kaum zu schlagen.",
       "difficulty": "low",
       "category_id": "cat-05",
       "points": 1
@@ -1243,7 +1243,7 @@
         }
       ],
       "correct_option_id": "q-05-20-opt-1",
-      "explanation": "Eigentlich ein Mittel gegen Durchfall bei Kindern. Für Millennials die einzige Chance, am Montag im Büro nicht wie ein Zombie auszusehen.",
+      "explanation": "Elotrans ist ein Kinderarznei für Durchfallerkrankungen. Dass es Millennials nach Partynächten zweckentfremdeten, ist entweder Einfallsreichtum oder ein Hilferuf.",
       "difficulty": "medium",
       "category_id": "cat-05",
       "points": 1
@@ -1275,7 +1275,7 @@
         }
       ],
       "correct_option_id": "q-05-21-opt-1",
-      "explanation": "4cl Wodka und 16cl Filler ergeben 20cl (0,2l). Das Verhältnis ist also 4 zu 16, gekürzt 1 zu 4. Klassische Mische.",
+      "explanation": "0,2 l minus 4 cl ergibt 16 cl Filler. Verhältnis 4:16, gekürzt 1:4. Wer das im Halbdunkeln noch ausrechnen kann, hat nicht genug vorgeglüht.",
       "difficulty": "medium",
       "category_id": "cat-05",
       "points": 1
@@ -1307,7 +1307,7 @@
         }
       ],
       "correct_option_id": "q-05-22-opt-1",
-      "explanation": "Während Desperados und Co. den Tequila-Flavour-Hype der 2000er bedienten, ist Guinness ein irisches Stout ohne jeden Schnickschnack.",
+      "explanation": "Desperados, Salitos und Cab bedienten alle den Tequila-Bier-Hype der 2000er. Guinness ist ein irisches Stout aus dem 18. Jahrhundert und hat damit genug zu tun.",
       "difficulty": "medium",
       "category_id": "cat-05",
       "points": 1
@@ -1339,7 +1339,7 @@
         }
       ],
       "correct_option_id": "q-05-23-opt-1",
-      "explanation": "In Hannover gehört die Lüttje Lage zum Schützenfest wie der Kater zum Morgen danach. Wer es nicht kann, hat den Schnaps auf dem Hemd.",
+      "explanation": "Das Schützenfest Hannover läuft über zehn Tage – Zeit genug, die Technik zu perfektionieren. Wer nach Tag drei immer noch nass wird, lernt es vermutlich nicht mehr.",
       "difficulty": "medium",
       "category_id": "cat-05",
       "points": 1
@@ -1372,7 +1372,7 @@
         "q-05-25-item-3",
         "q-05-25-item-4"
       ],
-      "explanation": "Erst sparen, dann tanzen (und zweifeln), dann essen, dann bereuen. Der ewige Kreislauf.",
+      "explanation": "Vorglühen, Club, Döner, Hangxiety – der Kreislauf ist unveränderlich. Wer die Reihenfolge kennt, kann ihn trotzdem nicht aufhalten.",
       "difficulty": "low",
       "category_id": "cat-05",
       "points": 2
