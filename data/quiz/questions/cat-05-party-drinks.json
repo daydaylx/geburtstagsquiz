@@ -32,7 +32,7 @@
         }
       ],
       "correct_option_id": "q-05-01-dcbbe9ff6d-opt-1",
-      "explanation": "Smirnoff Ice. Die milchig-weiße Flüssigkeit, die nach Zitronenreiniger schmeckte, aber uns gefühlt zum König der Nacht machte. Alkopop-Steuer sei Dank heute fast ein Luxusgut.",
+      "explanation": "Smirnoff Ice: milchig-trüb, schmeckte nach Zitronenpulver. Trotzdem das Prestige-Objekt der Dorfdisco. Seit der Alkopop-Steuer 2004 fast doppelt so teuer – der Glamour blieb trotzdem aus.",
       "difficulty": "medium",
       "category_id": "cat-05",
       "type": "multiple_choice",
@@ -64,7 +64,7 @@
         }
       ],
       "correct_option_id": "q-05-02-c0ae97b14c-opt-1",
-      "explanation": "Energy Drinks. Die Mischung, die dein Herz rasen lässt, während dein Gehirn schon längst Feierabend gemacht hat. Perfekt für Nächte, die man am nächsten Tag lieber vergessen möchte.",
+      "explanation": "Energy Drink, meist Billigmarke. Herz auf 180, Gehirn bereits im Keller – ein Zustand, den Biologen 'wach und trotzdem fertig' nennen würden, wenn sie auf Partys gehen würden.",
       "difficulty": "medium",
       "category_id": "cat-05",
       "type": "multiple_choice",
@@ -96,7 +96,7 @@
         }
       ],
       "correct_option_id": "q-05-03-f117db8d8b-opt-1",
-      "explanation": "Pfefferminzlikör. Schmeckt wie Zähneputzen, nur dass man danach schlechter laufen kann. Der Retter jeder WG-Party, wenn das Geld für echten Alkohol knapp war.",
+      "explanation": "Pfefferminzlikör. Schmeckt wie Zähneputzen mit 18 % vol. Wer nach einem Pfeffi frischen Atem hatte, hatte einfach zu wenig getrunken.",
       "difficulty": "medium",
       "category_id": "cat-05",
       "type": "multiple_choice",
@@ -128,7 +128,7 @@
         }
       ],
       "correct_option_id": "q-05-04-462ff3060e-opt-1",
-      "explanation": "Korn hat kaum Eigengeschmack, man schmeckt also nur die Zuckerplörre der Cola. Die effizienteste Methode, sich für unter 5 Euro die Lichter auszuschießen.",
+      "explanation": "Korn ist neutral wie Wasser, nur mit Bumms. Die Cola überdeckt alles, der Kater überdeckt nichts. Günstigste bekannte Methode, das Wochenende zu beenden, bevor es angefangen hat.",
       "difficulty": "medium",
       "category_id": "cat-05",
       "type": "multiple_choice",
@@ -192,7 +192,7 @@
         }
       ],
       "correct_option_id": "q-05-07-2a1f4b82ba-opt-1",
-      "explanation": "Jägermeister in einem Glas Energy. Die perfekte Methode, um gleichzeitig hellwach und komplett unfähig zu sein. Eine explosive Mischung für den Magen.",
+      "explanation": "Jägermeister trifft Energy Drink – 56 Kräuter treffen Taurin. Ergebnis: Man fühlt sich wie ein Superheld, taumelt aber wie ein Reh auf Glatteis.",
       "difficulty": "medium",
       "category_id": "cat-05",
       "type": "multiple_choice",
@@ -209,22 +209,22 @@
         },
         {
           "id": "q-05-08-36f4d1e2a1-opt-2",
-          "text": "Es enthält echten Mezcal mit Wurm",
+          "text": "Es enthält echten Agavenschnaps",
           "is_correct": false
         },
         {
           "id": "q-05-08-36f4d1e2a1-opt-3",
-          "text": "Es wurde in Mexiko erfunden",
+          "text": "Es stammt aus einer mexikanischen Brauerei",
           "is_correct": false
         },
         {
           "id": "q-05-08-36f4d1e2a1-opt-4",
-          "text": "Man darf es nur mit Sombrero trinken",
+          "text": "Es hat mehr Alkohol als normales Bier",
           "is_correct": false
         }
       ],
       "correct_option_id": "q-05-08-36f4d1e2a1-opt-1",
-      "explanation": "Tequila-Flavour (Aroma). Kein echter Tequila, aber für 16-Jährige war es der Gipfel der Exotik. Und verdammt teuer an der Tankstelle.",
+      "explanation": "Tequila-Aroma, kein echter Tequila. Gebraut in Frankreich, vermarktet als mexikanisches Lebensgefühl. Exotischer als Pils, ehrlicher als ein echter Tequila-Shot.",
       "difficulty": "medium",
       "category_id": "cat-05",
       "type": "multiple_choice",
@@ -256,7 +256,7 @@
         }
       ],
       "correct_option_id": "q-05-09-f868c708c8-opt-1",
-      "explanation": "Meistens ist es die verzweifelte Fortsetzung der Nacht. Wer braucht schon Rührei, wenn man Kohlensäure und Restalkohol haben kann? Adulting at its best.",
+      "explanation": "Billiger Sekt, abgestandene Chips, Licht, das alle noch schlechter aussehen lässt. Technisch gesehen Frühstück, faktisch gesehen das Ende der Party mit 7 % vol.",
       "difficulty": "medium",
       "category_id": "cat-05",
       "type": "multiple_choice",

@@ -64,7 +64,7 @@
         }
       ],
       "correct_option_id": "q-03-02-303be9c845-opt-1",
-      "explanation": "Microsoft Network. Damals der Inbegriff von Coolness, bevor wir gemerkt haben, dass Microsoft eigentlich die 'Spießer' des Internets sind. Aber hey, die Emoticons waren top.",
+      "explanation": "Microsoft Network. Gegründet, damit Bill Gates auch mal einen Messenger hat. Der Dienst war die Wohnzimmerwand einer ganzen Generation — inklusive peinlicher Statusmeldungen um Mitternacht.",
       "difficulty": "medium_hard",
       "category_id": "cat-03",
       "type": "multiple_choice",
@@ -136,31 +136,31 @@
     },
     {
       "id": "q-03-05-3be45bd649",
-      "prompt": "Wie hieß der gelbe, animierte Smiley von ICQ, der die Zunge rausstreckte?",
+      "prompt": "Welches Emoticon stand bei ICQ und MSN für Zunge rausstrecken / frech grinsen?",
       "options": [
         {
           "id": "q-03-05-3be45bd649-opt-1",
-          "text": "Es war einfach der Standard-Smiley :P",
+          "text": ":P",
           "is_correct": true
         },
         {
           "id": "q-03-05-3be45bd649-opt-2",
-          "text": "Yellow Jester",
+          "text": ":D",
           "is_correct": false
         },
         {
           "id": "q-03-05-3be45bd649-opt-3",
-          "text": "Zungen-Zorro",
+          "text": ";)",
           "is_correct": false
         },
         {
           "id": "q-03-05-3be45bd649-opt-4",
-          "text": "Wacky Wilma",
+          "text": ":3",
           "is_correct": false
         }
       ],
       "correct_option_id": "q-03-05-3be45bd649-opt-1",
-      "explanation": "Es gab keine speziellen Namen, aber diese animierten Gifs waren der Peak der 2000er Grafik. Wer :P nicht inflationär benutzt hat, hat das Internet nie geliebt.",
+      "explanation": ":P — das Schweizer Taschenmesser der Chat-Ironie. Bedeutete alles zwischen 'ich scherze' und 'ich meins ernst, aber tu so, als ob nicht'.",
       "difficulty": "medium_hard",
       "category_id": "cat-03",
       "type": "multiple_choice",
@@ -192,7 +192,7 @@
         }
       ],
       "correct_option_id": "q-03-06-9bd22e9dc4-opt-1",
-      "explanation": "Das ultimative Tool für digitale Stalker. Wir waren alle 'Invisible', um bloß nicht mit den Leuten reden zu müssen, die uns angeschrieben haben. Klassisches Millennial-Social-Anxiety-Training.",
+      "explanation": "Man war 'Invisible' und hat trotzdem alle beobachtet wie ein digitaler Vorhang-Nachbar. Soziale Angst, aber mit System.",
       "difficulty": "medium_hard",
       "category_id": "cat-03",
       "type": "multiple_choice",
@@ -200,7 +200,7 @@
     },
     {
       "id": "q-03-07-7bc92e9dc4",
-      "prompt": "Wie hieß die soziale Plattform für Schüler, bevor Facebook alles plattmachte?",
+      "prompt": "Wie hieß das deutsche Social Network für Schüler, bevor Facebook alles plattmachte?",
       "options": [
         {
           "id": "q-03-07-7bc92e9dc4-opt-1",
@@ -209,22 +209,22 @@
         },
         {
           "id": "q-03-07-7bc92e9dc4-opt-2",
-          "text": "Classmatey",
+          "text": "StayFriends",
           "is_correct": false
         },
         {
           "id": "q-03-07-7bc92e9dc4-opt-3",
-          "text": "Pausenhof.net",
+          "text": "Lokalisten",
           "is_correct": false
         },
         {
           "id": "q-03-07-7bc92e9dc4-opt-4",
-          "text": "SchulCloud",
+          "text": "Jappy",
           "is_correct": false
         }
       ],
       "correct_option_id": "q-03-07-7bc92e9dc4-opt-1",
-      "explanation": "SchülerVZ. Mit dem ikonischen Pink-Look. Hier wurden die ersten Gruppen gegründet wie 'Dinge, die ich ohne Alkohol nicht tun würde' – wir waren so tiefgründig.",
+      "explanation": "SchülerVZ, mit dem pinken Farbschema und Gruppen wie 'Dinge, die ich ohne Alkohol nicht tun würde'. Wir hielten das damals für Persönlichkeit.",
       "difficulty": "medium_hard",
       "category_id": "cat-03",
       "type": "multiple_choice",
@@ -288,7 +288,7 @@
         }
       ],
       "correct_option_id": "q-03-09-bcfd859896-opt-1",
-      "explanation": "Am Pranger wurden Leute für Kleinigkeiten 'verurteilt'. Cybermobbing light, bevor wir wussten, wie gefährlich das ist. Aber hey, es gab ja auch den 'Knuddel-Thread'.",
+      "explanation": "Am Pranger landeten Leute für Kleinigkeiten — falsche Schuhe, schlechte Fotos, einen dummen Kommentar. Wir haben das 'Community' genannt.",
       "difficulty": "medium_hard",
       "category_id": "cat-03",
       "type": "multiple_choice",
