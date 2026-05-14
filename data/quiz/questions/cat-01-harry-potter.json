@@ -38,7 +38,7 @@
         }
       ],
       "correct_option_id": "q-01-01-6a920e98bc-opt-1",
-      "explanation": "Es ist 'Caput Draconis' (Drachenkopf). Klingt beeindruckender als es ist, wenn man bedenkt, dass das Passwort später im Jahr teilweise gegen 'Banane' oder Schlimmeres getauscht wurde. Klassische Verschlimmbesserung der Sicherheit.",
+      "explanation": "'Caput Draconis' bedeutet Drachenkopf. Klingt nach Hochsicherheit — bis man weiß, dass spätere Passwörter im Buch Dinge wie 'Banane' oder 'Gurke' waren. Dumbledore vertraute offenbar dem Personal.",
       "difficulty": "hard",
       "category_id": "cat-01",
       "type": "multiple_choice",
@@ -70,7 +70,7 @@
         }
       ],
       "correct_option_id": "q-01-02-6626e18f0a-opt-1",
-      "explanation": "Lumos Solem erzeugt helles Sonnenlicht. Im Buch ist es eigentlich eine 'helle Flamme', aber die Filme brauchten wohl mehr CGI-Glanz. Hauptsache, Ron hat nicht wieder vergessen, dass er ein Zauberer ist – Fremdscham pur.",
+      "explanation": "Lumos Solem — im Buch ruft Hermine einfach Feuer herbei, keine Zauberformel. Die Filmversion klingt nach einem Sonnencreme-Werbeslogan. Ron stand derweil daneben und dachte vermutlich an Essen.",
       "difficulty": "hard",
       "category_id": "cat-01",
       "type": "multiple_choice",
@@ -102,7 +102,7 @@
         }
       ],
       "correct_option_id": "q-01-03-65b54b9aa2-opt-1",
-      "explanation": "Es war Ohrenschmalz. Dumbledore hat einfach kein Glück mit diesen Bohnen. In seiner Jugend war es angeblich eine gute Toffee-Bohne, aber wir wissen ja, wie nostalgische Verklärung funktioniert.",
+      "explanation": "Ohrenschmalz. Als Leiter einer Zauberschule, die vom Bösen versucht wird, ist das vielleicht nicht sein schlimmstes Problem — aber geschmacklich definitiv sein letztes gutes Jahr.",
       "difficulty": "hard",
       "category_id": "cat-01",
       "type": "multiple_choice",
@@ -134,7 +134,7 @@
         }
       ],
       "correct_option_id": "q-01-04-new-opt-1",
-      "explanation": "Zitroneneis (Sherbet Lemon). Dumbledore hat eine Schwäche für Muggel-Süßigkeiten. Ein bisschen Cringe, wenn man bedenkt, dass die Sicherheit der gesamten Schule an einem Sorbet hängt.",
+      "explanation": "Zitroneneis — 'Sherbet Lemon' im Original. Dumbledores Bürosicherheit: ein Bonbon-Name, eine drehende Steintreppe, kein weiterer Plan. Voldemort hätte einfach mal raten müssen.",
       "difficulty": "hard",
       "category_id": "cat-01",
       "type": "multiple_choice",
@@ -166,7 +166,7 @@
         }
       ],
       "correct_option_id": "q-01-05-c97cd9c5d9-opt-1",
-      "explanation": "Den rechten Arm. Lockhart hat dann mit 'Brackium Emendo' alle Knochen entfernt. Wer braucht schon Skelett-Struktur, wenn man einen 'Best-Lächeln-Award' hat?",
+      "explanation": "Den rechten Arm — erst gebrochen, dann von Lockhart mit 'Brackium Emendo' komplett entknöchert. Hätte Lockhart einfach nichts getan, wäre es eine normale Quidditch-Verletzung geblieben.",
       "difficulty": "hard",
       "category_id": "cat-01",
       "type": "multiple_choice",
@@ -198,7 +198,7 @@
         }
       ],
       "correct_option_id": "q-01-06-9cf7daedf3-opt-1",
-      "explanation": "Sie konnten nicht durch die Absperrung. Anstatt auf Rons Eltern zu warten, klauen sie den Ford Anglia. Logik von 12-Jährigen: Ein fliegendes Auto ist unauffälliger als ein Brief per Eule.",
+      "explanation": "Die Absperrung am Gleis 9¾ war zu — Punkt. Statt 10 Minuten zu warten klauen sie einen fliegenden Ford Anglia und fahren bis nach Schottland. Verhältnismäßigkeit war kein Hogwarts-Fach.",
       "difficulty": "hard",
       "category_id": "cat-01",
       "type": "multiple_choice",
@@ -230,7 +230,7 @@
         }
       ],
       "correct_option_id": "q-01-08-2babd01a45-opt-1",
-      "explanation": "Imperius, Cruciatus und Avada Kedavra. Nichts sagt so sehr 'Millennial-Kindheit' wie Traumata durch Spinnen-Folter im Klassenzimmer.",
+      "explanation": "Imperius, Cruciatus, Avada Kedavra — alle drei an einer Spinne demonstriert. Heute würde so eine Unterrichtsstunde mindestens fünf Elternanrufe und eine Schulkonferenz auslösen.",
       "difficulty": "hard",
       "category_id": "cat-01",
       "type": "multiple_choice",
@@ -262,7 +262,7 @@
         }
       ],
       "correct_option_id": "q-01-09-7d2fe92524-opt-1",
-      "explanation": "Der Ungarische Hornschwanz. Er gilt als der gefährlichste. Harrys Glückssträhne ist so beständig wie eine schlechte WLAN-Verbindung im Keller.",
+      "explanation": "Der Ungarische Hornschwanz gilt als gefährlichste Drachen-Art. Dass Harry ausgerechnet ihn zieht, grenzt statistisch an Vorsatz — oder Rowlings Drehbuch.",
       "difficulty": "hard",
       "category_id": "cat-01",
       "type": "multiple_choice",
@@ -294,7 +294,7 @@
         }
       ],
       "correct_option_id": "q-01-11-346e4e40a0-opt-1",
-      "explanation": "Ein riesiger Löwenkopf, der brüllen kann. Luna ist die Queen des 'Mir doch egal, was ihr denkt'-Styles. Wir alle wünschten, wir hätten dieses Selbstbewusstsein bei unseren ersten Profilbildern gehabt.",
+      "explanation": "Ein brüllender Löwenkopf aus Pappe — selbst gebastelt, versteht sich. Luna trägt ihn mit der Würde eines Staatsbesuchs. Man schaut hin und weiß sofort: Das ist eine Person, die keine Therapie braucht.",
       "difficulty": "hard",
       "category_id": "cat-01",
       "type": "multiple_choice",
@@ -326,7 +326,7 @@
         }
       ],
       "correct_option_id": "q-01-12-d56fa12b3e-opt-1",
-      "explanation": "Es war Wein. Slughorn nutzt jede Gelegenheit für ein Tröpfchen. Dass sie danach eine Riesenspinne beerdigen, macht das Ganze nur noch absurder. Ein normaler Dienstag in Hogwarts.",
+      "explanation": "Wein — natürlich. Slughorn trinkt bei jeder Gelegenheit, und eine Beerdigungsrunde für eine Riesenspinne ist offenbar Grund genug. Trauer und Beschaffungskriminalität in einer Szene.",
       "difficulty": "hard",
       "category_id": "cat-01",
       "type": "multiple_choice",
@@ -358,7 +358,7 @@
         }
       ],
       "correct_option_id": "q-01-13-28324b61c1-opt-1",
-      "explanation": "Er muss die Felswand mit Blut bezahlen. Voldemort ist halt eher der Fan von dramatischer Sicherheitstechnik. Ein PIN-Code wäre wohl zu einfach gewesen.",
+      "explanation": "Blut — natürlich, was sonst. Der Felszugang zu Voldemorts Horkrux ist designt wie ein Bewerbungsgespräch bei Voldemort selbst: schmerzhaft und ohne Rückfragen.",
       "difficulty": "hard",
       "category_id": "cat-01",
       "type": "multiple_choice",
@@ -862,7 +862,7 @@
         }
       ],
       "correct_option_id": "q-01-14-opt-1",
-      "explanation": "Fred stirbt in der Schlacht von Hogwarts. George ueberlebt, hatte aber vorher bereits ein Ohr verloren.",
+      "explanation": "Fred. George überlebt — allerdings bereits um ein Ohr erleichtert, was die Welt als kollateralen Verlust abhakt. Rowling wusste, was sie tat. Das macht es nur schlimmer.",
       "difficulty": "medium",
       "points": 1
     },

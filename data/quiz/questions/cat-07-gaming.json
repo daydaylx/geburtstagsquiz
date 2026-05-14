@@ -22,7 +22,7 @@
       "difficulty": "medium_hard",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Welches Pokémon entwickelte sich im Original nur durch Tausch von Kadabra?",
+      "prompt": "Kadabra weigert sich standhaft zu entwickeln – außer du gibst ihn her. Was kommt raus, wenn du ihn tauschst?",
       "options": [
         {
           "id": "q-07-05-658e3a665d-opt-1",
@@ -56,7 +56,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Kadabra entwickelt sich im deutschen Spiel durch Tausch zu Simsala, im Englischen Alakazam.",
+      "explanation": "Kadabra entwickelt sich nur durch Tausch zu Simsala – Nintendo's Methode, Freunde für das eigene Fortkommen zu instrumentalisieren.",
       "tags": [
         "gaming",
         "retro",
@@ -83,7 +83,7 @@
       "difficulty": "medium_hard",
       "difficulty_score": 3,
       "points": 1,
-      "prompt": "Welche 90er-Konsole von Nintendo blieb bei Modulen statt CDs und wurde bei Problemen legendär angepustet?",
+      "prompt": "Welche Nintendo-Konsole der 90er setzte als einzige große Plattform weiter auf Module statt CDs – und ließ sich bei schlechten Kontakten mit Mundpusten 'reparieren'?",
       "options": [
         {
           "id": "q-07-07-508618c674-opt-1",
@@ -117,7 +117,7 @@
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
-      "explanation": "Das Ding, auf dem wir alle 'GoldenEye' im 4-Spieler-Splitscreen gezockt haben, während wir uns gegenseitig beschuldigten, auf den Bildschirm des anderen zu schauen.",
+      "explanation": "GoldenEye 4-Spieler-Splitscreen, wer auf den anderen Bildschirm schaut, fliegt raus. Auf dem N64 gezockt, weil Nintendo CDs für Teufelszeug hielt.",
       "tags": [
         "gaming",
         "retro",
