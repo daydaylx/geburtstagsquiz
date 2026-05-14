@@ -4,10 +4,10 @@
 
 Der Fragebogen liegt in zwei Versionen vor:
 
-- **v5 (expanded):** 282 Fragen in 10 Kategorien – aktuelle, erweiterte Fassung
+- **v5 (expanded):** 332 Fragen in 11 Kategorien – aktuelle, erweiterte Fassung
 - **v4 (release candidate):** 220 Fragen in denselben 10 Kategorien – ältere Fassung mit abweichender Fragenverteilung
 
-Beide Versionen verwenden dieselben Kategorienamen (cat-01 bis cat-10), enthalten aber überwiegend unterschiedliche Fragen. Die Rohsumme beträgt ca. 500 Einträge; thematisch lassen sie sich in **8 Hauptgruppen** gliedern. Geschichte/Politik und Sport sind nicht vertreten. Reine Allgemeinwissensfragen gibt es nicht als eigene Gruppe – Logik- und Schätzfragen durchziehen stattdessen alle Hauptgruppen.
+Beide Versionen verwenden dieselben Kategorienamen (cat-01 bis cat-10, plus cat-11 in v5), enthalten aber überwiegend unterschiedliche Fragen. Die Rohsumme beträgt ca. 550 Einträge; thematisch lassen sie sich in **9 Hauptgruppen** gliedern. Geschichte/Politik und Sport sind nicht vertreten.
 
 ---
 
@@ -23,10 +23,40 @@ Beide Versionen verwenden dieselben Kategorienamen (cat-01 bis cat-10), enthalte
 | Wissenschaft / Technik | Hardware-Nostalgie, Datenträger & Speicher, Software-Klassiker, Verbindung & Protokolle | ~40 |
 | Alltag / Gesellschaft | Haushalt & Wohnen, Finanzen & Recht, Lebensmittel & Konsum, Gesundheit, Alltagslogik | ~50 |
 | Alkohol / Party | Drinks & Mischgetränke, Kater-Wissen, Mathe & Berechnungen, Promille & Gesetz, Party-Rituale | ~50 |
+| Wissen & Denken | Geografie, Natur, Körper, Geschichte, Sprache, Logik, Alltagswelt | 50 |
 
 ---
 
 ## 3. Fragen je Kategorie
+
+### Wissen & Denken
+
+Unterkategorien: Geografie · Natur & Tiere · Körper & Gesundheit · Geschichte & Zeitrechnung · Sprache & Wörter · Logik & Denkmuster · Alltag & Welt
+
+**Anzahl Fragen: 50 (nur v5)**
+
+#### v5 – cat-11: Allgemeinwissen & Logik
+
+- `q-11-01-e2f91b4a` Welche Stadt ist die offizielle Hauptstadt von Australien?
+- `q-11-02-a8c4d321` Welcher Begriff passt logisch nicht in die folgende Reihe: Tisch, Stuhl, Schrank, Auto?
+- `q-11-03-bf567812` Welches ist das größte lebende Säugetier der Erde?
+- `q-11-04-cc910112` Welches Organ gilt als das größte des menschlichen Körpers?
+- `q-11-05-dd121314` Wer gilt als Erfinder des modernen Buchdrucks mit beweglichen Metalllettern?
+- `q-11-06-ee151617` Was ist das Gegenteil von 'Altruismus'?
+- `q-11-07-ff181920` Welche der folgenden Farben gehört nicht zu den drei Primärfarben der subtraktiven Farbmischung (RYB-Modell)?
+- `q-11-08-01212223` Welcher Ozean ist der flächenmäßig größte der Welt?
+- `q-11-09-02242526` Vervollständige die Analogie: Baum verhält sich zu Blatt wie Buch zu ...?
+- `q-11-10-03272829` Welches dieser Tiere ist ein Säugetier, obwohl es fliegen kann?
+- `q-11-16-09454647` Was folgt logisch als Nächstes: Morgen, Mittag, Abend, ...?
+- `q-11-23-16666768` Alle Rosen sind Blumen. Einige Blumen verblühen schnell. Was folgt daraus zwingend?
+- `q-11-30-23878889` Welches Wort passt logisch nicht zu den anderen: Rot, Gelb, Blau, Schwer?
+- `q-11-34-27991001` Was bezeichnet man als 'Anachronismus'?
+- `q-11-37-30124151` Welche Aussage stellt einen logischen Widerspruch (Oxymoron) dar?
+- `q-11-40-33157181` Welche Abfolge der frühen Menschheitsgeschichte ist chronologisch korrekt?
+- `q-11-42-35179201` Welche Himmelsrichtung liegt genau gegenüber von Südwesten?
+- `q-11-49-42246971` Wie viele Farben hat ein klassischer Regenbogen?
+
+---
 
 ### Erwachsene / Sex / Fetisch / Dating
 

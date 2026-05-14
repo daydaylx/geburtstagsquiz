@@ -17,22 +17,22 @@
         },
         {
           "id": "q-04-04-69a3624d74-opt-2",
-          "text": "Promi Dinner",
+          "text": "Das Promi-Dinner (VOX)",
           "is_correct": false
         },
         {
           "id": "q-04-04-69a3624d74-opt-3",
-          "text": "Die Alm",
+          "text": "Die Alm – Promis in Not",
           "is_correct": false
         },
         {
           "id": "q-04-04-69a3624d74-opt-4",
-          "text": "Big Brother",
+          "text": "Big Brother (RTL II)",
           "is_correct": false
         }
       ],
       "correct_option_id": "q-04-04-69a3624d74-opt-1",
-      "explanation": "Das Dschungelcamp. Seit 2004 der Ort, an dem Karrieren entweder sterben oder im RTL-Dschungel wiederbelebt werden. Mahlzeit!",
+      "explanation": "Dschungelcamp seit 2004. Känguru-Hoden als Karriere-Entscheidungshilfe — wer isst, bleibt relevant.",
       "difficulty": "medium_hard",
       "category_id": "cat-04",
       "type": "multiple_choice",
@@ -96,7 +96,7 @@
         }
       ],
       "correct_option_id": "q-04-07-2a1f4b82bc-opt-1",
-      "explanation": "Das Zitat stammt aus einer 'Frauentausch'-Folge mit Andreas und wurde spaeter zum Internet-Meme.",
+      "explanation": "Andreas aus 'Frauentausch'. 'Halt Stop!' — gebrüllt auf einem Hausflur, für immer im Internet.",
       "difficulty": "medium_hard",
       "category_id": "cat-04",
       "type": "multiple_choice",
@@ -104,31 +104,31 @@
     },
     {
       "id": "q-04-10-279254d815",
-      "prompt": "Wie hieß das fiktive Dorf in 'Gute Zeiten, schlechte Zeiten', in dem alles passierte?",
+      "prompt": "In welcher Stadt spielt 'Gute Zeiten, schlechte Zeiten' eigentlich?",
       "options": [
         {
           "id": "q-04-10-279254d815-opt-1",
-          "text": "Es gibt kein Dorf, es spielt in Berlin",
+          "text": "Berlin",
           "is_correct": true
         },
         {
           "id": "q-04-10-279254d815-opt-2",
-          "text": "Lindenstraße",
+          "text": "München",
           "is_correct": false
         },
         {
           "id": "q-04-10-279254d815-opt-3",
-          "text": "Bensberg",
+          "text": "Hamburg",
           "is_correct": false
         },
         {
           "id": "q-04-10-279254d815-opt-4",
-          "text": "Marienhof",
+          "text": "Köln",
           "is_correct": false
         }
       ],
       "correct_option_id": "q-04-10-279254d815-opt-1",
-      "explanation": "GZSZ spielt in Berlin-Mitte. Aber so, wie sich dort alle ständig im selben Kiezcafé treffen, könnte es auch ein 50-Seiten-Dorf sein.",
+      "explanation": "Berlin-Mitte. Alle treffen sich ständig im selben Café — für 11 Millionen Einwohner eine statistisch bemerkenswerte Leistung.",
       "difficulty": "medium_hard",
       "category_id": "cat-04",
       "type": "multiple_choice",
@@ -160,7 +160,7 @@
         }
       ],
       "correct_option_id": "q-04-13-85247b5309-opt-1",
-      "explanation": "Die Autos sahen zwar von außen geil aus (Bildschirme in den Reifen!), aber unter der Haube waren sie oft lebensgefährlich. Klassische Verschlimmbesserung.",
+      "explanation": "Innen Bildschirme in den Reifen, unter der Haube Totalschaden. Xzibit hat die Karosserie gelöst, den Motor ignoriert.",
       "difficulty": "medium_hard",
       "category_id": "cat-04",
       "type": "multiple_choice",
@@ -256,7 +256,7 @@
         }
       ],
       "correct_option_id": "q-04-24-97d8e651ce-opt-1",
-      "explanation": "9Live wurde zum Synonym fuer Call-in-Quizsendungen mit teuren Anrufen und sehr viel Nachtprogramm.",
+      "explanation": "9Live — Heimat der 3-Minuten-Fragen und 1,99-Euro-Anrufe. Wer dort anrief, verlor immer.",
       "difficulty": "medium_hard",
       "category_id": "cat-04",
       "type": "multiple_choice",
@@ -284,12 +284,7 @@
           "label": "Deutschland sucht den Superstar (RTL)"
         }
       ],
-      "correct_order": [
-        "A",
-        "B",
-        "C",
-        "D"
-      ],
+      "correct_order": ["A", "B", "C", "D"],
       "explanation": "Start-Reihenfolge: Big Brother (2000), DSDS (2002), Dschungelcamp (2004), GNTM (2006). Kultureller Verfall in Echtzeit.",
       "difficulty": "medium_hard",
       "points": 2

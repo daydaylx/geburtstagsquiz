@@ -1,0 +1,810 @@
+{
+  "category_id": "cat-11",
+  "slug": "allgemeinwissen-logik",
+  "name": "Allgemeinwissen & Logik",
+  "difficulty": "medium",
+  "tags": [],
+  "question_count": 50,
+  "questions": [
+    {
+      "id": "q-11-01-e2f91b4a",
+      "prompt": "Welche Stadt ist die offizielle Hauptstadt von Australien?",
+      "options": [
+        { "id": "q-11-01-e2f91b4a-opt-1", "text": "Canberra", "is_correct": true },
+        { "id": "q-11-01-e2f91b4a-opt-2", "text": "Sydney", "is_correct": false },
+        { "id": "q-11-01-e2f91b4a-opt-3", "text": "Melbourne", "is_correct": false },
+        { "id": "q-11-01-e2f91b4a-opt-4", "text": "Perth", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-01-e2f91b4a-opt-1",
+      "explanation": "Canberra wurde als Kompromiss zwischen den Rivalen Sydney und Melbourne zur Hauptstadt ernannt.",
+      "difficulty": "medium",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-02-a8c4d321",
+      "prompt": "Welcher Begriff passt logisch nicht in die folgende Reihe: Tisch, Stuhl, Schrank, Auto?",
+      "options": [
+        { "id": "q-11-02-a8c4d321-opt-1", "text": "Auto", "is_correct": true },
+        { "id": "q-11-02-a8c4d321-opt-2", "text": "Tisch", "is_correct": false },
+        { "id": "q-11-02-a8c4d321-opt-3", "text": "Stuhl", "is_correct": false },
+        { "id": "q-11-02-a8c4d321-opt-4", "text": "Schrank", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-02-a8c4d321-opt-1",
+      "explanation": "Tisch, Stuhl und Schrank sind Möbelstücke, während das Auto ein Fortbewegungsmittel ist.",
+      "difficulty": "easy",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-03-bf567812",
+      "prompt": "Welches ist das größte lebende Säugetier der Erde?",
+      "options": [
+        { "id": "q-11-03-bf567812-opt-1", "text": "Blauwal", "is_correct": true },
+        { "id": "q-11-03-bf567812-opt-2", "text": "Afrikanischer Elefant", "is_correct": false },
+        { "id": "q-11-03-bf567812-opt-3", "text": "Walhai", "is_correct": false },
+        { "id": "q-11-03-bf567812-opt-4", "text": "Giraffe", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-03-bf567812-opt-1",
+      "explanation": "Der Blauwal kann bis zu 30 Meter lang werden. Der Walhai ist zwar größer als der Elefant, aber ein Fisch.",
+      "difficulty": "easy",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-04-cc910112",
+      "prompt": "Welches Organ gilt als das größte des menschlichen Körpers?",
+      "options": [
+        { "id": "q-11-04-cc910112-opt-1", "text": "Die Haut", "is_correct": true },
+        { "id": "q-11-04-cc910112-opt-2", "text": "Die Leber", "is_correct": false },
+        { "id": "q-11-04-cc910112-opt-3", "text": "Die Lunge", "is_correct": false },
+        { "id": "q-11-04-cc910112-opt-4", "text": "Der Dünndarm", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-04-cc910112-opt-1",
+      "explanation": "Die Haut bedeckt beim Erwachsenen eine Fläche von etwa zwei Quadratmetern und ist damit das flächenmäßig größte Organ.",
+      "difficulty": "medium",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-05-dd121314",
+      "prompt": "Wer gilt als Erfinder des modernen Buchdrucks mit beweglichen Metalllettern?",
+      "options": [
+        { "id": "q-11-05-dd121314-opt-1", "text": "Johannes Gutenberg", "is_correct": true },
+        { "id": "q-11-05-dd121314-opt-2", "text": "Leonardo da Vinci", "is_correct": false },
+        { "id": "q-11-05-dd121314-opt-3", "text": "Nikola Tesla", "is_correct": false },
+        { "id": "q-11-05-dd121314-opt-4", "text": "Albert Einstein", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-05-dd121314-opt-1",
+      "explanation": "Gutenberg führte um 1450 den Buchdruck in Europa ein und revolutionierte damit die Verbreitung von Wissen.",
+      "difficulty": "easy",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-06-ee151617",
+      "prompt": "Was ist das Gegenteil von 'Altruismus'?",
+      "options": [
+        { "id": "q-11-06-ee151617-opt-1", "text": "Egoismus", "is_correct": true },
+        { "id": "q-11-06-ee151617-opt-2", "text": "Optimismus", "is_correct": false },
+        { "id": "q-11-06-ee151617-opt-3", "text": "Pessimismus", "is_correct": false },
+        { "id": "q-11-06-ee151617-opt-4", "text": "Realismus", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-06-ee151617-opt-1",
+      "explanation": "Altruismus bezeichnet Uneigennützigkeit und Selbstlosigkeit, während Egoismus die Eigennützigkeit beschreibt.",
+      "difficulty": "medium",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-07-ff181920",
+      "prompt": "Welche der folgenden Farben gehört nicht zu den drei Primärfarben der subtraktiven Farbmischung (RYB-Modell)?",
+      "options": [
+        { "id": "q-11-07-ff181920-opt-1", "text": "Grün", "is_correct": true },
+        { "id": "q-11-07-ff181920-opt-2", "text": "Rot", "is_correct": false },
+        { "id": "q-11-07-ff181920-opt-3", "text": "Gelb", "is_correct": false },
+        { "id": "q-11-07-ff181920-opt-4", "text": "Blau", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-07-ff181920-opt-1",
+      "explanation": "In der klassischen Farbenlehre sind Rot, Gelb und Blau die Grundfarben. Grün entsteht durch Mischung von Blau und Gelb.",
+      "difficulty": "medium",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-08-01212223",
+      "prompt": "Welcher Ozean ist der flächenmäßig größte der Welt?",
+      "options": [
+        { "id": "q-11-08-01212223-opt-1", "text": "Pazifischer Ozean", "is_correct": true },
+        { "id": "q-11-08-01212223-opt-2", "text": "Atlantischer Ozean", "is_correct": false },
+        { "id": "q-11-08-01212223-opt-3", "text": "Indischer Ozean", "is_correct": false },
+        { "id": "q-11-08-01212223-opt-4", "text": "Arktischer Ozean", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-08-01212223-opt-1",
+      "explanation": "Der Pazifik bedeckt etwa 35 % der gesamten Erdoberfläche und ist größer als alle Landmassen zusammen.",
+      "difficulty": "easy",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-09-02242526",
+      "prompt": "Vervollständige die Analogie: Baum verhält sich zu Blatt wie Buch zu ...?",
+      "options": [
+        { "id": "q-11-09-02242526-opt-1", "text": "Seite", "is_correct": true },
+        { "id": "q-11-09-02242526-opt-2", "text": "Leser", "is_correct": false },
+        { "id": "q-11-09-02242526-opt-3", "text": "Regal", "is_correct": false },
+        { "id": "q-11-09-02242526-opt-4", "text": "Tinte", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-09-02242526-opt-1",
+      "explanation": "Ein Blatt ist ein Teil des Baumes, so wie eine Seite ein Teil eines Buches ist.",
+      "difficulty": "easy",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-10-03272829",
+      "prompt": "Welches dieser Tiere ist ein Säugetier, obwohl es fliegen kann?",
+      "options": [
+        { "id": "q-11-10-03272829-opt-1", "text": "Fledermaus", "is_correct": true },
+        { "id": "q-11-10-03272829-opt-2", "text": "Kolibri", "is_correct": false },
+        { "id": "q-11-10-03272829-opt-3", "text": "Fliegender Fisch", "is_correct": false },
+        { "id": "q-11-10-03272829-opt-4", "text": "Pinguin", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-10-03272829-opt-1",
+      "explanation": "Fledermäuse sind die einzigen Säugetiere, die aktiv fliegen können. Vögel und Fische gehören anderen Wirbeltierklassen an.",
+      "difficulty": "easy",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-11-04303132",
+      "prompt": "Wo befinden sich die kleinsten Knochen des menschlichen Körpers?",
+      "options": [
+        { "id": "q-11-11-04303132-opt-1", "text": "Im Ohr", "is_correct": true },
+        { "id": "q-11-11-04303132-opt-2", "text": "In der Nase", "is_correct": false },
+        { "id": "q-11-11-04303132-opt-3", "text": "In den Fingern", "is_correct": false },
+        { "id": "q-11-11-04303132-opt-4", "text": "In den Zehen", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-11-04303132-opt-1",
+      "explanation": "Der Steigbügel im Mittelohr ist mit etwa 3 Millimetern der kleinste Knochen des Menschen.",
+      "difficulty": "medium",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-12-05333435",
+      "prompt": "Was war die zentrale Losung der Französischen Revolution von 1789?",
+      "options": [
+        { "id": "q-11-12-05333435-opt-1", "text": "Freiheit, Gleichheit, Brüderlichkeit", "is_correct": true },
+        { "id": "q-11-12-05333435-opt-2", "text": "Einigkeit und Recht und Freiheit", "is_correct": false },
+        { "id": "q-11-12-05333435-opt-3", "text": "Brot und Spiele", "is_correct": false },
+        { "id": "q-11-12-05333435-opt-4", "text": "Friede den Hütten, Krieg den Palästen", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-12-05333435-opt-1",
+      "explanation": "Liberté, Égalité, Fraternité ist bis heute der Staatsspruch der Französischen Republik.",
+      "difficulty": "medium",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-13-06363738",
+      "prompt": "Welcher Oberbegriff fasst Violine, Bratsche und Cello zusammen?",
+      "options": [
+        { "id": "q-11-13-06363738-opt-1", "text": "Streichinstrumente", "is_correct": true },
+        { "id": "q-11-13-06363738-opt-2", "text": "Zupfinstrumente", "is_correct": false },
+        { "id": "q-11-13-06363738-opt-3", "text": "Blasinstrumente", "is_correct": false },
+        { "id": "q-11-13-06363738-opt-4", "text": "Schlaginstrumente", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-13-06363738-opt-1",
+      "explanation": "Diese Instrumente werden primär mit einem Bogen gestrichen, um Töne zu erzeugen.",
+      "difficulty": "easy",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-14-07394041",
+      "prompt": "Welche Farbe hat ein Smaragd üblicherweise?",
+      "options": [
+        { "id": "q-11-14-07394041-opt-1", "text": "Grün", "is_correct": true },
+        { "id": "q-11-14-07394041-opt-2", "text": "Blau", "is_correct": false },
+        { "id": "q-11-14-07394041-opt-3", "text": "Rot", "is_correct": false },
+        { "id": "q-11-14-07394041-opt-4", "text": "Gelb", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-14-07394041-opt-1",
+      "explanation": "Der Smaragd ist eine grüne Varietät des Minerals Beryll und ein bekannter Edelstein.",
+      "difficulty": "easy",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-15-08424344",
+      "prompt": "Welcher Berg gilt als der höchste über dem Meeresspiegel?",
+      "options": [
+        { "id": "q-11-15-08424344-opt-1", "text": "Mount Everest", "is_correct": true },
+        { "id": "q-11-15-08424344-opt-2", "text": "Mont Blanc", "is_correct": false },
+        { "id": "q-11-15-08424344-opt-3", "text": "Kilimandscharo", "is_correct": false },
+        { "id": "q-11-15-08424344-opt-4", "text": "K2", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-15-08424344-opt-1",
+      "explanation": "Der Mount Everest im Himalaya ist mit 8.848 Metern der höchste Punkt der Erde.",
+      "difficulty": "easy",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-16-09454647",
+      "prompt": "Was folgt logisch als Nächstes: Morgen, Mittag, Abend, ...?",
+      "options": [
+        { "id": "q-11-16-09454647-opt-1", "text": "Nacht", "is_correct": true },
+        { "id": "q-11-16-09454647-opt-2", "text": "Vormittag", "is_correct": false },
+        { "id": "q-11-16-09454647-opt-3", "text": "Dämmerung", "is_correct": false },
+        { "id": "q-11-16-09454647-opt-4", "text": "Frühstück", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-16-09454647-opt-1",
+      "explanation": "Die Reihe beschreibt die zeitliche Abfolge der Tagesabschnitte.",
+      "difficulty": "easy",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-17-10484950",
+      "prompt": "Wie nennt man den Prozess, bei dem Pflanzen Licht in Energie umwandeln?",
+      "options": [
+        { "id": "q-11-17-10484950-opt-1", "text": "Fotosynthese", "is_correct": true },
+        { "id": "q-11-17-10484950-opt-2", "text": "Oxidation", "is_correct": false },
+        { "id": "q-11-17-10484950-opt-3", "text": "Respiration", "is_correct": false },
+        { "id": "q-11-17-10484950-opt-4", "text": "Gärung", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-17-10484950-opt-1",
+      "explanation": "Pflanzen nutzen Sonnenlicht, Wasser und CO2, um Glukose und Sauerstoff herzustellen.",
+      "difficulty": "medium",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-18-11515253",
+      "prompt": "Was ist die Hauptaufgabe der weißen Blutkörperchen (Leukozyten)?",
+      "options": [
+        { "id": "q-11-18-11515253-opt-1", "text": "Abwehr von Krankheitserregern", "is_correct": true },
+        { "id": "q-11-18-11515253-opt-2", "text": "Sauerstofftransport", "is_correct": false },
+        { "id": "q-11-18-11515253-opt-3", "text": "Blutgerinnung", "is_correct": false },
+        { "id": "q-11-18-11515253-opt-4", "text": "Nährstoffverteilung", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-18-11515253-opt-1",
+      "explanation": "Weiße Blutkörperchen sind Teil des Immunsystems und bekämpfen Viren, Bakterien und Parasiten.",
+      "difficulty": "medium",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-19-12545556",
+      "prompt": "Welcher Seefahrer erreichte 1492 Amerika, während er einen Seeweg nach Indien suchte?",
+      "options": [
+        { "id": "q-11-19-12545556-opt-1", "text": "Christoph Kolumbus", "is_correct": true },
+        { "id": "q-11-19-12545556-opt-2", "text": "Vasco da Gama", "is_correct": false },
+        { "id": "q-11-19-12545556-opt-3", "text": "Marco Polo", "is_correct": false },
+        { "id": "q-11-19-12545556-opt-4", "text": "James Cook", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-19-12545556-opt-1",
+      "explanation": "Kolumbus landete auf den Bahamas, hielt das Land jedoch bis zu seinem Tod für einen Teil Indiens.",
+      "difficulty": "easy",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-20-13575859",
+      "prompt": "Welches dieser Wörter ist ein Synonym für 'fragil'?",
+      "options": [
+        { "id": "q-11-20-13575859-opt-1", "text": "Zerbrechlich", "is_correct": true },
+        { "id": "q-11-20-13575859-opt-2", "text": "Robust", "is_correct": false },
+        { "id": "q-11-20-13575859-opt-3", "text": "Schnell", "is_correct": false },
+        { "id": "q-11-20-13575859-opt-4", "text": "Wichtig", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-20-13575859-opt-1",
+      "explanation": "Fragil kommt aus dem Lateinischen und bedeutet leicht zerbrechlich oder hinfällig.",
+      "difficulty": "easy",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-21-14606162",
+      "prompt": "In welcher Himmelsrichtung geht die Sonne morgens auf?",
+      "options": [
+        { "id": "q-11-21-14606162-opt-1", "text": "Osten", "is_correct": true },
+        { "id": "q-11-21-14606162-opt-2", "text": "Westen", "is_correct": false },
+        { "id": "q-11-21-14606162-opt-3", "text": "Norden", "is_correct": false },
+        { "id": "q-11-21-14606162-opt-4", "text": "Süden", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-21-14606162-opt-1",
+      "explanation": "Die Erde dreht sich nach Osten, weshalb die Sonne dort zuerst erscheint.",
+      "difficulty": "easy",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-22-15636465",
+      "prompt": "Welcher Kontinent ist der flächenmäßig kleinste?",
+      "options": [
+        { "id": "q-11-22-15636465-opt-1", "text": "Australien / Ozeanien", "is_correct": true },
+        { "id": "q-11-22-15636465-opt-2", "text": "Europa", "is_correct": false },
+        { "id": "q-11-22-15636465-opt-3", "text": "Antarktis", "is_correct": false },
+        { "id": "q-11-22-15636465-opt-4", "text": "Südamerika", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-22-15636465-opt-1",
+      "explanation": "Australien ist der kleinste Kontinent, wird aber oft mit der Inselwelt Ozeaniens zusammengefasst.",
+      "difficulty": "medium",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-23-16666768",
+      "prompt": "Alle Rosen sind Blumen. Einige Blumen verblühen schnell. Was folgt daraus zwingend?",
+      "options": [
+        { "id": "q-11-23-16666768-opt-1", "text": "Rosen sind Blumen.", "is_correct": true },
+        { "id": "q-11-23-16666768-opt-2", "text": "Alle Rosen verblühen schnell.", "is_correct": false },
+        { "id": "q-11-23-16666768-opt-3", "text": "Keine Rose verblüht schnell.", "is_correct": false },
+        { "id": "q-11-23-16666768-opt-4", "text": "Blumen sind immer Rosen.", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-23-16666768-opt-1",
+      "explanation": "Die erste Aussage 'Alle Rosen sind Blumen' ist die einzige gesicherte Tatsache in diesem logischen Konstrukt.",
+      "difficulty": "medium",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-24-17697071",
+      "prompt": "Welches ist das schnellste Landsäugetier der Welt?",
+      "options": [
+        { "id": "q-11-24-17697071-opt-1", "text": "Gepard", "is_correct": true },
+        { "id": "q-11-24-17697071-opt-2", "text": "Antilope", "is_correct": false },
+        { "id": "q-11-24-17697071-opt-3", "text": "Löwe", "is_correct": false },
+        { "id": "q-11-24-17697071-opt-4", "text": "Hase", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-24-17697071-opt-1",
+      "explanation": "Ein Gepard kann im Sprint Geschwindigkeiten von über 100 km/h erreichen.",
+      "difficulty": "easy",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-25-18727374",
+      "prompt": "Was ist die primäre Funktion des menschlichen Herzens?",
+      "options": [
+        { "id": "q-11-25-18727374-opt-1", "text": "Pumpen von Blut", "is_correct": true },
+        { "id": "q-11-25-18727374-opt-2", "text": "Reinigung des Blutes", "is_correct": false },
+        { "id": "q-11-25-18727374-opt-3", "text": "Produktion von Hormonen", "is_correct": false },
+        { "id": "q-11-25-18727374-opt-4", "text": "Speicherung von Energie", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-25-18727374-opt-1",
+      "explanation": "Das Herz fungiert als Hohlmuskel, der den Blutkreislauf durch rhythmische Kontraktionen aufrechterhält.",
+      "difficulty": "easy",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-26-19757677",
+      "prompt": "Wie viele Jahre umfasst ein Jahrhundert?",
+      "options": [
+        { "id": "q-11-26-19757677-opt-1", "text": "100", "is_correct": true },
+        { "id": "q-11-26-19757677-opt-2", "text": "10", "is_correct": false },
+        { "id": "q-11-26-19757677-opt-3", "text": "1000", "is_correct": false },
+        { "id": "q-11-26-19757677-opt-4", "text": "50", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-26-19757677-opt-1",
+      "explanation": "Ein Jahrhundert (Zentennium) besteht definitionsgemäß aus genau 100 Kalenderjahren.",
+      "difficulty": "easy",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-27-20787980",
+      "prompt": "Was ist das Gegenteil von 'Vordergrund'?",
+      "options": [
+        { "id": "q-11-27-20787980-opt-1", "text": "Hintergrund", "is_correct": true },
+        { "id": "q-11-27-20787980-opt-2", "text": "Untergrund", "is_correct": false },
+        { "id": "q-11-27-20787980-opt-3", "text": "Abgrund", "is_correct": false },
+        { "id": "q-11-27-20787980-opt-4", "text": "Hinterhalt", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-27-20787980-opt-1",
+      "explanation": "Hintergrund bezeichnet den räumlich oder inhaltlich hinter dem Vordergrund liegenden Teil.",
+      "difficulty": "easy",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-28-21818283",
+      "prompt": "Bei welcher Temperatur siedet reines Wasser unter normalen atmosphärischen Bedingungen (Meereshöhe)?",
+      "options": [
+        { "id": "q-11-28-21818283-opt-1", "text": "100 °C", "is_correct": true },
+        { "id": "q-11-28-21818283-opt-2", "text": "0 °C", "is_correct": false },
+        { "id": "q-11-28-21818283-opt-3", "text": "50 °C", "is_correct": false },
+        { "id": "q-11-28-21818283-opt-4", "text": "212 °C", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-28-21818283-opt-1",
+      "explanation": "Auf Meereshöhe beträgt der Siedepunkt von Wasser exakt 100 Grad Celsius.",
+      "difficulty": "easy",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-29-22848586",
+      "prompt": "Auf welchem Kontinent liegt die Wüste Sahara?",
+      "options": [
+        { "id": "q-11-29-22848586-opt-1", "text": "Afrika", "is_correct": true },
+        { "id": "q-11-29-22848586-opt-2", "text": "Asien", "is_correct": false },
+        { "id": "q-11-29-22848586-opt-3", "text": "Australien", "is_correct": false },
+        { "id": "q-11-29-22848586-opt-4", "text": "Südamerika", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-29-22848586-opt-1",
+      "explanation": "Die Sahara ist die größte Trockenwüste der Welt und erstreckt sich über den Norden Afrikas.",
+      "difficulty": "easy",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-30-23878889",
+      "prompt": "Welches Wort passt logisch nicht zu den anderen: Rot, Gelb, Blau, Schwer?",
+      "options": [
+        { "id": "q-11-30-23878889-opt-1", "text": "Schwer", "is_correct": true },
+        { "id": "q-11-30-23878889-opt-2", "text": "Rot", "is_correct": false },
+        { "id": "q-11-30-23878889-opt-3", "text": "Gelb", "is_correct": false },
+        { "id": "q-11-30-23878889-opt-4", "text": "Blau", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-30-23878889-opt-1",
+      "explanation": "Rot, Gelb und Blau sind Farben, während 'schwer' ein Gewicht oder eine Eigenschaft beschreibt.",
+      "difficulty": "easy",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-31-24909192",
+      "prompt": "Wie viele Beine hat eine Spinne im Normalfall?",
+      "options": [
+        { "id": "q-11-31-24909192-opt-1", "text": "8", "is_correct": true },
+        { "id": "q-11-31-24909192-opt-2", "text": "6", "is_correct": false },
+        { "id": "q-11-31-24909192-opt-3", "text": "10", "is_correct": false },
+        { "id": "q-11-31-24909192-opt-4", "text": "4", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-31-24909192-opt-1",
+      "explanation": "Spinnentiere haben acht Beine, im Gegensatz zu Insekten, die sechs Beine besitzen.",
+      "difficulty": "easy",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-32-25939495",
+      "prompt": "Welches Organ ist primär für die Filterung des Blutes und die Produktion von Urin zuständig?",
+      "options": [
+        { "id": "q-11-32-25939495-opt-1", "text": "Nieren", "is_correct": true },
+        { "id": "q-11-32-25939495-opt-2", "text": "Bauchspeicheldrüse", "is_correct": false },
+        { "id": "q-11-32-25939495-opt-3", "text": "Gallenblase", "is_correct": false },
+        { "id": "q-11-32-25939495-opt-4", "text": "Milz", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-32-25939495-opt-1",
+      "explanation": "Die Nieren reinigen das Blut von Abfallstoffen und regulieren den Wasserhaushalt.",
+      "difficulty": "medium",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-33-26969798",
+      "prompt": "Welche Epoche folgte in Europa unmittelbar auf das Mittelalter?",
+      "options": [
+        { "id": "q-11-33-26969798-opt-1", "text": "Neuzeit / Renaissance", "is_correct": true },
+        { "id": "q-11-33-26969798-opt-2", "text": "Antike", "is_correct": false },
+        { "id": "q-11-33-26969798-opt-3", "text": "Industrialisierung", "is_correct": false },
+        { "id": "q-11-33-26969798-opt-4", "text": "Aufklärung", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-33-26969798-opt-1",
+      "explanation": "Der Übergang vom Mittelalter zur Neuzeit wird etwa um 1500 (Entdeckung Amerikas, Reformation) angesetzt.",
+      "difficulty": "medium",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-34-27991001",
+      "prompt": "Was bezeichnet man als 'Anachronismus'?",
+      "options": [
+        { "id": "q-11-34-27991001-opt-1", "text": "Etwas, das zeitlich nicht passt", "is_correct": true },
+        { "id": "q-11-34-27991001-opt-2", "text": "Eine mathematische Formel", "is_correct": false },
+        { "id": "q-11-34-27991001-opt-3", "text": "Eine seltene Gesteinsart", "is_correct": false },
+        { "id": "q-11-34-27991001-opt-4", "text": "Einen Sprachfehler", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-34-27991001-opt-1",
+      "explanation": "Ein Anachronismus ist die falsche zeitliche Einordnung von Dingen, z. B. eine Armbanduhr in einem Film über das alte Rom.",
+      "difficulty": "medium",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-35-28102030",
+      "prompt": "Was bedeutet die Zeitangabe 'A.M.' (ante meridiem)?",
+      "options": [
+        { "id": "q-11-35-28102030-opt-1", "text": "Vor dem Mittag", "is_correct": true },
+        { "id": "q-11-35-28102030-opt-2", "text": "Am Mittag", "is_correct": false },
+        { "id": "q-11-35-28102030-opt-3", "text": "Nach dem Mittag", "is_correct": false },
+        { "id": "q-11-35-28102030-opt-4", "text": "Um Mitternacht", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-35-28102030-opt-1",
+      "explanation": "Das Kürzel kommt aus dem Lateinischen und bezeichnet die Zeitspanne von Mitternacht bis Mittag.",
+      "difficulty": "easy",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-36-29113141",
+      "prompt": "Welcher große Fluss fließt durch die ägyptische Hauptstadt Kairo?",
+      "options": [
+        { "id": "q-11-36-29113141-opt-1", "text": "Nil", "is_correct": true },
+        { "id": "q-11-36-29113141-opt-2", "text": "Amazonas", "is_correct": false },
+        { "id": "q-11-36-29113141-opt-3", "text": "Euphrat", "is_correct": false },
+        { "id": "q-11-36-29113141-opt-4", "text": "Ganges", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-36-29113141-opt-1",
+      "explanation": "Der Nil ist die Lebensader Ägyptens und fließt direkt durch das Stadtgebiet von Kairo.",
+      "difficulty": "easy",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-37-30124151",
+      "prompt": "Welche Aussage stellt einen logischen Widerspruch (Oxymoron) dar?",
+      "options": [
+        { "id": "q-11-37-30124151-opt-1", "text": "Ein beredtes Schweigen", "is_correct": true },
+        { "id": "q-11-37-30124151-opt-2", "text": "Ein lauter Knall", "is_correct": false },
+        { "id": "q-11-37-30124151-opt-3", "text": "Ein heller Tag", "is_correct": false },
+        { "id": "q-11-37-30124151-opt-4", "text": "Ein nasser Regen", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-37-30124151-opt-1",
+      "explanation": "Ein Oxymoron verbindet zwei sich ausschließende Begriffe. Schweigen ist per Definition nicht beredt (sprechend).",
+      "difficulty": "medium",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-38-31135161",
+      "prompt": "Zu welcher Tierklasse gehört der Pinguin?",
+      "options": [
+        { "id": "q-11-38-31135161-opt-1", "text": "Vögel", "is_correct": true },
+        { "id": "q-11-38-31135161-opt-2", "text": "Fische", "is_correct": false },
+        { "id": "q-11-38-31135161-opt-3", "text": "Säugetiere", "is_correct": false },
+        { "id": "q-11-38-31135161-opt-4", "text": "Amphibien", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-38-31135161-opt-1",
+      "explanation": "Pinguine sind flugunfähige Seevögel, die ihre Flügel als Flossen zum Schwimmen nutzen.",
+      "difficulty": "easy",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-39-32146171",
+      "prompt": "Wie viele klassische Sinne werden dem Menschen üblicherweise zugeschrieben?",
+      "options": [
+        { "id": "q-11-39-32146171-opt-1", "text": "5", "is_correct": true },
+        { "id": "q-11-39-32146171-opt-2", "text": "3", "is_correct": false },
+        { "id": "q-11-39-32146171-opt-3", "text": "7", "is_correct": false },
+        { "id": "q-11-39-32146171-opt-4", "text": "10", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-39-32146171-opt-1",
+      "explanation": "Die fünf klassischen Sinne sind Sehen, Hören, Riechen, Schmecken und Tasten.",
+      "difficulty": "easy",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-40-33157181",
+      "prompt": "Welche Abfolge der frühen Menschheitsgeschichte ist chronologisch korrekt?",
+      "options": [
+        { "id": "q-11-40-33157181-opt-1", "text": "Steinzeit, Bronzezeit, Eisenzeit", "is_correct": true },
+        { "id": "q-11-40-33157181-opt-2", "text": "Eisenzeit, Steinzeit, Bronzezeit", "is_correct": false },
+        { "id": "q-11-40-33157181-opt-3", "text": "Bronzezeit, Eisenzeit, Steinzeit", "is_correct": false },
+        { "id": "q-11-40-33157181-opt-4", "text": "Steinzeit, Eisenzeit, Bronzezeit", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-40-33157181-opt-1",
+      "explanation": "Die Benennung folgt den Materialien, die primär für Werkzeuge und Waffen genutzt wurden.",
+      "difficulty": "medium",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-41-34168191",
+      "prompt": "Was ist Bernstein seinem Ursprung nach?",
+      "options": [
+        { "id": "q-11-41-34168191-opt-1", "text": "Fossiles Harz", "is_correct": true },
+        { "id": "q-11-41-34168191-opt-2", "text": "Ein Gestein", "is_correct": false },
+        { "id": "q-11-41-34168191-opt-3", "text": "Getrocknetes Meersalz", "is_correct": false },
+        { "id": "q-11-41-34168191-opt-4", "text": "Versteinertes Holz", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-41-34168191-opt-1",
+      "explanation": "Bernstein entsteht aus dem Baumharz urzeitlicher Nadelbäume, das über Millionen Jahre versteinert ist.",
+      "difficulty": "medium",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-42-35179201",
+      "prompt": "Welche Himmelsrichtung liegt genau gegenüber von Südwesten?",
+      "options": [
+        { "id": "q-11-42-35179201-opt-1", "text": "Nordosten", "is_correct": true },
+        { "id": "q-11-42-35179201-opt-2", "text": "Nordwesten", "is_correct": false },
+        { "id": "q-11-42-35179201-opt-3", "text": "Südosten", "is_correct": false },
+        { "id": "q-11-42-35179201-opt-4", "text": "Norden", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-42-35179201-opt-1",
+      "explanation": "Auf der Windrose liegen sich Norden/Süden und Osten/Westen jeweils gegenüber.",
+      "difficulty": "easy",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-43-36180311",
+      "prompt": "Welcher Fluss gilt gemeinhin als der längste der Erde?",
+      "options": [
+        { "id": "q-11-43-36180311-opt-1", "text": "Nil", "is_correct": true },
+        { "id": "q-11-43-36180311-opt-2", "text": "Rhein", "is_correct": false },
+        { "id": "q-11-43-36180311-opt-3", "text": "Mississippi", "is_correct": false },
+        { "id": "q-11-43-36180311-opt-4", "text": "Donau", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-43-36180311-opt-1",
+      "explanation": "Der Nil (ca. 6.650 km) konkurriert mit dem Amazonas um den Titel, gilt aber meist als der längere Fluss.",
+      "difficulty": "easy",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-44-37191421",
+      "prompt": "Welcher Himmelskörper gehört logisch nicht in diese Reihe: Jupiter, Mars, Venus, Mond?",
+      "options": [
+        { "id": "q-11-44-37191421-opt-1", "text": "Mond", "is_correct": true },
+        { "id": "q-11-44-37191421-opt-2", "text": "Jupiter", "is_correct": false },
+        { "id": "q-11-44-37191421-opt-3", "text": "Mars", "is_correct": false },
+        { "id": "q-11-44-37191421-opt-4", "text": "Venus", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-44-37191421-opt-1",
+      "explanation": "Jupiter, Mars und Venus sind Planeten, während der Mond ein natürlicher Satellit der Erde ist.",
+      "difficulty": "easy",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-45-38202531",
+      "prompt": "Was unterscheidet Laub- von Nadelbäumen im Winter (in gemäßigten Zonen) am deutlichsten?",
+      "options": [
+        { "id": "q-11-45-38202531-opt-1", "text": "Laubbäume werfen ihre Blätter ab", "is_correct": true },
+        { "id": "q-11-45-38202531-opt-2", "text": "Nadelbäume blühen nur im Winter", "is_correct": false },
+        { "id": "q-11-45-38202531-opt-3", "text": "Laubbäume wachsen schneller", "is_correct": false },
+        { "id": "q-11-45-38202531-opt-4", "text": "Nadelbäume haben keine Wurzeln", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-45-38202531-opt-1",
+      "explanation": "Laubbäume schützen sich vor Frosttrocknis durch Abwurf der Blätter, während die meisten Nadelbäume ihre Nadeln behalten.",
+      "difficulty": "easy",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-46-39213641",
+      "prompt": "Welche Form hat die menschliche DNA (Desoxyribonukleinsäure)?",
+      "options": [
+        { "id": "q-11-46-39213641-opt-1", "text": "Doppelhelix", "is_correct": true },
+        { "id": "q-11-46-39213641-opt-2", "text": "Kreisform", "is_correct": false },
+        { "id": "q-11-46-39213641-opt-3", "text": "Einfache Spirale", "is_correct": false },
+        { "id": "q-11-46-39213641-opt-4", "text": "Würfelstruktur", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-46-39213641-opt-1",
+      "explanation": "Die DNA ist wie eine verdrehte Strickleiter aufgebaut, was wissenschaftlich als Doppelhelix bezeichnet wird.",
+      "difficulty": "medium",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-47-40224751",
+      "prompt": "In welchem Land nahm die Industrielle Revolution ihren Anfang?",
+      "options": [
+        { "id": "q-11-47-40224751-opt-1", "text": "Großbritannien", "is_correct": true },
+        { "id": "q-11-47-40224751-opt-2", "text": "Deutschland", "is_correct": false },
+        { "id": "q-11-47-40224751-opt-3", "text": "USA", "is_correct": false },
+        { "id": "q-11-47-40224751-opt-4", "text": "Frankreich", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-47-40224751-opt-1",
+      "explanation": "Durch Erfindungen wie die Dampfmaschine startete die Industrialisierung in der zweiten Hälfte des 18. Jahrhunderts in England.",
+      "difficulty": "medium",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-48-41235861",
+      "prompt": "Welcher Oberbegriff fasst Apfel, Banane und Birne zusammen?",
+      "options": [
+        { "id": "q-11-48-41235861-opt-1", "text": "Obst", "is_correct": true },
+        { "id": "q-11-48-41235861-opt-2", "text": "Gemüse", "is_correct": false },
+        { "id": "q-11-48-41235861-opt-3", "text": "Hülsenfrüchte", "is_correct": false },
+        { "id": "q-11-48-41235861-opt-4", "text": "Getreide", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-48-41235861-opt-1",
+      "explanation": "Diese essbaren Pflanzenteile gehören zur Kategorie Obst.",
+      "difficulty": "easy",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-49-42246971",
+      "prompt": "Wie viele Farben hat ein klassischer Regenbogen?",
+      "options": [
+        { "id": "q-11-49-42246971-opt-1", "text": "7", "is_correct": true },
+        { "id": "q-11-49-42246971-opt-2", "text": "5", "is_correct": false },
+        { "id": "q-11-49-42246971-opt-3", "text": "6", "is_correct": false },
+        { "id": "q-11-49-42246971-opt-4", "text": "12", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-49-42246971-opt-1",
+      "explanation": "Newton definierte sieben Spektralfarben: Rot, Orange, Gelb, Grün, Blau, Indigo und Violett.",
+      "difficulty": "medium",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-50-43257081",
+      "prompt": "Welchen gemeinsamen Nenner haben Wolken, Schnee und Eis?",
+      "options": [
+        { "id": "q-11-50-43257081-opt-1", "text": "Sie bestehen aus Wasser", "is_correct": true },
+        { "id": "q-11-50-43257081-opt-2", "text": "Sie sind alle gasförmig", "is_correct": false },
+        { "id": "q-11-50-43257081-opt-3", "text": "Sie entstehen nur im Weltall", "is_correct": false },
+        { "id": "q-11-50-43257081-opt-4", "text": "Sie sind immer schwerer als Luft", "is_correct": false }
+      ],
+      "correct_option_id": "q-11-50-43257081-opt-1",
+      "explanation": "Alle drei sind unterschiedliche Zustandsformen oder Erscheinungsweisen von Wasser in der Atmosphäre.",
+      "difficulty": "easy",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    }
+  ]
+}

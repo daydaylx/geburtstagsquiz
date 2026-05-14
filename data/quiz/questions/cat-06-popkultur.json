@@ -3,13 +3,7 @@
   "slug": "absurde-skandale-popkultur-meltdowns",
   "name": "Absurde Skandale & Popkultur-Meltdowns",
   "difficulty": "medium_hard",
-  "tags": [
-    "skandale",
-    "promis",
-    "popkultur",
-    "medien",
-    "2000er"
-  ],
+  "tags": ["skandale", "promis", "popkultur", "medien", "2000er"],
   "question_count": 28,
   "questions": [
     {
@@ -33,12 +27,12 @@
         },
         {
           "id": "q-06-01-a02a242af7-opt-4",
-          "text": "Pink",
+          "text": "Sinéad O'Connor",
           "is_correct": false
         }
       ],
       "correct_option_id": "q-06-01-a02a242af7-opt-1",
-      "explanation": "2007: Glatze statt Extensions. Britney war der Endgegner aller Friseure. Wir haben alle mitgefühlt, während wir uns parallel ein Tribal-Tattoo auf das Steißbein haben tackern lassen.",
+      "explanation": "2007: Glatze statt Extensions. Ein Friseur in Tarzana, Kalifornien, dachte das wäre ein normaler Abend. Er lag falsch.",
       "difficulty": "medium_hard",
       "category_id": "cat-06",
       "type": "multiple_choice",
@@ -70,7 +64,7 @@
         }
       ],
       "correct_option_id": "q-06-02-797b29c4c5-opt-1",
-      "explanation": "Ein Nippel für 0,8 Sekunden im TV und die USA erleiden einen Nervenzusammenbruch. Justin Timberlake kam davon, Janet wurde gecancelt. Klassischer 2000er-Move.",
+      "explanation": "0,8 Sekunden Nippel im TV. Die USA kollabieren, Justin kommt davon, Janet trägt die Konsequenzen. Logik der 2000er.",
       "difficulty": "medium_hard",
       "category_id": "cat-06",
       "type": "multiple_choice",
@@ -134,7 +128,7 @@
         }
       ],
       "correct_option_id": "q-06-04-09a502d726-opt-1",
-      "explanation": "Crazy Frog machte 2005 mit 'Axel F' und Jamba-Spots die Charts und Wohnzimmer unsicher. Der Klingelton war kaum zu ueberhoeren.",
+      "explanation": "Crazy Frog, 2005, Platz 1. Er hatte ein sichtbares Gemächt, machte Motorradgeräusche und war trotzdem Nummer eins. Gute Zeiten.",
       "difficulty": "medium_hard",
       "category_id": "cat-06",
       "type": "multiple_choice",
@@ -166,7 +160,7 @@
         }
       ],
       "correct_option_id": "q-06-05-255c734412-opt-1",
-      "explanation": "„That’s hot.“ Paris hat bewiesen, dass man absolut gar nichts können muss, um ein Weltstar zu sein. Ein echtes Vorbild für die heutige Influencer-Hölle.",
+      “explanation”: “„That’s hot.” Paris hat den Beweis erbracht, dass Ruhm und Können nichts miteinander zu tun haben müssen. Sie hat recht behalten.”,
       "difficulty": "medium_hard",
       "category_id": "cat-06",
       "type": "multiple_choice",
@@ -193,7 +187,7 @@
         },
         {
           "id": "q-06-06-5c60f216b4-opt-4",
-          "text": "Die „Wer hat mein Profil besucht“-Liste",
+          “text”: “Die Profil-Besucherliste”,
           "is_correct": false
         }
       ],
@@ -471,12 +465,12 @@
         },
         {
           "id": "q-06-19-4b0829c987-opt-2",
-          "text": "Popstars",
+          "text": "Popstars (ProSieben)",
           "is_correct": false
         },
         {
           "id": "q-06-19-4b0829c987-opt-3",
-          "text": "Star Search",
+          "text": "Star Search (SAT.1)",
           "is_correct": false
         },
         {
@@ -591,7 +585,7 @@
     {
       "id": "q-06-01",
       "type": "standard",
-      "prompt": "Welche Sängerin lieferte 2007 das ultimative Symbol für einen 'Popkultur-Meltdown', als sie sich vor Paparazzi die Haare abrasierte?",
+      "prompt": "Welche Sängerin schlug 2007 mit einem Regenschirm auf Paparazzi-Autos ein – kurz nach dem Friseurbesuch, der Schlagzeilen machte?",
       "options": [
         {
           "id": "q-06-01-opt-1",
@@ -605,7 +599,7 @@
         },
         {
           "id": "q-06-01-opt-3",
-          "text": "Pink",
+          "text": "Lindsay Lohan",
           "is_correct": false
         },
         {
@@ -615,7 +609,7 @@
         }
       ],
       "correct_option_id": "q-06-01-opt-1",
-      "explanation": "2007: Glatze statt Extensions. Britney war der Endgegner aller Friseure. Wir haben alle mitgefühlt, während wir uns parallel ein Tribal-Tattoo aufs Steißbein haben tackern lassen.",
+      "explanation": "Britney 2007: erst Friseur, dann Regenschirm, dann Entzugsklinik. Drei Monate, die ein Jahrzehnt definierten.",
       "difficulty": "easy",
       "points": 1
     },
@@ -703,12 +697,7 @@
           "text": "Sarah & Marc in Love"
         }
       ],
-      "correct_order": [
-        "it-osbournes",
-        "it-simplelife",
-        "it-sarahmarc",
-        "it-kardashians"
-      ],
+      "correct_order": ["it-osbournes", "it-simplelife", "it-sarahmarc", "it-kardashians"],
       "explanation": "Ozzy murmelte 2002 los, Paris mistete 2003 Ställe aus, Sarah Connor heiratete 2005 im TV und die Kardashians starteten ihre Weltherrschaft erst 2007.",
       "difficulty": "hard",
       "points": 2
