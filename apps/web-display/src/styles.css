@@ -866,23 +866,8 @@ body {
 }
 
 .display-options .display-option {
-  animation: option-appear 180ms cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-.display-options .display-option:nth-child(1) {
-  animation-delay: 250ms;
-}
-.display-options .display-option:nth-child(2) {
-  animation-delay: 370ms;
-}
-.display-options .display-option:nth-child(3) {
-  animation-delay: 490ms;
-}
-.display-options .display-option:nth-child(4) {
-  animation-delay: 610ms;
-}
-.display-options .display-option:nth-child(5) {
-  animation-delay: 730ms;
+  animation: option-appear 200ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--option-delay, 0ms);
 }
 
 .display-options--long {
@@ -914,6 +899,10 @@ body {
   background: var(--display-bg-card);
   border: var(--display-border-glass-strong);
   box-shadow: var(--display-shadow-card);
+}
+
+.display-estimate-prompt,
+.display-open-text-prompt {
   animation: question-appear 300ms cubic-bezier(0.22, 1, 0.36, 1) 180ms both;
 }
 
@@ -950,6 +939,8 @@ body {
   border-radius: 12px;
   background: var(--bg-card-active);
   border: 2px solid var(--solid-border);
+  animation: option-appear 200ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--option-delay, 0ms);
 }
 
 .display-ranking-index {
@@ -1552,7 +1543,7 @@ body {
 @keyframes option-appear {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(8px) scale(0.96);
   }
   to {
     opacity: 1;

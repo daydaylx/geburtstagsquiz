@@ -109,7 +109,12 @@ function DisplayChoiceOptions({
   return (
     <ul className="display-options display-options--choices" data-layout={stacked ? "stacked" : "grid"}>
       {question.options.map((opt, index) => (
-        <li className="display-option" data-option-index={index} key={opt.id}>
+        <li
+          className="display-option"
+          data-option-index={index}
+          key={opt.id}
+          style={{ "--option-delay": `${250 + index * 180}ms` } as React.CSSProperties}
+        >
           <span className="display-option-label">{getAnswerDisplayLabel(index)}</span>
           <span className="display-option-text">{opt.label}</span>
         </li>
@@ -128,7 +133,11 @@ function DisplayRankingPrompt({
       <div className="display-question-mode-copy">Ordne auf deinem Handy in die richtige Reihenfolge.</div>
       <ol className="display-ranking-items">
         {question.items.map((item, index) => (
-          <li className="display-ranking-item" key={item.id}>
+          <li
+            className="display-ranking-item"
+            key={item.id}
+            style={{ "--option-delay": `${250 + index * 180}ms` } as React.CSSProperties}
+          >
             <span className="display-ranking-index">{index + 1}</span>
             <span className="display-ranking-label">{item.label}</span>
           </li>
