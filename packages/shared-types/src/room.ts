@@ -12,7 +12,6 @@ export interface Room {
   id: string;
   joinCode: string;
   state: RoomState;
-  hostName: string;
   hostSessionId: string;
   hostConnected: boolean;
   displayConnected: boolean;

@@ -3,13 +3,7 @@
   "slug": "gaming-frust-pixel-nostalgie",
   "name": "Gaming-Frust & Pixel-Nostalgie",
   "difficulty": "medium_hard",
-  "tags": [
-    "gaming",
-    "retro",
-    "videospiele",
-    "nostalgie",
-    "frust"
-  ],
+  "tags": ["gaming", "retro", "videospiele", "nostalgie", "frust"],
   "question_count": 31,
   "questions": [
     {
@@ -48,22 +42,13 @@
       "correct_option_id": "q-07-05-658e3a665d-opt-1",
       "answer": {
         "canonical": "Simsala",
-        "aliases": [
-          "Simsala",
-          "Alakazam"
-        ],
+        "aliases": ["Simsala", "Alakazam"],
         "alternatives": [],
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Kadabra entwickelt sich nur durch Tausch zu Simsala – Nintendo's Methode, Freunde für das eigene Fortkommen zu instrumentalisieren.",
-      "tags": [
-        "gaming",
-        "retro",
-        "videospiele",
-        "nostalgie",
-        "frust"
-      ],
+      "tags": ["gaming", "retro", "videospiele", "nostalgie", "frust"],
       "source": {
         "imported_from_category_name": "Gaming-Frust & Pixel-Nostalgie"
       },
@@ -109,22 +94,13 @@
       "correct_option_id": "q-07-07-508618c674-opt-1",
       "answer": {
         "canonical": "Nintendo 64",
-        "aliases": [
-          "Nintendo 64",
-          "nintendo 64"
-        ],
+        "aliases": ["Nintendo 64", "nintendo 64"],
         "alternatives": [],
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "GoldenEye 4-Spieler-Splitscreen, wer auf den anderen Bildschirm schaut, fliegt raus. Auf dem N64 gezockt, weil Nintendo CDs für Teufelszeug hielt.",
-      "tags": [
-        "gaming",
-        "retro",
-        "videospiele",
-        "nostalgie",
-        "frust"
-      ],
+      "tags": ["gaming", "retro", "videospiele", "nostalgie", "frust"],
       "source": {
         "imported_from_category_name": "Gaming-Frust & Pixel-Nostalgie"
       },
@@ -179,13 +155,7 @@
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Camping. Die feigeste aller Taktiken, die in jedem Online-Chat der 2000er zu sofortigen Beleidigungen führte.",
-      "tags": [
-        "gaming",
-        "retro",
-        "videospiele",
-        "nostalgie",
-        "frust"
-      ],
+      "tags": ["gaming", "retro", "videospiele", "nostalgie", "frust"],
       "source": {
         "imported_from_category_name": "Gaming-Frust & Pixel-Nostalgie"
       },
@@ -240,13 +210,7 @@
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "IP-Adressen manuell vergeben (192.168.0.1...), bis alle im selben Subnetz waren. Wir waren IT-Experten, bevor wir wussten, was IT überhaupt bedeutet.",
-      "tags": [
-        "gaming",
-        "retro",
-        "videospiele",
-        "nostalgie",
-        "frust"
-      ],
+      "tags": ["gaming", "retro", "videospiele", "nostalgie", "frust"],
       "source": {
         "imported_from_category_name": "Gaming-Frust & Pixel-Nostalgie"
       },
@@ -292,22 +256,13 @@
       "correct_option_id": "q-07-22-d683609ad9-opt-1",
       "answer": {
         "canonical": "Schnelleres Fortbewegen",
-        "aliases": [
-          "Schnelleres Fortbewegen",
-          "schnelleres fortbewegen"
-        ],
+        "aliases": ["Schnelleres Fortbewegen", "schnelleres fortbewegen"],
         "alternatives": [],
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Speedrun-Taktik oder einfach nur Ungeduld. In einer Zeit vor Open-World- Schnellreise war jeder Trick willkommen.",
-      "tags": [
-        "gaming",
-        "retro",
-        "videospiele",
-        "nostalgie",
-        "frust"
-      ],
+      "tags": ["gaming", "retro", "videospiele", "nostalgie", "frust"],
       "source": {
         "imported_from_category_name": "Gaming-Frust & Pixel-Nostalgie"
       },
@@ -353,22 +308,13 @@
       "correct_option_id": "q-07-23-7d830986af-opt-1",
       "answer": {
         "canonical": "Die Sims",
-        "aliases": [
-          "Die Sims",
-          "die sims"
-        ],
+        "aliases": ["Die Sims", "die sims"],
         "alternatives": [],
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Eine Lebenssimulation, in der wir Häuser bauten, die wir uns im echten Leben niemals leisten können. Rosebud war unser einziger Ausweg aus der Armut.",
-      "tags": [
-        "gaming",
-        "retro",
-        "videospiele",
-        "nostalgie",
-        "frust"
-      ],
+      "tags": ["gaming", "retro", "videospiele", "nostalgie", "frust"],
       "source": {
         "imported_from_category_name": "Gaming-Frust & Pixel-Nostalgie"
       },
@@ -400,12 +346,7 @@
           "label": "Nintendo 64"
         }
       ],
-      "correct_order": [
-        "B",
-        "D",
-        "A",
-        "C"
-      ],
+      "correct_order": ["B", "D", "A", "C"],
       "explanation": "In Deutschland kam das Super Nintendo 1992, Nintendo 64 1997, PlayStation 2 2000 und Xbox 360 2005.",
       "difficulty": "medium",
       "points": 2,
@@ -781,7 +722,7 @@
         },
         {
           "id": "q-07-15-opt-2",
-          "text": "Pac-Man wird unbesiegbar",
+          "text": "Pac-Man wird dauerhaft unbesiegbar",
           "is_correct": false
         },
         {
@@ -802,7 +743,7 @@
     {
       "id": "q-07-16",
       "type": "multiple_choice",
-      "prompt": "Welches dieser Geraete ist ohne Batterien am schwersten?",
+      "prompt": "Welches dieser Geräte ist ohne Batterien am schwersten?",
       "options": [
         {
           "id": "q-07-16-opt-1",
@@ -832,7 +773,7 @@
     {
       "id": "q-07-17",
       "type": "ranking",
-      "prompt": "Sortiere diese Konsolen nach Europa-Release, aelteste zuerst.",
+      "prompt": "Sortiere diese Konsolen nach Europa-Release, älteste zuerst.",
       "items": [
         {
           "id": "C",
@@ -851,13 +792,8 @@
           "label": "Sega Mega Drive"
         }
       ],
-      "correct_order": [
-        "A",
-        "B",
-        "C",
-        "D"
-      ],
-      "explanation": "NES, Mega Drive, Nintendo 64 und PlayStation 2 liegen in dieser Release-Reihenfolge. Das ist sauberer als Bit-Marketing, das ab der 32/64/128-Bit-Aera stark verwischt.",
+      "correct_order": ["A", "B", "C", "D"],
+      "explanation": "NES, Mega Drive, N64, PlayStation 2 — in dieser Reihenfolge. Bit-Marketing ab der 32/64/128-Bit-Ära hat das Bild danach ordentlich verwischt.",
       "difficulty": "medium"
     },
     {
@@ -937,7 +873,7 @@
         },
         {
           "id": "q-07-22-opt-3",
-          "text": "Es wurde zum Teufelchen und frass alle Vorraete",
+          "text": "Es wurde zum Teufelchen und fraß alle Vorräte",
           "is_correct": false
         },
         {
@@ -1031,12 +967,7 @@
           "label": "Mario Kart: Double Dash!! (GameCube)"
         }
       ],
-      "correct_order": [
-        "A",
-        "B",
-        "C",
-        "D"
-      ],
+      "correct_order": ["A", "B", "C", "D"],
       "explanation": "Vom Modus-7-Pixelbrei (SNES) zum chaotischen 4-Spieler-Splitscreen (N64) und den Lenkrad-Ausrastern (Wii).",
       "difficulty": "medium"
     },

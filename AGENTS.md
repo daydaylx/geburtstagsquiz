@@ -259,9 +259,9 @@ Fallback-Chain fuer Player-URLs (Host + Display): `VITE_PLAYER_JOIN_BASE_URL` â†
 
 ## Quiz-Daten
 
-Fragenkatalog als 10 kategorisierte JSON-Dateien in `data/quiz/questions/cat-*.json` (386 Fragen), geladen von `apps/server/src/quiz-data.ts`.
+Fragenkatalog als 11 kategorisierte JSON-Dateien in `data/quiz/questions/cat-*.json` (430 Fragen), geladen von `apps/server/src/quiz-data.ts`.
 
-Fragetypen: `multiple_choice`, `estimate`, `majority_guess`, `ranking`, `logic`, `open_text`.
+Fragetypen: `multiple_choice`, `estimate`, `majority_guess`, `ranking`, `logic`, `open_text`. Die JSON-Rohdaten nutzen zusaetzliche Typ-Labels (`standard`, `common_mistake`, `pattern`, `fast_guess`, `estimate_duel`), die beim Laden in `quiz-data.ts` auf die 6 kanonischen Typen normalisiert werden.
 
 GamePlan-Presets: `quick_dirty`, `normal_evening`, `full_evening`, `chaos_party`.
 

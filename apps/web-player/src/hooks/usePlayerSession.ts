@@ -13,7 +13,7 @@ import {
   type ScoreUpdatePayload,
   type VoteUpdatePayload,
 } from "@quiz/shared-protocol";
-import { type Answer, GameState } from "@quiz/shared-types";
+import type { Answer } from "@quiz/shared-types";
 import { normalizeJoinCode, normalizePlayerName } from "@quiz/shared-utils";
 import { useEffect, useEffectEvent, useRef, useState } from "react";
 
@@ -312,15 +312,7 @@ export function usePlayerSession(deps: {
           setWaitingForRestart(false);
           setScreen("lobby");
         } else {
-          const gs = resumedPayload.gameState;
-          if (gs === GameState.Completed) {
-            setScreen("finished");
-          } else {
-            setWaitingForRestart(false);
-            if (gs === GameState.Revealing) setScreen("reveal");
-            else if (gs === GameState.Scoreboard) setScreen("scoreboard");
-            else setScreen("question");
-          }
+          setWaitingForRestart(false);
         }
         return;
       }

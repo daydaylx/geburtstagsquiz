@@ -2,9 +2,8 @@ import { EVENTS } from "@quiz/shared-protocol";
 import { PlayerState, RoomState } from "@quiz/shared-types";
 
 import { DISPLAY_DISCONNECT_GRACE_MS, HOST_DISCONNECT_GRACE_MS, PLAYER_DISCONNECT_GRACE_MS } from "./config.js";
-import { sendToHost, sendToPlayers } from "./connection.js";
+import { broadcastLobbyUpdate, sendToHost, sendToPlayers } from "./connection.js";
 import { handleAnswerEligibilityChanged, handleScoreboardReadinessChanged } from "./game.js";
-import { broadcastLobbyUpdate } from "./lobby.js";
 import { closeRoom, removePlayerFromRoom } from "./room.js";
 import type { TrackedWebSocket } from "./server-types.js";
 import { logRoomEvent, roomsById, sessionsById } from "./state.js";

@@ -8,11 +8,11 @@ import { clearActiveRoomTimers } from "./room-timers.js";
 import type { RoomRecord, SessionRecord, TrackedWebSocket } from "./server-types.js";
 import { logRoomEvent, roomIdByHostToken, roomIdByJoinCode, roomsById, sessionsById } from "./state.js";
 
-function generateHostToken(): string {
+export function generateHostToken(): string {
   return randomUUID().replace(/-/g, "") + randomUUID().replace(/-/g, "");
 }
 
-function generateDisplayToken(): string {
+export function generateDisplayToken(): string {
   return randomUUID();
 }
 
@@ -176,7 +176,6 @@ export function handleDisplayCreateRoom(
     id: roomId,
     joinCode,
     state: RoomState.Waiting,
-    hostName: "",
     hostSessionId: "",
     hostConnected: false,
     displayConnected: true,

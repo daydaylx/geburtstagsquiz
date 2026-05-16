@@ -1,12 +1,5 @@
+import { getPublicHost, getViteEnv } from "@quiz/shared-hooks";
 import { isLoopbackHostname } from "@quiz/shared-utils";
-
-export function getViteEnv(name: string): string | undefined {
-  return (import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env?.[name];
-}
-
-export function getPublicHost(): string {
-  return getViteEnv("VITE_PUBLIC_HOST") ?? window.location.hostname;
-}
 
 export function applyFallbackUiOrigin(
   url: URL,

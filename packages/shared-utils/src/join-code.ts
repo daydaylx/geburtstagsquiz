@@ -8,5 +8,5 @@ export function normalizeJoinCode(value: string): string {
 }
 
 export function isJoinCodeFormat(value: string): boolean {
-  return joinCodePattern.test(normalizeJoinCode(value));
+  return joinCodePattern.test(value);
 }

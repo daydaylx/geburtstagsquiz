@@ -9,6 +9,7 @@ import { EVENTS, type GameStartPayload, type QuestionShowPayload } from "@quiz/s
 import type { Question, ResolvedGamePlan, SubmittedAnswer } from "@quiz/shared-types";
 import { GameState, PlayerState, QuestionType, RoomState } from "@quiz/shared-types";
 import { isAnswerValidForQuestion } from "./answer-validation.js";
+import { COMPLETED_ROOM_TTL_MS } from "./config.js";
 import {
   broadcastLobbyUpdate,
   broadcastToAllRoomClients,
@@ -42,8 +43,6 @@ import { getConnectedPlayers, getSortedScoreboard } from "./room-selectors.js";
 import { clearActiveRoomTimers } from "./room-timers.js";
 import type { RoomRecord, TrackedWebSocket } from "./server-types.js";
 import { logRoomEvent, roomsById, sessionsById } from "./state.js";
-
-const COMPLETED_ROOM_TTL_MS = 10 * 60_000;
 
 function sendQuestionForCurrentRole(
   sessionSocket: TrackedWebSocket | null | undefined,
@@ -957,6 +956,11 @@ export function handleGameRestart(socket: TrackedWebSocket, roomId: string): voi
   }
 
   clearActiveRoomTimers(room);
+
+  for (const timer of room.playerDisconnectTimers.values()) {
+    clearTimeout(timer);
+  }
+  room.playerDisconnectTimers.clear();
 
   room.state = RoomState.Waiting;
   room.gameState = null;

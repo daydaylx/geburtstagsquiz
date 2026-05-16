@@ -9,7 +9,7 @@ import {
 import { GameState, type Player, PlayerState, RoomState } from "@quiz/shared-types";
 import { normalizePlayerName } from "@quiz/shared-utils";
 import {
-  broadcastLobbyUpdate as broadcastRoleAwareLobbyUpdate,
+  broadcastLobbyUpdate,
   broadcastToAllRoomClients,
   sendToDisplay,
   sendToHost,
@@ -20,7 +20,7 @@ import { handleAnswerEligibilityChanged, handleScoreboardReadinessChanged } from
 import { buildCatalogSummary } from "./game-plan.js";
 import { PROTOCOL_ERROR_CODES, sendEvent, sendProtocolError } from "./protocol.js";
 import { getDefaultQuiz } from "./quiz-data.js";
-import { attachSocketToSession, generateUniqueJoinCode } from "./room.js";
+import { attachSocketToSession, generateDisplayToken, generateHostToken, generateUniqueJoinCode } from "./room.js";
 import type { RoomRecord, SessionRecord, TrackedWebSocket } from "./server-types.js";
 import {
   getRoomByJoinCode,
@@ -149,6 +149,11 @@ export function handleHostConnect(
 
   // Cleanup old host session if it exists (e.g. from a disconnected previous session)
   if (room.hostSessionId) {
+    const oldSession = sessionsById.get(room.hostSessionId);
+    if (oldSession?.socket) {
+      oldSession.socket.sessionId = null;
+      oldSession.socket.close();
+    }
     sessionsById.delete(room.hostSessionId);
   }
 
@@ -412,10 +417,6 @@ export function handleRoomSettingsUpdate(
   broadcastLobbyUpdate(room);
 }
 
-export function broadcastLobbyUpdate(room: RoomRecord): void {
-  broadcastRoleAwareLobbyUpdate(room);
-}
-
 function tallyVotes(categoryVotes: Map<string, string>): Record<string, number> {
   const tally: Record<string, number> = {};
   for (const categoryId of categoryVotes.values()) {
@@ -499,8 +500,8 @@ export function handleHostCreateRoom(socket: TrackedWebSocket, payload: HostCrea
   const roomId = randomUUID();
   const hostSessionId = randomUUID();
   const joinCode = generateUniqueJoinCode();
-  const hostToken = randomUUID().replace(/-/g, "") + randomUUID().replace(/-/g, "");
-  const displayToken = randomUUID();
+  const hostToken = generateHostToken();
+  const displayToken = generateDisplayToken();
   const displayConnectToken = randomUUID();
   const now = Date.now();
 
@@ -508,7 +509,6 @@ export function handleHostCreateRoom(socket: TrackedWebSocket, payload: HostCrea
     id: roomId,
     joinCode,
     state: RoomState.Waiting,
-    hostName: "",
     hostSessionId,
     hostConnected: true,
     displayConnected: false,
@@ -618,6 +618,11 @@ export function handleDisplayConnectRoom(socket: TrackedWebSocket, payload: Disp
 
   // Cleanup old display session if it exists
   if (room.displaySessionId) {
+    const oldSession = sessionsById.get(room.displaySessionId);
+    if (oldSession?.socket) {
+      oldSession.socket.sessionId = null;
+      oldSession.socket.close();
+    }
     sessionsById.delete(room.displaySessionId);
   }
 

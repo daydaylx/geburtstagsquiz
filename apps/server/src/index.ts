@@ -153,6 +153,48 @@ server.on("error", (error: NodeJS.ErrnoException) => {
   process.exit(1);
 });
 
+process.on("uncaughtException", (error) => {
+  console.error("Fatal: uncaught exception", error);
+  shutdown(1);
+});
+
+process.on("unhandledRejection", (reason) => {
+  console.error("Fatal: unhandled rejection", reason);
+  shutdown(1);
+});
+
+let isShuttingDown = false;
+
+function shutdown(exitCode?: number): void {
+  if (isShuttingDown) {
+    if (exitCode !== undefined) {
+      process.exit(exitCode);
+    }
+    return;
+  }
+
+  isShuttingDown = true;
+  console.log("Shutting down...");
+
+  for (const room of [...roomsById.values()]) {
+    closeRoom(room, "Server shutting down");
+  }
+
+  websocketServer.close();
+  server.close(() => {
+    if (exitCode !== undefined) {
+      process.exit(exitCode);
+    }
+  });
+
+  if (exitCode !== undefined) {
+    setTimeout(() => process.exit(exitCode), 1_000).unref();
+  }
+}
+
+process.on("SIGTERM", () => shutdown(0));
+process.on("SIGINT", () => shutdown(0));
+
 const logServerStarted = () => {
   console.log(`Server running on ${HOST ?? "0.0.0.0"}:${PORT}`);
 };

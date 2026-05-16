@@ -18,6 +18,7 @@ export function sendEvent<TEvent extends ServerToClientEventName>(
   payload: ServerToClientEventPayloadMap[TEvent],
 ): void {
   if (!socket || socket.readyState !== WebSocket.OPEN) {
+    console.warn("sendEvent: socket not open", { event, readyState: socket?.readyState });
     return;
   }
 

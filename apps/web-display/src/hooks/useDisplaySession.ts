@@ -82,9 +82,11 @@ export function useDisplaySession(deps: {
 }): UseDisplaySessionReturn {
   const { sendEvent, onMessage, notifyConnected, connectionState } = deps;
   const initialUrlParams = new URLSearchParams(window.location.search);
-  const urlDisplayConnectToken = initialUrlParams.get("displayConnectToken");
+  const urlDisplayConnectToken = initialUrlParams.get("displayConnectToken") ?? initialUrlParams.get("displayToken");
   const urlRoomId = initialUrlParams.get("roomId");
   const hasDisplayConnectParams = !!urlDisplayConnectToken && !!urlRoomId;
+  const urlConnectTokenRef = useRef(urlDisplayConnectToken);
+  const urlRoomIdRef = useRef(urlRoomId);
 
   let initialSession = loadDisplayStoredSession();
   if (hasDisplayConnectParams && initialSession && initialSession.roomId !== urlRoomId) {
@@ -520,9 +522,8 @@ export function useDisplaySession(deps: {
   });
 
   const handleRetryConnect = useEffectEvent(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get("displayConnectToken") ?? urlParams.get("displayToken");
-    const roomId = urlParams.get("roomId");
+    const token = urlConnectTokenRef.current;
+    const roomId = urlRoomIdRef.current;
     if (token && roomId) {
       setNotice(null);
       sendEvent(EVENTS.DISPLAY_CONNECT_ROOM, {
@@ -539,13 +540,7 @@ export function useDisplaySession(deps: {
     }
   });
 
-  const canRetryConnect =
-    screen === "setup" &&
-    !!notice &&
-    (() => {
-      const p = new URLSearchParams(window.location.search);
-      return !!(p.get("displayConnectToken") ?? p.get("displayToken")) && !!p.get("roomId");
-    })();
+  const canRetryConnect = screen === "setup" && !!notice && !!urlConnectTokenRef.current && !!urlRoomIdRef.current;
 
   return {
     screen,

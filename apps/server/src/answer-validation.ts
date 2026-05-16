@@ -26,6 +26,6 @@ export function isAnswerValidForQuestion(question: Question, answer: Answer): bo
     }
 
     case QuestionType.OpenText:
-      return answer.type === "text" && answer.value.trim().length > 0;
+      return answer.type === "text" && answer.value.trim().length > 0 && answer.value.length <= 1000;
   }
 }

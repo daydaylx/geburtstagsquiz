@@ -10,7 +10,6 @@ import {
   type ResolvedGamePlan,
 } from "@quiz/shared-types";
 
-export const ALLOWED_QUESTION_COUNTS = [10, 15, 20, 25, 30] as const;
 export const ALLOWED_TIMER_MS = [20_000, 30_000, 45_000, 60_000, 90_000] as const;
 export const ALLOWED_REVEAL_DURATION_MS = [3_000, 5_000, 8_000, 15_000, 30_000] as const;
 export const MANUAL_REVEAL_FALLBACK_MS = 30_000;

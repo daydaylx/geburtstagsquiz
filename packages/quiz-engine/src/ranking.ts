@@ -30,7 +30,10 @@ export function evaluateRanking(
         .slice(0, maxLen)
         .filter((itemId, index) => itemId === question.correctOrder[index]).length;
       const bonusPoints = isCorrect ? 1 : 0;
-      const proportionalPoints = Math.round((exactPositions / question.correctOrder.length) * question.points);
+      const proportionalPoints =
+        question.correctOrder.length > 0
+          ? Math.round((exactPositions / question.correctOrder.length) * question.points)
+          : 0;
 
       return {
         playerId: sub.playerId,

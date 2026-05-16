@@ -282,24 +282,6 @@ body {
   position: relative;
 }
 
-.display-shell::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background: none;
-  z-index: 0;
-}
-
-.display-shell::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background: none;
-  z-index: 0;
-}
-
 .display-topbar {
   display: flex;
   align-items: center;
@@ -2057,11 +2039,6 @@ body {
   --display-phase-text: var(--display-ink);
   --display-phase-accent: var(--accent-cyan);
   background: var(--bg-black);
-}
-
-.display-shell::before,
-.display-shell::after {
-  display: none;
 }
 
 .display-shell[data-screen="setup"],

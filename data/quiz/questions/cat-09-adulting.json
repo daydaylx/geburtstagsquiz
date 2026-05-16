@@ -3,13 +3,7 @@
   "slug": "gefahrliches-halbwissen-fur-erwachsene-adulting-fails",
   "name": "Gefährliches Halbwissen für Erwachsene (Adulting Fails)",
   "difficulty": "medium",
-  "tags": [
-    "adulting",
-    "haushalt",
-    "steuern",
-    "alltag",
-    "wissen"
-  ],
+  "tags": ["adulting", "haushalt", "steuern", "alltag", "wissen"],
   "question_count": 46,
   "questions": [
     {
@@ -57,13 +51,7 @@
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "ELSTER – Elektronische Steuererklärung. Das offizielle Portal der Hölle, in dem wir jährlich unsere Existenz rechtfertigen müssen.",
-      "tags": [
-        "adulting",
-        "haushalt",
-        "steuern",
-        "alltag",
-        "wissen"
-      ],
+      "tags": ["adulting", "haushalt", "steuern", "alltag", "wissen"],
       "source": {
         "imported_from_category_name": "Gefährliches Halbwissen für Erwachsene (Adulting Fails)"
       },
@@ -118,13 +106,7 @@
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Benutztes Küchenpapier gehört NICHT ins Altpapier. Die Fasern sind zu kurz und der Dreck versaut das Recycling.",
-      "tags": [
-        "adulting",
-        "haushalt",
-        "steuern",
-        "alltag",
-        "wissen"
-      ],
+      "tags": ["adulting", "haushalt", "steuern", "alltag", "wissen"],
       "source": {
         "imported_from_category_name": "Gefährliches Halbwissen für Erwachsene (Adulting Fails)"
       },
@@ -170,22 +152,13 @@
       "correct_option_id": "q-09-04-daa9e9f179-opt-1",
       "answer": {
         "canonical": "Nicht waschen",
-        "aliases": [
-          "Nicht waschen",
-          "nicht waschen"
-        ],
+        "aliases": ["Nicht waschen", "nicht waschen"],
         "alternatives": [],
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Nicht waschen. Das Todesurteil für jedes Kleidungsstück, das man eigentlich mag. Meistens heißt das: Ab zur teuren Reinigung.",
-      "tags": [
-        "adulting",
-        "haushalt",
-        "steuern",
-        "alltag",
-        "wissen"
-      ],
+      "tags": ["adulting", "haushalt", "steuern", "alltag", "wissen"],
       "source": {
         "imported_from_category_name": "Gefährliches Halbwissen für Erwachsene (Adulting Fails)"
       },
@@ -240,13 +213,7 @@
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Weichspüler zerstört die Saugkraft von Handtüchern und die Funktion von Sportkleidung. Er legt sich wie ein Film um die Fasern.",
-      "tags": [
-        "adulting",
-        "haushalt",
-        "steuern",
-        "alltag",
-        "wissen"
-      ],
+      "tags": ["adulting", "haushalt", "steuern", "alltag", "wissen"],
       "source": {
         "imported_from_category_name": "Gefährliches Halbwissen für Erwachsene (Adulting Fails)"
       },
@@ -292,22 +259,13 @@
       "correct_option_id": "q-09-06-699ef2e69d-opt-4",
       "answer": {
         "canonical": "Verfärbungsrisiko",
-        "aliases": [
-          "Verfärbungsrisiko",
-          "verfärbungsrisiko"
-        ],
+        "aliases": ["Verfärbungsrisiko", "verfärbungsrisiko"],
         "alternatives": [],
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Verfärbungsrisiko. Der Klassiker beim ersten Mal alleine waschen. Danach hat man ein neues Lieblingsshirt in Schweinchenrosa.",
-      "tags": [
-        "adulting",
-        "haushalt",
-        "steuern",
-        "alltag",
-        "wissen"
-      ],
+      "tags": ["adulting", "haushalt", "steuern", "alltag", "wissen"],
       "source": {
         "imported_from_category_name": "Gefährliches Halbwissen für Erwachsene (Adulting Fails)"
       },
@@ -353,22 +311,13 @@
       "correct_option_id": "q-09-07-d565a407fa-opt-1",
       "answer": {
         "canonical": "Die reine Miete ohne Nebenkosten",
-        "aliases": [
-          "Die reine Miete ohne Nebenkosten",
-          "die reine miete ohne nebenkosten"
-        ],
+        "aliases": ["Die reine Miete ohne Nebenkosten", "die reine miete ohne nebenkosten"],
         "alternatives": [],
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Kaltmiete ist der Preis für den reinen Raum. Die Zahl, die bei ImmoScout gut aussieht, bis die Nebenkosten-Realität kickt.",
-      "tags": [
-        "adulting",
-        "haushalt",
-        "steuern",
-        "alltag",
-        "wissen"
-      ],
+      "tags": ["adulting", "haushalt", "steuern", "alltag", "wissen"],
       "source": {
         "imported_from_category_name": "Gefährliches Halbwissen für Erwachsene (Adulting Fails)"
       },
@@ -423,13 +372,7 @@
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Nebenkosten sind die schleichende Enteignung deines Kontos. Dinge, über die man sich mit 20 keine Gedanken gemacht hat.",
-      "tags": [
-        "adulting",
-        "haushalt",
-        "steuern",
-        "alltag",
-        "wissen"
-      ],
+      "tags": ["adulting", "haushalt", "steuern", "alltag", "wissen"],
       "source": {
         "imported_from_category_name": "Gefährliches Halbwissen für Erwachsene (Adulting Fails)"
       },
@@ -484,13 +427,7 @@
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Schimmel ist der Endgegner beim Wohnen. Er macht krank und Lüften ist in Deutschland quasi ein Nationalsport dagegen.",
-      "tags": [
-        "adulting",
-        "haushalt",
-        "steuern",
-        "alltag",
-        "wissen"
-      ],
+      "tags": ["adulting", "haushalt", "steuern", "alltag", "wissen"],
       "source": {
         "imported_from_category_name": "Gefährliches Halbwissen für Erwachsene (Adulting Fails)"
       },
@@ -545,13 +482,7 @@
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Gewährleistung ist dein Recht gegenüber dem Händler. Garantie ist das freiwillige Versprechen des Herstellers.",
-      "tags": [
-        "adulting",
-        "haushalt",
-        "steuern",
-        "alltag",
-        "wissen"
-      ],
+      "tags": ["adulting", "haushalt", "steuern", "alltag", "wissen"],
       "source": {
         "imported_from_category_name": "Gefährliches Halbwissen für Erwachsene (Adulting Fails)"
       },
@@ -606,13 +537,7 @@
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Haftpflicht ist die wichtigste Versicherung überhaupt. Außer du hast vor, niemals etwas von jemand anderem kaputt zu machen.",
-      "tags": [
-        "adulting",
-        "haushalt",
-        "steuern",
-        "alltag",
-        "wissen"
-      ],
+      "tags": ["adulting", "haushalt", "steuern", "alltag", "wissen"],
       "source": {
         "imported_from_category_name": "Gefährliches Halbwissen für Erwachsene (Adulting Fails)"
       },
@@ -667,13 +592,7 @@
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Klingt paradox: Ein scharfes Messer schneidet sauber, ein stumpfes rutscht ab und landet in deinem Finger. Avocado-Toast ist gefährlich!",
-      "tags": [
-        "adulting",
-        "haushalt",
-        "steuern",
-        "alltag",
-        "wissen"
-      ],
+      "tags": ["adulting", "haushalt", "steuern", "alltag", "wissen"],
       "source": {
         "imported_from_category_name": "Gefährliches Halbwissen für Erwachsene (Adulting Fails)"
       },
@@ -719,22 +638,13 @@
       "correct_option_id": "q-09-13-d6db023697-opt-2",
       "answer": {
         "canonical": "Mit Wasser löschen",
-        "aliases": [
-          "Mit Wasser löschen",
-          "mit wasser löschen"
-        ],
+        "aliases": ["Mit Wasser löschen", "mit wasser löschen"],
         "alternatives": [],
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Fettbrand + Wasser = Feuerball. Das ist Physikunterricht, der dir in der Küche das Leben (und die Kaution) rettet.",
-      "tags": [
-        "adulting",
-        "haushalt",
-        "steuern",
-        "alltag",
-        "wissen"
-      ],
+      "tags": ["adulting", "haushalt", "steuern", "alltag", "wissen"],
       "source": {
         "imported_from_category_name": "Gefährliches Halbwissen für Erwachsene (Adulting Fails)"
       },
@@ -763,17 +673,17 @@
         },
         {
           "id": "q-09-14-c7321fee1a-opt-2",
-          "text": "Zu viel Kaffee",
+          "text": "Zu viel Kaffee am Tag",
           "is_correct": false
         },
         {
           "id": "q-09-14-c7321fee1a-opt-3",
-          "text": "Die falsche Tastatur",
+          "text": "Die falsche Tastaturhöhe",
           "is_correct": false
         },
         {
           "id": "q-09-14-c7321fee1a-opt-4",
-          "text": "Statische Belastung durch zu langes Sitzen",
+          "text": "Langes Sitzen ohne Bewegung",
           "is_correct": true
         }
       ],
@@ -789,13 +699,7 @@
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Sitzen ist das neue Rauchen. Dein Rücken rächt sich für jede Stunde, die du starr auf deine Excel-Tabellen starrst.",
-      "tags": [
-        "adulting",
-        "haushalt",
-        "steuern",
-        "alltag",
-        "wissen"
-      ],
+      "tags": ["adulting", "haushalt", "steuern", "alltag", "wissen"],
       "source": {
         "imported_from_category_name": "Gefährliches Halbwissen für Erwachsene (Adulting Fails)"
       },
@@ -850,13 +754,7 @@
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Ein Pümpel ist der Lebensretter in Momenten höchster sozialer Not. Man will ihn nicht haben, bis man ihn DRINGEND braucht.",
-      "tags": [
-        "adulting",
-        "haushalt",
-        "steuern",
-        "alltag",
-        "wissen"
-      ],
+      "tags": ["adulting", "haushalt", "steuern", "alltag", "wissen"],
       "source": {
         "imported_from_category_name": "Gefährliches Halbwissen für Erwachsene (Adulting Fails)"
       },
@@ -911,13 +809,7 @@
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Salmonellen-Alarm! Wer das Brett für Hähnchen und danach für Salat nutzt, spielt russisches Roulette mit seinem Magen.",
-      "tags": [
-        "adulting",
-        "haushalt",
-        "steuern",
-        "alltag",
-        "wissen"
-      ],
+      "tags": ["adulting", "haushalt", "steuern", "alltag", "wissen"],
       "source": {
         "imported_from_category_name": "Gefährliches Halbwissen für Erwachsene (Adulting Fails)"
       },
@@ -972,13 +864,7 @@
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Der FI-Schalter rettet dir den Arsch, wenn Strom 'falsch' fließt. Er macht zack-aus, bevor es für dich brenzlig wird.",
-      "tags": [
-        "adulting",
-        "haushalt",
-        "steuern",
-        "alltag",
-        "wissen"
-      ],
+      "tags": ["adulting", "haushalt", "steuern", "alltag", "wissen"],
       "source": {
         "imported_from_category_name": "Gefährliches Halbwissen für Erwachsene (Adulting Fails)"
       },
@@ -1024,22 +910,13 @@
       "correct_option_id": "q-09-18-6a8ebd7311-opt-3",
       "answer": {
         "canonical": "Mindesthaltbarkeitsdatum",
-        "aliases": [
-          "Mindesthaltbarkeitsdatum",
-          "mindesthaltbarkeitsdatum"
-        ],
+        "aliases": ["Mindesthaltbarkeitsdatum", "mindesthaltbarkeitsdatum"],
         "alternatives": [],
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "MHD bedeutet 'mindestens haltbar bis', nicht 'tödlich ab'. Vertrau deinem Geruchssinn, nicht nur dem Aufdruck.",
-      "tags": [
-        "adulting",
-        "haushalt",
-        "steuern",
-        "alltag",
-        "wissen"
-      ],
+      "tags": ["adulting", "haushalt", "steuern", "alltag", "wissen"],
       "source": {
         "imported_from_category_name": "Gefährliches Halbwissen für Erwachsene (Adulting Fails)"
       },
@@ -1094,13 +971,7 @@
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Bei Hackfleisch ist das Verbrauchsdatum ernst zu nehmen. Bei Nudeln ist das MHD eher eine vage Schätzung der Ewigkeit.",
-      "tags": [
-        "adulting",
-        "haushalt",
-        "steuern",
-        "alltag",
-        "wissen"
-      ],
+      "tags": ["adulting", "haushalt", "steuern", "alltag", "wissen"],
       "source": {
         "imported_from_category_name": "Gefährliches Halbwissen für Erwachsene (Adulting Fails)"
       },
@@ -1155,13 +1026,7 @@
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Nasse Handtücher in der Tasche vergessen – der Geruch der Schande. Wer das einmal gemacht hat, vergisst es nie wieder.",
-      "tags": [
-        "adulting",
-        "haushalt",
-        "steuern",
-        "alltag",
-        "wissen"
-      ],
+      "tags": ["adulting", "haushalt", "steuern", "alltag", "wissen"],
       "source": {
         "imported_from_category_name": "Gefährliches Halbwissen für Erwachsene (Adulting Fails)"
       },
@@ -1207,22 +1072,13 @@
       "correct_option_id": "q-09-21-1bdfbde8f1-opt-2",
       "answer": {
         "canonical": "Zum Lösen von Kalkablagerungen",
-        "aliases": [
-          "Zum Lösen von Kalkablagerungen",
-          "zum lösen von kalkablagerungen"
-        ],
+        "aliases": ["Zum Lösen von Kalkablagerungen", "zum lösen von kalkablagerungen"],
         "alternatives": [],
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Kalk ist der Feind deiner Kaffeemaschine. Adulting-Level 100: Den Entkalkungs-Rhythmus deiner Geräte im Kopf haben.",
-      "tags": [
-        "adulting",
-        "haushalt",
-        "steuern",
-        "alltag",
-        "wissen"
-      ],
+      "tags": ["adulting", "haushalt", "steuern", "alltag", "wissen"],
       "source": {
         "imported_from_category_name": "Gefährliches Halbwissen für Erwachsene (Adulting Fails)"
       },
@@ -1277,13 +1133,7 @@
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Matratzen umdrehen ist wie ein Software-Update für den Schlaf. Hilft aber wenig, wenn das Ding schon 15 Jahre alt ist.",
-      "tags": [
-        "adulting",
-        "haushalt",
-        "steuern",
-        "alltag",
-        "wissen"
-      ],
+      "tags": ["adulting", "haushalt", "steuern", "alltag", "wissen"],
       "source": {
         "imported_from_category_name": "Gefährliches Halbwissen für Erwachsene (Adulting Fails)"
       },
@@ -1307,12 +1157,12 @@
       "options": [
         {
           "id": "q-09-23-96ddb6bada-opt-1",
-          "text": "Es ist teuer",
+          "text": "Das kostet unnötig viel",
           "is_correct": false
         },
         {
           "id": "q-09-23-96ddb6bada-opt-2",
-          "text": "Die Wäsche wird zu hart",
+          "text": "Die Wäsche wird zu hart und steif",
           "is_correct": false
         },
         {
@@ -1338,13 +1188,7 @@
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Viel Waschmittel hilft NICHT viel. Es verstopft die Maschine und hinterlässt Flecken. Deine Wäsche wird nur teurer, nicht sauberer.",
-      "tags": [
-        "adulting",
-        "haushalt",
-        "steuern",
-        "alltag",
-        "wissen"
-      ],
+      "tags": ["adulting", "haushalt", "steuern", "alltag", "wissen"],
       "source": {
         "imported_from_category_name": "Gefährliches Halbwissen für Erwachsene (Adulting Fails)"
       },
@@ -1399,13 +1243,7 @@
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Ignorieren macht Rechnungen nur teurer. Mahngebühren sind das Lehrgeld für Prokrastination und schlechte Planung.",
-      "tags": [
-        "adulting",
-        "haushalt",
-        "steuern",
-        "alltag",
-        "wissen"
-      ],
+      "tags": ["adulting", "haushalt", "steuern", "alltag", "wissen"],
       "source": {
         "imported_from_category_name": "Gefährliches Halbwissen für Erwachsene (Adulting Fails)"
       },
@@ -1460,13 +1298,7 @@
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Herzlichen Glückwunsch, du bist in dem Alter, in dem Niesen eine ernsthafte Sportverletzung sein kann. Pflege deine Tempelruine!",
-      "tags": [
-        "adulting",
-        "haushalt",
-        "steuern",
-        "alltag",
-        "wissen"
-      ],
+      "tags": ["adulting", "haushalt", "steuern", "alltag", "wissen"],
       "source": {
         "imported_from_category_name": "Gefährliches Halbwissen für Erwachsene (Adulting Fails)"
       },

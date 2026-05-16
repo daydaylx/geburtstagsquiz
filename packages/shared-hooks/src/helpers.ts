@@ -4,6 +4,10 @@ export function getViteEnv(name: string): string | undefined {
   return (import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env?.[name];
 }
 
+export function getPublicHost(): string {
+  return getViteEnv("VITE_PUBLIC_HOST") ?? window.location.hostname;
+}
+
 export function getServerSocketUrl(): string {
   const envUrl = getViteEnv("VITE_SERVER_SOCKET_URL");
   if (envUrl) return envUrl;

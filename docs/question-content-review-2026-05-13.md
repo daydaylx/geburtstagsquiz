@@ -2,7 +2,7 @@
 
 Basis vor Umsetzung: Katalog in `data/quiz/questions/cat-*.json`, 386 Fragen.
 
-Umsetzungsstand: Die in diesem Bericht priorisierten Fixes wurden umgesetzt. Der Katalog umfasst danach 380 Fragen.
+Umsetzungsstand: Die in diesem Bericht priorisierten Fixes wurden umgesetzt. Der Katalog umfasst danach 380 Fragen (cat-01 bis cat-10). Spaeter wurde cat-11 (`cat-11-allgemeinwissen-logik.json`, 50 Fragen) ergaenzt. Aktueller Gesamtstand: 430 Fragen in 11 Dateien.
 
 Fokus: Leaks in sichtbaren Fragefeldern, Schaetzfragen, auffaellige Multiple-Choice-Optionen, Wiederholungs-Leaks, Fragetyp-/Schema-Mismatch und Render-Logik vor der Aufloesung.
 

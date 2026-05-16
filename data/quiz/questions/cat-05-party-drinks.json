@@ -22,7 +22,7 @@
         },
         {
           "id": "q-05-01-dcbbe9ff6d-opt-3",
-          "text": "Rigo",
+          "text": "Rigo Lemon",
           "is_correct": false
         },
         {
@@ -44,17 +44,17 @@
       "options": [
         {
           "id": "q-05-02-c0ae97b14c-opt-1",
-          "text": "Energy Drink (meist vom Discounter)",
+          "text": "Energy Drink (Billigmarke)",
           "is_correct": true
         },
         {
           "id": "q-05-02-c0ae97b14c-opt-2",
-          "text": "Eistee Pfirsich",
+          "text": "Eistee Pfirsich (Dose)",
           "is_correct": false
         },
         {
           "id": "q-05-02-c0ae97b14c-opt-3",
-          "text": "Eierlikör",
+          "text": "Eierlikör aus dem Regal",
           "is_correct": false
         },
         {
@@ -76,7 +76,7 @@
       "options": [
         {
           "id": "q-05-03-f117db8d8b-opt-1",
-          "text": "Pfefferminze (wie flüssiges Kaugummi)",
+          "text": "Pfefferminze",
           "is_correct": true
         },
         {
@@ -315,12 +315,12 @@
         },
         {
           "id": "q-05-11-a587148d2a-opt-4",
-          "text": "Ein Schnaps, der brennt wie Treibstoff",
+          "text": "Ein Treibstoff-Shot",
           "is_correct": false
         }
       ],
       "correct_option_id": "q-05-11-a587148d2a-opt-1",
-      "explanation": "Bier und Cola. Je nach Region heisst das auch Krefelder oder einfach Colabier; die Bestellung ist weniger kompliziert als die Namensdebatte.",
+      "explanation": "Bier und Cola. Je nach Region heißt das auch Krefelder oder einfach Colabier; die Bestellung ist weniger kompliziert als die Namensdebatte.",
       "difficulty": "medium",
       "category_id": "cat-05",
       "type": "multiple_choice",
@@ -428,7 +428,7 @@
       "options": [
         {
           "id": "q-05-15-c5205f9c74-opt-1",
-          "text": "Limettensaft (und die Schale)",
+          "text": "Limettensaft",
           "is_correct": true
         },
         {
@@ -492,7 +492,7 @@
       "options": [
         {
           "id": "q-05-18-9e1f7c5006-opt-1",
-          "text": "Weil es angeblich für Radfahrer erfunden wurde (weniger Alkohol)",
+          "text": "Weil es angeblich für Radfahrer erfunden wurde",
           "is_correct": true
         },
         {
@@ -507,7 +507,7 @@
         },
         {
           "id": "q-05-18-9e1f7c5006-opt-4",
-          "text": "Es ist eine Abkürzung für 'Richtig angenehmes Durst-Limonaden-Erfrischungs-Rezept'",
+          "text": "'Radler' steht für ein altes bayerisches Kürzel",
           "is_correct": false
         }
       ],
@@ -544,7 +544,7 @@
         }
       ],
       "correct_option_id": "q-05-19-3c5b30cb20-opt-1",
-      "explanation": "Bacardi Razz steht fuer Himbeere. Meistens wurde er mit Sprite gemischt und war so suess, dass man den Jahrgang sofort wieder schmeckt.",
+      "explanation": "Bacardi Razz steht für Himbeere. Meistens wurde er mit Sprite gemischt und war so süß, dass man den Jahrgang sofort wieder schmeckt.",
       "difficulty": "medium",
       "category_id": "cat-05",
       "type": "multiple_choice",
@@ -684,12 +684,12 @@
       "options": [
         {
           "id": "q-05-25-9312ca2062-opt-1",
-          "text": "Absacker / Wegbier / Rausschmeißer",
+          "text": "Absacker oder Rausschmeißer",
           "is_correct": true
         },
         {
           "id": "q-05-25-9312ca2062-opt-2",
-          "text": "Final Fantasy",
+          "text": "Der letzte Final-Shot",
           "is_correct": false
         },
         {
@@ -764,13 +764,8 @@
           "text": "Weißwein-Schorle"
         }
       ],
-      "correct_order": [
-        "q-05-03-item-1",
-        "q-05-03-item-2",
-        "q-05-03-item-3",
-        "q-05-03-item-4"
-      ],
-      "explanation": "Bier hat fast keinen Zucker, Weinschorle liegt hoeher, Tonic Water bringt deutlich mehr mit und Alkopops waren oft echte Zuckerbomben.",
+      "correct_order": ["q-05-03-item-1", "q-05-03-item-2", "q-05-03-item-3", "q-05-03-item-4"],
+      "explanation": "Bier hat fast keinen Zucker, Weinschorle liegt höher, Tonic Water bringt deutlich mehr mit und Alkopops waren oft echte Zuckerbomben.",
       "difficulty": "hard",
       "category_id": "cat-05",
       "points": 2
@@ -1017,11 +1012,11 @@
         },
         {
           "id": "q-05-12-opt-3",
-          "text": "Unter dem Kuechentisch"
+          "text": "Unter dem Küchentisch"
         },
         {
           "id": "q-05-12-opt-4",
-          "text": "In einem fremden Gartenhaeuschen"
+          "text": "In einem fremden Gartenhäuschen"
         }
       ]
     },
@@ -1101,7 +1096,7 @@
         },
         {
           "id": "q-05-15-opt-2",
-          "text": "Tiefschwarz",
+          "text": "Tiefschwarz wie Tinte",
           "is_correct": false
         },
         {
@@ -1111,7 +1106,7 @@
         },
         {
           "id": "q-05-15-opt-4",
-          "text": "Neongelb",
+          "text": "Neongelb wie Highlighter",
           "is_correct": false
         }
       ],
@@ -1302,7 +1297,7 @@
         },
         {
           "id": "q-05-22-opt-4",
-          "text": "Cab",
+          "text": "Cab Tequila-Bier",
           "is_correct": false
         }
       ],
@@ -1366,12 +1361,7 @@
           "text": "Döner-Inhalation am Bahnhof"
         }
       ],
-      "correct_order": [
-        "q-05-25-item-1",
-        "q-05-25-item-2",
-        "q-05-25-item-3",
-        "q-05-25-item-4"
-      ],
+      "correct_order": ["q-05-25-item-1", "q-05-25-item-2", "q-05-25-item-3", "q-05-25-item-4"],
       "explanation": "Erst sparen, dann tanzen (und zweifeln), dann essen, dann bereuen. Der ewige Kreislauf.",
       "difficulty": "low",
       "category_id": "cat-05",

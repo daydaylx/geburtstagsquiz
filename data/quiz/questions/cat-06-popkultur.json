@@ -160,7 +160,7 @@
         }
       ],
       "correct_option_id": "q-06-05-255c734412-opt-1",
-      “explanation”: “„That’s hot.” Paris hat den Beweis erbracht, dass Ruhm und Können nichts miteinander zu tun haben müssen. Sie hat recht behalten.”,
+      "explanation": "„That’s hot.” Paris hat den Beweis erbracht, dass Ruhm und Können nichts miteinander zu tun haben müssen. Sie hat recht behalten.",
       "difficulty": "medium_hard",
       "category_id": "cat-06",
       "type": "multiple_choice",
@@ -187,7 +187,7 @@
         },
         {
           "id": "q-06-06-5c60f216b4-opt-4",
-          “text”: “Die Profil-Besucherliste”,
+          "text": "Die Profil-Besucherliste",
           "is_correct": false
         }
       ],
@@ -332,7 +332,7 @@
       "options": [
         {
           "id": "q-06-12-4ae5daa5e8-opt-1",
-          "text": "Schwarzer Seitenscheitel, der ein Auge verdeckt",
+          "text": "Schwarzer Pony, der ein Auge verdeckt",
           "is_correct": true
         },
         {

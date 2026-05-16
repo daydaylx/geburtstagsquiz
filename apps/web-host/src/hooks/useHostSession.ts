@@ -233,6 +233,9 @@ export function useHostSession(deps: {
         setScreen("lobby");
         setIsConnectingHost(false);
         setNotice(null);
+        if (window.location.search) {
+          window.history.replaceState({}, "", window.location.pathname);
+        }
         return;
       }
 
@@ -254,6 +257,9 @@ export function useHostSession(deps: {
         setScreen("lobby");
         setIsConnectingHost(false);
         setNotice(null);
+        if (window.location.search) {
+          window.history.replaceState({}, "", window.location.pathname);
+        }
         return;
 
       case EVENTS.CATALOG_SUMMARY: {
@@ -461,7 +467,7 @@ export function useHostSession(deps: {
   }, [roomInfo?.joinCode]);
 
   useEffect(() => {
-    if (screen !== "countdown" || countdownSeconds <= 0) return;
+    if (screen !== "countdown") return;
     const timer = window.setInterval(() => {
       setCountdownSeconds((current) => {
         if (current <= 1) return 0;
@@ -470,7 +476,7 @@ export function useHostSession(deps: {
     }, 1000);
 
     return () => window.clearInterval(timer);
-  }, [screen, countdownSeconds]);
+  }, [screen]);
 
   const handleCreateRoom = useEffectEvent(() => {
     setIsConnectingHost(true);

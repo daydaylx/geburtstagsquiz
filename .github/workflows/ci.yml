@@ -9,7 +9,7 @@ on:
 
 jobs:
   validate:
-    name: Install, typecheck, test, build
+    name: Install, lint, typecheck, test, build
     runs-on: ubuntu-latest
 
     steps:
@@ -26,6 +26,9 @@ jobs:
 
       - name: Install dependencies
         run: corepack pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: corepack pnpm lint
 
       - name: Typecheck
         run: corepack pnpm typecheck

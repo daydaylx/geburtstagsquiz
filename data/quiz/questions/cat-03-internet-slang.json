@@ -12,7 +12,7 @@
       "options": [
         {
           "id": "q-03-01-a1f969d060-opt-1",
-          "text": "„Uh-oh!“",
+          "text": "Das berühmte „Uh-oh!”",
           "is_correct": true
         },
         {
@@ -268,12 +268,12 @@
       "options": [
         {
           "id": "q-03-09-bcfd859896-opt-1",
-          "text": "Ein Bereich, in dem peinliche Fotos von Freunden gepostet wurden",
+          "text": "Bereich für peinliche Fotos von Mitschülern",
           "is_correct": true
         },
         {
           "id": "q-03-09-bcfd859896-opt-2",
-          "text": "Die Liste der gesperrten User",
+          "text": "Die Liste der dauerhaft gesperrten Nutzer",
           "is_correct": false
         },
         {
@@ -672,7 +672,7 @@
         }
       ],
       "correct_option_id": "q-03-21-9abc66630b-opt-1",
-      "explanation": "Knuddels war ein deutsches Chatportal mit Bot 'James', vielen Raeumen und einem Ruf, bei dem Datenschutz und Jugendschutz nicht gerade wie Zukunftsmusik klangen.",
+      "explanation": "Knuddels war ein deutsches Chatportal mit Bot 'James', vielen Räumen und einem Ruf, bei dem Datenschutz und Jugendschutz nicht gerade wie Zukunftsmusik klangen.",
       "difficulty": "medium_hard",
       "category_id": "cat-03",
       "type": "multiple_choice",
@@ -726,7 +726,7 @@
         },
         {
           "id": "q-03-23-681bfb03e4-opt-3",
-          "text": "Account fuer Kinder",
+          "text": "Account für Kinder",
           "is_correct": false
         },
         {
@@ -736,7 +736,7 @@
         }
       ],
       "correct_option_id": "q-03-23-681bfb03e4-opt-1",
-      "explanation": "AFK steht fuer 'away from keyboard': Man war kurz weg vom Rechner, meist weil Eltern, Telefon oder Tiefkuehlpizza wichtiger wurden.",
+      "explanation": "AFK steht für 'away from keyboard': Man war kurz weg vom Rechner, meist weil Eltern, Telefon oder Tiefkühlpizza wichtiger wurden.",
       "difficulty": "medium_hard",
       "category_id": "cat-03",
       "type": "multiple_choice",
@@ -828,12 +828,7 @@
           "label": "Signal"
         }
       ],
-      "correct_order": [
-        "B",
-        "A",
-        "C",
-        "D"
-      ],
+      "correct_order": ["B", "A", "C", "D"],
       "explanation": "ICQ startete 1996, WhatsApp 2009, Telegram 2013 und Signal 2014.",
       "difficulty": "medium",
       "points": 2,
@@ -923,12 +918,7 @@
           "text": "MySpace"
         }
       ],
-      "correct_order": [
-        "item-icq",
-        "item-myspace",
-        "item-facebook",
-        "item-svz"
-      ],
+      "correct_order": ["item-icq", "item-myspace", "item-facebook", "item-svz"],
       "explanation": "ICQ startete 1996, MySpace 2003, Facebook 2004 und SchülerVZ kam erst 2006.",
       "difficulty": "hard",
       "points": 2

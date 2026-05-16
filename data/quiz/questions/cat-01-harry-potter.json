@@ -3,13 +3,7 @@
   "slug": "harry-potter-nur-filme-harter-schwierigkeitsgrad",
   "name": "Harry Potter (Nur Filme, harter Schwierigkeitsgrad)",
   "difficulty": "hard",
-  "tags": [
-    "harry-potter",
-    "filme",
-    "nostalgie",
-    "popkultur",
-    "schwer"
-  ],
+  "tags": ["harry-potter", "filme", "nostalgie", "popkultur", "schwer"],
   "question_count": 30,
   "questions": [
     {
@@ -225,7 +219,7 @@
         },
         {
           "id": "q-01-08-2babd01a45-opt-4",
-          "text": "Alle, die er kannte",
+          "text": "Sieben",
           "is_correct": false
         }
       ],
@@ -306,7 +300,7 @@
       "options": [
         {
           "id": "q-01-12-d56fa12b3e-opt-1",
-          "text": "Wein",
+          "text": "Rotwein",
           "is_correct": true
         },
         {
@@ -316,7 +310,7 @@
         },
         {
           "id": "q-01-12-d56fa12b3e-opt-3",
-          "text": "Felix Felicis",
+          "text": "Honigmeth",
           "is_correct": false
         },
         {
@@ -348,12 +342,12 @@
         },
         {
           "id": "q-01-13-28324b61c1-opt-3",
-          "text": "Einer Erinnerung",
+          "text": "Asche",
           "is_correct": false
         },
         {
           "id": "q-01-13-28324b61c1-opt-4",
-          "text": "Einem Haarbüschel",
+          "text": "Gold",
           "is_correct": false
         }
       ],
@@ -471,22 +465,22 @@
         },
         {
           "id": "q-01-19-fd285a0207-opt-2",
-          "text": "Zaubertränke",
+          "text": "Zaubertränke und Gifte",
           "is_correct": false
         },
         {
           "id": "q-01-19-fd285a0207-opt-3",
-          "text": "Verwandlung",
+          "text": "Verwandlung und Arithmantik",
           "is_correct": false
         },
         {
           "id": "q-01-19-fd285a0207-opt-4",
-          "text": "Kräuterkunde",
+          "text": "Kräuterkunde und Pilzkunde",
           "is_correct": false
         }
       ],
       "correct_option_id": "q-01-19-fd285a0207-opt-1",
-      "explanation": "Verteidigung gegen die dunklen Künste. Endlich mal ein kompetenter Lehrer, und dann hat er dieses kleine Vollmond-Problem. Klassisches Burnout-Risiko.",
+      "explanation": "Verteidigung gegen die dunklen Künste. Endlich ein kompetenter Lehrer — und dann dieses Vollmond-Problem. Der bestbezahlte Einjahresvertrag Hogwarts-Geschichte.",
       "difficulty": "hard",
       "category_id": "cat-01",
       "type": "multiple_choice",
@@ -711,7 +705,7 @@
         }
       ],
       "correct_option_id": "q-01-02-opt-1",
-      "explanation": "Draco entwaffnete Dumbledore, Harry entwaffnete Draco. Voldemorts Denkfehler war zu glauben, dass Töten (Snape) die Herrschaft überträgt. In der Zaubererwelt gewinnt man Wandschaften wie Follower: durch reine Dominanz, nicht durch Mord.",
+      "explanation": "Harry entwaffnete Draco, Draco hatte Dumbledore entwaffnet. Voldemort dachte, Töten überträgt die Herrschaft — er lag falsch, und hat 17 Jahre für diesen Fehler bezahlt.",
       "difficulty": "hard",
       "points": 2
     },
@@ -768,12 +762,7 @@
           "text": "Helga Hufflepuffs Trinkpokal"
         }
       ],
-      "correct_order": [
-        "item-diary",
-        "item-locket",
-        "item-cup",
-        "item-nagini"
-      ],
+      "correct_order": ["item-diary", "item-locket", "item-cup", "item-nagini"],
       "explanation": "Tagebuch (Teil 2), Medaillon (Teil 7.1), Pokal (Teil 7.2), Nagini (Finale). Wer 'Der Ring' oder 'Das Diadem' vermisst: Die wurden zwischendurch eher beiläufig abgehakt. Nagini war das dramatische Dessert.",
       "difficulty": "hard",
       "points": 2
@@ -826,12 +815,12 @@
         },
         {
           "id": "q-01-11-opt-4",
-          "text": "Gar keinen, er hat nur assistiert",
+          "text": "Keinen",
           "is_correct": false
         }
       ],
       "correct_option_id": "q-01-11-opt-1",
-      "explanation": "Nur das Tagebuch (Teil 2) und das Diadem (Teil 7.2). Den Ring erledigte Dumbledore, das Medaillon Ron, den Pokal Hermine, Nagini Neville und den Horkrux in Harry zerstörte Voldemort selbst. Harry ist also eher der Teamkapitän als der Vollstrecker.",
+      "explanation": "Tagebuch (Teil 2) und Diadem (Teil 7.2). Den Rest erledigten Dumbledore, Ron, Hermine, Neville und Voldemort selbst. Harry hat koordiniert, nicht zugeschlagen.",
       "difficulty": "hard",
       "points": 2
     },
@@ -857,7 +846,7 @@
         },
         {
           "id": "q-01-14-opt-4",
-          "text": "Keiner von beiden",
+          "text": "Keiner",
           "is_correct": false
         }
       ],
@@ -888,7 +877,7 @@
         },
         {
           "id": "q-01-20-opt-4",
-          "text": "Haselnussbraun",
+          "text": "Braun",
           "is_correct": false
         }
       ],
