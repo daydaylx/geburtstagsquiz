@@ -29,9 +29,17 @@ export function loadHostStoredSession(): HostStoredSession | null {
 }
 
 export function saveHostStoredSession(session: HostStoredSession): void {
-  window.localStorage.setItem(HOST_SESSION_STORAGE_KEY, JSON.stringify(session));
+  try {
+    window.localStorage.setItem(HOST_SESSION_STORAGE_KEY, JSON.stringify(session));
+  } catch (error) {
+    console.warn("host-session:save-failed", error);
+  }
 }
 
 export function clearHostStoredSession(): void {
-  window.localStorage.removeItem(HOST_SESSION_STORAGE_KEY);
+  try {
+    window.localStorage.removeItem(HOST_SESSION_STORAGE_KEY);
+  } catch (error) {
+    console.warn("host-session:clear-failed", error);
+  }
 }

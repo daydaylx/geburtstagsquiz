@@ -35,9 +35,17 @@ export function loadDisplayStoredSession(): DisplayStoredSession | null {
 }
 
 export function saveDisplayStoredSession(session: DisplayStoredSession): void {
-  window.localStorage.setItem(DISPLAY_SESSION_STORAGE_KEY, JSON.stringify(session));
+  try {
+    window.localStorage.setItem(DISPLAY_SESSION_STORAGE_KEY, JSON.stringify(session));
+  } catch (error) {
+    console.warn("display-session:save-failed", error);
+  }
 }
 
 export function clearDisplayStoredSession(): void {
-  window.localStorage.removeItem(DISPLAY_SESSION_STORAGE_KEY);
+  try {
+    window.localStorage.removeItem(DISPLAY_SESSION_STORAGE_KEY);
+  } catch (error) {
+    console.warn("display-session:clear-failed", error);
+  }
 }

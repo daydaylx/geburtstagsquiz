@@ -553,15 +553,9 @@ export const QuestionControllerPayloadSchema = z.discriminatedUnion("type", [
     .strict(),
   z
     .object({
-      roomId: idSchema,
-      questionId: idSchema,
-      questionIndex: z.number().int().nonnegative(),
-      totalQuestionCount: z.number().int().nonnegative(),
+      ...questionControllerBaseFields,
       type: z.literal(QuestionType.Estimate),
       unit: z.string().min(1),
-      durationMs: z.number().int().positive(),
-      gameState: QuestionDisplayGameStateSchema,
-      isDemoQuestion: z.boolean().optional(),
     })
     .strict(),
   z
@@ -768,7 +762,7 @@ export const RoomResetPayloadSchema = z
   .object({
     roomId: idSchema,
     roomState: z.literal(RoomState.Waiting),
-    joinCode: idSchema,
+    joinCode: joinCodeSchema,
   })
   .strict();
 
@@ -818,6 +812,7 @@ export const PLAYER_TO_SERVER_EVENT_SCHEMAS = {
 } as const;
 
 export const CLIENT_TO_SERVER_EVENT_SCHEMAS = {
+  // connection:resume is intentionally present in all three role maps with one shared schema.
   ...DISPLAY_TO_SERVER_EVENT_SCHEMAS,
   ...HOST_TO_SERVER_EVENT_SCHEMAS,
   ...PLAYER_TO_SERVER_EVENT_SCHEMAS,
@@ -897,6 +892,7 @@ export const SERVER_TO_PLAYER_EVENT_SCHEMAS = {
 } as const;
 
 export const SERVER_TO_CLIENT_EVENT_SCHEMAS = {
+  // Several server events are shared across roles and intentionally use identical payload schemas.
   ...SERVER_TO_DISPLAY_EVENT_SCHEMAS,
   ...SERVER_TO_HOST_EVENT_SCHEMAS,
   ...SERVER_TO_PLAYER_EVENT_SCHEMAS,

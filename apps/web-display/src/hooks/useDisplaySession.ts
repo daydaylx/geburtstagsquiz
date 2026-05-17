@@ -5,13 +5,14 @@ import {
   type GameFinishedPayload,
   type LobbyUpdatePayload,
   type NextQuestionReadyProgressPayload,
+  PROTOCOL_ERROR_CODES,
   parseServerToClientEnvelope,
   type QuestionRevealPayload,
   type QuestionShowPayload,
   type ScoreUpdatePayload,
   type VoteUpdatePayload,
 } from "@quiz/shared-protocol";
-import { RoomState } from "@quiz/shared-types";
+import { GameState, RoomState } from "@quiz/shared-types";
 import QRCode from "qrcode";
 import { useEffect, useEffectEvent, useRef, useState } from "react";
 
@@ -130,6 +131,7 @@ export function useDisplaySession(deps: {
   const preCountdownTimerRef = useRef<number | null>(null);
   const fadeTimerRef = useRef<number | null>(null);
   const isResumingRef = useRef(false);
+  const isCreatingRoomRef = useRef(false);
 
   const scheduleFade = useEffectEvent((cb: () => void) => {
     if (fadeTimerRef.current !== null) {
@@ -177,6 +179,7 @@ export function useDisplaySession(deps: {
     setFinalResult(null);
     setVotes({});
     setDisplayShowLevel("high");
+    setNotice(null);
     displaySessionRef.current = null;
     cleanUrlParams();
   });
@@ -248,8 +251,22 @@ export function useDisplaySession(deps: {
 
         if (payload.roomState === RoomState.Waiting) {
           setScreen("lobby");
-        } else {
-          isResumingRef.current = true;
+          return;
+        }
+
+        isResumingRef.current = true;
+        if (payload.gameState === GameState.Revealing) {
+          setScreen("reveal");
+        } else if (payload.gameState === GameState.Scoreboard) {
+          setScreen("scoreboard");
+        } else if (payload.gameState === GameState.Completed || payload.roomState === RoomState.Completed) {
+          setScreen("finished");
+        } else if (
+          payload.gameState === GameState.QuestionActive ||
+          payload.gameState === GameState.AnswerLocked ||
+          payload.gameState === GameState.Idle
+        ) {
+          setScreen("question");
         }
         return;
       }
@@ -492,6 +509,14 @@ export function useDisplaySession(deps: {
         const payload = parsedEnvelope.data.payload;
         setIsCreatingRoom(false);
         isCreatingRoomRef.current = false;
+        if (
+          payload.code === PROTOCOL_ERROR_CODES.SESSION_NOT_FOUND ||
+          payload.code === PROTOCOL_ERROR_CODES.ROOM_NOT_FOUND ||
+          payload.code === PROTOCOL_ERROR_CODES.ROOM_CLOSED
+        ) {
+          updateStoredSession(null);
+          resetToSetup();
+        }
         setNotice(payload.message);
         return;
       }
@@ -515,8 +540,6 @@ export function useDisplaySession(deps: {
       }
     };
   }, []);
-
-  const isCreatingRoomRef = useRef(false);
 
   const handleCreateRoom = useEffectEvent(() => {
     if (isCreatingRoomRef.current || isCreatingRoom || connectionState !== "connected") return;

@@ -142,7 +142,6 @@ export function useHostSession(deps: {
   const [displayConnectToken, setDisplayConnectToken] = useState<string | null>(null);
 
   const hostSessionRef = useRef<HostStoredSession | null>(initialSession);
-  const intentionalReconnectRef = useRef(false);
   const pendingHostConnectRef = useRef(false);
 
   const updateStoredSession = useEffectEvent((session: HostStoredSession | null) => {
@@ -212,7 +211,6 @@ export function useHostSession(deps: {
       // --- Connection & Resume ---
       case EVENTS.CONNECTION_ACK:
         notifyConnected();
-        intentionalReconnectRef.current = false;
         if (hostSessionRef.current) {
           sendEvent(EVENTS.CONNECTION_RESUME, {
             roomId: hostSessionRef.current.roomId,
@@ -279,14 +277,24 @@ export function useHostSession(deps: {
           joinCode: parsedEnvelope.data.payload.joinCode,
         });
         setDisplayConnectToken(parsedEnvelope.data.payload.displayConnectToken ?? null);
+        setIsConnectingHost(false);
+        setNotice(null);
         if (parsedEnvelope.data.payload.roomState === "waiting") {
           setScreen("lobby");
         } else {
           const gs = parsedEnvelope.data.payload.gameState;
-          if (gs === GameState.Revealing) setScreen("reveal");
-          else if (gs === GameState.Scoreboard) setScreen("scoreboard");
-          else if (gs === GameState.Completed) setScreen("finished");
-          else setScreen("question");
+          if (gs === GameState.Idle) {
+            setCountdownSeconds(0);
+            setScreen("countdown");
+          } else if ((gs === GameState.QuestionActive || gs === GameState.AnswerLocked) && question) {
+            setScreen("question");
+          } else if (gs === GameState.Revealing && question && roundResults.length > 0) {
+            setScreen("reveal");
+          } else if (gs === GameState.Scoreboard && scoreboard) {
+            setScreen("scoreboard");
+          } else if (gs === GameState.Completed && finalResult) {
+            setScreen("finished");
+          }
         }
         return;
 
@@ -317,6 +325,12 @@ export function useHostSession(deps: {
         return;
       }
 
+      case EVENTS.PLAYER_RECONNECTED:
+        setNotice((current) =>
+          current?.kind === "info" && current.text.includes("hat die Verbindung verloren") ? null : current,
+        );
+        return;
+
       // --- Game Flow: Countdown → Question → Answer → Reveal → Scoreboard ---
       case EVENTS.GAME_STARTED:
         setGamePlanDraft(parsedEnvelope.data.payload.resolvedGamePlan);
@@ -326,9 +340,19 @@ export function useHostSession(deps: {
             ? parsedEnvelope.data.payload.resolvedGamePlan.presetId
             : "custom",
         );
+        setQuestion(null);
+        setRemainingMs(0);
+        setAnswerProgress(null);
+        setRevealedAnswer(null);
+        setRevealExplanation(null);
+        setRevealEstimateContext(null);
+        setRoundResults([]);
+        setScoreboard(null);
+        setNextQuestionReadyProgress(null);
         setConfirmFinishNow(false);
         setConfirmRemovePlayerId(null);
-        setScreen("question");
+        setCountdownSeconds(0);
+        setScreen("countdown");
         return;
 
       case EVENTS.QUESTION_COUNTDOWN:
@@ -357,6 +381,10 @@ export function useHostSession(deps: {
 
       case EVENTS.QUESTION_TIMER:
         setRemainingMs(parsedEnvelope.data.payload.remainingMs);
+        return;
+
+      case EVENTS.QUESTION_CLOSE:
+        setRemainingMs(0);
         return;
 
       case EVENTS.ANSWER_PROGRESS:
@@ -412,6 +440,10 @@ export function useHostSession(deps: {
         setCatalog(null);
         setGamePlanDraft(null);
         setSelectedPlanMode("normal_evening");
+        setCountdownSeconds(0);
+        setShowAnswerTextOnPlayerDevices(false);
+        setConfirmFinishNow(false);
+        setConfirmRemovePlayerId(null);
         setVotes({});
         setScreen("lobby");
         setNotice(null);

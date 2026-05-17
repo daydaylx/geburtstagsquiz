@@ -216,14 +216,21 @@ export function syncSessionToRoomState(session: SessionRecord, room: RoomRecord)
     });
   }
 
-  sendEvent(socket, EVENTS.GAME_STARTED, {
-    roomId: room.id,
-    roomState: RoomState.InGame,
-    gameState: room.gameState,
-    questionIndex: getVisibleQuestionIndex(room),
-    totalQuestionCount,
-    resolvedGamePlan: room.resolvedGamePlan!,
-  });
+  if (room.resolvedGamePlan) {
+    sendEvent(socket, EVENTS.GAME_STARTED, {
+      roomId: room.id,
+      roomState: RoomState.InGame,
+      gameState: room.gameState,
+      questionIndex: getVisibleQuestionIndex(room),
+      totalQuestionCount,
+      resolvedGamePlan: room.resolvedGamePlan,
+    });
+  } else {
+    console.warn("sync:missing-resolved-game-plan", {
+      roomId: room.id,
+      gameState: room.gameState,
+    });
+  }
 
   switch (room.gameState) {
     case GameState.Idle:
@@ -236,7 +243,7 @@ export function syncSessionToRoomState(session: SessionRecord, room: RoomRecord)
           questionIndex: getVisibleQuestionIndex(room),
           totalQuestionCount,
           countdownMs: remaining,
-          displayShowLevel: room.resolvedGamePlan!.displayShowLevel,
+          displayShowLevel: room.resolvedGamePlan?.displayShowLevel ?? "high",
           ...(currentQuestion?.isDemoQuestion ? { isDemoQuestion: true } : {}),
         });
       }
@@ -327,6 +334,13 @@ export function syncSessionToRoomState(session: SessionRecord, room: RoomRecord)
         });
         sendNextQuestionReadyProgress(socket, room, question.id);
       }
+      return;
+
+    default:
+      console.warn("sync:unhandled-game-state", {
+        roomId: room.id,
+        gameState: room.gameState,
+      });
       return;
   }
 }

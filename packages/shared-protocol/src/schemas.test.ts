@@ -120,6 +120,22 @@ describe("parseClientToServerEnvelope", () => {
     }
   });
 
+  it("validates room:reset join codes with the join-code alphabet", () => {
+    const validEnvelope = serializeEnvelope(EVENTS.ROOM_RESET, {
+      roomId: "room-1",
+      roomState: "waiting",
+      joinCode: "ABC234",
+    });
+    const invalidEnvelope = serializeEnvelope(EVENTS.ROOM_RESET, {
+      roomId: "room-1",
+      roomState: "waiting",
+      joinCode: "ABC10O",
+    });
+
+    expect(parseServerToClientEnvelope(validEnvelope).success).toBe(true);
+    expect(parseServerToClientEnvelope(invalidEnvelope).success).toBe(false);
+  });
+
   it("accepts a valid room:settings:update payload", () => {
     const envelope = serializeEnvelope(EVENTS.ROOM_SETTINGS_UPDATE, {
       roomId: "room-1",

@@ -344,24 +344,50 @@ function toOpenTextQuestion(question: RawQuestion, metadata: QuestionMetadata): 
 function transformQuestion(question: RawQuestion, category: RawCategory): Question {
   const metadata = toQuestionMetadata(category, question);
 
-  if (hasCorrectOption(question)) {
-    return toOptionQuestion(question, metadata);
-  }
+  switch (question.type) {
+    case "multiple_choice":
+    case "logic":
+      if (hasCorrectOption(question)) {
+        return toOptionQuestion(question, metadata);
+      }
+      break;
 
-  if (hasNumericAnswer(question)) {
-    return toEstimateQuestion(question, metadata);
-  }
+    case "majority_guess":
+      if (question.options?.length) {
+        return toMajorityGuessQuestion(question, metadata);
+      }
+      break;
 
-  if (hasRankingAnswer(question)) {
-    return toRankingQuestion(question, metadata);
-  }
+    case "estimate":
+    case "estimate_duel":
+      if (hasNumericAnswer(question)) {
+        return toEstimateQuestion(question, metadata);
+      }
+      break;
 
-  if (question.type === "majority_guess" && question.options?.length) {
-    return toMajorityGuessQuestion(question, metadata);
-  }
+    case "ranking":
+      if (hasRankingAnswer(question)) {
+        return toRankingQuestion(question, metadata);
+      }
+      break;
 
-  if (question.answer?.canonical) {
-    return toOpenTextQuestion(question, metadata);
+    case "standard":
+    case "common_mistake":
+    case "pattern":
+    case "fast_guess":
+      if (hasCorrectOption(question)) {
+        return toOptionQuestion(question, metadata);
+      }
+      if (hasNumericAnswer(question)) {
+        return toEstimateQuestion(question, metadata);
+      }
+      if (hasRankingAnswer(question)) {
+        return toRankingQuestion(question, metadata);
+      }
+      if (question.answer?.canonical) {
+        return toOpenTextQuestion(question, metadata);
+      }
+      break;
   }
 
   throw new Error(`Unsupported question shape in quiz source: ${question.id} (${question.type})`);
@@ -426,7 +452,16 @@ function loadDefaultQuiz(): Quiz {
   };
 }
 
-const DEFAULT_QUIZ = loadDefaultQuiz();
+function loadDefaultQuizOrThrow(): Quiz {
+  try {
+    return loadDefaultQuiz();
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    throw new Error(`[quiz-data] Failed to load default quiz: ${message}`);
+  }
+}
+
+const DEFAULT_QUIZ = loadDefaultQuizOrThrow();
 
 export function getDefaultQuiz(): Quiz {
   return DEFAULT_QUIZ;

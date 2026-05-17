@@ -42,7 +42,6 @@ export function handleSocketClose(socket: TrackedWebSocket): void {
     }
 
     room.displayDisconnectTimer = setTimeout(() => {
-      room.displayConnected = false;
       room.displayDisconnectTimer = null;
       broadcastLobbyUpdate(room);
     }, DISPLAY_DISCONNECT_GRACE_MS);

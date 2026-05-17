@@ -19,6 +19,7 @@ export const DISPLAY_DISCONNECT_GRACE_MS = 45_000;
 export const COMPLETED_ROOM_TTL_MS = 10 * 60_000;
 export const QUESTION_DURATION_MS = 90_000;
 export const REVEAL_DURATION_MS = 30_000;
+export const SCOREBOARD_INTERVAL = 5;
 
 function parseAllowedOrigins(value: string): Set<string> {
   return new Set(

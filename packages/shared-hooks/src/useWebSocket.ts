@@ -65,6 +65,7 @@ export function useWebSocket() {
 
   const connectSocket = useEffectEvent(() => {
     clearReconnectTimer();
+    socketRef.current?.close();
     const socket = new WebSocket(getServerSocketUrl());
     socketRef.current = socket;
     socket.addEventListener("open", () => {
@@ -99,6 +100,7 @@ export function useWebSocket() {
   });
 
   useEffect(() => {
+    shouldReconnectRef.current = true;
     connectSocket();
     return () => {
       shouldReconnectRef.current = false;

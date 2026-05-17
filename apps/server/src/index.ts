@@ -1,6 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { createServer } from "node:http";
 import { EVENTS, parseClientToServerEnvelope } from "@quiz/shared-protocol";
+import { assertUnreachable } from "@quiz/shared-utils";
 import { WebSocketServer } from "ws";
 
 import { HEARTBEAT_INTERVAL_MS, HOST, isOriginAllowed, PORT } from "./config.js";
@@ -99,7 +100,15 @@ websocketServer.on("connection", (websocket, request) => {
     socket.isAlive = true;
   });
 
-  socket.on("message", (rawMessage) => {
+  socket.on("message", (rawMessage, isBinary) => {
+    if (isBinary) {
+      sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_PAYLOAD, "Binary WebSocket messages are not supported", {
+        roomId: null,
+        questionId: null,
+      });
+      return;
+    }
+
     handleSocketMessage(socket, rawMessage.toString());
   });
 
@@ -112,6 +121,7 @@ websocketServer.on("connection", (websocket, request) => {
       connectionId: socket.connectionId,
       message: error.message,
     });
+    socket.terminate();
   });
 
   sendEvent(socket, EVENTS.CONNECTION_ACK, {
@@ -188,7 +198,7 @@ function shutdown(exitCode?: number): void {
   });
 
   if (exitCode !== undefined) {
-    setTimeout(() => process.exit(exitCode), 1_000).unref();
+    setTimeout(() => process.exit(exitCode), 5_000).unref();
   }
 }
 
@@ -305,6 +315,9 @@ function handleSocketMessage(socket: TrackedWebSocket, rawMessage: string): void
     case EVENTS.GAME_RESTART:
       handleGameRestart(socket, parsedEnvelope.data.payload.roomId);
       return;
+
+    default:
+      assertUnreachable(event, "Unhandled client event");
   }
 }
 

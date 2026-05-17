@@ -11,29 +11,43 @@ const UNAUTHENTICATED_ALLOWED_EVENTS: ReadonlySet<EventName> = new Set<EventName
   EVENTS.CONNECTION_RESUME,
 ]);
 
-export function isEventAllowedForRole(event: EventName, role: ClientRole | null): boolean {
-  const hostOnlyEvents: EventName[] = [
-    EVENTS.GAME_START,
-    EVENTS.GAME_NEXT_QUESTION,
-    EVENTS.QUESTION_FORCE_CLOSE,
-    EVENTS.GAME_SHOW_SCOREBOARD,
-    EVENTS.GAME_FINISH_NOW,
-    EVENTS.GAME_RESTART,
-    EVENTS.PLAYER_REMOVE,
-    EVENTS.ROOM_SETTINGS_UPDATE,
-    EVENTS.ROOM_CLOSE,
-  ];
-  const playerOnlyEvents: EventName[] = [EVENTS.ANSWER_SUBMIT, EVENTS.NEXT_QUESTION_READY, EVENTS.CATEGORY_VOTE];
-  const displayOnlyEvents: EventName[] = [EVENTS.DISPLAY_CREATE_ROOM, EVENTS.DISPLAY_CONNECT_ROOM];
+const HOST_ONLY_EVENTS: ReadonlySet<EventName> = new Set<EventName>([
+  EVENTS.GAME_START,
+  EVENTS.GAME_NEXT_QUESTION,
+  EVENTS.QUESTION_FORCE_CLOSE,
+  EVENTS.GAME_SHOW_SCOREBOARD,
+  EVENTS.GAME_FINISH_NOW,
+  EVENTS.GAME_RESTART,
+  EVENTS.PLAYER_REMOVE,
+  EVENTS.ROOM_SETTINGS_UPDATE,
+  EVENTS.ROOM_CLOSE,
+]);
 
+const PLAYER_ONLY_EVENTS: ReadonlySet<EventName> = new Set<EventName>([
+  EVENTS.ANSWER_SUBMIT,
+  EVENTS.NEXT_QUESTION_READY,
+  EVENTS.CATEGORY_VOTE,
+]);
+
+const DISPLAY_ONLY_EVENTS: ReadonlySet<EventName> = new Set<EventName>([
+  EVENTS.DISPLAY_CREATE_ROOM,
+  EVENTS.DISPLAY_CONNECT_ROOM,
+]);
+
+export function isEventAllowedForRole(event: EventName, role: ClientRole | null): boolean {
   if (role === "display") {
-    return ![...hostOnlyEvents, ...playerOnlyEvents, EVENTS.HOST_CREATE_ROOM].includes(event);
+    return !HOST_ONLY_EVENTS.has(event) && !PLAYER_ONLY_EVENTS.has(event) && event !== EVENTS.HOST_CREATE_ROOM;
   }
   if (role === "host") {
-    return ![...playerOnlyEvents, ...displayOnlyEvents].includes(event);
+    return !PLAYER_ONLY_EVENTS.has(event) && !DISPLAY_ONLY_EVENTS.has(event);
   }
   if (role === "player") {
-    return ![...hostOnlyEvents, ...displayOnlyEvents, EVENTS.HOST_CONNECT, EVENTS.HOST_CREATE_ROOM].includes(event);
+    return (
+      !HOST_ONLY_EVENTS.has(event) &&
+      !DISPLAY_ONLY_EVENTS.has(event) &&
+      event !== EVENTS.HOST_CONNECT &&
+      event !== EVENTS.HOST_CREATE_ROOM
+    );
   }
   return UNAUTHENTICATED_ALLOWED_EVENTS.has(event);
 }

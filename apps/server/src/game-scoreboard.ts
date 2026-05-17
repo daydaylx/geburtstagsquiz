@@ -1,8 +1,7 @@
 import type { GameFinalStats, ScoreboardEntry, ScoreChange } from "@quiz/shared-types";
+import { SCOREBOARD_INTERVAL } from "./config.js";
 import { getSortedScoreboard } from "./room-selectors.js";
 import type { RoomRecord } from "./server-types.js";
-
-const SCOREBOARD_INTERVAL = 5;
 
 export function isLastQuestion(room: RoomRecord): boolean {
   return (
@@ -71,7 +70,12 @@ export function buildFinalStats(room: RoomRecord): GameFinalStats | undefined {
   }
 
   for (const submittedAnswer of room.completedAnswers) {
-    if (!fastest || submittedAnswer.submittedAtMs < fastest.submittedAtMs) {
+    if (
+      !fastest ||
+      submittedAnswer.submittedAtMs < fastest.submittedAtMs ||
+      (submittedAnswer.submittedAtMs === fastest.submittedAtMs &&
+        submittedAnswer.playerId.localeCompare(fastest.playerId) < 0)
+    ) {
       fastest = {
         playerId: submittedAnswer.playerId,
         submittedAtMs: submittedAnswer.submittedAtMs,
@@ -79,7 +83,11 @@ export function buildFinalStats(room: RoomRecord): GameFinalStats | undefined {
     }
   }
 
-  const mostCorrectEntry = [...correctCounts.entries()].sort((a, b) => b[1] - a[1])[0];
+  const mostCorrectEntry = [...correctCounts.entries()].sort((a, b) => {
+    const countDelta = b[1] - a[1];
+    if (countDelta !== 0) return countDelta;
+    return a[0].localeCompare(b[0]);
+  })[0];
   const scoreboard = getSortedScoreboard(room);
   const gaps = scoreboard.slice(1).map((entry, index) => Math.abs(scoreboard[index].score - entry.score));
   const closestGap = gaps.length ? Math.min(...gaps) : undefined;

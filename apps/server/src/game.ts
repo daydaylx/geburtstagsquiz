@@ -8,6 +8,7 @@ import {
 import { EVENTS, type GameStartPayload, type QuestionShowPayload } from "@quiz/shared-protocol";
 import type { Question, ResolvedGamePlan, SubmittedAnswer } from "@quiz/shared-types";
 import { GameState, PlayerState, QuestionType, RoomState } from "@quiz/shared-types";
+import { assertUnreachable } from "@quiz/shared-utils";
 import { isAnswerValidForQuestion } from "./answer-validation.js";
 import { COMPLETED_ROOM_TTL_MS } from "./config.js";
 import {
@@ -617,6 +618,14 @@ function activateQuestion(room: RoomRecord, question: Question): void {
   };
 
   room.timerTickInterval = setInterval(() => {
+    if (room.gameState !== GameState.QuestionActive) {
+      if (room.timerTickInterval) {
+        clearInterval(room.timerTickInterval);
+        room.timerTickInterval = null;
+      }
+      return;
+    }
+
     const ms = remainingMs();
     broadcastToAllRoomClients(room, EVENTS.QUESTION_TIMER, {
       roomId: room.id,
@@ -633,6 +642,11 @@ function activateQuestion(room: RoomRecord, question: Question): void {
   }, 500);
 
   room.questionTimer = setTimeout(() => {
+    room.questionTimer = null;
+    if (room.gameState !== GameState.QuestionActive) {
+      return;
+    }
+
     if (room.timerTickInterval) {
       clearInterval(room.timerTickInterval);
       room.timerTickInterval = null;
@@ -726,6 +740,8 @@ function evaluateQuestion(room: RoomRecord, question: Question): void {
         return evaluateRanking(question, answers, room.resolvedGamePlan?.rankingScoringMode ?? "exact");
       case QuestionType.OpenText:
         return evaluateOpenText(question, answers);
+      default:
+        return assertUnreachable(question, "Unhandled question type");
     }
   })();
 
@@ -781,7 +797,10 @@ function evaluateQuestion(room: RoomRecord, question: Question): void {
 
   const revealDurationMs = room.resolvedGamePlan?.revealDurationMs;
   if (revealDurationMs) {
-    room.revealTimer = setTimeout(() => advanceAfterReveal(room), revealDurationMs);
+    room.revealTimer = setTimeout(() => {
+      room.revealTimer = null;
+      advanceAfterReveal(room);
+    }, revealDurationMs);
   }
 }
 
@@ -956,6 +975,16 @@ export function handleGameRestart(socket: TrackedWebSocket, roomId: string): voi
   }
 
   clearActiveRoomTimers(room);
+
+  if (room.displayDisconnectTimer) {
+    clearTimeout(room.displayDisconnectTimer);
+    room.displayDisconnectTimer = null;
+  }
+
+  if (room.hostDisconnectTimer) {
+    clearTimeout(room.hostDisconnectTimer);
+    room.hostDisconnectTimer = null;
+  }
 
   for (const timer of room.playerDisconnectTimers.values()) {
     clearTimeout(timer);

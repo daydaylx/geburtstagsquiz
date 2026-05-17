@@ -1,5 +1,6 @@
 import type { QuestionControllerPayload, QuestionShowPayload } from "@quiz/shared-protocol";
 import { type Question, QuestionType } from "@quiz/shared-types";
+import { assertUnreachable } from "@quiz/shared-utils";
 
 import type { RoomRecord } from "./server-types.js";
 
@@ -126,9 +127,13 @@ export function toQuestionControllerPayload(
     };
   }
 
-  return {
-    ...baseControllerFields,
-    type: question.type,
-    items: question.items.map(toControllerOption),
-  };
+  if (question.type === QuestionType.Ranking) {
+    return {
+      ...baseControllerFields,
+      type: question.type,
+      items: question.items.map(toControllerOption),
+    };
+  }
+
+  return assertUnreachable(question, "Unhandled question type");
 }

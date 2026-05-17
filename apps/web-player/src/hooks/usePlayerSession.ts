@@ -13,7 +13,7 @@ import {
   type ScoreUpdatePayload,
   type VoteUpdatePayload,
 } from "@quiz/shared-protocol";
-import type { Answer } from "@quiz/shared-types";
+import { type Answer, GameState } from "@quiz/shared-types";
 import { normalizeJoinCode, normalizePlayerName } from "@quiz/shared-utils";
 import { useEffect, useEffectEvent, useRef, useState } from "react";
 
@@ -140,8 +140,8 @@ export function usePlayerSession(deps: {
   const playerSessionRef = useRef<PlayerStoredSession | null>(initialSession);
   const lastJoinAttemptRef = useRef<JoinAttempt | null>(null);
   const resumedAnswerRef = useRef<ConnectionResumedPayload["currentAnswer"] | null>(null);
-  const intentionalReconnectRef = useRef(false);
   const submitTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isJoiningRef = useRef(false);
 
   const updateStoredSession = useEffectEvent((session: PlayerStoredSession | null) => {
     playerSessionRef.current = session;
@@ -258,7 +258,6 @@ export function usePlayerSession(deps: {
       // --- Connection & Resume ---
       case EVENTS.CONNECTION_ACK:
         notifyConnected();
-        intentionalReconnectRef.current = false;
         if (playerSessionRef.current) {
           sendEvent(EVENTS.CONNECTION_RESUME, {
             roomId: playerSessionRef.current.roomId,
@@ -313,6 +312,18 @@ export function usePlayerSession(deps: {
           setScreen("lobby");
         } else {
           setWaitingForRestart(false);
+          if (
+            resumedPayload.gameState === GameState.QuestionActive ||
+            resumedPayload.gameState === GameState.AnswerLocked
+          ) {
+            setScreen("question");
+          } else if (resumedPayload.gameState === GameState.Revealing) {
+            setScreen("reveal");
+          } else if (resumedPayload.gameState === GameState.Scoreboard) {
+            setScreen("scoreboard");
+          } else if (resumedPayload.gameState === GameState.Completed) {
+            setScreen("finished");
+          }
         }
         return;
       }
@@ -456,6 +467,7 @@ export function usePlayerSession(deps: {
         setRoundResults([]);
         setScoreboard(null);
         setNextQuestionReadyProgress(null);
+        setLocallyReadyQuestionId(null);
         setFinalResult(null);
         setEstimateValue("");
         setTextAnswerValue("");
@@ -463,6 +475,7 @@ export function usePlayerSession(deps: {
         setCategories([]);
         setVotes({});
         setMyVote(null);
+        resumedAnswerRef.current = null;
         setScreen("lobby");
         setNotice(null);
         setWaitingForRestart(false);
@@ -512,8 +525,6 @@ export function usePlayerSession(deps: {
       if (submitTimeoutRef.current) clearTimeout(submitTimeoutRef.current);
     };
   }, []);
-
-  const isJoiningRef = useRef(false);
 
   const handleJoin = useEffectEvent(() => {
     if (isJoiningRef.current) return;

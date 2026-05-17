@@ -41,9 +41,17 @@ export function loadPlayerStoredSession(): PlayerStoredSession | null {
 }
 
 export function savePlayerStoredSession(session: PlayerStoredSession): void {
-  window.localStorage.setItem(PLAYER_SESSION_STORAGE_KEY, JSON.stringify(session));
+  try {
+    window.localStorage.setItem(PLAYER_SESSION_STORAGE_KEY, JSON.stringify(session));
+  } catch (error) {
+    console.warn("player-session:save-failed", error);
+  }
 }
 
 export function clearPlayerStoredSession(): void {
-  window.localStorage.removeItem(PLAYER_SESSION_STORAGE_KEY);
+  try {
+    window.localStorage.removeItem(PLAYER_SESSION_STORAGE_KEY);
+  } catch (error) {
+    console.warn("player-session:clear-failed", error);
+  }
 }

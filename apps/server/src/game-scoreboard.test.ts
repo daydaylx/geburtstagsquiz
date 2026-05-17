@@ -249,4 +249,49 @@ describe("buildFinalStats", () => {
     expect(stats?.fastestAnswer?.playerId).toBe("p2");
     expect(stats?.fastestAnswer?.submittedAtMs).toBe(100);
   });
+
+  it("uses deterministic player-id tiebreakers for final stat highlights", () => {
+    const room = makeRoom({
+      players: [makePlayer("p2"), makePlayer("p1")],
+      completedRoundResults: [
+        {
+          questionId: "q1",
+          correctAnswer: { type: "option", value: "A" },
+          playerResults: [
+            {
+              playerId: "p2",
+              answer: { type: "option", value: "A" },
+              isCorrect: true,
+              pointsEarned: 1,
+            },
+            {
+              playerId: "p1",
+              answer: { type: "option", value: "A" },
+              isCorrect: true,
+              pointsEarned: 1,
+            },
+          ],
+        },
+      ],
+      completedAnswers: [
+        {
+          playerId: "p2",
+          questionId: "q1",
+          answer: { type: "option", value: "A" },
+          submittedAtMs: 100,
+        },
+        {
+          playerId: "p1",
+          questionId: "q1",
+          answer: { type: "option", value: "A" },
+          submittedAtMs: 100,
+        },
+      ],
+    });
+
+    const stats = buildFinalStats(room);
+
+    expect(stats?.mostCorrect?.playerId).toBe("p1");
+    expect(stats?.fastestAnswer?.playerId).toBe("p1");
+  });
 });

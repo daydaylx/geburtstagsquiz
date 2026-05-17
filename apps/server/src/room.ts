@@ -8,6 +8,8 @@ import { clearActiveRoomTimers } from "./room-timers.js";
 import type { RoomRecord, SessionRecord, TrackedWebSocket } from "./server-types.js";
 import { logRoomEvent, roomIdByHostToken, roomIdByJoinCode, roomsById, sessionsById } from "./state.js";
 
+const JOIN_CODE_MAX_ATTEMPTS = 100;
+
 export function generateHostToken(): string {
   return randomUUID().replace(/-/g, "") + randomUUID().replace(/-/g, "");
 }
@@ -18,8 +20,14 @@ export function generateDisplayToken(): string {
 
 export function generateUniqueJoinCode(): string {
   let joinCode = "";
+  let attempt = 0;
 
   do {
+    attempt++;
+    if (attempt > JOIN_CODE_MAX_ATTEMPTS) {
+      throw new Error("Could not generate a unique join code");
+    }
+
     joinCode = Array.from(
       { length: JOIN_CODE_LENGTH },
       () => JOIN_CODE_ALPHABET[randomInt(0, JOIN_CODE_ALPHABET.length)],
@@ -102,6 +110,8 @@ export function closeRoom(room: RoomRecord, reason: string): void {
   for (const player of room.players) {
     sessionsById.delete(player.sessionId);
   }
+
+  room.players.length = 0;
 
   for (const socket of socketsToClose) {
     socket.sessionId = null;

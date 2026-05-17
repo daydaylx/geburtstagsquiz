@@ -1,4 +1,5 @@
 import { type Answer, type Question, QuestionType } from "@quiz/shared-types";
+import { assertUnreachable } from "@quiz/shared-utils";
 
 export function isAnswerValidForQuestion(question: Question, answer: Answer): boolean {
   switch (question.type) {
@@ -27,5 +28,8 @@ export function isAnswerValidForQuestion(question: Question, answer: Answer): bo
 
     case QuestionType.OpenText:
       return answer.type === "text" && answer.value.trim().length > 0 && answer.value.length <= 1000;
+
+    default:
+      return assertUnreachable(question, "Unhandled question type");
   }
 }
