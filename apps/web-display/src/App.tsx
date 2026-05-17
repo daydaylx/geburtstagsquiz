@@ -5,6 +5,7 @@ import { DisplayQuestionScreen } from "./components/DisplayQuestionScreen.js";
 import { DisplayRevealScreen } from "./components/DisplayRevealScreen.js";
 import { DisplayScoreboardScreen } from "./components/DisplayScoreboardScreen.js";
 import { useDisplaySession } from "./hooks/useDisplaySession.js";
+import { getQuestionTypeLabel } from "./lib/labels.js";
 
 function getConnectionLabel(state: ConnectionState): string {
   switch (state) {
@@ -89,6 +90,17 @@ export function App() {
     >
       <div className="display-topbar">
         <span className="display-brand">QUIZ</span>
+        {(s.screen === "question" || s.screen === "reveal") && s.question && (
+          <div className="display-topbar-meta">
+            <span>
+              Frage {s.question.questionIndex + 1} / {s.question.totalQuestionCount}
+            </span>
+            <span className="display-topbar-divider" aria-hidden="true" />
+            <span className="display-topbar-type">{getQuestionTypeLabel(s.question.type)}</span>
+            <span className="display-topbar-divider" aria-hidden="true" />
+            <span className="display-topbar-status">{s.screen === "question" ? "Aktiv" : "Auflösung"}</span>
+          </div>
+        )}
         <span
           className="display-conn-dot"
           data-state={connectionState}

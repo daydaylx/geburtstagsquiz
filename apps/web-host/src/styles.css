@@ -138,7 +138,7 @@ button:focus-visible {
   align-items: center;
   gap: 8px;
   text-transform: uppercase;
-  letter-spacing: 0;
+  letter-spacing: 0.06em;
 }
 
 .host-status::before {
@@ -147,7 +147,7 @@ button:focus-visible {
   height: 8px;
   border-radius: 50%;
   background: var(--host-green);
-  box-shadow: 0 0 8px var(--host-green);
+  box-shadow: none;
 }
 
 .host-dashboard {
@@ -192,11 +192,11 @@ button:focus-visible {
 .host-section-label {
   display: block;
   margin-bottom: 16px;
-  color: var(--host-gold);
+  color: var(--host-ink-soft);
   font-size: 0.7rem;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0;
+  letter-spacing: 0.1em;
 }
 
 /* Sidebar Columns */
@@ -423,7 +423,7 @@ button:focus-visible {
   color: var(--host-ink-soft);
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0;
+  letter-spacing: 0.08em;
   font-size: 0.7rem;
 }
 
@@ -462,7 +462,7 @@ button:focus-visible {
 }
 .host-player-status-dot[data-connected="true"] {
   background: var(--host-green);
-  box-shadow: 0 0 10px var(--host-green);
+  box-shadow: none;
 }
 .host-player-status-dot[data-connected="false"] {
   background: var(--host-red);
@@ -494,9 +494,9 @@ button:focus-visible {
 .host-control-label {
   font-size: 0.65rem;
   text-transform: uppercase;
-  color: var(--host-cyan);
+  color: var(--host-ink-soft);
   font-weight: 900;
-  letter-spacing: 0;
+  letter-spacing: 0.1em;
 }
 .host-control-value {
   font-size: 1.2rem;
@@ -513,7 +513,7 @@ button:focus-visible {
   font-weight: 900;
   font-size: 1.3rem;
   text-transform: uppercase;
-  letter-spacing: 0;
+  letter-spacing: 0.06em;
   box-shadow: 0 4px 18px rgba(246, 199, 106, 0.3);
   transition: all var(--dur-fast);
 }
@@ -714,7 +714,7 @@ button:focus-visible {
 .host-status,
 .host-control-label,
 .host-toggle-copy small {
-  letter-spacing: 0;
+  letter-spacing: 0.08em;
 }
 
 .host-status {
@@ -725,13 +725,13 @@ button:focus-visible {
 .host-status[data-state="connecting"]::before,
 .host-status[data-state="reconnecting"]::before {
   background: var(--host-amber);
-  box-shadow: 0 0 10px var(--host-amber);
+  box-shadow: none;
 }
 
 .host-status[data-state="connectionerror"]::before,
 .host-status[data-state="disconnected"]::before {
   background: var(--host-red);
-  box-shadow: 0 0 8px var(--host-red);
+  box-shadow: none;
 }
 
 .host-panel,
@@ -749,11 +749,9 @@ button:focus-visible {
 }
 
 .host-stage-panel {
-  border-color: rgba(246, 199, 106, 0.28);
+  border-color: rgba(255, 255, 255, 0.16);
   background: var(--bg-card-active);
-  box-shadow:
-    0 24px 70px rgba(0, 0, 0, 0.52),
-    inset 0 0 0 1px rgba(246, 199, 106, 0.08);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.52);
 }
 
 .host-card {
@@ -763,8 +761,8 @@ button:focus-visible {
 
 .host-card--dark {
   background: var(--bg-card-active);
-  border-color: rgba(246, 199, 106, 0.38);
-  box-shadow: inset 0 0 24px rgba(246, 199, 106, 0.08);
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow: none;
 }
 
 .host-side-panel {
@@ -772,8 +770,8 @@ button:focus-visible {
 }
 
 .host-section-label {
-  color: var(--host-gold);
-  letter-spacing: 0;
+  color: var(--host-ink-soft);
+  letter-spacing: 0.1em;
 }
 
 .host-section-label--compact {
@@ -859,13 +857,12 @@ button:focus-visible {
   font-size: 0.75rem;
   font-weight: 900;
   text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 .host-join-code {
   letter-spacing: 0;
-  text-shadow:
-    0 0 22px rgba(246, 199, 106, 0.28),
-    0 2px 14px rgba(0, 0, 0, 0.7);
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.7);
 }
 .host-qr-mini {
   border-radius: var(--host-radius);
@@ -1256,7 +1253,7 @@ button:focus-visible {
   border-radius: var(--host-radius);
   background: var(--host-gold);
   color: #170f02;
-  letter-spacing: 0;
+  letter-spacing: 0.06em;
   box-shadow: 0 12px 28px rgba(246, 199, 106, 0.24);
   transition:
     transform 160ms ease,
