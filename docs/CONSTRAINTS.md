@@ -17,15 +17,14 @@ Es geht nicht um Produkt-Compliance, Cloud-Betrieb oder grosse Lastszenarien, so
 | Spaete Antworten   | Antwort kommt nach Timerende                     | Server sperrt bei `question:close`, spaete Antworten zaehlen nicht              |
 | Mobile Browser     | kleine Displays, Sleep, wechselnde Netzqualitaet | UI schlicht halten, echte Handytests wichtiger als mehr CSS-Effekte             |
 | Zu grosser Scope   | Zusatzideen verursachen neue Fehler              | vor dem Abend Scope einfrieren und keine neuen Systeme beginnen                 |
-| Tunnel/DNS         | Domainarbeit kann bestehende Deployments stoeren | erst lokal stabil testen; keine Cloudflare-/DNS-Aktion ohne `[CONFIRM]`         |
+| Tunnel/DNS         | Domainarbeit kann bestehende Deployments stoeren | bestehende Tunnel-Config nutzen; keine DNS-/Routing-/Secret-Aktion ohne `[CONFIRM]` |
 
 ## Was bewusst klein bleibt
 
 - In-Memory-State statt Persistenz
 - ein vorbereiteter Abendablauf statt Modussammlung
 - manuelles Vorbereiten des Quiz statt Editor-Ausbau
-- ein praktischer lokaler oder einfacher Serverbetrieb statt Infra-Setup
-- optionaler Cloudflare Tunnel nur als Verbindung zu lokalen Diensten
+- lokale Zielservices mit Cloudflare Tunnel als oeffentlichem Einstieg statt Infra-Setup
 - pragmatischer Snapshot-Resume statt komplexer Wiederherstellungslogik
 
 ## Was fuer dieses Repo nicht relevant ist
@@ -60,7 +59,7 @@ Auch fuer ein Einmalprojekt sollten diese Punkte nicht aufgeweicht werden:
 
 | Thema                        | Verhalten                                                                                                                                                                                                                                      | Begründung                                                                                                                                             |
 | ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Display-Kopplungstoken | `HOST_ROOM_CREATED` gibt dem Host einen einmaligen `displayConnectToken`, der nur in der Display-Popout-URL steckt. Wer Zugriff auf den Host-Browser hat, kann den Token lesen. | Fuer einen Abend mit Vertrauenspersonen akzeptiert. Das Display wird lokal geoeffnet, und der Token wird nach Kopplung unbrauchbar. |
+| Display-Kopplungstoken | `HOST_ROOM_CREATED` gibt dem Host einen einmaligen `displayConnectToken`, der nur in der Display-Popout-URL steckt. Wer Zugriff auf den Host-Browser hat, kann den Token lesen. | Fuer einen Abend mit Vertrauenspersonen akzeptiert. Das Display wird vom Host aus geoeffnet, und der Token wird nach Kopplung unbrauchbar. |
 | Reconnect ohne Secret        | `connection:resume` authentifiziert nur per `sessionId` + `roomId`. Kein zusaetzliches Secret oder Bearer-Token. Wer eine fremde `sessionId` kennt, kann die Session uebernehmen.                                                              | SessionIds sind zufaellige UUIDs. In einem lokalen WLAN ohne externe Angreifer ist dieses Risiko minimal. Fuer einen isolierten Abend akzeptiert. |
 | Cloudflare-Credentials       | Tunnel-Credentials und Tokens waeren bei Commit direkt missbrauchbar.                                                                                                                                                                           | Keine echten Secrets ins Repo. Nur Beispiele wie `deploy/cloudflare-tunnel.example.yml` versionieren.                                          |
 

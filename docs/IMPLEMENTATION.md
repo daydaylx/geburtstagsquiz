@@ -16,12 +16,12 @@ Erfolg bedeutet:
 - Punkte und Rangliste stimmen.
 - der Ablauf bleibt auf echten Geraeten stabil genug.
 
-## Lokale Basis
+## Tunnel-only Basis
 
 Sicherstellen:
 
-- `corepack pnpm dev` startet Server, Display, Host und Player.
-- Lokale Ports sind konsistent:
+- `./quiz.sh` startet Server, Display, Host, Player und den bestehenden Cloudflare Tunnel.
+- Lokale Zielports sind konsistent:
   - Server/API: `3001`
   - Display/TV: `5175`
   - Host: `5173`
@@ -31,10 +31,10 @@ Sicherstellen:
 
 Abnahme:
 
-- `http://localhost:3001/health` antwortet.
-- `http://localhost:5175` laedt.
-- `http://localhost:5173` laedt.
-- `http://localhost:5174` laedt.
+- `https://api.quiz.disaai.de/health` antwortet.
+- `https://tv.quiz.disaai.de` laedt.
+- `https://host.quiz.disaai.de` laedt.
+- `https://play.quiz.disaai.de` laedt.
 - keine manuelle Nacharbeit an Ports oder Env ist fuer den Standardstart noetig.
 
 ## Primaerer Spielablauf
@@ -50,7 +50,7 @@ Sicherstellen:
 Abnahme:
 
 - Host zeigt einen Join-Code.
-- Player-Link und Player-QR zeigen im Hybrid-/Partymodus auf `https://play.quiz.disaai.de`.
+- Player-Link und Player-QR zeigen im Partybetrieb auf `https://play.quiz.disaai.de`.
 - Kein Player-QR zeigt im Partybetrieb auf `localhost`.
 
 ### 2. Display oeffnen
@@ -123,6 +123,7 @@ Bei laufendem Server:
 
 ```bash
 corepack pnpm run smoke:local
+SMOKE_WS_URL=wss://api.quiz.disaai.de corepack pnpm run smoke:local
 ```
 
 Vor Abschluss:
@@ -142,8 +143,6 @@ Vor dem Geburtstag zusaetzlich:
 - vor dem Abend keinen unnoetigen Ausbau mehr anfangen.
 
 ## Tunnel- und Domainbetrieb
-
-Erst nach lokal stabiler Validierung pruefen.
 
 Ziel:
 

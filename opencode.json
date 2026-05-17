@@ -20,6 +20,10 @@
     }
   },
   "command": {
+    "lint": {
+      "description": "Biome lint check ueber apps, packages, scripts",
+      "template": "Fuehre `corepack pnpm lint` aus und zeige alle Befunde."
+    },
     "typecheck": {
       "description": "TypeScript typecheck ueber alle Packages",
       "template": "Fuehre `corepack pnpm typecheck` aus und zeige alle Fehler."

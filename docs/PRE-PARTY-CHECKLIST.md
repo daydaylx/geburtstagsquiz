@@ -8,20 +8,17 @@ Kompakte Checkliste fuer den Quiz-Abend. Reihenfolge einhalten.
 - [ ] `corepack pnpm install --frozen-lockfile`
 - [ ] `corepack pnpm typecheck && corepack pnpm test && corepack pnpm build` — alles muss gruen sein
 - [ ] Keine alten Prozesse auf den Ports: `ss -tlnp | grep -E '3001|5173|5174|5175'` (sollte leer sein)
+- [ ] `cloudflared --version` funktioniert
+- [ ] `.cloudflared/config.yml` ist vorhanden und zeigt auf `3001`, `5173`, `5174`, `5175`
 - [ ] Laptop: Bildschirm auf "Niemals sperren" und "Nicht in den Ruhezustand"
 - [ ] HDMI-TV/Monitor angeschlossen und als zweiter Bildschirm erkannt
-- [ ] Wenn Spieler per Handy beitreten sollen:
-  - [ ] Cloudflare Tunnel starten: `cloudflared tunnel --config .cloudflared/config.yml run quiz &`
-  - [ ] Warten bis 4 "Registered tunnel connection" Logs erscheinen
-  - [ ] `curl -s https://api.quiz.disaai.de/health` muss `{"ok":true}` liefern
-  - [ ] Dann `./quiz.sh` → "Hybrid" waehlen
-- [ ] Wenn nur lokal (QR nur vom Laptop scanbar): `./quiz.sh` → "Lokal"
+- [ ] `./quiz.sh` starten; es startet Server, Frontends und Cloudflare Tunnel automatisch
+- [ ] `curl -s https://api.quiz.disaai.de/health` muss `{"ok":true}` liefern
 
 ## 10 Minuten vorher
 
-- [ ] `./quiz.sh` starten und Modus waehlen
-- [ ] Dashboard zeigt 4 gruene Haekchen
-- [ ] Host oeffnet sich im Browser (`http://localhost:5173`)
+- [ ] Dashboard zeigt Server, TV-Display, Host, Spieler und Tunnel gruen
+- [ ] Host oeffnet sich im Browser (`https://host.quiz.disaai.de`)
 - [ ] Raum erstellen im Host
 - [ ] "Display oeffnen" klicken → TV-Fenster oeffnet sich
 - [ ] TV-Fenster auf HDMI-Bildschirm ziehen, F11 fuer Vollbild
@@ -47,9 +44,10 @@ corepack pnpm --filter @quiz/server run dev          # Terminal 1
 corepack pnpm --filter @quiz/web-host run dev         # Terminal 2
 corepack pnpm --filter @quiz/web-display run dev      # Terminal 3
 corepack pnpm --filter @quiz/web-player run dev       # Terminal 4
+cloudflared tunnel --config .cloudflared/config.yml run quiz
 ```
 
-Dann manuell `http://localhost:5173` im Browser oeffnen.
+Dann manuell `https://host.quiz.disaai.de` im Browser oeffnen.
 
 ## Tunnel stoppen (nach dem Abend)
 

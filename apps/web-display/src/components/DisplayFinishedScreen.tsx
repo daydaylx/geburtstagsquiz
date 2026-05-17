@@ -2,6 +2,14 @@ import type { UseDisplaySessionReturn } from "../hooks/useDisplaySession.js";
 
 const CONFETTI_COLORS = ["#ff6b6b", "#ffd500", "#00d4ff", "#00e676", "#c061cb"];
 
+const CONFETTI_SHAPES = [
+  { w: 8, h: 12, radius: "2px" },
+  { w: 10, h: 10, radius: "50%" },
+  { w: 6, h: 14, radius: "3px" },
+  { w: 12, h: 8, radius: "1px" },
+  { w: 7, h: 7, radius: "50%" },
+];
+
 export function DisplayFinishedScreen({ session: s }: { session: UseDisplaySessionReturn }) {
   if (!s.finalResult) return null;
   const fr = s.finalResult;
@@ -76,18 +84,25 @@ export function DisplayFinishedScreen({ session: s }: { session: UseDisplaySessi
 
       {confettiCount > 0 && (
         <div className="display-confetti" aria-hidden="true">
-          {Array.from({ length: confettiCount }).map((_, i) => (
-            <div
-              key={i}
-              className="display-confetti-piece"
-              style={{
-                left: `${(i * 3.37) % 100}%`,
-                animationDelay: `${(i * 0.12) % 1.8}s`,
-                animationDuration: `${2.8 + ((i * 0.07) % 1.5)}s`,
-                background: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
-              }}
-            />
-          ))}
+          {Array.from({ length: confettiCount }).map((_, i) => {
+            const shape = CONFETTI_SHAPES[i % CONFETTI_SHAPES.length];
+            return (
+              <div
+                key={i}
+                className="display-confetti-piece"
+                style={{
+                  left: `${(i * 3.37) % 100}%`,
+                  width: shape.w,
+                  height: shape.h,
+                  borderRadius: shape.radius,
+                  animationDelay: `${(i * 0.12) % 1.8}s`,
+                  animationDuration: `${2.8 + ((i * 0.07) % 1.5)}s`,
+                  background: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
+                  transform: `rotate(${(i * 37) % 360}deg)`,
+                }}
+              />
+            );
+          })}
         </div>
       )}
     </div>

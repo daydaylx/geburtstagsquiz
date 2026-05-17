@@ -59,6 +59,7 @@ geburtstagsquiz/
 |  `- web-player/   # Spieleroberflaeche auf dem Handy
 |- packages/
 |  |- quiz-engine/      # Auswertung und Score-Logik
+|  |- shared-hooks/     # useWebSocket Hook mit Auto-Reconnect
 |  |- shared-protocol/  # Eventnamen und Payload-Schemas
 |  |- shared-types/     # Gemeinsame Typen
 |  `- shared-utils/     # Kleine gemeinsame Helfer
@@ -71,25 +72,35 @@ geburtstagsquiz/
    `- GAME-RULES.md
 ```
 
-## Schnellstart Lokal
+## Schnellstart Abendbetrieb
 
 Voraussetzungen:
 
 - Node.js >= 20
-- pnpm >= 9
+- pnpm@10.33.1 (via Corepack)
+- `cloudflared`
+- bestehende Tunnel-Config unter `.cloudflared/config.yml`
 
 ```bash
-corepack pnpm install
-corepack pnpm dev
+corepack pnpm install --frozen-lockfile
+./quiz.sh
 ```
 
-Danach laufen die vier Services standardmaessig hier:
+`quiz.sh` startet Server, Display-UI, Host-UI, Player-UI und den bestehenden Cloudflare Tunnel. Der sichtbare Einstieg laeuft immer ueber die Subdomains:
 
-- Server/Health: `http://localhost:3001/health`
-- WebSocket direkt: `ws://localhost:3001`
-- Display/TV: `http://localhost:5175`
-- Host: `http://localhost:5173`
-- Player: `http://localhost:5174`
+- Host: `https://host.quiz.disaai.de`
+- Display/TV: `https://tv.quiz.disaai.de`
+- Player: `https://play.quiz.disaai.de`
+- Server/Health: `https://api.quiz.disaai.de/health`
+- WebSocket: `wss://api.quiz.disaai.de`
+
+Intern bleiben die lokalen Zielports gleich: Server `3001`, Host `5173`, Player `5174`, Display `5175`.
+
+Fuer manuelle Entwicklung ohne Startskript:
+
+```bash
+corepack pnpm dev
+```
 
 Der Server-Dev-Start nutzt `node --watch --import tsx`, damit kein separater `tsx watch`-IPC-Server noetig ist. Falls du explizit die alte `tsx`-Watch-CLI testen willst:
 
@@ -97,18 +108,13 @@ Der Server-Dev-Start nutzt `node --watch --import tsx`, damit kein separater `ts
 corepack pnpm --filter @quiz/server run dev:tsx
 ```
 
-Fuer den Abendbetrieb gibt es ein einheitliches Startskript (`quiz.sh`), das alte Projektprozesse sauber stoppt und dann Server, Display-UI, Host-UI und Player-UI startet:
+Der Host ist der Startpunkt; dort Raum erstellen und per Button "Display oeffnen" das TV-Fenster starten. Ctrl+C im `quiz.sh`-Terminal stoppt alle gestarteten Prozesse sauber.
 
-```bash
-./quiz.sh
-```
-
-Im Menue "Lokal", "Hybrid" oder "Tunnel" waehlen. Der Host ist der Einstieg unter `http://localhost:5173`; dort Raum erstellen und per Button "Display oeffnen" das TV-Fenster starten. Ctrl+C stoppt alle Dienste sauber.
-
-Fuer einen lokalen Protokoll-Smoke-Test bei laufendem Server:
+Fuer einen Protokoll-Smoke-Test bei laufendem Server:
 
 ```bash
 corepack pnpm run smoke:local
+SMOKE_WS_URL=wss://api.quiz.disaai.de corepack pnpm run smoke:local
 ```
 
 Der Test nutzt den Host-first Flow, verbindet das Display per `display:connect-room`, laesst zwei Player joinen, startet einen 90s-Spielplan, prueft Reveal-Bereitschaft, Scoreboard nach Frage 5, Endstand und Resume-Snapshots. Zusaetzlich prueft er den versteckten Display-first Fallback kurz weiter.
@@ -122,15 +128,13 @@ Der Laptop bleibt der Server. Cloudflare Tunnel ist nur die oeffentliche Verbind
 - `https://play.quiz.disaai.de` -> `localhost:5174`
 - `wss://api.quiz.disaai.de` -> `localhost:3001`
 
-Die passenden Beispielwerte stehen in `.env.local.example` und `.env.tunnel.example`:
+Die passenden Beispielwerte stehen in `.env.tunnel.example`:
 
-- lokal: `VITE_DISPLAY_URL=http://localhost:5175`, `VITE_HOST_URL=http://localhost:5173`, `VITE_PLAYER_JOIN_BASE_URL=http://localhost:5174`, `VITE_SERVER_SOCKET_URL=ws://localhost:3001`
 - Tunnel: `VITE_DISPLAY_URL=https://tv.quiz.disaai.de`, `VITE_HOST_URL=https://host.quiz.disaai.de`, `VITE_PLAYER_JOIN_BASE_URL=https://play.quiz.disaai.de`, `VITE_SERVER_SOCKET_URL=wss://api.quiz.disaai.de`
-- Hybrid: Host und Display lokal, Player-Link/QR auf `https://play.quiz.disaai.de`, Player-WebSocket auf `wss://api.quiz.disaai.de`; siehe `.env.hybrid.example` und `quiz.sh`.
 
 Details stehen in `docs/DEPLOYMENT-CLOUDFLARE-TUNNEL.md`. Die Beispielconfig liegt in `deploy/cloudflare-tunnel.example.yml`; echte `.cloudflared/`-Configs und Credentials gehoeren nicht ins Repo.
 
-Die Tunnel-Startskripte starten Cloudflare nur mit `CONFIRM_CLOUDFLARE_TUNNEL_START=1`. Ohne diese explizite lokale Bestaetigung brechen sie vor dem Tunnelstart ab.
+`quiz.sh` startet den bestehenden Tunnel automatisch. DNS-, Tunnel-Routing-, Secret- und Credential-Aenderungen bleiben manuelle Cloudflare-Arbeit und gehoeren nicht ins Repo.
 
 ## Quizfragen lokal reviewen
 

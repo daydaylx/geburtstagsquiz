@@ -4,18 +4,18 @@
 
 Dieser Workflow beschreibt die praktische Arbeitsreihenfolge fuer Entwicklung, Review und Dokumentationspflege im Multi-Service-Geburtstagsquiz.
 
-Das Ziel bleibt klein: Display/TV, Host, Player und Server muessen lokal stabil fuer einen Abend zusammenspielen. Tunnel und Domainbetrieb kommen erst danach.
+Das Ziel bleibt klein: Display/TV, Host, Player und Server muessen fuer einen Abend stabil zusammenspielen. Der Abendbetrieb laeuft ueber den bestehenden Cloudflare Tunnel; die lokalen Ports sind nur Zielports hinter dem Tunnel.
 
 ## Empfohlene Reihenfolge
 
 1. Repo pruefen.
 2. Abhaengigkeiten installieren.
-3. Services lokal starten.
-4. Lokalen E2E-/Smoke-Test durchfuehren.
+3. Abendbetrieb ueber `./quiz.sh` starten.
+4. Smoke-Test durchfuehren.
 5. Typecheck, Tests und Build laufen lassen.
-6. Erst danach Tunnel-/Domain-Themen pruefen.
+6. Bei Domainproblemen lokale Zielports, Tunnel und Origins pruefen.
 
-Nicht mit Cloudflare, DNS oder Deployment beginnen, solange der lokale Ablauf nicht sauber ist.
+Keine Cloudflare-DNS-, Routing-, Secret- oder Deployment-Aenderungen ohne ausdrueckliche Freigabe durchfuehren.
 
 ## 1. Repo Pruefen
 
@@ -54,42 +54,43 @@ corepack pnpm install --frozen-lockfile
 
 Wenn `node_modules` bereits vorhanden ist und keine Dependency-Dateien geaendert wurden, reicht normalerweise die bestehende Installation.
 
-## 3. Services Lokal Starten
+## 3. Abendbetrieb Starten
 
-Standard fuer Entwicklung:
+Standard fuer den Abend:
+
+```bash
+./quiz.sh
+```
+
+Das Skript stoppt alte Projektprozesse, startet Server, Display, Host, Player und den bestehenden Cloudflare Tunnel. Der Host ist der Startpunkt unter `https://host.quiz.disaai.de`; dort Raum erstellen und "Display oeffnen" fuer den HDMI-TV nutzen. Ctrl+C stoppt alle gestarteten Prozesse sauber.
+
+Manueller Dev-Start bleibt moeglich:
 
 ```bash
 corepack pnpm dev
 ```
 
-Lokale Services:
+Interne Zielports:
 
 - Server/API: `http://localhost:3001`
 - Host: `http://localhost:5173`
 - Display/TV: `http://localhost:5175`
 - Player: `http://localhost:5174`
 
-Startreihenfolge, falls manuell gestartet wird:
+Startreihenfolge fuer manuelle Diagnose:
 
 1. `corepack pnpm --filter @quiz/server run dev`
 2. `corepack pnpm --filter @quiz/web-host run dev`
 3. `corepack pnpm --filter @quiz/web-display run dev`
 4. `corepack pnpm --filter @quiz/web-player run dev`
 
-Fuer den Abend-/Hotspotbetrieb:
-
-```bash
-./quiz.sh
-```
-
-Im Menue "Lokal", "Hybrid" oder "Tunnel" waehlen. Der Host ist der Startpunkt; im Host Raum erstellen und "Display oeffnen" fuer den HDMI-TV nutzen. Ctrl+C stoppt alle Dienste sauber.
-
-## 4. Lokaler Smoke-Test
+## 4. Smoke-Test
 
 Bei laufendem Server:
 
 ```bash
 corepack pnpm run smoke:local
+SMOKE_WS_URL=wss://api.quiz.disaai.de corepack pnpm run smoke:local
 ```
 
 Der Smoke-Test erstellt den Raum ueber den Host, verbindet das Display per Popout-Token, verbindet zwei Player, startet einen 90s-Spielplan, prueft Reveal-Bereitschaft, Scoreboard nach Frage 5, Endstand und Resume-Snapshots. Der versteckte Display-first Fallback wird kurz separat geprueft.
@@ -97,15 +98,15 @@ Der Smoke-Test erstellt den Raum ueber den Host, verbindet das Display per Popou
 Wenn der Smoke-Test nicht passt:
 
 - erst lokale Ports und laufende Prozesse pruefen
-- dann Serverlogs pruefen
+- dann Server- und Tunnel-Logs pruefen
 - erst danach Code oder Doku anpassen
-- nicht auf Tunnel/DNS ausweichen, um ein lokales Problem zu umgehen
 
-## 5. Typecheck, Test, Build
+## 5. Lint, Typecheck, Test, Build
 
 Vor Abschluss:
 
 ```bash
+corepack pnpm lint
 corepack pnpm typecheck
 corepack pnpm test
 corepack pnpm build
@@ -114,15 +115,14 @@ corepack pnpm build
 CI soll dieselbe Reihenfolge nutzen:
 
 1. install
-2. typecheck
-3. test
-4. build
+2. lint
+3. typecheck
+4. test
+5. build
 
 Wenn ein Befehl nicht ausgefuehrt werden kann, muss der Grund im Abschluss klar genannt werden.
 
 ## 6. Tunnel- und Domain-Themen
-
-Erst bearbeiten, wenn der lokale Ablauf stabil ist.
 
 Ziel-Mapping:
 
@@ -135,7 +135,6 @@ Details:
 
 - `docs/DEPLOYMENT-CLOUDFLARE-TUNNEL.md`
 - `deploy/cloudflare-tunnel.example.yml`
-- `.env.local.example`
 - `.env.tunnel.example`
 
 Ohne explizites `[CONFIRM]` sind verboten:
@@ -154,6 +153,8 @@ Ohne explizites `[CONFIRM]` sind verboten:
 - Host-Controller laedt auf Port `5173`.
 - Player-UI laedt auf Port `5174`.
 - Server-Health antwortet auf Port `3001`.
+- `https://api.quiz.disaai.de/health` antwortet ueber den Tunnel.
+- `https://host.quiz.disaai.de`, `https://tv.quiz.disaai.de` und `https://play.quiz.disaai.de` laden.
 - Host kann einen Raum erstellen.
 - Host kann das Display per Button als Popout verbinden.
 - Player koennen per Join-Code oder QR beitreten.
@@ -164,7 +165,7 @@ Ohne explizites `[CONFIRM]` sind verboten:
 
 ## Umgang mit Fehlern
 
-- Fehler zuerst lokal reproduzieren.
+- Fehler zuerst auf konkrete Verbindung eingrenzen: lokaler Zielport, Tunnel, Origin oder Browser.
 - Ursache von Symptom trennen.
 - Kleine, gezielte Fixes bevorzugen.
 - Keine neuen Features als Fehlerbehebung einschmuggeln.
@@ -182,8 +183,8 @@ Ohne explizites `[CONFIRM]` sind verboten:
 ## Definition of Done
 
 - Die geaenderten Dateien spiegeln die aktuelle Vier-Service-Architektur wider.
-- Lokale Ports und Ziel-Subdomains sind konsistent dokumentiert.
-- Der lokale Entwicklungs- und Validierungsweg ist klar.
+- Lokale Zielports und Ziel-Subdomains sind konsistent dokumentiert.
+- Der Tunnel-only Abendbetrieb ist klar.
 - Typecheck, Tests und Build laufen oder bekannte Blocker sind benannt.
 - Keine produktiven Cloudflare-, DNS- oder Deployment-Aenderungen wurden ohne Freigabe vorgenommen.
 - Keine Feature-Expansion, kein UI-Redesign, keine Fragen- oder Spielmechanik-Aenderung wurde eingefuehrt.

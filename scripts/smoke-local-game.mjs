@@ -5,7 +5,12 @@ import process from "node:process";
 const WS_URL = process.env.SMOKE_WS_URL ?? process.env.VITE_SERVER_SOCKET_URL ?? "ws://localhost:3001";
 const TIMEOUT_MS = Number(process.env.SMOKE_TIMEOUT_MS ?? "15000");
 
-const WebSocketCtor = globalThis.WebSocket ?? (await import("ws").then((module) => module.WebSocket));
+if (!globalThis.WebSocket) {
+  console.error("smoke test requires Node >=20 with native WebSocket support");
+  process.exit(1);
+}
+
+const WebSocketCtor = globalThis.WebSocket;
 
 function withTimeout(promise, label) {
   let timeout;

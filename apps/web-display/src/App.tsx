@@ -82,12 +82,19 @@ export function App() {
     !!connectionOverlay && (connectionState !== "connecting" || s.screen !== "setup" || !!s.roomInfo);
 
   return (
-    <div className="display-shell" data-screen={s.screen}>
+    <div
+      className="display-shell"
+      data-screen={s.screen}
+      data-question-type={s.screen === "question" && s.question ? s.question.type : undefined}
+    >
       <div className="display-topbar">
-        <span className="display-brand">Quiz Display</span>
-        <span className="display-conn" data-state={connectionState}>
-          {getConnectionLabel(connectionState)}
-        </span>
+        <span className="display-brand">QUIZ</span>
+        <span
+          className="display-conn-dot"
+          data-state={connectionState}
+          role="status"
+          aria-label={getConnectionLabel(connectionState)}
+        />
       </div>
 
       <div className="display-main">
@@ -111,7 +118,7 @@ export function App() {
             <div className="display-setup-steps">
               <div className="display-setup-step">
                 <span className="display-setup-step-num">1</span>
-                <span>Host lokal öffnen</span>
+                <span>Host öffnen</span>
               </div>
               <div className="display-setup-step-arrow">→</div>
               <div className="display-setup-step">

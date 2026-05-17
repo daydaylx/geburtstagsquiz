@@ -4,7 +4,7 @@
   "name": "Sex, Liebe & expliziter Bullshit",
   "difficulty": "medium_hard",
   "tags": [],
-  "question_count": 76,
+  "question_count": 101,
   "questions": [
     {
       "id": "q-02-01-c95a802a2d",
@@ -2344,6 +2344,806 @@
       "correct_option_id": "q-02-new-50-opt-1",
       "explanation": "Eigentlich das absolute Minimum an menschlichem Anstand. Wenn du jemanden eine Stunde lang ausgepeitscht, gefesselt oder wie eine menschliche Piñata behandelt hast, dann kriegt die person danach gefälligst eine Kuscheldecke, Wasser und emotionale Bestätigung. Punkt.",
       "difficulty": "medium",
+      "category_id": "cat-02",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-02-fetisch-01",
+      "prompt": "Wie nennt man in der Psychologie und Forensik die sexuelle Anziehung zu Schwerverbrechern (z. B. Serienkillern)?",
+      "options": [
+        {
+          "id": "q-02-fetisch-01-opt-1",
+          "text": "Hybristophilie",
+          "is_correct": true
+        },
+        {
+          "id": "q-02-fetisch-01-opt-2",
+          "text": "Chrematistophilie",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-01-opt-3",
+          "text": "Somnophilie",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-01-opt-4",
+          "text": "Kriminalophilie",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-02-fetisch-01-opt-1",
+      "explanation": "Hybristophilie, umgangssprachlich auch Bonnie-und-Clyde-Syndrom. Erklärt, warum Leute wie Ted Bundy oder Charles Manson bergeweise Liebesbriefe in den Knast bekamen.",
+      "difficulty": "hard",
+      "category_id": "cat-02",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-02-fetisch-02",
+      "prompt": "Welcher Fachbegriff beschreibt die sexuelle Erregung durch den Kontakt mit einer schlafenden oder bewusstlosen Person?",
+      "options": [
+        {
+          "id": "q-02-fetisch-02-opt-1",
+          "text": "Somnophilie",
+          "is_correct": true
+        },
+        {
+          "id": "q-02-fetisch-02-opt-2",
+          "text": "Hypnophilie",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-02-opt-3",
+          "text": "Lethargophilie",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-02-opt-4",
+          "text": "Narkophilie",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-02-fetisch-02-opt-1",
+      "explanation": "Somnophilie. Klingt nach Märchenprinz bei Dornröschen, ist in der Realität ohne vorherige klare Absprache (Konsens) aber schlichtweg ein Übergriff.",
+      "difficulty": "hard",
+      "category_id": "cat-02",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-02-fetisch-03",
+      "prompt": "Jemand erregt sich sexuell durch die Fantasie, Opfer eines Raubs oder Überfalls zu werden. Wie nennt sich das?",
+      "options": [
+        {
+          "id": "q-02-fetisch-03-opt-1",
+          "text": "Harpaxophilie",
+          "is_correct": true
+        },
+        {
+          "id": "q-02-fetisch-03-opt-2",
+          "text": "Kleptophilie",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-03-opt-3",
+          "text": "Chrematistophilie",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-03-opt-4",
+          "text": "Plutophilie",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-02-fetisch-03-opt-1",
+      "explanation": "Harpaxophilie beschreibt Erregung durch die Fantasie, beraubt oder überfallen zu werden. Chrematistophilie liegt nah dran, meint aber eher sexuelle Erregung durch Bezahlenmüssen oder Beraubtwerden im Kontext sexueller Dienstleistungen.",
+      "difficulty": "hard",
+      "category_id": "cat-02",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-02-fetisch-04",
+      "prompt": "Was genau ist der Auslöser bei der sogenannten Formicophilie?",
+      "options": [
+        {
+          "id": "q-02-fetisch-04-opt-1",
+          "text": "Insekten oder kleine Tiere, die über den Körper krabbeln",
+          "is_correct": true
+        },
+        {
+          "id": "q-02-fetisch-04-opt-2",
+          "text": "Das Tragen von extrem enger, formeller Kleidung",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-04-opt-3",
+          "text": "Geometrische Formen und Symmetrie",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-04-opt-4",
+          "text": "Das Beobachten von Tieren bei der Paarung",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-02-fetisch-04-opt-1",
+      "explanation": "Abgeleitet von 'Formica' (Ameise). Wem beim Gedanken an krabbelnde Käfer auf der Haut einer abgeht, hat genau diesen Fetisch.",
+      "difficulty": "medium",
+      "category_id": "cat-02",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-02-fetisch-05",
+      "prompt": "Wenn Statuen, Schaufensterpuppen oder menschenähnliche Figuren sexuell erregend wirken, spricht man von...?",
+      "options": [
+        {
+          "id": "q-02-fetisch-05-opt-1",
+          "text": "Agalmatophilie",
+          "is_correct": true
+        },
+        {
+          "id": "q-02-fetisch-05-opt-2",
+          "text": "Chronophilie",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-05-opt-3",
+          "text": "Lithophilie",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-05-opt-4",
+          "text": "Mechanophilie",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-02-fetisch-05-opt-1",
+      "explanation": "Agalmatophilie beschreibt Anziehung zu Statuen, Puppen oder menschenähnlichen Figuren; Pygmalionismus wird oft als verwandter Begriff genannt. Wenn der Museumsbesuch in der Antiken-Ausstellung plötzlich seltsam intensiv wird.",
+      "difficulty": "hard",
+      "category_id": "cat-02",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-02-fetisch-06",
+      "prompt": "Was erregt eine Person mit Symphorophilie?",
+      "options": [
+        {
+          "id": "q-02-fetisch-06-opt-1",
+          "text": "Das Beobachten von Katastrophen, Unfällen oder Bränden",
+          "is_correct": true
+        },
+        {
+          "id": "q-02-fetisch-06-opt-2",
+          "text": "Das Hören von gewaltiger, klassischer Orchestermusik",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-06-opt-3",
+          "text": "Das gleichzeitige, synchrone Atmen beim Akt",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-06-opt-4",
+          "text": "Symmetrische Anordnungen im Schlafzimmer",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-02-fetisch-06-opt-1",
+      "explanation": "Symphorophilie ist der Gaffer-Fetisch extrem. Die sexuelle Erregung entsteht durch das Zusehen bei Unfällen oder Tragödien.",
+      "difficulty": "hard",
+      "category_id": "cat-02",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-02-fetisch-07",
+      "prompt": "Welcher Reiz steht bei der Salirophilie im Mittelpunkt?",
+      "options": [
+        {
+          "id": "q-02-fetisch-07-opt-1",
+          "text": "Das Beschmutzen, Zerreißen oder Verwüsten der Kleidung oder Erscheinung des Partners",
+          "is_correct": true
+        },
+        {
+          "id": "q-02-fetisch-07-opt-2",
+          "text": "Das Lecken an salzigen Körperstellen (Schweißfetisch)",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-07-opt-3",
+          "text": "Die Faszination für Speichel (Spuckfetisch)",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-07-opt-4",
+          "text": "Das Fesseln mit nautischen Knoten",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-02-fetisch-07-opt-1",
+      "explanation": "Bei der Salirophilie geht es um den optischen Reiz von beschmutzter, zerrissener oder sonst verwüsteter Erscheinung des Partners, nicht um den Schmutz als Material selbst.",
+      "difficulty": "hard",
+      "category_id": "cat-02",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-02-fetisch-08",
+      "prompt": "Welches Szenario ist typisch für die Macrophilie?",
+      "options": [
+        {
+          "id": "q-02-fetisch-08-opt-1",
+          "text": "Die Fantasie, von einer riesenhaften Person dominiert oder überwältigt zu werden",
+          "is_correct": true
+        },
+        {
+          "id": "q-02-fetisch-08-opt-2",
+          "text": "Eine Vorliebe für extrem weite Kleidung",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-08-opt-3",
+          "text": "Erregung durch das Beobachten des Sternenhimmels",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-08-opt-4",
+          "text": "Das Fotografieren von Genitalien im Makro-Modus",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-02-fetisch-08-opt-1",
+      "explanation": "Macrophilie ist ein Größen-Fetisch, bei dem Menschen von riesenhaften Personen oder extremen Größenunterschieden fantasieren. Vore ist ein eigenes Thema und kommt direkt danach.",
+      "difficulty": "medium",
+      "category_id": "cat-02",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-02-fetisch-09",
+      "prompt": "Emetophilie ist ein seltener Fetisch, bei dem die Erregung wodurch ausgelöst wird?",
+      "options": [
+        {
+          "id": "q-02-fetisch-09-opt-1",
+          "text": "Erbrechen oder Erbrochenes",
+          "is_correct": true
+        },
+        {
+          "id": "q-02-fetisch-09-opt-2",
+          "text": "Das Spenden von Blut",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-09-opt-3",
+          "text": "Extreme Kitzligkeit",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-09-opt-4",
+          "text": "Medizinische Nadeln und Spritzen",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-02-fetisch-09-opt-1",
+      "explanation": "Vom griechischen 'Emetos' (Erbrechen). In der Szene heißt Erbrechen oder Erbrochenes in sexuellem Kontext auch 'Roman Shower'.",
+      "difficulty": "hard",
+      "category_id": "cat-02",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-02-fetisch-10",
+      "prompt": "Welches extreme und meist rein gedankliche Szenario beschreibt die Autassassinophilie?",
+      "options": [
+        {
+          "id": "q-02-fetisch-10-opt-1",
+          "text": "Die Fantasie, dass das eigene Leben in Gefahr ist oder man getötet wird",
+          "is_correct": true
+        },
+        {
+          "id": "q-02-fetisch-10-opt-2",
+          "text": "Das Verüben von Attentaten auf historische Persönlichkeiten",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-10-opt-3",
+          "text": "Die sexuelle Anziehung zu Sportwagen und Rennstrecken",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-10-opt-4",
+          "text": "Die Erregung durch das Erwürgen des Partners",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-02-fetisch-10-opt-1",
+      "explanation": "Der ultimative Kick, bei dem der eigene Tod oder extreme Lebensgefahr erregend wirkt. Bleibt glücklicherweise meist reine Fantasie.",
+      "difficulty": "hard",
+      "category_id": "cat-02",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-02-fetisch-11",
+      "prompt": "Worauf richtet sich das sexuelle Verlangen bei der Dendrophilie?",
+      "options": [
+        {
+          "id": "q-02-fetisch-11-opt-1",
+          "text": "Bäume, Holz und Wälder",
+          "is_correct": true
+        },
+        {
+          "id": "q-02-fetisch-11-opt-2",
+          "text": "Ältere Männer mit Vollbart",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-11-opt-3",
+          "text": "Zähne und zahnärztliche Instrumente",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-11-opt-4",
+          "text": "Gewitter und Blitzeinschläge",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-02-fetisch-11-opt-1",
+      "explanation": "'Dendron' bedeutet auf Griechisch Baum. 'Treehugger' bekommt hier eine völlig neue, NSFW-Bedeutung.",
+      "difficulty": "medium",
+      "category_id": "cat-02",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-02-fetisch-12",
+      "prompt": "Die Vorarephilie (oft 'Vore' genannt) ist ein Fetisch, der fast ausschließlich im Internet oder als Rollenspiel existiert. Worum geht es?",
+      "options": [
+        {
+          "id": "q-02-fetisch-12-opt-1",
+          "text": "Die Fantasie, jemanden im Ganzen zu verschlucken oder verschlungen zu werden",
+          "is_correct": true
+        },
+        {
+          "id": "q-02-fetisch-12-opt-2",
+          "text": "Das Verzehren von ungenießbaren Gegenständen",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-12-opt-3",
+          "text": "Sexuelle Erregung durch extrem scharfes Essen",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-12-opt-4",
+          "text": "Das Beobachten von Raubtieren beim Fressen",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-02-fetisch-12-opt-1",
+      "explanation": "Vore ist ein reiner Fantasie-Fetisch, oft gekoppelt mit Macrophilie. Physisch unmöglich, aber in gezeichneten Comics ein riesiges Nischenthema.",
+      "difficulty": "hard",
+      "category_id": "cat-02",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-02-fetisch-13",
+      "prompt": "Welcher körperliche Ausdruck des Partners ist bei der Dakryphilie der entscheidende sexuelle Trigger?",
+      "options": [
+        {
+          "id": "q-02-fetisch-13-opt-1",
+          "text": "Tränen und Weinen",
+          "is_correct": true
+        },
+        {
+          "id": "q-02-fetisch-13-opt-2",
+          "text": "Starkes Schwitzen",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-13-opt-3",
+          "text": "Gänsehaut",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-13-opt-4",
+          "text": "Lautes Lachen",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-02-fetisch-13-opt-1",
+      "explanation": "Dakryphilie ist die sexuelle Erregung durch die Tränen eines anderen. Kommt oft im BDSM-Bereich vor, wenn Schmerz oder Überwältigung zu Tränen führen.",
+      "difficulty": "medium",
+      "category_id": "cat-02",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-02-fetisch-14",
+      "prompt": "Wer unter Eisoptrophilie (oder Katoptronophilie) 'leidet' oder sie auslebt, braucht dafür zwingend welches Objekt im Schlafzimmer?",
+      "options": [
+        {
+          "id": "q-02-fetisch-14-opt-1",
+          "text": "Spiegel",
+          "is_correct": true
+        },
+        {
+          "id": "q-02-fetisch-14-opt-2",
+          "text": "Eine Videokamera",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-14-opt-3",
+          "text": "Seile aus Naturhanf",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-14-opt-4",
+          "text": "Stöckelschuhe",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-02-fetisch-14-opt-1",
+      "explanation": "Die Erregung entsteht dadurch, sich selbst oder den Partner im Spiegel beim Akt zu beobachten. Narzissmus lässt grüßen.",
+      "difficulty": "medium",
+      "category_id": "cat-02",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-02-fetisch-15",
+      "prompt": "Ein Mann wurde in den Medien bekannt, weil er eine sexuelle Beziehung zu seinem VW Käfer führte. Welcher Fachbegriff passt hier am besten?",
+      "options": [
+        {
+          "id": "q-02-fetisch-15-opt-1",
+          "text": "Mechanophilie",
+          "is_correct": true
+        },
+        {
+          "id": "q-02-fetisch-15-opt-2",
+          "text": "Autoerotik",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-15-opt-3",
+          "text": "Metallophilie",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-15-opt-4",
+          "text": "Transmutophilie",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-02-fetisch-15-opt-1",
+      "explanation": "Mechanophilie bezeichnet die Anziehung zu Maschinen, oft Autos oder Hubschrauber. 'Autoerotik' klingt lustig, bedeutet in der Psychologie aber eigentlich Selbstbefriedigung.",
+      "difficulty": "medium",
+      "category_id": "cat-02",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-02-fetisch-16",
+      "prompt": "Im Gegensatz zur klinischen Reinlichkeit erregt sich ein Mysophiler woran?",
+      "options": [
+        {
+          "id": "q-02-fetisch-16-opt-1",
+          "text": "Schmutz, getragener Wäsche und mangelnder Hygiene",
+          "is_correct": true
+        },
+        {
+          "id": "q-02-fetisch-16-opt-2",
+          "text": "Dem Geruch von Desinfektionsmitteln",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-16-opt-3",
+          "text": "Extremer Symmetrie",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-16-opt-4",
+          "text": "Der völligen Dunkelheit (Scotophilie)",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-02-fetisch-16-opt-1",
+      "explanation": "Mysophilie dreht sich um Körperausdünstungen, Schmutz und ungewaschene Kleidung. Das Phänomen des 'Sniffing' (Schnüffeln an getragener Wäsche) fällt oft hierunter.",
+      "difficulty": "medium",
+      "category_id": "cat-02",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-02-fetisch-17",
+      "prompt": "Wenn eine Person sexuell stark von Menschen in orthopädischen Gipsverbänden oder Rollstühlen angezogen wird, nennt man das...?",
+      "options": [
+        {
+          "id": "q-02-fetisch-17-opt-1",
+          "text": "Abasiophilie",
+          "is_correct": true
+        },
+        {
+          "id": "q-02-fetisch-17-opt-2",
+          "text": "Akrotomophilie",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-17-opt-3",
+          "text": "Gerontophilie",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-17-opt-4",
+          "text": "Hospitalismus",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-02-fetisch-17-opt-1",
+      "explanation": "Abasiophilie ist der Fetisch für Mobilitätseinschränkungen und orthopädische Hilfsmittel. Nicht zu verwechseln mit Akrotomophilie (Anziehung zu Amputierten).",
+      "difficulty": "hard",
+      "category_id": "cat-02",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-02-fetisch-18",
+      "prompt": "Was wird beim 'Oculolinctus', einem Fetisch, der vor einigen Jahren unter Jugendlichen in Japan als gefährlicher Trend galt, gemacht?",
+      "options": [
+        {
+          "id": "q-02-fetisch-18-opt-1",
+          "text": "Das Lecken des Augapfels des Partners",
+          "is_correct": true
+        },
+        {
+          "id": "q-02-fetisch-18-opt-2",
+          "text": "Das Starren in die Sonne bis zum Tränenfluss",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-18-opt-3",
+          "text": "Das Tragen von Augenklappen beim Akt",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-18-opt-4",
+          "text": "Blinzeln in einem bestimmten Morse-Code",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-02-fetisch-18-opt-1",
+      "explanation": "Augapfel-Lecken. Berichten zufolge führte der Trend in Japan zu mehr Augeninfektionen. Ein Fetisch, bei dem man buchstäblich blind vor Liebe werden kann.",
+      "difficulty": "hard",
+      "category_id": "cat-02",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-02-fetisch-19",
+      "prompt": "Spectrophilie kombiniert den Bereich des Paranormalen mit Sexualität. Was genau erregt die Person?",
+      "options": [
+        {
+          "id": "q-02-fetisch-19-opt-1",
+          "text": "Die sexuelle Fantasie von oder mit Geistern und Dämonen",
+          "is_correct": true
+        },
+        {
+          "id": "q-02-fetisch-19-opt-2",
+          "text": "Das Tragen von Sehhilfen (Spectacles) beim Sex",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-19-opt-3",
+          "text": "Das Beobachten von Lichtspektren wie Polarlichtern",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-19-opt-4",
+          "text": "Das heimliche Beobachten von Zuschauern im Kino",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-02-fetisch-19-opt-1",
+      "explanation": "Spectrophilie meint die Anziehung zu Geistern, Dämonen oder anderen Spukgestalten. Ghostbusters, aber in ab 18.",
+      "difficulty": "medium",
+      "category_id": "cat-02",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-02-fetisch-20",
+      "prompt": "Bei der Klismaphilie entsteht die sexuelle Befriedigung nicht durch Reibung der äußeren Genitalien, sondern durch...?",
+      "options": [
+        {
+          "id": "q-02-fetisch-20-opt-1",
+          "text": "Das Verabreichen oder Empfangen von Einläufen (Klistieren)",
+          "is_correct": true
+        },
+        {
+          "id": "q-02-fetisch-20-opt-2",
+          "text": "Die tiefe Stimulation des Rachenraums",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-20-opt-3",
+          "text": "Die starke Kompression des Brustkorbs",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-20-opt-4",
+          "text": "Klimatische Extreme wie Eisbäder",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-02-fetisch-20-opt-1",
+      "explanation": "Klismaphilie fokussiert sich auf rektale Einläufe als Mittel der sexuellen Erregung.",
+      "difficulty": "hard",
+      "category_id": "cat-02",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-02-fetisch-21",
+      "prompt": "Wer beim Sex bewusst extrem vulgäre, obszöne oder fäkale Sprache einsetzt, um erregt zu werden, zeigt eine...?",
+      "options": [
+        {
+          "id": "q-02-fetisch-21-opt-1",
+          "text": "Koprophrasie / Koprophemie",
+          "is_correct": true
+        },
+        {
+          "id": "q-02-fetisch-21-opt-2",
+          "text": "Koprolalie",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-21-opt-3",
+          "text": "Glossolalie",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-21-opt-4",
+          "text": "Logorrhö",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-02-fetisch-21-opt-1",
+      "explanation": "Koprophrasie oder Koprophemie meint sexuelle Erregung durch obszöne Sprache. Koprolalie klingt ähnlich, bezeichnet aber meist unwillkürliche obszöne Äußerungen, etwa bei Tic-Störungen.",
+      "difficulty": "hard",
+      "category_id": "cat-02",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-02-fetisch-22",
+      "prompt": "Wie nennt man den Fetisch, bei dem sich Erwachsene sexuell oder emotional dadurch befriedigt fühlen, wieder in die Rolle eines Babys (inkl. Windeln) zu schlüpfen?",
+      "options": [
+        {
+          "id": "q-02-fetisch-22-opt-1",
+          "text": "Autonepiophilie / Adult Baby Syndrom",
+          "is_correct": true
+        },
+        {
+          "id": "q-02-fetisch-22-opt-2",
+          "text": "Pädiatrophilie",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-22-opt-3",
+          "text": "Regressophilie",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-22-opt-4",
+          "text": "Neotenie",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-02-fetisch-22-opt-1",
+      "explanation": "Autonepiophilie ist die psychologische Regression in den Zustand eines Babys. Die Dynamik basiert meist auf Kontrollabgabe und Geborgenheit.",
+      "difficulty": "medium",
+      "category_id": "cat-02",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-02-fetisch-23",
+      "prompt": "Bei der Odontophilie richtet sich der Fetisch auf ein sehr spezifisches Körpermerkmal. Welches?",
+      "options": [
+        {
+          "id": "q-02-fetisch-23-opt-1",
+          "text": "Zähne",
+          "is_correct": true
+        },
+        {
+          "id": "q-02-fetisch-23-opt-2",
+          "text": "Fingerkuppen",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-23-opt-3",
+          "text": "Kniekehlen",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-23-opt-4",
+          "text": "Ohrläppchen",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-02-fetisch-23-opt-1",
+      "explanation": "Odontophilie beschreibt die sexuelle Anziehung zu Zähnen. Vom kleinen Überbiss bis zum Biss beim Vorspiel.",
+      "difficulty": "hard",
+      "category_id": "cat-02",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-02-fetisch-24",
+      "prompt": "Was unterscheidet die Akrotomophilie von der Apotemnophilie?",
+      "options": [
+        {
+          "id": "q-02-fetisch-24-opt-1",
+          "text": "Akrotomophilie ist die Anziehung zu Amputierten, Apotemnophilie der Wunsch nach eigenen Amputationen",
+          "is_correct": true
+        },
+        {
+          "id": "q-02-fetisch-24-opt-2",
+          "text": "Akrotomophilie bezieht sich auf extreme Höhen, Apotemnophilie auf tiefes Wasser",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-24-opt-3",
+          "text": "Beides sind Synonyme für Haarfetische bei verschiedenen Geschlechtern",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-24-opt-4",
+          "text": "Das eine bezeichnet Sadismus, das andere Masochismus",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-02-fetisch-24-opt-1",
+      "explanation": "Akrotomophilie richtet sich auf andere Menschen mit Amputationen. Apotemnophilie ist der ältere Begriff für den Wunsch, selbst eine Amputation oder Behinderung zu haben; heute wird das häufig unter Body Integrity Dysphoria/BIID diskutiert.",
+      "difficulty": "hard",
+      "category_id": "cat-02",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-02-fetisch-25",
+      "prompt": "Welcher Fachbegriff passt am ehesten zu Cuckolding oder dem sexuellen Reiz, die eigene Partnerin oder den eigenen Partner mit jemand anderem zu teilen?",
+      "options": [
+        {
+          "id": "q-02-fetisch-25-opt-1",
+          "text": "Candaulismus",
+          "is_correct": true
+        },
+        {
+          "id": "q-02-fetisch-25-opt-2",
+          "text": "Symphonophilie",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-25-opt-3",
+          "text": "Symmetrophilie",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-fetisch-25-opt-4",
+          "text": "Koprophemie",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-02-fetisch-25-opt-1",
+      "explanation": "Candaulismus beschreibt den sexuellen Reiz, die eigene Partnerin oder den eigenen Partner anderen zu zeigen oder beim Sex mit anderen zu erleben. Auf Pornoseiten läuft das Ganze meist unter Cuckolding oder Wife-Sharing.",
+      "difficulty": "hard",
       "category_id": "cat-02",
       "type": "multiple_choice",
       "points": 1

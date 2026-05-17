@@ -91,7 +91,7 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 | `display:room-created` | Server -> Display | Legacy-Display-Raum wurde erstellt | `roomId`, `displaySessionId`, `displayToken`, `joinCode`, `hostToken` |
 | `display:host-paired` | Server -> Display | Host wurde mit Display-Raum verbunden | `hostConnected` |
 | `host:connect` | Host -> Server | Legacy-Host per Display-Token verbinden | `hostToken`, optional `clientInfo` |
-| `host:connected` | Server -> Host | Host-Verbindung bestaetigt | `roomId`, `hostSessionId`, `joinCode`, `roomState`, optional `gameState` |
+| `host:connected` | Server -> Host | Host-Verbindung bestaetigt | `roomId`, `hostSessionId`, `joinCode`, `roomState`, optional `gameState`, optional `displayConnectToken` |
 | `catalog:summary` | Server -> Host | Verfuegbare Kategorien und Fragetypen fuer Spielplaene | `totalQuestions`, `maxQuestionCount`, `categories`, `questionTypes` |
 | `room:settings:update` | Host -> Server | Lobby-Einstellungen setzen | `roomId`, `showAnswerTextOnPlayerDevices`, optional `gamePlanDraft` |
 | `room:join` | Player -> Server | Raum per Join-Code betreten | `joinCode`, `playerName`, optional `sessionId` |
@@ -116,7 +116,7 @@ Wenn Doku und Code widersprechen, gewinnt der Code.
 | `game:start` | Host -> Server | Quiz mit finalem Spielplan starten | `roomId`, `gamePlan` |
 | `game:started` | Server -> Display/Host/Player | Spiel ist gestartet | `roomId`, `roomState`, `gameState`, `questionIndex`, `totalQuestionCount`, `resolvedGamePlan` |
 | `question:countdown` | Server -> Display/Host/Player | Kurzer Show-Countdown vor einer Frage | `roomId`, `questionIndex`, `totalQuestionCount`, `countdownMs`, `displayShowLevel`, optional `isDemoQuestion` |
-| `question:show` | Server -> Display/Host | Vollstaendige Frage freigeben | `roomId`, `questionId`, `questionIndex`, `totalQuestionCount`, `type`, `text`, je nach Typ `options`/`items`/`unit`/`context`, `durationMs`, `gameState`, optional `isDemoQuestion` |
+| `question:show` | Server -> Display/Host | Vollstaendige Frage freigeben | `roomId`, `questionId`, `questionIndex`, `totalQuestionCount`, `type`, `text`, je nach Typ `options`/`items`/`unit`, `durationMs`, `gameState`, optional `isDemoQuestion` |
 | `question:controller` | Server -> Player | Reduzierte Controller-Daten freigeben | `roomId`, `questionId`, `questionIndex`, `totalQuestionCount`, `type`, je nach Typ Options-/Item-IDs, optional Antworttexte oder `unit`, `durationMs`, `gameState`, optional `isDemoQuestion` |
 | `question:timer` | Server -> Display/Host/Player | Verbleibende Fragezeit anzeigen | `roomId`, `questionId`, `remainingMs` |
 | `answer:submit` | Player -> Server | Antwort auf aktive Frage senden | `roomId`, `questionId`, `playerId`, `answer`, `requestId` |

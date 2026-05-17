@@ -13,7 +13,7 @@ Es ist bewusst nicht gedacht als:
 - langfristig ausbaubares Quiz-System
 - Uebung in Skalierung, Persistenz oder Infrastruktur
 
-Die Architektur soll nur eines leisten: Display/TV, Host, Player und Server lokal stabil zusammenspielen lassen.
+Die Architektur soll nur eines leisten: Display/TV, Host, Player und Server fuer einen Abend stabil zusammenspielen lassen.
 
 ## Aktuelles Betriebsmodell
 
@@ -21,6 +21,7 @@ Die Architektur soll nur eines leisten: Display/TV, Host, Player und Server loka
 - ein Display/TV-Browser fuer Publikum, QR-Codes, Fragen, Reveal und Scoreboard
 - ein Host-Controller im Browser fuer Spielleitung, Start, Einstellungen und Fallbacks
 - mehrere Spieler auf Handys im Browser
+- Cloudflare Tunnel als oeffentlicher Einstieg auf die lokal laufenden Dienste
 - ein vorgeladener Fragenkatalog
 - In-Memory-Zustand waehrend der Laufzeit
 
@@ -226,7 +227,7 @@ Wichtig:
 
 ## Cloudflare- und Domainmodell
 
-Cloudflare Tunnel ist optional und verbindet feste Subdomains mit lokal laufenden Diensten:
+Cloudflare Tunnel verbindet feste Subdomains mit lokal laufenden Diensten:
 
 - `tv.quiz.disaai.de` -> `localhost:5175`
 - `host.quiz.disaai.de` -> `localhost:5173`

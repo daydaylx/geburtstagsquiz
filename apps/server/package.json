@@ -14,8 +14,7 @@
     "@quiz/shared-protocol": "workspace:*",
     "@quiz/shared-utils": "workspace:*",
     "@quiz/quiz-engine": "workspace:*",
-    "ws": "^8.18.0",
-    "zod": "^3.23.0"
+    "ws": "^8.18.0"
   },
   "devDependencies": {
     "@types/ws": "^8.5.14",

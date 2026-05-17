@@ -7,6 +7,8 @@ type DisplayQuestion = NonNullable<UseDisplaySessionReturn["question"]>;
 type DisplayQuestionWithOptions = Extract<DisplayQuestion, { options: { id: string; label: string }[] }>;
 type DisplayQuestionWithItems = Extract<DisplayQuestion, { items: { id: string; label: string }[] }>;
 
+const REVEAL_CONFETTI_COLORS = ["#22c55e", "#4ade80", "#86efac", "#f6c76a", "#06b6d4"];
+
 interface DisplayRevealScreenProps {
   session: UseDisplaySessionReturn;
   correctCount: number;
@@ -29,6 +31,10 @@ export function DisplayRevealScreen({
   if (!s.question) {
     return null;
   }
+
+  const totalAnswers = correctCount + wrongCount + noneCount;
+  const correctRatio = totalAnswers > 0 ? correctCount / totalAnswers : 0;
+  const showConfetti = correctRatio >= 0.8 && correctCount >= 3;
 
   return (
     <div className="display-reveal" data-fading={s.isFadingOut || undefined} data-question-type={s.question.type}>
@@ -77,6 +83,31 @@ export function DisplayRevealScreen({
           </div>
         </div>
       )}
+
+      {showConfetti && <RevealConfetti />}
+    </div>
+  );
+}
+
+function RevealConfetti() {
+  return (
+    <div className="display-reveal-confetti" aria-hidden="true">
+      {Array.from({ length: 10 }).map((_, i) => (
+        <div
+          key={i}
+          className="display-reveal-confetti-piece"
+          style={{
+            left: `${(i * 9.3) % 100}%`,
+            width: 8,
+            height: 8,
+            borderRadius: i % 2 === 0 ? "2px" : "50%",
+            animationDelay: `${(i * 0.15) % 1.5}s`,
+            animationDuration: `${2.5 + ((i * 0.08) % 1.2)}s`,
+            background: REVEAL_CONFETTI_COLORS[i % REVEAL_CONFETTI_COLORS.length],
+            transform: `rotate(${(i * 37) % 360}deg)`,
+          }}
+        />
+      ))}
     </div>
   );
 }

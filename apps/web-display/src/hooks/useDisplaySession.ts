@@ -11,7 +11,7 @@ import {
   type ScoreUpdatePayload,
   type VoteUpdatePayload,
 } from "@quiz/shared-protocol";
-import { GameState, RoomState } from "@quiz/shared-types";
+import { RoomState } from "@quiz/shared-types";
 import QRCode from "qrcode";
 import { useEffect, useEffectEvent, useRef, useState } from "react";
 
@@ -129,6 +129,7 @@ export function useDisplaySession(deps: {
   const displaySessionRef = useRef<DisplayStoredSession | null>(initialSession);
   const preCountdownTimerRef = useRef<number | null>(null);
   const fadeTimerRef = useRef<number | null>(null);
+  const isResumingRef = useRef(false);
 
   const scheduleFade = useEffectEvent((cb: () => void) => {
     if (fadeTimerRef.current !== null) {
@@ -247,14 +248,8 @@ export function useDisplaySession(deps: {
 
         if (payload.roomState === RoomState.Waiting) {
           setScreen("lobby");
-        } else if (payload.roomState === RoomState.Completed) {
-          setScreen("finished");
-        } else if (payload.gameState === GameState.Revealing) {
-          setScreen("reveal");
-        } else if (payload.gameState === GameState.Scoreboard) {
-          setScreen("scoreboard");
         } else {
-          setScreen("question");
+          isResumingRef.current = true;
         }
         return;
       }
@@ -374,6 +369,21 @@ export function useDisplaySession(deps: {
         setScoreboard(null);
         setScoreChanges([]);
         setNextQuestionReadyProgress(null);
+
+        if (isResumingRef.current) {
+          isResumingRef.current = false;
+          if (fadeTimerRef.current !== null) {
+            window.clearTimeout(fadeTimerRef.current);
+            fadeTimerRef.current = null;
+          }
+          setQuestion(questionPayload);
+          setRemainingMs(questionPayload.durationMs);
+          setTotalMs(questionPayload.durationMs);
+          setScreen("question");
+          setIsFadingOut(false);
+          return;
+        }
+
         setIsFadingOut(true);
         scheduleFade(() => {
           setQuestion(questionPayload);

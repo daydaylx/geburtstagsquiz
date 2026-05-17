@@ -1,9 +1,17 @@
 # archive/
 
-Backups der ursprünglichen Fragenkatalog-Dateien vor der Migration zu einzelnen Kategorie-Dateien.
+Historische Dateien und Backups, die nicht mehr zum aktuellen Stand gehoeren.
 
-- `geburtstagsquiz_millennials_engine_v4_release_candidate.json` — 177 Fragen, alte Monolith-Struktur
-- `geburtstagsquiz_millennials_engine_v5_expanded.json` — 209 Fragen, alte Monolith-Struktur
+## Fragenkatalog-Backups
 
-Die aktuelle Quelle ist `data/quiz/questions/cat-*.json` (386 deduplizierte Fragen in 10 Kategorien).
-`scripts/migrate-to-categories.mjs` hat diese Dateien als Eingabe verwendet.
+Backups der urspruenglichen Fragenkatalog-Dateien vor der Migration zu einzelnen Kategorie-Dateien.
+
+- `geburtstagsquiz_millennials_engine_v4_release_candidate.json` — alte Monolith-Struktur
+- `geburtstagsquiz_millennials_engine_v5_expanded.json` — alte Monolith-Struktur
+
+Die aktuelle Quelle ist `data/quiz/questions/cat-*.json` (430 Fragen in 11 Kategorien).
+
+## Historische Reports
+
+- `FEHLERANALYSE-2026-05-10.md` — Fehleranalyse vom 10.05.2026 (Commit a3debc3). Viele der genannten Issues sind seitdem behoben.
+- `question-audit-report-2026-05-03.md` — Fragenkatalog-Audit vom 03.05.2026. Beschreibt einen alten 502-Fragen-Stand. Der aktuelle Review steht in `docs/question-content-review-2026-05-13.md`.

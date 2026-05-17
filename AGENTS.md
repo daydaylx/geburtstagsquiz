@@ -4,7 +4,7 @@
 
 Privates browserbasiertes Geburtstagsquiz fuer einen einzelnen Abend.
 
-Das Repo ist kein Produkt, keine Plattform und kein langfristiges SaaS-System. Ziel ist ein stabiler lokaler Ablauf mit getrenntem Display/TV, Host-Controller, Player-UI und WebSocket/API-Backend.
+Das Repo ist kein Produkt, keine Plattform und kein langfristiges SaaS-System. Ziel ist ein stabiler Ablauf fuer einen Abend mit getrenntem Display/TV, Host-Controller, Player-UI, WebSocket/API-Backend und Cloudflare Tunnel als oeffentlichem Einstieg.
 
 Jede Aenderung muss gegen diese Frage bestehen: Hilft sie, den Quiz-Abend verlaesslich durchzufuehren?
 
@@ -66,24 +66,26 @@ corepack pnpm --filter @quiz/web-host run dev        # Host auf :5173
 corepack pnpm --filter @quiz/web-player run dev      # Player auf :5174
 ```
 
-Server-Dev nutzt `node --watch --import tsx src/index.ts` (kein tsx watch).
+Server-Dev nutzt `node --watch --import tsx src/index.ts` (kein tsx watch). Fallback: `corepack pnpm --filter @quiz/server run dev:tsx` (nutzt `tsx watch`).
 
 ### Validierung
 
 ```bash
+corepack pnpm lint                         # Biome check ueber apps, packages, scripts
 corepack pnpm typecheck                    # TypeScript --noEmit ueber alle Packages
 corepack pnpm test                         # Vitest (alle Tests in packages/*/src und apps/server/src)
 corepack pnpm build                        # tsc + vite build ueber alle Packages
 ```
 
-CI-Reihenfolge: `install → typecheck → test → build`.
+CI-Reihenfolge: `install → lint → typecheck → test → build`.
 
 ### Smoke-Test
 
-Bei laufendem Server (`localhost:3001`):
+Bei laufendem Server (`localhost:3001`) oder laufendem Tunnel:
 
 ```bash
 corepack pnpm run smoke:local
+SMOKE_WS_URL=wss://api.quiz.disaai.de corepack pnpm run smoke:local
 ```
 
 Verbindet Host, Display und zwei Player per WebSocket, erstellt den Raum ueber den Host, koppelt das Display per Popout-Token, startet einen 90s-Spielplan und prueft den gesamten Spielablauf bis Endstand und Resume-Snapshots. Der Legacy-Display-first-Fallback wird kurz separat geprueft.
@@ -92,7 +94,7 @@ Verbindet Host, Display und zwei Player per WebSocket, erstellt den Raum ueber d
 
 ```bash
 corepack pnpm run review:questions          # Fragenreview-Tool (Browser-UI auf temporaerem Port)
-./quiz.sh                                   # Abend-/Hotspot-Startmenue (Lokal, Hybrid oder Tunnel)
+./quiz.sh                                   # Abend-/Hotspot-Start: lokale Dienste + bestehender Cloudflare Tunnel
 ```
 
 ## Test-Scope
@@ -224,26 +226,23 @@ src/
 
 ### WebSocket-Verbindung
 
-- Lokal: Vite-Proxy leitet `/ws` an `ws://localhost:3001` weiter
-- Tunnel: `VITE_SERVER_SOCKET_URL` Environment-Variable
+- Abendbetrieb: `VITE_SERVER_SOCKET_URL=wss://api.quiz.disaai.de`
+- Manuelle Entwicklung: Vite-Proxy leitet `/ws` an `ws://localhost:3001` weiter, falls keine `VITE_SERVER_SOCKET_URL` gesetzt ist
 - Auto-Reconnect mit exponentiellem Backoff (`getReconnectDelay`)
 
 ### Env-Variablen
 
-| Variable | Verbraucher | Lokal | Tunnel | Beschreibung |
-|---|---|---|---|---|
-| `PORT` | Server | `3001` | `3001` | Server-Port |
-| `HOST` | Server | `0.0.0.0` | `0.0.0.0` | Server-Bind-Adresse |
-| `VITE_SERVER_SOCKET_URL` | shared-hooks | `ws://localhost:3001` | `wss://api.quiz.disaai.de` | WebSocket-URL. Ohne diese nutzt der Client den Vite-Proxy `/ws` |
-| `VITE_PUBLIC_HOST` | Host, Display | `localhost` | entfällt | Hostname fuer URL-Konstruktion. Fallback: `window.location.hostname` |
-| `VITE_PLAYER_PORT` | Host, Display | `5174` | entfällt | Expliziter Player-Port. Fallback: Loopback→`5174`, Subdomain→Rewrite |
-| `VITE_DISPLAY_URL` | Host | `http://localhost:5175` | `https://tv.quiz.disaai.de` | Display-URL fuer Popout-Link |
-| `VITE_PLAYER_JOIN_BASE_URL` | Host, Display | `http://localhost:5174` | `https://play.quiz.disaai.de` | Basis-URL fuer Player-Join/QR |
-| `VITE_HOST_URL` | quiz.sh (nicht im TS-Code) | `http://localhost:5173` | `https://host.quiz.disaai.de` | Nur fuer quiz.sh-Startmenue |
-| `VITE_HOST_PORT` | quiz.sh (nicht im TS-Code) | `5173` | entfällt | Nur fuer quiz.sh-Startmenue |
-| `ALLOWED_ORIGINS` | Server | localhost-Origins | localhost + Domain-Origins | CORS/WebSocket-Origin-Whitelist, kommagetrennt |
+| Variable | Verbraucher | Abendwert | Beschreibung |
+|---|---|---|---|
+| `PORT` | Server | `3001` | Server-Port |
+| `HOST` | Server | `0.0.0.0` | Server-Bind-Adresse |
+| `VITE_SERVER_SOCKET_URL` | shared-hooks | `wss://api.quiz.disaai.de` | WebSocket-URL |
+| `VITE_DISPLAY_URL` | Host | `https://tv.quiz.disaai.de` | Display-URL fuer Popout-Link |
+| `VITE_PLAYER_JOIN_BASE_URL` | Host, Display | `https://play.quiz.disaai.de` | Basis-URL fuer Player-Join/QR |
+| `VITE_HOST_URL` | quiz.sh (nicht im TS-Code) | `https://host.quiz.disaai.de` | Host-URL fuer Dashboard/Browserstart |
+| `ALLOWED_ORIGINS` | Server | localhost-Zielports + Domain-Origins | CORS/WebSocket-Origin-Whitelist, kommagetrennt |
 
-Fallback-Chain fuer Player-URLs (Host + Display): `VITE_PLAYER_JOIN_BASE_URL` → `VITE_PUBLIC_HOST` + `VITE_PLAYER_PORT` → Loopback + Default-Port → Subdomain-Rewrite.
+Fallback-Chain fuer Player-URLs (Host + Display): `VITE_PLAYER_JOIN_BASE_URL` → `VITE_PUBLIC_HOST` + `VITE_PLAYER_PORT` → Loopback + Default-Port → Subdomain-Rewrite. Im Abendbetrieb muss `VITE_PLAYER_JOIN_BASE_URL=https://play.quiz.disaai.de` gesetzt sein.
 
 ## Codekonventionen
 
@@ -286,9 +285,9 @@ Scoreboard erscheint nur nach jeder 5. echten Frage (nicht nach Demo, nicht nach
 - Keine Spielmechanik-Aenderungen ohne ausdruecklichen Auftrag.
 - Keine Durable Objects, Datenbank, Persistenz, Accounts oder Adminsysteme einfuehren.
 - Keine Secrets, Tokens, Zertifikate oder Credential-Dateien ins Repo schreiben.
-- Keine echten DNS- oder Cloudflare-Aktionen ohne explizites `[CONFIRM]` des Nutzers.
+- Keine DNS- oder Cloudflare-Konfigurationsaktionen ohne explizites `[CONFIRM]` des Nutzers.
 - Keine produktiven Deployments veraendern, ausser der Nutzer gibt dafuer explizit frei.
-- Lokale Stabilitaet hat Vorrang vor Tunnel-/Domain-Themen.
+- Lokale Zielservices und Tunnel muessen beide stabil sein; der sichtbare Abendbetrieb laeuft ueber die Subdomains.
 - Kleine, direkte Aenderungen bevorzugen. Neue Abstraktionen nur, wenn sie aktuelle Doppelung oder aktuelle Komplexitaet klar reduzieren.
 
 ## Erlaubte Aenderungen
@@ -309,15 +308,15 @@ Scoreboard erscheint nur nach jeder 5. echten Frage (nicht nach Demo, nicht nach
 - Spielmechanik, Scoring oder Fragetypen ohne Auftrag aendern.
 - Durable Objects, neue Datenbanken oder Persistenz einfuehren.
 - Accounts, Profile, Adminsysteme oder globale Highscores bauen.
-- Cloudflare-Tunnel erstellen oder starten, wenn der Nutzer das nicht ausdruecklich verlangt.
+- Cloudflare-Tunnel erstellen, routen oder DNS aendern, wenn der Nutzer das nicht ausdruecklich verlangt.
 - DNS-Eintraege aendern, loeschen oder ueberschreiben.
 - Secrets oder echte Cloudflare-Credentials committen.
 - `disaai.de`, `www.disaai.de` oder bestehende Disa-AI-Deployments anfassen.
 
 ## Cloudflare, DNS und Secrets
 
-- Cloudflare Tunnel ist nur eine optionale Verbindung von festen Subdomains zu lokalen Diensten.
-- Lokale Tests muessen vor Tunnel-/Domainarbeit stabil sein.
+- Cloudflare Tunnel ist die Verbindung von festen Subdomains zu lokalen Diensten im Abendbetrieb.
+- `quiz.sh` startet den bestehenden Tunnel automatisch; Tunnel-Erstellung, Routing und DNS bleiben manuelle Cloudflare-Arbeit.
 - Beispielkonfiguration: `deploy/cloudflare-tunnel.example.yml`.
 - Dokumentation: `docs/DEPLOYMENT-CLOUDFLARE-TUNNEL.md`.
 - Erlaubte reine Checks ohne `[CONFIRM]`: lokale Dateien lesen, Doku pruefen, `cloudflared --version`, `cloudflared tunnel list`.
@@ -339,4 +338,4 @@ Scoreboard erscheint nur nach jeder 5. echten Frage (nicht nach Demo, nicht nach
 - Server bleibt authoritative.
 - Keine Secrets oder produktiven Cloudflare-/DNS-Aenderungen wurden erzeugt.
 - `corepack pnpm typecheck`, `corepack pnpm test` und `corepack pnpm build` laufen oder Abweichungen sind klar dokumentiert.
-- Fuer Runtime-relevante Aenderungen ist der lokale Flow mindestens per Smoke-Test oder begruendeter manueller Pruefung abgedeckt.
+- Fuer Runtime-relevante Aenderungen ist der Flow mindestens per Smoke-Test oder begruendeter manueller Pruefung abgedeckt.

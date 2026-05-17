@@ -14,6 +14,11 @@ const FILES = readdirSync(CATEGORIES_DIR)
 
 const SUPPORTED_TYPES = new Set(["multiple_choice", "estimate", "majority_guess", "ranking", "logic", "open_text"]);
 
+// Non-canonical raw types (standard, common_mistake, pattern, fast_guess, estimate_duel, etc.)
+// are normalized to canonical types by the server loader (quiz-data.ts).
+// This count tracks them for transparency, not as errors.
+const CANONICAL_TYPES = new Set([...SUPPORTED_TYPES]);
+
 function loadFile(filename) {
   return JSON.parse(readFileSync(filename, "utf8"));
 }
@@ -31,7 +36,7 @@ function auditFile(filename) {
   const questions = getAllQuestions(cat);
 
   const byType = {};
-  const unsupported = [];
+  const nonCanonicalRawTypes = [];
   const integrityErrors = [];
   const longPrompts = [];
   const noExplanation = [];
@@ -46,9 +51,8 @@ function auditFile(filename) {
     const catId = q.category_id ?? q._category?.category_id ?? "unknown";
     catDist[catId] = (catDist[catId] ?? 0) + 1;
 
-    if (!SUPPORTED_TYPES.has(type)) {
-      unsupported.push({ id: q.id, type, catId });
-      continue;
+    if (!CANONICAL_TYPES.has(type)) {
+      nonCanonicalRawTypes.push({ id: q.id, type, catId, note: "normalized by server loader" });
     }
 
     const prompt = q.prompt ?? q.text ?? "";
@@ -240,8 +244,8 @@ function auditFile(filename) {
     filename,
     totalQuestions: questions.length,
     byType,
-    unsupportedCount: unsupported.length,
-    unsupported,
+    nonCanonicalRawTypeCount: nonCanonicalRawTypes.length,
+    nonCanonicalRawTypes,
     integrityErrors,
     estimateErrors,
     rankingErrors,
@@ -279,15 +283,15 @@ const duplicates = findDuplicates(results);
 const allLeakFindings = results.flatMap((r) => r.leakFindings.map((f) => ({ ...f, file: r.filename })));
 
 const summary = {
-  files: results.map(({ filename, totalQuestions, byType, unsupportedCount, catDistribution }) => ({
+  files: results.map(({ filename, totalQuestions, byType, nonCanonicalRawTypeCount, catDistribution }) => ({
     filename,
     totalQuestions,
     byType,
-    unsupportedCount,
+    nonCanonicalRawTypeCount,
     catDistribution,
   })),
   totalQuestions: results.reduce((s, r) => s + r.totalQuestions, 0),
-  totalUnsupported: results.reduce((s, r) => s + r.unsupportedCount, 0),
+  totalNonCanonicalRawTypes: results.reduce((s, r) => s + r.nonCanonicalRawTypeCount, 0),
   totalIntegrityErrors: results.reduce((s, r) => s + r.integrityErrors.length, 0),
   totalEstimateErrors: results.reduce((s, r) => s + r.estimateErrors.length, 0),
   totalRankingErrors: results.reduce((s, r) => s + r.rankingErrors.length, 0),
