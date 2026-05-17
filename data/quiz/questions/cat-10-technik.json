@@ -1511,6 +1511,7 @@
     },
     {
       "id": "q-10-01",
+      "points": 1,
       "type": "standard",
       "prompt": "Es ist 23:00 Uhr, du gehst heimlich ins Internet. Welches Geräusch verrät dich sofort über die Telefonleitung?",
       "answer": {
@@ -1525,10 +1526,12 @@
           "Handshaking"
         ]
       },
-      "explanation": "Das Piepen und Rauschen des Modems war unverkennbar und machte heimliches Surfen fast unmoeglich."
+      "explanation": "Das Piepen und Rauschen des Modems war unverkennbar und machte heimliches Surfen fast unmoeglich.",
+      "difficulty": "medium"
     },
     {
       "id": "q-10-03",
+      "points": 1,
       "type": "logic",
       "prompt": "An alten PCs gab es die legendäre 'Turbo-Taste'. Was war ihre eigentliche, meist völlig missverstandene Funktion?",
       "answer": {
@@ -1563,10 +1566,12 @@
           "is_correct": false
         }
       ],
-      "correct_option_id": "q-10-03-opt-2"
+      "correct_option_id": "q-10-03-opt-2",
+      "difficulty": "medium"
     },
     {
       "id": "q-10-04",
+      "points": 1,
       "type": "ranking",
       "prompt": "Dein digitales Erbe: Sortiere diese Speichermedien nach ihrer typischen Kapazität, beginnend mit dem kleinsten.",
       "items": [
@@ -1594,10 +1599,12 @@
         "q-10-04-item-dvd"
       ],
       "scoring_rule": "exact_order",
-      "explanation": "Typische Groessenordnung: Diskette 1,44 MB, Zip-Disk 100 MB, CD-ROM rund 700 MB und DVD 4,7 GB."
+      "explanation": "Typische Groessenordnung: Diskette 1,44 MB, Zip-Disk 100 MB, CD-ROM rund 700 MB und DVD 4,7 GB.",
+      "difficulty": "medium"
     },
     {
       "id": "q-10-05",
+      "points": 1,
       "type": "multiple_choice",
       "prompt": "Was passiert technisch wirklich, wenn man einen USB-Stick unter Windows einfach abzieht – ohne 'Sicher entfernen'?",
       "options": [
@@ -1623,10 +1630,12 @@
         }
       ],
       "correct_option_id": "q-10-05-opt-1",
-      "explanation": "Windows nutzt fuer viele USB-Sticks standardmaessig schnelles Entfernen. Kritisch wird es vor allem, wenn gerade geschrieben wird oder Schreibcache aktiv ist."
+      "explanation": "Windows nutzt fuer viele USB-Sticks standardmaessig schnelles Entfernen. Kritisch wird es vor allem, wenn gerade geschrieben wird oder Schreibcache aktiv ist.",
+      "difficulty": "medium"
     },
     {
       "id": "q-10-06",
+      "points": 1,
       "type": "majority_guess",
       "prompt": "Was war dein typischstes Tauschboersen-Problem bei LimeWire, Kazaa und Co.?",
       "options": [
@@ -1647,10 +1656,12 @@
           "text": "Download dauerte laenger als die Pubertaet"
         }
       ],
-      "explanation": "Als harte Prozentzahl waere das kaum sauber belegbar. Als Mehrheitsfrage trifft es die Erinnerung an Tauschboersen-Chaos deutlich besser."
+      "explanation": "Als harte Prozentzahl waere das kaum sauber belegbar. Als Mehrheitsfrage trifft es die Erinnerung an Tauschboersen-Chaos deutlich besser.",
+      "difficulty": "medium"
     },
     {
       "id": "q-10-08",
+      "points": 1,
       "type": "fast_guess",
       "prompt": "Welches Microsoft-Feature war so nervig, dass es heute als Inbegriff für 'ungefragte Hilfe' gilt und optisch an eine Büroklammer erinnert?",
       "answer": {
@@ -1661,10 +1672,12 @@
           "Büroklammer"
         ]
       },
-      "explanation": "„Es sieht so aus, als wollten Sie einen Brief schreiben...“ – NEIN, Karl, ich will nur, dass du für immer in der Hölle der User-Interfaces verschwindest!"
+      "explanation": "„Es sieht so aus, als wollten Sie einen Brief schreiben...“ – NEIN, Karl, ich will nur, dass du für immer in der Hölle der User-Interfaces verschwindest!",
+      "difficulty": "medium"
     },
     {
       "id": "q-10-09",
+      "points": 1,
       "type": "standard",
       "prompt": "Winamp war der einzige Player, der zählte. Welches Tier wurde im legendären Start-Jingle angeblich 'gepeitscht'?",
       "answer": {
@@ -1673,10 +1686,12 @@
           "Llama"
         ]
       },
-      "explanation": "„Winamp: It really whips the llama's ass!“ – Ein Satz, der sich tiefer in das Hirn der Millennials gebrannt hat als das kleine Einmaleins."
+      "explanation": "„Winamp: It really whips the llama's ass!“ – Ein Satz, der sich tiefer in das Hirn der Millennials gebrannt hat als das kleine Einmaleins.",
+      "difficulty": "medium"
     },
     {
       "id": "q-10-10",
+      "points": 1,
       "type": "logic",
       "prompt": "Dein Anti-Shock-Discman hat 30 Sek. Puffer. Warum springt die Musik nach genau 31 Sek. gleichmäßigen Joggens?",
       "answer": {
@@ -1711,10 +1726,12 @@
           "is_correct": false
         }
       ],
-      "correct_option_id": "q-10-10-opt-2"
+      "correct_option_id": "q-10-10-opt-2",
+      "difficulty": "medium"
     },
     {
       "id": "q-10-11",
+      "points": 1,
       "type": "pattern",
       "prompt": "Auf kleiner (Nokia 8210) → flacher (Razr) → polyphone Klingeltöne folgte ab 2007 welcher radikale Trend?",
       "answer": {
@@ -1727,10 +1744,12 @@
           "Display-Tastatur"
         ]
       },
-      "explanation": "Mit dem iPhone 2007 endete die Ära, in der man blind unter der Schulbank SMS tippen konnte, und das Zeitalter des Glas-Wischens begann."
+      "explanation": "Mit dem iPhone 2007 endete die Ära, in der man blind unter der Schulbank SMS tippen konnte, und das Zeitalter des Glas-Wischens begann.",
+      "difficulty": "medium"
     },
     {
       "id": "q-10-12",
+      "points": 1,
       "type": "estimate_duel",
       "prompt": "3,5 MB Song bei Napster, 56k-Modem (ca. 7 KB/s). Wie viele Minuten dauert der Download im Idealfall?",
       "answer": {
@@ -1739,10 +1758,13 @@
         "unit": "Minuten",
         "context": "Man hat den Download gestartet, ist duschen gegangen und hat gebetet, dass niemand im Haus das Telefon abhebt und die Verbindung killt."
       },
-      "scoring_rule": "closest_wins"
+      "scoring_rule": "closest_wins",
+      "explanation": "3,5 MB = 3.584 KB. Bei 7 KB/s dauert das etwa 512 Sekunden, also gut 8,5 Minuten. Man hat den Download gestartet, ist duschen gegangen und hat gebetet, dass niemand das Telefon abhebt.",
+      "difficulty": "medium"
     },
     {
       "id": "q-10-13",
+      "points": 1,
       "type": "common_mistake",
       "prompt": "Warum machten Magnete bei alten Roehrenfernsehern oder CRT-Monitoren ploetzlich bunte Flecken ins Bild?",
       "answer": {
@@ -1756,10 +1778,12 @@
           "Farbflecken"
         ]
       },
-      "explanation": "Ein Magnet konnte die Elektronenstrahlen ablenken oder Teile der Roehre magnetisieren. Viele Geraete konnten solche Farbflecken per Degauss-Funktion wieder reduzieren."
+      "explanation": "Ein Magnet konnte die Elektronenstrahlen ablenken oder Teile der Roehre magnetisieren. Viele Geraete konnten solche Farbflecken per Degauss-Funktion wieder reduzieren.",
+      "difficulty": "medium"
     },
     {
       "id": "q-10-14",
+      "points": 1,
       "type": "multiple_choice",
       "prompt": "Was war der eigentliche Trick von T9 auf alten Handys?",
       "options": [
@@ -1785,10 +1809,12 @@
         }
       ],
       "correct_option_id": "q-10-14-opt-1",
-      "explanation": "T9 nutzte ein Woerterbuch: Fuer 'Hallo' drueckte man die passenden Zahlentasten nur einmal pro Buchstabe. Das war fuer geuebte Nutzer deutlich schneller als Mehrfachtippen."
+      "explanation": "T9 nutzte ein Woerterbuch: Fuer 'Hallo' drueckte man die passenden Zahlentasten nur einmal pro Buchstabe. Das war fuer geuebte Nutzer deutlich schneller als Mehrfachtippen.",
+      "difficulty": "medium"
     },
     {
       "id": "q-10-15",
+      "points": 1,
       "type": "majority_guess",
       "prompt": "Wann glaubst du am ehesten, dein Handy habe vibriert, obwohl nichts war?",
       "options": [
@@ -1809,7 +1835,8 @@
           "text": "Nie, ich bin innerlich frei"
         }
       ],
-      "explanation": "Phantom-Vibrationen sind ein bekanntes Alltagsphaenomen. Statt eine wackelige Prozentzahl zu raten, entscheidet hier die Erfahrung der Runde."
+      "explanation": "Phantom-Vibrationen sind ein bekanntes Alltagsphaenomen. Statt eine wackelige Prozentzahl zu raten, entscheidet hier die Erfahrung der Runde.",
+      "difficulty": "medium"
     }
   ]
 }

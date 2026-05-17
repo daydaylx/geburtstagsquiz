@@ -40,34 +40,29 @@
     },
     {
       "id": "q-02-02-fd211561d2",
-      "prompt": "Was bedeutet „Netflix & Chill“ im Internet-Slang meistens wirklich?",
+      "prompt": "Was war dein persönlicher «Netflix & Chill»-Ausgang am ehesten?",
       "options": [
         {
           "id": "q-02-02-fd211561d2-opt-1",
-          "text": "Sexuelle Annäherung statt ernsthaft Serien schauen",
-          "is_correct": true
+          "text": "Sexuelle Annäherung statt ernsthaft Serien schauen"
         },
         {
           "id": "q-02-02-fd211561d2-opt-2",
-          "text": "Tatsächlich die komplette 5. Staffel 'The Crown' analysieren",
-          "is_correct": false
+          "text": "Tatsächlich die komplette 5. Staffel 'The Crown' analysieren"
         },
         {
           "id": "q-02-02-fd211561d2-opt-3",
-          "text": "Einschlafen vor dem ersten Werbeblock",
-          "is_correct": false
+          "text": "Einschlafen vor dem ersten Werbeblock"
         },
         {
           "id": "q-02-02-fd211561d2-opt-4",
-          "text": "Einen Streit darüber, wer das Passwort geändert hat",
-          "is_correct": false
+          "text": "Einen Streit darüber, wer das Passwort geändert hat"
         }
       ],
-      "correct_option_id": "q-02-02-fd211561d2-opt-1",
-      "explanation": "Es ist der Code für 'Komm vorbei, wir tun so als würden wir einen Film gucken, aber eigentlich wollen wir Sex'. Wer wirklich chillen will, sollte das explizit sagen, sonst wird's peinlich.",
+      "explanation": "Kein right or wrong bei dieser Frage. Die Mehrheit entscheidet, wie ehrlich ihr seid.",
       "difficulty": "medium_hard",
       "category_id": "cat-02",
-      "type": "multiple_choice",
+      "type": "majority_guess",
       "points": 1
     },
     {
@@ -712,34 +707,29 @@
     },
     {
       "id": "q-02-23-782fdd4a71",
-      "prompt": "Was ist „Love Bombing“?",
+      "prompt": "Welches dieser «Love-Bombing»-Signale fändest du am verdächtigsten?",
       "options": [
         {
           "id": "q-02-23-782fdd4a71-opt-1",
-          "text": "Übertriebene Zuneigung am Anfang, um zu manipulieren",
-          "is_correct": true
+          "text": "Übertriebene Zuneigung am Anfang, um zu manipulieren"
         },
         {
           "id": "q-02-23-782fdd4a71-opt-2",
-          "text": "Das Werfen von Herz-Konfetti auf Hochzeiten",
-          "is_correct": false
+          "text": "Das Werfen von Herz-Konfetti auf Hochzeiten"
         },
         {
           "id": "q-02-23-782fdd4a71-opt-3",
-          "text": "Ein besonders intensiver erster Kuss",
-          "is_correct": false
+          "text": "Ein besonders intensiver erster Kuss"
         },
         {
           "id": "q-02-23-782fdd4a71-opt-4",
-          "text": "Das Senden von 100 Rosen per Lieferdienst",
-          "is_correct": false
+          "text": "Das Senden von 100 Rosen per Lieferdienst"
         }
       ],
-      "correct_option_id": "q-02-23-782fdd4a71-opt-1",
-      "explanation": "Erst wirst du mit Komplimenten überschüttet, dann kommt die emotionale Erpressung. Eine klassische Red Flag. Lauf, Forrest, lauf!",
+      "explanation": "Love Bombing ist manipulativ – aber welche Variante finded ihr am unheimlichsten? Die Gruppe entscheidet.",
       "difficulty": "medium_hard",
       "category_id": "cat-02",
-      "type": "multiple_choice",
+      "type": "majority_guess",
       "points": 1
     },
     {
@@ -2184,35 +2174,19 @@
     },
     {
       "id": "q-02-new-45-quickie",
-      "prompt": "Was charakterisiert einen sogenannten „Quickie“?",
-      "options": [
-        {
-          "id": "q-02-new-45-opt-1",
-          "text": "Ein kurzer, spontaner und oft hastiger sexueller Akt, der meist ohne langes Vorspiel auskommt",
-          "is_correct": true
-        },
-        {
-          "id": "q-02-new-45-opt-2",
-          "text": "Sex, der in einem Schnellrestaurant oder Drive-In stattfindet",
-          "is_correct": false
-        },
-        {
-          "id": "q-02-new-45-opt-3",
-          "text": "Ein Zustand krankhafter vorzeitiger Ejakulation (Premature Ejaculation)",
-          "is_correct": false
-        },
-        {
-          "id": "q-02-new-45-opt-4",
-          "text": "Sich nach dem Geschlechtsverkehr blitzschnell aus dem Staub zu machen",
-          "is_correct": false
-        }
-      ],
-      "correct_option_id": "q-02-new-45-opt-1",
-      "explanation": "Maximale Effizienz in der modernen Schlafzimmer-Dienstleistungsgesellschaft. Wer hat schon 45 Minuten Zeit für sanfte Romantik, wenn der Lieferando-Fahrer laut App schon in sechs Minuten klingelt?",
+      "prompt": "Wie viele Minuten dauert ein «Quickie» laut einer Umfrage unter Paaren im Durchschnitt?",
+      "explanation": "Schnell, spontan, effektiv. Der Quickie ist kurz, aber laut Umfragen im Schnitt etwa 7 Minuten. Qualität vor Quantität!",
       "difficulty": "easy",
       "category_id": "cat-02",
-      "type": "multiple_choice",
-      "points": 1
+      "type": "estimate",
+      "points": 1,
+      "answer": {
+        "canonical": "ca. 7 Minuten",
+        "reference_value": 7,
+        "unit": "Minuten",
+        "context": "Durchschnittliche Dauer eines Quickies laut Paar-Umfragen"
+      },
+      "scoring_rule": "closest_wins"
     },
     {
       "id": "q-02-new-46-mile-high-club",

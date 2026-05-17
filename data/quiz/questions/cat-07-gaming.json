@@ -354,6 +354,7 @@
     },
     {
       "id": "q-07-01",
+      "points": 1,
       "type": "standard",
       "prompt": "Welches Item in Mario Kart ist die personifizierte soziale Ungerechtigkeit und bestraft Erfolg mit purer, blauer Willkür?",
       "options": [
@@ -384,6 +385,7 @@
     },
     {
       "id": "q-07-02",
+      "points": 1,
       "type": "logic",
       "prompt": "Minesweeper: Ein Feld zeigt '3' und hat nur noch genau 3 ungeöffnete Nachbarn. Wie viele Minen sind darunter?",
       "options": [
@@ -414,6 +416,7 @@
     },
     {
       "id": "q-07-03",
+      "points": 1,
       "type": "common_mistake",
       "prompt": "Warum war das legendäre Pusten in den Game-Boy-Schlitz eigentlich eine fatale Fehlentscheidung für die Hardware?",
       "options": [
@@ -444,6 +447,7 @@
     },
     {
       "id": "q-07-04",
+      "points": 1,
       "type": "majority_guess",
       "prompt": "Was war der ultimative Stimmungskiller auf einer 2000er LAN-Party?",
       "options": [
@@ -473,6 +477,7 @@
     },
     {
       "id": "q-07-05",
+      "points": 1,
       "type": "multiple_choice",
       "prompt": "Welcher Handheld war als Batteriefresser bekannt und brauchte sechs AA-Batterien?",
       "explanation": "Der Sega Game Gear hatte Farbdisplay und Hintergrundbeleuchtung, bezahlte das aber mit sechs AA-Batterien und kurzer Laufzeit.",
@@ -503,6 +508,7 @@
     },
     {
       "id": "q-07-06",
+      "points": 1,
       "type": "pattern",
       "prompt": "Vervollständige den legendären Konami-Code: Oben, Oben, Unten, Unten, Links, Rechts, Links, Rechts...?",
       "options": [
@@ -533,6 +539,7 @@
     },
     {
       "id": "q-07-08",
+      "points": 1,
       "type": "logic",
       "prompt": "Pokémon Gen 1: Welcher Typ war so 'kaputt' programmiert, dass er gegen seinen eigentlichen Schwachpunkt 'Geist' komplett immun war?",
       "options": [
@@ -563,6 +570,7 @@
     },
     {
       "id": "q-07-09",
+      "points": 1,
       "type": "fast_guess",
       "prompt": "Welche Konsole grüßt mit: tiefem Dröhnen, glitzerndem Twinkle-Sound – und hängt dann gerne im schwarzen Bildschirm?",
       "options": [
@@ -593,6 +601,7 @@
     },
     {
       "id": "q-07-10",
+      "points": 1,
       "type": "standard",
       "prompt": "In 'Die Sims' warst du Gott – bis du eine folgenschwere Entscheidung im Baumodus getroffen hast. Welche war das?",
       "options": [
@@ -623,6 +632,7 @@
     },
     {
       "id": "q-07-12",
+      "points": 1,
       "type": "majority_guess",
       "prompt": "Welcher 'Cheat' im echten Leben war im Multiplayer-Modus der unehrenhafteste?",
       "options": [
@@ -652,6 +662,7 @@
     },
     {
       "id": "q-07-13",
+      "points": 1,
       "type": "pattern",
       "prompt": "In Tetris wartest du verzweifelt auf das einzige Teil, das 4 Reihen gleichzeitig löschen kann. Wie heißt dieses Teil intern?",
       "options": [
@@ -682,6 +693,7 @@
     },
     {
       "id": "q-07-14",
+      "points": 1,
       "type": "common_mistake",
       "prompt": "Ein klassischer Anfängerfehler: Wer ist der Typ in der grünen Mütze, den 90% aller Mütter fälschlicherweise für 'Zelda' hielten?",
       "options": [
@@ -712,6 +724,7 @@
     },
     {
       "id": "q-07-15",
+      "points": 1,
       "type": "logic",
       "prompt": "Was passiert in Pac-Man, wenn du Level 256 erreichst – das absolute Ende der damaligen Hardware-Kapazität?",
       "options": [
@@ -742,6 +755,7 @@
     },
     {
       "id": "q-07-16",
+      "points": 1,
       "type": "multiple_choice",
       "prompt": "Welches dieser Geräte ist ohne Batterien am schwersten?",
       "options": [
@@ -772,6 +786,7 @@
     },
     {
       "id": "q-07-17",
+      "points": 1,
       "type": "ranking",
       "prompt": "Sortiere diese Konsolen nach Europa-Release, älteste zuerst.",
       "items": [
@@ -798,6 +813,7 @@
     },
     {
       "id": "q-07-18",
+      "points": 1,
       "type": "standard",
       "prompt": "Welcher GTA-Cheat ist für Millennial-Zocker so wichtig wie die eigene Telefonnummer?",
       "options": [
@@ -828,6 +844,7 @@
     },
     {
       "id": "q-07-21",
+      "points": 1,
       "type": "logic",
       "prompt": "Wie viele einzelne Quadrate bilden ein 'Tetromino' (ein klassisches Tetris-Teil)?",
       "options": [
@@ -858,6 +875,7 @@
     },
     {
       "id": "q-07-22",
+      "points": 1,
       "type": "standard",
       "prompt": "Was passierte beim Tamagotchi, wenn man es drei Tage lang komplett ignorierte?",
       "options": [
@@ -888,6 +906,7 @@
     },
     {
       "id": "q-07-23",
+      "points": 1,
       "type": "fast_guess",
       "prompt": "Identify by Cheat: 'R1, R2, L1, X, Links, Unten, Rechts, Oben, Links, Unten, Rechts, Oben'. Was bewirkt dieser Klassiker?",
       "options": [
@@ -918,6 +937,7 @@
     },
     {
       "id": "q-07-24",
+      "points": 1,
       "type": "majority_guess",
       "prompt": "Welches Spiel wurde in den Computerraum-Stunden am häufigsten heimlich gezockt?",
       "options": [
@@ -947,6 +967,7 @@
     },
     {
       "id": "q-07-25",
+      "points": 1,
       "type": "ranking",
       "prompt": "Sortiere diese Mario-Kart-Titel nach ihrem Release-Jahr (älteste zuerst).",
       "items": [
@@ -973,6 +994,7 @@
     },
     {
       "id": "q-07-27",
+      "points": 1,
       "type": "standard",
       "prompt": "In 'Age of Empires II' konnte man ein hochmodernes Auto spawnen. Welchen Cheat-Code musste man dafür eingeben?",
       "options": [
@@ -1003,6 +1025,7 @@
     },
     {
       "id": "q-07-29",
+      "points": 1,
       "type": "common_mistake",
       "prompt": "Konsolekrieg-Mythos: Hatte das Super Nintendo (SNES) tatsächlich 'mehr Bits' als der Sega Mega Drive?",
       "options": [
@@ -1033,6 +1056,7 @@
     },
     {
       "id": "q-07-30",
+      "points": 1,
       "type": "multiple_choice",
       "prompt": "Wie viele Pokémon gab es in der allerersten Generation (Rot/Blau) inklusive des geheimen Mew?",
       "options": [
