@@ -1,6 +1,6 @@
 import type { UseDisplaySessionReturn } from "../hooks/useDisplaySession.js";
 
-const CONFETTI_COLORS = ["#ff6b6b", "#ffd500", "#00d4ff", "#00e676", "#c061cb"];
+const CONFETTI_COLORS = ["#f6c76a", "#f59e0b", "#ef4444", "#2dd4a8", "#d93683"];
 
 const CONFETTI_SHAPES = [
   { w: 8, h: 12, radius: "2px" },

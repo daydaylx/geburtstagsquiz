@@ -7,7 +7,7 @@ type DisplayQuestion = NonNullable<UseDisplaySessionReturn["question"]>;
 type DisplayQuestionWithOptions = Extract<DisplayQuestion, { options: { id: string; label: string }[] }>;
 type DisplayQuestionWithItems = Extract<DisplayQuestion, { items: { id: string; label: string }[] }>;
 
-const REVEAL_CONFETTI_COLORS = ["#22c55e", "#4ade80", "#86efac", "#f6c76a", "#06b6d4"];
+const REVEAL_CONFETTI_COLORS = ["#22c55e", "#f6c76a", "#2dd4a8", "#f59e0b", "#d93683"];
 
 interface DisplayRevealScreenProps {
   session: UseDisplaySessionReturn;
