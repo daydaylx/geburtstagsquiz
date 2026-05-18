@@ -26,9 +26,12 @@ export function useWebSocket() {
 
   const socketRef = useRef<WebSocket | null>(null);
   const reconnectTimerRef = useRef<number | null>(null);
+  const reconnectingDisplayTimerRef = useRef<number | null>(null);
   const reconnectAttemptRef = useRef(0);
   const shouldReconnectRef = useRef(true);
   const messageHandlerRef = useRef<((raw: string) => void) | null>(null);
+  // Tracks last server message time to detect zombie connections (e.g. after phone screen lock)
+  const lastMessageTimeRef = useRef<number>(Date.now());
 
   const getRecoverableConnectionState = () =>
     reconnectAttemptRef.current >= MAX_RECONNECT_ATTEMPTS ? "connectionerror" : "reconnecting";
@@ -37,6 +40,13 @@ export function useWebSocket() {
     if (reconnectTimerRef.current !== null) {
       window.clearTimeout(reconnectTimerRef.current);
       reconnectTimerRef.current = null;
+    }
+  });
+
+  const clearReconnectingDisplayTimer = useEffectEvent(() => {
+    if (reconnectingDisplayTimerRef.current !== null) {
+      window.clearTimeout(reconnectingDisplayTimerRef.current);
+      reconnectingDisplayTimerRef.current = null;
     }
   });
 
@@ -55,7 +65,12 @@ export function useWebSocket() {
   const scheduleReconnect = useEffectEvent(() => {
     if (!shouldReconnectRef.current) return;
     clearReconnectTimer();
-    setConnectionState(getRecoverableConnectionState());
+    // Delay the "reconnecting" UI state by 500ms so brief drops don't cause visible flickering
+    clearReconnectingDisplayTimer();
+    reconnectingDisplayTimerRef.current = window.setTimeout(() => {
+      reconnectingDisplayTimerRef.current = null;
+      setConnectionState(getRecoverableConnectionState());
+    }, 500);
     const delay = getReconnectDelay(reconnectAttemptRef.current);
     reconnectTimerRef.current = window.setTimeout(() => {
       reconnectAttemptRef.current += 1;
@@ -79,6 +94,7 @@ export function useWebSocket() {
       }
     });
     socket.addEventListener("message", (e) => {
+      lastMessageTimeRef.current = Date.now();
       const handler = messageHandlerRef.current;
       if (handler) handler(e.data as string);
     });
@@ -96,6 +112,7 @@ export function useWebSocket() {
 
   const notifyConnected = useEffectEvent(() => {
     reconnectAttemptRef.current = 0;
+    clearReconnectingDisplayTimer();
     setConnectionState("connected");
   });
 
@@ -109,9 +126,31 @@ export function useWebSocket() {
     };
   }, []);
 
+  // Force reconnect when the page becomes visible again (e.g. phone screen unlock, tab refocus).
+  // Mobile browsers suspend WebSocket connections on screen lock and often don't fire close events,
+  // leaving the socket in a zombie OPEN state. The 20s threshold catches one missed heartbeat (15s).
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState !== "visible") return;
+      const socket = socketRef.current;
+      if (!socket || socket.readyState !== WebSocket.OPEN) {
+        clearReconnectTimer();
+        reconnectAttemptRef.current = 0;
+        connectSocket();
+        return;
+      }
+      if (Date.now() - lastMessageTimeRef.current > 20_000) {
+        connectSocket();
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
+  }, []);
+
   const closeSocket = useEffectEvent(() => {
     shouldReconnectRef.current = false;
     clearReconnectTimer();
+    clearReconnectingDisplayTimer();
     const ws = socketRef.current;
     socketRef.current = null;
     setConnectionState("disconnected");
