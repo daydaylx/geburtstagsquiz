@@ -13,7 +13,8 @@
     "lint": "biome check apps packages scripts",
     "lint:fix": "biome check --write apps packages scripts",
     "format": "biome format --write apps packages scripts",
-    "check": "biome check apps packages scripts"
+    "check": "biome check apps packages scripts",
+    "validate": "corepack pnpm lint && corepack pnpm typecheck && corepack pnpm test && corepack pnpm build"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.15",
@@ -22,6 +23,6 @@
   },
   "engines": {
     "node": ">=20",
-    "pnpm": ">=9"
+    "pnpm": ">=10.33.1"
   }
 }

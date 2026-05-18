@@ -22,6 +22,7 @@ NC=$'\033[0m'
 
 step() { printf "\n${CYAN}${BOLD}▶  %s${NC}\n" "$*"; }
 ok()   { printf "${GREEN}  ✓  %s${NC}\n"   "$*"; }
+warn() { printf "${YELLOW}  !  %s${NC}\n"   "$*" >&2; }
 fail() { printf "${RED}  ✗  %s${NC}\n"    "$*" >&2; }
 die()  { printf "\n${RED}${BOLD}Fehler: %s${NC}\n" "$*" >&2; exit 1; }
 
@@ -254,6 +255,132 @@ open_browser_url() {
   fi
 }
 
+# ── HDMI-Display ───────────────────────────────────────────────────────────────
+is_disabled_value() {
+  case "${1:-}" in
+    0 | false | FALSE | False | no | NO | No | off | OFF | Off) return 0 ;;
+    *) return 1 ;;
+  esac
+}
+
+xrandr_query() {
+  xrandr --query 2>/dev/null || true
+}
+
+detect_hdmi_output() {
+  awk '$2 == "connected" && $1 ~ /^HDMI/ { print $1; exit }'
+}
+
+detect_primary_output() {
+  awk '$2 == "connected" && $3 == "primary" { print $1; exit }'
+}
+
+detect_preferred_mode() {
+  local output="$1"
+  awk -v output="$output" '
+    $1 == output && $2 == "connected" {
+      in_output = 1
+      next
+    }
+    in_output && /^[^[:space:]]/ {
+      in_output = 0
+    }
+    in_output && /^[[:space:]]+[0-9]+x[0-9]+/ {
+      if (first == "") first = $1
+      if ($0 ~ /\+/) {
+        print $1
+        printed = 1
+        exit
+      }
+    }
+    END {
+      if (!printed && first != "") print first
+    }
+  '
+}
+
+append_hdmi_position_args() {
+  local -n target_args="$1"
+  local position="$2" output="$3" primary="$4"
+
+  case "$position" in
+    none | "")
+      ;;
+    primary)
+      target_args+=(--primary)
+      ;;
+    right-of-primary)
+      [[ -n "$primary" && "$primary" != "$output" ]] && target_args+=(--right-of "$primary")
+      ;;
+    left-of-primary)
+      [[ -n "$primary" && "$primary" != "$output" ]] && target_args+=(--left-of "$primary")
+      ;;
+    above-primary)
+      [[ -n "$primary" && "$primary" != "$output" ]] && target_args+=(--above "$primary")
+      ;;
+    below-primary)
+      [[ -n "$primary" && "$primary" != "$output" ]] && target_args+=(--below "$primary")
+      ;;
+    *)
+      warn "Unbekannte HDMI-Position '$position'; nutze keine Positionsaenderung."
+      ;;
+  esac
+}
+
+configure_hdmi_display() {
+  local setup="${QUIZ_HDMI_SETUP:-auto}"
+  if is_disabled_value "$setup"; then
+    ok "HDMI-Anpassung deaktiviert"
+    return 0
+  fi
+
+  if [[ -z "${DISPLAY:-}" ]]; then
+    ok "Kein X-Display aktiv; HDMI-Anpassung uebersprungen"
+    return 0
+  fi
+
+  if ! command -v xrandr >/dev/null; then
+    warn "xrandr nicht gefunden; HDMI-Aufloesung bitte im Betriebssystem setzen."
+    return 0
+  fi
+
+  local query output mode scale position primary
+  query="$(xrandr_query)"
+  output="${QUIZ_HDMI_OUTPUT:-}"
+  if [[ -z "$output" ]]; then
+    output="$(printf "%s\n" "$query" | detect_hdmi_output)"
+  fi
+
+  if [[ -z "$output" ]]; then
+    ok "Kein verbundenes HDMI-Display erkannt"
+    return 0
+  fi
+
+  if ! printf "%s\n" "$query" | awk -v output="$output" '$1 == output && $2 == "connected" { found = 1 } END { exit found ? 0 : 1 }'; then
+    warn "HDMI-Ausgang '$output' ist nicht verbunden; HDMI-Anpassung uebersprungen."
+    return 0
+  fi
+
+  mode="${QUIZ_HDMI_MODE:-}"
+  if [[ -z "$mode" ]]; then
+    mode="$(printf "%s\n" "$query" | detect_preferred_mode "$output")"
+  fi
+  scale="${QUIZ_HDMI_SCALE:-1x1}"
+  position="${QUIZ_HDMI_POSITION:-right-of-primary}"
+  primary="$(printf "%s\n" "$query" | detect_primary_output)"
+
+  local args=(--output "$output")
+  [[ -n "$mode" ]] && args+=(--mode "$mode")
+  [[ -n "$scale" ]] && args+=(--scale "$scale")
+  append_hdmi_position_args args "$position" "$output" "$primary"
+
+  if xrandr "${args[@]}" >/dev/null 2>&1; then
+    ok "HDMI $output auf ${mode:-aktuellen Modus}, Skalierung ${scale:-unveraendert}"
+  else
+    warn "HDMI-Anpassung fehlgeschlagen: xrandr ${args[*]}"
+  fi
+}
+
 # ── Dashboard ──────────────────────────────────────────────────────────────────
 show_dashboard() {
   local SEP="═══════════════════════════════════════════════════════"
@@ -307,6 +434,9 @@ main() {
   printf "\n${BOLD}${CYAN}🎂 Geburtstagsquiz${NC}  –  Modus: ${BOLD}Tunnel (quiz.disaai.de)${NC}\n"
 
   check_prereqs
+
+  step "Passe HDMI-Display an"
+  configure_hdmi_display
 
   step "Räume vorherigen Lauf auf"
   stop_previous
