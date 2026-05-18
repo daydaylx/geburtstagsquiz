@@ -113,7 +113,7 @@ function DisplayChoiceOptions({
           className="display-option"
           data-option-index={index}
           key={opt.id}
-          style={{ "--option-delay": `${250 + index * 180}ms` } as React.CSSProperties}
+          style={{ "--option-delay": `${650 + index * 280}ms` } as React.CSSProperties}
         >
           <span className="display-option-label">{getAnswerDisplayLabel(index)}</span>
           <span className="display-option-text">{opt.label}</span>
@@ -136,7 +136,7 @@ function DisplayRankingPrompt({
           <li
             className="display-ranking-item"
             key={item.id}
-            style={{ "--option-delay": `${250 + index * 180}ms` } as React.CSSProperties}
+            style={{ "--option-delay": `${650 + index * 280}ms` } as React.CSSProperties}
           >
             <span className="display-ranking-index">{index + 1}</span>
             <span className="display-ranking-label">{item.label}</span>
