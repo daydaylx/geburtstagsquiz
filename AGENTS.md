@@ -1,83 +1,115 @@
 # AGENTS.md
 
-## Projekt
+## Project Overview
 
 Privates browserbasiertes Geburtstagsquiz fuer einen einzelnen Abend.
 
-Das Repo ist kein Produkt, keine Plattform und kein langfristiges SaaS-System. Ziel ist ein stabiler Ablauf fuer einen Abend mit getrenntem Display/TV, Host-Controller, Player-UI, WebSocket/API-Backend und Cloudflare Tunnel als oeffentlichem Einstieg.
+Dieses Repo ist kein Produkt, keine Plattform und kein langfristiges SaaS-System. Ziel ist ein stabiler Ablauf mit getrenntem Display/TV, Host-Controller, Player-UI, WebSocket/API-Backend und Cloudflare Tunnel als oeffentlichem Einstieg.
 
 Jede Aenderung muss gegen diese Frage bestehen: Hilft sie, den Quiz-Abend verlaesslich durchzufuehren?
 
-## Architektur
+## Tech Stack
 
-### Vier Services
+- Monorepo mit pnpm Workspaces (`pnpm@10.33.1` via Corepack), Node.js `>=20`.
+- TypeScript ESM mit `.js` Import-Endungen bei lokalen Imports, `moduleResolution: "bundler"`.
+- Server: Node.js, `ws`, In-Memory-State, keine Datenbank.
+- Web-Apps: React 19 + Vite, je App eigene `styles.css`, kein React Router.
+- Protokoll: WebSocket-Envelopes `{ "event": "...", "payload": ... }`, Zod-Schemas in `packages/shared-protocol`.
+- Tests: Vitest fuer shared packages und Server. Kein Browser-E2E; Smoke-Test spricht das WebSocket-Protokoll direkt.
+- Lint/Format: Biome, konfiguriert in `biome.json`.
+- Abendbetrieb: lokale Services hinter bestehendem Cloudflare Tunnel.
 
-| Service    | Package            | Port   | Rolle                                                                  |
-| ---------- | ------------------ | ------ | ---------------------------------------------------------------------- |
-| Server     | `apps/server`      | `3001` | Authoritative WebSocket-API, Timer, Punkte, Raeume                     |
-| Display/TV | `apps/web-display` | `5175` | Publikumsbildschirm: Lobby, QR-Codes, Fragen, Reveal, Scoreboard       |
-| Host       | `apps/web-host`    | `5173` | Spielleitungs-Controller: Start, Einstellungen, Fortschritt, Fallbacks |
-| Player     | `apps/web-player`  | `5174` | Smartphone-UI: Join, Antwort-Controller, Status                        |
+## Repository Structure
 
-### Shared Packages
+| Pfad | Zweck |
+| --- | --- |
+| `apps/server` | Authoritative WebSocket/API-Server: Raeume, Sessions, Timer, Antworten, Punkte |
+| `apps/web-display` | Display/TV: Lobby, QR-Codes, Fragen, Reveal, Scoreboard |
+| `apps/web-host` | Host-Controller: Raum erstellen, Display koppeln, Einstellungen, Fortschritt, Fallbacks |
+| `apps/web-player` | Smartphone-UI: Join, Antwort-Controller, Status |
+| `packages/shared-types` | Gemeinsame Interfaces und Enums (`RoomState`, `GameState`, `QuestionType`, etc.) |
+| `packages/shared-protocol` | Eventnamen, Zod-Payload-Schemas, Envelope-Parsing, Error-Codes |
+| `packages/shared-utils` | Join-Code-, Namen- und Netzwerk-Helfer |
+| `packages/shared-hooks` | React-Hook `useWebSocket` mit Auto-Reconnect |
+| `packages/quiz-engine` | Reine Auswertungs- und Scoreboard-Logik ohne Side Effects |
+| `data/quiz/questions` | Fragenkatalog; nur mit ausdruecklichem Auftrag aendern |
+| `docs` | Architektur, State Machine, Event-Protokoll, Deployment, Regeln, Risiken |
+| `deploy` | Beispielkonfigurationen; keine echten Credentials |
+| `.github/workflows` | CI: Install, Lint, Typecheck, Test, Build |
 
-| Package                    | Zweck                                                                                                                                               |
-| -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `packages/shared-types`    | TypeScript-Interfaces und Enums (`RoomState`, `GameState`, `PlayerState`, `QuestionType`, `Question`, `Player`, `Room`, `Answer`, `GamePlan`, etc.) |
-| `packages/shared-protocol` | Eventnamen (`EVENTS`), Zod-Payload-Schemas, Envelope-Parsing und Serialisierung. Definiert das gesamte WebSocket-Protokoll.                         |
-| `packages/shared-utils`    | Kleine Helfer: Join-Code-Validierung, Namensnormalisierung, Netzwerk-Helfer                                                                         |
-| `packages/shared-hooks`    | React-Hook `useWebSocket` mit Auto-Reconnect, wird von allen drei Web-Apps genutzt                                                                  |
-| `packages/quiz-engine`     | Reine Auswertungs- und Scoreboard-Logik ohne Side-Effects (`evaluateMultipleChoice`, `evaluateEstimate`, `evaluateRanking`, etc.)                   |
+## Common Commands
 
-### Authoritative Server-Architektur
-
-Der Server (`apps/server`) ist die alleinige Spielwahrheit. Display, Host und Player zeigen Zustand an oder senden Absichten (Intents), entscheiden aber keine Spielwahrheiten.
-
-Alle relevanten States:
-
-- **RoomState**: `waiting` → `in_game` → `completed` → `closed` (`created` existiert im Enum, wird aber nicht als Laufzeit-Zustand genutzt)
-- **GameState**: `idle` → `question_active` → `answer_locked` → `revealing` → `scoreboard` → `completed`
-- **PlayerState**: `ready` → `answering` → `answered` / `disconnected`
-
-Siehe `docs/state-machine.md` fuer die vollstaendige Zustandsmaschine.
-
-## Befehle
-
-### Setup
+### Install
 
 ```bash
-corepack pnpm install --frozen-lockfile   # Abhaengigkeiten installieren
+corepack pnpm install --frozen-lockfile
 ```
 
-Voraussetzungen: Node.js `>=20`, pnpm via Corepack (`pnpm@10.33.1`).
+Nutze pnpm. `pnpm-lock.yaml` ist der kanonische Lockfile. Ignorierte leere `package-lock.json`/`yarn.lock` im Arbeitsbaum sind keine Einladung, npm oder Yarn zu verwenden.
 
-### Entwicklung
+### Development
 
 ```bash
-corepack pnpm dev                          # Alle 4 Services parallel starten
+corepack pnpm dev
 ```
+
+Startet alle vier Services parallel.
 
 Einzelne Services:
 
 ```bash
-corepack pnpm --filter @quiz/server run dev          # Server mit --watch via tsx
-corepack pnpm --filter @quiz/web-display run dev     # Display auf :5175
-corepack pnpm --filter @quiz/web-host run dev        # Host auf :5173
-corepack pnpm --filter @quiz/web-player run dev      # Player auf :5174
+corepack pnpm --filter @quiz/server run dev
+corepack pnpm --filter @quiz/web-host run dev
+corepack pnpm --filter @quiz/web-display run dev
+corepack pnpm --filter @quiz/web-player run dev
 ```
 
-Server-Dev nutzt `node --watch --import tsx src/index.ts` (kein tsx watch). Fallback: `corepack pnpm --filter @quiz/server run dev:tsx` (nutzt `tsx watch`).
+Ports:
 
-### Validierung
+| Service | Port |
+| --- | --- |
+| Server | `3001` |
+| Host | `5173` |
+| Player | `5174` |
+| Display/TV | `5175` |
+
+Der Server-Dev-Start nutzt `node --watch --import tsx src/index.ts`. Fallback nur bei Bedarf: `corepack pnpm --filter @quiz/server run dev:tsx`.
+
+### Build
 
 ```bash
-corepack pnpm lint                         # Biome check ueber apps, packages, scripts
-corepack pnpm typecheck                    # TypeScript --noEmit ueber alle Packages
-corepack pnpm test                         # Vitest (alle Tests in packages/*/src und apps/server/src)
-corepack pnpm build                        # tsc + vite build ueber alle Packages
+corepack pnpm build
 ```
 
-CI-Reihenfolge: `install → lint → typecheck → test → build`.
+### Preview
+
+Es gibt keinen separaten Root-Preview-Befehl. Fuer den Abend ist `./quiz.sh` der unterstuetzte Runtime-Start. Fuer lokale Entwicklung laufen die Vite-Dev-Server ueber `corepack pnpm dev` oder die Einzelservice-Befehle.
+
+### Lint
+
+```bash
+corepack pnpm lint
+```
+
+### Test
+
+```bash
+corepack pnpm test
+```
+
+### Typecheck
+
+```bash
+corepack pnpm typecheck
+```
+
+### Full Validation
+
+```bash
+corepack pnpm run validate
+```
+
+Fuehrt `lint`, `typecheck`, `test` und `build` in dieser Reihenfolge aus.
 
 ### Smoke-Test
 
@@ -88,254 +120,180 @@ corepack pnpm run smoke:local
 SMOKE_WS_URL=wss://api.quiz.disaai.de corepack pnpm run smoke:local
 ```
 
-Verbindet Host, Display und zwei Player per WebSocket, erstellt den Raum ueber den Host, koppelt das Display per Popout-Token, startet einen 90s-Spielplan und prueft den gesamten Spielablauf bis Endstand und Resume-Snapshots. Der Legacy-Display-first-Fallback wird kurz separat geprueft.
+Der Smoke-Test verbindet Host, Display und zwei Player per WebSocket, erstellt den Raum ueber den Host, koppelt das Display per Popout-Token, startet einen 90s-Spielplan und prueft den Ablauf bis Endstand und Resume-Snapshots.
 
-### Tools
+### Abendbetrieb
 
 ```bash
-corepack pnpm run review:questions          # Fragenreview-Tool (Browser-UI auf temporaerem Port)
-./quiz.sh                                   # Abend-/Hotspot-Start: lokale Dienste + bestehender Cloudflare Tunnel
+./quiz.sh
 ```
 
-## Test-Scope
+Startet lokale Dienste und bestehenden Cloudflare Tunnel. Keine Tunnel-, DNS-, Secret- oder Deployment-Aenderung ohne explizites `[CONFIRM]`.
 
-Tests liegen in:
+## Architecture Rules
 
-- `packages/*/src/**/*.test.ts` — Unit-Tests fuer shared packages und quiz-engine
-- `apps/server/src/**/*.test.ts` — Serverseitige Tests
+### Server Is Authoritative
 
-Die vitest-Konfiguration (`vitest.config.ts`) definiert den Scope:
+Der Server (`apps/server`) ist die alleinige Spielwahrheit. Display, Host und Player zeigen Zustand an oder senden Absichten, entscheiden aber keine Spielwahrheiten.
 
-```
-include: ["packages/*/src/**/*.test.ts", "apps/server/src/**/*.test.ts"]
-```
+Der Server entscheidet ueber:
 
-Es gibt **keine** E2E-Browser-Tests. Der Smoke-Test (`scripts/smoke-local-game.mjs`) testet das WebSocket-Protokoll direkt.
+- Raumstatus
+- aktive Frage
+- Timer
+- Antwortannahme
+- Punkte
+- Rangliste
 
-Test-Pattern: Factory-Functions wie `makeQuestion()`, `makePlayer()`, `makeAnswer()` mit `vitest` (`describe`/`it`/`expect`).
+### Core State Machine
 
-## WebSocket-Protokoll
+- **RoomState**: `waiting` -> `in_game` -> `completed` -> `closed`; `created` existiert im Enum, wird aber nicht als Laufzeit-Zustand genutzt.
+- **GameState**: `idle` -> `question_active` -> `answer_locked` -> `revealing` -> optional `scoreboard` -> `completed`.
+- **PlayerState**: `ready` -> `answering` -> `answered` oder `disconnected`.
 
-### Envelope-Format
+Details stehen in `docs/state-machine.md`.
+
+### WebSocket Protocol
 
 Alle Nachrichten nutzen `{ "event": "...", "payload": ... }`.
 
-- Eventnamen: `packages/shared-protocol/src/events.ts` (`EVENTS` Konstante)
-- Payload-Schemas: `packages/shared-protocol/src/schemas.ts` (Zod, strikt)
-- Envelope-Parsing: `packages/shared-protocol/src/envelope.ts`
-- Error-Codes: `packages/shared-protocol/src/error-codes.ts`
+Beim Aendern eines Events muessen konsistent aktualisiert werden:
 
-### Richtungs-Schemas
-
-Events sind nach Rolle und Richtung aufgeteilt:
-
-- `DISPLAY_TO_SERVER_EVENT_SCHEMAS` / `HOST_TO_SERVER_EVENT_SCHEMAS` / `PLAYER_TO_SERVER_EVENT_SCHEMAS`
-- `SERVER_TO_DISPLAY_EVENT_SCHEMAS` / `SERVER_TO_HOST_EVENT_SCHEMAS` / `SERVER_TO_PLAYER_EVENT_SCHEMAS`
-
-**Beim Aendern eines Events** muessen konsistent aktualisiert werden:
-
-1. Eventkonstante in `events.ts`
-2. Payload-Schema in `schemas.ts`
-3. Zugehoerige Richtungs-Map (z.B. `HOST_TO_SERVER_EVENT_SCHEMAS`)
+1. Eventkonstante in `packages/shared-protocol/src/events.ts`
+2. Payload-Schema in `packages/shared-protocol/src/schemas.ts`
+3. passende Richtungs-Map in `schemas.ts`
 4. Payload-Typ-Export in `schemas.ts`
+5. Server-Dispatch und Rollenpruefung, falls das Event neu ist
+6. betroffene Clients und Tests
 
-### Event-Routing im Server
+Display und Host erhalten `question:show` mit vollstaendiger Frage. Player erhalten `question:controller` mit reduzierten Daten. Diese Trennung passiert in `apps/server/src/question-payloads.ts`.
 
-Der Server-Message-Handler (`apps/server/src/index.ts`) dispatched per `switch(event)` an Handler-Funktionen. Rolle-basierte Zugriffskontrolle erfolgt ueber `isEventAllowedForRole()` vor dem Dispatch.
+## Agent Working Rules
 
-Server-seitiges Senden:
-
-- `sendEvent(socket, event, payload)` — Einzeln
-- `sendToDisplay/sendToHost/sendToPlayers(room, event, payload)` — Per Rolle
-- `broadcastToAllRoomClients/broadcastToHostAndDisplay(room, event, payload)` — Gruppen
-- `sendProtocolError(socket, code, message, context)` — Fehler
-
-### Frage-Darstellung nach Rolle
-
-Display und Host erhalten `question:show` mit vollstaendiger Frage inklusive Optionen und Text. Player erhalten `question:controller` mit reduzierten Daten (z.B. ohne korrekte Antwort). Die Transformation passiert in `apps/server/src/question-payloads.ts`.
-
-## Server-Interne Struktur
-
-### State-Management
-
-Globaler In-Memory-State in `apps/server/src/state.ts`:
-
-- `roomsById: Map<string, RoomRecord>`
-- `roomIdByJoinCode: Map<string, string>`
-- `roomIdByHostToken: Map<string, string>`
-- `sessionsById: Map<string, SessionRecord>`
-
-Keine Persistenz, keine Datenbank. Bei Serverneustart ist alles weg.
-
-### Module-Aufteilung
-
-| Datei                  | Zuständigkeit                                                                       |
-| ---------------------- | ----------------------------------------------------------------------------------- |
-| `index.ts`             | HTTP-Server, WebSocket-Server, Message-Dispatch, Rollen-Auth                        |
-| `state.ts`             | Globale Maps und Helfer                                                             |
-| `server-types.ts`      | `TrackedWebSocket`, `SessionRecord`, `RoomRecord`                                   |
-| `config.ts`            | Port, Origins, Grace-Zeiten, Timer-Konstanten                                       |
-| `protocol.ts`          | `sendEvent`, `sendProtocolError`, `toLobbyUpdatePayload`                            |
-| `connection.ts`        | `sendToDisplay/Host/Players`, `broadcastToAllRoomClients`, `syncSessionToRoomState` |
-| `session.ts`           | Socket-Close-Handler, Disconnect-Grace-Logik                                        |
-| `room.ts`              | Raum-Erstellung, Join-Code-Generierung, `closeRoom`, `removePlayerFromRoom`         |
-| `lobby.ts`             | Room-Join, Host-/Display-Connect, Connection-Resume, Settings-Update, Kategorie-Voting |
-| `game.ts`              | Spiel-Start, Frage-Ablauf, Antwort-Annahme, Reveal, Scoreboard, Finish              |
-| `game-plan.ts`         | GamePlan-Aufloesung, Demo-Frage, Fragen-Auswahl, Katalog-Summary                    |
-| `game-scoreboard.ts`   | Scoreboard-Berechnung, Score-Changes, Final-Stats                                   |
-| `room-selectors.ts`    | Reine Selektoren auf RoomRecord                                                     |
-| `room-timers.ts`       | Timer-Cleanup                                                                       |
-| `quiz-data.ts`         | Quiz-JSON laden und parsen                                                          |
-| `question-payloads.ts` | Question → QuestionShow/Controller-Payload-Transformation                           |
-| `answer-validation.ts` | Antwort-Validierung gegen Fragetyp                                                  |
-
-### Disconnect-Grace-Zeiten
-
-| Rolle   | Grace-Zeit | Konsequenz                                                      |
-| ------- | ---------- | --------------------------------------------------------------- |
-| Display | 45s        | Display wird als getrennt markiert, Lobby-Update gesendet       |
-| Host    | 5min       | Raum wird geschlossen (`closeRoom`)                             |
-| Player  | 30s        | Spieler wird aus dem Raum entfernt (`removePlayerFromRoom`)     |
-
-Konfiguriert in `apps/server/src/config.ts`. Display schließt den Raum **nicht** — nur der Host-Disconnect schließt den Raum.
-
-## Web-App-Struktur
-
-Alle drei Web-Apps (display, host, player) folgen demselben Muster:
-
-```
-src/
-  App.tsx                          Hauptkomponente
-  main.tsx                         Einstiegspunkt
-  storage.ts                       Session-Persistenz in localStorage
-  styles.css                       Globale Styles
-  hooks/
-    useXxxSession.ts               Session-State und Event-Handler
-  lib/
-    helpers.ts                     Helferfunktionen
-    labels.ts (wo vorhanden)       Anzeige-Labels
-  components/                      React-Komponenten
-```
-
-### Session-Flow
-
-1. `App.tsx` nutzt `useWebSocket()` aus `@quiz/shared-hooks`
-2. Uebergibt `{ sendEvent, onMessage, notifyConnected }` an den jeweiligen `useXxxSession`-Hook
-3. Der Hook verwaltet gesamten Session-State, verarbeitet eingehende Events und stellt Handler bereit
-4. Session-Daten werden in localStorage persistiert (`storage.ts`) fuer Resume nach Reconnect
-
-### WebSocket-Verbindung
-
-- Abendbetrieb: `VITE_SERVER_SOCKET_URL=wss://api.quiz.disaai.de`
-- Manuelle Entwicklung: Vite-Proxy leitet `/ws` an `ws://localhost:3001` weiter, falls keine `VITE_SERVER_SOCKET_URL` gesetzt ist
-- Auto-Reconnect mit exponentiellem Backoff (`getReconnectDelay`)
-
-### Env-Variablen
-
-| Variable | Verbraucher | Abendwert | Beschreibung |
-|---|---|---|---|
-| `PORT` | Server | `3001` | Server-Port |
-| `HOST` | Server | `0.0.0.0` | Server-Bind-Adresse |
-| `VITE_SERVER_SOCKET_URL` | shared-hooks | `wss://api.quiz.disaai.de` | WebSocket-URL |
-| `VITE_DISPLAY_URL` | Host | `https://tv.quiz.disaai.de` | Display-URL fuer Popout-Link |
-| `VITE_PLAYER_JOIN_BASE_URL` | Host, Display | `https://play.quiz.disaai.de` | Basis-URL fuer Player-Join/QR |
-| `VITE_HOST_URL` | quiz.sh (nicht im TS-Code) | `https://host.quiz.disaai.de` | Host-URL fuer Dashboard/Browserstart |
-| `ALLOWED_ORIGINS` | Server | localhost-Zielports + Domain-Origins | CORS/WebSocket-Origin-Whitelist, kommagetrennt |
-
-Fallback-Chain fuer Player-URLs (Host + Display): `VITE_PLAYER_JOIN_BASE_URL` → `VITE_PUBLIC_HOST` + `VITE_PLAYER_PORT` → Loopback + Default-Port → Subdomain-Rewrite. Im Abendbetrieb muss `VITE_PLAYER_JOIN_BASE_URL=https://play.quiz.disaai.de` gesetzt sein.
-
-## Codekonventionen
-
-- **TypeScript-Imports** nutzen `.js` Extensions: `from "./config.js"` (ECMAScript-Module mit `moduleResolution: "bundler"`)
-- **Zod-Schemas** sind `.strict()` — unerwartete Felder fuehren zu Validierungsfehlern
-- **Discriminated Unions** fuer Fragetypen (`type`-Feld) und Antworten
-- **Enums** (nicht Union-Types) fuer States: `RoomState`, `GameState`, `PlayerState`, `QuestionType`
-- **`useEffectEvent`** in React-Hooks statt `useCallback` fuer Handler die auf aktuellen State zugreifen muessen
-- **Kein React Router** — Navigation erfolgt ueber Screen-State-Maschine in den Session-Hooks
-- **Join-Codes**: 6-stellig, Alphabet `ABCDEFGHJKLMNPQRSTUVWXYZ23456789` (ohne I, O, 0, 1)
-- **QR-Codes** in Display und Host (Library: `qrcode`)
-- **UI-Sprache**: Deutsch
-
-## Quiz-Daten
-
-Fragenkatalog als 11 kategorisierte JSON-Dateien in `data/quiz/questions/cat-*.json` (430 Fragen), geladen von `apps/server/src/quiz-data.ts`.
-
-Fragetypen: `multiple_choice`, `estimate`, `majority_guess`, `ranking`, `logic`, `open_text`. Die JSON-Rohdaten nutzen zusaetzliche Typ-Labels (`standard`, `common_mistake`, `pattern`, `fast_guess`, `estimate_duel`), die beim Laden in `quiz-data.ts` auf die 6 kanonischen Typen normalisiert werden.
-
-GamePlan-Presets: `quick_dirty`, `normal_evening`, `full_evening`, `chaos_party`.
-
-Scoreboard erscheint nur nach jeder 5. echten Frage (nicht nach Demo, nicht nach jeder Runde).
-
-## Ziel-Subdomains
-
-- `tv.quiz.disaai.de` → Display/TV-UI
-- `host.quiz.disaai.de` → Host-Controller-UI
-- `play.quiz.disaai.de` → Player-UI
-- `api.quiz.disaai.de` → WebSocket/API-Backend
-
-`disaai.de`, `www.disaai.de` und bestehende Disa-AI-Deployments duerfen nicht angefasst werden.
-
-## Arbeitsregeln fuer Agenten
-
-- Erst lesen, dann aendern.
-- Vor Datei-Edits Repo-Stand, betroffene Dateien und vorhandene Doku pruefen.
+- Erst lesen, dann aendern: `git status --short`, relevante Doku, betroffene Dateien.
+- Kleine, gezielte Aenderungen bevorzugen. Keine grossen Refactorings wegen Ordnung.
+- Bestehende Patterns, Module, Types und Helfer nutzen, bevor neue Abstraktionen entstehen.
+- Keine neuen Dependencies ohne klaren, repo-spezifischen Nutzen.
+- Keine Produktlogik aendern, wenn die Aufgabe Dokumentation oder Workflow betrifft.
 - Keine Features ohne ausdruecklichen Auftrag.
 - Keine UI-Redesigns ohne ausdruecklichen Auftrag.
 - Keine Fragenkatalog-Aenderungen ohne ausdruecklichen Auftrag.
-- Keine Spielmechanik-Aenderungen ohne ausdruecklichen Auftrag.
-- Keine Durable Objects, Datenbank, Persistenz, Accounts oder Adminsysteme einfuehren.
-- Keine Secrets, Tokens, Zertifikate oder Credential-Dateien ins Repo schreiben.
-- Keine DNS- oder Cloudflare-Konfigurationsaktionen ohne explizites `[CONFIRM]` des Nutzers.
-- Keine produktiven Deployments veraendern, ausser der Nutzer gibt dafuer explizit frei.
-- Lokale Zielservices und Tunnel muessen beide stabil sein; der sichtbare Abendbetrieb laeuft ueber die Subdomains.
-- Kleine, direkte Aenderungen bevorzugen. Neue Abstraktionen nur, wenn sie aktuelle Doppelung oder aktuelle Komplexitaet klar reduzieren.
+- Keine Spielmechanik-, Scoring- oder Fragetyp-Aenderungen ohne ausdruecklichen Auftrag.
+- Keine Durable Objects, Datenbank, Persistenz, Accounts, Profile, Adminsysteme oder globale Highscores einfuehren.
+- Keine echten Secrets, Tokens, Zertifikate, Tunnel-Credentials oder `.env`-Dateien ins Repo schreiben.
+- Keine DNS-, Tunnel-Routing-, Secret-, Cloudflare- oder Deployment-Aktionen ohne explizites `[CONFIRM]`.
+- `disaai.de`, `www.disaai.de` und bestehende Disa-AI-Deployments nicht anfassen.
+- UI-Sprache bleibt Deutsch.
+- Bei UI-Aenderungen vorhandene App-Struktur, CSS-Variablen, responsive Constraints, Lesbarkeit auf TV/Handy und Accessibility pruefen.
+- Nach Aenderungen passende Checks ausfuehren oder konkret begruenden, warum sie nicht laufen konnten.
+- Nutzer- oder Fremdaenderungen im Arbeitsbaum nicht zuruecksetzen.
 
-## Erlaubte Aenderungen
+## Critical Files
 
-- Dokumentation aktualisieren oder strukturieren.
-- Veraltete Aussagen zu Services, Ports, Workflows und Tunnelbetrieb korrigieren.
-- `AGENTS.md`, `CLAUDE.md`, `WORKFLOW.md`, `README.md` und relevante `docs/*` konsistent halten.
-- GitHub-Actions-Workflows fuer Install, Typecheck, Test und Build vereinheitlichen.
-- `.env*.example` Dateien pruefen und dokumentieren.
-- Deploy-/Tunnel-Doku und Beispielkonfigurationen ergaenzen.
-- Kleine Config-Korrekturen nur dann, wenn sie direkt zur Dokumentations- oder Workflow-Kohaerenz gehoeren.
+| Datei | Warum kritisch |
+| --- | --- |
+| `apps/server/src/index.ts` | HTTP/WebSocket-Server, Message-Dispatch, Rollen-Auth |
+| `apps/server/src/game.ts` | Spielstart, Frage-Ablauf, Antwortannahme, Reveal, Scoreboard, Finish |
+| `apps/server/src/lobby.ts` | Room-Join, Host-/Display-Connect, Resume, Settings, Kategorie-Voting |
+| `apps/server/src/session.ts` | Disconnect-Grace-Logik und Socket-Close-Verhalten |
+| `apps/server/src/state.ts` | Globale In-Memory-Maps fuer Raeume und Sessions |
+| `apps/server/src/config.ts` | Ports, Origins, Grace-Zeiten, Timer-Konstanten |
+| `apps/server/src/question-payloads.ts` | Trennt Host/Display-Vollfrage von Player-Controller-Payload |
+| `packages/shared-protocol/src/events.ts` | Kanonische Eventnamen |
+| `packages/shared-protocol/src/schemas.ts` | Kanonische Payload-Schemas und Rollen-Richtungen |
+| `packages/shared-types/src` | Geteilte States, Questions, Answers, GamePlan, Room, Player |
+| `packages/quiz-engine/src` | Reine Auswertungs- und Scoreboard-Funktionen |
+| `apps/*/src/hooks/use*Session.ts` | Clientseitige Session-State-Maschinen und Event-Handler |
+| `apps/*/src/storage.ts` | localStorage-Resume-Daten |
+| `apps/*/src/styles.css` | App-lokale Design-Tokens und Layouts |
+| `quiz.sh` | Abend-/Hotspot-Start fuer Services plus bestehenden Tunnel |
+| `.env.tunnel.example` | Beispielwerte fuer Domain-/Tunnelbetrieb |
+| `deploy/cloudflare-tunnel.example.yml` | Beispiel-Mapping fuer Tunnel, keine echten Credentials |
+| `.github/workflows/ci.yml` | CI-Reihenfolge und Validierungsstandard |
 
-## Verbotene Aenderungen
+## Styling / Design System
 
-- Neue Spiel-Features bauen.
-- UI redesignen.
-- Fragenkatalog oder Fragetexte aendern.
-- Spielmechanik, Scoring oder Fragetypen ohne Auftrag aendern.
-- Durable Objects, neue Datenbanken oder Persistenz einfuehren.
-- Accounts, Profile, Adminsysteme oder globale Highscores bauen.
-- Cloudflare-Tunnel erstellen, routen oder DNS aendern, wenn der Nutzer das nicht ausdruecklich verlangt.
-- DNS-Eintraege aendern, loeschen oder ueberschreiben.
-- Secrets oder echte Cloudflare-Credentials committen.
-- `disaai.de`, `www.disaai.de` oder bestehende Disa-AI-Deployments anfassen.
+- Kein Tailwind und kein zentrales Component-Designsystem.
+- Jede Web-App hat eine eigene `styles.css` mit lokalen CSS-Variablen und app-spezifischen Klassen.
+- Gemeinsame visuelle Basis: dunkler Hintergrund, ruhige Panels, Gold/Cyan-Akzente, Gruen/Rot/Amber fuer Status.
+- `docs/DESIGN-DIRECTION.md` beschreibt die Zielrichtung: hochwertige Game-Show, keine Neon-/Cyberpunk-Uebertreibung.
+- Display/TV: grosse Hierarchie, aus 3-4 m lesbar, wenig Meta-Rauschen.
+- Host: Regiepult, primaere Aktion sichtbar, Status und Fallbacks klar.
+- Player: mobile-first, ein-Hand-bedienbar, klare Antwort- und Verbindungszustaende.
+- Keine globalen UI-Aenderungen, ohne alle drei Apps und vorhandene Token/Klassen zu pruefen.
+- Keine Shared-CSS-Abstraktion einfuehren, nur weil Token aehnlich aussehen; die Apps bleiben bewusst eigenstaendig.
 
-## Cloudflare, DNS und Secrets
+## Testing & Verification
 
-- Cloudflare Tunnel ist die Verbindung von festen Subdomains zu lokalen Diensten im Abendbetrieb.
-- `quiz.sh` startet den bestehenden Tunnel automatisch; Tunnel-Erstellung, Routing und DNS bleiben manuelle Cloudflare-Arbeit.
-- Beispielkonfiguration: `deploy/cloudflare-tunnel.example.yml`.
-- Dokumentation: `docs/DEPLOYMENT-CLOUDFLARE-TUNNEL.md`.
+Vitest-Scope in `vitest.config.ts`:
+
+```text
+packages/*/src/**/*.test.ts
+apps/server/src/**/*.test.ts
+```
+
+Regel fuer Abschluss:
+
+```bash
+corepack pnpm run validate
+```
+
+Bei kleineren Doku-Aenderungen reicht mindestens:
+
+```bash
+git diff --check
+```
+
+Bei Runtime- oder Protokoll-Aenderungen zusaetzlich:
+
+```bash
+corepack pnpm run smoke:local
+```
+
+Wenn der Tunnel aktiv ist und Domainbetrieb betroffen ist:
+
+```bash
+SMOKE_WS_URL=wss://api.quiz.disaai.de corepack pnpm run smoke:local
+```
+
+CI-Reihenfolge bleibt: install -> lint -> typecheck -> test -> build.
+
+## Known Pitfalls
+
+- Der Serverzustand ist In-Memory. Server-Neustart bedeutet: Raum und Spielstand sind weg.
+- `display:create-room` und `host:connect` existieren noch als Legacy-/Fallback-Pfad; Host-first mit `host:create-room` und `display:connect-room` ist der primaere Flow.
+- Scoreboard erscheint nur nach jeder 5. echten Frage, nicht nach Demo und nicht nach jeder Runde.
+- Player duerfen nicht die volle Frage inklusive korrekter Antwort erhalten; `question:controller` bleibt reduziert.
+- Zod-Schemas sind `.strict()`: unerwartete Felder brechen Payload-Validierung.
+- Lokale Imports brauchen `.js` Endungen trotz TypeScript-Dateien.
+- `useEffectEvent` wird in React-Hooks fuer Handler genutzt, die aktuellen State lesen muessen; nicht reflexhaft durch `useCallback` ersetzen.
+- Kein React Router; Navigation laeuft ueber Screen-State in den Session-Hooks.
+- Vite-Proxies leiten `/ws` und `/api` lokal an `localhost:3001`, falls keine `VITE_SERVER_SOCKET_URL` gesetzt ist.
+- Abendbetrieb braucht `VITE_PLAYER_JOIN_BASE_URL=https://play.quiz.disaai.de`, damit QR-Codes nicht auf localhost zeigen.
+- `.cloudflared/`, echte `.env`-Dateien, Zertifikate und Credentials sind ignoriert und tabu.
+- Es gibt ignorierte leere `package-lock.json`/`yarn.lock`; nicht verwenden, nicht als Paketmanager-Signal interpretieren.
+
+## Cloudflare, DNS and Secrets
+
+- Cloudflare Tunnel verbindet feste Subdomains mit lokal laufenden Diensten.
+- `quiz.sh` startet den bestehenden Tunnel automatisch.
+- Ziel-Subdomains:
+  - `tv.quiz.disaai.de` -> Display/TV
+  - `host.quiz.disaai.de` -> Host
+  - `play.quiz.disaai.de` -> Player
+  - `api.quiz.disaai.de` -> Server/API/WebSocket
 - Erlaubte reine Checks ohne `[CONFIRM]`: lokale Dateien lesen, Doku pruefen, `cloudflared --version`, `cloudflared tunnel list`.
-- Nicht erlaubt ohne `[CONFIRM]`: Tunnel erstellen, Tunnel routen, DNS aendern, Secrets setzen, Deployments starten.
+- Verboten ohne `[CONFIRM]`: Tunnel erstellen, Tunnel routen, DNS aendern, Secrets setzen, Deployments starten.
 - Niemals committen: `.cloudflared/`, Zertifikate, private Keys, Credential-JSON, Tokens, echte Secrets.
-
-## Git-Status
-
-- Vor Aenderungen `git status --short` pruefen.
-- Nutzer- oder Fremdaenderungen nicht zuruecksetzen.
-- Unrelated dirty files ignorieren.
-- Wenn eigene Aenderungen mit bestehenden fremden Aenderungen kollidieren, erst verstehen und dann vorsichtig integrieren.
 
 ## Definition of Done
 
 - Dokumentation und Code widersprechen sich nicht.
-- Aktuelle Services, Ports und Subdomains sind korrekt beschrieben.
-- Keine neue Feature-Flaeche wurde ohne Auftrag geoeffnet.
+- Services, Ports, Subdomains und Befehle sind korrekt beschrieben.
 - Server bleibt authoritative.
+- Keine neue Feature-Flaeche wurde ohne Auftrag geoeffnet.
+- Keine Fragen-, Spielmechanik-, Scoring- oder UI-Redesign-Aenderung wurde eingeschmuggelt.
 - Keine Secrets oder produktiven Cloudflare-/DNS-Aenderungen wurden erzeugt.
-- `corepack pnpm typecheck`, `corepack pnpm test` und `corepack pnpm build` laufen oder Abweichungen sind klar dokumentiert.
-- Fuer Runtime-relevante Aenderungen ist der Flow mindestens per Smoke-Test oder begruendeter manueller Pruefung abgedeckt.
+- Arbeitsbaum wurde vor und nach der Arbeit geprueft.
+- Passende Checks wurden ausgefuehrt: mindestens `git diff --check`, fuer Code/Runtime `corepack pnpm run validate`, fuer Runtime-Flows Smoke-Test oder begruendete manuelle Pruefung.
+- Falls ein Check nicht lief oder fehlschlug, ist der genaue Befehl und Grund im Abschluss genannt.

@@ -112,6 +112,14 @@ corepack pnpm test
 corepack pnpm build
 ```
 
+Alternativ als Sammelcheck:
+
+```bash
+corepack pnpm run validate
+```
+
+`validate` fuehrt dieselben vier Checks in derselben Reihenfolge aus. Die Einzelbefehle bleiben wichtig, wenn ein Fehler eingegrenzt werden muss.
+
 CI soll dieselbe Reihenfolge nutzen:
 
 1. install

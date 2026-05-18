@@ -72,6 +72,40 @@ geburtstagsquiz/
    `- GAME-RULES.md
 ```
 
+## Befehle
+
+Dieses Repo nutzt pnpm via Corepack. `pnpm-lock.yaml` ist der kanonische Lockfile.
+
+```bash
+corepack pnpm install --frozen-lockfile
+corepack pnpm dev
+corepack pnpm lint
+corepack pnpm typecheck
+corepack pnpm test
+corepack pnpm build
+corepack pnpm run validate
+```
+
+`corepack pnpm run validate` fuehrt `lint`, `typecheck`, `test` und `build` in CI-Reihenfolge aus.
+
+Einzelne Services:
+
+```bash
+corepack pnpm --filter @quiz/server run dev
+corepack pnpm --filter @quiz/web-host run dev
+corepack pnpm --filter @quiz/web-player run dev
+corepack pnpm --filter @quiz/web-display run dev
+```
+
+Es gibt keinen separaten Root-Preview-Befehl. Fuer den Abend ist `./quiz.sh` der unterstuetzte Start; fuer lokale Entwicklung sind `corepack pnpm dev` oder die Einzelservice-Befehle gedacht.
+
+Agenten- und Workflow-Regeln stehen in:
+
+- `AGENTS.md`
+- `CLAUDE.md`
+- `.github/copilot-instructions.md`
+- `WORKFLOW.md`
+
 ## Schnellstart Abendbetrieb
 
 Voraussetzungen:
