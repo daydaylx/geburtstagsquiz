@@ -1,4 +1,5 @@
 import type { GamePlanPresetId, RevealMode } from "@quiz/shared-types";
+import { useState } from "react";
 
 import type { UseHostSessionReturn } from "../hooks/useHostSession.js";
 import { buildCustomGamePlan, buildPresetGamePlan } from "../lib/game-plan-drafts.js";
@@ -20,13 +21,81 @@ function getTopVotedCategoryId(votes: Record<string, number>, categories: { id: 
   return sorted[0]?.id ?? null;
 }
 
+function PlanSummaryBadges({ session: s }: { session: UseHostSessionReturn }) {
+  if (!s.gamePlanDraft) return null;
+  return (
+    <div className="host-plan-summary">
+      <span>{s.gamePlanDraft.questionCount} Fragen</span>
+      <span>{s.gamePlanDraft.timerMs / 1000}s Timer</span>
+      <span>
+        {s.gamePlanDraft.revealMode === "manual"
+          ? "Manuelles Reveal"
+          : s.gamePlanDraft.revealMode === "manual_with_fallback"
+            ? "30s Fallback"
+            : `${s.gamePlanDraft.revealDurationMs / 1000}s Reveal`}
+      </span>
+      <span>Show: {getShowLevelLabel(s.gamePlanDraft.displayShowLevel)}</span>
+      <span>Demo: {s.gamePlanDraft.enableDemoQuestion ? "an" : "aus"}</span>
+    </div>
+  );
+}
+
 interface HostGamePlanBuilderProps {
   session: UseHostSessionReturn;
 }
 
 export function HostGamePlanBuilder({ session: s }: HostGamePlanBuilderProps) {
+  const [collapsed, setCollapsed] = useState(true);
+
   if (!s.catalog || !s.gamePlanDraft) {
     return <div className="host-estimate-display">Lade Fragenkatalog...</div>;
+  }
+
+  const topId = getTopVotedCategoryId(s.votes, s.catalog.categories);
+  const topName = topId ? (s.catalog.categories.find((c) => c.id === topId)?.name ?? topId) : null;
+  const topCount = topId ? (s.votes[topId] ?? 0) : 0;
+  const presetLabel = s.selectedPlanMode === "custom" ? "Freie Auswahl" : getPresetLabel(s.selectedPlanMode);
+
+  const handleVotingOverride = () => {
+    if (!topId) return;
+    s.setSelectedPlanMode("custom");
+    s.handlePlanDraftChange({
+      ...buildCustomGamePlan(s.catalog!, s.gamePlanDraft!.showAnswerTextOnPlayerDevices),
+      categoryIds: [topId],
+    });
+    setCollapsed(false);
+  };
+
+  if (collapsed) {
+    return (
+      <div className="host-plan-builder">
+        <div className="host-section-head">
+          <p className="host-section-label">Spielplan</p>
+          <span className="host-online-count">{s.catalog.totalQuestions} Fragen verfügbar</span>
+        </div>
+        {topId && (
+          <button
+            className="host-preset-button host-preset-button--voting"
+            onClick={handleVotingOverride}
+            type="button"
+          >
+            <strong>Voting übernehmen</strong>
+            <small>
+              {topName} – {topCount} Stimme{topCount !== 1 ? "n" : ""}
+            </small>
+          </button>
+        )}
+        <div className="host-plan-collapsed">
+          <div className="host-plan-collapsed-summary">
+            <strong>{presetLabel}</strong>
+            <PlanSummaryBadges session={s} />
+          </div>
+          <button className="host-plan-expand-button" onClick={() => setCollapsed(false)} type="button">
+            Anpassen ▾
+          </button>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -35,29 +104,21 @@ export function HostGamePlanBuilder({ session: s }: HostGamePlanBuilderProps) {
         <p className="host-section-label">Spielplan</p>
         <span className="host-online-count">{s.catalog.totalQuestions} Fragen verfügbar</span>
       </div>
-      {(() => {
-        const topId = getTopVotedCategoryId(s.votes, s.catalog!.categories);
-        const topName = topId ? (s.catalog!.categories.find((c) => c.id === topId)?.name ?? topId) : null;
-        const topCount = topId ? (s.votes[topId] ?? 0) : 0;
-        return topId ? (
-          <button
-            className="host-preset-button host-preset-button--voting"
-            onClick={() => {
-              s.setSelectedPlanMode("custom");
-              s.handlePlanDraftChange({
-                ...buildCustomGamePlan(s.catalog!, s.gamePlanDraft!.showAnswerTextOnPlayerDevices),
-                categoryIds: [topId],
-              });
-            }}
-            type="button"
-          >
-            <strong>Voting übernehmen</strong>
-            <small>
-              {topName} – {topCount} Stimme{topCount !== 1 ? "n" : ""}
-            </small>
-          </button>
-        ) : null;
-      })()}
+      <button
+        className="host-plan-expand-button host-plan-expand-button--collapse"
+        onClick={() => setCollapsed(true)}
+        type="button"
+      >
+        Weniger anzeigen ▴
+      </button>
+      {topId && (
+        <button className="host-preset-button host-preset-button--voting" onClick={handleVotingOverride} type="button">
+          <strong>Voting übernehmen</strong>
+          <small>
+            {topName} – {topCount} Stimme{topCount !== 1 ? "n" : ""}
+          </small>
+        </button>
+      )}
       <div className="host-preset-grid">
         {PRESET_IDS.map((presetId) => (
           <button
@@ -92,19 +153,7 @@ export function HostGamePlanBuilder({ session: s }: HostGamePlanBuilderProps) {
 
       {s.selectedPlanMode === "custom" && <HostCustomGamePlanBuilder session={s} />}
 
-      <div className="host-plan-summary">
-        <span>{s.gamePlanDraft.questionCount} Fragen</span>
-        <span>{s.gamePlanDraft.timerMs / 1000}s Timer</span>
-        <span>
-          {s.gamePlanDraft.revealMode === "manual"
-            ? "Manuelles Reveal"
-            : s.gamePlanDraft.revealMode === "manual_with_fallback"
-              ? "30s Fallback"
-              : `${s.gamePlanDraft.revealDurationMs / 1000}s Reveal`}
-        </span>
-        <span>Show: {getShowLevelLabel(s.gamePlanDraft.displayShowLevel)}</span>
-        <span>Demo: {s.gamePlanDraft.enableDemoQuestion ? "an" : "aus"}</span>
-      </div>
+      <PlanSummaryBadges session={s} />
     </div>
   );
 }

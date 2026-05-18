@@ -5,7 +5,6 @@ import { HostQuestionStage } from "./components/HostQuestionStage.js";
 import { HostRevealStage } from "./components/HostRevealStage.js";
 import { HostScoreboardStage } from "./components/HostScoreboardStage.js";
 import { useHostSession } from "./hooks/useHostSession.js";
-import { getPlayerJoinUrl } from "./lib/helpers.js";
 
 const FLOW_STEPS = ["Lobby", "Kategorien", "Frage", "Auflösung", "Endstand"] as const;
 
@@ -64,8 +63,6 @@ export function App() {
     !s.question.isDemoQuestion &&
     effectiveTotalQuestionCount !== null &&
     currentQuestionNumber < effectiveTotalQuestionCount;
-  const playerJoinUrl = s.roomInfo?.joinCode ? getPlayerJoinUrl(s.roomInfo.joinCode) : null;
-
   const currentFlowStepIndex =
     s.screen === "finished"
       ? 4
@@ -205,230 +202,160 @@ export function App() {
           </div>
         </section>
       ) : s.roomInfo ? (
-        <>
-          <section className="host-dashboard">
-            <aside className="host-sidebar-col">
-              <div className="host-card host-card--dark">
-                <p className="host-section-label host-section-label--muted">Raum</p>
-                <p className="host-join-code">{s.roomInfo.joinCode}</p>
-                {s.qrCodeDataUrl && (
-                  <div className="host-qr-mini">
-                    <img alt="Join QR" src={s.qrCodeDataUrl} />
-                  </div>
-                )}
-                {playerJoinUrl && (
-                  <div className="host-join-url-row">
-                    <p className="host-join-url host-join-url--sidebar">{playerJoinUrl}</p>
-                    <button
-                      className="host-copy-url-button"
-                      onClick={() =>
-                        navigator.clipboard.writeText(playerJoinUrl).catch(() => {
-                          /* clipboard not available */
-                        })
-                      }
-                      title="Link kopieren"
-                      type="button"
-                    >
-                      Link kopieren
-                    </button>
-                  </div>
-                )}
-                <div className="host-display-status-row">
-                  <span className="host-control-label">Display</span>
-                  <strong>{s.displayConnected ? "Verbunden" : "Nicht verbunden"}</strong>
-                </div>
-                {!s.displayConnected && s.displayConnectToken && (
-                  <button
-                    className="host-action-button host-action-button--secondary host-display-open-sidebar"
-                    onClick={s.handleOpenDisplay}
-                    type="button"
-                  >
-                    Display öffnen
-                  </button>
-                )}
-              </div>
-              <div className="host-panel host-side-panel">
-                <div className="host-panel-content">
-                  <p className="host-section-label">Ablauf</p>
-                  <div className="host-flow-list">
-                    {FLOW_STEPS.map((step, index) => (
-                      <div
-                        className="host-flow-item"
-                        data-state={
-                          index < currentFlowStepIndex
-                            ? "done"
-                            : index === currentFlowStepIndex
-                              ? "current"
-                              : "upcoming"
-                        }
-                        key={step}
-                      >
-                        <span className="host-flow-index">{index + 1}</span>
-                        <strong>{step}</strong>
-                      </div>
-                    ))}
+        s.screen === "lobby" ? (
+          <>
+            <div key={s.screen} className="host-stage-animate">
+              <HostLobbyStage session={s} connectedPlayerCount={connectedPlayerCount} />
+            </div>
+            <footer className="host-controls host-controls--lobby">
+              <button
+                className="host-primary-button"
+                disabled={isPrimaryDisabled}
+                onClick={s.handleStartGame}
+                type="button"
+              >
+                {primaryActionLabel}
+              </button>
+              {startBlockReason && <p className="host-start-block-reason">{startBlockReason}</p>}
+            </footer>
+          </>
+        ) : (
+          <>
+            <section className="host-dashboard">
+              <aside className="host-sidebar-col">
+                <div className="host-panel host-side-panel">
+                  <div className="host-panel-content">
+                    <p className="host-section-label">Ablauf</p>
+                    <div className="host-flow-list">
+                      {FLOW_STEPS.map((step, index) => (
+                        <div
+                          className="host-flow-item"
+                          data-state={
+                            index < currentFlowStepIndex
+                              ? "done"
+                              : index === currentFlowStepIndex
+                                ? "current"
+                                : "upcoming"
+                          }
+                          key={step}
+                        >
+                          <span className="host-flow-index">{index + 1}</span>
+                          <strong>{step}</strong>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </aside>
+              </aside>
 
-            <section className="host-panel host-stage-panel">
-              <div key={s.screen} className="host-stage-animate">
-                {renderStagePanel()}
-              </div>
+              <section className="host-panel host-stage-panel">
+                <div key={s.screen} className="host-stage-animate">
+                  {renderStagePanel()}
+                </div>
+              </section>
+
+              <aside className="host-sidebar-col">
+                <div className="host-panel host-side-panel">
+                  <div className="host-panel-content">
+                    <div className="host-section-head">
+                      <p className="host-section-label">Spieler</p>
+                      <span className="host-online-count">{connectedPlayerCount} online</span>
+                    </div>
+                    <div className="host-player-list">
+                      {(s.lobby?.players ?? []).map((p) => (
+                        <div className="host-player-item" key={p.playerId}>
+                          <div className="host-player-meta">
+                            <div className="host-player-status-dot" data-connected={p.connected} />
+                            <span className="host-player-name">{p.name}</span>
+                          </div>
+                          <div className="host-player-actions">
+                            <span className="host-player-score">{p.score}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </aside>
             </section>
 
-            <aside className="host-sidebar-col">
-              <div className="host-panel host-side-panel">
-                <div className="host-panel-content">
-                  <div className="host-section-head">
-                    <p className="host-section-label">Spieler</p>
-                    <span className="host-online-count">{connectedPlayerCount} online</span>
-                  </div>
-                  <div className="host-player-list">
-                    {(s.lobby?.players ?? []).map((p) => (
-                      <div className="host-player-item" key={p.playerId}>
-                        <div className="host-player-meta">
-                          <div className="host-player-status-dot" data-connected={p.connected} />
-                          <span className="host-player-name">{p.name}</span>
-                        </div>
-                        <div className="host-player-actions">
-                          <span className="host-player-score">{p.score}</span>
-                          {s.confirmRemovePlayerId === p.playerId ? (
-                            <>
-                              <button
-                                className="host-small-danger-button"
-                                onClick={() => {
-                                  s.handleRemovePlayer(p.playerId);
-                                  s.setConfirmRemovePlayerId(null);
-                                }}
-                                type="button"
-                              >
-                                Sicher?
-                              </button>
-                              <button
-                                className="host-small-cancel-button"
-                                onClick={() => s.setConfirmRemovePlayerId(null)}
-                                type="button"
-                              >
-                                ✕
-                              </button>
-                            </>
-                          ) : (
-                            <button
-                              className="host-small-danger-button"
-                              onClick={() => s.setConfirmRemovePlayerId(p.playerId)}
-                              type="button"
-                            >
-                              Entfernen
-                            </button>
-                          )}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+            <footer className="host-controls">
+              <div className="host-control-info">
+                <div className="host-control-metric">
+                  <span className="host-control-label">Status</span>
+                  <span className="host-control-value">{s.screen === "finished" ? "Beendet" : "Quiz läuft"}</span>
                 </div>
-              </div>
-              <div className="host-card">
-                <p className="host-section-label">Handy-Controller</p>
-                <label className="host-toggle-row">
-                  <input
-                    checked={s.showAnswerTextOnPlayerDevices}
-                    disabled={s.screen !== "lobby"}
-                    onChange={(event) => s.handleAnswerTextSettingChange(event.target.checked)}
-                    type="checkbox"
-                  />
-                  <span className="host-toggle-track" />
-                  <span className="host-toggle-copy">
-                    <strong>Antworttexte auf Handys</strong>
-                    <small>{s.showAnswerTextOnPlayerDevices ? "An" : "Aus"}</small>
+                <div className="host-control-metric">
+                  <span className="host-control-label">Fortschritt</span>
+                  <span className="host-control-value">
+                    {effectiveTotalQuestionCount
+                      ? `Frage ${visibleQuestionNumber} / ${effectiveTotalQuestionCount}`
+                      : "Warten..."}
                   </span>
-                </label>
-              </div>
-            </aside>
-          </section>
-
-          <footer className="host-controls">
-            <div className="host-control-info">
-              <div className="host-control-metric">
-                <span className="host-control-label">Status</span>
-                <span className="host-control-value">
-                  {s.screen === "finished" ? "Beendet" : s.screen === "lobby" ? "Lobby offen" : "Quiz läuft"}
-                </span>
-              </div>
-              <div className="host-control-metric">
-                <span className="host-control-label">Fortschritt</span>
-                <span className="host-control-value">
-                  {effectiveTotalQuestionCount
-                    ? `Frage ${visibleQuestionNumber} / ${effectiveTotalQuestionCount}`
-                    : "Warten..."}
-                </span>
-                <div
-                  className="host-progress-bar host-progress-bar--compact"
-                  role="progressbar"
-                  aria-valuenow={Math.round(questionProgressPercent)}
-                  aria-valuemin={0}
-                  aria-valuemax={100}
-                >
-                  <div className="host-progress-fill" style={{ width: `${questionProgressPercent}%` }} />
+                  <div
+                    className="host-progress-bar host-progress-bar--compact"
+                    role="progressbar"
+                    aria-valuenow={Math.round(questionProgressPercent)}
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                  >
+                    <div className="host-progress-fill" style={{ width: `${questionProgressPercent}%` }} />
+                  </div>
                 </div>
               </div>
-            </div>
-            {["countdown", "question", "reveal", "scoreboard"].includes(s.screen) && (
-              <div className="host-fallback-actions">
-                {canManuallyShowScoreboard && (
-                  <button className="host-secondary-button" onClick={s.handleShowScoreboard} type="button">
-                    Scoreboard anzeigen
-                  </button>
-                )}
-                {s.confirmFinishNow ? (
-                  <>
-                    <button
-                      className="host-secondary-button host-secondary-button--danger"
-                      onClick={() => {
-                        s.handleFinishNow();
-                        s.setConfirmFinishNow(false);
-                      }}
-                      type="button"
-                    >
-                      Wirklich beenden?
+              {["countdown", "question", "reveal", "scoreboard"].includes(s.screen) && (
+                <div className="host-fallback-actions">
+                  {canManuallyShowScoreboard && (
+                    <button className="host-secondary-button" onClick={s.handleShowScoreboard} type="button">
+                      Scoreboard anzeigen
                     </button>
-                    <button
-                      className="host-small-cancel-button"
-                      onClick={() => s.setConfirmFinishNow(false)}
-                      type="button"
-                    >
-                      ✕
+                  )}
+                  {s.confirmFinishNow ? (
+                    <>
+                      <button
+                        className="host-secondary-button host-secondary-button--danger"
+                        onClick={() => {
+                          s.handleFinishNow();
+                          s.setConfirmFinishNow(false);
+                        }}
+                        type="button"
+                      >
+                        Wirklich beenden?
+                      </button>
+                      <button
+                        className="host-small-cancel-button"
+                        onClick={() => s.setConfirmFinishNow(false)}
+                        type="button"
+                      >
+                        ✕
+                      </button>
+                    </>
+                  ) : (
+                    <button className="host-secondary-button" onClick={() => s.setConfirmFinishNow(true)} type="button">
+                      Spiel beenden
                     </button>
-                  </>
-                ) : (
-                  <button className="host-secondary-button" onClick={() => s.setConfirmFinishNow(true)} type="button">
-                    Spiel beenden
-                  </button>
-                )}
-              </div>
-            )}
-            <button
-              className="host-primary-button"
-              disabled={isPrimaryDisabled}
-              onClick={
-                s.screen === "lobby"
-                  ? s.handleStartGame
-                  : s.screen === "question"
+                  )}
+                </div>
+              )}
+              <button
+                className="host-primary-button"
+                disabled={isPrimaryDisabled}
+                onClick={
+                  s.screen === "question"
                     ? s.handleForceCloseQuestion
                     : s.screen === "reveal"
                       ? s.handleAdvanceQuestion
                       : s.screen === "scoreboard"
                         ? s.handleAdvanceQuestion
                         : s.handleRestartInfo
-              }
-              type="button"
-            >
-              {primaryActionLabel}
-            </button>
-            {startBlockReason && <p className="host-start-block-reason">{startBlockReason}</p>}
-          </footer>
-        </>
+                }
+                type="button"
+              >
+                {primaryActionLabel}
+              </button>
+            </footer>
+          </>
+        )
       ) : null}
     </main>
   );

@@ -7,8 +7,6 @@ type DisplayQuestion = NonNullable<UseDisplaySessionReturn["question"]>;
 type DisplayQuestionWithOptions = Extract<DisplayQuestion, { options: { id: string; label: string }[] }>;
 type DisplayQuestionWithItems = Extract<DisplayQuestion, { items: { id: string; label: string }[] }>;
 
-const REVEAL_CONFETTI_COLORS = ["#22c55e", "#f6c76a", "#2dd4a8", "#f59e0b", "#d93683"];
-
 interface DisplayRevealScreenProps {
   session: UseDisplaySessionReturn;
   correctCount: number;
@@ -32,9 +30,7 @@ export function DisplayRevealScreen({
     return null;
   }
 
-  const totalAnswers = correctCount + wrongCount + noneCount;
-  const correctRatio = totalAnswers > 0 ? correctCount / totalAnswers : 0;
-  const showConfetti = correctRatio >= 0.8 && correctCount >= 3;
+  const revealContextParts = getRevealContextParts(s.revealExplanation, s.revealEstimateContext);
 
   return (
     <div className="display-reveal" data-fading={s.isFadingOut || undefined} data-question-type={s.question.type}>
@@ -48,64 +44,53 @@ export function DisplayRevealScreen({
         <DisplayRevealAnswer question={s.question} session={s} />
       </section>
 
-      {s.revealExplanation && (
+      {revealContextParts.length > 0 && (
         <section className="display-reveal-explanation-section" aria-label="Aufklärung">
           <div className="display-reveal-label">Aufklärung</div>
-          <p className="display-reveal-explanation-text">{s.revealExplanation}</p>
+          <div className="display-reveal-explanation-copy">
+            {revealContextParts.map((part) => (
+              <p className="display-reveal-explanation-text" key={part}>
+                {part}
+              </p>
+            ))}
+          </div>
         </section>
       )}
 
-      <div className="display-reveal-stats-compact" role="status" aria-label="Rundenergebnis">
-        <span>{correctCount} richtig</span>
-        <span className="display-reveal-stats-sep" aria-hidden="true">
-          ·
-        </span>
-        <span>{wrongCount} falsch</span>
-        <span className="display-reveal-stats-sep" aria-hidden="true">
-          ·
-        </span>
-        <span>{noneCount} keine Antwort</span>
-      </div>
-
-      {visibleReadyProgress && (
-        <div className="display-ready-block" data-all-ready={readyProgressAllReady ? "true" : undefined}>
-          <div className="display-ready-label">
-            {readyProgressAllReady
-              ? "Alle bereit!"
-              : `${visibleReadyProgress.readyCount} / ${visibleReadyProgress.totalEligiblePlayers} bereit`}
-          </div>
-          <div className="display-ready-track">
-            <div className="display-ready-fill" style={{ width: `${readyProgressPercent}%` }} />
-          </div>
+      <footer className="display-reveal-footer">
+        <div className="display-reveal-stats-compact" role="status" aria-label="Rundenergebnis">
+          <span>{correctCount} richtig</span>
+          <span className="display-reveal-stats-sep" aria-hidden="true">
+            ·
+          </span>
+          <span>{wrongCount} falsch</span>
+          <span className="display-reveal-stats-sep" aria-hidden="true">
+            ·
+          </span>
+          <span>{noneCount} keine Antwort</span>
         </div>
-      )}
 
-      {showConfetti && <RevealConfetti />}
+        {visibleReadyProgress && (
+          <div className="display-ready-block" data-all-ready={readyProgressAllReady ? "true" : undefined}>
+            <div className="display-ready-label">
+              {readyProgressAllReady
+                ? "Alle bereit!"
+                : `${visibleReadyProgress.readyCount} / ${visibleReadyProgress.totalEligiblePlayers} bereit`}
+            </div>
+            <div className="display-ready-track">
+              <div className="display-ready-fill" style={{ width: `${readyProgressPercent}%` }} />
+            </div>
+          </div>
+        )}
+      </footer>
     </div>
   );
 }
 
-function RevealConfetti() {
-  return (
-    <div className="display-reveal-confetti" aria-hidden="true">
-      {Array.from({ length: 10 }).map((_, i) => (
-        <div
-          key={i}
-          className="display-reveal-confetti-piece"
-          style={{
-            left: `${(i * 9.3) % 100}%`,
-            width: 8,
-            height: 8,
-            borderRadius: i % 2 === 0 ? "2px" : "50%",
-            animationDelay: `${(i * 0.15) % 1.5}s`,
-            animationDuration: `${2.5 + ((i * 0.08) % 1.2)}s`,
-            background: REVEAL_CONFETTI_COLORS[i % REVEAL_CONFETTI_COLORS.length],
-            transform: `rotate(${(i * 37) % 360}deg)`,
-          }}
-        />
-      ))}
-    </div>
-  );
+function getRevealContextParts(explanation: string | null, estimateContext: string | null): string[] {
+  return [explanation, estimateContext].filter((part, index, parts): part is string => {
+    return !!part && parts.indexOf(part) === index;
+  });
 }
 
 function DisplayRevealAnswer({
@@ -130,7 +115,6 @@ function DisplayRevealAnswer({
           <span className="display-reveal-estimate-value">{formatRevealNumber(s.revealedAnswer.value)}</span>
           <span className="display-reveal-estimate-unit">{question.unit}</span>
         </div>
-        {s.revealEstimateContext && <p className="display-reveal-estimate-context">{s.revealEstimateContext}</p>}
       </div>
     );
   }
