@@ -38,39 +38,35 @@ export function DisplayRevealScreen({
 
   return (
     <div className="display-reveal" data-fading={s.isFadingOut || undefined} data-question-type={s.question.type}>
+      <section className="display-reveal-question-section" aria-label="Frage">
+        <div className="display-reveal-label">Frage</div>
+        <p className="display-reveal-question-text">{s.question.text}</p>
+      </section>
+
       <section className="display-reveal-answer-stage" aria-label="Richtige Antwort">
-        <div className="display-reveal-header">Richtige Antwort</div>
+        <div className="display-reveal-label">Richtige Antwort</div>
         <DisplayRevealAnswer question={s.question} session={s} />
       </section>
 
-      <section className="display-reveal-stats" aria-label="Rundenergebnis">
-        <span className="display-reveal-stat display-reveal-stat--correct">
-          <strong>{correctCount}</strong>
-          <span>richtig</span>
-        </span>
-        <span className="display-reveal-stat display-reveal-stat--wrong">
-          <strong>{wrongCount}</strong>
-          <span>falsch</span>
-        </span>
-        <span className="display-reveal-stat display-reveal-stat--none">
-          <strong>{noneCount}</strong>
-          <span>keine Antwort</span>
-        </span>
-      </section>
+      {s.revealExplanation && (
+        <section className="display-reveal-explanation-section" aria-label="Aufklärung">
+          <div className="display-reveal-label">Aufklärung</div>
+          <p className="display-reveal-explanation-text">{s.revealExplanation}</p>
+        </section>
+      )}
 
-      <div className="display-reveal-detail-grid">
-        <div className="display-reveal-question">
-          <div className="display-explanation-label">Frage</div>
-          <p>{s.question.text}</p>
-        </div>
-
-        {s.revealExplanation && (
-          <div className="display-explanation">
-            <div className="display-explanation-label">Erklärung</div>
-            <p>{s.revealExplanation}</p>
-          </div>
-        )}
+      <div className="display-reveal-stats-compact" role="status" aria-label="Rundenergebnis">
+        <span>{correctCount} richtig</span>
+        <span className="display-reveal-stats-sep" aria-hidden="true">
+          ·
+        </span>
+        <span>{wrongCount} falsch</span>
+        <span className="display-reveal-stats-sep" aria-hidden="true">
+          ·
+        </span>
+        <span>{noneCount} keine Antwort</span>
       </div>
+
       {visibleReadyProgress && (
         <div className="display-ready-block" data-all-ready={readyProgressAllReady ? "true" : undefined}>
           <div className="display-ready-label">

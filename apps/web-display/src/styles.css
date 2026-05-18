@@ -1175,6 +1175,61 @@ body {
   opacity: 0.5;
 }
 
+.display-reveal-label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--display-ink-soft);
+  opacity: 0.55;
+  margin-bottom: 6px;
+}
+
+.display-reveal-question-section {
+  flex-shrink: 0;
+}
+
+.display-reveal-question-text {
+  margin: 0;
+  font-size: clamp(1.05rem, 1.8vw, 1.45rem);
+  font-weight: 600;
+  font-family: var(--font-serif);
+  color: var(--display-ink-soft);
+  line-height: 1.4;
+}
+
+.display-reveal-explanation-section {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 0;
+}
+
+.display-reveal-explanation-text {
+  margin: 0;
+  font-size: clamp(1.7rem, 3vw, 2.6rem);
+  font-weight: 600;
+  line-height: 1.55;
+  color: var(--display-ink);
+  max-width: 900px;
+}
+
+.display-reveal-stats-compact {
+  flex-shrink: 0;
+  font-size: clamp(0.82rem, 1.1vw, 0.95rem);
+  font-weight: 600;
+  color: var(--display-ink-soft);
+  opacity: 0.6;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.display-reveal-stats-sep {
+  opacity: 0.4;
+}
+
 .display-reveal-correct-card {
   display: flex;
   align-items: center;
@@ -2423,20 +2478,23 @@ body {
 /* ── Show screens: Reveal, Scoreboard, Finale ─────────────────────── */
 
 .display-reveal {
-  display: grid;
-  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  display: flex;
+  flex-direction: column;
   gap: clamp(12px, 2vh, 20px);
+  height: 100%;
   min-height: 0;
 }
 
 .display-reveal-answer-stage {
-  display: grid;
-  gap: clamp(10px, 1.6vh, 16px);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(8px, 1.2vh, 12px);
 }
 
 .display-reveal-correct-list {
   display: grid;
-  gap: clamp(10px, 1.6vh, 14px);
+  gap: clamp(8px, 1.2vh, 12px);
 }
 
 .display-reveal-correct-card {
@@ -2446,9 +2504,9 @@ body {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   align-items: center;
-  gap: clamp(16px, 2.4vw, 28px);
+  gap: clamp(10px, 1.5vw, 16px);
   min-width: 0;
-  padding: clamp(22px, 3.2vh, 36px) clamp(26px, 4vw, 48px);
+  padding: clamp(10px, 1.6vh, 16px) clamp(14px, 2vw, 22px);
   background: var(--reveal-opt-bg, var(--bg-card-active));
   border: 2px solid var(--solid-border-strong);
   border-left: 12px solid var(--display-reveal-option-color);
@@ -2487,12 +2545,12 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: clamp(72px, 7vw, 96px);
-  min-height: clamp(72px, 7vw, 96px);
+  min-width: clamp(40px, 4vw, 54px);
+  min-height: clamp(40px, 4vw, 54px);
   border-radius: var(--radius-md);
   background: var(--display-reveal-option-color);
   color: var(--bg-black);
-  font-size: clamp(2.4rem, 4.5vw, 3.6rem);
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
   font-weight: 900;
   text-shadow: none;
 }
@@ -2500,8 +2558,8 @@ body {
 .display-reveal-correct-text {
   min-width: 0;
   color: var(--display-ink);
-  font-size: clamp(2.2rem, 4.2vw, 3.8rem);
-  line-height: 1.12;
+  font-size: clamp(1.3rem, 2.2vw, 1.8rem);
+  line-height: 1.2;
   overflow-wrap: anywhere;
   text-shadow: none;
 }
@@ -2521,7 +2579,7 @@ body {
 
 .display-reveal-estimate-value {
   color: var(--display-ink);
-  font-size: clamp(4.3rem, 10vw, 8rem);
+  font-size: clamp(2.6rem, 5.5vw, 4.5rem);
   line-height: 0.95;
   text-shadow: none;
 }
@@ -2547,31 +2605,31 @@ body {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   align-items: center;
-  gap: clamp(14px, 2.2vw, 24px);
-  padding: clamp(13px, 2vh, 20px) clamp(18px, 3vw, 30px);
+  gap: clamp(10px, 1.6vw, 18px);
+  padding: clamp(8px, 1.2vh, 13px) clamp(12px, 1.8vw, 18px);
   background: var(--bg-card-active);
   border: 2px solid var(--solid-border-strong);
   border-left: 8px solid var(--accent-gold);
   border-radius: var(--radius-md);
-  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  font-size: clamp(1rem, 1.6vw, 1.35rem);
 }
 
 .display-reveal-rank-pos {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: clamp(44px, 4.8vw, 60px);
-  height: clamp(44px, 4.8vw, 60px);
+  width: clamp(32px, 3.5vw, 44px);
+  height: clamp(32px, 3.5vw, 44px);
   border-radius: var(--radius-md);
   background: var(--accent-gold);
   color: var(--bg-black);
-  font-size: clamp(1.45rem, 2.6vw, 2rem);
+  font-size: clamp(1rem, 1.8vw, 1.45rem);
 }
 
 .display-reveal-text-answer {
-  padding: clamp(26px, 4vh, 44px) clamp(28px, 4.4vw, 54px);
+  padding: clamp(14px, 2vh, 22px) clamp(16px, 2.4vw, 28px);
   color: var(--display-ink);
-  font-size: clamp(2.2rem, 5.4vw, 4rem);
+  font-size: clamp(1.4rem, 2.6vw, 2.2rem);
 }
 
 /* display-reveal-stat: Karten-Stil (aus Basisstyle, hier keine Übersteuerung nötig) */
