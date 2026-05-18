@@ -1,0 +1,3072 @@
+[
+  {
+    "questionId": "q-01-01-6a920e98bc",
+    "questionAudioPath": "/audio/questions/q-01-01-6a920e98bc.mp3",
+    "revealAudioPath": "/audio/reveals/q-01-01-6a920e98bc.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-01-02-6626e18f0a",
+    "questionAudioPath": "/audio/questions/q-01-02-6626e18f0a.mp3",
+    "revealAudioPath": "/audio/reveals/q-01-02-6626e18f0a.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-01-03-65b54b9aa2",
+    "questionAudioPath": "/audio/questions/q-01-03-65b54b9aa2.mp3",
+    "revealAudioPath": "/audio/reveals/q-01-03-65b54b9aa2.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-01-04-new",
+    "questionAudioPath": "/audio/questions/q-01-04-new.mp3",
+    "revealAudioPath": "/audio/reveals/q-01-04-new.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-01-05-c97cd9c5d9",
+    "questionAudioPath": "/audio/questions/q-01-05-c97cd9c5d9.mp3",
+    "revealAudioPath": "/audio/reveals/q-01-05-c97cd9c5d9.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-01-06-9cf7daedf3",
+    "questionAudioPath": "/audio/questions/q-01-06-9cf7daedf3.mp3",
+    "revealAudioPath": "/audio/reveals/q-01-06-9cf7daedf3.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-01-08-2babd01a45",
+    "questionAudioPath": "/audio/questions/q-01-08-2babd01a45.mp3",
+    "revealAudioPath": "/audio/reveals/q-01-08-2babd01a45.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-01-09-7d2fe92524",
+    "questionAudioPath": "/audio/questions/q-01-09-7d2fe92524.mp3",
+    "revealAudioPath": "/audio/reveals/q-01-09-7d2fe92524.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-01-11-346e4e40a0",
+    "questionAudioPath": "/audio/questions/q-01-11-346e4e40a0.mp3",
+    "revealAudioPath": "/audio/reveals/q-01-11-346e4e40a0.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-01-12-d56fa12b3e",
+    "questionAudioPath": "/audio/questions/q-01-12-d56fa12b3e.mp3",
+    "revealAudioPath": "/audio/reveals/q-01-12-d56fa12b3e.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-01-13-28324b61c1",
+    "questionAudioPath": "/audio/questions/q-01-13-28324b61c1.mp3",
+    "revealAudioPath": "/audio/reveals/q-01-13-28324b61c1.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-01-14-deafd17949",
+    "questionAudioPath": "/audio/questions/q-01-14-deafd17949.mp3",
+    "revealAudioPath": "/audio/reveals/q-01-14-deafd17949.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-01-16-5ce93af546",
+    "questionAudioPath": "/audio/questions/q-01-16-5ce93af546.mp3",
+    "revealAudioPath": "/audio/reveals/q-01-16-5ce93af546.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-01-18-3959fe77b5",
+    "questionAudioPath": "/audio/questions/q-01-18-3959fe77b5.mp3",
+    "revealAudioPath": "/audio/reveals/q-01-18-3959fe77b5.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-01-19-fd285a0207",
+    "questionAudioPath": "/audio/questions/q-01-19-fd285a0207.mp3",
+    "revealAudioPath": "/audio/reveals/q-01-19-fd285a0207.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-01-20-43495be7ae",
+    "questionAudioPath": "/audio/questions/q-01-20-43495be7ae.mp3",
+    "revealAudioPath": "/audio/reveals/q-01-20-43495be7ae.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-01-21-89c1ef5e21",
+    "questionAudioPath": "/audio/questions/q-01-21-89c1ef5e21.mp3",
+    "revealAudioPath": "/audio/reveals/q-01-21-89c1ef5e21.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-01-22-6f9e77ee5b",
+    "questionAudioPath": "/audio/questions/q-01-22-6f9e77ee5b.mp3",
+    "revealAudioPath": "/audio/reveals/q-01-22-6f9e77ee5b.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-01-23-a9ef897ed3",
+    "questionAudioPath": "/audio/questions/q-01-23-a9ef897ed3.mp3",
+    "revealAudioPath": "/audio/reveals/q-01-23-a9ef897ed3.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-01-24-3db2618a98",
+    "questionAudioPath": "/audio/questions/q-01-24-3db2618a98.mp3",
+    "revealAudioPath": "/audio/reveals/q-01-24-3db2618a98.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-01-25-new",
+    "questionAudioPath": "/audio/questions/q-01-25-new.mp3",
+    "revealAudioPath": "/audio/reveals/q-01-25-new.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-01-02",
+    "questionAudioPath": "/audio/questions/q-01-02.mp3",
+    "revealAudioPath": "/audio/reveals/q-01-02.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-01-03",
+    "questionAudioPath": "/audio/questions/q-01-03.mp3",
+    "revealAudioPath": "/audio/reveals/q-01-03.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-01-04",
+    "questionAudioPath": "/audio/questions/q-01-04.mp3",
+    "revealAudioPath": "/audio/reveals/q-01-04.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-01-08",
+    "questionAudioPath": "/audio/questions/q-01-08.mp3",
+    "revealAudioPath": "/audio/reveals/q-01-08.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-01-11",
+    "questionAudioPath": "/audio/questions/q-01-11.mp3",
+    "revealAudioPath": "/audio/reveals/q-01-11.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-01-14",
+    "questionAudioPath": "/audio/questions/q-01-14.mp3",
+    "revealAudioPath": "/audio/reveals/q-01-14.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-01-20",
+    "questionAudioPath": "/audio/questions/q-01-20.mp3",
+    "revealAudioPath": "/audio/reveals/q-01-20.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-01-22",
+    "questionAudioPath": "/audio/questions/q-01-22.mp3",
+    "revealAudioPath": "/audio/reveals/q-01-22.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-01-25",
+    "questionAudioPath": "/audio/questions/q-01-25.mp3",
+    "revealAudioPath": "/audio/reveals/q-01-25.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-01-c95a802a2d",
+    "questionAudioPath": "/audio/questions/q-02-01-c95a802a2d.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-01-c95a802a2d.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-02-fd211561d2",
+    "questionAudioPath": "/audio/questions/q-02-02-fd211561d2.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-02-fd211561d2.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-03-aa25aa79ee",
+    "questionAudioPath": "/audio/questions/q-02-03-aa25aa79ee.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-03-aa25aa79ee.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-04-fd223c4ade",
+    "questionAudioPath": "/audio/questions/q-02-04-fd223c4ade.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-04-fd223c4ade.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-05-6d6cca2547",
+    "questionAudioPath": "/audio/questions/q-02-05-6d6cca2547.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-05-6d6cca2547.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-06-5956ed1b1a",
+    "questionAudioPath": "/audio/questions/q-02-06-5956ed1b1a.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-06-5956ed1b1a.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-07-280829032d",
+    "questionAudioPath": "/audio/questions/q-02-07-280829032d.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-07-280829032d.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-08-3773194093",
+    "questionAudioPath": "/audio/questions/q-02-08-3773194093.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-08-3773194093.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-09-588235213d",
+    "questionAudioPath": "/audio/questions/q-02-09-588235213d.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-09-588235213d.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-10-9933523472",
+    "questionAudioPath": "/audio/questions/q-02-10-9933523472.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-10-9933523472.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-11-22edecee21",
+    "questionAudioPath": "/audio/questions/q-02-11-22edecee21.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-11-22edecee21.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-12-339adddbeb",
+    "questionAudioPath": "/audio/questions/q-02-12-339adddbeb.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-12-339adddbeb.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-13-eda519290d",
+    "questionAudioPath": "/audio/questions/q-02-13-eda519290d.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-13-eda519290d.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-14-9bf5fe9590",
+    "questionAudioPath": "/audio/questions/q-02-14-9bf5fe9590.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-14-9bf5fe9590.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-15-23bfa11944",
+    "questionAudioPath": "/audio/questions/q-02-15-23bfa11944.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-15-23bfa11944.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-16-f7d3e9aaf0",
+    "questionAudioPath": "/audio/questions/q-02-16-f7d3e9aaf0.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-16-f7d3e9aaf0.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-17-712f7d0b39",
+    "questionAudioPath": "/audio/questions/q-02-17-712f7d0b39.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-17-712f7d0b39.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-18-ed01d44678",
+    "questionAudioPath": "/audio/questions/q-02-18-ed01d44678.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-18-ed01d44678.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-19-9a4055c1e7",
+    "questionAudioPath": "/audio/questions/q-02-19-9a4055c1e7.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-19-9a4055c1e7.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-20-61e1d822ed",
+    "questionAudioPath": "/audio/questions/q-02-20-61e1d822ed.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-20-61e1d822ed.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-21-48c6d948d1",
+    "questionAudioPath": "/audio/questions/q-02-21-48c6d948d1.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-21-48c6d948d1.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-22-31bfe51bdc",
+    "questionAudioPath": "/audio/questions/q-02-22-31bfe51bdc.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-22-31bfe51bdc.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-23-782fdd4a71",
+    "questionAudioPath": "/audio/questions/q-02-23-782fdd4a71.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-23-782fdd4a71.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-24-2bde876a21",
+    "questionAudioPath": "/audio/questions/q-02-24-2bde876a21.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-24-2bde876a21.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-25-383eae8441",
+    "questionAudioPath": "/audio/questions/q-02-25-383eae8441.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-25-383eae8441.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-e01-e7a5eeddc0",
+    "questionAudioPath": "/audio/questions/q-02-e01-e7a5eeddc0.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-e01-e7a5eeddc0.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-e02-3c8467882a",
+    "questionAudioPath": "/audio/questions/q-02-e02-3c8467882a.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-e02-3c8467882a.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-e03-eb38c27ac1",
+    "questionAudioPath": "/audio/questions/q-02-e03-eb38c27ac1.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-e03-eb38c27ac1.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-m76538ddcab",
+    "questionAudioPath": "/audio/questions/q-02-m76538ddcab.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-m76538ddcab.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-02-edging",
+    "questionAudioPath": "/audio/questions/q-02-new-02-edging.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-02-edging.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-03-glory-hole",
+    "questionAudioPath": "/audio/questions/q-02-new-03-glory-hole.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-03-glory-hole.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-04-barebacking",
+    "questionAudioPath": "/audio/questions/q-02-new-04-barebacking.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-04-barebacking.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-05-teabagging",
+    "questionAudioPath": "/audio/questions/q-02-new-05-teabagging.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-05-teabagging.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-06-shibari",
+    "questionAudioPath": "/audio/questions/q-02-new-06-shibari.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-06-shibari.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-07-bukkake",
+    "questionAudioPath": "/audio/questions/q-02-new-07-bukkake.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-07-bukkake.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-08-cuckolding",
+    "questionAudioPath": "/audio/questions/q-02-new-08-cuckolding.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-08-cuckolding.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-09-fisting",
+    "questionAudioPath": "/audio/questions/q-02-new-09-fisting.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-09-fisting.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-11-snowballing",
+    "questionAudioPath": "/audio/questions/q-02-new-11-snowballing.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-11-snowballing.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-12-spitroast",
+    "questionAudioPath": "/audio/questions/q-02-new-12-spitroast.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-12-spitroast.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-13-pearl-necklace",
+    "questionAudioPath": "/audio/questions/q-02-new-13-pearl-necklace.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-13-pearl-necklace.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-14-queefing",
+    "questionAudioPath": "/audio/questions/q-02-new-14-queefing.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-14-queefing.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-15-scissoring",
+    "questionAudioPath": "/audio/questions/q-02-new-15-scissoring.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-15-scissoring.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-16-squirting",
+    "questionAudioPath": "/audio/questions/q-02-new-16-squirting.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-16-squirting.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-17-docking",
+    "questionAudioPath": "/audio/questions/q-02-new-17-docking.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-17-docking.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-18-frottage",
+    "questionAudioPath": "/audio/questions/q-02-new-18-frottage.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-18-frottage.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-19-swinging",
+    "questionAudioPath": "/audio/questions/q-02-new-19-swinging.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-19-swinging.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-20-dogging",
+    "questionAudioPath": "/audio/questions/q-02-new-20-dogging.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-20-dogging.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-21-eiffel-tower",
+    "questionAudioPath": "/audio/questions/q-02-new-21-eiffel-tower.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-21-eiffel-tower.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-22-atm",
+    "questionAudioPath": "/audio/questions/q-02-new-22-atm.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-22-atm.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-23-gfe",
+    "questionAudioPath": "/audio/questions/q-02-new-23-gfe.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-23-gfe.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-24-booty-call",
+    "questionAudioPath": "/audio/questions/q-02-new-24-booty-call.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-24-booty-call.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-25-walk-of-shame",
+    "questionAudioPath": "/audio/questions/q-02-new-25-walk-of-shame.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-25-walk-of-shame.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-26-netflix-and-chill",
+    "questionAudioPath": "/audio/questions/q-02-new-26-netflix-and-chill.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-26-netflix-and-chill.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-27-french-tickler",
+    "questionAudioPath": "/audio/questions/q-02-new-27-french-tickler.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-27-french-tickler.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-28-golden-shower",
+    "questionAudioPath": "/audio/questions/q-02-new-28-golden-shower.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-28-golden-shower.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-29-sounding",
+    "questionAudioPath": "/audio/questions/q-02-new-29-sounding.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-29-sounding.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-30-figging",
+    "questionAudioPath": "/audio/questions/q-02-new-30-figging.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-30-figging.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-31-cbt",
+    "questionAudioPath": "/audio/questions/q-02-new-31-cbt.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-31-cbt.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-32-creampie",
+    "questionAudioPath": "/audio/questions/q-02-new-32-creampie.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-32-creampie.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-33-milf",
+    "questionAudioPath": "/audio/questions/q-02-new-33-milf.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-33-milf.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-34-dilf",
+    "questionAudioPath": "/audio/questions/q-02-new-34-dilf.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-34-dilf.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-36-bdsm",
+    "questionAudioPath": "/audio/questions/q-02-new-36-bdsm.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-36-bdsm.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-37-safe-word",
+    "questionAudioPath": "/audio/questions/q-02-new-37-safe-word.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-37-safe-word.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-38-strap-on",
+    "questionAudioPath": "/audio/questions/q-02-new-38-strap-on.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-38-strap-on.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-39-cameltoe",
+    "questionAudioPath": "/audio/questions/q-02-new-39-cameltoe.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-39-cameltoe.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-40-moose-knuckle",
+    "questionAudioPath": "/audio/questions/q-02-new-40-moose-knuckle.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-40-moose-knuckle.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-41-blue-balls",
+    "questionAudioPath": "/audio/questions/q-02-new-41-blue-balls.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-41-blue-balls.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-42-morning-wood",
+    "questionAudioPath": "/audio/questions/q-02-new-42-morning-wood.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-42-morning-wood.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-43-gag-reflex",
+    "questionAudioPath": "/audio/questions/q-02-new-43-gag-reflex.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-43-gag-reflex.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-44-roleplay",
+    "questionAudioPath": "/audio/questions/q-02-new-44-roleplay.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-44-roleplay.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-45-quickie",
+    "questionAudioPath": "/audio/questions/q-02-new-45-quickie.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-45-quickie.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-46-mile-high-club",
+    "questionAudioPath": "/audio/questions/q-02-new-46-mile-high-club.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-46-mile-high-club.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-47-v-card",
+    "questionAudioPath": "/audio/questions/q-02-new-47-v-card.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-47-v-card.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-48-g-spot",
+    "questionAudioPath": "/audio/questions/q-02-new-48-g-spot.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-48-g-spot.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-49-kegels",
+    "questionAudioPath": "/audio/questions/q-02-new-49-kegels.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-49-kegels.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-new-50-aftercare",
+    "questionAudioPath": "/audio/questions/q-02-new-50-aftercare.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-new-50-aftercare.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-fetisch-01",
+    "questionAudioPath": "/audio/questions/q-02-fetisch-01.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-fetisch-01.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-fetisch-02",
+    "questionAudioPath": "/audio/questions/q-02-fetisch-02.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-fetisch-02.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-fetisch-03",
+    "questionAudioPath": "/audio/questions/q-02-fetisch-03.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-fetisch-03.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-fetisch-04",
+    "questionAudioPath": "/audio/questions/q-02-fetisch-04.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-fetisch-04.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-fetisch-05",
+    "questionAudioPath": "/audio/questions/q-02-fetisch-05.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-fetisch-05.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-fetisch-06",
+    "questionAudioPath": "/audio/questions/q-02-fetisch-06.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-fetisch-06.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-fetisch-07",
+    "questionAudioPath": "/audio/questions/q-02-fetisch-07.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-fetisch-07.mp3",
+    "hasRevealAudio": true,
+    "warnings": [
+      "P2: Richtige Antwort (84 Zeichen) deutlich länger als Durchschnitt der falschen (43 Zeichen)."
+    ]
+  },
+  {
+    "questionId": "q-02-fetisch-08",
+    "questionAudioPath": "/audio/questions/q-02-fetisch-08.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-fetisch-08.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-fetisch-09",
+    "questionAudioPath": "/audio/questions/q-02-fetisch-09.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-fetisch-09.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-fetisch-10",
+    "questionAudioPath": "/audio/questions/q-02-fetisch-10.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-fetisch-10.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-fetisch-11",
+    "questionAudioPath": "/audio/questions/q-02-fetisch-11.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-fetisch-11.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-fetisch-12",
+    "questionAudioPath": "/audio/questions/q-02-fetisch-12.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-fetisch-12.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-fetisch-13",
+    "questionAudioPath": "/audio/questions/q-02-fetisch-13.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-fetisch-13.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-fetisch-14",
+    "questionAudioPath": "/audio/questions/q-02-fetisch-14.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-fetisch-14.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-fetisch-15",
+    "questionAudioPath": "/audio/questions/q-02-fetisch-15.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-fetisch-15.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-fetisch-16",
+    "questionAudioPath": "/audio/questions/q-02-fetisch-16.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-fetisch-16.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-fetisch-17",
+    "questionAudioPath": "/audio/questions/q-02-fetisch-17.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-fetisch-17.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-fetisch-18",
+    "questionAudioPath": "/audio/questions/q-02-fetisch-18.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-fetisch-18.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-fetisch-19",
+    "questionAudioPath": "/audio/questions/q-02-fetisch-19.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-fetisch-19.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-fetisch-20",
+    "questionAudioPath": "/audio/questions/q-02-fetisch-20.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-fetisch-20.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-fetisch-21",
+    "questionAudioPath": "/audio/questions/q-02-fetisch-21.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-fetisch-21.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-fetisch-22",
+    "questionAudioPath": "/audio/questions/q-02-fetisch-22.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-fetisch-22.mp3",
+    "hasRevealAudio": true,
+    "warnings": [
+      "P2: Richtige Antwort (36 Zeichen) deutlich länger als Durchschnitt der falschen (12 Zeichen)."
+    ]
+  },
+  {
+    "questionId": "q-02-fetisch-23",
+    "questionAudioPath": "/audio/questions/q-02-fetisch-23.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-fetisch-23.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-fetisch-24",
+    "questionAudioPath": "/audio/questions/q-02-fetisch-24.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-fetisch-24.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-02-fetisch-25",
+    "questionAudioPath": "/audio/questions/q-02-fetisch-25.mp3",
+    "revealAudioPath": "/audio/reveals/q-02-fetisch-25.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-03-01-a1f969d060",
+    "questionAudioPath": "/audio/questions/q-03-01-a1f969d060.mp3",
+    "revealAudioPath": "/audio/reveals/q-03-01-a1f969d060.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-03-02-303be9c845",
+    "questionAudioPath": "/audio/questions/q-03-02-303be9c845.mp3",
+    "revealAudioPath": "/audio/reveals/q-03-02-303be9c845.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-03-03-9bd05e9dc4",
+    "questionAudioPath": "/audio/questions/q-03-03-9bd05e9dc4.mp3",
+    "revealAudioPath": "/audio/reveals/q-03-03-9bd05e9dc4.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-03-04-31ecd277f3",
+    "questionAudioPath": "/audio/questions/q-03-04-31ecd277f3.mp3",
+    "revealAudioPath": "/audio/reveals/q-03-04-31ecd277f3.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-03-05-3be45bd649",
+    "questionAudioPath": "/audio/questions/q-03-05-3be45bd649.mp3",
+    "revealAudioPath": "/audio/reveals/q-03-05-3be45bd649.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-03-06-9bd22e9dc4",
+    "questionAudioPath": "/audio/questions/q-03-06-9bd22e9dc4.mp3",
+    "revealAudioPath": "/audio/reveals/q-03-06-9bd22e9dc4.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-03-07-7bc92e9dc4",
+    "questionAudioPath": "/audio/questions/q-03-07-7bc92e9dc4.mp3",
+    "revealAudioPath": "/audio/reveals/q-03-07-7bc92e9dc4.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-03-08-11d22e9dc4",
+    "questionAudioPath": "/audio/questions/q-03-08-11d22e9dc4.mp3",
+    "revealAudioPath": "/audio/reveals/q-03-08-11d22e9dc4.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-03-09-bcfd859896",
+    "questionAudioPath": "/audio/questions/q-03-09-bcfd859896.mp3",
+    "revealAudioPath": "/audio/reveals/q-03-09-bcfd859896.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-03-10-5ba4f4f826",
+    "questionAudioPath": "/audio/questions/q-03-10-5ba4f4f826.mp3",
+    "revealAudioPath": "/audio/reveals/q-03-10-5ba4f4f826.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-03-11-75e907ba1d",
+    "questionAudioPath": "/audio/questions/q-03-11-75e907ba1d.mp3",
+    "revealAudioPath": "/audio/reveals/q-03-11-75e907ba1d.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-03-12-7692bfe976",
+    "questionAudioPath": "/audio/questions/q-03-12-7692bfe976.mp3",
+    "revealAudioPath": "/audio/reveals/q-03-12-7692bfe976.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-03-13-c4f64c8cbc",
+    "questionAudioPath": "/audio/questions/q-03-13-c4f64c8cbc.mp3",
+    "revealAudioPath": "/audio/reveals/q-03-13-c4f64c8cbc.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-03-14-1b96d1e975",
+    "questionAudioPath": "/audio/questions/q-03-14-1b96d1e975.mp3",
+    "revealAudioPath": "/audio/reveals/q-03-14-1b96d1e975.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-03-15-ae7728dccf",
+    "questionAudioPath": "/audio/questions/q-03-15-ae7728dccf.mp3",
+    "revealAudioPath": "/audio/reveals/q-03-15-ae7728dccf.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-03-16-13a6aff138",
+    "questionAudioPath": "/audio/questions/q-03-16-13a6aff138.mp3",
+    "revealAudioPath": "/audio/reveals/q-03-16-13a6aff138.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-03-17-387b018db7",
+    "questionAudioPath": "/audio/questions/q-03-17-387b018db7.mp3",
+    "revealAudioPath": "/audio/reveals/q-03-17-387b018db7.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-03-18-765fd501f3",
+    "questionAudioPath": "/audio/questions/q-03-18-765fd501f3.mp3",
+    "revealAudioPath": "/audio/reveals/q-03-18-765fd501f3.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-03-19-5307173b6b",
+    "questionAudioPath": "/audio/questions/q-03-19-5307173b6b.mp3",
+    "revealAudioPath": "/audio/reveals/q-03-19-5307173b6b.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-03-20-7a5a6c1b9f",
+    "questionAudioPath": "/audio/questions/q-03-20-7a5a6c1b9f.mp3",
+    "revealAudioPath": "/audio/reveals/q-03-20-7a5a6c1b9f.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-03-21-9abc66630b",
+    "questionAudioPath": "/audio/questions/q-03-21-9abc66630b.mp3",
+    "revealAudioPath": "/audio/reveals/q-03-21-9abc66630b.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-03-22-3d378ee907",
+    "questionAudioPath": "/audio/questions/q-03-22-3d378ee907.mp3",
+    "revealAudioPath": "/audio/reveals/q-03-22-3d378ee907.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-03-23-681bfb03e4",
+    "questionAudioPath": "/audio/questions/q-03-23-681bfb03e4.mp3",
+    "revealAudioPath": "/audio/reveals/q-03-23-681bfb03e4.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-03-24-9736e71b53",
+    "questionAudioPath": "/audio/questions/q-03-24-9736e71b53.mp3",
+    "revealAudioPath": "/audio/reveals/q-03-24-9736e71b53.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-03-25-ce5747243a",
+    "questionAudioPath": "/audio/questions/q-03-25-ce5747243a.mp3",
+    "revealAudioPath": "/audio/reveals/q-03-25-ce5747243a.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-03-mac9aa73df0",
+    "questionAudioPath": "/audio/questions/q-03-mac9aa73df0.mp3",
+    "revealAudioPath": "/audio/reveals/q-03-mac9aa73df0.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-03-01",
+    "questionAudioPath": "/audio/questions/q-03-01.mp3",
+    "revealAudioPath": "/audio/reveals/q-03-01.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-03-02",
+    "questionAudioPath": "/audio/questions/q-03-02.mp3",
+    "revealAudioPath": "/audio/reveals/q-03-02.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-03-03",
+    "questionAudioPath": "/audio/questions/q-03-03.mp3",
+    "revealAudioPath": "/audio/reveals/q-03-03.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-03-04",
+    "questionAudioPath": "/audio/questions/q-03-04.mp3",
+    "revealAudioPath": "/audio/reveals/q-03-04.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-03-05",
+    "questionAudioPath": "/audio/questions/q-03-05.mp3",
+    "revealAudioPath": "/audio/reveals/q-03-05.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-03-06",
+    "questionAudioPath": "/audio/questions/q-03-06.mp3",
+    "revealAudioPath": "/audio/reveals/q-03-06.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-03-07",
+    "questionAudioPath": "/audio/questions/q-03-07.mp3",
+    "revealAudioPath": "/audio/reveals/q-03-07.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-03-08",
+    "questionAudioPath": "/audio/questions/q-03-08.mp3",
+    "revealAudioPath": "/audio/reveals/q-03-08.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-03-11",
+    "questionAudioPath": "/audio/questions/q-03-11.mp3",
+    "revealAudioPath": "/audio/reveals/q-03-11.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-03-12",
+    "questionAudioPath": "/audio/questions/q-03-12.mp3",
+    "revealAudioPath": "/audio/reveals/q-03-12.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-03-14",
+    "questionAudioPath": "/audio/questions/q-03-14.mp3",
+    "revealAudioPath": "/audio/reveals/q-03-14.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-01-dcbbe9ff6d",
+    "questionAudioPath": "/audio/questions/q-05-01-dcbbe9ff6d.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-01-dcbbe9ff6d.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-02-c0ae97b14c",
+    "questionAudioPath": "/audio/questions/q-05-02-c0ae97b14c.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-02-c0ae97b14c.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-03-f117db8d8b",
+    "questionAudioPath": "/audio/questions/q-05-03-f117db8d8b.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-03-f117db8d8b.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-04-462ff3060e",
+    "questionAudioPath": "/audio/questions/q-05-04-462ff3060e.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-04-462ff3060e.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-05-e0f7a3f0af",
+    "questionAudioPath": "/audio/questions/q-05-05-e0f7a3f0af.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-05-e0f7a3f0af.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-07-2a1f4b82ba",
+    "questionAudioPath": "/audio/questions/q-05-07-2a1f4b82ba.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-07-2a1f4b82ba.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-08-36f4d1e2a1",
+    "questionAudioPath": "/audio/questions/q-05-08-36f4d1e2a1.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-08-36f4d1e2a1.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-09-f868c708c8",
+    "questionAudioPath": "/audio/questions/q-05-09-f868c708c8.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-09-f868c708c8.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-10-4b3aebd3c4",
+    "questionAudioPath": "/audio/questions/q-05-10-4b3aebd3c4.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-10-4b3aebd3c4.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-11-a587148d2a",
+    "questionAudioPath": "/audio/questions/q-05-11-a587148d2a.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-11-a587148d2a.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-12-81973f536c",
+    "questionAudioPath": "/audio/questions/q-05-12-81973f536c.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-12-81973f536c.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-13-60c32a85e1",
+    "questionAudioPath": "/audio/questions/q-05-13-60c32a85e1.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-13-60c32a85e1.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-14-8b8b88842b",
+    "questionAudioPath": "/audio/questions/q-05-14-8b8b88842b.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-14-8b8b88842b.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-15-c5205f9c74",
+    "questionAudioPath": "/audio/questions/q-05-15-c5205f9c74.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-15-c5205f9c74.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-16-b646ca4087",
+    "questionAudioPath": "/audio/questions/q-05-16-b646ca4087.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-16-b646ca4087.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-18-9e1f7c5006",
+    "questionAudioPath": "/audio/questions/q-05-18-9e1f7c5006.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-18-9e1f7c5006.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-19-3c5b30cb20",
+    "questionAudioPath": "/audio/questions/q-05-19-3c5b30cb20.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-19-3c5b30cb20.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-20-530d8c8719",
+    "questionAudioPath": "/audio/questions/q-05-20-530d8c8719.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-20-530d8c8719.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-22-da75306604",
+    "questionAudioPath": "/audio/questions/q-05-22-da75306604.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-22-da75306604.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-23-fd629b97c3",
+    "questionAudioPath": "/audio/questions/q-05-23-fd629b97c3.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-23-fd629b97c3.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-24-d96b10abfe",
+    "questionAudioPath": "/audio/questions/q-05-24-d96b10abfe.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-24-d96b10abfe.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-25-9312ca2062",
+    "questionAudioPath": "/audio/questions/q-05-25-9312ca2062.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-25-9312ca2062.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-01",
+    "questionAudioPath": "/audio/questions/q-05-01.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-01.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-03",
+    "questionAudioPath": "/audio/questions/q-05-03.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-03.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-04",
+    "questionAudioPath": "/audio/questions/q-05-04.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-04.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-05",
+    "questionAudioPath": "/audio/questions/q-05-05.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-05.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-06",
+    "questionAudioPath": "/audio/questions/q-05-06.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-06.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-07",
+    "questionAudioPath": "/audio/questions/q-05-07.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-07.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-09",
+    "questionAudioPath": "/audio/questions/q-05-09.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-09.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-10",
+    "questionAudioPath": "/audio/questions/q-05-10.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-10.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-11",
+    "questionAudioPath": "/audio/questions/q-05-11.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-11.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-12",
+    "questionAudioPath": "/audio/questions/q-05-12.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-12.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-13",
+    "questionAudioPath": "/audio/questions/q-05-13.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-13.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-14",
+    "questionAudioPath": "/audio/questions/q-05-14.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-14.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-15",
+    "questionAudioPath": "/audio/questions/q-05-15.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-15.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-16",
+    "questionAudioPath": "/audio/questions/q-05-16.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-16.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-17",
+    "questionAudioPath": "/audio/questions/q-05-17.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-17.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-19",
+    "questionAudioPath": "/audio/questions/q-05-19.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-19.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-20",
+    "questionAudioPath": "/audio/questions/q-05-20.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-20.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-21",
+    "questionAudioPath": "/audio/questions/q-05-21.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-21.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-22",
+    "questionAudioPath": "/audio/questions/q-05-22.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-22.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-23",
+    "questionAudioPath": "/audio/questions/q-05-23.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-23.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-05-25",
+    "questionAudioPath": "/audio/questions/q-05-25.mp3",
+    "revealAudioPath": "/audio/reveals/q-05-25.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-06-01-a02a242af7",
+    "questionAudioPath": "/audio/questions/q-06-01-a02a242af7.mp3",
+    "revealAudioPath": "/audio/reveals/q-06-01-a02a242af7.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-06-02-797b29c4c5",
+    "questionAudioPath": "/audio/questions/q-06-02-797b29c4c5.mp3",
+    "revealAudioPath": "/audio/reveals/q-06-02-797b29c4c5.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-06-03-1bf72f72a8",
+    "questionAudioPath": "/audio/questions/q-06-03-1bf72f72a8.mp3",
+    "revealAudioPath": "/audio/reveals/q-06-03-1bf72f72a8.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-06-04-09a502d726",
+    "questionAudioPath": "/audio/questions/q-06-04-09a502d726.mp3",
+    "revealAudioPath": "/audio/reveals/q-06-04-09a502d726.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-06-05-255c734412",
+    "questionAudioPath": "/audio/questions/q-06-05-255c734412.mp3",
+    "revealAudioPath": "/audio/reveals/q-06-05-255c734412.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-06-06-5c60f216b4",
+    "questionAudioPath": "/audio/questions/q-06-06-5c60f216b4.mp3",
+    "revealAudioPath": "/audio/reveals/q-06-06-5c60f216b4.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-06-07-4bba4ca4fc",
+    "questionAudioPath": "/audio/questions/q-06-07-4bba4ca4fc.mp3",
+    "revealAudioPath": "/audio/reveals/q-06-07-4bba4ca4fc.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-06-08-312baa8b83",
+    "questionAudioPath": "/audio/questions/q-06-08-312baa8b83.mp3",
+    "revealAudioPath": "/audio/reveals/q-06-08-312baa8b83.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-06-10-7682eb6340",
+    "questionAudioPath": "/audio/questions/q-06-10-7682eb6340.mp3",
+    "revealAudioPath": "/audio/reveals/q-06-10-7682eb6340.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-06-11-5ed6bf0b49",
+    "questionAudioPath": "/audio/questions/q-06-11-5ed6bf0b49.mp3",
+    "revealAudioPath": "/audio/reveals/q-06-11-5ed6bf0b49.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-06-12-4ae5daa5e8",
+    "questionAudioPath": "/audio/questions/q-06-12-4ae5daa5e8.mp3",
+    "revealAudioPath": "/audio/reveals/q-06-12-4ae5daa5e8.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-06-14-146b14c352",
+    "questionAudioPath": "/audio/questions/q-06-14-146b14c352.mp3",
+    "revealAudioPath": "/audio/reveals/q-06-14-146b14c352.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-06-16-a59d98c3a2",
+    "questionAudioPath": "/audio/questions/q-06-16-a59d98c3a2.mp3",
+    "revealAudioPath": "/audio/reveals/q-06-16-a59d98c3a2.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-06-18-f0b0cede7c",
+    "questionAudioPath": "/audio/questions/q-06-18-f0b0cede7c.mp3",
+    "revealAudioPath": "/audio/reveals/q-06-18-f0b0cede7c.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-06-19-4b0829c987",
+    "questionAudioPath": "/audio/questions/q-06-19-4b0829c987.mp3",
+    "revealAudioPath": "/audio/reveals/q-06-19-4b0829c987.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-06-20-82e0f32865",
+    "questionAudioPath": "/audio/questions/q-06-20-82e0f32865.mp3",
+    "revealAudioPath": "/audio/reveals/q-06-20-82e0f32865.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-06-22-14f4f41899",
+    "questionAudioPath": "/audio/questions/q-06-22-14f4f41899.mp3",
+    "revealAudioPath": "/audio/reveals/q-06-22-14f4f41899.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-06-23-2cb0289b78",
+    "questionAudioPath": "/audio/questions/q-06-23-2cb0289b78.mp3",
+    "revealAudioPath": "/audio/reveals/q-06-23-2cb0289b78.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-06-01",
+    "questionAudioPath": "/audio/questions/q-06-01.mp3",
+    "revealAudioPath": "/audio/reveals/q-06-01.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-06-02",
+    "questionAudioPath": "/audio/questions/q-06-02.mp3",
+    "revealAudioPath": "/audio/reveals/q-06-02.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-06-03",
+    "questionAudioPath": "/audio/questions/q-06-03.mp3",
+    "revealAudioPath": "/audio/reveals/q-06-03.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-06-04",
+    "questionAudioPath": "/audio/questions/q-06-04.mp3",
+    "revealAudioPath": "/audio/reveals/q-06-04.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-06-05",
+    "questionAudioPath": "/audio/questions/q-06-05.mp3",
+    "revealAudioPath": "/audio/reveals/q-06-05.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-06-06",
+    "questionAudioPath": "/audio/questions/q-06-06.mp3",
+    "revealAudioPath": "/audio/reveals/q-06-06.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-06-08",
+    "questionAudioPath": "/audio/questions/q-06-08.mp3",
+    "revealAudioPath": "/audio/reveals/q-06-08.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-06-11",
+    "questionAudioPath": "/audio/questions/q-06-11.mp3",
+    "revealAudioPath": "/audio/reveals/q-06-11.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-06-21",
+    "questionAudioPath": "/audio/questions/q-06-21.mp3",
+    "revealAudioPath": "/audio/reveals/q-06-21.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-06-23",
+    "questionAudioPath": "/audio/questions/q-06-23.mp3",
+    "revealAudioPath": "/audio/reveals/q-06-23.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-07-05-658e3a665d",
+    "questionAudioPath": "/audio/questions/q-07-05-658e3a665d.mp3",
+    "revealAudioPath": "/audio/reveals/q-07-05-658e3a665d.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-07-07-508618c674",
+    "questionAudioPath": "/audio/questions/q-07-07-508618c674.mp3",
+    "revealAudioPath": "/audio/reveals/q-07-07-508618c674.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-07-14-7f1b532775",
+    "questionAudioPath": "/audio/questions/q-07-14-7f1b532775.mp3",
+    "revealAudioPath": "/audio/reveals/q-07-14-7f1b532775.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-07-16-30e4c35b88",
+    "questionAudioPath": "/audio/questions/q-07-16-30e4c35b88.mp3",
+    "revealAudioPath": "/audio/reveals/q-07-16-30e4c35b88.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-07-22-d683609ad9",
+    "questionAudioPath": "/audio/questions/q-07-22-d683609ad9.mp3",
+    "revealAudioPath": "/audio/reveals/q-07-22-d683609ad9.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-07-23-7d830986af",
+    "questionAudioPath": "/audio/questions/q-07-23-7d830986af.mp3",
+    "revealAudioPath": "/audio/reveals/q-07-23-7d830986af.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-07-mdb25573919",
+    "questionAudioPath": "/audio/questions/q-07-mdb25573919.mp3",
+    "revealAudioPath": "/audio/reveals/q-07-mdb25573919.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-07-01",
+    "questionAudioPath": "/audio/questions/q-07-01.mp3",
+    "revealAudioPath": "/audio/reveals/q-07-01.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-07-02",
+    "questionAudioPath": "/audio/questions/q-07-02.mp3",
+    "revealAudioPath": "/audio/reveals/q-07-02.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-07-03",
+    "questionAudioPath": "/audio/questions/q-07-03.mp3",
+    "revealAudioPath": "/audio/reveals/q-07-03.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-07-04",
+    "questionAudioPath": "/audio/questions/q-07-04.mp3",
+    "revealAudioPath": "/audio/reveals/q-07-04.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-07-05",
+    "questionAudioPath": "/audio/questions/q-07-05.mp3",
+    "revealAudioPath": "/audio/reveals/q-07-05.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-07-06",
+    "questionAudioPath": "/audio/questions/q-07-06.mp3",
+    "revealAudioPath": "/audio/reveals/q-07-06.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-07-08",
+    "questionAudioPath": "/audio/questions/q-07-08.mp3",
+    "revealAudioPath": "/audio/reveals/q-07-08.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-07-09",
+    "questionAudioPath": "/audio/questions/q-07-09.mp3",
+    "revealAudioPath": "/audio/reveals/q-07-09.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-07-10",
+    "questionAudioPath": "/audio/questions/q-07-10.mp3",
+    "revealAudioPath": "/audio/reveals/q-07-10.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-07-12",
+    "questionAudioPath": "/audio/questions/q-07-12.mp3",
+    "revealAudioPath": "/audio/reveals/q-07-12.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-07-13",
+    "questionAudioPath": "/audio/questions/q-07-13.mp3",
+    "revealAudioPath": "/audio/reveals/q-07-13.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-07-14",
+    "questionAudioPath": "/audio/questions/q-07-14.mp3",
+    "revealAudioPath": "/audio/reveals/q-07-14.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-07-15",
+    "questionAudioPath": "/audio/questions/q-07-15.mp3",
+    "revealAudioPath": "/audio/reveals/q-07-15.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-07-16",
+    "questionAudioPath": "/audio/questions/q-07-16.mp3",
+    "revealAudioPath": "/audio/reveals/q-07-16.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-07-17",
+    "questionAudioPath": "/audio/questions/q-07-17.mp3",
+    "revealAudioPath": "/audio/reveals/q-07-17.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-07-18",
+    "questionAudioPath": "/audio/questions/q-07-18.mp3",
+    "revealAudioPath": "/audio/reveals/q-07-18.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-07-21",
+    "questionAudioPath": "/audio/questions/q-07-21.mp3",
+    "revealAudioPath": "/audio/reveals/q-07-21.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-07-22",
+    "questionAudioPath": "/audio/questions/q-07-22.mp3",
+    "revealAudioPath": "/audio/reveals/q-07-22.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-07-23",
+    "questionAudioPath": "/audio/questions/q-07-23.mp3",
+    "revealAudioPath": "/audio/reveals/q-07-23.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-07-24",
+    "questionAudioPath": "/audio/questions/q-07-24.mp3",
+    "revealAudioPath": "/audio/reveals/q-07-24.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-07-25",
+    "questionAudioPath": "/audio/questions/q-07-25.mp3",
+    "revealAudioPath": "/audio/reveals/q-07-25.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-07-27",
+    "questionAudioPath": "/audio/questions/q-07-27.mp3",
+    "revealAudioPath": "/audio/reveals/q-07-27.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-07-29",
+    "questionAudioPath": "/audio/questions/q-07-29.mp3",
+    "revealAudioPath": "/audio/reveals/q-07-29.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-07-30",
+    "questionAudioPath": "/audio/questions/q-07-30.mp3",
+    "revealAudioPath": "/audio/reveals/q-07-30.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-08-01-8ccf55f992",
+    "questionAudioPath": "/audio/questions/q-08-01-8ccf55f992.mp3",
+    "revealAudioPath": "/audio/reveals/q-08-01-8ccf55f992.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-08-02-16149da58b",
+    "questionAudioPath": "/audio/questions/q-08-02-16149da58b.mp3",
+    "revealAudioPath": "/audio/reveals/q-08-02-16149da58b.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-08-03-27ef7774ea",
+    "questionAudioPath": "/audio/questions/q-08-03-27ef7774ea.mp3",
+    "revealAudioPath": "/audio/reveals/q-08-03-27ef7774ea.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-08-04-c596b4329f",
+    "questionAudioPath": "/audio/questions/q-08-04-c596b4329f.mp3",
+    "revealAudioPath": "/audio/reveals/q-08-04-c596b4329f.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-08-05-ee47cd381f",
+    "questionAudioPath": "/audio/questions/q-08-05-ee47cd381f.mp3",
+    "revealAudioPath": "/audio/reveals/q-08-05-ee47cd381f.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-08-06-26124d80ad",
+    "questionAudioPath": "/audio/questions/q-08-06-26124d80ad.mp3",
+    "revealAudioPath": "/audio/reveals/q-08-06-26124d80ad.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-08-07-29aa11fa2f",
+    "questionAudioPath": "/audio/questions/q-08-07-29aa11fa2f.mp3",
+    "revealAudioPath": "/audio/reveals/q-08-07-29aa11fa2f.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-08-08-fbb59d3395",
+    "questionAudioPath": "/audio/questions/q-08-08-fbb59d3395.mp3",
+    "revealAudioPath": "/audio/reveals/q-08-08-fbb59d3395.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-08-09-c27d59c960",
+    "questionAudioPath": "/audio/questions/q-08-09-c27d59c960.mp3",
+    "revealAudioPath": "/audio/reveals/q-08-09-c27d59c960.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-08-10-f5000efdb2",
+    "questionAudioPath": "/audio/questions/q-08-10-f5000efdb2.mp3",
+    "revealAudioPath": "/audio/reveals/q-08-10-f5000efdb2.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-08-11-93bb20f9c0",
+    "questionAudioPath": "/audio/questions/q-08-11-93bb20f9c0.mp3",
+    "revealAudioPath": "/audio/reveals/q-08-11-93bb20f9c0.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-08-12-1d5638fafe",
+    "questionAudioPath": "/audio/questions/q-08-12-1d5638fafe.mp3",
+    "revealAudioPath": "/audio/reveals/q-08-12-1d5638fafe.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-08-13-3356a1a3b7",
+    "questionAudioPath": "/audio/questions/q-08-13-3356a1a3b7.mp3",
+    "revealAudioPath": "/audio/reveals/q-08-13-3356a1a3b7.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-08-14-0c6be0fb77",
+    "questionAudioPath": "/audio/questions/q-08-14-0c6be0fb77.mp3",
+    "revealAudioPath": "/audio/reveals/q-08-14-0c6be0fb77.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-08-15-5813a81ba3",
+    "questionAudioPath": "/audio/questions/q-08-15-5813a81ba3.mp3",
+    "revealAudioPath": "/audio/reveals/q-08-15-5813a81ba3.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-08-16-9765938c7b",
+    "questionAudioPath": "/audio/questions/q-08-16-9765938c7b.mp3",
+    "revealAudioPath": "/audio/reveals/q-08-16-9765938c7b.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-08-17-1cfebd3cdc",
+    "questionAudioPath": "/audio/questions/q-08-17-1cfebd3cdc.mp3",
+    "revealAudioPath": "/audio/reveals/q-08-17-1cfebd3cdc.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-08-18-3690b434a9",
+    "questionAudioPath": "/audio/questions/q-08-18-3690b434a9.mp3",
+    "revealAudioPath": "/audio/reveals/q-08-18-3690b434a9.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-08-19-51f3b7380c",
+    "questionAudioPath": "/audio/questions/q-08-19-51f3b7380c.mp3",
+    "revealAudioPath": "/audio/reveals/q-08-19-51f3b7380c.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-08-20-b009acf75c",
+    "questionAudioPath": "/audio/questions/q-08-20-b009acf75c.mp3",
+    "revealAudioPath": "/audio/reveals/q-08-20-b009acf75c.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-08-21-16a8e92148",
+    "questionAudioPath": "/audio/questions/q-08-21-16a8e92148.mp3",
+    "revealAudioPath": "/audio/reveals/q-08-21-16a8e92148.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-08-22-b39f6fad81",
+    "questionAudioPath": "/audio/questions/q-08-22-b39f6fad81.mp3",
+    "revealAudioPath": "/audio/reveals/q-08-22-b39f6fad81.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-08-23-0661ff062d",
+    "questionAudioPath": "/audio/questions/q-08-23-0661ff062d.mp3",
+    "revealAudioPath": "/audio/reveals/q-08-23-0661ff062d.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-08-25-efd407f660",
+    "questionAudioPath": "/audio/questions/q-08-25-efd407f660.mp3",
+    "revealAudioPath": "/audio/reveals/q-08-25-efd407f660.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-08-03",
+    "questionAudioPath": "/audio/questions/q-08-03.mp3",
+    "revealAudioPath": "/audio/reveals/q-08-03.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-08-04",
+    "questionAudioPath": "/audio/questions/q-08-04.mp3",
+    "revealAudioPath": "/audio/reveals/q-08-04.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-08-05",
+    "questionAudioPath": "/audio/questions/q-08-05.mp3",
+    "revealAudioPath": "/audio/reveals/q-08-05.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-08-09",
+    "questionAudioPath": "/audio/questions/q-08-09.mp3",
+    "revealAudioPath": "/audio/reveals/q-08-09.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-08-10",
+    "questionAudioPath": "/audio/questions/q-08-10.mp3",
+    "revealAudioPath": "/audio/reveals/q-08-10.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-08-11",
+    "questionAudioPath": "/audio/questions/q-08-11.mp3",
+    "revealAudioPath": "/audio/reveals/q-08-11.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-08-13",
+    "questionAudioPath": "/audio/questions/q-08-13.mp3",
+    "revealAudioPath": "/audio/reveals/q-08-13.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-08-14",
+    "questionAudioPath": "/audio/questions/q-08-14.mp3",
+    "revealAudioPath": "/audio/reveals/q-08-14.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-01-aa4fa9da07",
+    "questionAudioPath": "/audio/questions/q-09-01-aa4fa9da07.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-01-aa4fa9da07.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-03-36cc84408e",
+    "questionAudioPath": "/audio/questions/q-09-03-36cc84408e.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-03-36cc84408e.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-04-daa9e9f179",
+    "questionAudioPath": "/audio/questions/q-09-04-daa9e9f179.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-04-daa9e9f179.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-05-2b9ec1d12c",
+    "questionAudioPath": "/audio/questions/q-09-05-2b9ec1d12c.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-05-2b9ec1d12c.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-06-699ef2e69d",
+    "questionAudioPath": "/audio/questions/q-09-06-699ef2e69d.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-06-699ef2e69d.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-07-d565a407fa",
+    "questionAudioPath": "/audio/questions/q-09-07-d565a407fa.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-07-d565a407fa.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-08-85835887d9",
+    "questionAudioPath": "/audio/questions/q-09-08-85835887d9.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-08-85835887d9.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-09-8ee68dfca4",
+    "questionAudioPath": "/audio/questions/q-09-09-8ee68dfca4.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-09-8ee68dfca4.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-10-53fcc98577",
+    "questionAudioPath": "/audio/questions/q-09-10-53fcc98577.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-10-53fcc98577.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-11-f293cf97a7",
+    "questionAudioPath": "/audio/questions/q-09-11-f293cf97a7.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-11-f293cf97a7.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-12-3e1cb905cb",
+    "questionAudioPath": "/audio/questions/q-09-12-3e1cb905cb.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-12-3e1cb905cb.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-13-d6db023697",
+    "questionAudioPath": "/audio/questions/q-09-13-d6db023697.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-13-d6db023697.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-14-c7321fee1a",
+    "questionAudioPath": "/audio/questions/q-09-14-c7321fee1a.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-14-c7321fee1a.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-15-bcff81d88b",
+    "questionAudioPath": "/audio/questions/q-09-15-bcff81d88b.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-15-bcff81d88b.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-16-30f670d2f8",
+    "questionAudioPath": "/audio/questions/q-09-16-30f670d2f8.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-16-30f670d2f8.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-17-a13d731cc4",
+    "questionAudioPath": "/audio/questions/q-09-17-a13d731cc4.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-17-a13d731cc4.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-18-6a8ebd7311",
+    "questionAudioPath": "/audio/questions/q-09-18-6a8ebd7311.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-18-6a8ebd7311.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-19-be189a5f35",
+    "questionAudioPath": "/audio/questions/q-09-19-be189a5f35.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-19-be189a5f35.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-20-deba76a7e9",
+    "questionAudioPath": "/audio/questions/q-09-20-deba76a7e9.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-20-deba76a7e9.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-21-1bdfbde8f1",
+    "questionAudioPath": "/audio/questions/q-09-21-1bdfbde8f1.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-21-1bdfbde8f1.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-22-ec5ef9e357",
+    "questionAudioPath": "/audio/questions/q-09-22-ec5ef9e357.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-22-ec5ef9e357.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-23-96ddb6bada",
+    "questionAudioPath": "/audio/questions/q-09-23-96ddb6bada.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-23-96ddb6bada.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-24-46b64e45c5",
+    "questionAudioPath": "/audio/questions/q-09-24-46b64e45c5.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-24-46b64e45c5.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-25-f39bc42949",
+    "questionAudioPath": "/audio/questions/q-09-25-f39bc42949.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-25-f39bc42949.mp3",
+    "hasRevealAudio": true,
+    "warnings": [
+      "P2: Richtige Antwort (44 Zeichen) deutlich länger als Durchschnitt der falschen (17 Zeichen)."
+    ]
+  },
+  {
+    "questionId": "q-09-e03-28cbb403a0",
+    "questionAudioPath": "/audio/questions/q-09-e03-28cbb403a0.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-e03-28cbb403a0.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-01",
+    "questionAudioPath": "/audio/questions/q-09-01.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-01.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-03",
+    "questionAudioPath": "/audio/questions/q-09-03.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-03.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-04",
+    "questionAudioPath": "/audio/questions/q-09-04.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-04.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-05",
+    "questionAudioPath": "/audio/questions/q-09-05.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-05.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-07",
+    "questionAudioPath": "/audio/questions/q-09-07.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-07.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-08",
+    "questionAudioPath": "/audio/questions/q-09-08.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-08.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-09",
+    "questionAudioPath": "/audio/questions/q-09-09.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-09.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-10",
+    "questionAudioPath": "/audio/questions/q-09-10.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-10.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-11",
+    "questionAudioPath": "/audio/questions/q-09-11.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-11.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-12",
+    "questionAudioPath": "/audio/questions/q-09-12.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-12.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-13",
+    "questionAudioPath": "/audio/questions/q-09-13.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-13.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-14",
+    "questionAudioPath": "/audio/questions/q-09-14.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-14.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-15",
+    "questionAudioPath": "/audio/questions/q-09-15.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-15.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-16",
+    "questionAudioPath": "/audio/questions/q-09-16.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-16.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-17",
+    "questionAudioPath": "/audio/questions/q-09-17.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-17.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-19",
+    "questionAudioPath": "/audio/questions/q-09-19.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-19.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-20",
+    "questionAudioPath": "/audio/questions/q-09-20.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-20.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-21",
+    "questionAudioPath": "/audio/questions/q-09-21.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-21.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-22",
+    "questionAudioPath": "/audio/questions/q-09-22.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-22.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-23",
+    "questionAudioPath": "/audio/questions/q-09-23.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-23.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-09-25",
+    "questionAudioPath": "/audio/questions/q-09-25.mp3",
+    "revealAudioPath": "/audio/reveals/q-09-25.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-10-01-a724282785",
+    "questionAudioPath": "/audio/questions/q-10-01-a724282785.mp3",
+    "revealAudioPath": "/audio/reveals/q-10-01-a724282785.mp3",
+    "hasRevealAudio": true,
+    "warnings": [
+      "P2: Richtige Antwort (38 Zeichen) deutlich länger als Durchschnitt der falschen (11 Zeichen)."
+    ]
+  },
+  {
+    "questionId": "q-10-02-16cfd8fe93",
+    "questionAudioPath": "/audio/questions/q-10-02-16cfd8fe93.mp3",
+    "revealAudioPath": "/audio/reveals/q-10-02-16cfd8fe93.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-10-03-2a59fdd462",
+    "questionAudioPath": "/audio/questions/q-10-03-2a59fdd462.mp3",
+    "revealAudioPath": "/audio/reveals/q-10-03-2a59fdd462.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-10-04-681a745dc2",
+    "questionAudioPath": "/audio/questions/q-10-04-681a745dc2.mp3",
+    "revealAudioPath": "/audio/reveals/q-10-04-681a745dc2.mp3",
+    "hasRevealAudio": true,
+    "warnings": [
+      "P2: Richtige Antwort (43 Zeichen) deutlich länger als Durchschnitt der falschen (18 Zeichen)."
+    ]
+  },
+  {
+    "questionId": "q-10-05-c51c3c5aa4",
+    "questionAudioPath": "/audio/questions/q-10-05-c51c3c5aa4.mp3",
+    "revealAudioPath": "/audio/reveals/q-10-05-c51c3c5aa4.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-10-06-65bfbcc6d2",
+    "questionAudioPath": "/audio/questions/q-10-06-65bfbcc6d2.mp3",
+    "revealAudioPath": "/audio/reveals/q-10-06-65bfbcc6d2.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-10-07-c46b85b036",
+    "questionAudioPath": "/audio/questions/q-10-07-c46b85b036.mp3",
+    "revealAudioPath": "/audio/reveals/q-10-07-c46b85b036.mp3",
+    "hasRevealAudio": true,
+    "warnings": [
+      "P2: Richtige Antwort (36 Zeichen) deutlich länger als Durchschnitt der falschen (6 Zeichen)."
+    ]
+  },
+  {
+    "questionId": "q-10-08-e01d9ff8bd",
+    "questionAudioPath": "/audio/questions/q-10-08-e01d9ff8bd.mp3",
+    "revealAudioPath": "/audio/reveals/q-10-08-e01d9ff8bd.mp3",
+    "hasRevealAudio": true,
+    "warnings": [
+      "P2: Richtige Antwort (40 Zeichen) deutlich länger als Durchschnitt der falschen (19 Zeichen)."
+    ]
+  },
+  {
+    "questionId": "q-10-09-d59a3ca39c",
+    "questionAudioPath": "/audio/questions/q-10-09-d59a3ca39c.mp3",
+    "revealAudioPath": "/audio/reveals/q-10-09-d59a3ca39c.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-10-10-c7e06f0732",
+    "questionAudioPath": "/audio/questions/q-10-10-c7e06f0732.mp3",
+    "revealAudioPath": "/audio/reveals/q-10-10-c7e06f0732.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-10-11-f066fb2e24",
+    "questionAudioPath": "/audio/questions/q-10-11-f066fb2e24.mp3",
+    "revealAudioPath": "/audio/reveals/q-10-11-f066fb2e24.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-10-12-ba3a09612f",
+    "questionAudioPath": "/audio/questions/q-10-12-ba3a09612f.mp3",
+    "revealAudioPath": "/audio/reveals/q-10-12-ba3a09612f.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-10-13-9a6c710d44",
+    "questionAudioPath": "/audio/questions/q-10-13-9a6c710d44.mp3",
+    "revealAudioPath": "/audio/reveals/q-10-13-9a6c710d44.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-10-14-d85f04e7ab",
+    "questionAudioPath": "/audio/questions/q-10-14-d85f04e7ab.mp3",
+    "revealAudioPath": "/audio/reveals/q-10-14-d85f04e7ab.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-10-15-22894dcb08",
+    "questionAudioPath": "/audio/questions/q-10-15-22894dcb08.mp3",
+    "revealAudioPath": "/audio/reveals/q-10-15-22894dcb08.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-10-16-3375eefa44",
+    "questionAudioPath": "/audio/questions/q-10-16-3375eefa44.mp3",
+    "revealAudioPath": "/audio/reveals/q-10-16-3375eefa44.mp3",
+    "hasRevealAudio": true,
+    "warnings": [
+      "P2: Richtige Antwort (43 Zeichen) deutlich länger als Durchschnitt der falschen (17 Zeichen)."
+    ]
+  },
+  {
+    "questionId": "q-10-17-91e8d7efc9",
+    "questionAudioPath": "/audio/questions/q-10-17-91e8d7efc9.mp3",
+    "revealAudioPath": "/audio/reveals/q-10-17-91e8d7efc9.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-10-18-ed86c923b4",
+    "questionAudioPath": "/audio/questions/q-10-18-ed86c923b4.mp3",
+    "revealAudioPath": "/audio/reveals/q-10-18-ed86c923b4.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-10-19-067bdd8992",
+    "questionAudioPath": "/audio/questions/q-10-19-067bdd8992.mp3",
+    "revealAudioPath": "/audio/reveals/q-10-19-067bdd8992.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-10-20-e8893bcd21",
+    "questionAudioPath": "/audio/questions/q-10-20-e8893bcd21.mp3",
+    "revealAudioPath": "/audio/reveals/q-10-20-e8893bcd21.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-10-21-da25583664",
+    "questionAudioPath": "/audio/questions/q-10-21-da25583664.mp3",
+    "revealAudioPath": "/audio/reveals/q-10-21-da25583664.mp3",
+    "hasRevealAudio": true,
+    "warnings": [
+      "P2: Richtige Antwort (41 Zeichen) deutlich länger als Durchschnitt der falschen (18 Zeichen)."
+    ]
+  },
+  {
+    "questionId": "q-10-22-1a883f547d",
+    "questionAudioPath": "/audio/questions/q-10-22-1a883f547d.mp3",
+    "revealAudioPath": "/audio/reveals/q-10-22-1a883f547d.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-10-23-c2cd438f9e",
+    "questionAudioPath": "/audio/questions/q-10-23-c2cd438f9e.mp3",
+    "revealAudioPath": "/audio/reveals/q-10-23-c2cd438f9e.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-10-24-1394a5fdc3",
+    "questionAudioPath": "/audio/questions/q-10-24-1394a5fdc3.mp3",
+    "revealAudioPath": "/audio/reveals/q-10-24-1394a5fdc3.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-10-m9e136a2a7e",
+    "questionAudioPath": "/audio/questions/q-10-m9e136a2a7e.mp3",
+    "revealAudioPath": "/audio/reveals/q-10-m9e136a2a7e.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-10-01",
+    "questionAudioPath": "/audio/questions/q-10-01.mp3",
+    "revealAudioPath": "/audio/reveals/q-10-01.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-10-03",
+    "questionAudioPath": "/audio/questions/q-10-03.mp3",
+    "revealAudioPath": "/audio/reveals/q-10-03.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-10-04",
+    "questionAudioPath": "/audio/questions/q-10-04.mp3",
+    "revealAudioPath": "/audio/reveals/q-10-04.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-10-05",
+    "questionAudioPath": "/audio/questions/q-10-05.mp3",
+    "revealAudioPath": "/audio/reveals/q-10-05.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-10-06",
+    "questionAudioPath": "/audio/questions/q-10-06.mp3",
+    "revealAudioPath": "/audio/reveals/q-10-06.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-10-08",
+    "questionAudioPath": "/audio/questions/q-10-08.mp3",
+    "revealAudioPath": "/audio/reveals/q-10-08.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-10-09",
+    "questionAudioPath": "/audio/questions/q-10-09.mp3",
+    "revealAudioPath": "/audio/reveals/q-10-09.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-10-10",
+    "questionAudioPath": "/audio/questions/q-10-10.mp3",
+    "revealAudioPath": "/audio/reveals/q-10-10.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-10-11",
+    "questionAudioPath": "/audio/questions/q-10-11.mp3",
+    "revealAudioPath": "/audio/reveals/q-10-11.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-10-12",
+    "questionAudioPath": "/audio/questions/q-10-12.mp3",
+    "revealAudioPath": "/audio/reveals/q-10-12.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-10-13",
+    "questionAudioPath": "/audio/questions/q-10-13.mp3",
+    "revealAudioPath": "/audio/reveals/q-10-13.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-10-14",
+    "questionAudioPath": "/audio/questions/q-10-14.mp3",
+    "revealAudioPath": "/audio/reveals/q-10-14.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-10-15",
+    "questionAudioPath": "/audio/questions/q-10-15.mp3",
+    "revealAudioPath": "/audio/reveals/q-10-15.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-01-e2f91b4a",
+    "questionAudioPath": "/audio/questions/q-11-01-e2f91b4a.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-01-e2f91b4a.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-02-a8c4d321",
+    "questionAudioPath": "/audio/questions/q-11-02-a8c4d321.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-02-a8c4d321.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-03-bf567812",
+    "questionAudioPath": "/audio/questions/q-11-03-bf567812.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-03-bf567812.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-04-cc910112",
+    "questionAudioPath": "/audio/questions/q-11-04-cc910112.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-04-cc910112.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-05-dd121314",
+    "questionAudioPath": "/audio/questions/q-11-05-dd121314.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-05-dd121314.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-06-ee151617",
+    "questionAudioPath": "/audio/questions/q-11-06-ee151617.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-06-ee151617.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-07-ff181920",
+    "questionAudioPath": "/audio/questions/q-11-07-ff181920.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-07-ff181920.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-08-01212223",
+    "questionAudioPath": "/audio/questions/q-11-08-01212223.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-08-01212223.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-09-02242526",
+    "questionAudioPath": "/audio/questions/q-11-09-02242526.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-09-02242526.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-10-03272829",
+    "questionAudioPath": "/audio/questions/q-11-10-03272829.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-10-03272829.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-11-04303132",
+    "questionAudioPath": "/audio/questions/q-11-11-04303132.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-11-04303132.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-12-05333435",
+    "questionAudioPath": "/audio/questions/q-11-12-05333435.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-12-05333435.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-13-06363738",
+    "questionAudioPath": "/audio/questions/q-11-13-06363738.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-13-06363738.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-14-07394041",
+    "questionAudioPath": "/audio/questions/q-11-14-07394041.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-14-07394041.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-15-08424344",
+    "questionAudioPath": "/audio/questions/q-11-15-08424344.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-15-08424344.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-16-09454647",
+    "questionAudioPath": "/audio/questions/q-11-16-09454647.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-16-09454647.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-17-10484950",
+    "questionAudioPath": "/audio/questions/q-11-17-10484950.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-17-10484950.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-18-11515253",
+    "questionAudioPath": "/audio/questions/q-11-18-11515253.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-18-11515253.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-19-12545556",
+    "questionAudioPath": "/audio/questions/q-11-19-12545556.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-19-12545556.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-20-13575859",
+    "questionAudioPath": "/audio/questions/q-11-20-13575859.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-20-13575859.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-21-14606162",
+    "questionAudioPath": "/audio/questions/q-11-21-14606162.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-21-14606162.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-22-15636465",
+    "questionAudioPath": "/audio/questions/q-11-22-15636465.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-22-15636465.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-23-16666768",
+    "questionAudioPath": "/audio/questions/q-11-23-16666768.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-23-16666768.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-24-17697071",
+    "questionAudioPath": "/audio/questions/q-11-24-17697071.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-24-17697071.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-25-18727374",
+    "questionAudioPath": "/audio/questions/q-11-25-18727374.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-25-18727374.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-26-19757677",
+    "questionAudioPath": "/audio/questions/q-11-26-19757677.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-26-19757677.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-27-20787980",
+    "questionAudioPath": "/audio/questions/q-11-27-20787980.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-27-20787980.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-28-21818283",
+    "questionAudioPath": "/audio/questions/q-11-28-21818283.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-28-21818283.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-29-22848586",
+    "questionAudioPath": "/audio/questions/q-11-29-22848586.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-29-22848586.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-30-23878889",
+    "questionAudioPath": "/audio/questions/q-11-30-23878889.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-30-23878889.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-31-24909192",
+    "questionAudioPath": "/audio/questions/q-11-31-24909192.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-31-24909192.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-32-25939495",
+    "questionAudioPath": "/audio/questions/q-11-32-25939495.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-32-25939495.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-33-26969798",
+    "questionAudioPath": "/audio/questions/q-11-33-26969798.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-33-26969798.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-34-27991001",
+    "questionAudioPath": "/audio/questions/q-11-34-27991001.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-34-27991001.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-35-28102030",
+    "questionAudioPath": "/audio/questions/q-11-35-28102030.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-35-28102030.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-36-29113141",
+    "questionAudioPath": "/audio/questions/q-11-36-29113141.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-36-29113141.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-37-30124151",
+    "questionAudioPath": "/audio/questions/q-11-37-30124151.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-37-30124151.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-38-31135161",
+    "questionAudioPath": "/audio/questions/q-11-38-31135161.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-38-31135161.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-39-32146171",
+    "questionAudioPath": "/audio/questions/q-11-39-32146171.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-39-32146171.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-40-33157181",
+    "questionAudioPath": "/audio/questions/q-11-40-33157181.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-40-33157181.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-41-34168191",
+    "questionAudioPath": "/audio/questions/q-11-41-34168191.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-41-34168191.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-42-35179201",
+    "questionAudioPath": "/audio/questions/q-11-42-35179201.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-42-35179201.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-43-36180311",
+    "questionAudioPath": "/audio/questions/q-11-43-36180311.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-43-36180311.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-44-37191421",
+    "questionAudioPath": "/audio/questions/q-11-44-37191421.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-44-37191421.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-45-38202531",
+    "questionAudioPath": "/audio/questions/q-11-45-38202531.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-45-38202531.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-46-39213641",
+    "questionAudioPath": "/audio/questions/q-11-46-39213641.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-46-39213641.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-47-40224751",
+    "questionAudioPath": "/audio/questions/q-11-47-40224751.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-47-40224751.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-48-41235861",
+    "questionAudioPath": "/audio/questions/q-11-48-41235861.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-48-41235861.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-49-42246971",
+    "questionAudioPath": "/audio/questions/q-11-49-42246971.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-49-42246971.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  },
+  {
+    "questionId": "q-11-50-43257081",
+    "questionAudioPath": "/audio/questions/q-11-50-43257081.mp3",
+    "revealAudioPath": "/audio/reveals/q-11-50-43257081.mp3",
+    "hasRevealAudio": true,
+    "warnings": []
+  }
+]
