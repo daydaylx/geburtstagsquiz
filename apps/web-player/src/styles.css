@@ -567,6 +567,27 @@ body {
   box-shadow: 0 0 24px rgba(245, 158, 11, 0.12);
 }
 
+/* ── Join Screen ───────────────────────────────────────────────────── */
+.player-join-root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  width: 100%;
+}
+
+.player-join-logo {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 9vw, 3.5rem);
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  color: var(--player-accent);
+  text-shadow:
+    0 0 24px color-mix(in srgb, var(--player-accent) 55%, transparent),
+    0 0 60px color-mix(in srgb, var(--player-accent) 22%, transparent);
+  animation: player-screen-enter 0.4s var(--ease-out) both;
+}
+
 /* ── Form Inputs ───────────────────────────────────────────────────── */
 .player-join-form {
   display: grid;
@@ -863,6 +884,21 @@ body {
   padding: 2px 10px;
   min-width: 26px;
   text-align: center;
+}
+
+.player-category-item-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.player-category-check {
+  color: var(--player-green);
+  font-weight: 800;
+  font-size: 1rem;
+  line-height: 1;
+  animation: player-saved-pop 0.35s var(--ease-spring) both;
 }
 
 .player-category-bar-track {
@@ -1404,8 +1440,50 @@ body {
   }
 }
 
+/* ── Countdown Overlay ─────────────────────────────────────────────── */
+.player-countdown-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--player-bg) 88%, transparent);
+  backdrop-filter: blur(4px);
+}
+
+.player-countdown-number {
+  font-family: var(--font-display);
+  font-size: clamp(5rem, 20vw, 9rem);
+  font-weight: 900;
+  color: var(--player-accent);
+  text-shadow:
+    0 0 32px color-mix(in srgb, var(--player-accent) 60%, transparent),
+    0 0 80px color-mix(in srgb, var(--player-accent) 25%, transparent);
+  animation: player-countdown-pop 0.5s var(--ease-spring) both;
+}
+
+@keyframes player-countdown-pop {
+  0% {
+    opacity: 0;
+    transform: scale(1.7);
+  }
+  55% {
+    opacity: 1;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 /* ── Reduced Motion ────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
+  .player-countdown-number {
+    animation: none;
+  }
+
   .player-confetti,
   .player-confetti-piece {
     display: none !important;

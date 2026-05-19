@@ -31,7 +31,14 @@ export function PlayerLobbyScreen({ session: s }: { session: UsePlayerSessionRet
                 >
                   <div className="player-category-item-row">
                     <span className="player-category-name">{cat.name}</span>
-                    {voteCount > 0 && <span className="player-category-votes">{voteCount}</span>}
+                    <div className="player-category-item-meta">
+                      {voteCount > 0 && <span className="player-category-votes">{voteCount}</span>}
+                      {isMyVote && (
+                        <span className="player-category-check" aria-hidden="true">
+                          ✓
+                        </span>
+                      )}
+                    </div>
                   </div>
                   {voteCount > 0 && (
                     <div className="player-category-bar-track">

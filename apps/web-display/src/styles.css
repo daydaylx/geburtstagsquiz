@@ -789,6 +789,48 @@ body {
   font-family: var(--font-display);
 }
 
+.display-player-count-label {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--display-ink-soft);
+}
+
+.display-player-section {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.display-player-section .display-player-count {
+  grid-column: unset;
+}
+
+.display-player-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  max-width: 600px;
+}
+
+.display-player-pill {
+  background: var(--bg-card-active);
+  border: 1px solid color-mix(in srgb, var(--accent-cyan) 22%, transparent);
+  border-radius: 999px;
+  color: var(--display-ink-soft);
+  font-size: clamp(0.75rem, 1.4vw, 1rem);
+  font-weight: 500;
+  padding: 0.3em 0.85em;
+  animation: reveal-correct-pop 0.4s var(--ease-spring) both;
+}
+
+.display-player-pill[data-connected="true"] {
+  color: var(--display-ink);
+  border-color: color-mix(in srgb, var(--accent-cyan) 45%, transparent);
+}
+
 /* ── Question ──────────────────────────────────────────────────────── */
 
 .display-question {

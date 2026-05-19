@@ -34,8 +34,20 @@ export function DisplayLobbyScreen({ session: s }: { session: UseDisplaySessionR
         </div>
       )}
 
-      <div className="display-player-count">
-        <span className="display-player-count-number">{s.lobby?.playerCount ?? 0}</span> Spieler
+      <div className="display-player-section">
+        <div className="display-player-count">
+          <span className="display-player-count-number">{s.lobby?.playerCount ?? 0}</span>
+          <span className="display-player-count-label">Spieler</span>
+        </div>
+        {s.lobby && s.lobby.players.length > 0 && (
+          <div className="display-player-grid">
+            {s.lobby.players.map((p) => (
+              <div key={p.playerId} className="display-player-pill" data-connected={p.connected ? "true" : undefined}>
+                {p.name}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

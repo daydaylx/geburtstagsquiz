@@ -159,6 +159,7 @@ export function useDisplaySession(deps: {
       window.clearTimeout(fadeTimerRef.current);
       fadeTimerRef.current = null;
     }
+    setIsFadingOut(false);
     setPreCountdown(null);
     setScreen("setup");
     setRoomInfo(null);
@@ -254,19 +255,20 @@ export function useDisplaySession(deps: {
           return;
         }
 
-        isResumingRef.current = true;
-        if (payload.gameState === GameState.Revealing) {
+        if (
+          payload.gameState === GameState.QuestionActive ||
+          payload.gameState === GameState.AnswerLocked ||
+          payload.gameState === GameState.Idle
+        ) {
+          // QUESTION_SHOW follows and will reset the flag
+          isResumingRef.current = true;
+          setScreen("question");
+        } else if (payload.gameState === GameState.Revealing) {
           setScreen("reveal");
         } else if (payload.gameState === GameState.Scoreboard) {
           setScreen("scoreboard");
         } else if (payload.gameState === GameState.Completed || payload.roomState === RoomState.Completed) {
           setScreen("finished");
-        } else if (
-          payload.gameState === GameState.QuestionActive ||
-          payload.gameState === GameState.AnswerLocked ||
-          payload.gameState === GameState.Idle
-        ) {
-          setScreen("question");
         }
         return;
       }

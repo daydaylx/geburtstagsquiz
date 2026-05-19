@@ -49,6 +49,14 @@ export function App() {
         )}
       </header>
 
+      {session.preCountdown !== null && (
+        <div className="player-countdown-overlay" aria-live="assertive">
+          <div className="player-countdown-number" key={session.preCountdown}>
+            {session.preCountdown}
+          </div>
+        </div>
+      )}
+
       {session.notice && (
         <div className="player-notice" data-kind={session.notice.kind} role="alert">
           {session.notice.text}

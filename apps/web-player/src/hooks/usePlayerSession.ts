@@ -84,6 +84,7 @@ export interface UsePlayerSessionReturn {
   handleReadyForNextQuestion: () => void;
   handlePlayAgain: () => void;
   handleCancelRestart: () => void;
+  preCountdown: number | null;
   waitingForRestart: boolean;
   setJoinCode: (v: string) => void;
   setPlayerName: (v: string) => void;
@@ -136,6 +137,7 @@ export function usePlayerSession(deps: {
   const [votes, setVotes] = useState<Record<string, number>>({});
   const [myVote, setMyVote] = useState<string | null>(null);
   const [waitingForRestart, setWaitingForRestart] = useState(false);
+  const [preCountdown, setPreCountdown] = useState<number | null>(null);
 
   const playerSessionRef = useRef<PlayerStoredSession | null>(initialSession);
   const lastJoinAttemptRef = useRef<JoinAttempt | null>(null);
@@ -341,11 +343,15 @@ export function usePlayerSession(deps: {
         return;
 
       // --- Game Flow: Question → Answer → Reveal → Scoreboard ---
-      case EVENTS.QUESTION_COUNTDOWN:
+      case EVENTS.QUESTION_COUNTDOWN: {
+        const cd = Math.round(parsedEnvelope.data.payload.countdownMs / 1000);
+        setPreCountdown(cd);
         return;
+      }
 
       case EVENTS.QUESTION_CONTROLLER: {
         if (!playerSessionRef.current) return;
+        setPreCountdown(null);
         if (submitTimeoutRef.current) {
           clearTimeout(submitTimeoutRef.current);
           submitTimeoutRef.current = null;
@@ -631,6 +637,7 @@ export function usePlayerSession(deps: {
     ownFinalPlacement,
     readyQuestionId,
     isReadyForNext,
+    preCountdown,
     categories,
     votes,
     myVote,
