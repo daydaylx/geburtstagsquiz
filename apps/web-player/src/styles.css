@@ -1,21 +1,27 @@
 /* ── Design Tokens ─────────────────────────────────────────────────── */
 :root {
-  --bg-black: #020408;
-  --bg-card: #0f172a;
-  --bg-card-active: #1e293b;
+  /* Core – aligned with display warm palette */
+  --bg-black: #0a0908;
+  --bg-card: #161311;
+  --bg-card-active: #1f1b17;
   --accent-gold: #f6c76a;
-  --accent-cyan: #06b6d4;
+  --accent-cyan: #2dd4a8;
   --color-success: #22c55e;
   --color-error: #ef4444;
-  --solid-border: #24334f;
-  --solid-border-strong: #334767;
+  --solid-border: #2e2924;
+  --solid-border-strong: #3d352e;
   --solid-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.7);
   --solid-shadow-lg: 0 18px 46px -8px rgba(0, 0, 0, 0.78);
+  /* Option colors – matching display exactly */
+  --player-opt-a: #5eafd6;
+  --player-opt-b: #f6c76a;
+  --player-opt-c: #34d399;
+  --player-opt-d: #f97316;
   --player-bg: var(--bg-black);
   --player-bg-card: var(--bg-card);
   --player-accent: var(--accent-gold);
   --player-accent-soft: #2f2618;
-  --player-accent-glow: rgba(0, 0, 0, 0.62);
+  --player-accent-glow: rgba(246, 199, 106, 0.08);
   --player-cyan: var(--accent-cyan);
   --player-green: var(--color-success);
   --player-red: var(--color-error);
@@ -56,7 +62,7 @@ body {
   height: 100dvh;
   overflow: hidden;
   background-color: var(--player-bg);
-  background-image: none;
+  background-image: radial-gradient(ellipse at 50% 0%, rgba(246, 199, 106, 0.04) 0%, transparent 65%);
   color: var(--player-ink);
 }
 
@@ -78,8 +84,10 @@ body {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background: none;
-  opacity: 0.64;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(246, 199, 106, 0.04) 0%, transparent 65%),
+    radial-gradient(ellipse at 80% 100%, rgba(45, 212, 168, 0.025) 0%, transparent 55%);
+  opacity: 0.8;
 }
 
 /* ── Lobby Ambient Glow ────────────────────────────────────────────── */
@@ -88,7 +96,7 @@ body {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background: none;
+  background: radial-gradient(ellipse at 50% 55%, rgba(246, 199, 106, 0.04) 0%, transparent 60%);
   z-index: 0;
 }
 
@@ -293,6 +301,7 @@ body {
 .player-controller-card {
   text-align: center;
   border-color: rgba(246, 199, 106, 0.22);
+  background: linear-gradient(180deg, rgba(246, 199, 106, 0.03) 0%, transparent 50%), var(--bg-card);
 }
 
 /* Fragetyp-Farbakzente auf Kicker */
@@ -314,10 +323,10 @@ body {
 }
 
 .player-controller-card[data-status="accepted"] {
-  border-color: rgba(34, 197, 94, 0.38);
+  border-color: rgba(34, 197, 94, 0.45);
   box-shadow:
     0 16px 44px rgba(0, 0, 0, 0.34),
-    0 0 26px rgba(34, 197, 94, 0.08);
+    0 0 32px rgba(34, 197, 94, 0.12);
 }
 
 .player-controller-card[data-status="locked"] {
@@ -398,7 +407,8 @@ body {
   padding: 16px 20px;
   border-radius: var(--player-radius);
   border: 2px solid rgba(255, 255, 255, 0.16);
-  background: var(--bg-card-active);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.025) 0%, transparent 100%), var(--bg-card-active);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.04);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -418,7 +428,7 @@ body {
 
 .player-controller-option:hover:not(:disabled) {
   transform: scale(1.02);
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 .player-controller-option:active:not(:disabled),
@@ -436,43 +446,44 @@ body {
   outline-offset: 2px;
 }
 
-/* Option-Farbcodierung passend zum Display-Screen */
+/* Option-Farbcodierung exakt wie Display-Screen (A=cyan, B=gold, C=grün, D=orange) */
 .player-controller-option[data-option-index="0"] {
-  border-color: rgba(56, 189, 248, 0.55);
-  background: var(--bg-card-active);
+  border-color: rgba(94, 175, 214, 0.55);
+  background: linear-gradient(180deg, rgba(94, 175, 214, 0.04) 0%, transparent 100%), var(--bg-card-active);
 }
 .player-controller-option[data-option-index="0"] .player-controller-option-id {
-  color: var(--player-cyan);
+  color: var(--player-opt-a);
 }
 .player-controller-option[data-option-index="1"] {
   border-color: rgba(246, 199, 106, 0.55);
-  background: var(--bg-card-active);
+  background: linear-gradient(180deg, rgba(246, 199, 106, 0.04) 0%, transparent 100%), var(--bg-card-active);
 }
 .player-controller-option[data-option-index="1"] .player-controller-option-id {
-  color: var(--player-accent);
+  color: var(--player-opt-b);
 }
 .player-controller-option[data-option-index="2"] {
-  border-color: rgba(34, 197, 94, 0.55);
-  background: var(--bg-card-active);
+  border-color: rgba(52, 211, 153, 0.55);
+  background: linear-gradient(180deg, rgba(52, 211, 153, 0.04) 0%, transparent 100%), var(--bg-card-active);
 }
 .player-controller-option[data-option-index="2"] .player-controller-option-id {
-  color: var(--player-green);
+  color: var(--player-opt-c);
 }
 .player-controller-option[data-option-index="3"] {
-  border-color: rgba(245, 158, 11, 0.55);
-  background: var(--bg-card-active);
+  border-color: rgba(249, 115, 22, 0.55);
+  background: linear-gradient(180deg, rgba(249, 115, 22, 0.04) 0%, transparent 100%), var(--bg-card-active);
 }
 .player-controller-option[data-option-index="3"] .player-controller-option-id {
-  color: var(--player-amber);
+  color: var(--player-opt-d);
 }
 
 .player-controller-option[data-state="selected"] {
   color: #fff8e6;
-  border-color: rgba(246, 199, 106, 0.75);
+  border-color: rgba(246, 199, 106, 0.8);
   background: var(--player-accent);
   box-shadow:
-    0 0 28px rgba(246, 199, 106, 0.18),
-    inset 0 0 12px rgba(246, 199, 106, 0.06);
+    0 0 36px rgba(246, 199, 106, 0.22),
+    0 4px 16px rgba(0, 0, 0, 0.4),
+    inset 0 0 12px rgba(246, 199, 106, 0.08);
   animation: option-select-pop 260ms ease-out both;
 }
 
@@ -1614,34 +1625,42 @@ body {
 }
 
 .player-controller-option {
-  background: var(--bg-card-active);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.025) 0%, transparent 100%), var(--bg-card-active);
   border-color: var(--solid-border-strong);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
+/* Option colors matching display exactly */
 .player-controller-option[data-option-index="0"] {
-  --player-option-color: var(--player-cyan);
+  --player-option-color: var(--player-opt-a);
 }
 
 .player-controller-option[data-option-index="1"] {
-  --player-option-color: var(--player-accent);
+  --player-option-color: var(--player-opt-b);
 }
 
 .player-controller-option[data-option-index="2"] {
-  --player-option-color: var(--player-green);
+  --player-option-color: var(--player-opt-c);
 }
 
 .player-controller-option[data-option-index="3"] {
-  --player-option-color: var(--player-amber);
+  --player-option-color: var(--player-opt-d);
 }
 
 .player-controller-option[data-option-index] {
   border-left: 8px solid var(--player-option-color);
 }
 
+.player-controller-option[data-option-index] .player-controller-option-id {
+  color: var(--player-option-color);
+}
+
 .player-controller-option[data-state="selected"] {
   background: var(--accent-gold);
   border-color: var(--accent-gold);
-  box-shadow: var(--solid-shadow-lg);
+  box-shadow:
+    0 0 32px rgba(246, 199, 106, 0.2),
+    var(--solid-shadow-lg);
   color: #170f02;
 }
 
