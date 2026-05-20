@@ -17,6 +17,8 @@ export interface GamePlan {
   timerMs: number;
   revealDurationMs: number;
   revealMode: RevealMode;
+  revealDelayMs: number;
+  playerReadingPhaseMs: number;
   showAnswerTextOnPlayerDevices: boolean;
   enableDemoQuestion: boolean;
   displayShowLevel: DisplayShowLevel;

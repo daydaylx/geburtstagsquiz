@@ -133,6 +133,8 @@ function makeSmokeGamePlan(catalog) {
     timerMs: 90000,
     revealDurationMs: 30000,
     revealMode: "manual_with_fallback",
+    revealDelayMs: 0,
+    playerReadingPhaseMs: 0,
     showAnswerTextOnPlayerDevices: false,
     enableDemoQuestion: false,
     displayShowLevel: "minimal",

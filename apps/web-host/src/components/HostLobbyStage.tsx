@@ -126,6 +126,55 @@ export function HostLobbyStage({
               </span>
             </label>
           </div>
+
+          <div className="host-card host-moderator-panel">
+            <div className="host-moderator-header">
+              <strong className="host-section-label">Moderator-Clips</strong>
+              <label className="host-toggle-row host-toggle-row--inline">
+                <input
+                  checked={s.moderatorEnabled}
+                  onChange={(e) => s.handleModeratorEnabledChange(e.target.checked)}
+                  type="checkbox"
+                />
+                <span className="host-toggle-track" />
+                <span>{s.moderatorEnabled ? "An" : "Aus"}</span>
+              </label>
+            </div>
+            {s.moderatorEnabled && (
+              <div className="host-moderator-frequency">
+                {(["low", "medium", "high"] as const).map((freq) => (
+                  <button
+                    className={`host-freq-button${s.moderatorFrequency === freq ? " host-freq-button--active" : ""}`}
+                    key={freq}
+                    onClick={() => s.handleModeratorFrequencyChange(freq)}
+                    type="button"
+                  >
+                    {freq === "low" ? "niedrig" : freq === "medium" ? "mittel" : "hoch"}
+                  </button>
+                ))}
+              </div>
+            )}
+            <div className="host-moderator-controls">
+              <button
+                className="host-action-button host-action-button--secondary"
+                disabled={!s.moderatorEnabled || !s.displayConnected}
+                onClick={() => s.handleModeratorControl("test")}
+                title={!s.displayConnected ? "Display nicht verbunden" : undefined}
+                type="button"
+              >
+                Testclip
+              </button>
+              <button
+                className="host-action-button host-action-button--secondary"
+                disabled={!s.displayConnected}
+                onClick={() => s.handleModeratorControl("stop")}
+                title={!s.displayConnected ? "Display nicht verbunden" : undefined}
+                type="button"
+              >
+                Audio stoppen
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

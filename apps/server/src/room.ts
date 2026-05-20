@@ -4,6 +4,7 @@ import { EVENTS } from "@quiz/shared-protocol";
 import { RoomState } from "@quiz/shared-types";
 import { JOIN_CODE_ALPHABET, JOIN_CODE_LENGTH } from "@quiz/shared-utils";
 import { PROTOCOL_ERROR_CODES, sendEvent, sendProtocolError } from "./protocol.js";
+import { createDefaultRoomSettings } from "./room-settings.js";
 import { clearActiveRoomTimers } from "./room-timers.js";
 import type { RoomRecord, SessionRecord, TrackedWebSocket } from "./server-types.js";
 import { logRoomEvent, roomIdByHostToken, roomIdByJoinCode, roomsById, sessionsById } from "./state.js";
@@ -195,9 +196,7 @@ export function handleDisplayCreateRoom(
     displaySessionId,
     displayConnectToken: null,
     displayConnectTokenUsed: false,
-    settings: {
-      showAnswerTextOnPlayerDevices: false,
-    },
+    settings: createDefaultRoomSettings(),
     players: [],
     quiz: null,
     currentQuestionIndex: null,
@@ -212,6 +211,7 @@ export function handleDisplayCreateRoom(
     questionTimer: null,
     timerTickInterval: null,
     revealTimer: null,
+    revealDelayTimer: null,
     completedRoomTtlTimer: null,
     currentAnswers: new Map(),
     nextQuestionReadyPlayerIds: new Set(),

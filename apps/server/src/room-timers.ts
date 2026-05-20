@@ -22,6 +22,11 @@ export function clearActiveRoomTimers(room: RoomRecord): void {
     room.revealTimer = null;
   }
 
+  if (room.revealDelayTimer) {
+    clearTimeout(room.revealDelayTimer);
+    room.revealDelayTimer = null;
+  }
+
   if (room.completedRoomTtlTimer) {
     clearTimeout(room.completedRoomTtlTimer);
     room.completedRoomTtlTimer = null;

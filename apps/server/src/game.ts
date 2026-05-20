@@ -129,6 +129,7 @@ export function handleGameStart(socket: TrackedWebSocket, payload: GameStartPayl
   };
   room.resolvedGamePlan = resolvedGamePlan;
   room.settings = {
+    ...room.settings,
     showAnswerTextOnPlayerDevices: resolvedGamePlan.showAnswerTextOnPlayerDevices,
     gamePlanDraft: requestedGamePlan,
   };
@@ -167,7 +168,11 @@ export function handleGameNextQuestion(socket: TrackedWebSocket, roomId: string)
     return;
   }
 
-  if (room.gameState !== GameState.Scoreboard && room.gameState !== GameState.Revealing) {
+  if (
+    room.gameState !== GameState.Scoreboard &&
+    room.gameState !== GameState.Revealing &&
+    room.gameState !== GameState.AnswerLocked
+  ) {
     sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "Cannot advance from current state", {
       event: EVENTS.GAME_NEXT_QUESTION,
       roomId: room.id,
@@ -182,6 +187,14 @@ export function handleGameNextQuestion(socket: TrackedWebSocket, roomId: string)
       roomId: room.id,
       questionId: null,
     });
+    return;
+  }
+
+  if (room.gameState === GameState.AnswerLocked && room.revealDelayTimer) {
+    clearTimeout(room.revealDelayTimer);
+    room.revealDelayTimer = null;
+    const question = room.quiz!.questions[room.currentQuestionIndex!];
+    evaluateQuestion(room, question);
     return;
   }
 
@@ -405,16 +418,7 @@ export function handleAnswerSubmit(
     return;
   }
 
-  if (room.currentAnswers.has(player.id)) {
-    sendEvent(socket, EVENTS.ANSWER_REJECTED, {
-      roomId: room.id,
-      questionId: payload.questionId,
-      playerId: player.id,
-      status: "rejected",
-      reason: "duplicate",
-    });
-    return;
-  }
+  const isAnswerChange = room.currentAnswers.has(player.id);
 
   if (!isAnswerValidForQuestion(currentQuestion, payload.answer)) {
     sendEvent(socket, EVENTS.ANSWER_REJECTED, {
@@ -439,7 +443,7 @@ export function handleAnswerSubmit(
   room.currentAnswers.set(player.id, submittedAnswer);
   player.state = PlayerState.Answered;
 
-  logRoomEvent("answer:submit", room, {
+  logRoomEvent(isAnswerChange ? "answer:change" : "answer:submit", room, {
     playerId: player.id,
     questionId: payload.questionId,
   });
@@ -451,7 +455,9 @@ export function handleAnswerSubmit(
     status: "accepted",
   });
 
-  handleAnswerEligibilityChanged(room);
+  if (!isAnswerChange) {
+    handleAnswerEligibilityChanged(room);
+  }
 }
 
 export function handleNextQuestionReady(
@@ -721,7 +727,23 @@ function closeQuestion(room: RoomRecord): void {
     gameState: GameState.AnswerLocked,
   });
 
-  evaluateQuestion(room, question);
+  const revealDelayMs = room.resolvedGamePlan?.revealDelayMs ?? 0;
+  if (revealDelayMs > 0) {
+    room.revealDelayTimer = setTimeout(() => {
+      room.revealDelayTimer = null;
+      if (
+        room.state !== "in_game" ||
+        !room.quiz ||
+        room.currentQuestionIndex === null ||
+        room.quiz.questions[room.currentQuestionIndex]?.id !== question.id
+      ) {
+        return;
+      }
+      evaluateQuestion(room, question);
+    }, revealDelayMs);
+  } else {
+    evaluateQuestion(room, question);
+  }
 }
 
 function evaluateQuestion(room: RoomRecord, question: Question): void {

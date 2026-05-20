@@ -32,6 +32,7 @@ export interface RoomRecord extends Room {
   questionTimer: ReturnType<typeof setTimeout> | null;
   timerTickInterval: ReturnType<typeof setInterval> | null;
   revealTimer: ReturnType<typeof setTimeout> | null;
+  revealDelayTimer: ReturnType<typeof setTimeout> | null;
   completedRoomTtlTimer: ReturnType<typeof setTimeout> | null;
   currentAnswers: Map<string, SubmittedAnswer>;
   nextQuestionReadyPlayerIds: Set<string>;

@@ -1,4 +1,5 @@
 import { QuestionType } from "@quiz/shared-types";
+import { useEffect, useState } from "react";
 
 import type { UsePlayerSessionReturn } from "../hooks/usePlayerSession.js";
 import { formatControllerAnswer, getOptionAnswerLabel, getQuestionKindLabel } from "../lib/helpers.js";
@@ -7,10 +8,36 @@ interface PlayerQuestionScreenProps {
   session: UsePlayerSessionReturn;
 }
 
+const canSubmit = (s: UsePlayerSessionReturn) => s.answerStatus === "idle" || s.answerStatus === "accepted";
+
+function useReadingPhase(session: UsePlayerSessionReturn) {
+  const [active, setActive] = useState(false);
+
+  useEffect(() => {
+    if (session.playerReadingPhaseMs > 0 && session.questionReceivedAt) {
+      const remaining = session.playerReadingPhaseMs - (Date.now() - session.questionReceivedAt);
+      if (remaining <= 0) {
+        setActive(false);
+        return;
+      }
+      setActive(true);
+      const timer = setTimeout(() => setActive(false), remaining);
+      return () => clearTimeout(timer);
+    }
+    setActive(false);
+  }, [session.playerReadingPhaseMs, session.questionReceivedAt]);
+
+  return active;
+}
+
 export function PlayerQuestionScreen({ session }: PlayerQuestionScreenProps) {
+  const readingPhaseActive = useReadingPhase(session);
+
   if (!session.question) {
     return null;
   }
+
+  const showQuestionText = session.questionText != null;
 
   return (
     <>
@@ -26,12 +53,25 @@ export function PlayerQuestionScreen({ session }: PlayerQuestionScreenProps) {
                 session.question.questionIndex + 1
               } / ${session.question.totalQuestionCount}`}
         </span>
-        <h2 className="player-controller-title">
-          {session.answerStatus === "accepted" ? "Antwort gespeichert" : "Schau auf den Bildschirm"}
-        </h2>
-        <p className="player-controller-copy">
-          {session.answerStatus === "accepted" ? "Warte auf die Auflösung." : "Die Frage steht auf dem TV."}
-        </p>
+        {showQuestionText && <p className="player-question-text">{session.questionText}</p>}
+        {!showQuestionText && (
+          <h2 className="player-controller-title">
+            {session.answerStatus === "accepted" ? "Antwort gespeichert" : "Schau auf den Bildschirm"}
+          </h2>
+        )}
+        {showQuestionText && !readingPhaseActive && (
+          <h2 className="player-controller-title">
+            {session.answerStatus === "accepted" ? "Antwort gespeichert" : "Wähle deine Antwort"}
+          </h2>
+        )}
+        {showQuestionText && readingPhaseActive && <p className="player-reading-hint">Lies die Frage…</p>}
+        {!showQuestionText && (
+          <p className="player-controller-copy">
+            {session.answerStatus === "accepted"
+              ? "Tippe eine andere Antwort zum Ändern."
+              : "Die Frage steht auf dem TV."}
+          </p>
+        )}
         {session.answerStatus === "submitting" && (
           <div className="player-controller-status" data-state="submitting">
             Wird gespeichert…
@@ -64,40 +104,41 @@ export function PlayerQuestionScreen({ session }: PlayerQuestionScreenProps) {
         )}
       </div>
 
-      {(session.question.type === QuestionType.MultipleChoice ||
-        session.question.type === QuestionType.Logic ||
-        session.question.type === QuestionType.MajorityGuess) && (
-        <div className="player-controller-options" data-status={session.answerStatus}>
-          {session.question.options.map((opt, index) => (
-            <button
-              className="player-controller-option"
-              data-option-index={index}
-              data-state={session.selectedOptionId === opt.id ? "selected" : "idle"}
-              disabled={session.answerStatus !== "idle"}
-              key={opt.id}
-              onClick={() => session.handleSubmitAnswer(opt.id)}
-              type="button"
-            >
-              <span className="player-controller-option-id">{opt.label}</span>
-              {opt.text && <span className="player-controller-option-text">{opt.text}</span>}
-            </button>
-          ))}
-        </div>
-      )}
+      {!readingPhaseActive &&
+        (session.question.type === QuestionType.MultipleChoice ||
+          session.question.type === QuestionType.Logic ||
+          session.question.type === QuestionType.MajorityGuess) && (
+          <div className="player-controller-options" data-status={session.answerStatus}>
+            {session.question.options.map((opt, index) => (
+              <button
+                className="player-controller-option"
+                data-option-index={index}
+                data-state={session.selectedOptionId === opt.id ? "selected" : "idle"}
+                disabled={!canSubmit(session)}
+                key={opt.id}
+                onClick={() => session.handleSubmitAnswer(opt.id)}
+                type="button"
+              >
+                <span className="player-controller-option-id">{opt.label}</span>
+                {opt.text && <span className="player-controller-option-text">{opt.text}</span>}
+              </button>
+            ))}
+          </div>
+        )}
 
-      {session.question.type === QuestionType.Estimate && (
+      {!readingPhaseActive && session.question.type === QuestionType.Estimate && (
         <form
           className="player-estimate-area"
           onSubmit={(e) => {
             e.preventDefault();
-            if (session.answerStatus === "idle" && session.estimateValue !== "") {
+            if (canSubmit(session) && session.estimateValue !== "") {
               session.handleSubmitEstimate(parseFloat(session.estimateValue));
             }
           }}
         >
           <input
             className="player-estimate-input"
-            disabled={session.answerStatus !== "idle"}
+            disabled={!canSubmit(session)}
             inputMode="decimal"
             onChange={(e) => session.setEstimateValue(e.target.value)}
             placeholder={`${session.question.unit} eingeben...`}
@@ -107,7 +148,7 @@ export function PlayerQuestionScreen({ session }: PlayerQuestionScreenProps) {
           />
           <button
             className="player-primary-button"
-            disabled={session.answerStatus !== "idle" || session.estimateValue === ""}
+            disabled={!canSubmit(session) || session.estimateValue === ""}
             type="submit"
           >
             Schätzen
@@ -115,19 +156,19 @@ export function PlayerQuestionScreen({ session }: PlayerQuestionScreenProps) {
         </form>
       )}
 
-      {session.question.type === QuestionType.OpenText && (
+      {!readingPhaseActive && session.question.type === QuestionType.OpenText && (
         <form
           className="player-estimate-area"
           onSubmit={(e) => {
             e.preventDefault();
-            if (session.answerStatus === "idle" && session.textAnswerValue.trim() !== "") {
+            if (canSubmit(session) && session.textAnswerValue.trim() !== "") {
               session.handleSubmitText(session.textAnswerValue);
             }
           }}
         >
           <input
             className="player-estimate-input player-text-answer-input"
-            disabled={session.answerStatus !== "idle"}
+            disabled={!canSubmit(session)}
             onChange={(e) => session.setTextAnswerValue(e.target.value)}
             placeholder="Antwort eingeben..."
             type="text"
@@ -135,7 +176,7 @@ export function PlayerQuestionScreen({ session }: PlayerQuestionScreenProps) {
           />
           <button
             className="player-primary-button"
-            disabled={session.answerStatus !== "idle" || session.textAnswerValue.trim() === ""}
+            disabled={!canSubmit(session) || session.textAnswerValue.trim() === ""}
             type="submit"
           >
             Antworten
@@ -143,7 +184,9 @@ export function PlayerQuestionScreen({ session }: PlayerQuestionScreenProps) {
         </form>
       )}
 
-      {session.question.type === QuestionType.Ranking && <PlayerRankingController session={session} />}
+      {!readingPhaseActive && session.question.type === QuestionType.Ranking && (
+        <PlayerRankingController session={session} />
+      )}
     </>
   );
 }
@@ -245,7 +288,7 @@ function PlayerRankingController({ session }: PlayerQuestionScreenProps) {
             {remaining.map((item) => (
               <button
                 className="player-ranking-item"
-                disabled={session.answerStatus !== "idle"}
+                disabled={!canSubmit(session)}
                 key={item.id}
                 onClick={() => session.setRankingOrder([...session.rankingOrder, item.id])}
                 type="button"
@@ -269,7 +312,7 @@ function PlayerRankingController({ session }: PlayerQuestionScreenProps) {
                 <>
                   <span className="player-ranking-slot-label">{item.label}</span>
                   {item.text && <small>{item.text}</small>}
-                  {session.answerStatus === "idle" && (
+                  {canSubmit(session) && (
                     <button
                       aria-label={`${item.label} entfernen`}
                       className="player-ranking-remove"
@@ -290,14 +333,14 @@ function PlayerRankingController({ session }: PlayerQuestionScreenProps) {
         })}
       </div>
       <div className="player-ranking-actions">
-        {session.rankingOrder.length > 0 && session.answerStatus === "idle" && (
+        {session.rankingOrder.length > 0 && canSubmit(session) && (
           <button className="player-ranking-reset" onClick={() => session.setRankingOrder([])} type="button">
             Zurücksetzen
           </button>
         )}
         <button
           className="player-primary-button player-ranking-submit"
-          disabled={session.rankingOrder.length < question.items.length || session.answerStatus !== "idle"}
+          disabled={session.rankingOrder.length < question.items.length || !canSubmit(session)}
           onClick={() => session.handleSubmitRanking(session.rankingOrder)}
           type="button"
         >

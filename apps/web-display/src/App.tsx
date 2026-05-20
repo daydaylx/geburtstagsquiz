@@ -101,12 +101,19 @@ export function App() {
             <span className="display-topbar-status">{s.screen === "question" ? "Aktiv" : "Auflösung"}</span>
           </div>
         )}
-        <span
-          className="display-conn-dot"
-          data-state={connectionState}
-          role="status"
-          aria-label={getConnectionLabel(connectionState)}
-        />
+        <div className="display-topbar-actions">
+          {s.showModeratorAudioUnlock && (
+            <button className="display-audio-unlock" onClick={s.handleEnableModeratorAudio} type="button">
+              {s.moderatorAudioStatus.audioBlocked ? "Audio freigeben" : "Audio aktivieren"}
+            </button>
+          )}
+          <span
+            className="display-conn-dot"
+            data-state={connectionState}
+            role="status"
+            aria-label={getConnectionLabel(connectionState)}
+          />
+        </div>
       </div>
 
       <div className="display-main">

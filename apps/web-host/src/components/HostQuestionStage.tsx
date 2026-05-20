@@ -29,15 +29,47 @@ export function HostQuestionStage({
             ? "Testfrage"
             : `Frage ${currentQuestionNumber}${effectiveTotalQuestionCount ? ` / ${effectiveTotalQuestionCount}` : ""}`}
         </p>
+      </div>
+
+      {/* Timer – dominant */}
+      <div className="host-timer-block">
         <div
-          className="host-timer-shell"
+          className="host-timer-display"
           data-urgent={isTimerUrgent ? "true" : undefined}
           data-warning={isTimerWarning ? "true" : undefined}
         >
-          <div className="host-timer">{timerSeconds}s</div>
+          {timerSeconds}
+        </div>
+        <span className="host-timer-unit">Sekunden</span>
+      </div>
+
+      {/* Answer progress – directly below timer */}
+      <div className="host-progress-block" style={{ marginTop: "0" }}>
+        <div className="host-bar-meta">
+          <span className="host-section-label host-section-label--compact">Antworten</span>
+          <strong>
+            {s.answerProgress?.answeredCount || 0} / {s.answerProgress?.totalEligiblePlayers || 0}
+            {s.answerProgress && s.answerProgress.totalEligiblePlayers - s.answerProgress.answeredCount > 0 && (
+              <span className="host-pending-count">
+                {" "}
+                · {s.answerProgress.totalEligiblePlayers - s.answerProgress.answeredCount} offen
+              </span>
+            )}
+          </strong>
+        </div>
+        <div
+          className="host-progress-bar"
+          role="progressbar"
+          aria-valuenow={Math.round(answerProgressPercent)}
+          aria-valuemin={0}
+          aria-valuemax={100}
+        >
+          <div className="host-progress-fill" style={{ width: `${answerProgressPercent}%` }} />
         </div>
       </div>
+
       <h3 className="host-question-text">{s.question.text}</h3>
+
       {(s.question.type === QuestionType.MultipleChoice ||
         s.question.type === QuestionType.Logic ||
         s.question.type === QuestionType.MajorityGuess) && (
@@ -64,29 +96,7 @@ export function HostQuestionStage({
           ))}
         </div>
       )}
-      <div className="host-progress-block">
-        <div className="host-bar-meta">
-          <span className="host-section-label host-section-label--compact">Antworten</span>
-          <strong>
-            {s.answerProgress?.answeredCount || 0} / {s.answerProgress?.totalEligiblePlayers || 0}
-            {s.answerProgress && s.answerProgress.totalEligiblePlayers - s.answerProgress.answeredCount > 0 && (
-              <span className="host-pending-count">
-                {" "}
-                · {s.answerProgress.totalEligiblePlayers - s.answerProgress.answeredCount} noch offen
-              </span>
-            )}
-          </strong>
-        </div>
-        <div
-          className="host-progress-bar"
-          role="progressbar"
-          aria-valuenow={Math.round(answerProgressPercent)}
-          aria-valuemin={0}
-          aria-valuemax={100}
-        >
-          <div className="host-progress-fill" style={{ width: `${answerProgressPercent}%` }} />
-        </div>
-      </div>
+
       {s.answerProgress?.totalEligiblePlayers === 0 && (
         <p className="host-zero-players-hint">
           Keine Spieler verbunden – warte auf Reconnect oder gehe manuell weiter.

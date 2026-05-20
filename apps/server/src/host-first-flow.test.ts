@@ -5,6 +5,7 @@ import {
   handleConnectionResume,
   handleDisplayConnectRoom,
   handleHostCreateRoom,
+  handleRoomJoin,
   handleRoomSettingsUpdate,
 } from "./lobby.js";
 import { isEventAllowedForRole } from "./role-auth.js";
@@ -49,6 +50,11 @@ describe("handleHostCreateRoom", () => {
     expect(room.hostTokenUsed).toBe(true);
     expect(room.displayConnectToken).toBeTruthy();
     expect(room.displayConnectTokenUsed).toBe(false);
+    expect(room.settings).toMatchObject({
+      showAnswerTextOnPlayerDevices: false,
+      moderatorEnabled: false,
+      moderatorFrequency: "low",
+    });
     expect(socket.sessionId).toBe(room.hostSessionId);
   });
 
@@ -210,11 +216,15 @@ describe("handleDisplayConnectRoom", () => {
         timerMs: 90000,
         revealDurationMs: 30000,
         revealMode: "manual_with_fallback",
+        revealDelayMs: 0,
+        playerReadingPhaseMs: 0,
         showAnswerTextOnPlayerDevices: false,
         enableDemoQuestion: false,
         displayShowLevel: "minimal",
         rankingScoringMode: "partial_with_bonus",
       },
+      moderatorEnabled: true,
+      moderatorFrequency: "medium",
     });
 
     const displayLobby = getSent(displaySocket)
@@ -229,7 +239,85 @@ describe("handleDisplayConnectRoom", () => {
     expect((displayLobby!.payload as { settings: Record<string, unknown> }).settings).not.toHaveProperty(
       "gamePlanDraft",
     );
+    expect((displayLobby!.payload as { settings: Record<string, unknown> }).settings).toMatchObject({
+      showAnswerTextOnPlayerDevices: false,
+      moderatorEnabled: true,
+      moderatorFrequency: "medium",
+    });
     expect((hostLobby!.payload as { settings: Record<string, unknown> }).settings).toHaveProperty("gamePlanDraft");
+  });
+
+  it("preserves moderator settings when other room settings change", () => {
+    const { room, hostSocket } = setupRoom();
+    const displaySocket = makeMockSocket();
+    handleDisplayConnectRoom(displaySocket, {
+      roomId: room.id,
+      displayConnectToken: room.displayConnectToken!,
+    });
+
+    handleRoomSettingsUpdate(hostSocket, {
+      roomId: room.id,
+      showAnswerTextOnPlayerDevices: false,
+      moderatorEnabled: true,
+      moderatorFrequency: "high",
+    });
+    handleRoomSettingsUpdate(hostSocket, {
+      roomId: room.id,
+      showAnswerTextOnPlayerDevices: true,
+      gamePlanDraft: {
+        mode: "custom",
+        questionCount: 1,
+        categoryIds: ["cat-01"],
+        questionTypes: [QuestionType.MultipleChoice],
+        timerMs: 90000,
+        revealDurationMs: 30000,
+        revealMode: "manual_with_fallback",
+        revealDelayMs: 0,
+        playerReadingPhaseMs: 0,
+        showAnswerTextOnPlayerDevices: true,
+        enableDemoQuestion: false,
+        displayShowLevel: "minimal",
+        rankingScoringMode: "partial_with_bonus",
+      },
+    });
+
+    expect(room.settings).toMatchObject({
+      showAnswerTextOnPlayerDevices: true,
+      moderatorEnabled: true,
+      moderatorFrequency: "high",
+    });
+
+    const displayLobby = getSent(displaySocket)
+      .filter((m) => m.event === EVENTS.LOBBY_UPDATE)
+      .at(-1);
+    expect((displayLobby!.payload as { settings: Record<string, unknown> }).settings).toMatchObject({
+      showAnswerTextOnPlayerDevices: true,
+      moderatorEnabled: true,
+      moderatorFrequency: "high",
+    });
+  });
+
+  it("keeps moderator settings out of player lobby updates", () => {
+    const { room, hostSocket } = setupRoom();
+    const playerSocket = makeMockSocket();
+    handleRoomJoin(playerSocket, {
+      joinCode: room.joinCode,
+      playerName: "Max",
+    });
+
+    handleRoomSettingsUpdate(hostSocket, {
+      roomId: room.id,
+      showAnswerTextOnPlayerDevices: false,
+      moderatorEnabled: true,
+      moderatorFrequency: "medium",
+    });
+
+    const playerLobby = getSent(playerSocket)
+      .filter((m) => m.event === EVENTS.LOBBY_UPDATE)
+      .at(-1);
+    expect(playerLobby).toBeDefined();
+    const playerSettings = (playerLobby!.payload as { settings: Record<string, unknown> }).settings;
+    expect(playerSettings).toEqual({ showAnswerTextOnPlayerDevices: false });
   });
 
   it("rejects invalid displayConnectToken", () => {

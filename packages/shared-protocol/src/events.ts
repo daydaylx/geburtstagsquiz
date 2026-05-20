@@ -47,6 +47,7 @@ export const EVENTS = {
   ERROR_PROTOCOL: "error:protocol",
   CATEGORY_VOTE: "category:vote",
   VOTE_UPDATE: "vote:update",
+  MODERATOR_CONTROL: "moderator:control",
 } as const;
 
 export type EventName = (typeof EVENTS)[keyof typeof EVENTS];
@@ -70,6 +71,7 @@ export const HOST_TO_SERVER_EVENT_NAMES = [
   EVENTS.PLAYER_REMOVE,
   EVENTS.ROOM_CLOSE,
   EVENTS.GAME_RESTART,
+  EVENTS.MODERATOR_CONTROL,
 ] as const;
 
 export const PLAYER_TO_SERVER_EVENT_NAMES = [
@@ -107,6 +109,7 @@ export const SERVER_TO_DISPLAY_EVENT_NAMES = [
   EVENTS.ROOM_CLOSED,
   EVENTS.ERROR_PROTOCOL,
   EVENTS.VOTE_UPDATE,
+  EVENTS.MODERATOR_CONTROL,
 ] as const;
 
 export const SERVER_TO_HOST_EVENT_NAMES = [
@@ -190,6 +193,7 @@ export const SERVER_TO_CLIENT_EVENT_NAMES = [
   EVENTS.ROOM_CLOSED,
   EVENTS.ERROR_PROTOCOL,
   EVENTS.VOTE_UPDATE,
+  EVENTS.MODERATOR_CONTROL,
 ] as const;
 
 export type DisplayToServerEventName = (typeof DISPLAY_TO_SERVER_EVENT_NAMES)[number];

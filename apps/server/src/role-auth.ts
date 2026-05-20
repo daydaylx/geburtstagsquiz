@@ -21,6 +21,7 @@ const HOST_ONLY_EVENTS: ReadonlySet<EventName> = new Set<EventName>([
   EVENTS.PLAYER_REMOVE,
   EVENTS.ROOM_SETTINGS_UPDATE,
   EVENTS.ROOM_CLOSE,
+  EVENTS.MODERATOR_CONTROL,
 ]);
 
 const PLAYER_ONLY_EVENTS: ReadonlySet<EventName> = new Set<EventName>([

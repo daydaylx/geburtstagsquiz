@@ -51,6 +51,8 @@ function makeCustomPlan(overrides: Partial<GamePlan> = {}): GamePlan {
     timerMs: 30_000,
     revealDurationMs: 5_000,
     revealMode: "auto",
+    revealDelayMs: 0,
+    playerReadingPhaseMs: 0,
     showAnswerTextOnPlayerDevices: false,
     enableDemoQuestion: false,
     displayShowLevel: "minimal",

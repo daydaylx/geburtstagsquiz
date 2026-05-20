@@ -1,7 +1,13 @@
 import type { UseDisplaySessionReturn } from "../hooks/useDisplaySession.js";
 
+const VISIBLE_LOBBY_PLAYERS = 8;
+
 export function DisplayLobbyScreen({ session: s }: { session: UseDisplaySessionReturn }) {
   if (!s.roomInfo) return null;
+
+  const lobbyPlayers = s.lobby?.players ?? [];
+  const visiblePlayers = lobbyPlayers.slice(0, VISIBLE_LOBBY_PLAYERS);
+  const hiddenPlayerCount = Math.max(0, lobbyPlayers.length - visiblePlayers.length);
 
   return (
     <div className={`display-lobby ${s.hostPaired ? "display-lobby--host-paired" : "display-lobby--pre-host"}`}>
@@ -39,13 +45,16 @@ export function DisplayLobbyScreen({ session: s }: { session: UseDisplaySessionR
           <span className="display-player-count-number">{s.lobby?.playerCount ?? 0}</span>
           <span className="display-player-count-label">Spieler</span>
         </div>
-        {s.lobby && s.lobby.players.length > 0 && (
+        {lobbyPlayers.length > 0 && (
           <div className="display-player-grid">
-            {s.lobby.players.map((p) => (
+            {visiblePlayers.map((p) => (
               <div key={p.playerId} className="display-player-pill" data-connected={p.connected ? "true" : undefined}>
                 {p.name}
               </div>
             ))}
+            {hiddenPlayerCount > 0 && (
+              <div className="display-player-pill display-player-pill--more">+{hiddenPlayerCount} weitere</div>
+            )}
           </div>
         )}
       </div>

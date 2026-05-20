@@ -7,7 +7,7 @@ import {
   type ServerToClientEventPayloadMap,
   serializeEnvelope,
 } from "@quiz/shared-protocol";
-import { type ClientRole, PlayerState, RoomState } from "@quiz/shared-types";
+import { type ClientRole, PlayerState, type RoomSettings, RoomState } from "@quiz/shared-types";
 import { WebSocket } from "ws";
 import { getDefaultQuiz } from "./quiz-data.js";
 import type { RoomRecord, TrackedWebSocket } from "./server-types.js";
@@ -41,8 +41,15 @@ export function sendProtocolError(
 export function toLobbyUpdatePayload(room: RoomRecord, role: ClientRole): LobbyUpdatePayload {
   const categories =
     room.state === RoomState.Waiting ? getDefaultQuiz().categories.map((c) => ({ id: c.id, name: c.name })) : undefined;
-  const settings =
-    role === "host" ? room.settings : { showAnswerTextOnPlayerDevices: room.settings.showAnswerTextOnPlayerDevices };
+  const displaySettings: RoomSettings = {
+    showAnswerTextOnPlayerDevices: room.settings.showAnswerTextOnPlayerDevices,
+    moderatorEnabled: room.settings.moderatorEnabled ?? false,
+    moderatorFrequency: room.settings.moderatorFrequency ?? "low",
+  };
+  const playerSettings = {
+    showAnswerTextOnPlayerDevices: room.settings.showAnswerTextOnPlayerDevices,
+  };
+  const settings = role === "host" ? room.settings : role === "display" ? displaySettings : playerSettings;
 
   return {
     roomId: room.id,

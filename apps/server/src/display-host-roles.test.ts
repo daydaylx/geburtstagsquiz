@@ -208,6 +208,18 @@ describe("handleDisplayCreateRoom", () => {
     expect(room.hostConnected).toBe(false);
   });
 
+  it("sets default room settings", () => {
+    const socket = makeMockSocket();
+    handleDisplayCreateRoom(socket, {});
+
+    const room = roomsById.values().next().value as RoomRecord;
+    expect(room.settings).toMatchObject({
+      showAnswerTextOnPlayerDevices: false,
+      moderatorEnabled: false,
+      moderatorFrequency: "low",
+    });
+  });
+
   it("rejects if socket already has a session", () => {
     const socket = makeMockSocket("existing-session");
     handleDisplayCreateRoom(socket, {});

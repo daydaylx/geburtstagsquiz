@@ -13,6 +13,8 @@ import {
 export const ALLOWED_TIMER_MS = [20_000, 30_000, 45_000, 60_000, 90_000] as const;
 export const ALLOWED_REVEAL_DURATION_MS = [3_000, 5_000, 8_000, 15_000, 30_000] as const;
 export const MANUAL_REVEAL_FALLBACK_MS = 30_000;
+export const ALLOWED_REVEAL_DELAY_MS = [0, 2_000, 3_000, 5_000, 8_000] as const;
+export const ALLOWED_PLAYER_READING_PHASE_MS = [0, 3_000, 5_000, 8_000] as const;
 
 const PRESET_LABELS: Record<GamePlanPresetId, string> = {
   quick_dirty: "Kurz & dreckig",
@@ -131,6 +133,8 @@ export function buildDefaultGamePlan(catalog: QuizCatalogSummary): GamePlan {
     timerMs: 90_000,
     revealDurationMs: 15_000,
     revealMode: "manual_with_fallback",
+    revealDelayMs: 0,
+    playerReadingPhaseMs: 0,
     showAnswerTextOnPlayerDevices: true,
     enableDemoQuestion: true,
     displayShowLevel: "normal",
@@ -169,6 +173,18 @@ export function resolveGamePlan(plan: GamePlan, catalog: QuizCatalogSummary, qui
     !ALLOWED_REVEAL_DURATION_MS.includes(plan.revealDurationMs as (typeof ALLOWED_REVEAL_DURATION_MS)[number])
   ) {
     throw new GamePlanValidationError("Ungültige Reveal-Dauer.");
+  }
+
+  if (!ALLOWED_REVEAL_DELAY_MS.includes(plan.revealDelayMs as (typeof ALLOWED_REVEAL_DELAY_MS)[number])) {
+    throw new GamePlanValidationError("Ungültige Reveal-Verzögerung.");
+  }
+
+  if (
+    !ALLOWED_PLAYER_READING_PHASE_MS.includes(
+      plan.playerReadingPhaseMs as (typeof ALLOWED_PLAYER_READING_PHASE_MS)[number],
+    )
+  ) {
+    throw new GamePlanValidationError("Ungültige Lesephase-Dauer.");
   }
 
   const knownCategoryIds = new Set(catalog.categories.map((category) => category.id));

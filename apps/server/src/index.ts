@@ -22,6 +22,7 @@ import {
   handleDisplayConnectRoom,
   handleHostConnect,
   handleHostCreateRoom,
+  handleModeratorControl,
   handleRoomJoin,
   handleRoomSettingsUpdate,
 } from "./lobby.js";
@@ -314,6 +315,10 @@ function handleSocketMessage(socket: TrackedWebSocket, rawMessage: string): void
 
     case EVENTS.GAME_RESTART:
       handleGameRestart(socket, parsedEnvelope.data.payload.roomId);
+      return;
+
+    case EVENTS.MODERATOR_CONTROL:
+      handleModeratorControl(socket, parsedEnvelope.data.payload);
       return;
 
     default:

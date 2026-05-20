@@ -36,6 +36,7 @@
   --dur-slow: 400ms;
   --dur-scene: 600ms;
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --font-display: "Orbitron", system-ui, sans-serif;
 
   font-family:
@@ -352,6 +353,37 @@ body {
   font-weight: 600;
 }
 
+.player-question-text {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: #fff;
+  margin: 10px 0;
+  padding: 10px 0;
+  border-top: 1px solid var(--player-line);
+  font-weight: 600;
+}
+
+.player-reading-hint {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  color: var(--player-ink-soft);
+  margin: 6px 0 0;
+  font-weight: 700;
+  animation: player-reading-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes player-reading-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
 /* ── Answer Status ─────────────────────────────────────────────────── */
 .player-controller-status {
   margin-top: 20px;
@@ -578,14 +610,17 @@ body {
 
 .player-join-logo {
   font-family: var(--font-display);
-  font-size: clamp(2.4rem, 9vw, 3.5rem);
+  font-size: clamp(1rem, 4vw, 1.35rem);
   font-weight: 900;
-  letter-spacing: 0.12em;
-  color: var(--player-accent);
-  text-shadow:
-    0 0 24px color-mix(in srgb, var(--player-accent) 55%, transparent),
-    0 0 60px color-mix(in srgb, var(--player-accent) 22%, transparent);
+  letter-spacing: 0.18em;
+  color: var(--player-ink-soft);
+  opacity: 0.78;
+  text-shadow: none;
   animation: player-screen-enter 0.4s var(--ease-out) both;
+}
+
+.player-join-title {
+  margin: 0;
 }
 
 /* ── Form Inputs ───────────────────────────────────────────────────── */
@@ -1482,6 +1517,11 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .player-countdown-number {
     animation: none;
+  }
+
+  .player-category-check,
+  .player-join-logo {
+    animation: none !important;
   }
 
   .player-confetti,

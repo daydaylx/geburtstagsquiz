@@ -1,4 +1,5 @@
 import { type ConnectionState, useWebSocket } from "@quiz/shared-hooks";
+import { useEffect } from "react";
 import { HostCountdownStage } from "./components/HostCountdownStage.js";
 import { HostLobbyStage } from "./components/HostLobbyStage.js";
 import { HostQuestionStage } from "./components/HostQuestionStage.js";
@@ -7,6 +8,15 @@ import { HostScoreboardStage } from "./components/HostScoreboardStage.js";
 import { useHostSession } from "./hooks/useHostSession.js";
 
 const FLOW_STEPS = ["Lobby", "Kategorien", "Frage", "Auflösung", "Endstand"] as const;
+
+const PHASE_LABELS: Record<string, string> = {
+  lobby: "Lobby",
+  countdown: "Start",
+  question: "Frage läuft",
+  reveal: "Auflösung",
+  scoreboard: "Zwischenstand",
+  finished: "Endstand",
+};
 
 function getConnectionLabel(connectionState: ConnectionState): string {
   switch (connectionState) {
@@ -72,6 +82,63 @@ export function App() {
           ? 2
           : 1;
 
+  const primaryActionHandler =
+    s.screen === "question"
+      ? s.handleForceCloseQuestion
+      : s.screen === "reveal"
+        ? s.handleAdvanceQuestion
+        : s.screen === "scoreboard"
+          ? s.handleAdvanceQuestion
+          : s.screen === "finished"
+            ? s.handleRestartInfo
+            : s.handleStartGame;
+
+  const isPrimaryDisabled =
+    s.screen === "lobby"
+      ? connectionState !== "connected" || connectedPlayerCount === 0 || !s.gamePlanDraft || !s.catalog
+      : s.screen === "question"
+        ? false
+        : s.screen === "reveal" || s.screen === "scoreboard"
+          ? false
+          : s.screen !== "finished";
+
+  const startBlockReason =
+    s.screen === "lobby" && isPrimaryDisabled
+      ? connectionState !== "connected"
+        ? "Nicht verbunden mit Server"
+        : !s.catalog
+          ? "Warte auf Fragenkatalog..."
+          : !s.gamePlanDraft
+            ? "Spielplan wird geladen..."
+            : "Mindestens 1 Spieler benötigt"
+      : null;
+
+  const primaryActionLabel =
+    s.screen === "lobby"
+      ? "Quiz starten"
+      : s.screen === "question"
+        ? "Frage schließen"
+        : s.screen === "reveal"
+          ? "Weiter"
+          : s.screen === "scoreboard"
+            ? "Nächste Frage"
+            : s.screen === "finished"
+              ? "Neues Spiel"
+              : "Warten...";
+
+  // Keyboard shortcut: Space = primary action
+  useEffect(() => {
+    const handle = (e: KeyboardEvent) => {
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+      if (e.code !== "Space") return;
+      if (isPrimaryDisabled) return;
+      e.preventDefault();
+      primaryActionHandler();
+    };
+    window.addEventListener("keydown", handle);
+    return () => window.removeEventListener("keydown", handle);
+  }, [isPrimaryDisabled, primaryActionHandler]);
+
   const renderStagePanel = () => {
     if (s.screen === "lobby" && s.roomInfo) {
       return <HostLobbyStage session={s} connectedPlayerCount={connectedPlayerCount} />;
@@ -122,38 +189,6 @@ export function App() {
     return <div className="host-empty">Warte auf Server...</div>;
   };
 
-  const primaryActionLabel =
-    s.screen === "lobby"
-      ? "Quiz starten"
-      : s.screen === "question"
-        ? "Frage schließen"
-        : s.screen === "reveal"
-          ? "Weiter"
-          : s.screen === "scoreboard"
-            ? "Nächste Frage"
-            : s.screen === "finished"
-              ? "Neues Spiel"
-              : "Warten...";
-  const isPrimaryDisabled =
-    s.screen === "lobby"
-      ? connectionState !== "connected" || connectedPlayerCount === 0 || !s.gamePlanDraft || !s.catalog
-      : s.screen === "question"
-        ? false
-        : s.screen === "reveal" || s.screen === "scoreboard"
-          ? false
-          : s.screen !== "finished";
-
-  const startBlockReason =
-    s.screen === "lobby" && isPrimaryDisabled
-      ? connectionState !== "connected"
-        ? "Nicht verbunden mit Server"
-        : !s.catalog
-          ? "Warte auf Fragenkatalog..."
-          : !s.gamePlanDraft
-            ? "Spielplan wird geladen..."
-            : "Mindestens 1 Spieler benötigt"
-      : null;
-
   return (
     <main className="host-shell" data-screen={s.screen}>
       <header className="host-header">
@@ -163,16 +198,25 @@ export function App() {
             {getConnectionLabel(connectionState)}
           </div>
         </div>
-        {s.notice && (
-          <div className="host-notice" data-kind={s.notice.kind} role="alert">
-            {s.notice.text}
-          </div>
+
+        {/* Phase badge – center slot */}
+        {s.screen !== "start" && PHASE_LABELS[s.screen] && (
+          <div className="host-header-phase">{PHASE_LABELS[s.screen]}</div>
         )}
-        {s.lobby !== null && !s.lobby.displayConnected && (
-          <div className="host-notice" data-kind="error">
-            Display nicht verbunden – Spieler sehen den TV-Screen nicht.
-          </div>
-        )}
+
+        {/* Right slot: notices */}
+        <div className="host-header-right">
+          {s.notice && (
+            <div className="host-notice" data-kind={s.notice.kind} role="alert">
+              {s.notice.text}
+            </div>
+          )}
+          {s.lobby !== null && !s.lobby.displayConnected && (
+            <div className="host-notice" data-kind="error">
+              Display nicht verbunden
+            </div>
+          )}
+        </div>
       </header>
 
       {s.screen === "start" && !s.roomInfo ? (
@@ -239,7 +283,7 @@ export function App() {
                           }
                           key={step}
                         >
-                          <span className="host-flow-index">{index + 1}</span>
+                          <span className="host-flow-index">{index < currentFlowStepIndex ? "✓" : index + 1}</span>
                           <strong>{step}</strong>
                         </div>
                       ))}
@@ -288,9 +332,7 @@ export function App() {
                 <div className="host-control-metric">
                   <span className="host-control-label">Fortschritt</span>
                   <span className="host-control-value">
-                    {effectiveTotalQuestionCount
-                      ? `Frage ${visibleQuestionNumber} / ${effectiveTotalQuestionCount}`
-                      : "Warten..."}
+                    {effectiveTotalQuestionCount ? `${visibleQuestionNumber} / ${effectiveTotalQuestionCount}` : "—"}
                   </span>
                   <div
                     className="host-progress-bar host-progress-bar--compact"
@@ -307,7 +349,7 @@ export function App() {
                 <div className="host-fallback-actions">
                   {canManuallyShowScoreboard && (
                     <button className="host-secondary-button" onClick={s.handleShowScoreboard} type="button">
-                      Scoreboard anzeigen
+                      Scoreboard
                     </button>
                   )}
                   {s.confirmFinishNow ? (
@@ -332,7 +374,7 @@ export function App() {
                     </>
                   ) : (
                     <button className="host-secondary-button" onClick={() => s.setConfirmFinishNow(true)} type="button">
-                      Spiel beenden
+                      Beenden
                     </button>
                   )}
                 </div>
@@ -340,15 +382,7 @@ export function App() {
               <button
                 className="host-primary-button"
                 disabled={isPrimaryDisabled}
-                onClick={
-                  s.screen === "question"
-                    ? s.handleForceCloseQuestion
-                    : s.screen === "reveal"
-                      ? s.handleAdvanceQuestion
-                      : s.screen === "scoreboard"
-                        ? s.handleAdvanceQuestion
-                        : s.handleRestartInfo
-                }
+                onClick={primaryActionHandler}
                 type="button"
               >
                 {primaryActionLabel}

@@ -12,11 +12,20 @@ import {
   type ScoreUpdatePayload,
   type VoteUpdatePayload,
 } from "@quiz/shared-protocol";
-import { GameState, RoomState } from "@quiz/shared-types";
+import { GameState, type ModeratorFrequency, RoomState } from "@quiz/shared-types";
 import QRCode from "qrcode";
 import { useEffect, useEffectEvent, useRef, useState } from "react";
 
 import { getPlayerJoinUrl } from "../lib/helpers.js";
+import {
+  getModeratorAudioStatus,
+  loadManifest,
+  type ModeratorAudioStatus,
+  playCategory,
+  stopCurrent,
+  unlockModeratorAudio,
+} from "../lib/moderatorAudio.js";
+import { createModeratorEngine, MODERATOR_PRIORITY, type ModeratorCategory } from "../lib/moderatorEngine.js";
 import {
   clearDisplayStoredSession,
   type DisplayStoredSession,
@@ -65,11 +74,15 @@ export interface UseDisplaySessionReturn {
   displayShowLevel: DisplayShowLevel;
   isFadingOut: boolean;
   votes: Record<string, number>;
+  moderatorEnabled: boolean;
+  moderatorAudioStatus: ModeratorAudioStatus;
+  showModeratorAudioUnlock: boolean;
   canCreateRoomFromDisplay: boolean;
   canRetryConnect: boolean;
   handleCreateRoom: () => void;
   handleRetryConnect: () => void;
   handleRetryQr: () => void;
+  handleEnableModeratorAudio: () => void;
 }
 
 export function useDisplaySession(deps: {
@@ -126,12 +139,16 @@ export function useDisplaySession(deps: {
   const [votes, setVotes] = useState<Record<string, number>>({});
   const [displayShowLevel, setDisplayShowLevel] = useState<DisplayShowLevel>("high");
   const [isFadingOut, setIsFadingOut] = useState(false);
+  const [moderatorEnabled, setModeratorEnabled] = useState(false);
+  const [moderatorFrequency, setModeratorFrequency] = useState<ModeratorFrequency>("off");
+  const [moderatorAudioStatus, setModeratorAudioStatus] = useState<ModeratorAudioStatus>(getModeratorAudioStatus);
 
   const displaySessionRef = useRef<DisplayStoredSession | null>(initialSession);
   const preCountdownTimerRef = useRef<number | null>(null);
   const fadeTimerRef = useRef<number | null>(null);
   const isResumingRef = useRef(false);
   const isCreatingRoomRef = useRef(false);
+  const moderatorEngineRef = useRef(createModeratorEngine());
 
   const scheduleFade = useEffectEvent((cb: () => void) => {
     if (fadeTimerRef.current !== null) {
@@ -195,6 +212,14 @@ export function useDisplaySession(deps: {
         setPlayerQrUrl(null);
         setNotice("QR-Code konnte nicht generiert werden.");
       });
+  });
+
+  const syncModeratorAudioStatus = useEffectEvent(() => {
+    setModeratorAudioStatus(getModeratorAudioStatus());
+  });
+
+  const playModeratorCategory = useEffectEvent((category: ModeratorCategory, priority: number, force = false) => {
+    void playCategory(category, priority, force).then(syncModeratorAudioStatus);
   });
 
   const handleServerMessage = useEffectEvent((rawMessage: string) => {
@@ -329,7 +354,18 @@ export function useDisplaySession(deps: {
         return;
 
       case EVENTS.LOBBY_UPDATE: {
-        setLobby(parsedEnvelope.data.payload);
+        const lobbyPayload = parsedEnvelope.data.payload;
+        setLobby(lobbyPayload);
+        if (lobbyPayload.settings.moderatorEnabled !== undefined) {
+          setModeratorEnabled(lobbyPayload.settings.moderatorEnabled);
+          if (!lobbyPayload.settings.moderatorEnabled) {
+            stopCurrent();
+            syncModeratorAudioStatus();
+          }
+        }
+        if (lobbyPayload.settings.moderatorFrequency !== undefined) {
+          setModeratorFrequency(lobbyPayload.settings.moderatorFrequency);
+        }
         return;
       }
 
@@ -347,6 +383,10 @@ export function useDisplaySession(deps: {
         setScoreChanges([]);
         setNextQuestionReadyProgress(null);
         setIsFadingOut(true);
+        if (moderatorEnabled) {
+          const cat = moderatorEngineRef.current.onGameStarted();
+          if (cat) playModeratorCategory(cat, MODERATOR_PRIORITY[cat]);
+        }
         return;
       }
 
@@ -403,6 +443,15 @@ export function useDisplaySession(deps: {
           return;
         }
 
+        if (moderatorEnabled) {
+          const cat = moderatorEngineRef.current.onQuestionShow(
+            questionPayload.questionIndex,
+            questionPayload.totalQuestionCount,
+            moderatorFrequency,
+          );
+          if (cat) playModeratorCategory(cat, MODERATOR_PRIORITY[cat]);
+        }
+
         setIsFadingOut(true);
         scheduleFade(() => {
           setQuestion(questionPayload);
@@ -415,7 +464,12 @@ export function useDisplaySession(deps: {
       }
 
       case EVENTS.QUESTION_TIMER: {
-        setRemainingMs(parsedEnvelope.data.payload.remainingMs);
+        const { remainingMs: timerRemaining } = parsedEnvelope.data.payload;
+        setRemainingMs(timerRemaining);
+        if (moderatorEnabled) {
+          const cat = moderatorEngineRef.current.onTimerTick(timerRemaining, moderatorFrequency);
+          if (cat) playModeratorCategory(cat, MODERATOR_PRIORITY[cat]);
+        }
         return;
       }
 
@@ -436,6 +490,12 @@ export function useDisplaySession(deps: {
         setRevealEstimateContext(payload.estimateContext ?? null);
         setRoundResults(payload.playerResults);
         setNextQuestionReadyProgress(null);
+        if (moderatorEnabled) {
+          const correctCount = payload.playerResults.filter((r) => r.isCorrect).length;
+          const totalCount = payload.playerResults.length;
+          const cat = moderatorEngineRef.current.onQuestionReveal(correctCount, totalCount, moderatorFrequency);
+          if (cat) playModeratorCategory(cat, MODERATOR_PRIORITY[cat]);
+        }
         setIsFadingOut(true);
         scheduleFade(() => {
           setScreen("reveal");
@@ -449,6 +509,14 @@ export function useDisplaySession(deps: {
         setScoreboard(payload);
         setScoreChanges(payload.scoreChanges);
         setNextQuestionReadyProgress(null);
+        if (moderatorEnabled) {
+          const cat = moderatorEngineRef.current.onScoreUpdate(
+            payload.scoreboard,
+            payload.scoreChanges,
+            moderatorFrequency,
+          );
+          if (cat) playModeratorCategory(cat, MODERATOR_PRIORITY[cat]);
+        }
         setIsFadingOut(true);
         scheduleFade(() => {
           setScreen("scoreboard");
@@ -466,6 +534,10 @@ export function useDisplaySession(deps: {
       case EVENTS.GAME_FINISHED: {
         const finishedPayload = parsedEnvelope.data.payload;
         setFinalResult(finishedPayload);
+        if (moderatorEnabled) {
+          const cat = moderatorEngineRef.current.onGameFinished();
+          if (cat) playModeratorCategory(cat, MODERATOR_PRIORITY[cat], true);
+        }
         setIsFadingOut(true);
         scheduleFade(() => {
           setScreen("finished");
@@ -476,6 +548,8 @@ export function useDisplaySession(deps: {
 
       case EVENTS.ROOM_RESET: {
         const resetPayload = parsedEnvelope.data.payload;
+        stopCurrent();
+        moderatorEngineRef.current.reset();
         // Host-Neustart behaelt die Display-Kopplung und setzt nur Spiel-/Votingdaten zurueck.
         setRoomInfo((prev) =>
           prev ? { ...prev, roomId: resetPayload.roomId, joinCode: resetPayload.joinCode } : prev,
@@ -502,8 +576,21 @@ export function useDisplaySession(deps: {
       // --- Cleanup & Errors ---
       case EVENTS.ROOM_CLOSED: {
         // Raum geschlossen: lokale Kopplung verwerfen und wieder auf Host warten.
+        stopCurrent();
+        moderatorEngineRef.current.reset();
         updateStoredSession(null);
         resetToSetup();
+        return;
+      }
+
+      case EVENTS.MODERATOR_CONTROL: {
+        const { action } = parsedEnvelope.data.payload;
+        if (action === "stop") {
+          stopCurrent();
+          syncModeratorAudioStatus();
+        } else if (action === "test") {
+          playModeratorCategory("filler", MODERATOR_PRIORITY.filler, true);
+        }
         return;
       }
 
@@ -527,6 +614,10 @@ export function useDisplaySession(deps: {
         return;
     }
   });
+
+  useEffect(() => {
+    void loadManifest().then(syncModeratorAudioStatus);
+  }, []);
 
   useEffect(() => {
     onMessage(handleServerMessage);
@@ -575,7 +666,13 @@ export function useDisplaySession(deps: {
     }
   });
 
+  const handleEnableModeratorAudio = useEffectEvent(() => {
+    void unlockModeratorAudio().then(setModeratorAudioStatus);
+  });
+
   const canRetryConnect = screen === "setup" && !!notice && !!urlConnectTokenRef.current && !!urlRoomIdRef.current;
+  const showModeratorAudioUnlock =
+    (moderatorEnabled && !moderatorAudioStatus.audioUnlocked) || moderatorAudioStatus.audioBlocked;
 
   return {
     screen,
@@ -601,10 +698,14 @@ export function useDisplaySession(deps: {
     displayShowLevel,
     isFadingOut,
     votes,
+    moderatorEnabled,
+    moderatorAudioStatus,
+    showModeratorAudioUnlock,
     canCreateRoomFromDisplay,
     canRetryConnect,
     handleCreateRoom,
     handleRetryConnect,
     handleRetryQr,
+    handleEnableModeratorAudio,
   };
 }

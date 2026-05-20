@@ -386,6 +386,29 @@ body {
   text-shadow: none;
 }
 
+.display-topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.display-audio-unlock {
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(246, 199, 106, 0.34);
+  background: rgba(246, 199, 106, 0.12);
+  color: var(--accent-gold);
+  font-size: 0.78rem;
+  font-weight: 900;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.display-audio-unlock:hover {
+  background: rgba(246, 199, 106, 0.2);
+}
+
 .display-conn-dot {
   width: 10px;
   height: 10px;
@@ -704,6 +727,15 @@ body {
   letter-spacing: 0.12em;
 }
 
+.display-qr-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  color: var(--color-warn, #f59e0b);
+}
+
 .display-qr-block img {
   width: 300px;
   height: 300px;
@@ -812,7 +844,7 @@ body {
   flex-wrap: wrap;
   gap: 0.5rem;
   justify-content: center;
-  max-width: 600px;
+  max-width: min(760px, 82vw);
 }
 
 .display-player-pill {
@@ -822,13 +854,23 @@ body {
   color: var(--display-ink-soft);
   font-size: clamp(0.75rem, 1.4vw, 1rem);
   font-weight: 500;
+  max-width: clamp(120px, 14vw, 220px);
+  overflow: hidden;
   padding: 0.3em 0.85em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   animation: reveal-correct-pop 0.4s var(--ease-spring) both;
 }
 
 .display-player-pill[data-connected="true"] {
   color: var(--display-ink);
   border-color: color-mix(in srgb, var(--accent-cyan) 45%, transparent);
+}
+
+.display-player-pill--more {
+  color: var(--display-gold);
+  border-color: rgba(246, 199, 106, 0.38);
+  background: rgba(246, 199, 106, 0.08);
 }
 
 /* ── Question ──────────────────────────────────────────────────────── */
@@ -2225,6 +2267,7 @@ body {
   .display-host-pending,
   .display-host-connected,
   .display-podium-rank-badge,
+  .display-player-pill,
   .display-scoreboard-entry[data-changed="true"] .display-progress-marker {
     animation: none !important;
   }
@@ -2572,7 +2615,9 @@ body {
   font-size: 1.15rem;
   padding: 6px 16px;
   font-weight: 800;
-  box-shadow: 0 0 16px rgba(246, 199, 106, 0.2), var(--shadow-card);
+  box-shadow:
+    0 0 16px rgba(246, 199, 106, 0.2),
+    var(--shadow-card);
 }
 
 .display-rank-change[data-direction="up"] {
@@ -2924,7 +2969,9 @@ body {
   min-height: clamp(60px, 8.2vh, 86px);
   background: var(--bg-card-active);
   border-left-width: 10px;
-  box-shadow: 0 0 48px rgba(246, 199, 106, 0.16), var(--shadow-card-lg);
+  box-shadow:
+    0 0 48px rgba(246, 199, 106, 0.16),
+    var(--shadow-card-lg);
 }
 
 .display-scoreboard-entry[data-rank="2"],

@@ -13,7 +13,7 @@ import {
   type ScoreUpdatePayload,
   type VoteUpdatePayload,
 } from "@quiz/shared-protocol";
-import { type GamePlan, type GamePlanPresetId, GameState } from "@quiz/shared-types";
+import { type GamePlan, type GamePlanPresetId, GameState, type ModeratorFrequency } from "@quiz/shared-types";
 import QRCode from "qrcode";
 import { useEffect, useEffectEvent, useRef, useState } from "react";
 import { buildPresetGamePlan, createHostClientInfo } from "../lib/game-plan-drafts.js";
@@ -75,6 +75,8 @@ export interface UseHostSessionReturn {
   selectedPlanMode: GamePlanPresetId | "custom";
   countdownSeconds: number;
   showAnswerTextOnPlayerDevices: boolean;
+  moderatorEnabled: boolean;
+  moderatorFrequency: ModeratorFrequency;
   confirmFinishNow: boolean;
   setConfirmFinishNow: (v: boolean) => void;
   confirmRemovePlayerId: string | null;
@@ -84,6 +86,9 @@ export interface UseHostSessionReturn {
   handleRestartInfo: () => void;
   handleStartGame: () => void;
   handleAnswerTextSettingChange: (enabled: boolean) => void;
+  handleModeratorEnabledChange: (enabled: boolean) => void;
+  handleModeratorFrequencyChange: (freq: ModeratorFrequency) => void;
+  handleModeratorControl: (action: "test" | "stop") => void;
   handleAdvanceQuestion: () => void;
   handleForceCloseQuestion: () => void;
   handleShowScoreboard: () => void;
@@ -136,6 +141,8 @@ export function useHostSession(deps: {
   const [selectedPlanMode, setSelectedPlanMode] = useState<GamePlanPresetId | "custom">("normal_evening");
   const [countdownSeconds, setCountdownSeconds] = useState(0);
   const [showAnswerTextOnPlayerDevices, setShowAnswerTextOnPlayerDevices] = useState(false);
+  const [moderatorEnabled, setModeratorEnabled] = useState(false);
+  const [moderatorFrequency, setModeratorFrequency] = useState<ModeratorFrequency>("low");
   const [confirmFinishNow, setConfirmFinishNow] = useState(false);
   const [confirmRemovePlayerId, setConfirmRemovePlayerId] = useState<string | null>(null);
   const [displayConnected, setDisplayConnected] = useState(false);
@@ -303,20 +310,23 @@ export function useHostSession(deps: {
         setVotes((parsedEnvelope.data.payload as VoteUpdatePayload).votes);
         return;
 
-      case EVENTS.LOBBY_UPDATE:
+      case EVENTS.LOBBY_UPDATE: {
+        const lobbySettings = parsedEnvelope.data.payload.settings;
         setLobby(parsedEnvelope.data.payload);
         setDisplayConnected(parsedEnvelope.data.payload.displayConnected);
-        setShowAnswerTextOnPlayerDevices(parsedEnvelope.data.payload.settings.showAnswerTextOnPlayerDevices);
-        if (parsedEnvelope.data.payload.settings.gamePlanDraft) {
-          setGamePlanDraft(parsedEnvelope.data.payload.settings.gamePlanDraft);
+        setShowAnswerTextOnPlayerDevices(lobbySettings.showAnswerTextOnPlayerDevices);
+        if (lobbySettings.moderatorEnabled !== undefined) setModeratorEnabled(lobbySettings.moderatorEnabled);
+        if (lobbySettings.moderatorFrequency !== undefined) setModeratorFrequency(lobbySettings.moderatorFrequency);
+        if (lobbySettings.gamePlanDraft) {
+          setGamePlanDraft(lobbySettings.gamePlanDraft);
           setSelectedPlanMode(
-            parsedEnvelope.data.payload.settings.gamePlanDraft.mode === "preset" &&
-              parsedEnvelope.data.payload.settings.gamePlanDraft.presetId
-              ? parsedEnvelope.data.payload.settings.gamePlanDraft.presetId
+            lobbySettings.gamePlanDraft.mode === "preset" && lobbySettings.gamePlanDraft.presetId
+              ? lobbySettings.gamePlanDraft.presetId
               : "custom",
           );
         }
         return;
+      }
 
       case EVENTS.PLAYER_DISCONNECTED: {
         const { playerId } = parsedEnvelope.data.payload;
@@ -569,6 +579,33 @@ export function useHostSession(deps: {
     }
   });
 
+  const handleModeratorEnabledChange = useEffectEvent((enabled: boolean) => {
+    if (!roomInfo) return;
+    setModeratorEnabled(enabled);
+    sendEvent(EVENTS.ROOM_SETTINGS_UPDATE, {
+      roomId: roomInfo.roomId,
+      showAnswerTextOnPlayerDevices,
+      moderatorEnabled: enabled,
+      moderatorFrequency,
+    });
+  });
+
+  const handleModeratorFrequencyChange = useEffectEvent((freq: ModeratorFrequency) => {
+    if (!roomInfo) return;
+    setModeratorFrequency(freq);
+    sendEvent(EVENTS.ROOM_SETTINGS_UPDATE, {
+      roomId: roomInfo.roomId,
+      showAnswerTextOnPlayerDevices,
+      moderatorEnabled,
+      moderatorFrequency: freq,
+    });
+  });
+
+  const handleModeratorControl = useEffectEvent((action: "test" | "stop") => {
+    if (!roomInfo || !displayConnected) return;
+    sendEvent(EVENTS.MODERATOR_CONTROL, { roomId: roomInfo.roomId, action });
+  });
+
   const handleAdvanceQuestion = useEffectEvent(() => {
     if (roomInfo) {
       setNotice(null);
@@ -637,6 +674,8 @@ export function useHostSession(deps: {
     selectedPlanMode,
     countdownSeconds,
     showAnswerTextOnPlayerDevices,
+    moderatorEnabled,
+    moderatorFrequency,
     confirmFinishNow,
     setConfirmFinishNow,
     confirmRemovePlayerId,
@@ -646,6 +685,9 @@ export function useHostSession(deps: {
     handleRestartInfo,
     handleStartGame,
     handleAnswerTextSettingChange,
+    handleModeratorEnabledChange,
+    handleModeratorFrequencyChange,
+    handleModeratorControl,
     handleAdvanceQuestion,
     handleForceCloseQuestion,
     handleShowScoreboard,

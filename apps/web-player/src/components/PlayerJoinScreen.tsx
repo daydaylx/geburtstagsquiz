@@ -9,6 +9,7 @@ export function PlayerJoinScreen({ session: s }: { session: UsePlayerSessionRetu
       </div>
       <div className="player-card">
         <span className="player-kicker">Willkommen</span>
+        <h1 className="player-title player-join-title">Mitspielen</h1>
         <form
           className="player-join-form"
           onSubmit={(e) => {

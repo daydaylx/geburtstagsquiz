@@ -72,6 +72,8 @@ export const GamePlanSchema = z
     timerMs: z.number().int().positive(),
     revealDurationMs: z.number().int().positive(),
     revealMode: RevealModeSchema,
+    revealDelayMs: z.number().int().nonnegative(),
+    playerReadingPhaseMs: z.number().int().nonnegative(),
     showAnswerTextOnPlayerDevices: z.boolean(),
     enableDemoQuestion: z.boolean(),
     displayShowLevel: DisplayShowLevelSchema,
@@ -83,10 +85,14 @@ export const ResolvedGamePlanSchema = GamePlanSchema.extend({
   label: z.string().min(1),
 }).strict();
 
+const ModeratorFrequencySchema = z.enum(["off", "low", "medium", "high"] as const);
+
 export const RoomSettingsSchema = z
   .object({
     showAnswerTextOnPlayerDevices: z.boolean(),
     gamePlanDraft: GamePlanSchema.optional(),
+    moderatorEnabled: z.boolean().optional(),
+    moderatorFrequency: ModeratorFrequencySchema.optional(),
   })
   .strict();
 
@@ -305,8 +311,18 @@ export const RoomSettingsUpdatePayloadSchema = z
     roomId: idSchema,
     showAnswerTextOnPlayerDevices: z.boolean(),
     gamePlanDraft: GamePlanSchema.optional(),
+    moderatorEnabled: z.boolean().optional(),
+    moderatorFrequency: ModeratorFrequencySchema.optional(),
   })
   .strict();
+
+export const ModeratorControlPayloadSchema = z
+  .object({
+    roomId: idSchema,
+    action: z.enum(["test", "stop"] as const),
+  })
+  .strict();
+export type ModeratorControlPayload = z.infer<typeof ModeratorControlPayloadSchema>;
 
 export const RoomJoinPayloadSchema = z
   .object({
@@ -487,6 +503,8 @@ const questionControllerBaseFields = {
   questionId: idSchema,
   questionIndex: z.number().int().nonnegative(),
   totalQuestionCount: z.number().int().nonnegative(),
+  text: z.string().min(1).optional(),
+  playerReadingPhaseMs: z.number().int().nonnegative().optional(),
   durationMs: z.number().int().positive(),
   gameState: QuestionDisplayGameStateSchema,
   isDemoQuestion: z.boolean().optional(),
@@ -801,6 +819,7 @@ export const HOST_TO_SERVER_EVENT_SCHEMAS = {
   [EVENTS.PLAYER_REMOVE]: PlayerRemovePayloadSchema,
   [EVENTS.ROOM_CLOSE]: RoomClosePayloadSchema,
   [EVENTS.GAME_RESTART]: GameRestartPayloadSchema,
+  [EVENTS.MODERATOR_CONTROL]: ModeratorControlPayloadSchema,
 } as const;
 
 export const PLAYER_TO_SERVER_EVENT_SCHEMAS = {
@@ -839,6 +858,7 @@ export const SERVER_TO_DISPLAY_EVENT_SCHEMAS = {
   [EVENTS.ROOM_CLOSED]: RoomClosedPayloadSchema,
   [EVENTS.ERROR_PROTOCOL]: ErrorPayloadSchema,
   [EVENTS.VOTE_UPDATE]: VoteUpdatePayloadSchema,
+  [EVENTS.MODERATOR_CONTROL]: ModeratorControlPayloadSchema,
 } as const;
 
 export const SERVER_TO_HOST_EVENT_SCHEMAS = {

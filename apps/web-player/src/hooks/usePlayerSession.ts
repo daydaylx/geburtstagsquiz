@@ -85,6 +85,9 @@ export interface UsePlayerSessionReturn {
   handlePlayAgain: () => void;
   handleCancelRestart: () => void;
   preCountdown: number | null;
+  questionText: string | null;
+  playerReadingPhaseMs: number;
+  questionReceivedAt: number | null;
   waitingForRestart: boolean;
   setJoinCode: (v: string) => void;
   setPlayerName: (v: string) => void;
@@ -138,6 +141,9 @@ export function usePlayerSession(deps: {
   const [myVote, setMyVote] = useState<string | null>(null);
   const [waitingForRestart, setWaitingForRestart] = useState(false);
   const [preCountdown, setPreCountdown] = useState<number | null>(null);
+  const [questionText, setQuestionText] = useState<string | null>(null);
+  const [playerReadingPhaseMs, setPlayerReadingPhaseMs] = useState(0);
+  const [questionReceivedAt, setQuestionReceivedAt] = useState<number | null>(null);
 
   const playerSessionRef = useRef<PlayerStoredSession | null>(initialSession);
   const lastJoinAttemptRef = useRef<JoinAttempt | null>(null);
@@ -189,7 +195,7 @@ export function usePlayerSession(deps: {
 
   const submitAnswer = useEffectEvent((answer: Answer) => {
     const session = playerSessionRef.current;
-    if (!session || !question || answerStatus !== "idle") return;
+    if (!session || !question || (answerStatus !== "idle" && answerStatus !== "accepted")) return;
     navigator.vibrate?.(50);
     setNotice(null);
     setAnswerStatus("submitting");
@@ -219,7 +225,8 @@ export function usePlayerSession(deps: {
   });
 
   const handleSubmitAnswer = useEffectEvent((optionId: string) => {
-    if (!playerSessionRef.current || !question || answerStatus !== "idle") return;
+    if (!playerSessionRef.current || !question) return;
+    if (answerStatus !== "idle" && answerStatus !== "accepted") return;
     setSelectedOptionId(optionId);
     submitAnswer({ type: "option", value: optionId });
   });
@@ -370,6 +377,12 @@ export function usePlayerSession(deps: {
         setScoreboard(null);
         setNextQuestionReadyProgress(null);
         setLocallyReadyQuestionId(null);
+        setQuestionText((parsedEnvelope.data.payload as QuestionControllerPayload & { text?: string }).text ?? null);
+        setPlayerReadingPhaseMs(
+          (parsedEnvelope.data.payload as QuestionControllerPayload & { playerReadingPhaseMs?: number })
+            .playerReadingPhaseMs ?? 0,
+        );
+        setQuestionReceivedAt(Date.now());
         setScreen("question");
         setWaitingForRestart(false);
         resumedAnswerRef.current = null;
@@ -396,7 +409,7 @@ export function usePlayerSession(deps: {
         }
         switch (parsedEnvelope.data.payload.reason) {
           case "duplicate":
-            setAnswerStatus("accepted");
+            setAnswerStatus("idle");
             setNotice({ kind: "info", text: "Antwort war bereits gespeichert." });
             return;
           case "late":
@@ -421,11 +434,13 @@ export function usePlayerSession(deps: {
           submitTimeoutRef.current = null;
         }
         setRemainingMs(0);
-        setAnswerStatus((curr) => (curr === "idle" || curr === "submitting" ? "locked" : curr));
+        setPlayerReadingPhaseMs(0);
+        setAnswerStatus((curr) => (curr === "idle" || curr === "submitting" || curr === "accepted" ? "locked" : curr));
         return;
 
       case EVENTS.QUESTION_REVEAL:
-        setAnswerStatus((curr) => (curr === "submitting" ? "locked" : curr));
+        setPlayerReadingPhaseMs(0);
+        setAnswerStatus((curr) => (curr === "submitting" || curr === "accepted" ? "locked" : curr));
         setCorrectAnswer(parsedEnvelope.data.payload.correctAnswer);
         setRevealExplanation(parsedEnvelope.data.payload.explanation ?? null);
         setRoundResults(parsedEnvelope.data.payload.playerResults);
@@ -478,6 +493,9 @@ export function usePlayerSession(deps: {
         setEstimateValue("");
         setTextAnswerValue("");
         setRankingOrder([]);
+        setQuestionText(null);
+        setPlayerReadingPhaseMs(0);
+        setQuestionReceivedAt(null);
         setCategories([]);
         setVotes({});
         setMyVote(null);
@@ -638,6 +656,9 @@ export function usePlayerSession(deps: {
     readyQuestionId,
     isReadyForNext,
     preCountdown,
+    questionText,
+    playerReadingPhaseMs,
+    questionReceivedAt,
     categories,
     votes,
     myVote,

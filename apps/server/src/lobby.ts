@@ -5,6 +5,7 @@ import {
   type DisplayConnectRoomPayload,
   EVENTS,
   type HostCreateRoomPayload,
+  type ModeratorControlPayload,
 } from "@quiz/shared-protocol";
 import { GameState, type Player, PlayerState, RoomState } from "@quiz/shared-types";
 import { normalizePlayerName } from "@quiz/shared-utils";
@@ -21,6 +22,7 @@ import { buildCatalogSummary } from "./game-plan.js";
 import { PROTOCOL_ERROR_CODES, sendEvent, sendProtocolError } from "./protocol.js";
 import { getDefaultQuiz } from "./quiz-data.js";
 import { attachSocketToSession, generateDisplayToken, generateHostToken, generateUniqueJoinCode } from "./room.js";
+import { createDefaultRoomSettings } from "./room-settings.js";
 import type { RoomRecord, SessionRecord, TrackedWebSocket } from "./server-types.js";
 import {
   getRoomByJoinCode,
@@ -403,10 +405,11 @@ export function handleRoomSettingsUpdate(
   }
 
   room.settings = {
+    ...room.settings,
     showAnswerTextOnPlayerDevices: payload.showAnswerTextOnPlayerDevices,
-    ...((payload.gamePlanDraft ?? room.settings.gamePlanDraft)
-      ? { gamePlanDraft: payload.gamePlanDraft ?? room.settings.gamePlanDraft }
-      : {}),
+    ...(payload.gamePlanDraft !== undefined ? { gamePlanDraft: payload.gamePlanDraft } : {}),
+    ...(payload.moderatorEnabled !== undefined ? { moderatorEnabled: payload.moderatorEnabled } : {}),
+    ...(payload.moderatorFrequency !== undefined ? { moderatorFrequency: payload.moderatorFrequency } : {}),
   };
   room.lastActivityAt = Date.now();
 
@@ -415,6 +418,32 @@ export function handleRoomSettingsUpdate(
   });
 
   broadcastLobbyUpdate(room);
+}
+
+export function handleModeratorControl(socket: TrackedWebSocket, payload: ModeratorControlPayload): void {
+  const room = roomsById.get(payload.roomId);
+
+  if (!room) {
+    sendProtocolError(socket, PROTOCOL_ERROR_CODES.ROOM_NOT_FOUND, "Room not found", {
+      event: EVENTS.MODERATOR_CONTROL,
+      roomId: payload.roomId,
+      questionId: null,
+    });
+    return;
+  }
+
+  const session = socket.sessionId ? sessionsById.get(socket.sessionId) : null;
+
+  if (!session || session.role !== "host" || session.roomId !== room.id) {
+    sendProtocolError(socket, PROTOCOL_ERROR_CODES.NOT_AUTHORIZED, "Only the host can send moderator control", {
+      event: EVENTS.MODERATOR_CONTROL,
+      roomId: room.id,
+      questionId: null,
+    });
+    return;
+  }
+
+  sendToDisplay(room, EVENTS.MODERATOR_CONTROL, { roomId: room.id, action: payload.action });
 }
 
 function tallyVotes(categoryVotes: Map<string, string>): Record<string, number> {
@@ -518,9 +547,7 @@ export function handleHostCreateRoom(socket: TrackedWebSocket, payload: HostCrea
     displaySessionId: null,
     displayConnectToken,
     displayConnectTokenUsed: false,
-    settings: {
-      showAnswerTextOnPlayerDevices: false,
-    },
+    settings: createDefaultRoomSettings(),
     players: [],
     quiz: null,
     currentQuestionIndex: null,
@@ -535,6 +562,7 @@ export function handleHostCreateRoom(socket: TrackedWebSocket, payload: HostCrea
     questionTimer: null,
     timerTickInterval: null,
     revealTimer: null,
+    revealDelayTimer: null,
     completedRoomTtlTimer: null,
     currentAnswers: new Map(),
     nextQuestionReadyPlayerIds: new Set(),

@@ -1,7 +1,16 @@
-import { type GamePlan, type Player, PlayerState, type Question, QuestionType, type Quiz } from "@quiz/shared-types";
-import { describe, expect, it } from "vitest";
+import {
+  type GamePlan,
+  GameState,
+  type Player,
+  PlayerState,
+  type Question,
+  QuestionType,
+  type Quiz,
+} from "@quiz/shared-types";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { WebSocket } from "ws";
 import { QUESTION_DURATION_MS } from "./config.js";
-import { getAnswerProgress } from "./game.js";
+import { getAnswerProgress, handleAnswerSubmit, handleGameNextQuestion, handleGameStart } from "./game.js";
 import {
   buildCatalogSummary,
   buildDefaultGamePlan,
@@ -10,7 +19,11 @@ import {
   resolveGamePlan,
   selectQuestionsForGamePlan,
 } from "./game-plan.js";
+import { handleHostConnect, handleRoomJoin } from "./lobby.js";
 import { getDefaultQuiz } from "./quiz-data.js";
+import { handleDisplayCreateRoom } from "./room.js";
+import type { RoomRecord, TrackedWebSocket } from "./server-types.js";
+import { roomIdByHostToken, roomIdByJoinCode, roomsById, sessionsById } from "./state.js";
 
 function makePlayer(id: string, state: PlayerState): Player {
   return {
@@ -138,6 +151,8 @@ function makeCustomPlan(overrides: Partial<GamePlan> = {}): GamePlan {
     timerMs: 30_000,
     revealDurationMs: 5_000,
     revealMode: "auto",
+    revealDelayMs: 0,
+    playerReadingPhaseMs: 0,
     showAnswerTextOnPlayerDevices: false,
     enableDemoQuestion: false,
     displayShowLevel: "minimal",
@@ -301,5 +316,253 @@ describe("game plan selection", () => {
       selected.every((question) => [QuestionType.MultipleChoice, QuestionType.Estimate].includes(question.type)),
     ).toBe(true);
     expect(selected.every((question) => question.durationMs === 45_000)).toBe(true);
+  });
+});
+
+interface TestSentEnvelope {
+  event: string;
+  payload: Record<string, unknown>;
+}
+
+interface TestTrackedWebSocket extends TrackedWebSocket {
+  _sent: TestSentEnvelope[];
+}
+
+function makeMockSocket(): TestTrackedWebSocket {
+  const sent: TestSentEnvelope[] = [];
+  const socket = {
+    connectionId: `conn-${Math.random().toString(36).slice(2)}`,
+    isAlive: true,
+    sessionId: null,
+    readyState: WebSocket.OPEN,
+    send: (data: string) => {
+      sent.push(JSON.parse(data) as TestSentEnvelope);
+    },
+    close: vi.fn(),
+    ping: vi.fn(),
+    _sent: sent,
+  };
+  return socket as unknown as TestTrackedWebSocket;
+}
+
+function getPlayerSession(playerIndex: number) {
+  const playerSessions = [...sessionsById.values()].filter((s) => s.role === "player");
+  const session = playerSessions[playerIndex];
+  if (!session) throw new Error(`Expected player session at index ${playerIndex}`);
+  return session;
+}
+
+function makeAnswerForQuestion(question: Question) {
+  if (question.type === "multiple_choice" || question.type === "logic" || question.type === "majority_guess") {
+    return { type: "option" as const, value: question.options[0].id };
+  }
+  if (question.type === "estimate") {
+    return { type: "number" as const, value: 42 };
+  }
+  if (question.type === "ranking") {
+    return { type: "ranking" as const, value: question.items.map((item) => item.id) };
+  }
+  return { type: "text" as const, value: "test answer" };
+}
+
+function makeTestGamePlan(overrides: Record<string, unknown> = {}) {
+  const catalog = buildCatalogSummary(getDefaultQuiz());
+  return {
+    ...buildDefaultGamePlan(catalog),
+    questionCount: 5,
+    enableDemoQuestion: false,
+    displayShowLevel: "minimal" as const,
+    ...overrides,
+  };
+}
+
+describe("revealDelayMs", () => {
+  let displaySocket: TestTrackedWebSocket;
+  let hostSocket: TestTrackedWebSocket;
+  let player1Socket: TestTrackedWebSocket;
+  let player2Socket: TestTrackedWebSocket;
+  let room: RoomRecord;
+
+  beforeEach(() => {
+    vi.useFakeTimers();
+    roomsById.clear();
+    roomIdByJoinCode.clear();
+    roomIdByHostToken.clear();
+    sessionsById.clear();
+
+    displaySocket = makeMockSocket();
+    handleDisplayCreateRoom(displaySocket, {});
+    room = roomsById.values().next().value as RoomRecord;
+
+    hostSocket = makeMockSocket();
+    handleHostConnect(hostSocket, { hostToken: room.hostToken });
+
+    player1Socket = makeMockSocket();
+    handleRoomJoin(player1Socket, { joinCode: room.joinCode, playerName: "Player 1" });
+
+    player2Socket = makeMockSocket();
+    handleRoomJoin(player2Socket, { joinCode: room.joinCode, playerName: "Player 2" });
+  });
+
+  afterEach(() => {
+    vi.clearAllTimers();
+    vi.useRealTimers();
+  });
+
+  it("delays question:reveal by revealDelayMs after question:close", () => {
+    const player1Session = getPlayerSession(0);
+    const player2Session = getPlayerSession(1);
+
+    hostSocket.sessionId = room.hostSessionId;
+    handleGameStart(hostSocket, {
+      roomId: room.id,
+      gamePlan: makeTestGamePlan({ revealDelayMs: 3_000, revealMode: "auto", revealDurationMs: 5_000 }),
+    });
+
+    expect(room.gameState).toBe(GameState.QuestionActive);
+
+    const question = room.quiz!.questions[room.currentQuestionIndex!];
+
+    player1Socket.sessionId = player1Session.sessionId;
+    handleAnswerSubmit(player1Socket, {
+      roomId: room.id,
+      questionId: question.id,
+      playerId: player1Session.playerId!,
+      answer: makeAnswerForQuestion(question),
+      requestId: "req-p1",
+    });
+
+    player2Socket.sessionId = player2Session.sessionId;
+    handleAnswerSubmit(player2Socket, {
+      roomId: room.id,
+      questionId: question.id,
+      playerId: player2Session.playerId!,
+      answer: makeAnswerForQuestion(question),
+      requestId: "req-p2",
+    });
+
+    expect(room.gameState).toBe(GameState.AnswerLocked);
+
+    displaySocket._sent.length = 0;
+    hostSocket._sent.length = 0;
+
+    vi.advanceTimersByTime(1_000);
+
+    const revealBeforeDelay = hostSocket._sent.find((m) => m.event === "question:reveal");
+    expect(revealBeforeDelay).toBeUndefined();
+    expect(room.gameState).toBe(GameState.AnswerLocked);
+
+    vi.advanceTimersByTime(2_500);
+
+    const revealAfterDelay = hostSocket._sent.find((m) => m.event === "question:reveal");
+    expect(revealAfterDelay).toBeDefined();
+    expect(room.gameState).toBe(GameState.Revealing);
+  });
+
+  it("reveals immediately when revealDelayMs is 0", () => {
+    const player1Session = getPlayerSession(0);
+    const player2Session = getPlayerSession(1);
+
+    hostSocket.sessionId = room.hostSessionId;
+    handleGameStart(hostSocket, {
+      roomId: room.id,
+      gamePlan: makeTestGamePlan({ revealDelayMs: 0, revealMode: "auto", revealDurationMs: 5_000 }),
+    });
+
+    const question = room.quiz!.questions[room.currentQuestionIndex!];
+
+    player1Socket.sessionId = player1Session.sessionId;
+    handleAnswerSubmit(player1Socket, {
+      roomId: room.id,
+      questionId: question.id,
+      playerId: player1Session.playerId!,
+      answer: makeAnswerForQuestion(question),
+      requestId: "req-p1",
+    });
+
+    player2Socket.sessionId = player2Session.sessionId;
+    handleAnswerSubmit(player2Socket, {
+      roomId: room.id,
+      questionId: question.id,
+      playerId: player2Session.playerId!,
+      answer: makeAnswerForQuestion(question),
+      requestId: "req-p2",
+    });
+
+    const reveal = hostSocket._sent.find((m) => m.event === "question:reveal");
+    expect(reveal).toBeDefined();
+    expect(room.gameState).toBe(GameState.Revealing);
+  });
+
+  it("allows host to skip delay via game:next-question during AnswerLocked", () => {
+    const player1Session = getPlayerSession(0);
+    const player2Session = getPlayerSession(1);
+
+    hostSocket.sessionId = room.hostSessionId;
+    handleGameStart(hostSocket, {
+      roomId: room.id,
+      gamePlan: makeTestGamePlan({ revealDelayMs: 5_000, revealMode: "auto", revealDurationMs: 5_000 }),
+    });
+
+    const question = room.quiz!.questions[room.currentQuestionIndex!];
+
+    player1Socket.sessionId = player1Session.sessionId;
+    handleAnswerSubmit(player1Socket, {
+      roomId: room.id,
+      questionId: question.id,
+      playerId: player1Session.playerId!,
+      answer: makeAnswerForQuestion(question),
+      requestId: "req-p1",
+    });
+
+    player2Socket.sessionId = player2Session.sessionId;
+    handleAnswerSubmit(player2Socket, {
+      roomId: room.id,
+      questionId: question.id,
+      playerId: player2Session.playerId!,
+      answer: makeAnswerForQuestion(question),
+      requestId: "req-p2",
+    });
+
+    expect(room.gameState).toBe(GameState.AnswerLocked);
+    expect(room.revealDelayTimer).not.toBeNull();
+
+    hostSocket._sent.length = 0;
+    hostSocket.sessionId = room.hostSessionId;
+    handleGameNextQuestion(hostSocket, room.id);
+
+    const reveal = hostSocket._sent.find((m) => m.event === "question:reveal");
+    expect(reveal).toBeDefined();
+    expect(room.gameState).toBe(GameState.Revealing);
+    expect(room.revealDelayTimer).toBeNull();
+  });
+
+  it("includes text and playerReadingPhaseMs in question:controller when reading phase is active", () => {
+    hostSocket.sessionId = room.hostSessionId;
+    handleGameStart(hostSocket, {
+      roomId: room.id,
+      gamePlan: makeTestGamePlan({ playerReadingPhaseMs: 5_000 }),
+    });
+
+    const player1Sent = player1Socket._sent.filter((m: { event: string }) => m.event === "question:controller");
+    expect(player1Sent.length).toBeGreaterThanOrEqual(1);
+    const controllerPayload = player1Sent[0].payload as Record<string, unknown>;
+    expect(controllerPayload.text).toBeDefined();
+    expect(typeof controllerPayload.text).toBe("string");
+    expect(controllerPayload.playerReadingPhaseMs).toBe(5_000);
+  });
+
+  it("omits text and playerReadingPhaseMs from question:controller when reading phase is 0", () => {
+    hostSocket.sessionId = room.hostSessionId;
+    handleGameStart(hostSocket, {
+      roomId: room.id,
+      gamePlan: makeTestGamePlan({ playerReadingPhaseMs: 0 }),
+    });
+
+    const player1Sent = player1Socket._sent.filter((m: { event: string }) => m.event === "question:controller");
+    expect(player1Sent.length).toBeGreaterThanOrEqual(1);
+    const controllerPayload = player1Sent[0].payload as Record<string, unknown>;
+    expect(controllerPayload.text).toBeUndefined();
+    expect(controllerPayload.playerReadingPhaseMs).toBeUndefined();
   });
 });

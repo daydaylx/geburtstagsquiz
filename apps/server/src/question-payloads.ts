@@ -93,6 +93,8 @@ export function toQuestionControllerPayload(
     gameState,
     ...(question.isDemoQuestion ? { isDemoQuestion: true } : {}),
   };
+  const readingPhaseMs = room.resolvedGamePlan?.playerReadingPhaseMs ?? 0;
+  const readingPhaseFields = readingPhaseMs > 0 ? { text: question.text, playerReadingPhaseMs: readingPhaseMs } : {};
   const showText = room.settings.showAnswerTextOnPlayerDevices;
   const toControllerOption = (option: { id: string; label: string }, index: number) => ({
     id: option.id,
@@ -107,6 +109,7 @@ export function toQuestionControllerPayload(
   ) {
     return {
       ...baseControllerFields,
+      ...readingPhaseFields,
       type: question.type,
       options: question.options.map(toControllerOption),
     };
@@ -115,6 +118,7 @@ export function toQuestionControllerPayload(
   if (question.type === QuestionType.Estimate) {
     return {
       ...baseControllerFields,
+      ...readingPhaseFields,
       type: question.type,
       unit: question.unit,
     };
@@ -123,6 +127,7 @@ export function toQuestionControllerPayload(
   if (question.type === QuestionType.OpenText) {
     return {
       ...baseControllerFields,
+      ...readingPhaseFields,
       type: question.type,
     };
   }
@@ -130,6 +135,7 @@ export function toQuestionControllerPayload(
   if (question.type === QuestionType.Ranking) {
     return {
       ...baseControllerFields,
+      ...readingPhaseFields,
       type: question.type,
       items: question.items.map(toControllerOption),
     };

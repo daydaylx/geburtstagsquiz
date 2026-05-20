@@ -11,6 +11,8 @@ const sampleGamePlan = {
   timerMs: 30000,
   revealDurationMs: 5000,
   revealMode: "auto" as const,
+  revealDelayMs: 0,
+  playerReadingPhaseMs: 0,
   showAnswerTextOnPlayerDevices: false,
   enableDemoQuestion: true,
   displayShowLevel: "high" as const,
@@ -305,7 +307,7 @@ describe("parseServerToClientEnvelope", () => {
     expect(result.success).toBe(true);
   });
 
-  it("rejects question:controller payloads that include full question text", () => {
+  it("accepts question:controller payloads that include question text for reading phase", () => {
     const envelope = JSON.stringify({
       event: EVENTS.QUESTION_CONTROLLER,
       payload: {
@@ -314,7 +316,8 @@ describe("parseServerToClientEnvelope", () => {
         questionIndex: 0,
         totalQuestionCount: 7,
         type: "multiple_choice",
-        text: "This should stay on the host.",
+        text: "Wie heisst die Hauptstadt?",
+        playerReadingPhaseMs: 5000,
         options: [{ id: "A", label: "A" }],
         durationMs: 15000,
         gameState: "question_active",
@@ -323,7 +326,7 @@ describe("parseServerToClientEnvelope", () => {
 
     const result = parseServerToClientEnvelope(envelope);
 
-    expect(result.success).toBe(false);
+    expect(result.success).toBe(true);
   });
 
   it("accepts a valid score:update payload", () => {
