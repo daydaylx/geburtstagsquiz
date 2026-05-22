@@ -3645,6 +3645,37 @@ body {
     radial-gradient(ellipse at 50% 100%, rgba(246, 199, 106, 0.04) 0%, transparent 58%);
 }
 
+/* ── Show-Level: Motion und Glow-Steuerung ──────────────────────────── */
+
+.display-shell[data-show-level="minimal"]::before {
+  background: none !important;
+}
+
+.display-shell[data-show-level="minimal"] .display-lobby,
+.display-shell[data-show-level="minimal"] .display-question,
+.display-shell[data-show-level="minimal"] .display-reveal,
+.display-shell[data-show-level="minimal"] .display-scoreboard,
+.display-shell[data-show-level="minimal"] .display-finished {
+  animation: none !important;
+}
+
+.display-shell[data-show-level="minimal"] .display-reveal > * {
+  animation: none !important;
+}
+
+.display-shell[data-show-level="minimal"]
+  .display-main:has(.display-footer:has(.display-timer-fill[data-urgent="true"])) {
+  animation: none !important;
+}
+
+.display-shell[data-show-level="minimal"] .display-question-text {
+  animation: none !important;
+}
+
+.display-shell[data-show-level="minimal"] .display-confetti {
+  display: none !important;
+}
+
 /* ═══════════════════════════════════════════════════════════════════════
    REDUCED MOTION: Neue Animationen deaktivieren
    ═══════════════════════════════════════════════════════════════════════ */

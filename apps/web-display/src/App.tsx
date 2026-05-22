@@ -86,6 +86,7 @@ export function App() {
     <div
       className="display-shell"
       data-screen={s.screen}
+      data-show-level={s.displayShowLevel}
       data-question-type={s.screen === "question" && s.question ? s.question.type : undefined}
     >
       <div className="display-topbar">
