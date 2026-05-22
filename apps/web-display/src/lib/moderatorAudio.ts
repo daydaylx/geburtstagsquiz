@@ -1,79 +1,154 @@
-export interface ModeratorAudioStatus {
-  audioUnlocked: boolean;
-  audioBlocked: boolean;
-}
+type ModeratorManifest = Record<string, string[]>;
 
-type AudioManifest = Partial<Record<string, string[]>>;
+const MIN_COOLDOWN_MS = 10_000;
+const BLOCKED_AUDIO_MESSAGE = "Audio ist im Display blockiert. Bitte Audio aktivieren.";
 
+let manifest: ModeratorManifest = {};
+let manifestLoaded = false;
+let manifestPromise: Promise<void> | null = null;
 let currentAudio: HTMLAudioElement | null = null;
-let currentPriority = 0;
+let lastPlayedAt = 0;
+let currentPriority = Infinity;
 let audioUnlocked = false;
 let audioBlocked = false;
-let manifest: AudioManifest = {};
-
-export function getModeratorAudioStatus(): ModeratorAudioStatus {
-  return { audioUnlocked, audioBlocked };
-}
+let lastError: string | null = null;
 
 export async function loadManifest(): Promise<void> {
+  if (manifestLoaded) return;
+  if (manifestPromise) return manifestPromise;
+
+  manifestPromise = loadManifestOnce();
+  await manifestPromise;
+}
+
+async function loadManifestOnce(): Promise<void> {
   try {
-    const res = await fetch("/moderator-audio/manifest.json");
-    if (res.ok) {
-      manifest = (await res.json()) as AudioManifest;
+    const response = await fetch("/audio/moderator/manifest.json");
+    if (!response.ok) {
+      console.warn("[moderator] manifest not found:", response.status);
+      return;
     }
-  } catch {
-    // No manifest available — moderator audio clips silently disabled
+    const data: unknown = await response.json();
+    if (data && typeof data === "object" && !Array.isArray(data)) {
+      manifest = data as ModeratorManifest;
+      manifestLoaded = true;
+      lastError = null;
+    }
+  } catch (err) {
+    lastError = "Moderator-Clips konnten nicht geladen werden.";
+    console.warn("[moderator] failed to load manifest:", err);
+  } finally {
+    manifestPromise = null;
   }
 }
 
-export async function playCategory(category: string, priority: number, force = false): Promise<void> {
-  if (!audioUnlocked) return;
-  if (!force && currentAudio && !currentAudio.paused && priority <= currentPriority) return;
+export interface ModeratorAudioStatus {
+  manifestLoaded: boolean;
+  audioUnlocked: boolean;
+  audioBlocked: boolean;
+  errorMessage: string | null;
+}
+
+export interface ModeratorPlayResult {
+  played: boolean;
+  blocked: boolean;
+  errorMessage: string | null;
+}
+
+export function getModeratorAudioStatus(): ModeratorAudioStatus {
+  return {
+    manifestLoaded,
+    audioUnlocked,
+    audioBlocked,
+    errorMessage: lastError,
+  };
+}
+
+export async function unlockModeratorAudio(): Promise<ModeratorAudioStatus> {
+  try {
+    const AudioContextCtor =
+      window.AudioContext ?? (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+    if (AudioContextCtor) {
+      const context = new AudioContextCtor();
+      if (context.state !== "running") {
+        await context.resume();
+      }
+      void context.close();
+    }
+    audioUnlocked = true;
+    audioBlocked = false;
+    lastError = null;
+  } catch (err) {
+    audioBlocked = true;
+    lastError = BLOCKED_AUDIO_MESSAGE;
+    console.warn("[moderator] failed to unlock audio:", err);
+  }
+
+  return getModeratorAudioStatus();
+}
+
+export async function playCategory(category: string, priority = 99, force = false): Promise<ModeratorPlayResult> {
+  await loadManifest();
 
   const clips = manifest[category];
-  if (!clips || clips.length === 0) return;
+  if (!clips || clips.length === 0) {
+    return { played: false, blocked: false, errorMessage: lastError };
+  }
+
+  const now = Date.now();
+  const cooldownOk = force || now - lastPlayedAt >= MIN_COOLDOWN_MS;
+  const priorityOk = force || priority <= currentPriority;
+
+  if (!cooldownOk || !priorityOk) {
+    return { played: false, blocked: false, errorMessage: lastError };
+  }
+
+  const url = clips[Math.floor(Math.random() * clips.length)];
 
   stopCurrent();
-  const url = clips[Math.floor(Math.random() * clips.length)];
+
   const audio = new Audio(url);
   currentAudio = audio;
   currentPriority = priority;
-  audio.onended = () => {
+  lastPlayedAt = now;
+
+  audio.addEventListener("ended", () => {
     if (currentAudio === audio) {
       currentAudio = null;
-      currentPriority = 0;
+      currentPriority = Infinity;
     }
-  };
+  });
+
   try {
     await audio.play();
-  } catch {
+    audioUnlocked = true;
+    audioBlocked = false;
+    lastError = null;
+    return { played: true, blocked: false, errorMessage: null };
+  } catch (err) {
+    audioBlocked = true;
+    lastError = BLOCKED_AUDIO_MESSAGE;
+    console.warn("[moderator] autoplay blocked or error:", err);
     if (currentAudio === audio) {
       currentAudio = null;
-      currentPriority = 0;
+      currentPriority = Infinity;
     }
-    audioBlocked = true;
+    return { played: false, blocked: true, errorMessage: lastError };
   }
 }
 
 export function stopCurrent(): void {
   if (currentAudio) {
     currentAudio.pause();
-    currentAudio.currentTime = 0;
     currentAudio = null;
-    currentPriority = 0;
+    currentPriority = Infinity;
   }
 }
 
-// Must be called from a user gesture (e.g. button click) to unlock autoplay.
-export async function unlockModeratorAudio(): Promise<ModeratorAudioStatus> {
-  try {
-    const silence = new Audio("data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA");
-    await silence.play();
-    audioUnlocked = true;
-    audioBlocked = false;
-  } catch {
-    audioBlocked = true;
-    audioUnlocked = false;
-  }
-  return getModeratorAudioStatus();
+export function isPlaying(): boolean {
+  return currentAudio !== null && !currentAudio.paused;
+}
+
+export function getCurrentPriority(): number {
+  return currentPriority;
 }

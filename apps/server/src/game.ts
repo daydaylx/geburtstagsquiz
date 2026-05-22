@@ -732,7 +732,7 @@ function closeQuestion(room: RoomRecord): void {
     room.revealDelayTimer = setTimeout(() => {
       room.revealDelayTimer = null;
       if (
-        room.state !== "in_game" ||
+        room.state !== RoomState.InGame ||
         !room.quiz ||
         room.currentQuestionIndex === null ||
         room.quiz.questions[room.currentQuestionIndex]?.id !== question.id

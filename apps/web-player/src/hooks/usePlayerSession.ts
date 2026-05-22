@@ -215,7 +215,10 @@ export function usePlayerSession(deps: {
       submitTimeoutRef.current = setTimeout(() => {
         setAnswerStatus((curr) => {
           if (curr === "submitting") {
-            setNotice({ kind: "error", text: "Antwort konnte nicht zugestellt werden." });
+            setNotice({
+              kind: "error",
+              text: "Antwort konnte nicht zugestellt werden.",
+            });
             return "idle";
           }
           return curr;
@@ -377,10 +380,19 @@ export function usePlayerSession(deps: {
         setScoreboard(null);
         setNextQuestionReadyProgress(null);
         setLocallyReadyQuestionId(null);
-        setQuestionText((parsedEnvelope.data.payload as QuestionControllerPayload & { text?: string }).text ?? null);
+        setQuestionText(
+          (
+            parsedEnvelope.data.payload as QuestionControllerPayload & {
+              text?: string;
+            }
+          ).text ?? null,
+        );
         setPlayerReadingPhaseMs(
-          (parsedEnvelope.data.payload as QuestionControllerPayload & { playerReadingPhaseMs?: number })
-            .playerReadingPhaseMs ?? 0,
+          (
+            parsedEnvelope.data.payload as QuestionControllerPayload & {
+              playerReadingPhaseMs?: number;
+            }
+          ).playerReadingPhaseMs ?? 0,
         );
         setQuestionReceivedAt(Date.now());
         setScreen("question");
@@ -410,7 +422,10 @@ export function usePlayerSession(deps: {
         switch (parsedEnvelope.data.payload.reason) {
           case "duplicate":
             setAnswerStatus("idle");
-            setNotice({ kind: "info", text: "Antwort war bereits gespeichert." });
+            setNotice({
+              kind: "info",
+              text: "Antwort war bereits gespeichert.",
+            });
             return;
           case "late":
           case "invalid_state":
@@ -419,11 +434,17 @@ export function usePlayerSession(deps: {
             return;
           case "invalid_payload":
             setAnswerStatus("idle");
-            setNotice({ kind: "error", text: "Antwort ungültig. Bitte erneut versuchen." });
+            setNotice({
+              kind: "error",
+              text: "Antwort ungültig. Bitte erneut versuchen.",
+            });
             return;
           case "unauthorized":
             setAnswerStatus("rejected");
-            setNotice({ kind: "error", text: "Antwort wurde nicht angenommen." });
+            setNotice({
+              kind: "error",
+              text: "Antwort wurde nicht angenommen.",
+            });
             return;
         }
         return;
@@ -469,6 +490,10 @@ export function usePlayerSession(deps: {
 
       case EVENTS.ROOM_RESET: {
         const resetPayload = parsedEnvelope.data.payload;
+        if (submitTimeoutRef.current) {
+          clearTimeout(submitTimeoutRef.current);
+          submitTimeoutRef.current = null;
+        }
         // Ein Host-Neustart erhaelt die Session, setzt aber alle lokalen Runden- und Votingdaten zurueck.
         updateStoredSession({
           roomId: resetPayload.roomId,
@@ -511,14 +536,20 @@ export function usePlayerSession(deps: {
         // Raum geschlossen: lokale Resume-Daten sind wertlos und der Player muss neu beitreten.
         updateStoredSession(null);
         resetToJoin();
-        setNotice({ kind: "info", text: "Raum geschlossen. Bitte neu beitreten." });
+        setNotice({
+          kind: "info",
+          text: "Raum geschlossen. Bitte neu beitreten.",
+        });
         return;
 
       case EVENTS.ERROR_PROTOCOL: {
         const error = parsedEnvelope.data.payload;
         setIsJoining(false);
         isJoiningRef.current = false;
-        setNotice({ kind: "error", text: getProtocolErrorMessage(error.code, error.message) });
+        setNotice({
+          kind: "error",
+          text: getProtocolErrorMessage(error.code, error.message),
+        });
 
         if (error.context.event === EVENTS.ANSWER_SUBMIT) {
           setAnswerStatus(error.code === PROTOCOL_ERROR_CODES.INVALID_PAYLOAD ? "idle" : "locked");

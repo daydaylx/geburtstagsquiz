@@ -39,38 +39,6 @@
       "points": 1
     },
     {
-      "id": "q-11-02-a8c4d321",
-      "prompt": "Welcher Begriff passt logisch nicht in die folgende Reihe: Tisch, Stuhl, Schrank, Auto?",
-      "options": [
-        {
-          "id": "q-11-02-a8c4d321-opt-1",
-          "text": "Auto",
-          "is_correct": true
-        },
-        {
-          "id": "q-11-02-a8c4d321-opt-2",
-          "text": "Tisch",
-          "is_correct": false
-        },
-        {
-          "id": "q-11-02-a8c4d321-opt-3",
-          "text": "Stuhl",
-          "is_correct": false
-        },
-        {
-          "id": "q-11-02-a8c4d321-opt-4",
-          "text": "Schrank",
-          "is_correct": false
-        }
-      ],
-      "correct_option_id": "q-11-02-a8c4d321-opt-1",
-      "explanation": "Tisch, Stuhl und Schrank sind Möbelstücke, während das Auto ein Fortbewegungsmittel ist.",
-      "difficulty": "easy",
-      "category_id": "cat-11",
-      "type": "logic",
-      "points": 1
-    },
-    {
       "id": "q-11-03-bf567812",
       "prompt": "Welches ist das größte lebende Säugetier der Erde?",
       "options": [
@@ -231,102 +199,6 @@
       "points": 1
     },
     {
-      "id": "q-11-08-01212223",
-      "prompt": "Welcher Ozean ist der flächenmäßig größte der Welt?",
-      "options": [
-        {
-          "id": "q-11-08-01212223-opt-1",
-          "text": "Pazifischer Ozean",
-          "is_correct": true
-        },
-        {
-          "id": "q-11-08-01212223-opt-2",
-          "text": "Atlantischer Ozean",
-          "is_correct": false
-        },
-        {
-          "id": "q-11-08-01212223-opt-3",
-          "text": "Indischer Ozean",
-          "is_correct": false
-        },
-        {
-          "id": "q-11-08-01212223-opt-4",
-          "text": "Arktischer Ozean",
-          "is_correct": false
-        }
-      ],
-      "correct_option_id": "q-11-08-01212223-opt-1",
-      "explanation": "Der Pazifik bedeckt etwa 35 % der gesamten Erdoberfläche und ist größer als alle Landmassen zusammen.",
-      "difficulty": "easy",
-      "category_id": "cat-11",
-      "type": "multiple_choice",
-      "points": 1
-    },
-    {
-      "id": "q-11-09-02242526",
-      "prompt": "Vervollständige die Analogie: Baum verhält sich zu Blatt wie Buch zu ...?",
-      "options": [
-        {
-          "id": "q-11-09-02242526-opt-1",
-          "text": "Seite",
-          "is_correct": true
-        },
-        {
-          "id": "q-11-09-02242526-opt-2",
-          "text": "Leser",
-          "is_correct": false
-        },
-        {
-          "id": "q-11-09-02242526-opt-3",
-          "text": "Regal",
-          "is_correct": false
-        },
-        {
-          "id": "q-11-09-02242526-opt-4",
-          "text": "Tinte",
-          "is_correct": false
-        }
-      ],
-      "correct_option_id": "q-11-09-02242526-opt-1",
-      "explanation": "Ein Blatt ist ein Teil des Baumes, so wie eine Seite ein Teil eines Buches ist.",
-      "difficulty": "easy",
-      "category_id": "cat-11",
-      "type": "multiple_choice",
-      "points": 1
-    },
-    {
-      "id": "q-11-10-03272829",
-      "prompt": "Welches dieser Tiere ist ein Säugetier, obwohl es fliegen kann?",
-      "options": [
-        {
-          "id": "q-11-10-03272829-opt-1",
-          "text": "Fledermaus",
-          "is_correct": true
-        },
-        {
-          "id": "q-11-10-03272829-opt-2",
-          "text": "Kolibri",
-          "is_correct": false
-        },
-        {
-          "id": "q-11-10-03272829-opt-3",
-          "text": "Fliegender Fisch",
-          "is_correct": false
-        },
-        {
-          "id": "q-11-10-03272829-opt-4",
-          "text": "Pinguin",
-          "is_correct": false
-        }
-      ],
-      "correct_option_id": "q-11-10-03272829-opt-1",
-      "explanation": "Fledermäuse sind die einzigen Säugetiere, die aktiv fliegen können. Vögel und Fische gehören anderen Wirbeltierklassen an.",
-      "difficulty": "easy",
-      "category_id": "cat-11",
-      "type": "multiple_choice",
-      "points": 1
-    },
-    {
       "id": "q-11-11-04303132",
       "prompt": "Wo befinden sich die kleinsten Knochen des menschlichen Körpers?",
       "options": [
@@ -455,70 +327,6 @@
       "points": 1
     },
     {
-      "id": "q-11-15-08424344",
-      "prompt": "Welcher Berg gilt als der höchste über dem Meeresspiegel?",
-      "options": [
-        {
-          "id": "q-11-15-08424344-opt-1",
-          "text": "Mount Everest",
-          "is_correct": true
-        },
-        {
-          "id": "q-11-15-08424344-opt-2",
-          "text": "Mont Blanc",
-          "is_correct": false
-        },
-        {
-          "id": "q-11-15-08424344-opt-3",
-          "text": "Kilimandscharo",
-          "is_correct": false
-        },
-        {
-          "id": "q-11-15-08424344-opt-4",
-          "text": "K2",
-          "is_correct": false
-        }
-      ],
-      "correct_option_id": "q-11-15-08424344-opt-1",
-      "explanation": "Der Mount Everest im Himalaya ist mit 8.848 Metern der höchste Punkt der Erde.",
-      "difficulty": "easy",
-      "category_id": "cat-11",
-      "type": "multiple_choice",
-      "points": 1
-    },
-    {
-      "id": "q-11-16-09454647",
-      "prompt": "Was folgt logisch als Nächstes: Morgen, Mittag, Abend, ...?",
-      "options": [
-        {
-          "id": "q-11-16-09454647-opt-1",
-          "text": "Nacht",
-          "is_correct": true
-        },
-        {
-          "id": "q-11-16-09454647-opt-2",
-          "text": "Vormittag",
-          "is_correct": false
-        },
-        {
-          "id": "q-11-16-09454647-opt-3",
-          "text": "Dämmerung",
-          "is_correct": false
-        },
-        {
-          "id": "q-11-16-09454647-opt-4",
-          "text": "Frühstück",
-          "is_correct": false
-        }
-      ],
-      "correct_option_id": "q-11-16-09454647-opt-1",
-      "explanation": "Die Reihe beschreibt die zeitliche Abfolge der Tagesabschnitte.",
-      "difficulty": "easy",
-      "category_id": "cat-11",
-      "type": "logic",
-      "points": 1
-    },
-    {
       "id": "q-11-17-10484950",
       "prompt": "Wie nennt man den Prozess, bei dem Pflanzen Licht in Energie umwandeln?",
       "options": [
@@ -615,70 +423,6 @@
       "points": 1
     },
     {
-      "id": "q-11-20-13575859",
-      "prompt": "Welches dieser Wörter ist ein Synonym für 'fragil'?",
-      "options": [
-        {
-          "id": "q-11-20-13575859-opt-1",
-          "text": "Zerbrechlich",
-          "is_correct": true
-        },
-        {
-          "id": "q-11-20-13575859-opt-2",
-          "text": "Robust",
-          "is_correct": false
-        },
-        {
-          "id": "q-11-20-13575859-opt-3",
-          "text": "Schnell",
-          "is_correct": false
-        },
-        {
-          "id": "q-11-20-13575859-opt-4",
-          "text": "Wichtig",
-          "is_correct": false
-        }
-      ],
-      "correct_option_id": "q-11-20-13575859-opt-1",
-      "explanation": "Fragil kommt aus dem Lateinischen und bedeutet leicht zerbrechlich oder hinfällig.",
-      "difficulty": "easy",
-      "category_id": "cat-11",
-      "type": "multiple_choice",
-      "points": 1
-    },
-    {
-      "id": "q-11-21-14606162",
-      "prompt": "In welcher Himmelsrichtung geht die Sonne morgens auf?",
-      "options": [
-        {
-          "id": "q-11-21-14606162-opt-1",
-          "text": "Osten",
-          "is_correct": true
-        },
-        {
-          "id": "q-11-21-14606162-opt-2",
-          "text": "Westen",
-          "is_correct": false
-        },
-        {
-          "id": "q-11-21-14606162-opt-3",
-          "text": "Norden",
-          "is_correct": false
-        },
-        {
-          "id": "q-11-21-14606162-opt-4",
-          "text": "Süden",
-          "is_correct": false
-        }
-      ],
-      "correct_option_id": "q-11-21-14606162-opt-1",
-      "explanation": "Die Erde dreht sich nach Osten, weshalb die Sonne dort zuerst erscheint.",
-      "difficulty": "easy",
-      "category_id": "cat-11",
-      "type": "multiple_choice",
-      "points": 1
-    },
-    {
       "id": "q-11-22-15636465",
       "prompt": "Welcher Kontinent ist der flächenmäßig kleinste?",
       "options": [
@@ -738,230 +482,6 @@
       "correct_option_id": "q-11-23-16666768-opt-1",
       "explanation": "Die erste Aussage 'Alle Rosen sind Blumen' ist die einzige gesicherte Tatsache in diesem logischen Konstrukt.",
       "difficulty": "medium",
-      "category_id": "cat-11",
-      "type": "multiple_choice",
-      "points": 1
-    },
-    {
-      "id": "q-11-24-17697071",
-      "prompt": "Welches ist das schnellste Landsäugetier der Welt?",
-      "explanation": "Ein Gepard kann im Sprint Geschwindigkeiten von über 100 km/h erreichen.",
-      "difficulty": "easy",
-      "category_id": "cat-11",
-      "type": "estimate",
-      "points": 1,
-      "answer": {
-        "canonical": "ca. 112 km/h",
-        "reference_value": 112,
-        "unit": "km/h",
-        "context": "Gepard, Sprint, Spitzenleistung auf kurzer Distanz"
-      },
-      "scoring_rule": "closest_wins"
-    },
-    {
-      "id": "q-11-25-18727374",
-      "prompt": "Was ist die primäre Funktion des menschlichen Herzens?",
-      "options": [
-        {
-          "id": "q-11-25-18727374-opt-1",
-          "text": "Pumpen von Blut",
-          "is_correct": true
-        },
-        {
-          "id": "q-11-25-18727374-opt-2",
-          "text": "Reinigung des Blutes",
-          "is_correct": false
-        },
-        {
-          "id": "q-11-25-18727374-opt-3",
-          "text": "Produktion von Hormonen",
-          "is_correct": false
-        },
-        {
-          "id": "q-11-25-18727374-opt-4",
-          "text": "Speicherung von Energie",
-          "is_correct": false
-        }
-      ],
-      "correct_option_id": "q-11-25-18727374-opt-1",
-      "explanation": "Das Herz fungiert als Hohlmuskel, der den Blutkreislauf durch rhythmische Kontraktionen aufrechterhält.",
-      "difficulty": "easy",
-      "category_id": "cat-11",
-      "type": "multiple_choice",
-      "points": 1
-    },
-    {
-      "id": "q-11-26-19757677",
-      "prompt": "Wie viele Jahre umfasst ein Jahrhundert?",
-      "options": [
-        {
-          "id": "q-11-26-19757677-opt-1",
-          "text": "100",
-          "is_correct": true
-        },
-        {
-          "id": "q-11-26-19757677-opt-2",
-          "text": "10",
-          "is_correct": false
-        },
-        {
-          "id": "q-11-26-19757677-opt-3",
-          "text": "1000",
-          "is_correct": false
-        },
-        {
-          "id": "q-11-26-19757677-opt-4",
-          "text": "50",
-          "is_correct": false
-        }
-      ],
-      "correct_option_id": "q-11-26-19757677-opt-1",
-      "explanation": "Ein Jahrhundert (Zentennium) besteht definitionsgemäß aus genau 100 Kalenderjahren.",
-      "difficulty": "easy",
-      "category_id": "cat-11",
-      "type": "multiple_choice",
-      "points": 1
-    },
-    {
-      "id": "q-11-27-20787980",
-      "prompt": "Was ist das Gegenteil von 'Vordergrund'?",
-      "options": [
-        {
-          "id": "q-11-27-20787980-opt-1",
-          "text": "Hintergrund",
-          "is_correct": true
-        },
-        {
-          "id": "q-11-27-20787980-opt-2",
-          "text": "Untergrund",
-          "is_correct": false
-        },
-        {
-          "id": "q-11-27-20787980-opt-3",
-          "text": "Abgrund",
-          "is_correct": false
-        },
-        {
-          "id": "q-11-27-20787980-opt-4",
-          "text": "Hinterhalt",
-          "is_correct": false
-        }
-      ],
-      "correct_option_id": "q-11-27-20787980-opt-1",
-      "explanation": "Hintergrund bezeichnet den räumlich oder inhaltlich hinter dem Vordergrund liegenden Teil.",
-      "difficulty": "easy",
-      "category_id": "cat-11",
-      "type": "multiple_choice",
-      "points": 1
-    },
-    {
-      "id": "q-11-28-21818283",
-      "prompt": "Bei welcher Temperatur siedet reines Wasser unter normalen atmosphärischen Bedingungen (Meereshöhe)?",
-      "explanation": "Bei 100 °C unter Normaldruck. Dieser Wert ändert sich mit der Höhe – auf dem Mount Everest siedet Wasser bereits bei ca. 68 °C.",
-      "difficulty": "easy",
-      "category_id": "cat-11",
-      "type": "estimate",
-      "points": 1,
-      "answer": {
-        "canonical": "100 °C",
-        "reference_value": 100,
-        "unit": "°C",
-        "context": "Reines Wasser bei normalem Atmosphärendruck (1013,25 hPa)"
-      },
-      "scoring_rule": "closest_wins"
-    },
-    {
-      "id": "q-11-29-22848586",
-      "prompt": "Auf welchem Kontinent liegt die Wüste Sahara?",
-      "options": [
-        {
-          "id": "q-11-29-22848586-opt-1",
-          "text": "Afrika",
-          "is_correct": true
-        },
-        {
-          "id": "q-11-29-22848586-opt-2",
-          "text": "Asien",
-          "is_correct": false
-        },
-        {
-          "id": "q-11-29-22848586-opt-3",
-          "text": "Australien",
-          "is_correct": false
-        },
-        {
-          "id": "q-11-29-22848586-opt-4",
-          "text": "Südamerika",
-          "is_correct": false
-        }
-      ],
-      "correct_option_id": "q-11-29-22848586-opt-1",
-      "explanation": "Die Sahara ist die größte Trockenwüste der Welt und erstreckt sich über den Norden Afrikas.",
-      "difficulty": "easy",
-      "category_id": "cat-11",
-      "type": "multiple_choice",
-      "points": 1
-    },
-    {
-      "id": "q-11-30-23878889",
-      "prompt": "Welches Wort passt logisch nicht zu den anderen: Rot, Gelb, Blau, Schwer?",
-      "options": [
-        {
-          "id": "q-11-30-23878889-opt-1",
-          "text": "Schwer",
-          "is_correct": true
-        },
-        {
-          "id": "q-11-30-23878889-opt-2",
-          "text": "Rot",
-          "is_correct": false
-        },
-        {
-          "id": "q-11-30-23878889-opt-3",
-          "text": "Gelb",
-          "is_correct": false
-        },
-        {
-          "id": "q-11-30-23878889-opt-4",
-          "text": "Blau",
-          "is_correct": false
-        }
-      ],
-      "correct_option_id": "q-11-30-23878889-opt-1",
-      "explanation": "Rot, Gelb und Blau sind Farben, während 'schwer' ein Gewicht oder eine Eigenschaft beschreibt.",
-      "difficulty": "easy",
-      "category_id": "cat-11",
-      "type": "logic",
-      "points": 1
-    },
-    {
-      "id": "q-11-31-24909192",
-      "prompt": "Wie viele Beine hat eine Spinne im Normalfall?",
-      "options": [
-        {
-          "id": "q-11-31-24909192-opt-1",
-          "text": "8",
-          "is_correct": true
-        },
-        {
-          "id": "q-11-31-24909192-opt-2",
-          "text": "6",
-          "is_correct": false
-        },
-        {
-          "id": "q-11-31-24909192-opt-3",
-          "text": "10",
-          "is_correct": false
-        },
-        {
-          "id": "q-11-31-24909192-opt-4",
-          "text": "4",
-          "is_correct": false
-        }
-      ],
-      "correct_option_id": "q-11-31-24909192-opt-1",
-      "explanation": "Spinnentiere haben acht Beine, im Gegensatz zu Insekten, die sechs Beine besitzen.",
-      "difficulty": "easy",
       "category_id": "cat-11",
       "type": "multiple_choice",
       "points": 1
@@ -1159,70 +679,6 @@
       "points": 1
     },
     {
-      "id": "q-11-38-31135161",
-      "prompt": "Zu welcher Tierklasse gehört der Pinguin?",
-      "options": [
-        {
-          "id": "q-11-38-31135161-opt-1",
-          "text": "Vögel",
-          "is_correct": true
-        },
-        {
-          "id": "q-11-38-31135161-opt-2",
-          "text": "Fische",
-          "is_correct": false
-        },
-        {
-          "id": "q-11-38-31135161-opt-3",
-          "text": "Säugetiere",
-          "is_correct": false
-        },
-        {
-          "id": "q-11-38-31135161-opt-4",
-          "text": "Amphibien",
-          "is_correct": false
-        }
-      ],
-      "correct_option_id": "q-11-38-31135161-opt-1",
-      "explanation": "Pinguine sind flugunfähige Seevögel, die ihre Flügel als Flossen zum Schwimmen nutzen.",
-      "difficulty": "easy",
-      "category_id": "cat-11",
-      "type": "multiple_choice",
-      "points": 1
-    },
-    {
-      "id": "q-11-39-32146171",
-      "prompt": "Wie viele klassische Sinne werden dem Menschen üblicherweise zugeschrieben?",
-      "options": [
-        {
-          "id": "q-11-39-32146171-opt-1",
-          "text": "5",
-          "is_correct": true
-        },
-        {
-          "id": "q-11-39-32146171-opt-2",
-          "text": "3",
-          "is_correct": false
-        },
-        {
-          "id": "q-11-39-32146171-opt-3",
-          "text": "7",
-          "is_correct": false
-        },
-        {
-          "id": "q-11-39-32146171-opt-4",
-          "text": "10",
-          "is_correct": false
-        }
-      ],
-      "correct_option_id": "q-11-39-32146171-opt-1",
-      "explanation": "Die fünf klassischen Sinne sind Sehen, Hören, Riechen, Schmecken und Tasten.",
-      "difficulty": "easy",
-      "category_id": "cat-11",
-      "type": "multiple_choice",
-      "points": 1
-    },
-    {
       "id": "q-11-40-33157181",
       "prompt": "Welche Abfolge der frühen Menschheitsgeschichte ist chronologisch korrekt?",
       "explanation": "Die Benennung folgt den Materialien, die primär für Werkzeuge und Waffen genutzt wurden.",
@@ -1380,38 +836,6 @@
       "points": 1
     },
     {
-      "id": "q-11-45-38202531",
-      "prompt": "Was unterscheidet Laub- von Nadelbäumen im Winter (in gemäßigten Zonen) am deutlichsten?",
-      "options": [
-        {
-          "id": "q-11-45-38202531-opt-1",
-          "text": "Laubbäume werfen ihre Blätter ab",
-          "is_correct": true
-        },
-        {
-          "id": "q-11-45-38202531-opt-2",
-          "text": "Nadelbäume blühen nur im Winter",
-          "is_correct": false
-        },
-        {
-          "id": "q-11-45-38202531-opt-3",
-          "text": "Laubbäume wachsen schneller",
-          "is_correct": false
-        },
-        {
-          "id": "q-11-45-38202531-opt-4",
-          "text": "Nadelbäume haben keine Wurzeln",
-          "is_correct": false
-        }
-      ],
-      "correct_option_id": "q-11-45-38202531-opt-1",
-      "explanation": "Laubbäume schützen sich vor Frosttrocknis durch Abwurf der Blätter, während die meisten Nadelbäume ihre Nadeln behalten.",
-      "difficulty": "easy",
-      "category_id": "cat-11",
-      "type": "multiple_choice",
-      "points": 1
-    },
-    {
       "id": "q-11-46-39213641",
       "prompt": "Welche Form hat die menschliche DNA (Desoxyribonukleinsäure)?",
       "options": [
@@ -1476,38 +900,6 @@
       "points": 1
     },
     {
-      "id": "q-11-48-41235861",
-      "prompt": "Welcher Oberbegriff fasst Apfel, Banane und Birne zusammen?",
-      "options": [
-        {
-          "id": "q-11-48-41235861-opt-1",
-          "text": "Obst",
-          "is_correct": true
-        },
-        {
-          "id": "q-11-48-41235861-opt-2",
-          "text": "Gemüse",
-          "is_correct": false
-        },
-        {
-          "id": "q-11-48-41235861-opt-3",
-          "text": "Hülsenfrüchte",
-          "is_correct": false
-        },
-        {
-          "id": "q-11-48-41235861-opt-4",
-          "text": "Getreide",
-          "is_correct": false
-        }
-      ],
-      "correct_option_id": "q-11-48-41235861-opt-1",
-      "explanation": "Diese essbaren Pflanzenteile gehören zur Kategorie Obst.",
-      "difficulty": "easy",
-      "category_id": "cat-11",
-      "type": "multiple_choice",
-      "points": 1
-    },
-    {
       "id": "q-11-49-42246971",
       "prompt": "Wie viele Farben hat ein klassischer Regenbogen?",
       "options": [
@@ -1567,6 +959,666 @@
       "correct_option_id": "q-11-50-43257081-opt-1",
       "explanation": "Alle drei sind unterschiedliche Zustandsformen oder Erscheinungsweisen von Wasser in der Atmosphäre.",
       "difficulty": "easy",
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-51-a1b2c3d4",
+      "prompt": "Was ist die chemische Formel fuer Kochsalz?",
+      "options": [
+        {
+          "id": "q-11-51-a1b2c3d4-opt-1",
+          "text": "NaCl",
+          "is_correct": true
+        },
+        {
+          "id": "q-11-51-a1b2c3d4-opt-2",
+          "text": "H2O",
+          "is_correct": false
+        },
+        {
+          "id": "q-11-51-a1b2c3d4-opt-3",
+          "text": "CO2",
+          "is_correct": false
+        },
+        {
+          "id": "q-11-51-a1b2c3d4-opt-4",
+          "text": "CaCO3",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-11-51-a1b2c3d4-opt-1",
+      "explanation": "Kochsalz ist Natriumchlorid: Na (Natrium) + Cl (Chlor). Die Formel, die man irgendwann mal gelernt und sofort vergessen hat.",
+      "difficulty": "hard",
+      "difficulty_score": 4,
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-52-b2c3d4e5",
+      "prompt": "Welches Element verbirgt sich hinter dem Periodensystem-Kuerzel 'Fe'?",
+      "options": [
+        {
+          "id": "q-11-52-b2c3d4e5-opt-1",
+          "text": "Eisen",
+          "is_correct": true
+        },
+        {
+          "id": "q-11-52-b2c3d4e5-opt-2",
+          "text": "Fluor",
+          "is_correct": false
+        },
+        {
+          "id": "q-11-52-b2c3d4e5-opt-3",
+          "text": "Fermium",
+          "is_correct": false
+        },
+        {
+          "id": "q-11-52-b2c3d4e5-opt-4",
+          "text": "Francium",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-11-52-b2c3d4e5-opt-1",
+      "explanation": "'Fe' kommt vom lateinischen 'Ferrum'. Eisen ist so altehrwuerdig, dass es einen eigenen lateinischen Namen hat — und kein 'E' im Kuerzel.",
+      "difficulty": "hard",
+      "difficulty_score": 4,
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-53-c3d4e5f6",
+      "prompt": "Welche Farbe hat venöses Blut (sauerstoffarmes Blut in den Venen) tatsaechlich im Koerper?",
+      "options": [
+        {
+          "id": "q-11-53-c3d4e5f6-opt-1",
+          "text": "Dunkelrot",
+          "is_correct": true
+        },
+        {
+          "id": "q-11-53-c3d4e5f6-opt-2",
+          "text": "Blau",
+          "is_correct": false
+        },
+        {
+          "id": "q-11-53-c3d4e5f6-opt-3",
+          "text": "Violett",
+          "is_correct": false
+        },
+        {
+          "id": "q-11-53-c3d4e5f6-opt-4",
+          "text": "Schwarz",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-11-53-c3d4e5f6-opt-1",
+      "explanation": "Venöses Blut ist dunkelrot, nicht blau! Die blaue Farbe der Venen kommt durch Haut und Lichtbrechung. Medizinische Schulbilder luegen.",
+      "difficulty": "hard",
+      "difficulty_score": 4,
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-54-d4e5f6a7",
+      "prompt": "Wie viele Monate im Jahr haben exakt 31 Tage?",
+      "options": [
+        {
+          "id": "q-11-54-d4e5f6a7-opt-1",
+          "text": "7",
+          "is_correct": true
+        },
+        {
+          "id": "q-11-54-d4e5f6a7-opt-2",
+          "text": "5",
+          "is_correct": false
+        },
+        {
+          "id": "q-11-54-d4e5f6a7-opt-3",
+          "text": "6",
+          "is_correct": false
+        },
+        {
+          "id": "q-11-54-d4e5f6a7-opt-4",
+          "text": "8",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-11-54-d4e5f6a7-opt-1",
+      "explanation": "Januar, Maerz, Mai, Juli, August, Oktober, Dezember — das sind 7 Monate. Sehr viele tippen auf 5 oder 6.",
+      "difficulty": "hard",
+      "difficulty_score": 4,
+      "category_id": "cat-11",
+      "type": "logic",
+      "points": 1
+    },
+    {
+      "id": "q-11-55-e5f6a7b8",
+      "prompt": "Welche Sprache wird in Brasilien offiziell gesprochen?",
+      "options": [
+        {
+          "id": "q-11-55-e5f6a7b8-opt-1",
+          "text": "Portugiesisch",
+          "is_correct": true
+        },
+        {
+          "id": "q-11-55-e5f6a7b8-opt-2",
+          "text": "Spanisch",
+          "is_correct": false
+        },
+        {
+          "id": "q-11-55-e5f6a7b8-opt-3",
+          "text": "Brasilianisch",
+          "is_correct": false
+        },
+        {
+          "id": "q-11-55-e5f6a7b8-opt-4",
+          "text": "Latein",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-11-55-e5f6a7b8-opt-1",
+      "explanation": "Brasilien war portugiesische Kolonie — daher Portugiesisch. Der Rest Suedamerikas spricht Spanisch. Diese Falle schnappt erstaunlich oft zu.",
+      "difficulty": "hard",
+      "difficulty_score": 4,
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-56-f6a7b8c9",
+      "prompt": "Was ist ein Palindrom?",
+      "options": [
+        {
+          "id": "q-11-56-f6a7b8c9-opt-1",
+          "text": "Ein Wort oder Satz, der vorwaerts wie rueckwaerts gleich lautet",
+          "is_correct": true
+        },
+        {
+          "id": "q-11-56-f6a7b8c9-opt-2",
+          "text": "Ein Wort mit zwei gegensaetzlichen Bedeutungen",
+          "is_correct": false
+        },
+        {
+          "id": "q-11-56-f6a7b8c9-opt-3",
+          "text": "Ein Satz, der alle Buchstaben des Alphabets enthaelt",
+          "is_correct": false
+        },
+        {
+          "id": "q-11-56-f6a7b8c9-opt-4",
+          "text": "Eine endlose mathematische Zahlenfolge",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-11-56-f6a7b8c9-opt-1",
+      "explanation": "Beispiele: 'Retter', 'Lagerregal', 'Ein Esel lese nie'. Funktioniert in beide Richtungen. Der letzte Buchstabe ist dein Freund.",
+      "difficulty": "hard",
+      "difficulty_score": 4,
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-57-a7b8c9d0",
+      "prompt": "Was ist ein 'Pyrrhussieg'?",
+      "options": [
+        {
+          "id": "q-11-57-a7b8c9d0-opt-1",
+          "text": "Ein Sieg, der den Sieger mehr kostet als er ihm nuetzt",
+          "is_correct": true
+        },
+        {
+          "id": "q-11-57-a7b8c9d0-opt-2",
+          "text": "Ein Sieg gegen einen klar ueberlegenen Gegner",
+          "is_correct": false
+        },
+        {
+          "id": "q-11-57-a7b8c9d0-opt-3",
+          "text": "Ein Sieg, der durch Verrat errungen wurde",
+          "is_correct": false
+        },
+        {
+          "id": "q-11-57-a7b8c9d0-opt-4",
+          "text": "Der letzte Sieg vor einer grossen Niederlage",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-11-57-a7b8c9d0-opt-1",
+      "explanation": "Koenig Pyrrhus besiegte die Roemer, verlor dabei so viele Soldaten, dass er sagte: 'Noch ein solcher Sieg, und wir sind verloren.'",
+      "difficulty": "hard",
+      "difficulty_score": 4,
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-58-b8c9d0e1",
+      "prompt": "Welcher Kontinent hat die meisten Laender?",
+      "options": [
+        {
+          "id": "q-11-58-b8c9d0e1-opt-1",
+          "text": "Afrika",
+          "is_correct": true
+        },
+        {
+          "id": "q-11-58-b8c9d0e1-opt-2",
+          "text": "Asien",
+          "is_correct": false
+        },
+        {
+          "id": "q-11-58-b8c9d0e1-opt-3",
+          "text": "Europa",
+          "is_correct": false
+        },
+        {
+          "id": "q-11-58-b8c9d0e1-opt-4",
+          "text": "Suedamerika",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-11-58-b8c9d0e1-opt-1",
+      "explanation": "Afrika hat 54 anerkannte Laender — mehr als jeder andere Kontinent. Asien folgt auf Platz 2. Der Kontinent ist ausserdem deutlich groesser als auf Mercator-Karten.",
+      "difficulty": "hard",
+      "difficulty_score": 4,
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-59-c9d0e1f2",
+      "prompt": "Was unterscheidet Stalaktit von Stalagmit in einer Tropfsteinhoehle?",
+      "options": [
+        {
+          "id": "q-11-59-c9d0e1f2-opt-1",
+          "text": "Stalaktit haengt von der Decke, Stalagmit waechst vom Boden",
+          "is_correct": true
+        },
+        {
+          "id": "q-11-59-c9d0e1f2-opt-2",
+          "text": "Stalaktit waechst vom Boden, Stalagmit haengt von der Decke",
+          "is_correct": false
+        },
+        {
+          "id": "q-11-59-c9d0e1f2-opt-3",
+          "text": "Stalaktit besteht aus Kalk, Stalagmit aus Salz",
+          "is_correct": false
+        },
+        {
+          "id": "q-11-59-c9d0e1f2-opt-4",
+          "text": "Der Unterschied ist rein regional, nicht physikalisch",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-11-59-c9d0e1f2-opt-1",
+      "explanation": "Eselsbruecke: Stalaktit muss sich festhalten (haengt). Stalagmit steht unten und macht sich gross. Oder: 'kt' = kommt von oben, 'gm' = geht mit dem Boden.",
+      "difficulty": "hard",
+      "difficulty_score": 4,
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-60-d0e1f2a3",
+      "prompt": "Was bedeutet der Ausdruck 'in flagranti'?",
+      "options": [
+        {
+          "id": "q-11-60-d0e1f2a3-opt-1",
+          "text": "Auf frischer Tat ertappt",
+          "is_correct": true
+        },
+        {
+          "id": "q-11-60-d0e1f2a3-opt-2",
+          "text": "Mit offiziellem Auftrag",
+          "is_correct": false
+        },
+        {
+          "id": "q-11-60-d0e1f2a3-opt-3",
+          "text": "Ohne Vorwarnung",
+          "is_correct": false
+        },
+        {
+          "id": "q-11-60-d0e1f2a3-opt-4",
+          "text": "Im vollen Bewusstsein der Konsequenzen",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-11-60-d0e1f2a3-opt-1",
+      "explanation": "Kommt vom lateinischen 'flagrare' (brennen). Die Tat ist so frisch, dass sie noch brennt. Fuer genau den Moment, in dem man jemanden beim Kekse-Stehlen erwischt.",
+      "difficulty": "hard",
+      "difficulty_score": 4,
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-61-e1f2a3b4",
+      "prompt": "Welche Tiergruppe hat tatsaechlich blaues Blut (kupferbasierter Blutfarbstoff statt Eisen)?",
+      "options": [
+        {
+          "id": "q-11-61-e1f2a3b4-opt-1",
+          "text": "Tintenfische und Oktopusse",
+          "is_correct": true
+        },
+        {
+          "id": "q-11-61-e1f2a3b4-opt-2",
+          "text": "Haie und Barrakudas",
+          "is_correct": false
+        },
+        {
+          "id": "q-11-61-e1f2a3b4-opt-3",
+          "text": "Wale und Delfine",
+          "is_correct": false
+        },
+        {
+          "id": "q-11-61-e1f2a3b4-opt-4",
+          "text": "Adler und Kondore",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-11-61-e1f2a3b4-opt-1",
+      "explanation": "Tintenfische nutzen Haemocyanin statt Haemoglobin — kupferbasiert, daher wirklich blau. Ihr Blut sieht aus wie ein Chemikaliensymbol.",
+      "difficulty": "hard",
+      "difficulty_score": 4,
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-62-f2a3b4c5",
+      "prompt": "Woraus besteht handelsübliches Glas hauptsächlich?",
+      "options": [
+        {
+          "id": "q-11-62-f2a3b4c5-opt-1",
+          "text": "Quarzsand (Siliziumdioxid)",
+          "is_correct": true
+        },
+        {
+          "id": "q-11-62-f2a3b4c5-opt-2",
+          "text": "Kristallisiertem Wasser",
+          "is_correct": false
+        },
+        {
+          "id": "q-11-62-f2a3b4c5-opt-3",
+          "text": "Gelaeutertem Kalk",
+          "is_correct": false
+        },
+        {
+          "id": "q-11-62-f2a3b4c5-opt-4",
+          "text": "Geschmolzenem Feldspat",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-11-62-f2a3b4c5-opt-1",
+      "explanation": "Glas ist geschmolzener Sand — genauer: Siliziumdioxid (SiO2). Dein Fenster besteht im Kern aus demselben Material wie eine Sandburg. Nur ein bisschen waermer verarbeitet.",
+      "difficulty": "hard",
+      "difficulty_score": 4,
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-63-a3b4c5d6",
+      "prompt": "Wer malte das Deckenfresko der Sixtinischen Kapelle im Vatikan?",
+      "options": [
+        {
+          "id": "q-11-63-a3b4c5d6-opt-1",
+          "text": "Michelangelo",
+          "is_correct": true
+        },
+        {
+          "id": "q-11-63-a3b4c5d6-opt-2",
+          "text": "Leonardo da Vinci",
+          "is_correct": false
+        },
+        {
+          "id": "q-11-63-a3b4c5d6-opt-3",
+          "text": "Raffael",
+          "is_correct": false
+        },
+        {
+          "id": "q-11-63-a3b4c5d6-opt-4",
+          "text": "Botticelli",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-11-63-a3b4c5d6-opt-1",
+      "explanation": "Michelangelo malte 1508-1512 liegend auf Geruestbrettern — gegen seinen Willen, er sah sich als Bildhauer. Das Ergebnis: eine der bedeutendsten Kunstwerke der Menschheit.",
+      "difficulty": "hard",
+      "difficulty_score": 4,
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-64-b4c5d6e7",
+      "prompt": "Was beschreibt der Placebo-Effekt?",
+      "options": [
+        {
+          "id": "q-11-64-b4c5d6e7-opt-1",
+          "text": "Eine Verbesserung durch blosse Erwartung, nicht durch einen Wirkstoff",
+          "is_correct": true
+        },
+        {
+          "id": "q-11-64-b4c5d6e7-opt-2",
+          "text": "Die Wirkung von zu vielen Medikamenten auf einmal",
+          "is_correct": false
+        },
+        {
+          "id": "q-11-64-b4c5d6e7-opt-3",
+          "text": "Eine negative Reaktion auf ein Medikament",
+          "is_correct": false
+        },
+        {
+          "id": "q-11-64-b4c5d6e7-opt-4",
+          "text": "Die Gewoehnung des Koerpers an einen Wirkstoff",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-11-64-b4c5d6e7-opt-1",
+      "explanation": "Der Placebo-Effekt: Zuckerpille als Wundermittel, wenn du glaubst, dass sie hilft. Das Gehirn ist das maechtigste Organ — und es laesst sich taeuschen.",
+      "difficulty": "hard",
+      "difficulty_score": 4,
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-65-c5d6e7f8",
+      "prompt": "Wie nennt man eine regelmaessige geometrische Flaeche mit sieben Seiten?",
+      "options": [
+        {
+          "id": "q-11-65-c5d6e7f8-opt-1",
+          "text": "Heptagon",
+          "is_correct": true
+        },
+        {
+          "id": "q-11-65-c5d6e7f8-opt-2",
+          "text": "Hexagon",
+          "is_correct": false
+        },
+        {
+          "id": "q-11-65-c5d6e7f8-opt-3",
+          "text": "Oktagon",
+          "is_correct": false
+        },
+        {
+          "id": "q-11-65-c5d6e7f8-opt-4",
+          "text": "Pentagon",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-11-65-c5d6e7f8-opt-1",
+      "explanation": "Hepta = sieben (griechisch). Pentagon (5), Hexagon (6), Heptagon (7), Oktagon (8). Das alte britische 50-Pence-Stueck ist ein Heptagon.",
+      "difficulty": "hard",
+      "difficulty_score": 4,
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-66-d6e7f8a9",
+      "prompt": "Was misst ein 'Knoten' in der Schifffahrt und Luftfahrt?",
+      "options": [
+        {
+          "id": "q-11-66-d6e7f8a9-opt-1",
+          "text": "Geschwindigkeit (Seemeilen pro Stunde)",
+          "is_correct": true
+        },
+        {
+          "id": "q-11-66-d6e7f8a9-opt-2",
+          "text": "Wellenhoehe in Metern",
+          "is_correct": false
+        },
+        {
+          "id": "q-11-66-d6e7f8a9-opt-3",
+          "text": "Entfernung in Seemeilen",
+          "is_correct": false
+        },
+        {
+          "id": "q-11-66-d6e7f8a9-opt-4",
+          "text": "Windstaerke nach Beaufort",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-11-66-d6e7f8a9-opt-1",
+      "explanation": "Ein Knoten = eine Seemeile pro Stunde (ca. 1,852 km/h). Frueher wurde Geschwindigkeit mit einem Seil mit Knoten und einer Sanduhr gemessen. Kein Scherz.",
+      "difficulty": "hard",
+      "difficulty_score": 4,
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-67-e7f8a9b0",
+      "prompt": "Welche Sprache hat weltweit die meisten Muttersprachler?",
+      "options": [
+        {
+          "id": "q-11-67-e7f8a9b0-opt-1",
+          "text": "Mandarin-Chinesisch",
+          "is_correct": true
+        },
+        {
+          "id": "q-11-67-e7f8a9b0-opt-2",
+          "text": "Englisch",
+          "is_correct": false
+        },
+        {
+          "id": "q-11-67-e7f8a9b0-opt-3",
+          "text": "Spanisch",
+          "is_correct": false
+        },
+        {
+          "id": "q-11-67-e7f8a9b0-opt-4",
+          "text": "Arabisch",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-11-67-e7f8a9b0-opt-1",
+      "explanation": "Mandarin-Chinesisch hat ca. 920 Millionen Muttersprachler. Englisch ist zwar die meistgesprochene Zweitsprache, aber Mandarin gewinnt bei den Erstsprachlern.",
+      "difficulty": "hard",
+      "difficulty_score": 4,
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-68-f8a9b0c1",
+      "prompt": "Was ist der physikalische Unterschied zwischen 'Masse' und 'Gewicht'?",
+      "options": [
+        {
+          "id": "q-11-68-f8a9b0c1-opt-1",
+          "text": "Masse ist konstant, Gewicht haengt von der Schwerkraft ab",
+          "is_correct": true
+        },
+        {
+          "id": "q-11-68-f8a9b0c1-opt-2",
+          "text": "Masse wird in Kilogramm gemessen, Gewicht in Gramm",
+          "is_correct": false
+        },
+        {
+          "id": "q-11-68-f8a9b0c1-opt-3",
+          "text": "Gewicht ist die exaktere Messung, Masse nur eine Schaetzung",
+          "is_correct": false
+        },
+        {
+          "id": "q-11-68-f8a9b0c1-opt-4",
+          "text": "Es gibt keinen physikalischen Unterschied",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-11-68-f8a9b0c1-opt-1",
+      "explanation": "Auf dem Mond hast du dieselbe Masse wie auf der Erde — aber nur 1/6 des Gewichts. Deshalb springen Astronauten so hoch. Physik 101, und trotzdem fangen viele sich hier.",
+      "difficulty": "hard",
+      "difficulty_score": 4,
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-69-a9b0c1d2",
+      "prompt": "Was versteht man unter 'Schwarmintelligenz'?",
+      "options": [
+        {
+          "id": "q-11-69-a9b0c1d2-opt-1",
+          "text": "Kollektives Problemloesen vieler einfacher Individuen",
+          "is_correct": true
+        },
+        {
+          "id": "q-11-69-a9b0c1d2-opt-2",
+          "text": "Die Intelligenz von Fischen in einem Schwarm",
+          "is_correct": false
+        },
+        {
+          "id": "q-11-69-a9b0c1d2-opt-3",
+          "text": "KI-Systeme, die durch Vernetzung gemeinsam lernen",
+          "is_correct": false
+        },
+        {
+          "id": "q-11-69-a9b0c1d2-opt-4",
+          "text": "Das kollektive Fachwissen einer Berufsgruppe",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-11-69-a9b0c1d2-opt-1",
+      "explanation": "Bienen und Ameisen treffen ohne zentrale Steuerung hochkomplexe Entscheidungen. Jedes Individuum hat einfache Regeln, aber der Schwarm ist klug. Das Gegenteil von Gruppendenken.",
+      "difficulty": "hard",
+      "difficulty_score": 4,
+      "category_id": "cat-11",
+      "type": "multiple_choice",
+      "points": 1
+    },
+    {
+      "id": "q-11-70-b0c1d2e3",
+      "prompt": "Ein Gesteinsklumpen reist durch das Weltall, tritt leuchtend in die Erdatmosphaere ein und landet auf der Erde. Wie heisst er in jeder Phase?",
+      "options": [
+        {
+          "id": "q-11-70-b0c1d2e3-opt-1",
+          "text": "Meteoroid → Meteor → Meteorit",
+          "is_correct": true
+        },
+        {
+          "id": "q-11-70-b0c1d2e3-opt-2",
+          "text": "Meteor → Meteoroid → Meteorit",
+          "is_correct": false
+        },
+        {
+          "id": "q-11-70-b0c1d2e3-opt-3",
+          "text": "Meteorit → Meteor → Meteoroid",
+          "is_correct": false
+        },
+        {
+          "id": "q-11-70-b0c1d2e3-opt-4",
+          "text": "Komet → Meteoroid → Meteorit",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-11-70-b0c1d2e3-opt-1",
+      "explanation": "Im All: Meteoroid. In der Atmosphaere leuchtend: Meteor (= Sternschnuppe). Auf der Erde gelandet: Meteorit. Drei Namen fuer denselben Stein auf Reisen.",
+      "difficulty": "hard",
+      "difficulty_score": 4,
       "category_id": "cat-11",
       "type": "multiple_choice",
       "points": 1

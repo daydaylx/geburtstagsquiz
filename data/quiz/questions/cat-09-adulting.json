@@ -318,189 +318,6 @@
       }
     },
     {
-      "id": "q-09-07-d565a407fa",
-      "legacy_question_id": 7,
-      "category_id": "cat-09",
-      "order_in_category": 7,
-      "order_global": 207,
-      "type": "multiple_choice",
-      "difficulty": "medium",
-      "difficulty_score": 3,
-      "points": 1,
-      "prompt": "Wofür ist die Kaltmiete?",
-      "options": [
-        {
-          "id": "q-09-07-d565a407fa-opt-1",
-          "text": "Miete ohne Heizung/Nebenkosten",
-          "is_correct": true
-        },
-        {
-          "id": "q-09-07-d565a407fa-opt-2",
-          "text": "Miete für den Keller",
-          "is_correct": false
-        },
-        {
-          "id": "q-09-07-d565a407fa-opt-3",
-          "text": "Eine Miete, die im Winter sinkt",
-          "is_correct": false
-        },
-        {
-          "id": "q-09-07-d565a407fa-opt-4",
-          "text": "Miete inklusive Eiswürfel-Flatrate",
-          "is_correct": false
-        }
-      ],
-      "correct_option_id": "q-09-07-d565a407fa-opt-1",
-      "answer": {
-        "canonical": "Die reine Miete ohne Nebenkosten",
-        "aliases": [
-          "Die reine Miete ohne Nebenkosten",
-          "die reine miete ohne nebenkosten"
-        ],
-        "alternatives": [],
-        "case_sensitive": false,
-        "match_strategy": "alias_or_option_id"
-      },
-      "explanation": "Kaltmiete ist der Preis für den reinen Raum. Die Zahl, die bei ImmoScout gut aussieht, bis die Nebenkosten-Realität kickt.",
-      "tags": [
-        "adulting",
-        "haushalt",
-        "steuern",
-        "alltag",
-        "wissen"
-      ],
-      "source": {
-        "imported_from_category_name": "Gefährliches Halbwissen für Erwachsene (Adulting Fails)"
-      },
-      "validation": {
-        "auto_generated_options": true,
-        "needs_manual_review": false,
-        "review_flags": []
-      }
-    },
-    {
-      "id": "q-09-08-85835887d9",
-      "legacy_question_id": 8,
-      "category_id": "cat-09",
-      "order_in_category": 8,
-      "order_global": 208,
-      "type": "multiple_choice",
-      "difficulty": "medium",
-      "difficulty_score": 3,
-      "points": 1,
-      "prompt": "Was sind Nebenkosten in einer Wohnung typischerweise?",
-      "options": [
-        {
-          "id": "q-09-08-85835887d9-opt-1",
-          "text": "Netflix und GEZ",
-          "is_correct": false
-        },
-        {
-          "id": "q-09-08-85835887d9-opt-2",
-          "text": "Bestechung für den Vermieter",
-          "is_correct": false
-        },
-        {
-          "id": "q-09-08-85835887d9-opt-3",
-          "text": "Reparaturen in der Wohnung",
-          "is_correct": false
-        },
-        {
-          "id": "q-09-08-85835887d9-opt-4",
-          "text": "Heizung, Wasser, Müll, Versicherung etc",
-          "is_correct": true
-        }
-      ],
-      "correct_option_id": "q-09-08-85835887d9-opt-4",
-      "answer": {
-        "canonical": "Zusätzliche Betriebskosten wie Heizung, Wasser, Müll, Hausreinigung etc",
-        "aliases": [
-          "Zusätzliche Betriebskosten wie Heizung, Wasser, Müll, Hausreinigung etc",
-          "zusätzliche betriebskosten wie heizung, wasser, müll, hausreinigung etc"
-        ],
-        "alternatives": [],
-        "case_sensitive": false,
-        "match_strategy": "alias_or_option_id"
-      },
-      "explanation": "Nebenkosten sind die schleichende Enteignung deines Kontos. Dinge, über die man sich mit 20 keine Gedanken gemacht hat.",
-      "tags": [
-        "adulting",
-        "haushalt",
-        "steuern",
-        "alltag",
-        "wissen"
-      ],
-      "source": {
-        "imported_from_category_name": "Gefährliches Halbwissen für Erwachsene (Adulting Fails)"
-      },
-      "validation": {
-        "auto_generated_options": true,
-        "needs_manual_review": false,
-        "review_flags": []
-      }
-    },
-    {
-      "id": "q-09-09-8ee68dfca4",
-      "legacy_question_id": 9,
-      "category_id": "cat-09",
-      "order_in_category": 9,
-      "order_global": 209,
-      "type": "multiple_choice",
-      "difficulty": "medium",
-      "difficulty_score": 3,
-      "points": 1,
-      "prompt": "Warum ist Schimmel in der Wohnung nicht einfach nur ein „optisches Problem“?",
-      "options": [
-        {
-          "id": "q-09-09-8ee68dfca4-opt-1",
-          "text": "Weil er im Dunkeln leuchtet",
-          "is_correct": false
-        },
-        {
-          "id": "q-09-09-8ee68dfca4-opt-2",
-          "text": "Gesundheitsgefahr und Bausubstanz-Schäden",
-          "is_correct": true
-        },
-        {
-          "id": "q-09-09-8ee68dfca4-opt-3",
-          "text": "Weil er den Wiederverkaufswert senkt",
-          "is_correct": false
-        },
-        {
-          "id": "q-09-09-8ee68dfca4-opt-4",
-          "text": "Weil man ihn nicht überstreichen darf",
-          "is_correct": false
-        }
-      ],
-      "correct_option_id": "q-09-09-8ee68dfca4-opt-2",
-      "answer": {
-        "canonical": "Weil er gesundheitsschädlich sein kann und auf Feuchtigkeitsprobleme hinweist",
-        "aliases": [
-          "Weil er gesundheitsschädlich sein kann und auf Feuchtigkeitsprobleme hinweist",
-          "weil er gesundheitsschädlich sein kann und auf feuchtigkeitsprobleme hinweist"
-        ],
-        "alternatives": [],
-        "case_sensitive": false,
-        "match_strategy": "alias_or_option_id"
-      },
-      "explanation": "Schimmel ist der Endgegner beim Wohnen. Er macht krank und Lüften ist in Deutschland quasi ein Nationalsport dagegen.",
-      "tags": [
-        "adulting",
-        "haushalt",
-        "steuern",
-        "alltag",
-        "wissen"
-      ],
-      "source": {
-        "imported_from_category_name": "Gefährliches Halbwissen für Erwachsene (Adulting Fails)"
-      },
-      "validation": {
-        "auto_generated_options": true,
-        "needs_manual_review": false,
-        "review_flags": []
-      }
-    },
-    {
       "id": "q-09-10-53fcc98577",
       "legacy_question_id": 10,
       "category_id": "cat-09",
@@ -562,128 +379,6 @@
       }
     },
     {
-      "id": "q-09-11-f293cf97a7",
-      "legacy_question_id": 11,
-      "category_id": "cat-09",
-      "order_in_category": 11,
-      "order_global": 211,
-      "type": "multiple_choice",
-      "difficulty": "medium",
-      "difficulty_score": 3,
-      "points": 1,
-      "prompt": "Was ist der Sinn einer Haftpflichtversicherung?",
-      "options": [
-        {
-          "id": "q-09-11-f293cf97a7-opt-1",
-          "text": "Wenn man sich selbst wehtut",
-          "is_correct": false
-        },
-        {
-          "id": "q-09-11-f293cf97a7-opt-2",
-          "text": "Wenn der Hund des Nachbarn stirbt",
-          "is_correct": false
-        },
-        {
-          "id": "q-09-11-f293cf97a7-opt-3",
-          "text": "Schäden, die man Dritten versehentlich zufügt",
-          "is_correct": true
-        },
-        {
-          "id": "q-09-11-f293cf97a7-opt-4",
-          "text": "Schutz gegen schlechtes Wetter beim Grillen",
-          "is_correct": false
-        }
-      ],
-      "correct_option_id": "q-09-11-f293cf97a7-opt-3",
-      "answer": {
-        "canonical": "Schäden abzusichern, die man anderen zufügt",
-        "aliases": [
-          "Schäden abzusichern, die man anderen zufügt",
-          "schäden abzusichern, die man anderen zufügt"
-        ],
-        "alternatives": [],
-        "case_sensitive": false,
-        "match_strategy": "alias_or_option_id"
-      },
-      "explanation": "Haftpflicht ist die wichtigste Versicherung überhaupt. Außer du hast vor, niemals etwas von jemand anderem kaputt zu machen.",
-      "tags": [
-        "adulting",
-        "haushalt",
-        "steuern",
-        "alltag",
-        "wissen"
-      ],
-      "source": {
-        "imported_from_category_name": "Gefährliches Halbwissen für Erwachsene (Adulting Fails)"
-      },
-      "validation": {
-        "auto_generated_options": true,
-        "needs_manual_review": false,
-        "review_flags": []
-      }
-    },
-    {
-      "id": "q-09-12-3e1cb905cb",
-      "legacy_question_id": 12,
-      "category_id": "cat-09",
-      "order_in_category": 12,
-      "order_global": 212,
-      "type": "multiple_choice",
-      "difficulty": "medium",
-      "difficulty_score": 3,
-      "points": 1,
-      "prompt": "Warum sollte man Messer meist nicht stumpf benutzen?",
-      "options": [
-        {
-          "id": "q-09-12-3e1cb905cb-opt-1",
-          "text": "Höhere Verletzungsgefahr durch Abrutschen",
-          "is_correct": true
-        },
-        {
-          "id": "q-09-12-3e1cb905cb-opt-2",
-          "text": "Weil sie in der Spülmaschine rosten",
-          "is_correct": false
-        },
-        {
-          "id": "q-09-12-3e1cb905cb-opt-3",
-          "text": "Weil das Fleisch dann sauer wird",
-          "is_correct": false
-        },
-        {
-          "id": "q-09-12-3e1cb905cb-opt-4",
-          "text": "Weil man sie nicht mehr schärfen kann",
-          "is_correct": false
-        }
-      ],
-      "correct_option_id": "q-09-12-3e1cb905cb-opt-1",
-      "answer": {
-        "canonical": "Weil stumpfe Messer gefährlicher sein können, da man mehr Druck braucht",
-        "aliases": [
-          "Weil stumpfe Messer gefährlicher sein können, da man mehr Druck braucht",
-          "weil stumpfe messer gefährlicher sein können, da man mehr druck braucht"
-        ],
-        "alternatives": [],
-        "case_sensitive": false,
-        "match_strategy": "alias_or_option_id"
-      },
-      "explanation": "Klingt paradox: Ein scharfes Messer schneidet sauber, ein stumpfes rutscht ab und landet in deinem Finger. Avocado-Toast ist gefährlich!",
-      "tags": [
-        "adulting",
-        "haushalt",
-        "steuern",
-        "alltag",
-        "wissen"
-      ],
-      "source": {
-        "imported_from_category_name": "Gefährliches Halbwissen für Erwachsene (Adulting Fails)"
-      },
-      "validation": {
-        "auto_generated_options": true,
-        "needs_manual_review": false,
-        "review_flags": []
-      }
-    },
-    {
       "id": "q-09-13-d6db023697",
       "legacy_question_id": 13,
       "category_id": "cat-09",
@@ -728,128 +423,6 @@
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Fettbrand + Wasser = Feuerball. Das ist Physikunterricht, der dir in der Küche das Leben (und die Kaution) rettet.",
-      "tags": [
-        "adulting",
-        "haushalt",
-        "steuern",
-        "alltag",
-        "wissen"
-      ],
-      "source": {
-        "imported_from_category_name": "Gefährliches Halbwissen für Erwachsene (Adulting Fails)"
-      },
-      "validation": {
-        "auto_generated_options": true,
-        "needs_manual_review": false,
-        "review_flags": []
-      }
-    },
-    {
-      "id": "q-09-14-c7321fee1a",
-      "legacy_question_id": 14,
-      "category_id": "cat-09",
-      "order_in_category": 14,
-      "order_global": 214,
-      "type": "multiple_choice",
-      "difficulty": "medium",
-      "difficulty_score": 3,
-      "points": 1,
-      "prompt": "Was ist bei Rückenschmerzen durch Büroalltag oft ein Hauptfaktor?",
-      "options": [
-        {
-          "id": "q-09-14-c7321fee1a-opt-1",
-          "text": "Zu schwere Aktenordner",
-          "is_correct": false
-        },
-        {
-          "id": "q-09-14-c7321fee1a-opt-2",
-          "text": "Zu viel Kaffee am Tag",
-          "is_correct": false
-        },
-        {
-          "id": "q-09-14-c7321fee1a-opt-3",
-          "text": "Die falsche Tastaturhöhe",
-          "is_correct": false
-        },
-        {
-          "id": "q-09-14-c7321fee1a-opt-4",
-          "text": "Langes Sitzen ohne Bewegung",
-          "is_correct": true
-        }
-      ],
-      "correct_option_id": "q-09-14-c7321fee1a-opt-4",
-      "answer": {
-        "canonical": "Bewegungsmangel und schlechte Haltung",
-        "aliases": [
-          "Bewegungsmangel und schlechte Haltung",
-          "bewegungsmangel und schlechte haltung"
-        ],
-        "alternatives": [],
-        "case_sensitive": false,
-        "match_strategy": "alias_or_option_id"
-      },
-      "explanation": "Sitzen ist das neue Rauchen. Dein Rücken rächt sich für jede Stunde, die du starr auf deine Excel-Tabellen starrst.",
-      "tags": [
-        "adulting",
-        "haushalt",
-        "steuern",
-        "alltag",
-        "wissen"
-      ],
-      "source": {
-        "imported_from_category_name": "Gefährliches Halbwissen für Erwachsene (Adulting Fails)"
-      },
-      "validation": {
-        "auto_generated_options": true,
-        "needs_manual_review": false,
-        "review_flags": []
-      }
-    },
-    {
-      "id": "q-09-15-bcff81d88b",
-      "legacy_question_id": 15,
-      "category_id": "cat-09",
-      "order_in_category": 15,
-      "order_global": 215,
-      "type": "multiple_choice",
-      "difficulty": "medium",
-      "difficulty_score": 3,
-      "points": 1,
-      "prompt": "Wofür ist ein Pümpel da?",
-      "options": [
-        {
-          "id": "q-09-15-bcff81d88b-opt-1",
-          "text": "Zum Aufpumpen von Reifen",
-          "is_correct": false
-        },
-        {
-          "id": "q-09-15-bcff81d88b-opt-2",
-          "text": "Zum Massieren von Muskeln",
-          "is_correct": false
-        },
-        {
-          "id": "q-09-15-bcff81d88b-opt-3",
-          "text": "Zum Lösen von Abflussverstopfungen",
-          "is_correct": true
-        },
-        {
-          "id": "q-09-15-bcff81d88b-opt-4",
-          "text": "Eine iPad-Halterung fürs Bad",
-          "is_correct": false
-        }
-      ],
-      "correct_option_id": "q-09-15-bcff81d88b-opt-3",
-      "answer": {
-        "canonical": "Zum Lösen von Verstopfungen, meist in Toilette oder Abfluss",
-        "aliases": [
-          "Zum Lösen von Verstopfungen, meist in Toilette oder Abfluss",
-          "zum lösen von verstopfungen, meist in toilette oder abfluss"
-        ],
-        "alternatives": [],
-        "case_sensitive": false,
-        "match_strategy": "alias_or_option_id"
-      },
-      "explanation": "Ein Pümpel ist der Lebensretter in Momenten höchster sozialer Not. Man will ihn nicht haben, bis man ihn DRINGEND braucht.",
       "tags": [
         "adulting",
         "haushalt",
@@ -972,67 +545,6 @@
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Der FI-Schalter rettet dir den Arsch, wenn Strom 'falsch' fließt. Er macht zack-aus, bevor es für dich brenzlig wird.",
-      "tags": [
-        "adulting",
-        "haushalt",
-        "steuern",
-        "alltag",
-        "wissen"
-      ],
-      "source": {
-        "imported_from_category_name": "Gefährliches Halbwissen für Erwachsene (Adulting Fails)"
-      },
-      "validation": {
-        "auto_generated_options": true,
-        "needs_manual_review": false,
-        "review_flags": []
-      }
-    },
-    {
-      "id": "q-09-18-6a8ebd7311",
-      "legacy_question_id": 18,
-      "category_id": "cat-09",
-      "order_in_category": 18,
-      "order_global": 218,
-      "type": "multiple_choice",
-      "difficulty": "medium",
-      "difficulty_score": 3,
-      "points": 1,
-      "prompt": "Was bedeutet „MHD“ auf Lebensmitteln?",
-      "options": [
-        {
-          "id": "q-09-18-6a8ebd7311-opt-1",
-          "text": "Maximum Haltbarkeit Datum",
-          "is_correct": false
-        },
-        {
-          "id": "q-09-18-6a8ebd7311-opt-2",
-          "text": "Must Have Details",
-          "is_correct": false
-        },
-        {
-          "id": "q-09-18-6a8ebd7311-opt-3",
-          "text": "Mindesthaltbarkeitsdatum",
-          "is_correct": true
-        },
-        {
-          "id": "q-09-18-6a8ebd7311-opt-4",
-          "text": "Meist Heute Drüber",
-          "is_correct": false
-        }
-      ],
-      "correct_option_id": "q-09-18-6a8ebd7311-opt-3",
-      "answer": {
-        "canonical": "Mindesthaltbarkeitsdatum",
-        "aliases": [
-          "Mindesthaltbarkeitsdatum",
-          "mindesthaltbarkeitsdatum"
-        ],
-        "alternatives": [],
-        "case_sensitive": false,
-        "match_strategy": "alias_or_option_id"
-      },
-      "explanation": "MHD bedeutet 'mindestens haltbar bis', nicht 'tödlich ab'. Vertrau deinem Geruchssinn, nicht nur dem Aufdruck.",
       "tags": [
         "adulting",
         "haushalt",
@@ -1399,67 +911,6 @@
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Ignorieren macht Rechnungen nur teurer. Mahngebühren sind das Lehrgeld für Prokrastination und schlechte Planung.",
-      "tags": [
-        "adulting",
-        "haushalt",
-        "steuern",
-        "alltag",
-        "wissen"
-      ],
-      "source": {
-        "imported_from_category_name": "Gefährliches Halbwissen für Erwachsene (Adulting Fails)"
-      },
-      "validation": {
-        "auto_generated_options": true,
-        "needs_manual_review": false,
-        "review_flags": []
-      }
-    },
-    {
-      "id": "q-09-25-f39bc42949",
-      "legacy_question_id": 25,
-      "category_id": "cat-09",
-      "order_in_category": 25,
-      "order_global": 225,
-      "type": "multiple_choice",
-      "difficulty": "medium",
-      "difficulty_score": 3,
-      "points": 1,
-      "prompt": "Warum tut mit 30 plötzlich der Rücken weh, obwohl man „nichts gemacht“ hat?",
-      "options": [
-        {
-          "id": "q-09-25-f39bc42949-opt-1",
-          "text": "Erdanziehung",
-          "is_correct": false
-        },
-        {
-          "id": "q-09-25-f39bc42949-opt-2",
-          "text": "Statische Belastung und verkürzte Muskulatur",
-          "is_correct": true
-        },
-        {
-          "id": "q-09-25-f39bc42949-opt-3",
-          "text": "Man liegt nachts falsch",
-          "is_correct": false
-        },
-        {
-          "id": "q-09-25-f39bc42949-opt-4",
-          "text": "Es ist Schicksal",
-          "is_correct": false
-        }
-      ],
-      "correct_option_id": "q-09-25-f39bc42949-opt-2",
-      "answer": {
-        "canonical": "Genau deshalb: zu wenig Bewegung, zu viel Sitzen, miese Haltung",
-        "aliases": [
-          "Genau deshalb: zu wenig Bewegung, zu viel Sitzen, miese Haltung",
-          "genau deshalb: zu wenig bewegung, zu viel sitzen, miese haltung"
-        ],
-        "alternatives": [],
-        "case_sensitive": false,
-        "match_strategy": "alias_or_option_id"
-      },
-      "explanation": "Herzlichen Glückwunsch, du bist in dem Alter, in dem Niesen eine ernsthafte Sportverletzung sein kann. Pflege deine Tempelruine!",
       "tags": [
         "adulting",
         "haushalt",
@@ -1952,37 +1403,6 @@
       "points": 1
     },
     {
-      "id": "q-09-20",
-      "type": "multiple_choice",
-      "prompt": "Was bedeutet 'Netto' beim Gehalt?",
-      "options": [
-        {
-          "id": "q-09-20-opt-1",
-          "text": "Das Geld, das nach Steuern und Sozialabgaben ausgezahlt wird",
-          "is_correct": true
-        },
-        {
-          "id": "q-09-20-opt-2",
-          "text": "Das Gehalt vor allen Abzuegen",
-          "is_correct": false
-        },
-        {
-          "id": "q-09-20-opt-3",
-          "text": "Nur der Bonus am Jahresende",
-          "is_correct": false
-        },
-        {
-          "id": "q-09-20-opt-4",
-          "text": "Der Arbeitgeberanteil zur Krankenversicherung",
-          "is_correct": false
-        }
-      ],
-      "correct_option_id": "q-09-20-opt-1",
-      "explanation": "Brutto ist vor den Abzuegen, netto ist das, was auf dem Konto landet. Leider ist genau diese zweite Zahl meistens die kleinere.",
-      "difficulty": "medium",
-      "points": 1
-    },
-    {
       "id": "q-09-21",
       "type": "standard",
       "prompt": "Was ist der Hauptzweck eines FI-Schalters im Sicherungskasten?",
@@ -2096,6 +1516,379 @@
       "explanation": "Willkommen in den Dreißigern! Dein Körper hat jetzt eine Contact-Schalte für 'falsch aufgewacht'. Drei Tage Nackenschmerzen, weil du mal geatmet hast. Dein Kissen ist jetzt dein größter Feind.",
       "points": 1,
       "difficulty": "medium"
+    },
+    {
+      "id": "q-09-26-1a2b3c4d",
+      "type": "multiple_choice",
+      "difficulty": "hard",
+      "difficulty_score": 4,
+      "points": 1,
+      "prompt": "Wie lange betraegt die gesetzliche Gewaehrleistungsfrist fuer neue Waren in Deutschland?",
+      "options": [
+        {
+          "id": "q-09-26-1a2b3c4d-opt-1",
+          "text": "2 Jahre",
+          "is_correct": true
+        },
+        {
+          "id": "q-09-26-1a2b3c4d-opt-2",
+          "text": "1 Jahr",
+          "is_correct": false
+        },
+        {
+          "id": "q-09-26-1a2b3c4d-opt-3",
+          "text": "6 Monate",
+          "is_correct": false
+        },
+        {
+          "id": "q-09-26-1a2b3c4d-opt-4",
+          "text": "3 Jahre",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-09-26-1a2b3c4d-opt-1",
+      "explanation": "2 Jahre gesetzliche Gewaehrleistung bei Neuwaren — dein Recht gegenueber dem Haendler, unabhaengig von der Herstellergarantie. Bei Gebrauchtware kann der Haendler auf 1 Jahr verkuerzen.",
+      "category_id": "cat-09",
+      "tags": [
+        "adulting",
+        "steuern",
+        "alltag",
+        "wissen"
+      ]
+    },
+    {
+      "id": "q-09-27-2b3c4d5e",
+      "type": "multiple_choice",
+      "difficulty": "hard",
+      "difficulty_score": 4,
+      "points": 1,
+      "prompt": "Wie viele Netto-Kaltmieten darf eine Mietkaution in Deutschland maximal betragen?",
+      "options": [
+        {
+          "id": "q-09-27-2b3c4d5e-opt-1",
+          "text": "3 Monatsmieten",
+          "is_correct": true
+        },
+        {
+          "id": "q-09-27-2b3c4d5e-opt-2",
+          "text": "2 Monatsmieten",
+          "is_correct": false
+        },
+        {
+          "id": "q-09-27-2b3c4d5e-opt-3",
+          "text": "5 Monatsmieten",
+          "is_correct": false
+        },
+        {
+          "id": "q-09-27-2b3c4d5e-opt-4",
+          "text": "Es gibt keine gesetzliche Begrenzung",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-09-27-2b3c4d5e-opt-1",
+      "explanation": "§551 BGB: maximal 3 Netto-Kaltmieten als Kaution. Wer mehr verlangt, handelt rechtswidrig. Und ja — du darfst die Kaution in Raten zahlen.",
+      "category_id": "cat-09",
+      "tags": [
+        "adulting",
+        "haushalt",
+        "alltag",
+        "wissen"
+      ]
+    },
+    {
+      "id": "q-09-28-3c4d5e6f",
+      "type": "multiple_choice",
+      "difficulty": "hard",
+      "difficulty_score": 4,
+      "points": 1,
+      "prompt": "Wie lange gilt das gesetzliche Widerrufsrecht bei Online-Bestellungen in Deutschland?",
+      "options": [
+        {
+          "id": "q-09-28-3c4d5e6f-opt-1",
+          "text": "14 Tage",
+          "is_correct": true
+        },
+        {
+          "id": "q-09-28-3c4d5e6f-opt-2",
+          "text": "7 Tage",
+          "is_correct": false
+        },
+        {
+          "id": "q-09-28-3c4d5e6f-opt-3",
+          "text": "30 Tage",
+          "is_correct": false
+        },
+        {
+          "id": "q-09-28-3c4d5e6f-opt-4",
+          "text": "Kommt auf den Haendler an",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-09-28-3c4d5e6f-opt-1",
+      "explanation": "14 Tage Widerrufsrecht bei Online-Kaeufen — EU-Recht. Informiert der Haendler nicht korrekt darueber, verlaengert sich die Frist auf 12 Monate + 14 Tage.",
+      "category_id": "cat-09",
+      "tags": [
+        "adulting",
+        "steuern",
+        "alltag",
+        "wissen"
+      ]
+    },
+    {
+      "id": "q-09-29-4d5e6f7a",
+      "type": "multiple_choice",
+      "difficulty": "hard",
+      "difficulty_score": 4,
+      "points": 1,
+      "prompt": "Was ist ein ETF (Exchange Traded Fund)?",
+      "options": [
+        {
+          "id": "q-09-29-4d5e6f7a-opt-1",
+          "text": "Ein boersengehandelter Fonds, der einen Index wie den DAX nachbildet",
+          "is_correct": true
+        },
+        {
+          "id": "q-09-29-4d5e6f7a-opt-2",
+          "text": "Ein staatlich garantiertes Sparkonto mit variablem Zinssatz",
+          "is_correct": false
+        },
+        {
+          "id": "q-09-29-4d5e6f7a-opt-3",
+          "text": "Eine Versicherung gegen Boersenverluste",
+          "is_correct": false
+        },
+        {
+          "id": "q-09-29-4d5e6f7a-opt-4",
+          "text": "Eine europaeische Transferzahlung fuer Steuerrueckerstattungen",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-09-29-4d5e6f7a-opt-1",
+      "explanation": "ETF = Exchange Traded Fund. Bildet einen Index nach (z.B. MSCI World, DAX), wird an der Boerse gehandelt, hat meist niedrige Gebuehren. Die Antwort auf \"ich will sparen, aber keine Ahnung haben\".",
+      "category_id": "cat-09",
+      "tags": [
+        "adulting",
+        "steuern",
+        "alltag",
+        "wissen"
+      ]
+    },
+    {
+      "id": "q-09-e04-5e6f7a8b",
+      "type": "estimate",
+      "prompt": "Du legst 1.000 Euro fuer 10 Jahre bei 3% Zinsen pro Jahr an (Zinseszins). Wie viel hast du am Ende ungefaehr?",
+      "answer": {
+        "canonical": "ca. 1.344 Euro",
+        "reference_value": 1344,
+        "unit": "Euro",
+        "context": "1000 × 1,03^10 = 1.343,92 Euro"
+      },
+      "scoring_rule": "closest_wins",
+      "explanation": "Viele tippen auf 1.300 (einfacher Zins). Aber Zinseszins bringt mehr: 1000 × 1,03^10 = ca. 1.344 Euro. Der Unterschied klingt klein — wir er bei laengeren Zeitraeumen dramatisch.",
+      "difficulty": "hard",
+      "difficulty_score": 4,
+      "points": 1,
+      "category_id": "cat-09",
+      "tags": [
+        "adulting",
+        "steuern",
+        "alltag",
+        "wissen"
+      ]
+    },
+    {
+      "id": "q-09-30-6f7a8b9c",
+      "type": "multiple_choice",
+      "difficulty": "hard",
+      "difficulty_score": 4,
+      "points": 1,
+      "prompt": "Ab welchem Blutalkoholwert gilt man beim Autofahren in Deutschland als absolut fahruntüchtig — unabhaengig von Ausfallerscheinungen?",
+      "options": [
+        {
+          "id": "q-09-30-6f7a8b9c-opt-1",
+          "text": "1,6 Promille",
+          "is_correct": true
+        },
+        {
+          "id": "q-09-30-6f7a8b9c-opt-2",
+          "text": "0,8 Promille",
+          "is_correct": false
+        },
+        {
+          "id": "q-09-30-6f7a8b9c-opt-3",
+          "text": "2,0 Promille",
+          "is_correct": false
+        },
+        {
+          "id": "q-09-30-6f7a8b9c-opt-4",
+          "text": "0,5 Promille",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-09-30-6f7a8b9c-opt-1",
+      "explanation": "Ab 0,5 Promille gibt es ein Bussgeld. Ab 1,6 Promille gilt man automatisch als absolut fahruntüchtig — auch ohne Schlangenlinien. Das fuehrt direkt zum MPU-Test.",
+      "category_id": "cat-09",
+      "tags": [
+        "adulting",
+        "alltag",
+        "wissen"
+      ]
+    },
+    {
+      "id": "q-09-31-7a8b9c0d",
+      "type": "multiple_choice",
+      "difficulty": "hard",
+      "difficulty_score": 4,
+      "points": 1,
+      "prompt": "Was sagt ein hoher SCHUFA-Score aus?",
+      "options": [
+        {
+          "id": "q-09-31-7a8b9c0d-opt-1",
+          "text": "Man gilt als kreditwuerdig — je hoeher, desto besser",
+          "is_correct": true
+        },
+        {
+          "id": "q-09-31-7a8b9c0d-opt-2",
+          "text": "Man hat viele offene Schulden — je hoeher, desto schlechter",
+          "is_correct": false
+        },
+        {
+          "id": "q-09-31-7a8b9c0d-opt-3",
+          "text": "Man hat ein ueberdurchschnittlich hohes Einkommen",
+          "is_correct": false
+        },
+        {
+          "id": "q-09-31-7a8b9c0d-opt-4",
+          "text": "Man zahlt seit Jahren zuverlaessig Steuern",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-09-31-7a8b9c0d-opt-1",
+      "explanation": "Die SCHUFA vergibt Scores von 0 bis 100: je hoeher, desto kreditwuerdiger. Ein Score von 97+ gilt als sehr gut. Banken, Vermieter und manchmal sogar Arbeitgeber schauen hier rein.",
+      "category_id": "cat-09",
+      "tags": [
+        "adulting",
+        "steuern",
+        "alltag",
+        "wissen"
+      ]
+    },
+    {
+      "id": "q-09-32-8b9c0d1e",
+      "type": "multiple_choice",
+      "difficulty": "hard",
+      "difficulty_score": 4,
+      "points": 1,
+      "prompt": "Was bedeutet eine Inflationsrate von 3% fuer 10.000 Euro auf einem unverzinsten Konto nach einem Jahr?",
+      "options": [
+        {
+          "id": "q-09-32-8b9c0d1e-opt-1",
+          "text": "Das Geld hat real nur noch ca. 9.709 Euro Kaufkraft",
+          "is_correct": true
+        },
+        {
+          "id": "q-09-32-8b9c0d1e-opt-2",
+          "text": "Das Konto waechst automatisch um 300 Euro",
+          "is_correct": false
+        },
+        {
+          "id": "q-09-32-8b9c0d1e-opt-3",
+          "text": "Nichts, Inflation betrifft nur Unternehmen",
+          "is_correct": false
+        },
+        {
+          "id": "q-09-32-8b9c0d1e-opt-4",
+          "text": "Das Geld verliert 30 Euro durch Bankgebuehren",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-09-32-8b9c0d1e-opt-1",
+      "explanation": "Bei 3% Inflation kauft man mit 10.000 Euro nach einem Jahr nur noch, wofuer man vorher ca. 9.709 Euro gezahlt haette. Auf dem Konto stehen noch 10.000 — aber sie koennen weniger. Geldparken kostet still und leise.",
+      "category_id": "cat-09",
+      "tags": [
+        "adulting",
+        "steuern",
+        "alltag",
+        "wissen"
+      ]
+    },
+    {
+      "id": "q-09-33-9c0d1e2f",
+      "type": "multiple_choice",
+      "difficulty": "hard",
+      "difficulty_score": 4,
+      "points": 1,
+      "prompt": "Bei einer Dose Thunfisch steht: Bruttogewicht 185 g, Abtropfgewicht 130 g. Wie viel Fisch isst du tatsaechlich?",
+      "options": [
+        {
+          "id": "q-09-33-9c0d1e2f-opt-1",
+          "text": "130 g (Abtropfgewicht = reiner Inhalt ohne Fluessigkeit)",
+          "is_correct": true
+        },
+        {
+          "id": "q-09-33-9c0d1e2f-opt-2",
+          "text": "185 g (Gesamtgewicht zaehlt)",
+          "is_correct": false
+        },
+        {
+          "id": "q-09-33-9c0d1e2f-opt-3",
+          "text": "55 g (Differenz aus Brutto und Abtropfgewicht)",
+          "is_correct": false
+        },
+        {
+          "id": "q-09-33-9c0d1e2f-opt-4",
+          "text": "150 g (Mittelwert beider Angaben)",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-09-33-9c0d1e2f-opt-1",
+      "explanation": "Bruttogewicht = Dose + Inhalt + Fluessigkeit. Abtropfgewicht = reiner Inhalt ohne Oel oder Wasser. Das, was du tatsaechlich isst. Die 55 g Differenz ist das Oel, das du weggiesst.",
+      "category_id": "cat-09",
+      "tags": [
+        "adulting",
+        "haushalt",
+        "alltag",
+        "wissen"
+      ]
+    },
+    {
+      "id": "q-09-34-0d1e2f3a",
+      "type": "multiple_choice",
+      "difficulty": "hard",
+      "difficulty_score": 4,
+      "points": 1,
+      "prompt": "Bis wann muss man die Einkommensteuererklarung in Deutschland einreichen, wenn man sie selbst (ohne Steuerberater) macht?",
+      "options": [
+        {
+          "id": "q-09-34-0d1e2f3a-opt-1",
+          "text": "31. Oktober des Folgejahres",
+          "is_correct": true
+        },
+        {
+          "id": "q-09-34-0d1e2f3a-opt-2",
+          "text": "31. Maerz des Folgejahres",
+          "is_correct": false
+        },
+        {
+          "id": "q-09-34-0d1e2f3a-opt-3",
+          "text": "31. Dezember des gleichen Jahres",
+          "is_correct": false
+        },
+        {
+          "id": "q-09-34-0d1e2f3a-opt-4",
+          "text": "31. Juli des Folgejahres",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-09-34-0d1e2f3a-opt-1",
+      "explanation": "Seit dem Steuerjahrgang 2020 gilt: 31. Oktober des Folgejahres fuer Selbstersteller. Frueher war es der 31. Juli. Mit Steuerberater gilt der letzte Tag im Februar des uebernachsten Jahres.",
+      "category_id": "cat-09",
+      "tags": [
+        "adulting",
+        "steuern",
+        "alltag",
+        "wissen"
+      ]
     }
   ]
 }

@@ -228,8 +228,8 @@ describe("getDefaultQuiz", () => {
     const quiz = getDefaultQuiz();
 
     expect(quiz.id).toBe("geburtstagsquiz-millennials-v2-engine-v2");
-    expect(quiz.questions).toHaveLength(436);
-    expect(new Set(quiz.questions.map((q) => q.id)).size).toBe(436);
+    expect(quiz.questions).toHaveLength(481);
+    expect(new Set(quiz.questions.map((q) => q.id)).size).toBe(481);
     expect(quiz.questions.every((q) => q.durationMs === QUESTION_DURATION_MS)).toBe(true);
   });
 });
@@ -239,8 +239,8 @@ describe("game plan selection", () => {
     const quiz = getDefaultQuiz();
     const catalog = buildCatalogSummary(quiz);
 
-    expect(catalog.totalQuestions).toBe(436);
-    expect(catalog.maxQuestionCount).toBe(436);
+    expect(catalog.totalQuestions).toBe(481);
+    expect(catalog.maxQuestionCount).toBe(481);
     expect(catalog.categories.length).toBeGreaterThan(0);
     expect(catalog.categories.some((category) => category.id === "cat-01")).toBe(true);
     expect(catalog.questionTypes.some((entry) => entry.type === QuestionType.MultipleChoice)).toBe(true);
@@ -360,7 +360,10 @@ function makeAnswerForQuestion(question: Question) {
     return { type: "number" as const, value: 42 };
   }
   if (question.type === "ranking") {
-    return { type: "ranking" as const, value: question.items.map((item) => item.id) };
+    return {
+      type: "ranking" as const,
+      value: question.items.map((item) => item.id),
+    };
   }
   return { type: "text" as const, value: "test answer" };
 }
@@ -398,10 +401,16 @@ describe("revealDelayMs", () => {
     handleHostConnect(hostSocket, { hostToken: room.hostToken });
 
     player1Socket = makeMockSocket();
-    handleRoomJoin(player1Socket, { joinCode: room.joinCode, playerName: "Player 1" });
+    handleRoomJoin(player1Socket, {
+      joinCode: room.joinCode,
+      playerName: "Player 1",
+    });
 
     player2Socket = makeMockSocket();
-    handleRoomJoin(player2Socket, { joinCode: room.joinCode, playerName: "Player 2" });
+    handleRoomJoin(player2Socket, {
+      joinCode: room.joinCode,
+      playerName: "Player 2",
+    });
   });
 
   afterEach(() => {
@@ -416,7 +425,11 @@ describe("revealDelayMs", () => {
     hostSocket.sessionId = room.hostSessionId;
     handleGameStart(hostSocket, {
       roomId: room.id,
-      gamePlan: makeTestGamePlan({ revealDelayMs: 3_000, revealMode: "auto", revealDurationMs: 5_000 }),
+      gamePlan: makeTestGamePlan({
+        revealDelayMs: 3_000,
+        revealMode: "auto",
+        revealDurationMs: 5_000,
+      }),
     });
 
     expect(room.gameState).toBe(GameState.QuestionActive);
@@ -466,7 +479,11 @@ describe("revealDelayMs", () => {
     hostSocket.sessionId = room.hostSessionId;
     handleGameStart(hostSocket, {
       roomId: room.id,
-      gamePlan: makeTestGamePlan({ revealDelayMs: 0, revealMode: "auto", revealDurationMs: 5_000 }),
+      gamePlan: makeTestGamePlan({
+        revealDelayMs: 0,
+        revealMode: "auto",
+        revealDurationMs: 5_000,
+      }),
     });
 
     const question = room.quiz!.questions[room.currentQuestionIndex!];
@@ -501,7 +518,11 @@ describe("revealDelayMs", () => {
     hostSocket.sessionId = room.hostSessionId;
     handleGameStart(hostSocket, {
       roomId: room.id,
-      gamePlan: makeTestGamePlan({ revealDelayMs: 5_000, revealMode: "auto", revealDurationMs: 5_000 }),
+      gamePlan: makeTestGamePlan({
+        revealDelayMs: 5_000,
+        revealMode: "auto",
+        revealDurationMs: 5_000,
+      }),
     });
 
     const question = room.quiz!.questions[room.currentQuestionIndex!];

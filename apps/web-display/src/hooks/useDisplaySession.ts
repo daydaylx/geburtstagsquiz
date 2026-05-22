@@ -257,7 +257,7 @@ export function useDisplaySession(deps: {
         updateStoredSession({
           roomId: payload.roomId,
           displaySessionId: payload.sessionId,
-          displayToken: displaySessionRef.current?.displayToken ?? "",
+          displayToken: displaySessionRef.current?.displayToken ?? loadDisplayStoredSession()?.displayToken ?? "",
         });
 
         if (displaySessionRef.current) {
@@ -550,9 +550,23 @@ export function useDisplaySession(deps: {
         const resetPayload = parsedEnvelope.data.payload;
         stopCurrent();
         moderatorEngineRef.current.reset();
+        if (preCountdownTimerRef.current !== null) {
+          clearInterval(preCountdownTimerRef.current);
+          preCountdownTimerRef.current = null;
+        }
+        if (fadeTimerRef.current !== null) {
+          window.clearTimeout(fadeTimerRef.current);
+          fadeTimerRef.current = null;
+        }
         // Host-Neustart behaelt die Display-Kopplung und setzt nur Spiel-/Votingdaten zurueck.
         setRoomInfo((prev) =>
-          prev ? { ...prev, roomId: resetPayload.roomId, joinCode: resetPayload.joinCode } : prev,
+          prev
+            ? {
+                ...prev,
+                roomId: resetPayload.roomId,
+                joinCode: resetPayload.joinCode,
+              }
+            : prev,
         );
         setPreCountdown(null);
         setQuestion(null);
