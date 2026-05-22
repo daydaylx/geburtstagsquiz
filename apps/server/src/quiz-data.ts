@@ -3,6 +3,8 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import {
+  type LogicQuestion,
+  type MultipleChoiceQuestion,
   type Question,
   type QuestionMetadata,
   type QuestionOption,
@@ -393,6 +395,66 @@ function transformQuestion(question: RawQuestion, category: RawCategory): Questi
   throw new Error(`Unsupported question shape in quiz source: ${question.id} (${question.type})`);
 }
 
+type CorrectOptionQuestion = MultipleChoiceQuestion | LogicQuestion;
+
+function isCorrectOptionQuestion(question: Question): question is CorrectOptionQuestion {
+  return question.type === QuestionType.MultipleChoice || question.type === QuestionType.Logic;
+}
+
+function stableCategoryOffset(categoryId: string, optionCount: number): number {
+  let hash = 2166136261;
+
+  for (const char of categoryId) {
+    hash ^= char.charCodeAt(0);
+    hash = Math.imul(hash, 16777619);
+  }
+
+  return optionCount > 0 ? (hash >>> 0) % optionCount : 0;
+}
+
+function moveCorrectOptionToIndex<T extends CorrectOptionQuestion>(question: T, targetIndex: number): T {
+  const currentIndex = question.options.findIndex((option) => option.id === question.correctOptionId);
+
+  if (currentIndex < 0) {
+    throw new Error(`Question ${question.id} references an unknown correctOptionId`);
+  }
+
+  const boundedTargetIndex = Math.max(0, Math.min(targetIndex, question.options.length - 1));
+  if (currentIndex === boundedTargetIndex) {
+    return question;
+  }
+
+  const correctOption = question.options[currentIndex];
+  const remainingOptions = question.options.filter((option) => option.id !== question.correctOptionId);
+
+  return {
+    ...question,
+    options: [
+      ...remainingOptions.slice(0, boundedTargetIndex),
+      correctOption,
+      ...remainingOptions.slice(boundedTargetIndex),
+    ],
+  };
+}
+
+function balanceCorrectAnswerPositions(questions: Question[]): Question[] {
+  const seenByCategory = new Map<string, number>();
+
+  return questions.map((question) => {
+    if (!isCorrectOptionQuestion(question)) {
+      return question;
+    }
+
+    const categoryKey = question.categoryId ?? question.categorySlug ?? "__uncategorized";
+    const sequenceIndex = seenByCategory.get(categoryKey) ?? 0;
+    seenByCategory.set(categoryKey, sequenceIndex + 1);
+
+    const targetIndex =
+      (stableCategoryOffset(categoryKey, question.options.length) + sequenceIndex) % question.options.length;
+    return moveCorrectOptionToIndex(question, targetIndex);
+  });
+}
+
 function loadDefaultQuiz(): Quiz {
   const questionsById = new Map<string, Question>();
   const categoriesById = new Map<string, QuizCategory>();
@@ -448,7 +510,7 @@ function loadDefaultQuiz(): Quiz {
     id: QUIZ_ID,
     title: QUIZ_TITLE,
     categories: [...categoriesById.values()].filter((category) => category.questionCount > 0),
-    questions: [...questionsById.values()],
+    questions: balanceCorrectAnswerPositions([...questionsById.values()]),
   };
 }
 

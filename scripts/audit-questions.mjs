@@ -19,6 +19,35 @@ const SUPPORTED_TYPES = new Set(["multiple_choice", "estimate", "majority_guess"
 // This count tracks them for transparency, not as errors.
 const CANONICAL_TYPES = new Set([...SUPPORTED_TYPES]);
 
+function getOptionId(option, index) {
+  return typeof option === "string" ? String.fromCharCode(65 + index) : (option.id ?? `OPT-${index + 1}`);
+}
+
+function getCorrectOptionIndex(question) {
+  const opts = question.options ?? [];
+  if (opts.length === 0 || question.type === "majority_guess") {
+    return -1;
+  }
+
+  let correctOptionId = question.correct_option_id;
+  if (!correctOptionId) {
+    const markedIndex = opts.findIndex((option) => typeof option !== "string" && option.is_correct === true);
+    if (markedIndex >= 0) {
+      correctOptionId = getOptionId(opts[markedIndex], markedIndex);
+    }
+  }
+
+  if (!correctOptionId) {
+    return -1;
+  }
+
+  return opts.findIndex((option, index) => getOptionId(option, index) === correctOptionId);
+}
+
+function getAnswerPositionLabel(index) {
+  return index < 26 ? String.fromCharCode(65 + index) : String(index + 1);
+}
+
 function loadFile(filename) {
   return JSON.parse(readFileSync(filename, "utf8"));
 }
@@ -44,12 +73,22 @@ function auditFile(filename) {
   const rankingErrors = [];
   const leakFindings = [];
   const catDist = {};
+  const answerPositionDistribution = {};
 
   for (const q of questions) {
     const type = q.type;
     byType[type] = (byType[type] ?? 0) + 1;
     const catId = q.category_id ?? q._category?.category_id ?? "unknown";
     catDist[catId] = (catDist[catId] ?? 0) + 1;
+
+    const correctOptionIndex = getCorrectOptionIndex(q);
+    if (correctOptionIndex >= 0) {
+      const label = getAnswerPositionLabel(correctOptionIndex);
+      const stats = answerPositionDistribution[catId] ?? { total: 0, distribution: {} };
+      stats.total += 1;
+      stats.distribution[label] = (stats.distribution[label] ?? 0) + 1;
+      answerPositionDistribution[catId] = stats;
+    }
 
     if (!CANONICAL_TYPES.has(type)) {
       nonCanonicalRawTypes.push({ id: q.id, type, catId, note: "normalized by server loader" });
@@ -240,12 +279,32 @@ function auditFile(filename) {
     }
   }
 
+  for (const [catId, stats] of Object.entries(answerPositionDistribution)) {
+    if (stats.total < 4) {
+      continue;
+    }
+
+    const usedPositions = Object.keys(stats.distribution).length;
+    const firstPositionCount = stats.distribution.A ?? 0;
+    const firstPositionRatio = firstPositionCount / stats.total;
+    if (usedPositions === 1 || firstPositionRatio >= 0.8) {
+      leakFindings.push({
+        severity: "P2",
+        id: catId,
+        catId,
+        field: "correct_position_distribution",
+        reason: `Rohdaten haben auffällige richtige Antwortpositionen: ${JSON.stringify(stats.distribution)} (${stats.total} Optionsfragen). Der Server verteilt die sichtbaren Positionen deterministisch beim Laden.`,
+      });
+    }
+  }
+
   return {
     filename,
     totalQuestions: questions.length,
     byType,
     nonCanonicalRawTypeCount: nonCanonicalRawTypes.length,
     nonCanonicalRawTypes,
+    answerPositionDistribution,
     integrityErrors,
     estimateErrors,
     rankingErrors,
@@ -283,13 +342,16 @@ const duplicates = findDuplicates(results);
 const allLeakFindings = results.flatMap((r) => r.leakFindings.map((f) => ({ ...f, file: r.filename })));
 
 const summary = {
-  files: results.map(({ filename, totalQuestions, byType, nonCanonicalRawTypeCount, catDistribution }) => ({
-    filename,
-    totalQuestions,
-    byType,
-    nonCanonicalRawTypeCount,
-    catDistribution,
-  })),
+  files: results.map(
+    ({ filename, totalQuestions, byType, nonCanonicalRawTypeCount, catDistribution, answerPositionDistribution }) => ({
+      filename,
+      totalQuestions,
+      byType,
+      nonCanonicalRawTypeCount,
+      catDistribution,
+      answerPositionDistribution,
+    }),
+  ),
   totalQuestions: results.reduce((s, r) => s + r.totalQuestions, 0),
   totalNonCanonicalRawTypes: results.reduce((s, r) => s + r.nonCanonicalRawTypeCount, 0),
   totalIntegrityErrors: results.reduce((s, r) => s + r.integrityErrors.length, 0),

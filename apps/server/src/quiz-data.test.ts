@@ -17,6 +17,7 @@ type RawOption =
 
 type RawQuestion = {
   id?: string;
+  type?: string;
   prompt?: string;
   options?: RawOption[];
   items?: RawOption[];
@@ -41,6 +42,20 @@ function readCategoryFiles(): RawCategoryFile[] {
 
 function getRawOptionId(option: RawOption, index: number): string {
   return typeof option === "string" ? String.fromCharCode(65 + index) : (option.id ?? `OPT-${index + 1}`);
+}
+
+function getRawCorrectOptionId(question: RawQuestion): string | null {
+  if (!question.options?.length || question.type === "majority_guess") {
+    return null;
+  }
+
+  if (question.correct_option_id) {
+    return question.correct_option_id;
+  }
+
+  const correctIndex = question.options.findIndex((option) => typeof option !== "string" && option.is_correct === true);
+
+  return correctIndex >= 0 ? getRawOptionId(question.options[correctIndex], correctIndex) : null;
 }
 
 function collectOptionIssues(question: Question, options: QuestionOption[], minCount: number): string[] {
@@ -273,6 +288,71 @@ describe("getDefaultQuiz catalog invariants", () => {
 
     expect(quiz.questions).toHaveLength(516);
     expect(new Set(ids).size).toBe(ids.length);
+    expect(issues).toEqual([]);
+  });
+
+  it("keeps correct answer ids while balancing visible correct positions per category", () => {
+    const rawCorrectOptionIds = new Map<string, string>();
+
+    for (const categoryFile of readCategoryFiles()) {
+      for (const question of categoryFile.questions) {
+        const correctOptionId = getRawCorrectOptionId(question);
+        if (question.id && correctOptionId) {
+          rawCorrectOptionIds.set(question.id, correctOptionId);
+        }
+      }
+    }
+
+    const quiz = getDefaultQuiz();
+    const issues: string[] = [];
+    const positionsByCategory = new Map<string, number[]>();
+
+    for (const question of quiz.questions) {
+      if (question.type !== QuestionType.MultipleChoice && question.type !== QuestionType.Logic) {
+        continue;
+      }
+
+      const rawCorrectOptionId = rawCorrectOptionIds.get(question.id);
+      if (rawCorrectOptionId && rawCorrectOptionId !== question.correctOptionId) {
+        issues.push(
+          `${question.id}: correctOptionId changed from ${rawCorrectOptionId} to ${question.correctOptionId}`,
+        );
+      }
+
+      const correctIndex = question.options.findIndex((option) => option.id === question.correctOptionId);
+      if (correctIndex < 0) {
+        issues.push(`${question.id}: correctOptionId missing from shuffled options`);
+        continue;
+      }
+
+      const categoryId = question.categoryId ?? "unknown";
+      const positions = positionsByCategory.get(categoryId) ?? [];
+      positions.push(correctIndex);
+      positionsByCategory.set(categoryId, positions);
+    }
+
+    for (const [categoryId, positions] of positionsByCategory.entries()) {
+      if (positions.length < 4) {
+        continue;
+      }
+
+      const counts = [0, 0, 0, 0];
+      for (const position of positions) {
+        counts[position] += 1;
+      }
+
+      const usedPositions = counts.filter((count) => count > 0).length;
+      const max = Math.max(...counts);
+      const min = Math.min(...counts);
+
+      if (usedPositions !== 4) {
+        issues.push(`${categoryId}: correct answers use only ${usedPositions} visible positions`);
+      }
+      if (max - min > 1) {
+        issues.push(`${categoryId}: correct answer positions are unbalanced (${counts.join("/")})`);
+      }
+    }
+
     expect(issues).toEqual([]);
   });
 });

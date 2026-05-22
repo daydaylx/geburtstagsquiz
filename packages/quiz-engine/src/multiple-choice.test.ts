@@ -90,6 +90,25 @@ describe("evaluateMultipleChoice", () => {
     expect(result.playerResults[1].pointsEarned).toBe(0);
   });
 
+  it("evaluates by option id after visible answer order changes", () => {
+    const question = makeQuestion({
+      options: [
+        { id: "A", label: "Antwort A" },
+        { id: "C", label: "Antwort C" },
+        { id: "D", label: "Antwort D" },
+        { id: "B", label: "Antwort B" },
+      ],
+      correctOptionId: "B",
+    });
+    const answers = [makeAnswer("p1", "B"), makeAnswer("p2", "A")];
+
+    const result = evaluateMultipleChoice(question, answers);
+
+    expect(result.correctAnswer).toEqual({ type: "option", value: "B" });
+    expect(result.playerResults[0].isCorrect).toBe(true);
+    expect(result.playerResults[1].isCorrect).toBe(false);
+  });
+
   it("returns empty playerResults for empty answers array", () => {
     const question = makeQuestion();
 
