@@ -9,6 +9,8 @@ export function HostRevealStage({
   missingRoundCount,
   nextReadyLabel,
   nextReadyPercent,
+  isFlagged,
+  onFlagClick,
 }: {
   session: UseHostSessionReturn;
   correctRoundCount: number;
@@ -16,6 +18,8 @@ export function HostRevealStage({
   missingRoundCount: number;
   nextReadyLabel: string;
   nextReadyPercent: number;
+  isFlagged: boolean;
+  onFlagClick: () => void;
 }) {
   if (!s.question) return null;
 
@@ -113,6 +117,16 @@ export function HostRevealStage({
           Keine Spieler verbunden – warte auf Reconnect oder gehe manuell weiter.
         </p>
       )}
+
+      <div className="host-flag-action">
+        <button
+          className={`host-flag-button${isFlagged ? " host-flag-button--active" : ""}`}
+          onClick={onFlagClick}
+          type="button"
+        >
+          {isFlagged ? "Markiert ✓" : "Frage markieren"}
+        </button>
+      </div>
     </div>
   );
 }

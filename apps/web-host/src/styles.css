@@ -2395,3 +2395,255 @@ button:focus-visible {
     transition: none !important;
   }
 }
+
+/* ── Question Flagging ───────────────────────────────────────────────── */
+
+.host-flag-action {
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.host-flag-button {
+  padding: 8px 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: var(--host-radius);
+  border: 1px solid var(--solid-border-strong);
+  background: transparent;
+  color: var(--host-ink-soft);
+  cursor: pointer;
+  transition: color var(--dur-fast), border-color var(--dur-fast), background var(--dur-fast);
+}
+
+.host-flag-button:hover {
+  border-color: var(--host-amber);
+  color: var(--host-amber);
+}
+
+.host-flag-button--active {
+  border-color: var(--host-amber);
+  color: var(--host-amber);
+  background: color-mix(in srgb, var(--host-amber) 10%, transparent);
+}
+
+.host-flag-count {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--host-amber);
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--host-amber) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--host-amber) 30%, transparent);
+}
+
+/* Dialog overlay */
+
+.flag-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  padding: 16px;
+}
+
+.flag-dialog {
+  background: var(--bg-card);
+  border: 1px solid var(--solid-border-strong);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  box-shadow: var(--solid-shadow-lg);
+}
+
+.flag-dialog-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px 12px;
+  border-bottom: 1px solid var(--solid-border);
+}
+
+.flag-dialog-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--host-amber);
+  margin: 0;
+}
+
+.flag-dialog-close {
+  background: none;
+  border: none;
+  color: var(--host-ink-soft);
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 4px 6px;
+  border-radius: 4px;
+}
+
+.flag-dialog-close:hover {
+  color: var(--host-ink);
+}
+
+.flag-dialog-body {
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.flag-dialog-label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--host-ink-soft);
+}
+
+.flag-dialog-select,
+.flag-dialog-textarea {
+  background: var(--host-panel-strong);
+  border: 1px solid var(--solid-border-strong);
+  border-radius: 6px;
+  color: var(--host-ink);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  padding: 8px 10px;
+  outline: none;
+  resize: vertical;
+}
+
+.flag-dialog-select:focus,
+.flag-dialog-textarea:focus {
+  border-color: var(--host-amber);
+}
+
+.flag-dialog-footer {
+  padding: 12px 20px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  border-top: 1px solid var(--solid-border);
+}
+
+.flag-dialog-remove {
+  margin-right: auto;
+  background: none;
+  border: 1px solid var(--host-red);
+  color: var(--host-red);
+  border-radius: 6px;
+  padding: 7px 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.flag-dialog-remove:hover {
+  background: var(--host-red-soft);
+}
+
+.flag-dialog-save {
+  font-size: 0.85rem;
+  padding: 8px 18px;
+}
+
+/* Flagged Questions Panel */
+
+.host-flags-panel {
+  margin-top: 20px;
+  border-top: 1px solid var(--solid-border);
+  padding-top: 16px;
+}
+
+.host-flags-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.host-flags-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.host-secondary-button--sm {
+  font-size: 0.75rem;
+  padding: 5px 10px;
+}
+
+.host-flags-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.host-flag-item {
+  background: var(--host-panel-strong);
+  border: 1px solid var(--solid-border);
+  border-left: 3px solid var(--host-amber);
+  border-radius: var(--host-radius);
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.host-flag-item-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.host-flag-index {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--host-amber);
+}
+
+.host-flag-reason {
+  font-size: 0.75rem;
+  color: var(--host-ink-soft);
+  flex: 1;
+}
+
+.host-flag-remove {
+  background: none;
+  border: none;
+  color: var(--host-ink-soft);
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.host-flag-remove:hover {
+  color: var(--host-red);
+}
+
+.host-flag-text {
+  font-size: 0.82rem;
+  color: var(--host-ink);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.host-flag-note {
+  font-size: 0.78rem;
+  color: var(--host-ink-soft);
+  font-style: italic;
+  margin: 0;
+}
