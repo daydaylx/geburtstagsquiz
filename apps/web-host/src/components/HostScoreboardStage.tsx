@@ -1,16 +1,24 @@
 import type { ScoreUpdatePayload } from "@quiz/shared-protocol";
 import type { UseHostSessionReturn } from "../hooks/useHostSession.js";
+import type { QuestionFlag } from "../lib/questionFlagsStorage.js";
+import { HostFlaggedQuestionsPanel } from "./HostFlaggedQuestionsPanel.js";
 
 export function HostScoreboardStage({
   session: s,
   latestScoreboard,
   latestScoreChanges,
   nextReadyLabel,
+  flags,
+  onFlagRemove,
+  onFlagClearAll,
 }: {
   session: UseHostSessionReturn;
   latestScoreboard: ScoreUpdatePayload["scoreboard"];
   latestScoreChanges: ScoreUpdatePayload["scoreChanges"];
   nextReadyLabel: string;
+  flags: QuestionFlag[];
+  onFlagRemove: (questionId: string) => void;
+  onFlagClearAll: () => void;
 }) {
   return (
     <div className="host-panel-content">
@@ -50,6 +58,9 @@ export function HostScoreboardStage({
         <p className="host-zero-players-hint">
           Keine Spieler verbunden – warte auf Reconnect oder gehe manuell weiter.
         </p>
+      )}
+      {s.screen === "finished" && (
+        <HostFlaggedQuestionsPanel flags={flags} onRemove={onFlagRemove} onClearAll={onFlagClearAll} />
       )}
     </div>
   );

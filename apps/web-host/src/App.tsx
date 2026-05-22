@@ -1,11 +1,13 @@
 import { type ConnectionState, useWebSocket } from "@quiz/shared-hooks";
-import { useEffect } from "react";
+import { useEffect, useEffectEvent, useState } from "react";
 import { HostCountdownStage } from "./components/HostCountdownStage.js";
 import { HostLobbyStage } from "./components/HostLobbyStage.js";
 import { HostQuestionStage } from "./components/HostQuestionStage.js";
 import { HostRevealStage } from "./components/HostRevealStage.js";
 import { HostScoreboardStage } from "./components/HostScoreboardStage.js";
+import { QuestionFlagDialog } from "./components/QuestionFlagDialog.js";
 import { useHostSession } from "./hooks/useHostSession.js";
+import { useQuestionFlags } from "./hooks/useQuestionFlags.js";
 
 const FLOW_STEPS = ["Lobby", "Kategorien", "Frage", "Auflösung", "Endstand"] as const;
 
@@ -37,6 +39,8 @@ export function App() {
   const urlParams = new URLSearchParams(window.location.search);
   const { connectionState, sendEvent, onMessage, notifyConnected, closeSocket } = useWebSocket();
   const s = useHostSession({ sendEvent, onMessage, notifyConnected, closeSocket, connectionState });
+  const questionFlags = useQuestionFlags();
+  const [flagDialogQuestionId, setFlagDialogQuestionId] = useState<string | null>(null);
 
   const connectedPlayerCount = s.lobby?.players.filter((p) => p.connected).length ?? 0;
   const timerSeconds = Math.ceil((s.remainingMs ?? 0) / 1000);
@@ -126,6 +130,27 @@ export function App() {
               ? "Neues Spiel"
               : "Warten...";
 
+  const enrichFlagOnReveal = useEffectEvent(
+    (
+      screen: string,
+      question: typeof s.question,
+      revealedAnswer: typeof s.revealedAnswer,
+      revealExplanation: typeof s.revealExplanation,
+    ) => {
+      if (screen !== "reveal" || !question) return;
+      if (!questionFlags.isFlagged(question.questionId)) return;
+      questionFlags.update(question.questionId, {
+        correctAnswer: revealedAnswer ?? undefined,
+        explanation: revealExplanation ?? undefined,
+      });
+    },
+  );
+
+  // Enrich flagged question with correctAnswer/explanation once reveal arrives
+  useEffect(() => {
+    enrichFlagOnReveal(s.screen, s.question, s.revealedAnswer, s.revealExplanation);
+  }, [s.screen, s.question, s.revealedAnswer, s.revealExplanation]);
+
   // Keyboard shortcut: Space = primary action
   useEffect(() => {
     const handle = (e: KeyboardEvent) => {
@@ -158,6 +183,8 @@ export function App() {
           isTimerWarning={isTimerWarning}
           isTimerUrgent={isTimerUrgent}
           answerProgressPercent={answerProgressPercent}
+          isFlagged={questionFlags.isFlagged(s.question.questionId)}
+          onFlagClick={() => setFlagDialogQuestionId(s.question!.questionId)}
         />
       );
     }
@@ -171,6 +198,8 @@ export function App() {
           missingRoundCount={missingRoundCount}
           nextReadyLabel={nextReadyLabel}
           nextReadyPercent={nextReadyPercent}
+          isFlagged={questionFlags.isFlagged(s.question.questionId)}
+          onFlagClick={() => setFlagDialogQuestionId(s.question!.questionId)}
         />
       );
     }
@@ -182,6 +211,9 @@ export function App() {
           latestScoreboard={latestScoreboard}
           latestScoreChanges={latestScoreChanges}
           nextReadyLabel={nextReadyLabel}
+          flags={questionFlags.flags}
+          onFlagRemove={questionFlags.remove}
+          onFlagClearAll={questionFlags.clearAll}
         />
       );
     }
@@ -204,8 +236,13 @@ export function App() {
           <div className="host-header-phase">{PHASE_LABELS[s.screen]}</div>
         )}
 
-        {/* Right slot: notices */}
+        {/* Right slot: notices + flag count */}
         <div className="host-header-right">
+          {questionFlags.flags.length > 0 && (
+            <div className="host-flag-count" title="Markierte Fragen">
+              ⚑ {questionFlags.flags.length}
+            </div>
+          )}
           {s.notice && (
             <div className="host-notice" data-kind={s.notice.kind} role="alert">
               {s.notice.text}
@@ -391,6 +428,36 @@ export function App() {
           </>
         )
       ) : null}
+      {flagDialogQuestionId && s.question && s.question.questionId === flagDialogQuestionId && (
+        <QuestionFlagDialog
+          existingFlag={questionFlags.getFlag(flagDialogQuestionId)}
+          onSave={(reason, note) => {
+            const q = s.question!;
+            questionFlags.save({
+              questionId: q.questionId,
+              questionIndex: q.questionIndex,
+              totalQuestionCount: q.totalQuestionCount,
+              text: q.text,
+              type: q.type,
+              options: "options" in q ? q.options : undefined,
+              items: "items" in q ? q.items : undefined,
+              unit: "unit" in q ? q.unit : undefined,
+              correctAnswer: s.revealedAnswer ?? undefined,
+              explanation: s.revealExplanation ?? undefined,
+              markedAt: new Date().toISOString(),
+              markedDuringScreen: s.screen,
+              reason,
+              note,
+            });
+            setFlagDialogQuestionId(null);
+          }}
+          onRemove={() => {
+            questionFlags.remove(flagDialogQuestionId);
+            setFlagDialogQuestionId(null);
+          }}
+          onClose={() => setFlagDialogQuestionId(null)}
+        />
+      )}
     </main>
   );
 }

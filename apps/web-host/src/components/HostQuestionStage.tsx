@@ -10,6 +10,8 @@ export function HostQuestionStage({
   isTimerWarning,
   isTimerUrgent,
   answerProgressPercent,
+  isFlagged,
+  onFlagClick,
 }: {
   session: UseHostSessionReturn;
   currentQuestionNumber: number;
@@ -18,6 +20,8 @@ export function HostQuestionStage({
   isTimerWarning: boolean;
   isTimerUrgent: boolean;
   answerProgressPercent: number;
+  isFlagged: boolean;
+  onFlagClick: () => void;
 }) {
   if (!s.question) return null;
 
@@ -102,6 +106,16 @@ export function HostQuestionStage({
           Keine Spieler verbunden – warte auf Reconnect oder gehe manuell weiter.
         </p>
       )}
+
+      <div className="host-flag-action">
+        <button
+          className={`host-flag-button${isFlagged ? " host-flag-button--active" : ""}`}
+          onClick={onFlagClick}
+          type="button"
+        >
+          {isFlagged ? "Markiert ✓" : "Frage markieren"}
+        </button>
+      </div>
     </div>
   );
 }
