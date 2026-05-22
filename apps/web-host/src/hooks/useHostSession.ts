@@ -13,10 +13,17 @@ import {
   type ScoreUpdatePayload,
   type VoteUpdatePayload,
 } from "@quiz/shared-protocol";
-import { type GamePlan, type GamePlanPresetId, type ModeratorFrequency } from "@quiz/shared-types";
+import type {
+  GamePlan,
+  GamePlanPresetId,
+  ModeratorFrequency,
+} from "@quiz/shared-types";
 import QRCode from "qrcode";
 import { useEffect, useEffectEvent, useRef, useState } from "react";
-import { buildPresetGamePlan, createHostClientInfo } from "../lib/game-plan-drafts.js";
+import {
+  buildPresetGamePlan,
+  createHostClientInfo,
+} from "../lib/game-plan-drafts.js";
 import { getDisplayUrl, getPlayerJoinUrl } from "../lib/helpers.js";
 import {
   addUsedQuestionId,
@@ -41,7 +48,14 @@ function getHostErrorMessage(code: string, fallback: string): string {
   }
 }
 
-export type HostScreen = "start" | "lobby" | "countdown" | "question" | "reveal" | "scoreboard" | "finished";
+export type HostScreen =
+  | "start"
+  | "lobby"
+  | "countdown"
+  | "question"
+  | "reveal"
+  | "scoreboard"
+  | "finished";
 
 export interface HostRoomInfo {
   roomId: string;
@@ -129,40 +143,66 @@ export function useHostSession(deps: {
   const [screen, setScreen] = useState<HostScreen>("start");
   const [question, setQuestion] = useState<QuestionShowPayload | null>(null);
   const [remainingMs, setRemainingMs] = useState<number>(0);
-  const [answerProgress, setAnswerProgress] = useState<AnswerProgressPayload | null>(null);
-  const [revealedAnswer, setRevealedAnswer] = useState<QuestionRevealPayload["correctAnswer"] | null>(null);
-  const [revealExplanation, setRevealExplanation] = useState<string | null>(null);
-  const [revealEstimateContext, setRevealEstimateContext] = useState<string | null>(null);
-  const [roundResults, setRoundResults] = useState<QuestionRevealPayload["playerResults"]>([]);
-  const [scoreboard, setScoreboard] = useState<ScoreUpdatePayload | null>(null);
-  const [nextQuestionReadyProgress, setNextQuestionReadyProgress] = useState<NextQuestionReadyProgressPayload | null>(
+  const [answerProgress, setAnswerProgress] =
+    useState<AnswerProgressPayload | null>(null);
+  const [revealedAnswer, setRevealedAnswer] = useState<
+    QuestionRevealPayload["correctAnswer"] | null
+  >(null);
+  const [revealExplanation, setRevealExplanation] = useState<string | null>(
     null,
   );
-  const [finalResult, setFinalResult] = useState<GameFinishedPayload | null>(null);
+  const [revealEstimateContext, setRevealEstimateContext] = useState<
+    string | null
+  >(null);
+  const [roundResults, setRoundResults] = useState<
+    QuestionRevealPayload["playerResults"]
+  >([]);
+  const [scoreboard, setScoreboard] = useState<ScoreUpdatePayload | null>(null);
+  const [nextQuestionReadyProgress, setNextQuestionReadyProgress] =
+    useState<NextQuestionReadyProgressPayload | null>(null);
+  const [finalResult, setFinalResult] = useState<GameFinishedPayload | null>(
+    null,
+  );
   const [votes, setVotes] = useState<Record<string, number>>({});
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number | null>(null);
-  const [totalQuestionCount, setTotalQuestionCount] = useState<number | null>(null);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState<
+    number | null
+  >(null);
+  const [totalQuestionCount, setTotalQuestionCount] = useState<number | null>(
+    null,
+  );
   const [catalog, setCatalog] = useState<CatalogSummaryPayload | null>(null);
   const [gamePlanDraft, setGamePlanDraft] = useState<GamePlan | null>(null);
-  const [selectedPlanMode, setSelectedPlanMode] = useState<GamePlanPresetId | "custom">("normal_evening");
+  const [selectedPlanMode, setSelectedPlanMode] = useState<
+    GamePlanPresetId | "custom"
+  >("normal_evening");
   const [countdownSeconds, setCountdownSeconds] = useState(0);
-  const [showAnswerTextOnPlayerDevices, setShowAnswerTextOnPlayerDevices] = useState(false);
+  const [showAnswerTextOnPlayerDevices, setShowAnswerTextOnPlayerDevices] =
+    useState(false);
   const [moderatorEnabled, setModeratorEnabled] = useState(false);
-  const [moderatorFrequency, setModeratorFrequency] = useState<ModeratorFrequency>("low");
+  const [moderatorFrequency, setModeratorFrequency] =
+    useState<ModeratorFrequency>("low");
   const [confirmFinishNow, setConfirmFinishNow] = useState(false);
-  const [confirmRemovePlayerId, setConfirmRemovePlayerId] = useState<string | null>(null);
+  const [confirmRemovePlayerId, setConfirmRemovePlayerId] = useState<
+    string | null
+  >(null);
   const [displayConnected, setDisplayConnected] = useState(false);
-  const [displayConnectToken, setDisplayConnectToken] = useState<string | null>(null);
-  const [usedQuestionCount, setUsedQuestionCount] = useState(() => getUsedQuestionCount());
+  const [displayConnectToken, setDisplayConnectToken] = useState<string | null>(
+    null,
+  );
+  const [usedQuestionCount, setUsedQuestionCount] = useState(() =>
+    getUsedQuestionCount(),
+  );
 
   const hostSessionRef = useRef<HostStoredSession | null>(initialSession);
   const pendingHostConnectRef = useRef(false);
 
-  const updateStoredSession = useEffectEvent((session: HostStoredSession | null) => {
-    hostSessionRef.current = session;
-    if (session) saveHostStoredSession(session);
-    else clearHostStoredSession();
-  });
+  const updateStoredSession = useEffectEvent(
+    (session: HostStoredSession | null) => {
+      hostSessionRef.current = session;
+      if (session) saveHostStoredSession(session);
+      else clearHostStoredSession();
+    },
+  );
 
   const resetLobbyState = useEffectEvent(() => {
     // Geschlossene oder ungueltige Host-Sessions koennen nicht resumed werden.
@@ -213,7 +253,10 @@ export function useHostSession(deps: {
 
     if (!sent) {
       setIsConnectingHost(false);
-      setNotice({ kind: "error", text: "Server ist nicht verbunden. Bitte kurz warten." });
+      setNotice({
+        kind: "error",
+        text: "Server ist nicht verbunden. Bitte kurz warten.",
+      });
     }
   });
 
@@ -264,7 +307,9 @@ export function useHostSession(deps: {
           roomId: parsedEnvelope.data.payload.roomId,
           joinCode: parsedEnvelope.data.payload.joinCode,
         });
-        setDisplayConnectToken(parsedEnvelope.data.payload.displayConnectToken ?? null);
+        setDisplayConnectToken(
+          parsedEnvelope.data.payload.displayConnectToken ?? null,
+        );
         setShowAnswerTextOnPlayerDevices(false);
         setScreen("lobby");
         setIsConnectingHost(false);
@@ -279,7 +324,11 @@ export function useHostSession(deps: {
         setCatalog(catalogPayload);
         setGamePlanDraft((current) => {
           if (current) return current;
-          return buildPresetGamePlan("normal_evening", catalogPayload, showAnswerTextOnPlayerDevices);
+          return buildPresetGamePlan(
+            "normal_evening",
+            catalogPayload,
+            showAnswerTextOnPlayerDevices,
+          );
         });
         return;
       }
@@ -290,7 +339,9 @@ export function useHostSession(deps: {
           roomId: parsedEnvelope.data.payload.roomId,
           joinCode: parsedEnvelope.data.payload.joinCode,
         });
-        setDisplayConnectToken(parsedEnvelope.data.payload.displayConnectToken ?? null);
+        setDisplayConnectToken(
+          parsedEnvelope.data.payload.displayConnectToken ?? null,
+        );
         setIsConnectingHost(false);
         setNotice(null);
         if (parsedEnvelope.data.payload.roomState === "waiting") {
@@ -307,13 +358,18 @@ export function useHostSession(deps: {
         const lobbySettings = parsedEnvelope.data.payload.settings;
         setLobby(parsedEnvelope.data.payload);
         setDisplayConnected(parsedEnvelope.data.payload.displayConnected);
-        setShowAnswerTextOnPlayerDevices(lobbySettings.showAnswerTextOnPlayerDevices);
-        if (lobbySettings.moderatorEnabled !== undefined) setModeratorEnabled(lobbySettings.moderatorEnabled);
-        if (lobbySettings.moderatorFrequency !== undefined) setModeratorFrequency(lobbySettings.moderatorFrequency);
+        setShowAnswerTextOnPlayerDevices(
+          lobbySettings.showAnswerTextOnPlayerDevices,
+        );
+        if (lobbySettings.moderatorEnabled !== undefined)
+          setModeratorEnabled(lobbySettings.moderatorEnabled);
+        if (lobbySettings.moderatorFrequency !== undefined)
+          setModeratorFrequency(lobbySettings.moderatorFrequency);
         if (lobbySettings.gamePlanDraft) {
           setGamePlanDraft(lobbySettings.gamePlanDraft);
           setSelectedPlanMode(
-            lobbySettings.gamePlanDraft.mode === "preset" && lobbySettings.gamePlanDraft.presetId
+            lobbySettings.gamePlanDraft.mode === "preset" &&
+              lobbySettings.gamePlanDraft.presetId
               ? lobbySettings.gamePlanDraft.presetId
               : "custom",
           );
@@ -323,14 +379,22 @@ export function useHostSession(deps: {
 
       case EVENTS.PLAYER_DISCONNECTED: {
         const { playerId } = parsedEnvelope.data.payload;
-        const name = lobby?.players.find((p) => p.playerId === playerId)?.name ?? "Spieler";
-        setNotice({ kind: "info", text: `${name} hat die Verbindung verloren (30s Grace-Period)` });
+        const name =
+          lobby?.players.find((p) => p.playerId === playerId)?.name ??
+          "Spieler";
+        setNotice({
+          kind: "info",
+          text: `${name} hat die Verbindung verloren (30s Grace-Period)`,
+        });
         return;
       }
 
       case EVENTS.PLAYER_RECONNECTED:
         setNotice((current) =>
-          current?.kind === "info" && current.text.includes("hat die Verbindung verloren") ? null : current,
+          current?.kind === "info" &&
+          current.text.includes("hat die Verbindung verloren")
+            ? null
+            : current,
         );
         return;
 
@@ -359,7 +423,9 @@ export function useHostSession(deps: {
         return;
 
       case EVENTS.QUESTION_COUNTDOWN:
-        setCountdownSeconds(Math.ceil(parsedEnvelope.data.payload.countdownMs / 1000));
+        setCountdownSeconds(
+          Math.ceil(parsedEnvelope.data.payload.countdownMs / 1000),
+        );
         setCurrentQuestionIndex(parsedEnvelope.data.payload.questionIndex);
         setTotalQuestionCount(parsedEnvelope.data.payload.totalQuestionCount);
         setConfirmFinishNow(false);
@@ -403,7 +469,9 @@ export function useHostSession(deps: {
       case EVENTS.QUESTION_REVEAL:
         setRevealedAnswer(parsedEnvelope.data.payload.correctAnswer);
         setRevealExplanation(parsedEnvelope.data.payload.explanation ?? null);
-        setRevealEstimateContext(parsedEnvelope.data.payload.estimateContext ?? null);
+        setRevealEstimateContext(
+          parsedEnvelope.data.payload.estimateContext ?? null,
+        );
         setRoundResults(parsedEnvelope.data.payload.playerResults);
         setNextQuestionReadyProgress(null);
         setConfirmFinishNow(false);
@@ -472,8 +540,10 @@ export function useHostSession(deps: {
       case EVENTS.ERROR_PROTOCOL:
         setIsConnectingHost(false);
         if (
-          parsedEnvelope.data.payload.code === PROTOCOL_ERROR_CODES.SESSION_NOT_FOUND ||
-          parsedEnvelope.data.payload.code === PROTOCOL_ERROR_CODES.ROOM_NOT_FOUND
+          parsedEnvelope.data.payload.code ===
+            PROTOCOL_ERROR_CODES.SESSION_NOT_FOUND ||
+          parsedEnvelope.data.payload.code ===
+            PROTOCOL_ERROR_CODES.ROOM_NOT_FOUND
         ) {
           // Eine nicht mehr gueltige Session darf nicht weiter automatisch resumed werden.
           updateStoredSession(null);
@@ -484,7 +554,10 @@ export function useHostSession(deps: {
         }
         setNotice({
           kind: "error",
-          text: getHostErrorMessage(parsedEnvelope.data.payload.code, parsedEnvelope.data.payload.message),
+          text: getHostErrorMessage(
+            parsedEnvelope.data.payload.code,
+            parsedEnvelope.data.payload.message,
+          ),
         });
         return;
 
@@ -502,7 +575,10 @@ export function useHostSession(deps: {
       setQrCodeDataUrl(null);
       return;
     }
-    QRCode.toDataURL(getPlayerJoinUrl(roomInfo.joinCode), { margin: 1, width: 400 })
+    QRCode.toDataURL(getPlayerJoinUrl(roomInfo.joinCode), {
+      margin: 1,
+      width: 400,
+    })
       .then(setQrCodeDataUrl)
       .catch(() => setQrCodeDataUrl(null));
   }, [roomInfo?.joinCode]);
@@ -522,10 +598,15 @@ export function useHostSession(deps: {
   const handleCreateRoom = useEffectEvent(() => {
     setIsConnectingHost(true);
     setNotice(null);
-    const sent = sendEvent(EVENTS.HOST_CREATE_ROOM, { clientInfo: createHostClientInfo() });
+    const sent = sendEvent(EVENTS.HOST_CREATE_ROOM, {
+      clientInfo: createHostClientInfo(),
+    });
     if (!sent) {
       setIsConnectingHost(false);
-      setNotice({ kind: "error", text: "Server ist nicht verbunden. Bitte kurz warten." });
+      setNotice({
+        kind: "error",
+        text: "Server ist nicht verbunden. Bitte kurz warten.",
+      });
     }
   });
 
@@ -559,7 +640,10 @@ export function useHostSession(deps: {
       setNotice(null);
       sendEvent(EVENTS.GAME_START, {
         roomId: roomInfo.roomId,
-        gamePlan: { ...gamePlanDraft, excludedQuestionIds: [...loadUsedQuestionIds()] },
+        gamePlan: {
+          ...gamePlanDraft,
+          excludedQuestionIds: [...loadUsedQuestionIds()],
+        },
       });
     }
   });
@@ -573,7 +657,9 @@ export function useHostSession(deps: {
     if (!roomInfo || screen !== "lobby") return;
     setShowAnswerTextOnPlayerDevices(enabled);
     setNotice(null);
-    const nextDraft = gamePlanDraft ? { ...gamePlanDraft, showAnswerTextOnPlayerDevices: enabled } : null;
+    const nextDraft = gamePlanDraft
+      ? { ...gamePlanDraft, showAnswerTextOnPlayerDevices: enabled }
+      : null;
     if (nextDraft) setGamePlanDraft(nextDraft);
     const sent = sendEvent(EVENTS.ROOM_SETTINGS_UPDATE, {
       roomId: roomInfo.roomId,
@@ -582,7 +668,10 @@ export function useHostSession(deps: {
     });
 
     if (!sent) {
-      setNotice({ kind: "error", text: "Einstellung konnte nicht gesendet werden." });
+      setNotice({
+        kind: "error",
+        text: "Einstellung konnte nicht gesendet werden.",
+      });
     }
   });
 
@@ -597,16 +686,18 @@ export function useHostSession(deps: {
     });
   });
 
-  const handleModeratorFrequencyChange = useEffectEvent((freq: ModeratorFrequency) => {
-    if (!roomInfo) return;
-    setModeratorFrequency(freq);
-    sendEvent(EVENTS.ROOM_SETTINGS_UPDATE, {
-      roomId: roomInfo.roomId,
-      showAnswerTextOnPlayerDevices,
-      moderatorEnabled,
-      moderatorFrequency: freq,
-    });
-  });
+  const handleModeratorFrequencyChange = useEffectEvent(
+    (freq: ModeratorFrequency) => {
+      if (!roomInfo) return;
+      setModeratorFrequency(freq);
+      sendEvent(EVENTS.ROOM_SETTINGS_UPDATE, {
+        roomId: roomInfo.roomId,
+        showAnswerTextOnPlayerDevices,
+        moderatorEnabled,
+        moderatorFrequency: freq,
+      });
+    },
+  );
 
   const handleModeratorControl = useEffectEvent((action: "test" | "stop") => {
     if (!roomInfo || !displayConnected) return;
