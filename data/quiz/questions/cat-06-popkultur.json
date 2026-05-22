@@ -10,7 +10,7 @@
     "medien",
     "2000er"
   ],
-  "question_count": 30,
+  "question_count": 32,
   "questions": [
     {
       "id": "q-06-01-a02a242af7",
@@ -923,6 +923,56 @@
       },
       "explanation": "Bandai brachte 1996 das Tamagotchi in Japan auf den Markt. Weltweit wurden ueber 82 Mio. Stueck verkauft.",
       "difficulty": "hard",
+      "points": 1,
+      "category_id": "cat-06"
+    },
+    {
+      "id": "q-06-91995f1ffcc0",
+      "type": "estimate",
+      "prompt": "Wie viele Millionen Zuschauer sahen das Finale von GNTM (Staffel 1, 2004) ungefaehr?",
+      "answer": {
+        "canonical": "ca. 5 Millionen",
+        "reference_value": 5,
+        "unit": "Millionen",
+        "context": "Heidi Klums erster Castingshow-Schrei"
+      },
+      "scoring_rule": "closest_wins",
+      "explanation": "Ca. 5 Millionen Zuschauer sahen das erste GNTM-Finale 2004.",
+      "difficulty": "hard",
+      "points": 1,
+      "category_id": "cat-06"
+    },
+    {
+      "id": "q-06-797d6421abf6",
+      "type": "ranking",
+      "prompt": "Sortiere diese TV-Formate nach ihrem ersten Erscheinungsjahr (aelteste zuerst).",
+      "items": [
+        {
+          "id": "q-06-item-08b2601df7f4",
+          "text": "Big Brother (Deutschland)"
+        },
+        {
+          "id": "q-06-item-5fddc5c47a2a",
+          "text": "Wer wird Millionaer"
+        },
+        {
+          "id": "q-06-item-d4ab13c486ea",
+          "text": "Das Supertalent"
+        },
+        {
+          "id": "q-06-item-57f54c02ca84",
+          "text": "The Voice of Germany"
+        }
+      ],
+      "correct_order": [
+        "q-06-item-5fddc5c47a2a",
+        "q-06-item-08b2601df7f4",
+        "q-06-item-d4ab13c486ea",
+        "q-06-item-57f54c02ca84"
+      ],
+      "scoring_rule": "exact_order",
+      "explanation": "Wer wird Millionaer (1999), Big Brother (2000), Das Supertalent (2007), The Voice of Germany (2011).",
+      "difficulty": "medium",
       "points": 1,
       "category_id": "cat-06"
     }

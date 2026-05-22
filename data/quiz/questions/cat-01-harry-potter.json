@@ -10,7 +10,7 @@
     "popkultur",
     "schwer"
   ],
-  "question_count": 32,
+  "question_count": 33,
   "questions": [
     {
       "id": "q-01-01-6a920e98bc",
@@ -990,6 +990,22 @@
       },
       "explanation": "Ollivander verkauft Harry den Zauberstab mit dem Phoenixfeder-Kern, der Bruder von Voldemorts Zauberstab.",
       "difficulty": "medium",
+      "points": 1,
+      "category_id": "cat-01"
+    },
+    {
+      "id": "q-01-30c8490c276e",
+      "type": "estimate",
+      "prompt": "Wie viele Hauspunkte hat Gryffindor am Ende von Stein der Weisen ungefaehr (inkl. Bonuspunkte fuer Harrys Team)?",
+      "answer": {
+        "canonical": "ca. 482 Punkte",
+        "reference_value": 482,
+        "unit": "Punkte",
+        "context": "Dumbledore verteilt letzte Punkte: 50 fuer Ron, 50 fuer Hermione, 60 fuer Harry, 10 fuer Neville"
+      },
+      "scoring_rule": "closest_wins",
+      "explanation": "Gryffindor bekam am Ende 482 Punkte dank Dumbledores Bonuspunkte und gewann den Hauspokal.",
+      "difficulty": "hard",
       "points": 1,
       "category_id": "cat-01"
     }

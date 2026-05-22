@@ -4,7 +4,7 @@
   "name": "Cringe Millennial-Slang & Internet-Fossilien",
   "difficulty": "medium_hard",
   "tags": [],
-  "question_count": 39,
+  "question_count": 40,
   "questions": [
     {
       "id": "q-03-01-a1f969d060",
@@ -1199,6 +1199,22 @@
       },
       "explanation": "Omegle verband ab 2009 zufaellige Fremde. 2023 wurde es abgeschaltet.",
       "difficulty": "easy",
+      "points": 1,
+      "category_id": "cat-03"
+    },
+    {
+      "id": "q-03-345db7d7b56f",
+      "type": "estimate",
+      "prompt": "In welchem Jahr wurde ICQ zum ersten Mal veroeffentlicht?",
+      "answer": {
+        "canonical": "1996",
+        "reference_value": 1996,
+        "unit": "Jahr",
+        "context": "Israelisches Startup Mirabilis"
+      },
+      "scoring_rule": "closest_wins",
+      "explanation": "ICQ kam 1996 auf den Markt und war einer der ersten Instant Messenger weltweit.",
+      "difficulty": "hard",
       "points": 1,
       "category_id": "cat-03"
     }

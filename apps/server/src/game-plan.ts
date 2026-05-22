@@ -36,6 +36,7 @@ const TYPE_WEIGHTS: Record<GamePlanPresetId, Partial<Record<QuestionType, number
     [QuestionType.Estimate]: 2,
     [QuestionType.Logic]: 2,
     [QuestionType.Ranking]: 0.8,
+    [QuestionType.OpenText]: 0.6,
   },
   full_evening: {
     [QuestionType.MultipleChoice]: 4,
@@ -49,13 +50,15 @@ const TYPE_WEIGHTS: Record<GamePlanPresetId, Partial<Record<QuestionType, number
     [QuestionType.MultipleChoice]: 5,
     [QuestionType.MajorityGuess]: 4,
     [QuestionType.Estimate]: 2,
+    [QuestionType.OpenText]: 1,
+    [QuestionType.Ranking]: 1,
   },
 };
 
 const TYPE_CAPS: Partial<Record<GamePlanPresetId, Partial<Record<QuestionType, number>>>> = {
   normal_evening: {
     [QuestionType.Ranking]: 2,
-    [QuestionType.OpenText]: 0,
+    [QuestionType.OpenText]: 2,
   },
   full_evening: {
     [QuestionType.Ranking]: 3,

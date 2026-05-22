@@ -11,7 +11,7 @@
     "viva",
     "2000er"
   ],
-  "question_count": 34,
+  "question_count": 36,
   "questions": [
     {
       "id": "q-08-01-8ccf55f992",
@@ -1847,6 +1847,56 @@
       },
       "explanation": "Juli aus Freiburg hatten 2004/2005 mit 'Geile Zeit' und 'Perfekte Welle' riesige Hits.",
       "difficulty": "easy",
+      "points": 1,
+      "category_id": "cat-08"
+    },
+    {
+      "id": "q-08-fff06fb47f4c",
+      "type": "estimate",
+      "prompt": "Wie viele Wochen war Last Christmas von Wham! auf Platz 1 der deutschen Charts (2023)?",
+      "answer": {
+        "canonical": "ca. 4 Wochen",
+        "reference_value": 4,
+        "unit": "Wochen",
+        "context": "Der ewige Weihnachts-Hit schaffte es endlich auf Platz 1"
+      },
+      "scoring_rule": "closest_wins",
+      "explanation": "Last Christmas erreichte 2023 erstmals Platz 1 in Deutschland und hielt sich dort ca. 4 Wochen.",
+      "difficulty": "hard",
+      "points": 1,
+      "category_id": "cat-08"
+    },
+    {
+      "id": "q-08-693100facadf",
+      "type": "ranking",
+      "prompt": "Sortiere diese One-Hit-Wonder nach ihrem Erscheinungsjahr (aelteste zuerst).",
+      "items": [
+        {
+          "id": "q-08-item-d74087f4ce76",
+          "text": "Mambo No. 5 (Lou Bega)"
+        },
+        {
+          "id": "q-08-item-60796275ba40",
+          "text": "Kuschel Song (Schnuffel)"
+        },
+        {
+          "id": "q-08-item-cdd4478b9178",
+          "text": "Gangnam Style (PSY)"
+        },
+        {
+          "id": "q-08-item-1e86bcf8e5d7",
+          "text": "Crazy Frog (Axel F)"
+        }
+      ],
+      "correct_order": [
+        "q-08-item-d74087f4ce76",
+        "q-08-item-1e86bcf8e5d7",
+        "q-08-item-60796275ba40",
+        "q-08-item-cdd4478b9178"
+      ],
+      "scoring_rule": "exact_order",
+      "explanation": "Mambo No. 5 (1999), Crazy Frog (2005), Kuschel Song (2007), Gangnam Style (2012).",
+      "difficulty": "medium",
       "points": 1,
       "category_id": "cat-08"
     }

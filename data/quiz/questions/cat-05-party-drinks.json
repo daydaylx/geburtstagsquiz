@@ -4,7 +4,7 @@
   "name": "Saufen, Feiern & toxische Jugend-Drinks",
   "difficulty": "medium",
   "tags": [],
-  "question_count": 45,
+  "question_count": 47,
   "questions": [
     {
       "id": "q-05-01-dcbbe9ff6d",
@@ -1411,6 +1411,49 @@
         ]
       },
       "explanation": "Bekannt als Diesel (oder auch Kalter Kaffee). In Oesterreich oft als Gespritzter bezeichnet.",
+      "difficulty": "easy",
+      "points": 1,
+      "category_id": "cat-05"
+    },
+    {
+      "id": "q-05-3cbe870d424e",
+      "type": "estimate",
+      "prompt": "Wie viele Gramm reinen Alkohol enthaelt ein Standardglas Bier (0,33 l, 5 Vol%)?",
+      "answer": {
+        "canonical": "ca. 13 Gramm",
+        "reference_value": 13,
+        "unit": "Gramm",
+        "context": "Formel: Volumen in ml x Vol% x 0,8 Dichte"
+      },
+      "scoring_rule": "closest_wins",
+      "explanation": "330 ml x 0,05 x 0,8 = 13,2 g reiner Alkohol pro Standard-Bier.",
+      "difficulty": "medium",
+      "points": 1,
+      "category_id": "cat-05"
+    },
+    {
+      "id": "q-05-c5c2bf908524",
+      "type": "majority_guess",
+      "prompt": "Beim Grillen: Was trinkst du dazu?",
+      "options": [
+        {
+          "id": "q-05-opt-07f5c074a060",
+          "text": "Eiskaltes Bier"
+        },
+        {
+          "id": "q-05-opt-fd2d525ad898",
+          "text": "Erfrischende Limo"
+        },
+        {
+          "id": "q-05-opt-4f82a3c868fd",
+          "text": "Ein Glas Wein"
+        },
+        {
+          "id": "q-05-opt-a03ef855cd2c",
+          "text": "Einfach Wasser"
+        }
+      ],
+      "explanation": "Die Mehrheit entscheidet! Prost.",
       "difficulty": "easy",
       "points": 1,
       "category_id": "cat-05"

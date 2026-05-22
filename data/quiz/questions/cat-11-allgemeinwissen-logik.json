@@ -4,7 +4,7 @@
   "name": "Allgemeinwissen & Logik",
   "difficulty": "medium",
   "tags": [],
-  "question_count": 53,
+  "question_count": 54,
   "questions": [
     {
       "id": "q-11-01-e2f91b4a",
@@ -1680,6 +1680,40 @@
         }
       ],
       "explanation": "Blau ist weltweit die beliebteste Farbe (ca. 40% der Menschen waehlen sie).",
+      "difficulty": "easy",
+      "points": 1,
+      "category_id": "cat-11"
+    },
+    {
+      "id": "q-11-0afde36f9973",
+      "type": "ranking",
+      "prompt": "Sortiere diese Laender nach ihrer Einwohnerzahl (groesstes zuerst).",
+      "items": [
+        {
+          "id": "q-11-item-423b8b0acf1e",
+          "text": "Oesterreich"
+        },
+        {
+          "id": "q-11-item-4c30dd3f67f5",
+          "text": "Luxemburg"
+        },
+        {
+          "id": "q-11-item-0dbcd79d2b62",
+          "text": "Deutschland"
+        },
+        {
+          "id": "q-11-item-3cdb1f02f058",
+          "text": "Schweiz"
+        }
+      ],
+      "correct_order": [
+        "q-11-item-0dbcd79d2b62",
+        "q-11-item-423b8b0acf1e",
+        "q-11-item-3cdb1f02f058",
+        "q-11-item-4c30dd3f67f5"
+      ],
+      "scoring_rule": "exact_order",
+      "explanation": "Deutschland (84 Mio.), Oesterreich (9 Mio.), Schweiz (8,8 Mio.), Luxemburg (0,65 Mio.).",
       "difficulty": "easy",
       "points": 1,
       "category_id": "cat-11"

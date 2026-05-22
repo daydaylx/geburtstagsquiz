@@ -10,7 +10,7 @@
     "nostalgie",
     "frust"
   ],
-  "question_count": 33,
+  "question_count": 35,
   "questions": [
     {
       "id": "q-07-05-658e3a665d",
@@ -1184,6 +1184,49 @@
       },
       "explanation": "Der Konami Code wurde erstmals 1986 in Gradius verwendet und wurde zum Popkultur-Paenomen.",
       "difficulty": "medium",
+      "points": 1,
+      "category_id": "cat-07"
+    },
+    {
+      "id": "q-07-18c89d75696e",
+      "type": "estimate",
+      "prompt": "Wie viele Level hat das originale Super Mario Bros. (NES, 1985)?",
+      "answer": {
+        "canonical": "32 Level",
+        "reference_value": 32,
+        "unit": "Level",
+        "context": "8 Welten mit je 4 Leveln"
+      },
+      "scoring_rule": "closest_wins",
+      "explanation": "8 Welten x 4 Level = 32 Level insgesamt im originalen Super Mario Bros.",
+      "difficulty": "medium",
+      "points": 1,
+      "category_id": "cat-07"
+    },
+    {
+      "id": "q-07-46866a24c570",
+      "type": "majority_guess",
+      "prompt": "Welches war dein erstes Videospiel auf einem Gameboy?",
+      "options": [
+        {
+          "id": "q-07-opt-d467c4f7aeb6",
+          "text": "Pokemon (Rot/Blau)"
+        },
+        {
+          "id": "q-07-opt-c0376a5f236d",
+          "text": "Super Mario Land"
+        },
+        {
+          "id": "q-07-opt-7172c57a1673",
+          "text": "Tetris"
+        },
+        {
+          "id": "q-07-opt-f86f8c41ffe7",
+          "text": "Zelda: Link's Awakening"
+        }
+      ],
+      "explanation": "Die Mehrheit entscheidet! Nostalgie pur.",
+      "difficulty": "easy",
       "points": 1,
       "category_id": "cat-07"
     }
