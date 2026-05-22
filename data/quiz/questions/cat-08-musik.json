@@ -3,7 +3,14 @@
   "slug": "musikalische-jugendsunden-emo-phasen",
   "name": "Musikalische Jugendsünden & Emo-Phasen",
   "difficulty": "medium",
-  "tags": ["musik", "emo", "boybands", "mtv", "viva", "2000er"],
+  "tags": [
+    "musik",
+    "emo",
+    "boybands",
+    "mtv",
+    "viva",
+    "2000er"
+  ],
   "question_count": 32,
   "questions": [
     {
@@ -30,25 +37,35 @@
         },
         {
           "id": "q-08-01-8ccf55f992-opt-3",
-          "text": "Panik",
+          "text": "Panik (Ulk-Band)",
           "is_correct": false
         },
         {
           "id": "q-08-01-8ccf55f992-opt-4",
-          "text": "Echt",
+          "text": "Echt (Pop-Band)",
           "is_correct": false
         }
       ],
       "correct_option_id": "q-08-01-8ccf55f992-opt-2",
       "answer": {
         "canonical": "Tokio Hotel",
-        "aliases": ["Tokio Hotel", "tokio hotel"],
+        "aliases": [
+          "Tokio Hotel",
+          "tokio hotel"
+        ],
         "alternatives": [],
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Es war Tokio Hotel. Bill Kaulitz' Frisur hatte damals mehr Volumen als unsere gesamte Zukunftshoffnung. Wer nicht mindestens ein Poster von ihnen hatte, lügt oder war damals schon 'zu cool'.",
-      "tags": ["musik", "emo", "boybands", "mtv", "viva", "2000er"],
+      "tags": [
+        "musik",
+        "emo",
+        "boybands",
+        "mtv",
+        "viva",
+        "2000er"
+      ],
       "source": {
         "imported_from_category_name": "Musikalische Jugendsünden & Emo-Phasen"
       },
@@ -94,13 +111,23 @@
       "correct_option_id": "q-08-02-16149da58b-opt-3",
       "answer": {
         "canonical": "Bill Kaulitz",
-        "aliases": ["Bill Kaulitz", "bill kaulitz"],
+        "aliases": [
+          "Bill Kaulitz",
+          "bill kaulitz"
+        ],
         "alternatives": [],
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Bill Kaulitz, heute eher als Heidi Klums Schwager bekannt. Damals war er der Grund, warum wir alle schwarzen Nagellack und Kajal ausprobiert haben.",
-      "tags": ["musik", "emo", "boybands", "mtv", "viva", "2000er"],
+      "tags": [
+        "musik",
+        "emo",
+        "boybands",
+        "mtv",
+        "viva",
+        "2000er"
+      ],
       "source": {
         "imported_from_category_name": "Musikalische Jugendsünden & Emo-Phasen"
       },
@@ -146,13 +173,23 @@
       "correct_option_id": "q-08-03-27ef7774ea-opt-4",
       "answer": {
         "canonical": "My Chemical Romance",
-        "aliases": ["My Chemical Romance", "my chemical romance"],
+        "aliases": [
+          "My Chemical Romance",
+          "my chemical romance"
+        ],
         "alternatives": [],
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "My Chemical Romance – die Nationalhymne für jeden, der jemals Goth sein wollte. Wenn das erste Piano-G erklingt, wissen wir alle Bescheid.",
-      "tags": ["musik", "emo", "boybands", "mtv", "viva", "2000er"],
+      "tags": [
+        "musik",
+        "emo",
+        "boybands",
+        "mtv",
+        "viva",
+        "2000er"
+      ],
       "source": {
         "imported_from_category_name": "Musikalische Jugendsünden & Emo-Phasen"
       },
@@ -198,13 +235,23 @@
       "correct_option_id": "q-08-04-c596b4329f-opt-1",
       "answer": {
         "canonical": "Backstreet Boys",
-        "aliases": ["Backstreet Boys", "backstreet boys"],
+        "aliases": [
+          "Backstreet Boys",
+          "backstreet boys"
+        ],
         "alternatives": [],
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Backstreet Boys natürlich. Das Musikvideo zu 'Everybody' war quasi unser erster Horrorfilm-Ersatz.",
-      "tags": ["musik", "emo", "boybands", "mtv", "viva", "2000er"],
+      "tags": [
+        "musik",
+        "emo",
+        "boybands",
+        "mtv",
+        "viva",
+        "2000er"
+      ],
       "source": {
         "imported_from_category_name": "Musikalische Jugendsünden & Emo-Phasen"
       },
@@ -250,13 +297,23 @@
       "correct_option_id": "q-08-05-ee47cd381f-opt-2",
       "answer": {
         "canonical": "*NSYNC",
-        "aliases": ["*NSYNC", "*nsync"],
+        "aliases": [
+          "*NSYNC",
+          "*nsync"
+        ],
         "alternatives": [],
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Richtig ist *NSYNC. Der Song 'Bye Bye Bye' verhalf Justin Timberlake zur Weltkarriere und uns zu dieser Marionetten-Choreografie.",
-      "tags": ["musik", "emo", "boybands", "mtv", "viva", "2000er"],
+      "tags": [
+        "musik",
+        "emo",
+        "boybands",
+        "mtv",
+        "viva",
+        "2000er"
+      ],
       "source": {
         "imported_from_category_name": "Musikalische Jugendsünden & Emo-Phasen"
       },
@@ -302,13 +359,23 @@
       "correct_option_id": "q-08-06-26124d80ad-opt-1",
       "answer": {
         "canonical": "US5",
-        "aliases": ["US5", "us5"],
+        "aliases": [
+          "US5",
+          "us5"
+        ],
         "alternatives": [],
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "US5 – Richie, Chris, Jay, Mikel und Izzy. 'Maria' war damals überall, ob wir wollten oder nicht.",
-      "tags": ["musik", "emo", "boybands", "mtv", "viva", "2000er"],
+      "tags": [
+        "musik",
+        "emo",
+        "boybands",
+        "mtv",
+        "viva",
+        "2000er"
+      ],
       "source": {
         "imported_from_category_name": "Musikalische Jugendsünden & Emo-Phasen"
       },
@@ -354,13 +421,23 @@
       "correct_option_id": "q-08-07-29aa11fa2f-opt-2",
       "answer": {
         "canonical": "Avril Lavigne",
-        "aliases": ["Avril Lavigne", "avril lavigne"],
+        "aliases": [
+          "Avril Lavigne",
+          "avril lavigne"
+        ],
         "alternatives": [],
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Avril Lavigne war der Grund für Krawatten über T-Shirts und das Gefühl, unglaublich rebellisch zu sein.",
-      "tags": ["musik", "emo", "boybands", "mtv", "viva", "2000er"],
+      "tags": [
+        "musik",
+        "emo",
+        "boybands",
+        "mtv",
+        "viva",
+        "2000er"
+      ],
       "source": {
         "imported_from_category_name": "Musikalische Jugendsünden & Emo-Phasen"
       },
@@ -406,13 +483,23 @@
       "correct_option_id": "q-08-08-fbb59d3395-opt-2",
       "answer": {
         "canonical": "Tokio Hotel",
-        "aliases": ["Tokio Hotel", "tokio hotel"],
+        "aliases": [
+          "Tokio Hotel",
+          "tokio hotel"
+        ],
         "alternatives": [],
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Wieder Tokio Hotel. 'Schrei!' war das Motto, das wir heute eher beim Blick auf die Gasrechnung beherzigen.",
-      "tags": ["musik", "emo", "boybands", "mtv", "viva", "2000er"],
+      "tags": [
+        "musik",
+        "emo",
+        "boybands",
+        "mtv",
+        "viva",
+        "2000er"
+      ],
       "source": {
         "imported_from_category_name": "Musikalische Jugendsünden & Emo-Phasen"
       },
@@ -458,20 +545,31 @@
       "correct_option_id": "q-08-09-c27d59c960-opt-2",
       "answer": {
         "canonical": "Axel F",
-        "aliases": ["Axel F"],
+        "aliases": [
+          "Axel F"
+        ],
         "alternatives": [],
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Der Crazy Frog mit 'Axel F'. Das dunkle Zeitalter der Jamba-Sparabos und Klingeltöne, die uns in den Wahnsinn trieben.",
-      "tags": ["musik", "emo", "boybands", "mtv", "viva", "2000er"],
+      "tags": [
+        "musik",
+        "emo",
+        "boybands",
+        "mtv",
+        "viva",
+        "2000er"
+      ],
       "source": {
         "imported_from_category_name": "Musikalische Jugendsünden & Emo-Phasen"
       },
       "validation": {
         "auto_generated_options": true,
         "needs_manual_review": false,
-        "review_flags": ["externally_fact_checked"],
+        "review_flags": [
+          "externally_fact_checked"
+        ],
         "external_fact_check": {
           "status": "verified",
           "note": "Die vorherige Mischantwort aus Figur und Urheber wurde auf die klare Werkfrage reduziert.",
@@ -502,12 +600,12 @@
       "options": [
         {
           "id": "q-08-10-f5000efdb2-opt-1",
-          "text": "Ein Parfüm für Teenager",
+          "text": "Ein trendiges Parfüm für Teenager-Mädchen",
           "is_correct": false
         },
         {
           "id": "q-08-10-f5000efdb2-opt-2",
-          "text": "Eine Konzertreihe von MTV",
+          "text": "Eine große Konzertreihe von MTV und VIVA",
           "is_correct": false
         },
         {
@@ -517,7 +615,7 @@
         },
         {
           "id": "q-08-10-f5000efdb2-opt-4",
-          "text": "Ein Energy-Drink für Teens",
+          "text": "Ein koffeinhaltiger Energy-Drink für Teenager",
           "is_correct": false
         }
       ],
@@ -533,7 +631,14 @@
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Bravo Hits war unsere Bibel auf zwei CDs. Wer die neueste Ausgabe hatte, war der König auf jeder Klassenfahrt.",
-      "tags": ["musik", "emo", "boybands", "mtv", "viva", "2000er"],
+      "tags": [
+        "musik",
+        "emo",
+        "boybands",
+        "mtv",
+        "viva",
+        "2000er"
+      ],
       "source": {
         "imported_from_category_name": "Musikalische Jugendsünden & Emo-Phasen"
       },
@@ -579,13 +684,23 @@
       "correct_option_id": "q-08-11-93bb20f9c0-opt-4",
       "answer": {
         "canonical": "Wheatus",
-        "aliases": ["Wheatus", "wheatus"],
+        "aliases": [
+          "Wheatus",
+          "wheatus"
+        ],
         "alternatives": [],
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Wheatus mit 'Teenage Dirtbag'. Der Song für alle, die sich als missverstandene Außenseiter fühlten.",
-      "tags": ["musik", "emo", "boybands", "mtv", "viva", "2000er"],
+      "tags": [
+        "musik",
+        "emo",
+        "boybands",
+        "mtv",
+        "viva",
+        "2000er"
+      ],
       "source": {
         "imported_from_category_name": "Musikalische Jugendsünden & Emo-Phasen"
       },
@@ -631,13 +746,23 @@
       "correct_option_id": "q-08-12-1d5638fafe-opt-2",
       "answer": {
         "canonical": "O-Zone",
-        "aliases": ["O-Zone", "o-zone"],
+        "aliases": [
+          "O-Zone",
+          "o-zone"
+        ],
         "alternatives": [],
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "O-Zone. Der moldauische Party-Hit 'Dragostea Din Tei', den jeder mitsingen kann, aber keiner versteht.",
-      "tags": ["musik", "emo", "boybands", "mtv", "viva", "2000er"],
+      "tags": [
+        "musik",
+        "emo",
+        "boybands",
+        "mtv",
+        "viva",
+        "2000er"
+      ],
       "source": {
         "imported_from_category_name": "Musikalische Jugendsünden & Emo-Phasen"
       },
@@ -683,13 +808,23 @@
       "correct_option_id": "q-08-13-3356a1a3b7-opt-3",
       "answer": {
         "canonical": "The Ketchup Song (Aserejé)",
-        "aliases": ["The Ketchup Song (Aserejé)", "the ketchup song (aserejé)"],
+        "aliases": [
+          "The Ketchup Song (Aserejé)",
+          "the ketchup song (aserejé)"
+        ],
         "alternatives": [],
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "The Ketchup Song. Wer die Handbewegung dazu nicht mehr kann, hat die 2000er offiziell gelöscht.",
-      "tags": ["musik", "emo", "boybands", "mtv", "viva", "2000er"],
+      "tags": [
+        "musik",
+        "emo",
+        "boybands",
+        "mtv",
+        "viva",
+        "2000er"
+      ],
       "source": {
         "imported_from_category_name": "Musikalische Jugendsünden & Emo-Phasen"
       },
@@ -735,13 +870,23 @@
       "correct_option_id": "q-08-14-0c6be0fb77-opt-4",
       "answer": {
         "canonical": "Christina Aguilera",
-        "aliases": ["Christina Aguilera", "christina aguilera"],
+        "aliases": [
+          "Christina Aguilera",
+          "christina aguilera"
+        ],
         "alternatives": [],
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Christina Aguilera. Ihr Imagewechsel von 'Genie in a Bottle' zu 'Xtina' schockierte unsere Eltern mehr als unsere Noten.",
-      "tags": ["musik", "emo", "boybands", "mtv", "viva", "2000er"],
+      "tags": [
+        "musik",
+        "emo",
+        "boybands",
+        "mtv",
+        "viva",
+        "2000er"
+      ],
       "source": {
         "imported_from_category_name": "Musikalische Jugendsünden & Emo-Phasen"
       },
@@ -787,13 +932,23 @@
       "correct_option_id": "q-08-15-5813a81ba3-opt-1",
       "answer": {
         "canonical": "Juli",
-        "aliases": ["Juli", "juli"],
+        "aliases": [
+          "Juli",
+          "juli"
+        ],
         "alternatives": [],
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Juli mit 'Perfekte Welle'. Der Song markierte den Peak des Deutsch-Pop-Revivals der Mitt-2000er.",
-      "tags": ["musik", "emo", "boybands", "mtv", "viva", "2000er"],
+      "tags": [
+        "musik",
+        "emo",
+        "boybands",
+        "mtv",
+        "viva",
+        "2000er"
+      ],
       "source": {
         "imported_from_category_name": "Musikalische Jugendsünden & Emo-Phasen"
       },
@@ -817,7 +972,7 @@
       "options": [
         {
           "id": "q-08-16-9765938c7b-opt-1",
-          "text": "Juli",
+          "text": "Juli (Indie-Pop)",
           "is_correct": false
         },
         {
@@ -827,25 +982,35 @@
         },
         {
           "id": "q-08-16-9765938c7b-opt-3",
-          "text": "Echt",
+          "text": "Echt (Pop-Rock)",
           "is_correct": false
         },
         {
           "id": "q-08-16-9765938c7b-opt-4",
-          "text": "Die Happy",
+          "text": "Die Happy (Rock-Band)",
           "is_correct": false
         }
       ],
       "correct_option_id": "q-08-16-9765938c7b-opt-2",
       "answer": {
         "canonical": "Silbermond",
-        "aliases": ["Silbermond", "silbermond"],
+        "aliases": [
+          "Silbermond",
+          "silbermond"
+        ],
         "alternatives": [],
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Silbermond mit 'Symphonie'. Steff Kloß trieb uns die Tränen in die Augen, während wir heftigen Liebeskummer simulierten.",
-      "tags": ["musik", "emo", "boybands", "mtv", "viva", "2000er"],
+      "tags": [
+        "musik",
+        "emo",
+        "boybands",
+        "mtv",
+        "viva",
+        "2000er"
+      ],
       "source": {
         "imported_from_category_name": "Musikalische Jugendsünden & Emo-Phasen"
       },
@@ -891,13 +1056,23 @@
       "correct_option_id": "q-08-17-1cfebd3cdc-opt-4",
       "answer": {
         "canonical": "Eiffel 65",
-        "aliases": ["Eiffel 65", "eiffel 65"],
+        "aliases": [
+          "Eiffel 65",
+          "eiffel 65"
+        ],
         "alternatives": [],
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Eiffel 65. Ein Song über einen blauen Typen in einer blauen Welt. Klingt wie ein durchschnittlicher Kater-Sonntag.",
-      "tags": ["musik", "emo", "boybands", "mtv", "viva", "2000er"],
+      "tags": [
+        "musik",
+        "emo",
+        "boybands",
+        "mtv",
+        "viva",
+        "2000er"
+      ],
       "source": {
         "imported_from_category_name": "Musikalische Jugendsünden & Emo-Phasen"
       },
@@ -943,13 +1118,23 @@
       "correct_option_id": "q-08-18-3690b434a9-opt-2",
       "answer": {
         "canonical": "Kelly Clarkson",
-        "aliases": ["Kelly Clarkson", "kelly clarkson"],
+        "aliases": [
+          "Kelly Clarkson",
+          "kelly clarkson"
+        ],
         "alternatives": [],
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Kelly Clarkson. Ein Song mit so viel Power, dass wir beim Mitsingen fast den Gangschalthebel abgebrochen hätten.",
-      "tags": ["musik", "emo", "boybands", "mtv", "viva", "2000er"],
+      "tags": [
+        "musik",
+        "emo",
+        "boybands",
+        "mtv",
+        "viva",
+        "2000er"
+      ],
       "source": {
         "imported_from_category_name": "Musikalische Jugendsünden & Emo-Phasen"
       },
@@ -995,13 +1180,23 @@
       "correct_option_id": "q-08-19-51f3b7380c-opt-1",
       "answer": {
         "canonical": "Krokodil",
-        "aliases": ["Krokodil", "krokodil"],
+        "aliases": [
+          "Krokodil",
+          "krokodil"
+        ],
         "alternatives": [],
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Schnappi, das kleine Krokodil. Ein Kindersong in den Charts – das 'Baby Shark' unserer Jugend.",
-      "tags": ["musik", "emo", "boybands", "mtv", "viva", "2000er"],
+      "tags": [
+        "musik",
+        "emo",
+        "boybands",
+        "mtv",
+        "viva",
+        "2000er"
+      ],
       "source": {
         "imported_from_category_name": "Musikalische Jugendsünden & Emo-Phasen"
       },
@@ -1047,13 +1242,23 @@
       "correct_option_id": "q-08-20-b009acf75c-opt-4",
       "answer": {
         "canonical": "Linkin Park",
-        "aliases": ["Linkin Park", "linkin park"],
+        "aliases": [
+          "Linkin Park",
+          "linkin park"
+        ],
         "alternatives": [],
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Linkin Park. Chesters Stimme war der Soundtrack zu unserem Weltschmerz. 'I tried so hard...' ist die Geschichte unseres Lebens.",
-      "tags": ["musik", "emo", "boybands", "mtv", "viva", "2000er"],
+      "tags": [
+        "musik",
+        "emo",
+        "boybands",
+        "mtv",
+        "viva",
+        "2000er"
+      ],
       "source": {
         "imported_from_category_name": "Musikalische Jugendsünden & Emo-Phasen"
       },
@@ -1109,14 +1314,23 @@
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Der Emo-Bangs. Dass wir dabei ständig gegen Türrahmen gelaufen sind, weil wir nur ein Auge benutzt haben, gehört zur Legende.",
-      "tags": ["musik", "emo", "boybands", "mtv", "viva", "2000er"],
+      "tags": [
+        "musik",
+        "emo",
+        "boybands",
+        "mtv",
+        "viva",
+        "2000er"
+      ],
       "source": {
         "imported_from_category_name": "Musikalische Jugendsünden & Emo-Phasen"
       },
       "validation": {
         "auto_generated_options": true,
         "needs_manual_review": false,
-        "review_flags": ["externally_fact_checked"],
+        "review_flags": [
+          "externally_fact_checked"
+        ],
         "external_fact_check": {
           "status": "editorial_normalized",
           "note": "Eine diffuse Sammelantwort wurde auf ein klareres, quiztauglicheres Stilklischee reduziert.",
@@ -1160,13 +1374,23 @@
       "correct_option_id": "q-08-22-b39f6fad81-opt-2",
       "answer": {
         "canonical": "Lady Gaga",
-        "aliases": ["Lady Gaga", "lady gaga"],
+        "aliases": [
+          "Lady Gaga",
+          "lady gaga"
+        ],
         "alternatives": [],
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Lady Gaga. Mit ihr wurde Pop wieder schräg und absolut verwirrend. Wir haben versucht, ihre Outfits aus Mülltüten nachzubauen.",
-      "tags": ["musik", "emo", "boybands", "mtv", "viva", "2000er"],
+      "tags": [
+        "musik",
+        "emo",
+        "boybands",
+        "mtv",
+        "viva",
+        "2000er"
+      ],
       "source": {
         "imported_from_category_name": "Musikalische Jugendsünden & Emo-Phasen"
       },
@@ -1212,13 +1436,23 @@
       "correct_option_id": "q-08-23-0661ff062d-opt-1",
       "answer": {
         "canonical": "Avril Lavigne",
-        "aliases": ["Avril Lavigne", "avril lavigne"],
+        "aliases": [
+          "Avril Lavigne",
+          "avril lavigne"
+        ],
         "alternatives": [],
         "case_sensitive": false,
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Avril Lavigne mit 'Sk8er Boi'. Wir wollten alle so cool skaten können, sind aber meistens nach 2 Metern hingefallen.",
-      "tags": ["musik", "emo", "boybands", "mtv", "viva", "2000er"],
+      "tags": [
+        "musik",
+        "emo",
+        "boybands",
+        "mtv",
+        "viva",
+        "2000er"
+      ],
       "source": {
         "imported_from_category_name": "Musikalische Jugendsünden & Emo-Phasen"
       },
@@ -1273,7 +1507,14 @@
         "match_strategy": "alias_or_option_id"
       },
       "explanation": "Autotune – der T-Pain-Effekt. Es machte jeden zum Sänger, solange man bereit war, wie ein Roboter mit Schluckauf zu klingen.",
-      "tags": ["musik", "emo", "boybands", "mtv", "viva", "2000er"],
+      "tags": [
+        "musik",
+        "emo",
+        "boybands",
+        "mtv",
+        "viva",
+        "2000er"
+      ],
       "source": {
         "imported_from_category_name": "Musikalische Jugendsünden & Emo-Phasen"
       },
@@ -1303,18 +1544,22 @@
         },
         {
           "id": "opt-3",
-          "text": "Ein Schrei von Gerard Way",
+          "text": "Ein markerschütternder Schrei von Gerard Way",
           "is_correct": false
         },
         {
           "id": "opt-4",
-          "text": "Stille für 5 Sekunden",
+          "text": "Stille für genau 5 Sekunden am Stück",
           "is_correct": false
         }
       ],
       "correct_option_id": "opt-1",
       "explanation": "Nach der Piano-Note folgt der ikonische Marschtrommel-Rhythmus, der 'Welcome to the Black Parade' zur Nationalhymne aller Außenseiter machte.",
-      "tags": ["emo", "musik", "pattern"]
+      "tags": [
+        "emo",
+        "musik",
+        "pattern"
+      ]
     },
     {
       "id": "q-08-04",
@@ -1331,23 +1576,28 @@
         },
         {
           "id": "opt-2",
-          "text": "Das rülpsende Steak",
+          "text": "Das laut rülpsende und rülpserde Steak",
           "is_correct": false
         },
         {
           "id": "opt-3",
-          "text": "Die depressive Gurke",
+          "text": "Die chronisch depressive und traurige Gurke",
           "is_correct": false
         },
         {
           "id": "opt-4",
-          "text": "Der aggressive Igel",
+          "text": "Der wütend aggressive und kleine Igel",
           "is_correct": false
         }
       ],
       "correct_option_id": "opt-1",
       "explanation": "Der Crazy Frog (Axel F) war so erfolgreich, dass er in England sogar Coldplay von Platz 1 stieß. Ein Tiefpunkt der Menschheitsgeschichte.",
-      "tags": ["jamba", "2000er", "musik", "common_mistake"]
+      "tags": [
+        "jamba",
+        "2000er",
+        "musik",
+        "common_mistake"
+      ]
     },
     {
       "id": "q-08-05",
@@ -1375,7 +1625,11 @@
         }
       ],
       "explanation": "Egal was ihr wählt, wir haben es alle getragen und es gibt Beweisfotos bei euren Eltern im Schrank.",
-      "tags": ["fashion", "trends", "majority_guess"]
+      "tags": [
+        "fashion",
+        "trends",
+        "majority_guess"
+      ]
     },
     {
       "id": "q-08-09",
@@ -1408,7 +1662,12 @@
       ],
       "correct_option_id": "opt-1",
       "explanation": "Der Protagonist 'Diego' im Song versucht 'Rapper's Delight' mitzusingen, versteht aber kein Englisch. 'Aserejé' ist sein Versuch von 'I said a hip'.",
-      "tags": ["lyrics", "trivia", "las-ketchup", "fast_guess"]
+      "tags": [
+        "lyrics",
+        "trivia",
+        "las-ketchup",
+        "fast_guess"
+      ]
     },
     {
       "id": "q-08-10",
@@ -1435,9 +1694,18 @@
           "text": "Facebook (in Deutschland)"
         }
       ],
-      "correct_order": ["myspace", "schuelervz", "facebook", "tiktok"],
+      "correct_order": [
+        "myspace",
+        "schuelervz",
+        "facebook",
+        "tiktok"
+      ],
       "explanation": "MySpace (2003), SchülerVZ (2006), Facebook (großer Launch DE 2008), TikTok (globaler Durchbruch ab 2017).",
-      "tags": ["internet", "evolution", "ranking"]
+      "tags": [
+        "internet",
+        "evolution",
+        "ranking"
+      ]
     },
     {
       "id": "q-08-11",
@@ -1470,7 +1738,11 @@
       ],
       "correct_option_id": "opt-1",
       "explanation": "„Now he's a rockstar / Smashing on his guitar“. Moral der Geschichte: Wenn dich das beliebte Mädchen ablehnt, lern Gitarre.",
-      "tags": ["lyrics", "logic", "avril-lavigne"]
+      "tags": [
+        "lyrics",
+        "logic",
+        "avril-lavigne"
+      ]
     },
     {
       "id": "q-08-13",
@@ -1503,7 +1775,11 @@
       ],
       "correct_option_id": "opt-1",
       "explanation": "'Genie in a Bottle' war der Durchbruch ihrer Dauer-Rivalin Christina Aguilera. Wer das damals verwechselte, riskierte eine Schlägerei auf dem Schulhof.",
-      "tags": ["britney", "pop", "common_mistake"]
+      "tags": [
+        "britney",
+        "pop",
+        "common_mistake"
+      ]
     },
     {
       "id": "q-08-14",
@@ -1525,18 +1801,22 @@
         },
         {
           "id": "q-08-14-opt-3",
-          "text": "Es war ein Fehler im Mischpult",
+          "text": "Es war ein berühmter Fehler im Mischpult des Studios",
           "is_correct": false
         },
         {
           "id": "q-08-14-opt-4",
-          "text": "Sie singen über einen verlorenen Hund",
+          "text": "Sie singen angeblich über einen verlorenen Hund",
           "is_correct": false
         }
       ],
       "correct_option_id": "q-08-14-opt-1",
       "explanation": "Max Martin beschrieb später, dass bei solchen Popzeilen Klang, Betonung und Mitsingbarkeit oft wichtiger waren als vollkommen logische Strophen.",
-      "tags": ["bsb", "lyrics", "logic"]
+      "tags": [
+        "bsb",
+        "lyrics",
+        "logic"
+      ]
     }
   ]
 }

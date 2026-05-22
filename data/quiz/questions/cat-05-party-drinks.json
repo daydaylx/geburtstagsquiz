@@ -241,12 +241,12 @@
         },
         {
           "id": "q-05-09-f868c708c8-opt-2",
-          "text": "Champagner und Kaviar",
+          "text": "Champagner und echten Kaviar vom Bäcker",
           "is_correct": false
         },
         {
           "id": "q-05-09-f868c708c8-opt-3",
-          "text": "Vollkornmüsli mit Prosecco",
+          "text": "Vollkornmüsli mit Prosecco und Honig",
           "is_correct": false
         },
         {
@@ -465,17 +465,17 @@
         },
         {
           "id": "q-05-16-b646ca4087-opt-2",
-          "text": "Sektflöten aus Kristall",
+          "text": "Sektflöten aus echtem Kristallglas",
           "is_correct": false
         },
         {
           "id": "q-05-16-b646ca4087-opt-3",
-          "text": "Einen Tennisschläger",
+          "text": "Einen alten Holz-Tennisschläger",
           "is_correct": false
         },
         {
           "id": "q-05-16-b646ca4087-opt-4",
-          "text": "Eine Stoppuhr",
+          "text": "Eine große analoge Stoppuhr",
           "is_correct": false
         }
       ],
@@ -662,7 +662,7 @@
         },
         {
           "id": "q-05-24-d96b10abfe-opt-3",
-          "text": "Man trinkt nur mit der linken Hand",
+          "text": "Man darf nur mit der linken Hand trinken",
           "is_correct": false
         },
         {
@@ -694,12 +694,12 @@
         },
         {
           "id": "q-05-25-9312ca2062-opt-3",
-          "text": "The End of Days",
+          "text": "The End of Days (Weltuntergang)",
           "is_correct": false
         },
         {
           "id": "q-05-25-9312ca2062-opt-4",
-          "text": "Morgenröte-Mische",
+          "text": "Morgenröte-Mischgetränk",
           "is_correct": false
         }
       ],
@@ -764,7 +764,12 @@
           "text": "Weißwein-Schorle"
         }
       ],
-      "correct_order": ["q-05-03-item-1", "q-05-03-item-2", "q-05-03-item-3", "q-05-03-item-4"],
+      "correct_order": [
+        "q-05-03-item-1",
+        "q-05-03-item-2",
+        "q-05-03-item-3",
+        "q-05-03-item-4"
+      ],
       "explanation": "Bier hat fast keinen Zucker, Weinschorle liegt höher, Tonic Water bringt deutlich mehr mit und Alkopops waren oft echte Zuckerbomben.",
       "difficulty": "hard",
       "category_id": "cat-05",
@@ -946,12 +951,12 @@
         },
         {
           "id": "q-05-10-opt-3",
-          "text": "Der Wurf wird wiederholt",
+          "text": "Der Wurf wird komplett wiederholt",
           "is_correct": false
         },
         {
           "id": "q-05-10-opt-4",
-          "text": "Es passiert gar nichts",
+          "text": "Es passiert absolut gar nichts dabei",
           "is_correct": false
         }
       ],
@@ -1128,12 +1133,12 @@
         },
         {
           "id": "q-05-16-opt-2",
-          "text": "Jeder bekommt 5€",
+          "text": "Jeder bekommt gerecht genau 5€",
           "is_correct": false
         },
         {
           "id": "q-05-16-opt-3",
-          "text": "Freund 1 bekommt alles",
+          "text": "Freund 1 bekommt das ganze Geld",
           "is_correct": false
         },
         {
@@ -1361,7 +1366,12 @@
           "text": "Döner-Inhalation am Bahnhof"
         }
       ],
-      "correct_order": ["q-05-25-item-1", "q-05-25-item-2", "q-05-25-item-3", "q-05-25-item-4"],
+      "correct_order": [
+        "q-05-25-item-1",
+        "q-05-25-item-2",
+        "q-05-25-item-3",
+        "q-05-25-item-4"
+      ],
       "explanation": "Erst sparen, dann tanzen (und zweifeln), dann essen, dann bereuen. Der ewige Kreislauf.",
       "difficulty": "low",
       "category_id": "cat-05",

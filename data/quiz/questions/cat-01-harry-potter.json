@@ -3,7 +3,13 @@
   "slug": "harry-potter-nur-filme-harter-schwierigkeitsgrad",
   "name": "Harry Potter (Nur Filme, harter Schwierigkeitsgrad)",
   "difficulty": "hard",
-  "tags": ["harry-potter", "filme", "nostalgie", "popkultur", "schwer"],
+  "tags": [
+    "harry-potter",
+    "filme",
+    "nostalgie",
+    "popkultur",
+    "schwer"
+  ],
   "question_count": 30,
   "questions": [
     {
@@ -529,17 +535,17 @@
         },
         {
           "id": "q-01-21-89c1ef5e21-opt-2",
-          "text": "Hirsch",
+          "text": "Großer Hirsch",
           "is_correct": false
         },
         {
           "id": "q-01-21-89c1ef5e21-opt-3",
-          "text": "Otter",
+          "text": "Flinker Otter",
           "is_correct": false
         },
         {
           "id": "q-01-21-89c1ef5e21-opt-4",
-          "text": "Phönix",
+          "text": "Feuerphönix",
           "is_correct": false
         }
       ],
@@ -566,12 +572,12 @@
         },
         {
           "id": "q-01-22-6f9e77ee5b-opt-3",
-          "text": "Crucio",
+          "text": "Crucio (Folterfluch)",
           "is_correct": false
         },
         {
           "id": "q-01-22-6f9e77ee5b-opt-4",
-          "text": "Imperio",
+          "text": "Imperio (Imperius)",
           "is_correct": false
         }
       ],
@@ -593,7 +599,7 @@
         },
         {
           "id": "q-01-23-a9ef897ed3-opt-2",
-          "text": "Das goldene Ei",
+          "text": "Das goldene Ei vom Drachen",
           "is_correct": false
         },
         {
@@ -603,7 +609,7 @@
         },
         {
           "id": "q-01-23-a9ef897ed3-opt-4",
-          "text": "Seinen Stolz",
+          "text": "Seinen ganzen Stolz als Zauberer",
           "is_correct": false
         }
       ],
@@ -762,7 +768,12 @@
           "text": "Helga Hufflepuffs Trinkpokal"
         }
       ],
-      "correct_order": ["item-diary", "item-locket", "item-cup", "item-nagini"],
+      "correct_order": [
+        "item-diary",
+        "item-locket",
+        "item-cup",
+        "item-nagini"
+      ],
       "explanation": "Tagebuch (Teil 2), Medaillon (Teil 7.1), Pokal (Teil 7.2), Nagini (Finale). Wer 'Der Ring' oder 'Das Diadem' vermisst: Die wurden zwischendurch eher beiläufig abgehakt. Nagini war das dramatische Dessert.",
       "difficulty": "hard",
       "points": 2

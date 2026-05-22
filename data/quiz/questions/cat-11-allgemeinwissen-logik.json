@@ -369,17 +369,17 @@
         },
         {
           "id": "q-11-18-11515253-opt-2",
-          "text": "Sauerstofftransport",
+          "text": "Sauerstofftransport im Blutkreislauf",
           "is_correct": false
         },
         {
           "id": "q-11-18-11515253-opt-3",
-          "text": "Blutgerinnung",
+          "text": "Blutgerinnung bei offenen Wunden",
           "is_correct": false
         },
         {
           "id": "q-11-18-11515253-opt-4",
-          "text": "Nährstoffverteilung",
+          "text": "Nährstoffverteilung im gesamten Körper",
           "is_correct": false
         }
       ],
@@ -401,17 +401,17 @@
         },
         {
           "id": "q-11-19-12545556-opt-2",
-          "text": "Vasco da Gama",
+          "text": "Vasco da Gama (Portugal)",
           "is_correct": false
         },
         {
           "id": "q-11-19-12545556-opt-3",
-          "text": "Marco Polo",
+          "text": "Marco Polo (Venedig)",
           "is_correct": false
         },
         {
           "id": "q-11-19-12545556-opt-4",
-          "text": "James Cook",
+          "text": "James Cook (England)",
           "is_correct": false
         }
       ],
@@ -433,17 +433,17 @@
         },
         {
           "id": "q-11-22-15636465-opt-2",
-          "text": "Europa",
+          "text": "Europa (inkl. Island)",
           "is_correct": false
         },
         {
           "id": "q-11-22-15636465-opt-3",
-          "text": "Antarktis",
+          "text": "Antarktis (Südpolargebiet)",
           "is_correct": false
         },
         {
           "id": "q-11-22-15636465-opt-4",
-          "text": "Südamerika",
+          "text": "Südamerika (Tropen)",
           "is_correct": false
         }
       ],
@@ -529,17 +529,17 @@
         },
         {
           "id": "q-11-33-26969798-opt-2",
-          "text": "Antike",
+          "text": "Antike (Griechenland/Rom)",
           "is_correct": false
         },
         {
           "id": "q-11-33-26969798-opt-3",
-          "text": "Industrialisierung",
+          "text": "Industrialisierung (19. Jh.)",
           "is_correct": false
         },
         {
           "id": "q-11-33-26969798-opt-4",
-          "text": "Aufklärung",
+          "text": "Aufklärung (Philosophie)",
           "is_correct": false
         }
       ],
@@ -878,17 +878,17 @@
         },
         {
           "id": "q-11-47-40224751-opt-2",
-          "text": "Deutschland",
+          "text": "Deutschland (historisch)",
           "is_correct": false
         },
         {
           "id": "q-11-47-40224751-opt-3",
-          "text": "USA",
+          "text": "USA (Nordamerika)",
           "is_correct": false
         },
         {
           "id": "q-11-47-40224751-opt-4",
-          "text": "Frankreich",
+          "text": "Frankreich (Kolonialzeit)",
           "is_correct": false
         }
       ],
@@ -1408,12 +1408,12 @@
         },
         {
           "id": "q-11-64-b4c5d6e7-opt-3",
-          "text": "Eine negative Reaktion auf ein Medikament",
+          "text": "Eine unvorhersehbare und negative allergische Reaktion auf ein Medikament",
           "is_correct": false
         },
         {
           "id": "q-11-64-b4c5d6e7-opt-4",
-          "text": "Die Gewoehnung des Koerpers an einen Wirkstoff",
+          "text": "Die allmähliche Gewoehnung und Toleranz des Koerpers an einen bestimmten Wirkstoff",
           "is_correct": false
         }
       ],
@@ -1469,17 +1469,17 @@
         },
         {
           "id": "q-11-66-d6e7f8a9-opt-2",
-          "text": "Wellenhoehe in Metern",
+          "text": "Wellenhoehe in Metern (Seegang)",
           "is_correct": false
         },
         {
           "id": "q-11-66-d6e7f8a9-opt-3",
-          "text": "Entfernung in Seemeilen",
+          "text": "Entfernung in nautischen Seemeilen",
           "is_correct": false
         },
         {
           "id": "q-11-66-d6e7f8a9-opt-4",
-          "text": "Windstaerke nach Beaufort",
+          "text": "Windstaerke nach der Beaufort-Skala",
           "is_correct": false
         }
       ],
@@ -1502,17 +1502,17 @@
         },
         {
           "id": "q-11-67-e7f8a9b0-opt-2",
-          "text": "Englisch",
+          "text": "Englisch (Weltsprache)",
           "is_correct": false
         },
         {
           "id": "q-11-67-e7f8a9b0-opt-3",
-          "text": "Spanisch",
+          "text": "Spanisch (Lateinamerika)",
           "is_correct": false
         },
         {
           "id": "q-11-67-e7f8a9b0-opt-4",
-          "text": "Arabisch",
+          "text": "Arabisch (Naher Osten)",
           "is_correct": false
         }
       ],

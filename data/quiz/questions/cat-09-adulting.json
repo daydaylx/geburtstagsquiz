@@ -209,7 +209,7 @@
       "options": [
         {
           "id": "q-09-05-2b9ec1d12c-opt-1",
-          "text": "Seidenschals",
+          "text": "Feine Seidenschals und Tücher",
           "is_correct": false
         },
         {
@@ -219,12 +219,12 @@
         },
         {
           "id": "q-09-05-2b9ec1d12c-opt-3",
-          "text": "Alte Jeans",
+          "text": "Ausgemusterte alte Jeanshosen",
           "is_correct": false
         },
         {
           "id": "q-09-05-2b9ec1d12c-opt-4",
-          "text": "Socken",
+          "text": "Paarweise sortierte Socken",
           "is_correct": false
         }
       ],
@@ -341,12 +341,12 @@
         },
         {
           "id": "q-09-10-53fcc98577-opt-3",
-          "text": "Es gibt keinen Unterschied",
+          "text": "Es gibt rechtlich gesehen gar keinen Unterschied",
           "is_correct": false
         },
         {
           "id": "q-09-10-53fcc98577-opt-4",
-          "text": "Garantie gilt nur bei Barzahlung",
+          "text": "Garantie gilt nur bei Barzahlung und ohne Bon",
           "is_correct": false
         }
       ],
@@ -392,7 +392,7 @@
       "options": [
         {
           "id": "q-09-13-d6db023697-opt-1",
-          "text": "Den Deckel drauflegen",
+          "text": "Schnell den Deckel drauflegen und warten",
           "is_correct": false
         },
         {
@@ -402,12 +402,12 @@
         },
         {
           "id": "q-09-13-d6db023697-opt-3",
-          "text": "Den Herd ausschalten",
+          "text": "Ruhig den Herd ausschalten und abwarten",
           "is_correct": false
         },
         {
           "id": "q-09-13-d6db023697-opt-4",
-          "text": "Eine Löschdecke nutzen",
+          "text": "Vorsichtig eine Löschdecke nutzen und löschen",
           "is_correct": false
         }
       ],
@@ -514,17 +514,17 @@
       "options": [
         {
           "id": "q-09-17-a13d731cc4-opt-1",
-          "text": "Für schnelleres Internet",
+          "text": "Für schnelleres und besseres Internet im ganzen Haus",
           "is_correct": false
         },
         {
           "id": "q-09-17-a13d731cc4-opt-2",
-          "text": "Um Strom zu sparen",
+          "text": "Um Stromkosten zu sparen beim Heizen",
           "is_correct": false
         },
         {
           "id": "q-09-17-a13d731cc4-opt-3",
-          "text": "Gegen flackernde Lampen",
+          "text": "Gegen nerviges flackernde Lampen im Haus",
           "is_correct": false
         },
         {
@@ -697,7 +697,7 @@
       "options": [
         {
           "id": "q-09-21-1bdfbde8f1-opt-1",
-          "text": "Damit der Tee besser schmeckt",
+          "text": "Damit der Tee angeblich deutlich besser schmeckt",
           "is_correct": false
         },
         {
@@ -707,12 +707,12 @@
         },
         {
           "id": "q-09-21-1bdfbde8f1-opt-3",
-          "text": "Um Bakterien abzutöten",
+          "text": "Um gefährliche Bakterien im Wasser abzutöten",
           "is_correct": false
         },
         {
           "id": "q-09-21-1bdfbde8f1-opt-4",
-          "text": "Gegen schlechte Gerüche",
+          "text": "Gegen hartnäckige und schlechte Gerüche in der Küche",
           "is_correct": false
         }
       ],
@@ -819,7 +819,7 @@
       "options": [
         {
           "id": "q-09-23-96ddb6bada-opt-1",
-          "text": "Das kostet unnötig viel",
+          "text": "Das kostet nur unnötig viel Geld und Zeit",
           "is_correct": false
         },
         {
@@ -834,7 +834,7 @@
         },
         {
           "id": "q-09-23-96ddb6bada-opt-4",
-          "text": "Die Wäsche duftet zu stark",
+          "text": "Die frisch gewaschene Wäsche duftet dann zu stark",
           "is_correct": false
         }
       ],
@@ -1074,7 +1074,7 @@
       "options": [
         {
           "id": "opt-1",
-          "text": "Nicht waschen",
+          "text": "Nutzungszeichen: Nicht waschen (waschen verboten)",
           "is_correct": false
         },
         {
@@ -1089,7 +1089,7 @@
         },
         {
           "id": "opt-4",
-          "text": "Nicht bügeln",
+          "text": "Nutzungszeichen: Nicht bügeln (bügeln verboten)",
           "is_correct": false
         }
       ],
@@ -1144,12 +1144,12 @@
         },
         {
           "id": "opt-3",
-          "text": "Gar nicht lüften, um die Wärme drinnen zu behalten.",
+          "text": "Gar nicht lüften, um die teure Wärme drinnen zu behalten.",
           "is_correct": false
         },
         {
           "id": "opt-4",
-          "text": "Die Heizung komplett ausschalten.",
+          "text": "Die Heizung im Winter komplett ausschalten und frieren.",
           "is_correct": false
         }
       ],
@@ -1184,7 +1184,7 @@
       "options": [
         {
           "id": "opt-1",
-          "text": "Privatinsolvenz",
+          "text": "Drohung mit Privatinsolvenz und Schufa-Eintrag",
           "is_correct": false
         },
         {
@@ -1194,7 +1194,7 @@
         },
         {
           "id": "opt-3",
-          "text": "Gefängnis",
+          "text": "Direkt ab ins Gefängnis ohne Gerichtstermin",
           "is_correct": false
         },
         {
@@ -1827,7 +1827,7 @@
         },
         {
           "id": "q-09-33-9c0d1e2f-opt-2",
-          "text": "185 g (Gesamtgewicht zaehlt)",
+          "text": "185 g (Gesamtgewicht der Dose zaehlt voll mit)",
           "is_correct": false
         },
         {
@@ -1837,7 +1837,7 @@
         },
         {
           "id": "q-09-33-9c0d1e2f-opt-4",
-          "text": "150 g (Mittelwert beider Angaben)",
+          "text": "150 g (Einfacher Mittelwert beider Gewichtsangaben)",
           "is_correct": false
         }
       ],

@@ -3,7 +3,13 @@
   "slug": "absurde-skandale-popkultur-meltdowns",
   "name": "Absurde Skandale & Popkultur-Meltdowns",
   "difficulty": "medium_hard",
-  "tags": ["skandale", "promis", "popkultur", "medien", "2000er"],
+  "tags": [
+    "skandale",
+    "promis",
+    "popkultur",
+    "medien",
+    "2000er"
+  ],
   "question_count": 28,
   "questions": [
     {
@@ -54,12 +60,12 @@
         },
         {
           "id": "q-06-02-797b29c4c5-opt-3",
-          "text": "Kanye West stürmte die Bühne",
+          "text": "Kanye West stürmte wütend die Bühne",
           "is_correct": false
         },
         {
           "id": "q-06-02-797b29c4c5-opt-4",
-          "text": "Eine Fehlfunktion der Konfetti-Kanone",
+          "text": "Eine gefährliche Fehlfunktion der großen Konfetti-Kanone",
           "is_correct": false
         }
       ],
@@ -81,17 +87,17 @@
         },
         {
           "id": "q-06-03-1bf72f72a8-opt-2",
-          "text": "50 Cent",
+          "text": "Curtis ‚50 Cent‚ Jackson",
           "is_correct": false
         },
         {
           "id": "q-06-03-1bf72f72a8-opt-3",
-          "text": "Eminem",
+          "text": "Marshall ‚Eminem‚ Mathers",
           "is_correct": false
         },
         {
           "id": "q-06-03-1bf72f72a8-opt-4",
-          "text": "Jay-Z",
+          "text": "Shawn ‚Jay-Z‚ Carter",
           "is_correct": false
         }
       ],
@@ -209,17 +215,17 @@
         },
         {
           "id": "q-06-07-4bba4ca4fc-opt-2",
-          "text": "Mickie Krause",
+          "text": "Mickie Krause (Zehn nackte Friseusen)",
           "is_correct": false
         },
         {
           "id": "q-06-07-4bba4ca4fc-opt-3",
-          "text": "Gummy Bear",
+          "text": "Gummy Bear (Oh I am a Gummy Bear)",
           "is_correct": false
         },
         {
           "id": "q-06-07-4bba4ca4fc-opt-4",
-          "text": "Shaun das Schaf",
+          "text": "Shaun das Schaf (Thema)",
           "is_correct": false
         }
       ],
@@ -406,12 +412,12 @@
         },
         {
           "id": "q-06-16-a59d98c3a2-opt-3",
-          "text": "Der Akku hielt nur 10 Minuten",
+          "text": "Der Akku hielt lächerliche 10 Minuten durch",
           "is_correct": false
         },
         {
           "id": "q-06-16-a59d98c3a2-opt-4",
-          "text": "Es hatte keine Kamera",
+          "text": "Es hatte absolut keine eingebaute Kamera",
           "is_correct": false
         }
       ],
@@ -465,17 +471,17 @@
         },
         {
           "id": "q-06-19-4b0829c987-opt-2",
-          "text": "Popstars (ProSieben)",
+          "text": "Popstars – Deine Band (ProSieben)",
           "is_correct": false
         },
         {
           "id": "q-06-19-4b0829c987-opt-3",
-          "text": "Star Search (SAT.1)",
+          "text": "Star Search (SAT.1 Casting-Show)",
           "is_correct": false
         },
         {
           "id": "q-06-19-4b0829c987-opt-4",
-          "text": "The Voice of Germany",
+          "text": "The Voice of Germany (RTL/Pro7)",
           "is_correct": false
         }
       ],
@@ -529,7 +535,7 @@
         },
         {
           "id": "q-06-22-14f4f41899-opt-2",
-          "text": "Dass sie zu teuer war",
+          "text": "Dass sie einfach viel zu teuer war für die paar Sachen",
           "is_correct": false
         },
         {
@@ -539,7 +545,7 @@
         },
         {
           "id": "q-06-22-14f4f41899-opt-4",
-          "text": "Dass sie nach Plastik stank",
+          "text": "Dass sie streng und unangenehm nach billigem Plastik stank",
           "is_correct": false
         }
       ],
@@ -561,17 +567,17 @@
         },
         {
           "id": "q-06-23-2cb0289b78-opt-2",
-          "text": "Angelina Jolie",
+          "text": "Angelina Jolie (& Billy Bob)",
           "is_correct": false
         },
         {
           "id": "q-06-23-2cb0289b78-opt-3",
-          "text": "Cameron Diaz",
+          "text": "Cameron Diaz (& Justin Timberlake)",
           "is_correct": false
         },
         {
           "id": "q-06-23-2cb0289b78-opt-4",
-          "text": "Jennifer Lopez",
+          "text": "Jennifer Lopez (& Ben Affleck)",
           "is_correct": false
         }
       ],
@@ -656,7 +662,7 @@
         },
         {
           "id": "q-06-03-opt-2",
-          "text": "Er wollte Taylor ein Date anbieten",
+          "text": "Er wollte Taylor Swift spontan ein Date anbieten",
           "is_correct": false
         },
         {
@@ -666,7 +672,7 @@
         },
         {
           "id": "q-06-03-opt-4",
-          "text": "Er war für die Mikrofone zuständig",
+          "text": "Er war als Techniker für die Mikrofone auf der Bühne zuständig",
           "is_correct": false
         }
       ],
@@ -697,7 +703,12 @@
           "text": "Sarah & Marc in Love"
         }
       ],
-      "correct_order": ["it-osbournes", "it-simplelife", "it-sarahmarc", "it-kardashians"],
+      "correct_order": [
+        "it-osbournes",
+        "it-simplelife",
+        "it-sarahmarc",
+        "it-kardashians"
+      ],
       "explanation": "Ozzy murmelte 2002 los, Paris mistete 2003 Ställe aus, Sarah Connor heiratete 2005 im TV und die Kardashians starteten ihre Weltherrschaft erst 2007.",
       "difficulty": "hard",
       "points": 2
@@ -714,12 +725,12 @@
         },
         {
           "id": "q-06-05-opt-2",
-          "text": "Pikachu",
+          "text": "Pikachu aus Pokémon",
           "is_correct": false
         },
         {
           "id": "q-06-05-opt-3",
-          "text": "Grumpy Cat",
+          "text": "Grumpy Cat (Sauertöpische Katze)",
           "is_correct": false
         },
         {

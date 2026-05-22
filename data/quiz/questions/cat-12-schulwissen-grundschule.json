@@ -407,7 +407,7 @@
       "options": [
         {
           "id": "q-12-11-b1e2f3a4-opt-1",
-          "text": "Eine gerade Zahl ohne Rest",
+          "text": "Eine gerade Zahl, die sich ohne Rest teilen lässt",
           "is_correct": false
         },
         {
@@ -417,7 +417,7 @@
         },
         {
           "id": "q-12-11-b1e2f3a4-opt-3",
-          "text": "Eine Zahl mit besonders vielen Teilern",
+          "text": "Eine Zahl mit besonders vielen verschiedenen Teilern",
           "is_correct": false
         },
         {
@@ -1688,7 +1688,7 @@
         },
         {
           "id": "q-12-44-e4b5c6d7-opt-2",
-          "text": "Ein Tier mit Schuppen",
+          "text": "Ein Tier mit trockenen Schuppen auf der Haut",
           "is_correct": false
         },
         {
@@ -1698,7 +1698,7 @@
         },
         {
           "id": "q-12-44-e4b5c6d7-opt-4",
-          "text": "Ein Tier, das nie im Wasser lebt",
+          "text": "Ein wechselwarmes Tier, das nie im Wasser lebt",
           "is_correct": false
         }
       ],

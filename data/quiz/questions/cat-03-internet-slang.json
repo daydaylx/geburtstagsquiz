@@ -81,12 +81,12 @@
         },
         {
           "id": "q-03-03-9bd05e9dc4-opt-2",
-          "text": "Ein digitaler Klaps auf den Hinterkopf",
+          "text": "Ein digitaler Klaps auf den Hinterkopf des Chatpartners",
           "is_correct": false
         },
         {
           "id": "q-03-03-9bd05e9dc4-opt-3",
-          "text": "Eine Einladung zu einem geheimen Spiel",
+          "text": "Eine exklusive Einladung zu einem geheimen Multiplayer-Spiel",
           "is_correct": false
         },
         {
@@ -401,12 +401,12 @@
         },
         {
           "id": "q-03-13-c4f64c8cbc-opt-2",
-          "text": "Es ist ein Geräusch beim Klingeln",
+          "text": "Es ist ein lautes, auffälliges Geräusch beim Klingeln des Handys",
           "is_correct": false
         },
         {
           "id": "q-03-13-c4f64c8cbc-opt-3",
-          "text": "Es steht für 'very online never gone'",
+          "text": "Es steht als Abkürzung für ‚very online never gone underground‚",
           "is_correct": false
         },
         {
@@ -497,17 +497,17 @@
         },
         {
           "id": "q-03-16-13a6aff138-opt-2",
-          "text": "Nano-Gnomes",
+          "text": "Nano-Gnomes (Mini-Zwerge)",
           "is_correct": false
         },
         {
           "id": "q-03-16-13a6aff138-opt-3",
-          "text": "Sprite-Spirits",
+          "text": "Sprite-Spirits (Pixel-Geister)",
           "is_correct": false
         },
         {
           "id": "q-03-16-13a6aff138-opt-4",
-          "text": "Bit-Bunnies",
+          "text": "Bit-Bunnies (Digital-Hasen)",
           "is_correct": false
         }
       ],
@@ -657,12 +657,12 @@
         },
         {
           "id": "q-03-21-9abc66630b-opt-2",
-          "text": "Eine Marke für Kuscheltiere",
+          "text": "Eine bekannte und beliebte Marke für kleine Kuscheltiere",
           "is_correct": false
         },
         {
           "id": "q-03-21-9abc66630b-opt-3",
-          "text": "Ein Vorläufer von Tinder",
+          "text": "Ein früher experimenteller Vorläufer von Tinder und Bumble",
           "is_correct": false
         },
         {
@@ -828,7 +828,12 @@
           "label": "Signal"
         }
       ],
-      "correct_order": ["B", "A", "C", "D"],
+      "correct_order": [
+        "B",
+        "A",
+        "C",
+        "D"
+      ],
       "explanation": "ICQ startete 1996, WhatsApp 2009, Telegram 2013 und Signal 2014.",
       "difficulty": "medium",
       "points": 2,
@@ -918,7 +923,12 @@
           "text": "MySpace"
         }
       ],
-      "correct_order": ["item-icq", "item-myspace", "item-facebook", "item-svz"],
+      "correct_order": [
+        "item-icq",
+        "item-myspace",
+        "item-facebook",
+        "item-svz"
+      ],
       "explanation": "ICQ startete 1996, MySpace 2003, Facebook 2004 und SchülerVZ kam erst 2006.",
       "difficulty": "hard",
       "points": 2
@@ -1023,17 +1033,17 @@
         },
         {
           "id": "q-03-07-opt-2",
-          "text": "Instagram 'Herz'",
+          "text": "Instagram ‚Herz‚ (rot)",
           "is_correct": false
         },
         {
           "id": "q-03-07-opt-3",
-          "text": "Snapchat 'Flammen'",
+          "text": "Snapchat ‚Flammen‚ (orange)",
           "is_correct": false
         },
         {
           "id": "q-03-07-opt-4",
-          "text": "LinkedIn 'Vernetzung'",
+          "text": "LinkedIn ‚Vernetzung‚ (blau)",
           "is_correct": false
         }
       ],
