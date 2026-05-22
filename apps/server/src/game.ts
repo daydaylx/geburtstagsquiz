@@ -5,9 +5,22 @@ import {
   evaluateOpenText,
   evaluateRanking,
 } from "@quiz/quiz-engine";
-import { EVENTS, type GameStartPayload, type QuestionShowPayload } from "@quiz/shared-protocol";
-import type { Question, ResolvedGamePlan, SubmittedAnswer } from "@quiz/shared-types";
-import { GameState, PlayerState, QuestionType, RoomState } from "@quiz/shared-types";
+import {
+  EVENTS,
+  type GameStartPayload,
+  type QuestionShowPayload,
+} from "@quiz/shared-protocol";
+import type {
+  Question,
+  ResolvedGamePlan,
+  SubmittedAnswer,
+} from "@quiz/shared-types";
+import {
+  GameState,
+  PlayerState,
+  QuestionType,
+  RoomState,
+} from "@quiz/shared-types";
 import { assertUnreachable } from "@quiz/shared-utils";
 import { isAnswerValidForQuestion } from "./answer-validation.js";
 import { COMPLETED_ROOM_TTL_MS } from "./config.js";
@@ -31,7 +44,11 @@ import {
   isLastQuestion,
   shouldShowScoreboardAfterCurrentQuestion,
 } from "./game-scoreboard.js";
-import { PROTOCOL_ERROR_CODES, sendEvent, sendProtocolError } from "./protocol.js";
+import {
+  PROTOCOL_ERROR_CODES,
+  sendEvent,
+  sendProtocolError,
+} from "./protocol.js";
 import {
   getTotalQuestionCount,
   getVisibleQuestionIndex,
@@ -53,48 +70,114 @@ function sendQuestionForCurrentRole(
   gameState: QuestionShowPayload["gameState"],
 ): void {
   if (role === "host" || role === "display") {
-    sendEvent(sessionSocket, EVENTS.QUESTION_SHOW, toQuestionShowPayload(room, question, gameState));
+    sendEvent(
+      sessionSocket,
+      EVENTS.QUESTION_SHOW,
+      toQuestionShowPayload(room, question, gameState),
+    );
     return;
   }
 
-  sendEvent(sessionSocket, EVENTS.QUESTION_CONTROLLER, toQuestionControllerPayload(room, question, gameState));
+  sendEvent(
+    sessionSocket,
+    EVENTS.QUESTION_CONTROLLER,
+    toQuestionControllerPayload(room, question, gameState),
+  );
 }
 
-function sendQuestionToRoom(room: RoomRecord, question: Question, gameState: QuestionShowPayload["gameState"]): void {
-  const displaySession = room.displaySessionId ? sessionsById.get(room.displaySessionId) : null;
-  sendQuestionForCurrentRole(displaySession?.socket, "display", room, question, gameState);
+function sendQuestionToRoom(
+  room: RoomRecord,
+  question: Question,
+  gameState: QuestionShowPayload["gameState"],
+): void {
+  const displaySession = room.displaySessionId
+    ? sessionsById.get(room.displaySessionId)
+    : null;
+  sendQuestionForCurrentRole(
+    displaySession?.socket,
+    "display",
+    room,
+    question,
+    gameState,
+  );
 
   const hostSession = sessionsById.get(room.hostSessionId);
-  sendQuestionForCurrentRole(hostSession?.socket, "host", room, question, gameState);
+  sendQuestionForCurrentRole(
+    hostSession?.socket,
+    "host",
+    room,
+    question,
+    gameState,
+  );
 
   for (const player of room.players) {
     const session = sessionsById.get(player.sessionId);
-    sendQuestionForCurrentRole(session?.socket, "player", room, question, gameState);
+    sendQuestionForCurrentRole(
+      session?.socket,
+      "player",
+      room,
+      question,
+      gameState,
+    );
   }
 }
 
-export function handleGameStart(socket: TrackedWebSocket, payload: GameStartPayload): void {
+function shuffleOptions<T>(array: T[]): T[] {
+  const result = [...array];
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+}
+
+function applyPerGameOptionShuffle(questions: Question[]): Question[] {
+  return questions.map((question) => {
+    if (
+      question.type !== QuestionType.MultipleChoice &&
+      question.type !== QuestionType.Logic
+    ) {
+      return question;
+    }
+    return { ...question, options: shuffleOptions(question.options) };
+  });
+}
+
+export function handleGameStart(
+  socket: TrackedWebSocket,
+  payload: GameStartPayload,
+): void {
   const { roomId } = payload;
   const room = getAuthorizedHostRoom(socket, roomId, EVENTS.GAME_START);
   if (!room) return;
 
   if (room.state !== RoomState.Waiting) {
-    sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "Game can only be started from waiting state", {
-      event: EVENTS.GAME_START,
-      roomId: room.id,
-      questionId: null,
-    });
+    sendProtocolError(
+      socket,
+      PROTOCOL_ERROR_CODES.INVALID_STATE,
+      "Game can only be started from waiting state",
+      {
+        event: EVENTS.GAME_START,
+        roomId: room.id,
+        questionId: null,
+      },
+    );
     return;
   }
 
   const connectedPlayers = getConnectedPlayers(room);
 
   if (connectedPlayers.length === 0) {
-    sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "Need at least 1 connected player to start", {
-      event: EVENTS.GAME_START,
-      roomId: room.id,
-      questionId: null,
-    });
+    sendProtocolError(
+      socket,
+      PROTOCOL_ERROR_CODES.INVALID_STATE,
+      "Need at least 1 connected player to start",
+      {
+        event: EVENTS.GAME_START,
+        roomId: room.id,
+        questionId: null,
+      },
+    );
     return;
   }
 
@@ -107,10 +190,15 @@ export function handleGameStart(socket: TrackedWebSocket, payload: GameStartPayl
 
   try {
     resolvedGamePlan = resolveGamePlan(requestedGamePlan, catalog, defaultQuiz);
-    selectedQuestions = selectQuestionsForGamePlan(defaultQuiz.questions, resolvedGamePlan);
+    selectedQuestions = selectQuestionsForGamePlan(
+      defaultQuiz.questions,
+      resolvedGamePlan,
+    );
   } catch (error) {
     const message =
-      error instanceof GamePlanValidationError ? error.message : "Spielplan konnte nicht validiert werden.";
+      error instanceof GamePlanValidationError
+        ? error.message
+        : "Spielplan konnte nicht validiert werden.";
     sendProtocolError(socket, PROTOCOL_ERROR_CODES.GAME_PLAN_INVALID, message, {
       event: EVENTS.GAME_START,
       roomId: room.id,
@@ -125,12 +213,13 @@ export function handleGameStart(socket: TrackedWebSocket, payload: GameStartPayl
 
   room.quiz = {
     ...defaultQuiz,
-    questions,
+    questions: applyPerGameOptionShuffle(questions),
   };
   room.resolvedGamePlan = resolvedGamePlan;
   room.settings = {
     ...room.settings,
-    showAnswerTextOnPlayerDevices: resolvedGamePlan.showAnswerTextOnPlayerDevices,
+    showAnswerTextOnPlayerDevices:
+      resolvedGamePlan.showAnswerTextOnPlayerDevices,
     gamePlanDraft: requestedGamePlan,
   };
   room.currentQuestionIndex = 0;
@@ -155,16 +244,24 @@ export function handleGameStart(socket: TrackedWebSocket, payload: GameStartPayl
   startQuestion(room);
 }
 
-export function handleGameNextQuestion(socket: TrackedWebSocket, roomId: string): void {
+export function handleGameNextQuestion(
+  socket: TrackedWebSocket,
+  roomId: string,
+): void {
   const room = getAuthorizedHostRoom(socket, roomId, EVENTS.GAME_NEXT_QUESTION);
   if (!room) return;
 
   if (room.state !== RoomState.InGame) {
-    sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "No game in progress", {
-      event: EVENTS.GAME_NEXT_QUESTION,
-      roomId: room.id,
-      questionId: null,
-    });
+    sendProtocolError(
+      socket,
+      PROTOCOL_ERROR_CODES.INVALID_STATE,
+      "No game in progress",
+      {
+        event: EVENTS.GAME_NEXT_QUESTION,
+        roomId: room.id,
+        questionId: null,
+      },
+    );
     return;
   }
 
@@ -173,20 +270,30 @@ export function handleGameNextQuestion(socket: TrackedWebSocket, roomId: string)
     room.gameState !== GameState.Revealing &&
     room.gameState !== GameState.AnswerLocked
   ) {
-    sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "Cannot advance from current state", {
-      event: EVENTS.GAME_NEXT_QUESTION,
-      roomId: room.id,
-      questionId: null,
-    });
+    sendProtocolError(
+      socket,
+      PROTOCOL_ERROR_CODES.INVALID_STATE,
+      "Cannot advance from current state",
+      {
+        event: EVENTS.GAME_NEXT_QUESTION,
+        roomId: room.id,
+        questionId: null,
+      },
+    );
     return;
   }
 
   if (!room.quiz || room.currentQuestionIndex === null) {
-    sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "No quiz loaded", {
-      event: EVENTS.GAME_NEXT_QUESTION,
-      roomId: room.id,
-      questionId: null,
-    });
+    sendProtocolError(
+      socket,
+      PROTOCOL_ERROR_CODES.INVALID_STATE,
+      "No quiz loaded",
+      {
+        event: EVENTS.GAME_NEXT_QUESTION,
+        roomId: room.id,
+        questionId: null,
+      },
+    );
     return;
   }
 
@@ -214,54 +321,91 @@ function getAuthorizedHostRoom(
   const session = socket.sessionId ? sessionsById.get(socket.sessionId) : null;
 
   if (!session || session.role !== "host") {
-    sendProtocolError(socket, PROTOCOL_ERROR_CODES.NOT_AUTHORIZED, "Only the host can do this", {
-      event,
-      roomId,
-      questionId: null,
-    });
+    sendProtocolError(
+      socket,
+      PROTOCOL_ERROR_CODES.NOT_AUTHORIZED,
+      "Only the host can do this",
+      {
+        event,
+        roomId,
+        questionId: null,
+      },
+    );
     return null;
   }
 
   const room = roomsById.get(roomId);
   if (!room) {
-    sendProtocolError(socket, PROTOCOL_ERROR_CODES.ROOM_NOT_FOUND, "Room not found", {
-      event,
-      roomId,
-      questionId: null,
-    });
+    sendProtocolError(
+      socket,
+      PROTOCOL_ERROR_CODES.ROOM_NOT_FOUND,
+      "Room not found",
+      {
+        event,
+        roomId,
+        questionId: null,
+      },
+    );
     return null;
   }
 
   if (session.roomId !== room.id) {
-    sendProtocolError(socket, PROTOCOL_ERROR_CODES.NOT_AUTHORIZED, "Host is not in this room", {
-      event,
-      roomId: room.id,
-      questionId: null,
-    });
+    sendProtocolError(
+      socket,
+      PROTOCOL_ERROR_CODES.NOT_AUTHORIZED,
+      "Host is not in this room",
+      {
+        event,
+        roomId: room.id,
+        questionId: null,
+      },
+    );
     return null;
   }
 
   return room;
 }
 
-export function handleQuestionForceClose(socket: TrackedWebSocket, roomId: string): void {
-  const room = getAuthorizedHostRoom(socket, roomId, EVENTS.QUESTION_FORCE_CLOSE);
+export function handleQuestionForceClose(
+  socket: TrackedWebSocket,
+  roomId: string,
+): void {
+  const room = getAuthorizedHostRoom(
+    socket,
+    roomId,
+    EVENTS.QUESTION_FORCE_CLOSE,
+  );
   if (!room) return;
 
-  if (room.state !== RoomState.InGame || room.gameState !== GameState.QuestionActive) {
-    sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "No active question to close", {
-      event: EVENTS.QUESTION_FORCE_CLOSE,
-      roomId: room.id,
-      questionId: null,
-    });
+  if (
+    room.state !== RoomState.InGame ||
+    room.gameState !== GameState.QuestionActive
+  ) {
+    sendProtocolError(
+      socket,
+      PROTOCOL_ERROR_CODES.INVALID_STATE,
+      "No active question to close",
+      {
+        event: EVENTS.QUESTION_FORCE_CLOSE,
+        roomId: room.id,
+        questionId: null,
+      },
+    );
     return;
   }
 
   closeQuestion(room);
 }
 
-export function handleGameShowScoreboard(socket: TrackedWebSocket, roomId: string): void {
-  const room = getAuthorizedHostRoom(socket, roomId, EVENTS.GAME_SHOW_SCOREBOARD);
+export function handleGameShowScoreboard(
+  socket: TrackedWebSocket,
+  roomId: string,
+): void {
+  const room = getAuthorizedHostRoom(
+    socket,
+    roomId,
+    EVENTS.GAME_SHOW_SCOREBOARD,
+  );
   if (!room) return;
 
   if (
@@ -270,11 +414,16 @@ export function handleGameShowScoreboard(socket: TrackedWebSocket, roomId: strin
     !room.quiz ||
     room.currentQuestionIndex === null
   ) {
-    sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "Cannot show scoreboard now", {
-      event: EVENTS.GAME_SHOW_SCOREBOARD,
-      roomId: room.id,
-      questionId: null,
-    });
+    sendProtocolError(
+      socket,
+      PROTOCOL_ERROR_CODES.INVALID_STATE,
+      "Cannot show scoreboard now",
+      {
+        event: EVENTS.GAME_SHOW_SCOREBOARD,
+        roomId: room.id,
+        questionId: null,
+      },
+    );
     return;
   }
 
@@ -285,27 +434,40 @@ export function handleGameShowScoreboard(socket: TrackedWebSocket, roomId: strin
 
   const question = room.quiz.questions[room.currentQuestionIndex];
   if (!question || question.isDemoQuestion || isLastQuestion(room)) {
-    sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "Cannot show scoreboard now", {
-      event: EVENTS.GAME_SHOW_SCOREBOARD,
-      roomId: room.id,
-      questionId: question?.id ?? null,
-    });
+    sendProtocolError(
+      socket,
+      PROTOCOL_ERROR_CODES.INVALID_STATE,
+      "Cannot show scoreboard now",
+      {
+        event: EVENTS.GAME_SHOW_SCOREBOARD,
+        roomId: room.id,
+        questionId: question?.id ?? null,
+      },
+    );
     return;
   }
 
   showScoreboard(room, question.id);
 }
 
-export function handleGameFinishNow(socket: TrackedWebSocket, roomId: string): void {
+export function handleGameFinishNow(
+  socket: TrackedWebSocket,
+  roomId: string,
+): void {
   const room = getAuthorizedHostRoom(socket, roomId, EVENTS.GAME_FINISH_NOW);
   if (!room) return;
 
   if (room.state !== RoomState.InGame) {
-    sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "No game in progress", {
-      event: EVENTS.GAME_FINISH_NOW,
-      roomId: room.id,
-      questionId: null,
-    });
+    sendProtocolError(
+      socket,
+      PROTOCOL_ERROR_CODES.INVALID_STATE,
+      "No game in progress",
+      {
+        event: EVENTS.GAME_FINISH_NOW,
+        roomId: room.id,
+        questionId: null,
+      },
+    );
     return;
   }
 
@@ -316,16 +478,25 @@ export function handlePlayerRemove(
   socket: TrackedWebSocket,
   payload: import("@quiz/shared-protocol").PlayerRemovePayload,
 ): void {
-  const room = getAuthorizedHostRoom(socket, payload.roomId, EVENTS.PLAYER_REMOVE);
+  const room = getAuthorizedHostRoom(
+    socket,
+    payload.roomId,
+    EVENTS.PLAYER_REMOVE,
+  );
   if (!room) return;
 
   const player = room.players.find((entry) => entry.id === payload.playerId);
   if (!player) {
-    sendProtocolError(socket, PROTOCOL_ERROR_CODES.PLAYER_NOT_FOUND, "Player not found", {
-      event: EVENTS.PLAYER_REMOVE,
-      roomId: room.id,
-      questionId: null,
-    });
+    sendProtocolError(
+      socket,
+      PROTOCOL_ERROR_CODES.PLAYER_NOT_FOUND,
+      "Player not found",
+      {
+        event: EVENTS.PLAYER_REMOVE,
+        roomId: room.id,
+        questionId: null,
+      },
+    );
     return;
   }
 
@@ -342,62 +513,96 @@ export function handleAnswerSubmit(
   const room = roomsById.get(payload.roomId);
 
   if (!room) {
-    sendProtocolError(socket, PROTOCOL_ERROR_CODES.ROOM_NOT_FOUND, "Room not found", {
-      event: EVENTS.ANSWER_SUBMIT,
-      roomId: payload.roomId,
-      questionId: payload.questionId,
-    });
+    sendProtocolError(
+      socket,
+      PROTOCOL_ERROR_CODES.ROOM_NOT_FOUND,
+      "Room not found",
+      {
+        event: EVENTS.ANSWER_SUBMIT,
+        roomId: payload.roomId,
+        questionId: payload.questionId,
+      },
+    );
     return;
   }
 
-  if (!room.quiz || room.currentQuestionIndex === null || room.currentQuestionIndex >= room.quiz.questions.length) {
-    sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "No active question", {
-      event: EVENTS.ANSWER_SUBMIT,
-      roomId: room.id,
-      questionId: payload.questionId,
-    });
+  if (
+    !room.quiz ||
+    room.currentQuestionIndex === null ||
+    room.currentQuestionIndex >= room.quiz.questions.length
+  ) {
+    sendProtocolError(
+      socket,
+      PROTOCOL_ERROR_CODES.INVALID_STATE,
+      "No active question",
+      {
+        event: EVENTS.ANSWER_SUBMIT,
+        roomId: room.id,
+        questionId: payload.questionId,
+      },
+    );
     return;
   }
 
   const currentQuestion = room.quiz.questions[room.currentQuestionIndex];
 
   if (payload.questionId !== currentQuestion.id) {
-    sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "Wrong question id", {
-      event: EVENTS.ANSWER_SUBMIT,
-      roomId: room.id,
-      questionId: payload.questionId,
-    });
+    sendProtocolError(
+      socket,
+      PROTOCOL_ERROR_CODES.INVALID_STATE,
+      "Wrong question id",
+      {
+        event: EVENTS.ANSWER_SUBMIT,
+        roomId: room.id,
+        questionId: payload.questionId,
+      },
+    );
     return;
   }
 
   const session = socket.sessionId ? sessionsById.get(socket.sessionId) : null;
 
   if (!session || session.role !== "player" || session.roomId !== room.id) {
-    sendProtocolError(socket, PROTOCOL_ERROR_CODES.NOT_AUTHORIZED, "Not a player in this room", {
-      event: EVENTS.ANSWER_SUBMIT,
-      roomId: room.id,
-      questionId: payload.questionId,
-    });
+    sendProtocolError(
+      socket,
+      PROTOCOL_ERROR_CODES.NOT_AUTHORIZED,
+      "Not a player in this room",
+      {
+        event: EVENTS.ANSWER_SUBMIT,
+        roomId: room.id,
+        questionId: payload.questionId,
+      },
+    );
     return;
   }
 
   if (session.playerId !== payload.playerId) {
-    sendProtocolError(socket, PROTOCOL_ERROR_CODES.NOT_AUTHORIZED, "Player ID mismatch", {
-      event: EVENTS.ANSWER_SUBMIT,
-      roomId: room.id,
-      questionId: payload.questionId,
-    });
+    sendProtocolError(
+      socket,
+      PROTOCOL_ERROR_CODES.NOT_AUTHORIZED,
+      "Player ID mismatch",
+      {
+        event: EVENTS.ANSWER_SUBMIT,
+        roomId: room.id,
+        questionId: payload.questionId,
+      },
+    );
     return;
   }
 
   const player = room.players.find((p) => p.id === session.playerId);
 
   if (!player || player.state === PlayerState.Disconnected) {
-    sendProtocolError(socket, PROTOCOL_ERROR_CODES.PLAYER_NOT_FOUND, "Player not found or disconnected", {
-      event: EVENTS.ANSWER_SUBMIT,
-      roomId: room.id,
-      questionId: payload.questionId,
-    });
+    sendProtocolError(
+      socket,
+      PROTOCOL_ERROR_CODES.PLAYER_NOT_FOUND,
+      "Player not found or disconnected",
+      {
+        event: EVENTS.ANSWER_SUBMIT,
+        roomId: room.id,
+        questionId: payload.questionId,
+      },
+    );
     return;
   }
 
@@ -467,17 +672,23 @@ export function handleNextQuestionReady(
   const room = roomsById.get(payload.roomId);
 
   if (!room) {
-    sendProtocolError(socket, PROTOCOL_ERROR_CODES.ROOM_NOT_FOUND, "Room not found", {
-      event: EVENTS.NEXT_QUESTION_READY,
-      roomId: payload.roomId,
-      questionId: payload.questionId,
-    });
+    sendProtocolError(
+      socket,
+      PROTOCOL_ERROR_CODES.ROOM_NOT_FOUND,
+      "Room not found",
+      {
+        event: EVENTS.NEXT_QUESTION_READY,
+        roomId: payload.roomId,
+        questionId: payload.questionId,
+      },
+    );
     return;
   }
 
   if (
     room.state !== RoomState.InGame ||
-    (room.gameState !== GameState.Revealing && room.gameState !== GameState.Scoreboard)
+    (room.gameState !== GameState.Revealing &&
+      room.gameState !== GameState.Scoreboard)
   ) {
     sendProtocolError(
       socket,
@@ -492,54 +703,83 @@ export function handleNextQuestionReady(
     return;
   }
 
-  if (!room.quiz || room.currentQuestionIndex === null || room.currentQuestionIndex >= room.quiz.questions.length) {
-    sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "No active question", {
-      event: EVENTS.NEXT_QUESTION_READY,
-      roomId: room.id,
-      questionId: payload.questionId,
-    });
+  if (
+    !room.quiz ||
+    room.currentQuestionIndex === null ||
+    room.currentQuestionIndex >= room.quiz.questions.length
+  ) {
+    sendProtocolError(
+      socket,
+      PROTOCOL_ERROR_CODES.INVALID_STATE,
+      "No active question",
+      {
+        event: EVENTS.NEXT_QUESTION_READY,
+        roomId: room.id,
+        questionId: payload.questionId,
+      },
+    );
     return;
   }
 
   const currentQuestion = room.quiz.questions[room.currentQuestionIndex];
 
   if (payload.questionId !== currentQuestion.id) {
-    sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "Wrong question id", {
-      event: EVENTS.NEXT_QUESTION_READY,
-      roomId: room.id,
-      questionId: payload.questionId,
-    });
+    sendProtocolError(
+      socket,
+      PROTOCOL_ERROR_CODES.INVALID_STATE,
+      "Wrong question id",
+      {
+        event: EVENTS.NEXT_QUESTION_READY,
+        roomId: room.id,
+        questionId: payload.questionId,
+      },
+    );
     return;
   }
 
   const session = socket.sessionId ? sessionsById.get(socket.sessionId) : null;
 
   if (!session || session.role !== "player" || session.roomId !== room.id) {
-    sendProtocolError(socket, PROTOCOL_ERROR_CODES.NOT_AUTHORIZED, "Not a player in this room", {
-      event: EVENTS.NEXT_QUESTION_READY,
-      roomId: room.id,
-      questionId: payload.questionId,
-    });
+    sendProtocolError(
+      socket,
+      PROTOCOL_ERROR_CODES.NOT_AUTHORIZED,
+      "Not a player in this room",
+      {
+        event: EVENTS.NEXT_QUESTION_READY,
+        roomId: room.id,
+        questionId: payload.questionId,
+      },
+    );
     return;
   }
 
   if (session.playerId !== payload.playerId) {
-    sendProtocolError(socket, PROTOCOL_ERROR_CODES.NOT_AUTHORIZED, "Player ID mismatch", {
-      event: EVENTS.NEXT_QUESTION_READY,
-      roomId: room.id,
-      questionId: payload.questionId,
-    });
+    sendProtocolError(
+      socket,
+      PROTOCOL_ERROR_CODES.NOT_AUTHORIZED,
+      "Player ID mismatch",
+      {
+        event: EVENTS.NEXT_QUESTION_READY,
+        roomId: room.id,
+        questionId: payload.questionId,
+      },
+    );
     return;
   }
 
   const player = room.players.find((entry) => entry.id === session.playerId);
 
   if (!player || player.state === PlayerState.Disconnected) {
-    sendProtocolError(socket, PROTOCOL_ERROR_CODES.PLAYER_NOT_FOUND, "Player not found or disconnected", {
-      event: EVENTS.NEXT_QUESTION_READY,
-      roomId: room.id,
-      questionId: payload.questionId,
-    });
+    sendProtocolError(
+      socket,
+      PROTOCOL_ERROR_CODES.PLAYER_NOT_FOUND,
+      "Player not found or disconnected",
+      {
+        event: EVENTS.NEXT_QUESTION_READY,
+        roomId: room.id,
+        questionId: payload.questionId,
+      },
+    );
     return;
   }
 
@@ -555,7 +795,11 @@ export function handleNextQuestionReady(
 }
 
 function startQuestion(room: RoomRecord): void {
-  if (!room.quiz || room.currentQuestionIndex === null || room.currentQuestionIndex >= room.quiz.questions.length)
+  if (
+    !room.quiz ||
+    room.currentQuestionIndex === null ||
+    room.currentQuestionIndex >= room.quiz.questions.length
+  )
     return;
 
   clearActiveRoomTimers(room);
@@ -666,7 +910,11 @@ export function handleAnswerEligibilityChanged(room: RoomRecord): void {
     return;
   }
 
-  if (!room.quiz || room.currentQuestionIndex === null || room.currentQuestionIndex >= room.quiz.questions.length) {
+  if (
+    !room.quiz ||
+    room.currentQuestionIndex === null ||
+    room.currentQuestionIndex >= room.quiz.questions.length
+  ) {
     return;
   }
 
@@ -680,19 +928,26 @@ export function handleAnswerEligibilityChanged(room: RoomRecord): void {
     totalEligiblePlayers: progress.totalEligiblePlayers,
   });
 
-  if (progress.totalEligiblePlayers > 0 && progress.answeredCount >= progress.totalEligiblePlayers) {
+  if (
+    progress.totalEligiblePlayers > 0 &&
+    progress.answeredCount >= progress.totalEligiblePlayers
+  ) {
     closeQuestion(room);
   }
 }
 
-export function getAnswerProgress(room: Pick<RoomRecord, "players" | "currentAnswers">): {
+export function getAnswerProgress(
+  room: Pick<RoomRecord, "players" | "currentAnswers">,
+): {
   answeredCount: number;
   totalEligiblePlayers: number;
 } {
   const connectedPlayers = getConnectedPlayers(room);
 
   return {
-    answeredCount: connectedPlayers.filter((player) => room.currentAnswers.has(player.id)).length,
+    answeredCount: connectedPlayers.filter((player) =>
+      room.currentAnswers.has(player.id),
+    ).length,
     totalEligiblePlayers: connectedPlayers.length,
   };
 }
@@ -711,7 +966,11 @@ function closeQuestion(room: RoomRecord): void {
 
   room.gameState = GameState.AnswerLocked;
 
-  if (!room.quiz || room.currentQuestionIndex === null || room.currentQuestionIndex >= room.quiz.questions.length)
+  if (
+    !room.quiz ||
+    room.currentQuestionIndex === null ||
+    room.currentQuestionIndex >= room.quiz.questions.length
+  )
     return;
 
   const question = room.quiz.questions[room.currentQuestionIndex];
@@ -759,7 +1018,11 @@ function evaluateQuestion(room: RoomRecord, question: Question): void {
       case QuestionType.Estimate:
         return evaluateEstimate(question, answers);
       case QuestionType.Ranking:
-        return evaluateRanking(question, answers, room.resolvedGamePlan?.rankingScoringMode ?? "exact");
+        return evaluateRanking(
+          question,
+          answers,
+          room.resolvedGamePlan?.rankingScoringMode ?? "exact",
+        );
       case QuestionType.OpenText:
         return evaluateOpenText(question, answers);
       default:
@@ -800,9 +1063,13 @@ function evaluateQuestion(room: RoomRecord, question: Question): void {
   logRoomEvent("question:reveal", room, {
     questionId: question.id,
     correctAnswer: JSON.stringify(roundResult.correctAnswer.value),
-    right: roundResult.playerResults.filter((result) => result.isCorrect).length,
-    wrong: roundResult.playerResults.filter((result) => !result.isCorrect && result.answer).length,
-    missing: roundResult.playerResults.filter((result) => !result.answer).length,
+    right: roundResult.playerResults.filter((result) => result.isCorrect)
+      .length,
+    wrong: roundResult.playerResults.filter(
+      (result) => !result.isCorrect && result.answer,
+    ).length,
+    missing: roundResult.playerResults.filter((result) => !result.answer)
+      .length,
   });
 
   broadcastToAllRoomClients(room, EVENTS.QUESTION_REVEAL, {
@@ -812,7 +1079,9 @@ function evaluateQuestion(room: RoomRecord, question: Question): void {
     playerResults: roundResult.playerResults,
     gameState: GameState.Revealing,
     explanation: question.explanation,
-    ...(question.type === QuestionType.Estimate ? { estimateContext: question.context } : {}),
+    ...(question.type === QuestionType.Estimate
+      ? { estimateContext: question.context }
+      : {}),
   });
 
   broadcastNextQuestionReadyProgress(room, question.id, GameState.Revealing);
@@ -846,12 +1115,17 @@ function showScoreboard(room: RoomRecord, questionId: string): void {
 export function handleScoreboardReadinessChanged(room: RoomRecord): void {
   if (
     room.state !== RoomState.InGame ||
-    (room.gameState !== GameState.Revealing && room.gameState !== GameState.Scoreboard)
+    (room.gameState !== GameState.Revealing &&
+      room.gameState !== GameState.Scoreboard)
   ) {
     return;
   }
 
-  if (!room.quiz || room.currentQuestionIndex === null || room.currentQuestionIndex >= room.quiz.questions.length) {
+  if (
+    !room.quiz ||
+    room.currentQuestionIndex === null ||
+    room.currentQuestionIndex >= room.quiz.questions.length
+  ) {
     return;
   }
 
@@ -862,7 +1136,9 @@ export function handleScoreboardReadinessChanged(room: RoomRecord): void {
 
   if (
     connectedPlayers.length > 0 &&
-    connectedPlayers.every((player) => room.nextQuestionReadyPlayerIds.has(player.id))
+    connectedPlayers.every((player) =>
+      room.nextQuestionReadyPlayerIds.has(player.id),
+    )
   ) {
     if (room.gameState === GameState.Revealing) {
       advanceAfterReveal(room);
@@ -899,7 +1175,10 @@ function advanceAfterReveal(room: RoomRecord): void {
     room.revealTimer = null;
   }
 
-  if (room.state !== RoomState.InGame || room.gameState !== GameState.Revealing) {
+  if (
+    room.state !== RoomState.InGame ||
+    room.gameState !== GameState.Revealing
+  ) {
     return;
   }
 
@@ -965,34 +1244,52 @@ function finishGame(room: RoomRecord): void {
   }, COMPLETED_ROOM_TTL_MS);
 }
 
-export function handleGameRestart(socket: TrackedWebSocket, roomId: string): void {
+export function handleGameRestart(
+  socket: TrackedWebSocket,
+  roomId: string,
+): void {
   const room = roomsById.get(roomId);
 
   if (!room) {
-    sendProtocolError(socket, PROTOCOL_ERROR_CODES.ROOM_NOT_FOUND, "Room not found", {
-      event: EVENTS.GAME_RESTART,
-      roomId,
-      questionId: null,
-    });
+    sendProtocolError(
+      socket,
+      PROTOCOL_ERROR_CODES.ROOM_NOT_FOUND,
+      "Room not found",
+      {
+        event: EVENTS.GAME_RESTART,
+        roomId,
+        questionId: null,
+      },
+    );
     return;
   }
 
   const session = socket.sessionId ? sessionsById.get(socket.sessionId) : null;
   if (!session || session.role !== "host" || session.roomId !== room.id) {
-    sendProtocolError(socket, PROTOCOL_ERROR_CODES.NOT_AUTHORIZED, "Only the host can restart", {
-      event: EVENTS.GAME_RESTART,
-      roomId: room.id,
-      questionId: null,
-    });
+    sendProtocolError(
+      socket,
+      PROTOCOL_ERROR_CODES.NOT_AUTHORIZED,
+      "Only the host can restart",
+      {
+        event: EVENTS.GAME_RESTART,
+        roomId: room.id,
+        questionId: null,
+      },
+    );
     return;
   }
 
   if (room.state !== RoomState.Completed) {
-    sendProtocolError(socket, PROTOCOL_ERROR_CODES.INVALID_STATE, "Room is not in completed state", {
-      event: EVENTS.GAME_RESTART,
-      roomId: room.id,
-      questionId: null,
-    });
+    sendProtocolError(
+      socket,
+      PROTOCOL_ERROR_CODES.INVALID_STATE,
+      "Room is not in completed state",
+      {
+        event: EVENTS.GAME_RESTART,
+        roomId: room.id,
+        questionId: null,
+      },
+    );
     return;
   }
 
@@ -1040,5 +1337,9 @@ export function handleGameRestart(socket: TrackedWebSocket, roomId: string): voi
   });
 
   broadcastLobbyUpdate(room);
-  sendToHost(room, EVENTS.CATALOG_SUMMARY, buildCatalogSummary(getDefaultQuiz()));
+  sendToHost(
+    room,
+    EVENTS.CATALOG_SUMMARY,
+    buildCatalogSummary(getDefaultQuiz()),
+  );
 }
