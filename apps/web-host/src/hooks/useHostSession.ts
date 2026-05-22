@@ -13,7 +13,7 @@ import {
   type ScoreUpdatePayload,
   type VoteUpdatePayload,
 } from "@quiz/shared-protocol";
-import { type GamePlan, type GamePlanPresetId, GameState, type ModeratorFrequency } from "@quiz/shared-types";
+import { type GamePlan, type GamePlanPresetId, type ModeratorFrequency } from "@quiz/shared-types";
 import QRCode from "qrcode";
 import { useEffect, useEffectEvent, useRef, useState } from "react";
 import { buildPresetGamePlan, createHostClientInfo } from "../lib/game-plan-drafts.js";
@@ -295,20 +295,6 @@ export function useHostSession(deps: {
         setNotice(null);
         if (parsedEnvelope.data.payload.roomState === "waiting") {
           setScreen("lobby");
-        } else {
-          const gs = parsedEnvelope.data.payload.gameState;
-          if (gs === GameState.Idle) {
-            setCountdownSeconds(0);
-            setScreen("countdown");
-          } else if ((gs === GameState.QuestionActive || gs === GameState.AnswerLocked) && question) {
-            setScreen("question");
-          } else if (gs === GameState.Revealing && question && roundResults.length > 0) {
-            setScreen("reveal");
-          } else if (gs === GameState.Scoreboard && scoreboard) {
-            setScreen("scoreboard");
-          } else if (gs === GameState.Completed && finalResult) {
-            setScreen("finished");
-          }
         }
         return;
 

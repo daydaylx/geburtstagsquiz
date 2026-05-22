@@ -257,7 +257,7 @@ export function useDisplaySession(deps: {
         updateStoredSession({
           roomId: payload.roomId,
           displaySessionId: payload.sessionId,
-          displayToken: displaySessionRef.current?.displayToken ?? loadDisplayStoredSession()?.displayToken ?? "",
+          displayToken: loadDisplayStoredSession()?.displayToken ?? displaySessionRef.current?.displayToken ?? "",
         });
 
         if (displaySessionRef.current) {
