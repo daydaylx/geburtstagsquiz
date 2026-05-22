@@ -175,6 +175,24 @@ export function HostLobbyStage({
               </button>
             </div>
           </div>
+
+          <div className="host-card">
+            <strong className="host-section-label">Fragen-Historie</strong>
+            <small className="host-toggle-copy">
+              {s.usedQuestionCount === 0
+                ? "Noch keine Fragen gespielt"
+                : `${s.usedQuestionCount} Frage${s.usedQuestionCount === 1 ? "" : "n"} bereits gespielt`}
+            </small>
+            {s.usedQuestionCount > 0 && (
+              <button
+                className="host-action-button host-action-button--secondary"
+                onClick={s.handleClearUsedQuestions}
+                type="button"
+              >
+                Historie zurücksetzen
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>

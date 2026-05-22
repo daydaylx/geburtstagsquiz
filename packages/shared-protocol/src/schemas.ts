@@ -78,6 +78,7 @@ export const GamePlanSchema = z
     enableDemoQuestion: z.boolean(),
     displayShowLevel: DisplayShowLevelSchema,
     rankingScoringMode: RankingScoringModeSchema,
+    excludedQuestionIds: z.array(z.string()).optional(),
   })
   .strict();
 

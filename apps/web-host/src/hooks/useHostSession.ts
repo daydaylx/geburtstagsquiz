@@ -19,9 +19,13 @@ import { useEffect, useEffectEvent, useRef, useState } from "react";
 import { buildPresetGamePlan, createHostClientInfo } from "../lib/game-plan-drafts.js";
 import { getDisplayUrl, getPlayerJoinUrl } from "../lib/helpers.js";
 import {
+  addUsedQuestionId,
   clearHostStoredSession,
+  clearUsedQuestionIds,
+  getUsedQuestionCount,
   type HostStoredSession,
   loadHostStoredSession,
+  loadUsedQuestionIds,
   saveHostStoredSession,
 } from "../storage.js";
 
@@ -77,6 +81,7 @@ export interface UseHostSessionReturn {
   showAnswerTextOnPlayerDevices: boolean;
   moderatorEnabled: boolean;
   moderatorFrequency: ModeratorFrequency;
+  usedQuestionCount: number;
   confirmFinishNow: boolean;
   setConfirmFinishNow: (v: boolean) => void;
   confirmRemovePlayerId: string | null;
@@ -95,6 +100,7 @@ export interface UseHostSessionReturn {
   handleFinishNow: () => void;
   handleRemovePlayer: (playerId: string) => void;
   handlePlanDraftChange: (nextDraft: GamePlan) => void;
+  handleClearUsedQuestions: () => void;
   setSelectedPlanMode: (mode: GamePlanPresetId | "custom") => void;
   votes: Record<string, number>;
 }
@@ -147,6 +153,7 @@ export function useHostSession(deps: {
   const [confirmRemovePlayerId, setConfirmRemovePlayerId] = useState<string | null>(null);
   const [displayConnected, setDisplayConnected] = useState(false);
   const [displayConnectToken, setDisplayConnectToken] = useState<string | null>(null);
+  const [usedQuestionCount, setUsedQuestionCount] = useState(() => getUsedQuestionCount());
 
   const hostSessionRef = useRef<HostStoredSession | null>(initialSession);
   const pendingHostConnectRef = useRef(false);
@@ -374,11 +381,16 @@ export function useHostSession(deps: {
         setScreen("countdown");
         return;
 
-      case EVENTS.QUESTION_SHOW:
-        setQuestion(parsedEnvelope.data.payload);
-        setRemainingMs(parsedEnvelope.data.payload.durationMs);
-        setCurrentQuestionIndex(parsedEnvelope.data.payload.questionIndex);
-        setTotalQuestionCount(parsedEnvelope.data.payload.totalQuestionCount);
+      case EVENTS.QUESTION_SHOW: {
+        const showPayload = parsedEnvelope.data.payload;
+        if (!showPayload.isDemoQuestion) {
+          addUsedQuestionId(showPayload.questionId);
+          setUsedQuestionCount(getUsedQuestionCount());
+        }
+        setQuestion(showPayload);
+        setRemainingMs(showPayload.durationMs);
+        setCurrentQuestionIndex(showPayload.questionIndex);
+        setTotalQuestionCount(showPayload.totalQuestionCount);
         setConfirmFinishNow(false);
         setConfirmRemovePlayerId(null);
         setScreen("question");
@@ -388,6 +400,7 @@ export function useHostSession(deps: {
         setScoreboard(null);
         setNextQuestionReadyProgress(null);
         return;
+      }
 
       case EVENTS.QUESTION_TIMER:
         setRemainingMs(parsedEnvelope.data.payload.remainingMs);
@@ -558,8 +571,16 @@ export function useHostSession(deps: {
   const handleStartGame = useEffectEvent(() => {
     if (roomInfo && gamePlanDraft) {
       setNotice(null);
-      sendEvent(EVENTS.GAME_START, { roomId: roomInfo.roomId, gamePlan: gamePlanDraft });
+      sendEvent(EVENTS.GAME_START, {
+        roomId: roomInfo.roomId,
+        gamePlan: { ...gamePlanDraft, excludedQuestionIds: [...loadUsedQuestionIds()] },
+      });
     }
+  });
+
+  const handleClearUsedQuestions = useEffectEvent(() => {
+    clearUsedQuestionIds();
+    setUsedQuestionCount(0);
   });
 
   const handleAnswerTextSettingChange = useEffectEvent((enabled: boolean) => {
@@ -694,6 +715,8 @@ export function useHostSession(deps: {
     handleFinishNow,
     handleRemovePlayer,
     handlePlanDraftChange,
+    handleClearUsedQuestions,
+    usedQuestionCount,
     setSelectedPlanMode,
     votes,
   };

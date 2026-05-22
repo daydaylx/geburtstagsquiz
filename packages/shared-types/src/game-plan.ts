@@ -23,6 +23,7 @@ export interface GamePlan {
   enableDemoQuestion: boolean;
   displayShowLevel: DisplayShowLevel;
   rankingScoringMode: RankingScoringMode;
+  excludedQuestionIds?: string[];
 }
 
 export interface ResolvedGamePlan extends GamePlan {
