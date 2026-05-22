@@ -10,7 +10,7 @@
     "alltag",
     "wissen"
   ],
-  "question_count": 46,
+  "question_count": 47,
   "questions": [
     {
       "id": "q-09-01-aa4fa9da07",
@@ -1889,6 +1889,27 @@
         "alltag",
         "wissen"
       ]
+    },
+    {
+      "id": "q-09-c5768c33c00c",
+      "type": "standard",
+      "prompt": "Wie heisst die Steuererklaerung, die Arbeitnehmer in Deutschland jaehrlich einreichen koennen?",
+      "answer": {
+        "canonical": "Einkommensteuererklaerung",
+        "aliases": [
+          "ESt-Erklaerung",
+          "Steuererklaerung",
+          "Lohnsteuererklaerung",
+          "Einkommensteuererklaerung",
+          "Steuererklaerung",
+          "EST-Erklaerung",
+          "Einkommensteuer-Erklaerung"
+        ]
+      },
+      "explanation": "Die Einkommensteuererklaerung wird jaehrlich ans Finanzamt eingereicht. Bei Pflichtveranlagung ist sie Pflicht, sonst freiwillig.",
+      "difficulty": "easy",
+      "points": 1,
+      "category_id": "cat-09"
     }
   ]
 }

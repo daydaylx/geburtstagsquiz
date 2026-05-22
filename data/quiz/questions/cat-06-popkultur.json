@@ -10,7 +10,7 @@
     "medien",
     "2000er"
   ],
-  "question_count": 28,
+  "question_count": 30,
   "questions": [
     {
       "id": "q-06-01-a02a242af7",
@@ -893,6 +893,38 @@
       "explanation": "Wir dachten, Flugzeuge fallen vom Himmel und Toaster fangen an zu brennen. Am Ende passierte: nichts. Außer einer fetten Party.",
       "difficulty": "easy",
       "points": 1
+    },
+    {
+      "id": "q-06-b027b4ddb5cd",
+      "type": "estimate",
+      "prompt": "Wie viele Zuschauer hatte das DSDS-Finale 2003 (Staffel 1) ungefaehr in Millionen?",
+      "answer": {
+        "canonical": "ca. 12 Millionen",
+        "reference_value": 12,
+        "unit": "Millionen Zuschauer",
+        "context": "Daniel K., Seasons-Sieger der ersten Staffel"
+      },
+      "scoring_rule": "closest_wins",
+      "explanation": "Rund 12 Millionen sahen das Finale der ersten DSDS-Staffel 2003. Die Quote lag bei ueber 40%.",
+      "difficulty": "hard",
+      "points": 1,
+      "category_id": "cat-06"
+    },
+    {
+      "id": "q-06-b2faaeacf78a",
+      "type": "standard",
+      "prompt": "Wie hiess der Tamagotchi-Hersteller, der 1996 den digitalen Haustier-Trend ausloeste?",
+      "answer": {
+        "canonical": "Bandai",
+        "aliases": [
+          "Bandai Co.",
+          "Bandai Namco"
+        ]
+      },
+      "explanation": "Bandai brachte 1996 das Tamagotchi in Japan auf den Markt. Weltweit wurden ueber 82 Mio. Stueck verkauft.",
+      "difficulty": "hard",
+      "points": 1,
+      "category_id": "cat-06"
     }
   ]
 }

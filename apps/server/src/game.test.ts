@@ -228,8 +228,8 @@ describe("getDefaultQuiz", () => {
     const quiz = getDefaultQuiz();
 
     expect(quiz.id).toBe("geburtstagsquiz-millennials-v2-engine-v2");
-    expect(quiz.questions).toHaveLength(481);
-    expect(new Set(quiz.questions.map((q) => q.id)).size).toBe(481);
+    expect(quiz.questions).toHaveLength(505);
+    expect(new Set(quiz.questions.map((q) => q.id)).size).toBe(505);
     expect(quiz.questions.every((q) => q.durationMs === QUESTION_DURATION_MS)).toBe(true);
   });
 });
@@ -239,8 +239,8 @@ describe("game plan selection", () => {
     const quiz = getDefaultQuiz();
     const catalog = buildCatalogSummary(quiz);
 
-    expect(catalog.totalQuestions).toBe(481);
-    expect(catalog.maxQuestionCount).toBe(481);
+    expect(catalog.totalQuestions).toBe(505);
+    expect(catalog.maxQuestionCount).toBe(505);
     expect(catalog.categories.length).toBeGreaterThan(0);
     expect(catalog.categories.some((category) => category.id === "cat-01")).toBe(true);
     expect(catalog.questionTypes.some((entry) => entry.type === QuestionType.MultipleChoice)).toBe(true);

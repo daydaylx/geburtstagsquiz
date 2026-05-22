@@ -4,7 +4,7 @@
   "name": "Cringe Millennial-Slang & Internet-Fossilien",
   "difficulty": "medium_hard",
   "tags": [],
-  "question_count": 37,
+  "question_count": 39,
   "questions": [
     {
       "id": "q-03-01-a1f969d060",
@@ -1170,6 +1170,37 @@
       "explanation": "Age, Sex, Location. Die heilige Dreifaltigkeit des anonymen Chats.",
       "difficulty": "easy",
       "points": 1
+    },
+    {
+      "id": "q-03-5318a1120c87",
+      "type": "estimate",
+      "prompt": "In welchem Jahr wurde das allererste Emoji-Set von Shigetaka Kurita fuer das japanische Mobilfunknetz erstellt?",
+      "answer": {
+        "canonical": "1999",
+        "reference_value": 1999,
+        "unit": "Jahr",
+        "context": "Die ersten 176 Emoji waren 12x12 Pixel gross"
+      },
+      "scoring_rule": "closest_wins",
+      "explanation": "1999: Die urspruenglichen 176 Emoji sind heute im MoMA ausgestellt.",
+      "difficulty": "hard",
+      "points": 1,
+      "category_id": "cat-03"
+    },
+    {
+      "id": "q-03-4f9a2a535391",
+      "type": "standard",
+      "prompt": "Wie hiess der Chatdienst, bei dem man zufaellige Fremde zum Text-Chat verbinden konnte (OHNE Video)?",
+      "answer": {
+        "canonical": "Omegle",
+        "aliases": [
+          "omegle.com"
+        ]
+      },
+      "explanation": "Omegle verband ab 2009 zufaellige Fremde. 2023 wurde es abgeschaltet.",
+      "difficulty": "easy",
+      "points": 1,
+      "category_id": "cat-03"
     }
   ]
 }

@@ -11,7 +11,7 @@
     "sachkunde",
     "nostalgie"
   ],
-  "question_count": 45,
+  "question_count": 48,
   "questions": [
     {
       "id": "q-12-01-1a2b3c4d",
@@ -1743,6 +1743,74 @@
         "nostalgie",
         "grundschule"
       ]
+    },
+    {
+      "id": "q-12-b82b87db52d2",
+      "type": "estimate",
+      "prompt": "Wie viele Beine hat eine Spinne?",
+      "answer": {
+        "canonical": "8 Beine",
+        "reference_value": 8,
+        "unit": "Beine",
+        "context": "Spinnen gehoeren zu den Gliedertieren"
+      },
+      "scoring_rule": "closest_wins",
+      "explanation": "Spinnen haben 8 Beine (4 Paare). Sie gehoeren zu den Arachniden, nicht zu den Insekten (6 Beine).",
+      "difficulty": "easy",
+      "points": 1,
+      "category_id": "cat-12"
+    },
+    {
+      "id": "q-12-9d9890a941cb",
+      "type": "ranking",
+      "prompt": "Sortiere diese Tiere von der kleinsten zur groessten Anzahl an Beinen.",
+      "items": [
+        {
+          "id": "q-12-item-d5c5f935462d",
+          "text": "Spinne"
+        },
+        {
+          "id": "q-12-item-d42abe1a9e6c",
+          "text": "Tausendfuessler"
+        },
+        {
+          "id": "q-12-item-c1e53f8fd9e1",
+          "text": "Ameise"
+        },
+        {
+          "id": "q-12-item-9df2ce4684d1",
+          "text": "Mensch"
+        }
+      ],
+      "correct_order": [
+        "q-12-item-9df2ce4684d1",
+        "q-12-item-c1e53f8fd9e1",
+        "q-12-item-d5c5f935462d",
+        "q-12-item-d42abe1a9e6c"
+      ],
+      "scoring_rule": "exact_order",
+      "explanation": "Mensch (2 Beine) < Ameise (6 Beine) < Spinne (8 Beine) < Tausendfuessler (bis zu 750 Beine).",
+      "difficulty": "easy",
+      "points": 1,
+      "category_id": "cat-12"
+    },
+    {
+      "id": "q-12-6f953e9d59cf",
+      "type": "standard",
+      "prompt": "Wie heisst unser naechster Stern, der der Erde am naechsten ist?",
+      "answer": {
+        "canonical": "Sonne",
+        "aliases": [
+          "Die Sonne",
+          "unserer Sonne",
+          "der Sonne",
+          "Sun"
+        ]
+      },
+      "explanation": "Die Sonne ist im Durchschnitt ca. 150 Mio. km von der Erde entfernt und der naechste Stern.",
+      "difficulty": "easy",
+      "points": 1,
+      "category_id": "cat-12"
     }
   ]
 }

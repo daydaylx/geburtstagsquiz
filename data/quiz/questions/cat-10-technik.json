@@ -10,7 +10,7 @@
     "handys",
     "nostalgie"
   ],
-  "question_count": 38,
+  "question_count": 40,
   "questions": [
     {
       "id": "q-10-01-a724282785",
@@ -31,17 +31,17 @@
         },
         {
           "id": "q-10-01-a724282785-opt-2",
-          "text": "DSL-Summen",
+          "text": "DSL-Bandbreiten-Aushandlung (Dauerping)",
           "is_correct": false
         },
         {
           "id": "q-10-01-a724282785-opt-3",
-          "text": "ISDN-Klicken",
+          "text": "ISDN-Verbindungsaufbau (Kurzes Klacken)",
           "is_correct": false
         },
         {
           "id": "q-10-01-a724282785-opt-4",
-          "text": "Modem-Walzer",
+          "text": "Modem-Bootsequenz (Dauerton am Stück)",
           "is_correct": false
         }
       ],
@@ -93,17 +93,17 @@
         },
         {
           "id": "q-10-02-16cfd8fe93-opt-2",
-          "text": "Er wurde zu heiß",
+          "text": "Das Gerät wurde nach Minuten zu heiß",
           "is_correct": false
         },
         {
           "id": "q-10-02-16cfd8fe93-opt-3",
-          "text": "Die CD schmolz",
+          "text": "Die CD schmolz bei starker Nutzungsdauer",
           "is_correct": false
         },
         {
           "id": "q-10-02-16cfd8fe93-opt-4",
-          "text": "Man brauchte eine Genehmigung",
+          "text": "Man brauchte eine offizielle Genehmigung",
           "is_correct": false
         }
       ],
@@ -159,12 +159,12 @@
         },
         {
           "id": "q-10-03-2a59fdd462-opt-3",
-          "text": "Ein Kochprogramm",
+          "text": "Ein interaktives TV-Kochprogramm",
           "is_correct": false
         },
         {
           "id": "q-10-03-2a59fdd462-opt-4",
-          "text": "Ein Virus-Schutz",
+          "text": "Ein bekannter Virus-Schutz-Scanner",
           "is_correct": false
         }
       ],
@@ -210,12 +210,12 @@
       "options": [
         {
           "id": "q-10-04-681a745dc2-opt-1",
-          "text": "CD im Ofen erhitzen",
+          "text": "Die CD im Backofen ordentlich erhitzen",
           "is_correct": false
         },
         {
           "id": "q-10-04-681a745dc2-opt-2",
-          "text": "Cover einritzen",
+          "text": "Cover mit dem Messer einritzen und bemalen",
           "is_correct": false
         },
         {
@@ -225,7 +225,7 @@
         },
         {
           "id": "q-10-04-681a745dc2-opt-4",
-          "text": "CDs illegal verkaufen",
+          "text": "Gebrannte CDs auf dem Schulhof verticken",
           "is_correct": false
         }
       ],
@@ -397,17 +397,17 @@
         },
         {
           "id": "q-10-07-c46b85b036-opt-2",
-          "text": "1,44 GB",
+          "text": "1,44 GB (eine ganze Festplatte voll)",
           "is_correct": false
         },
         {
           "id": "q-10-07-c46b85b036-opt-3",
-          "text": "700 MB",
+          "text": "700 MB (passt ein ganzes Album drauf)",
           "is_correct": false
         },
         {
           "id": "q-10-07-c46b85b036-opt-4",
-          "text": "100 KB",
+          "text": "100 KB (kaum eine Textseite wert)",
           "is_correct": false
         }
       ],
@@ -458,17 +458,17 @@
         },
         {
           "id": "q-10-08-e01d9ff8bd-opt-2",
-          "text": "Man konnte ihn als Tisch nutzen",
+          "text": "Man konnte ihn prima als Schreibtisch nutzen",
           "is_correct": false
         },
         {
           "id": "q-10-08-e01d9ff8bd-opt-3",
-          "text": "Er war aus Holz",
+          "text": "Das Gehäuse war komplett aus Massivholz",
           "is_correct": false
         },
         {
           "id": "q-10-08-e01d9ff8bd-opt-4",
-          "text": "Keine Kabel",
+          "text": "Er lief komplett ohne jedes Stromkabel",
           "is_correct": false
         }
       ],
@@ -580,17 +580,17 @@
         },
         {
           "id": "q-10-10-c7e06f0732-opt-2",
-          "text": "Ein Terminator-Modell",
+          "text": "Ein spezielles Terminator-Robotik-Modell",
           "is_correct": false
         },
         {
           "id": "q-10-10-c7e06f0732-opt-3",
-          "text": "Ein Flugzeugtyp",
+          "text": "Ein militärischer Flugzeugtyp der NATO",
           "is_correct": false
         },
         {
           "id": "q-10-10-c7e06f0732-opt-4",
-          "text": "Ein Level in Tetris",
+          "text": "Ein geheimes Bonus-Level in Tetris",
           "is_correct": false
         }
       ],
@@ -641,17 +641,17 @@
         },
         {
           "id": "q-10-11-f066fb2e24-opt-2",
-          "text": "Besserer Empfang im Keller",
+          "text": "Viel besserer Empfang tief im Keller",
           "is_correct": false
         },
         {
           "id": "q-10-11-f066fb2e24-opt-3",
-          "text": "Eingebauter Spiegel",
+          "text": "Eingebauter Spiegel auf der Rückseite",
           "is_correct": false
         },
         {
           "id": "q-10-11-f066fb2e24-opt-4",
-          "text": "Als Waffe nutzbar",
+          "text": "Als Improvisations-Waffe nutzbar",
           "is_correct": false
         }
       ],
@@ -697,12 +697,12 @@
       "options": [
         {
           "id": "q-10-12-ba3a09612f-opt-1",
-          "text": "Siemens",
+          "text": "Siemens (Robust)",
           "is_correct": false
         },
         {
           "id": "q-10-12-ba3a09612f-opt-2",
-          "text": "Sony Ericsson",
+          "text": "Sony Ericsson (Style)",
           "is_correct": false
         },
         {
@@ -712,7 +712,7 @@
         },
         {
           "id": "q-10-12-ba3a09612f-opt-4",
-          "text": "Samsung",
+          "text": "Samsung (Flip-Phone)",
           "is_correct": false
         }
       ],
@@ -763,17 +763,17 @@
         },
         {
           "id": "q-10-13-9a6c710d44-opt-2",
-          "text": "Man brauchte Benzin",
+          "text": "Man brauchte Benzin zum Betrieb des Players",
           "is_correct": false
         },
         {
           "id": "q-10-13-9a6c710d44-opt-3",
-          "text": "Sie waren zu schwer",
+          "text": "Die Geräte waren viel zu schwer zum Tragen",
           "is_correct": false
         },
         {
           "id": "q-10-13-9a6c710d44-opt-4",
-          "text": "Funktion nur unter Wasser",
+          "text": "Funktionierten nur unter Wasser richtig gut",
           "is_correct": false
         }
       ],
@@ -819,7 +819,7 @@
       "options": [
         {
           "id": "q-10-14-d85f04e7ab-opt-1",
-          "text": "Very Good Audio",
+          "text": "Very Good Audio (Grüner Stecker)",
           "is_correct": false
         },
         {
@@ -829,12 +829,12 @@
         },
         {
           "id": "q-10-14-d85f04e7ab-opt-3",
-          "text": "Virtual Game Adapter",
+          "text": "Virtual Game Adapter (Grauer Stecker)",
           "is_correct": false
         },
         {
           "id": "q-10-14-d85f04e7ab-opt-4",
-          "text": "Visual Graphic Area",
+          "text": "Visual Graphic Area (Roter Stecker)",
           "is_correct": false
         }
       ],
@@ -941,17 +941,17 @@
       "options": [
         {
           "id": "q-10-16-3375eefa44-opt-1",
-          "text": "Nacht-Modus",
+          "text": "Automatischer Nacht-Modus schaltete ab",
           "is_correct": false
         },
         {
           "id": "q-10-16-3375eefa44-opt-2",
-          "text": "Man konnte es riechen",
+          "text": "WLAN-Strahlung war im ganzen Haus spürbar",
           "is_correct": false
         },
         {
           "id": "q-10-16-3375eefa44-opt-3",
-          "text": "Machte Milch sauer",
+          "text": "Signal brach beim Kühlschrank öffnen ab",
           "is_correct": false
         },
         {
@@ -1002,17 +1002,17 @@
       "options": [
         {
           "id": "q-10-17-91e8d7efc9-opt-1",
-          "text": "Entspannungsmodus",
+          "text": "Neuer Entspannungsmodus",
           "is_correct": false
         },
         {
           "id": "q-10-17-91e8d7efc9-opt-2",
-          "text": "Design-Feature",
+          "text": "Cooles Design-Feature",
           "is_correct": false
         },
         {
           "id": "q-10-17-91e8d7efc9-opt-3",
-          "text": "Filter für Fotos",
+          "text": "Blauer Filter für Fotos",
           "is_correct": false
         },
         {
@@ -1063,7 +1063,7 @@
       "options": [
         {
           "id": "q-10-18-ed86c923b4-opt-1",
-          "text": "Sie waren zu rund",
+          "text": "Die gebrannte CD war von der Form zu rund",
           "is_correct": false
         },
         {
@@ -1073,12 +1073,12 @@
         },
         {
           "id": "q-10-18-ed86c923b4-opt-3",
-          "text": "Zu laut gebrannt",
+          "text": "Die Lieder waren zu laut gebrannt worden",
           "is_correct": false
         },
         {
           "id": "q-10-18-ed86c923b4-opt-4",
-          "text": "Auto mochte die Musik nicht",
+          "text": "Das Auto mochte die gemixte Musik nicht",
           "is_correct": false
         }
       ],
@@ -1129,17 +1129,17 @@
         },
         {
           "id": "q-10-19-067bdd8992-opt-2",
-          "text": "WhatsApp-Vorläufer",
+          "text": "Früher Vorläufer von WhatsApp",
           "is_correct": false
         },
         {
           "id": "q-10-19-067bdd8992-opt-3",
-          "text": "Bilder-Editor",
+          "text": "Bilder- und Foto-Bearbeitung",
           "is_correct": false
         },
         {
           "id": "q-10-19-067bdd8992-opt-4",
-          "text": "Rennspiel",
+          "text": "Beliebtes PC-Rennspiel der 90er",
           "is_correct": false
         }
       ],
@@ -1185,7 +1185,7 @@
       "options": [
         {
           "id": "q-10-20-e8893bcd21-opt-1",
-          "text": "PC putzen",
+          "text": "Staub aus dem Gehäuse entfernen",
           "is_correct": false
         },
         {
@@ -1195,12 +1195,12 @@
         },
         {
           "id": "q-10-20-e8893bcd21-opt-3",
-          "text": "Viren löschen",
+          "text": "Viren und Trojaner restlos löschen",
           "is_correct": false
         },
         {
           "id": "q-10-20-e8893bcd21-opt-4",
-          "text": "Monitor entmagnetisieren",
+          "text": "Monitor physisch entmagnetisieren",
           "is_correct": false
         }
       ],
@@ -1246,17 +1246,17 @@
       "options": [
         {
           "id": "q-10-21-da25583664-opt-1",
-          "text": "Keiner",
+          "text": "Es gab keinen Unterschied, beide gleich",
           "is_correct": false
         },
         {
           "id": "q-10-21-da25583664-opt-2",
-          "text": "Schiebehandys für Gamer",
+          "text": "Schiebehandys waren nur für echte Gamer",
           "is_correct": false
         },
         {
           "id": "q-10-21-da25583664-opt-3",
-          "text": "Klapphandys ohne Display",
+          "text": "Klapphandys hatten gar kein Display drin",
           "is_correct": false
         },
         {
@@ -1429,7 +1429,7 @@
       "options": [
         {
           "id": "q-10-24-1394a5fdc3-opt-1",
-          "text": "Zu teuer",
+          "text": "Die Downloads waren viel zu teuer",
           "is_correct": false
         },
         {
@@ -1439,12 +1439,12 @@
         },
         {
           "id": "q-10-24-1394a5fdc3-opt-3",
-          "text": "Limit von 1 Lied pro Tag",
+          "text": "Limit von nur einem Song pro Tag",
           "is_correct": false
         },
         {
           "id": "q-10-24-1394a5fdc3-opt-4",
-          "text": "Liefen nur auf Macs",
+          "text": "Liefen nur auf Mac-Systemen",
           "is_correct": false
         }
       ],
@@ -1837,6 +1837,40 @@
       ],
       "explanation": "Phantom-Vibrationen sind ein bekanntes Alltagsphaenomen. Statt eine wackelige Prozentzahl zu raten, entscheidet hier die Erfahrung der Runde.",
       "difficulty": "medium"
+    },
+    {
+      "id": "q-10-8cde7e5d3ad5",
+      "type": "estimate",
+      "prompt": "Wie viel Speicherplatz hatte eine klassische 3,5-Zoll-Diskette in Megabyte?",
+      "answer": {
+        "canonical": "1.44 MB",
+        "reference_value": 1.44,
+        "unit": "MB",
+        "context": "Der Standard fuer die allerletzte Disketten-Generation"
+      },
+      "scoring_rule": "closest_wins",
+      "explanation": "1,44 MB war die Standardkapazitaet der 3,5-Zoll-Diskette. Es gab auch 720 KB und 2,88 MB Varianten.",
+      "difficulty": "easy",
+      "points": 1,
+      "category_id": "cat-10"
+    },
+    {
+      "id": "q-10-fac3930b0635",
+      "type": "standard",
+      "prompt": "Wie heisst das Dateisystem, das Windows seit Windows 95 standardmaessig verwendet?",
+      "answer": {
+        "canonical": "FAT32",
+        "aliases": [
+          "FAT",
+          "File Allocation Table",
+          "FAT 32",
+          "NTFS"
+        ]
+      },
+      "explanation": "FAT32 war ab Windows 95 OSR2 Standard. Ab Windows XP wurde NTFS zum neuen Standard.",
+      "difficulty": "medium",
+      "points": 1,
+      "category_id": "cat-10"
     }
   ]
 }

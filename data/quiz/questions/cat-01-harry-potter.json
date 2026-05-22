@@ -10,7 +10,7 @@
     "popkultur",
     "schwer"
   ],
-  "question_count": 30,
+  "question_count": 32,
   "questions": [
     {
       "id": "q-01-01-6a920e98bc",
@@ -958,6 +958,40 @@
       "explanation": "Backfire! Ron spuckt Riesen-Schnecken. Eine Lektion fürs Leben: Repariere dein Equipment mit vernünftigem Klebeband, nicht mit Tesafilm. Oder kauf einfach ein neues Handy... äh, Zauberstab.",
       "difficulty": "medium",
       "points": 1
+    },
+    {
+      "id": "q-01-16e98acf3e87",
+      "type": "estimate",
+      "prompt": "Wie viele Harry-Potter-Filme gab es insgesamt (Hauptreihe)?",
+      "answer": {
+        "canonical": "8 Filme",
+        "reference_value": 8,
+        "unit": "Filme",
+        "context": "Harry Potter und die Heiligtuemer des Todes wurde in zwei Teile gesplittet"
+      },
+      "scoring_rule": "closest_wins",
+      "explanation": "8 Filme: Teil 1-6, dann Heiligtuemer des Todes Teil 1 und Teil 2.",
+      "difficulty": "easy",
+      "points": 1,
+      "category_id": "cat-01"
+    },
+    {
+      "id": "q-01-050b9e42f51f",
+      "type": "standard",
+      "prompt": "Wie heisst der Zauberstabmacher in der Winkelgasse, bei dem Harry seinen ersten Zauberstab kauft?",
+      "answer": {
+        "canonical": "Ollivander",
+        "aliases": [
+          "Mr Ollivander",
+          "Garrick Ollivander",
+          "Olivander",
+          "Ollivanders"
+        ]
+      },
+      "explanation": "Ollivander verkauft Harry den Zauberstab mit dem Phoenixfeder-Kern, der Bruder von Voldemorts Zauberstab.",
+      "difficulty": "medium",
+      "points": 1,
+      "category_id": "cat-01"
     }
   ]
 }

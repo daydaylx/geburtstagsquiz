@@ -10,7 +10,7 @@
     "nostalgie",
     "frust"
   ],
-  "question_count": 31,
+  "question_count": 33,
   "questions": [
     {
       "id": "q-07-05-658e3a665d",
@@ -1153,6 +1153,39 @@
       "correct_option_id": "q-07-30-opt-2",
       "explanation": "Gotta catch 'em all! Es waren 151. Wer heute behauptet, er kenne alle 1000+, lügt oder hat zu viel Freizeit.",
       "difficulty": "medium"
+    },
+    {
+      "id": "q-07-ed1a10b8d647",
+      "type": "estimate",
+      "prompt": "Wie viele Millionen Exemplare hat Minecraft weltweit ungefaehr verkauft (Stand 2024)?",
+      "answer": {
+        "canonical": "ca. 300 Millionen",
+        "reference_value": 300,
+        "unit": "Millionen",
+        "context": "Minecraft ist das meistverkaufte Videospiel aller Zeiten"
+      },
+      "scoring_rule": "closest_wins",
+      "explanation": "Ueber 300 Mio. Exemplare. Minecraft ist das meistverkaufte Spiel der Geschichte.",
+      "difficulty": "medium",
+      "points": 1,
+      "category_id": "cat-07"
+    },
+    {
+      "id": "q-07-5092031c81b2",
+      "type": "standard",
+      "prompt": "Wie heisst der beruehmte Cheat-Code aus Konami-Spielen (oben, unten, oben, unten, links, rechts, links, rechts, B, A)?",
+      "answer": {
+        "canonical": "Konami Code",
+        "aliases": [
+          "Konami-Code",
+          "Konomi Code",
+          "up up down down left right left right B A"
+        ]
+      },
+      "explanation": "Der Konami Code wurde erstmals 1986 in Gradius verwendet und wurde zum Popkultur-Paenomen.",
+      "difficulty": "medium",
+      "points": 1,
+      "category_id": "cat-07"
     }
   ]
 }

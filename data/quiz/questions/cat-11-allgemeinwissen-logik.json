@@ -4,7 +4,7 @@
   "name": "Allgemeinwissen & Logik",
   "difficulty": "medium",
   "tags": [],
-  "question_count": 50,
+  "question_count": 53,
   "questions": [
     {
       "id": "q-11-01-e2f91b4a",
@@ -1622,6 +1622,67 @@
       "category_id": "cat-11",
       "type": "multiple_choice",
       "points": 1
+    },
+    {
+      "id": "q-11-b01ec7a86685",
+      "type": "estimate",
+      "prompt": "Wie viele Bundeslaender hat Deutschland?",
+      "answer": {
+        "canonical": "16",
+        "reference_value": 16,
+        "unit": "Bundeslaender",
+        "context": "Seit der Wiedervereinigung 1990"
+      },
+      "scoring_rule": "closest_wins",
+      "explanation": "Deutschland hat 16 Bundeslaender, davon 3 Stadtstaaten (Berlin, Bremen, Hamburg).",
+      "difficulty": "easy",
+      "points": 1,
+      "category_id": "cat-11"
+    },
+    {
+      "id": "q-11-ad2de97e9b60",
+      "type": "standard",
+      "prompt": "Wie heisst das kleinste Land der Erde nach Flaechengroesse?",
+      "answer": {
+        "canonical": "Vatikanstadt",
+        "aliases": [
+          "Vatikan",
+          "Vatikanstaat",
+          "Staat der Vatikanstadt",
+          "Citta del Vaticano"
+        ]
+      },
+      "explanation": "Der Vatikan ist mit 0,44 km² das kleinste unabhaengige Land der Welt.",
+      "difficulty": "easy",
+      "points": 1,
+      "category_id": "cat-11"
+    },
+    {
+      "id": "q-11-9ba8127e3873",
+      "type": "majority_guess",
+      "prompt": "Wenn du spontan eine Farbe nennen muesstest – welche waehlst du?",
+      "options": [
+        {
+          "id": "q-11-opt-82f279cd67e2",
+          "text": "Blau"
+        },
+        {
+          "id": "q-11-opt-25ba3d6ba68c",
+          "text": "Rot"
+        },
+        {
+          "id": "q-11-opt-655c1d43e66f",
+          "text": "Gruen"
+        },
+        {
+          "id": "q-11-opt-de2a05acb794",
+          "text": "Schwarz"
+        }
+      ],
+      "explanation": "Blau ist weltweit die beliebteste Farbe (ca. 40% der Menschen waehlen sie).",
+      "difficulty": "easy",
+      "points": 1,
+      "category_id": "cat-11"
     }
   ]
 }

@@ -4,7 +4,7 @@
   "name": "Saufen, Feiern & toxische Jugend-Drinks",
   "difficulty": "medium",
   "tags": [],
-  "question_count": 43,
+  "question_count": 45,
   "questions": [
     {
       "id": "q-05-01-dcbbe9ff6d",
@@ -1376,6 +1376,44 @@
       "difficulty": "low",
       "category_id": "cat-05",
       "points": 2
+    },
+    {
+      "id": "q-05-308eee04ae2f",
+      "type": "estimate",
+      "prompt": "Wie viele Liter Bier trank der durchschnittliche Deutsche im Jahr 2023 (ungefaehr)?",
+      "answer": {
+        "canonical": "ca. 88 Liter",
+        "reference_value": 88,
+        "unit": "Liter",
+        "context": "Pro-Kopf-Verbrauch rein rechnerisch, inkl. alkoholfreies Bier"
+      },
+      "scoring_rule": "closest_wins",
+      "explanation": "Rund 88 Liter pro Kopf und Jahr. Deutschland liegt weltweit im oberen Drittel.",
+      "difficulty": "medium",
+      "points": 1,
+      "category_id": "cat-05"
+    },
+    {
+      "id": "q-05-527eb169ee33",
+      "type": "standard",
+      "prompt": "Wie heisst das klassische deutsche Partygetraenk aus egal-teilen Rotwein und Cola?",
+      "answer": {
+        "canonical": "Diesel",
+        "aliases": [
+          "Kalter Kaffee",
+          "Rotwein-Cola-Mix",
+          "Cola-Rotwein",
+          "Dreckiges Wasser",
+          "Schmutziges Wasser",
+          "Bismarck",
+          "Morio-Mix",
+          "Gespritzter"
+        ]
+      },
+      "explanation": "Bekannt als Diesel (oder auch Kalter Kaffee). In Oesterreich oft als Gespritzter bezeichnet.",
+      "difficulty": "easy",
+      "points": 1,
+      "category_id": "cat-05"
     }
   ]
 }

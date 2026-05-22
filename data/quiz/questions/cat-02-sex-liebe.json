@@ -4,7 +4,7 @@
   "name": "Sex, Liebe & expliziter Bullshit",
   "difficulty": "medium_hard",
   "tags": [],
-  "question_count": 101,
+  "question_count": 104,
   "questions": [
     {
       "id": "q-02-01-c95a802a2d",
@@ -3147,6 +3147,91 @@
       "category_id": "cat-02",
       "type": "multiple_choice",
       "points": 1
+    },
+    {
+      "id": "q-02-63e31bd4f88b",
+      "type": "ranking",
+      "prompt": "Sortiere diese Dating-Apps nach ihrem Veroeffentlichungsjahr, von der aeltesten zur neuesten.",
+      "items": [
+        {
+          "id": "q-02-item-0632f60719ce",
+          "text": "Tinder"
+        },
+        {
+          "id": "q-02-item-1f7ba769ed25",
+          "text": "OkCupid"
+        },
+        {
+          "id": "q-02-item-f4ffa371c838",
+          "text": "Bumble"
+        },
+        {
+          "id": "q-02-item-d6713d43bf1b",
+          "text": "Grindr"
+        }
+      ],
+      "correct_order": [
+        "q-02-item-1f7ba769ed25",
+        "q-02-item-d6713d43bf1b",
+        "q-02-item-0632f60719ce",
+        "q-02-item-f4ffa371c838"
+      ],
+      "scoring_rule": "exact_order",
+      "explanation": "OkCupid (2004), Grindr (2009), Tinder (2012), Bumble (2014).",
+      "difficulty": "hard",
+      "points": 1,
+      "category_id": "cat-02"
+    },
+    {
+      "id": "q-02-905c98c92bf5",
+      "type": "standard",
+      "prompt": "Wie heisst die durchgehende sexuelle Einwilligung in Form eines Safewords oder -signals in der BDSM-Szene, die alles sofort stoppt?",
+      "answer": {
+        "canonical": "Safeword",
+        "aliases": [
+          "Safe Word",
+          "Stoppwort",
+          "Stoppsignal",
+          "Sicherheitswort",
+          "Notfallwort"
+        ]
+      },
+      "explanation": "Ein Safeword ist ein vorher vereinbartes Wort, das jede Szene sofort beendet.",
+      "difficulty": "easy",
+      "points": 1,
+      "category_id": "cat-02"
+    },
+    {
+      "id": "q-02-1f24521a9f07",
+      "type": "logic",
+      "prompt": "Statistik-Logik: In Deutschland nutzen 60% der 18-29-Jaehrigen Dating-Apps. Von diesen sind 40% Maennlich. Wie viel Prozent der 18-29-Jaehrigen sind maennlich UND nutzen Dating-Apps?",
+      "options": [
+        {
+          "id": "q-02-opt-79ef07c796cc",
+          "text": "24%",
+          "is_correct": true
+        },
+        {
+          "id": "q-02-opt-936a4f0c29ba",
+          "text": "40%",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-opt-ec8631e97fe3",
+          "text": "60%",
+          "is_correct": false
+        },
+        {
+          "id": "q-02-opt-60503995695c",
+          "text": "100%",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-02-opt-79ef07c796cc",
+      "explanation": "60% nutzen Apps, davon 40% maennlich = 0,6 x 0,4 = 24%.",
+      "difficulty": "medium",
+      "points": 1,
+      "category_id": "cat-02"
     }
   ]
 }

@@ -11,7 +11,7 @@
     "viva",
     "2000er"
   ],
-  "question_count": 32,
+  "question_count": 34,
   "questions": [
     {
       "id": "q-08-01-8ccf55f992",
@@ -1817,6 +1817,38 @@
         "lyrics",
         "logic"
       ]
+    },
+    {
+      "id": "q-08-76268f7d5cd1",
+      "type": "estimate",
+      "prompt": "Wie viele Wochen war Crazy Frog - Axel F auf Platz 1 der deutschen Charts im Jahr 2005?",
+      "answer": {
+        "canonical": "ca. 8 Wochen",
+        "reference_value": 8,
+        "unit": "Wochen",
+        "context": "Der Klingelton-Chartbreaker des Jahrzehnts"
+      },
+      "scoring_rule": "closest_wins",
+      "explanation": "Crazy Frog stand 2005 fuer 8 Wochen auf Platz 1 in Deutschland und hat sich weltweit ueber 12 Mio. Mal verkauft.",
+      "difficulty": "hard",
+      "points": 1,
+      "category_id": "cat-08"
+    },
+    {
+      "id": "q-08-c5113523ecf7",
+      "type": "standard",
+      "prompt": "Wie heisst die deutsche Pop-Rock-Band aus Freiburg, die 2005 den Hit 'Geile Zeit' hatte?",
+      "answer": {
+        "canonical": "Juli",
+        "aliases": [
+          "die Juli",
+          "Band Juli"
+        ]
+      },
+      "explanation": "Juli aus Freiburg hatten 2004/2005 mit 'Geile Zeit' und 'Perfekte Welle' riesige Hits.",
+      "difficulty": "easy",
+      "points": 1,
+      "category_id": "cat-08"
     }
   ]
 }
