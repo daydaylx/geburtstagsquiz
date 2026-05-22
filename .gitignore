@@ -28,3 +28,4 @@ sqlite_mcp_server.db
 /yarn.lock
 /package-lock.json
 /bunfig.toml
+data/moderator_audio_autosplit_unverified.zip

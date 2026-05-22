@@ -1,0 +1,1748 @@
+{
+  "category_id": "cat-12",
+  "slug": "schulwissen-grundschule-klasse-1-bis-4",
+  "name": "Sitzenbleiben? – Schulwissen Klasse 1–4",
+  "difficulty": "medium",
+  "tags": [
+    "schulwissen",
+    "grundschule",
+    "mathe",
+    "deutsch",
+    "sachkunde",
+    "nostalgie"
+  ],
+  "question_count": 45,
+  "questions": [
+    {
+      "id": "q-12-01-1a2b3c4d",
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Das Einmaleins lauert überall: 6 × 7 = ?",
+      "options": [
+        {
+          "id": "q-12-01-1a2b3c4d-opt-1",
+          "text": "36",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-01-1a2b3c4d-opt-2",
+          "text": "40",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-01-1a2b3c4d-opt-3",
+          "text": "42",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-01-1a2b3c4d-opt-4",
+          "text": "48",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-01-1a2b3c4d-opt-3",
+      "explanation": "6 × 7 = 42. Das kleine Einmaleins. Wer kurz gezögert hat, weiß jetzt, wie es dem Hirn geht, wenn man es seit 20 Jahren nicht benutzt.",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "mathe",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-02-2b3c4d5e",
+      "type": "logic",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Uhrzeit-Rechnen: 14:45 Uhr + 30 Minuten = ?",
+      "options": [
+        {
+          "id": "q-12-02-2b3c4d5e-opt-1",
+          "text": "15:00 Uhr",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-02-2b3c4d5e-opt-2",
+          "text": "15:10 Uhr",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-02-2b3c4d5e-opt-3",
+          "text": "15:15 Uhr",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-02-2b3c4d5e-opt-4",
+          "text": "15:30 Uhr",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-02-2b3c4d5e-opt-3",
+      "explanation": "14:45 + 0:15 = 15:00, und noch mal + 0:15 = 15:15. Zwei Schritte. Klingt einfach, zählt man aber trotzdem zweimal.",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "mathe",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-03-3c4d5e6f",
+      "type": "logic",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Ein Kind liest 8 Seiten am Montag, 12 am Dienstag und 10 am Mittwoch. Wie viele Seiten fehlen noch bis Seite 40?",
+      "options": [
+        {
+          "id": "q-12-03-3c4d5e6f-opt-1",
+          "text": "8",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-03-3c4d5e6f-opt-2",
+          "text": "9",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-03-3c4d5e6f-opt-3",
+          "text": "10",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-03-3c4d5e6f-opt-4",
+          "text": "12",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-03-3c4d5e6f-opt-3",
+      "explanation": "8 + 12 + 10 = 30. 40 − 30 = 10. Zwei Schritte. Hausaufgabe in Klasse 2. Kein Taschenrechner erlaubt.",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "mathe",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-04-4d5e6f7a",
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Wie heißt das Ergebnis einer Addition?",
+      "options": [
+        {
+          "id": "q-12-04-4d5e6f7a-opt-1",
+          "text": "Differenz",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-04-4d5e6f7a-opt-2",
+          "text": "Produkt",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-04-4d5e6f7a-opt-3",
+          "text": "Summe",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-04-4d5e6f7a-opt-4",
+          "text": "Quotient",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-04-4d5e6f7a-opt-3",
+      "explanation": "Summe. Addition → Summe. Subtraktion → Differenz. Multiplikation → Produkt. Division → Quotient. Vier Begriffe, die du gelernt und dann nie wieder gebraucht hast.",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "mathe",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-05-5e6f7a8b",
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "72 ÷ 8 = ?",
+      "options": [
+        {
+          "id": "q-12-05-5e6f7a8b-opt-1",
+          "text": "7",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-05-5e6f7a8b-opt-2",
+          "text": "8",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-05-5e6f7a8b-opt-3",
+          "text": "9",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-05-5e6f7a8b-opt-4",
+          "text": "10",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-05-5e6f7a8b-opt-3",
+      "explanation": "8 × 9 = 72, also 72 ÷ 8 = 9. Das Einmaleins rückwärts ist schon mal schwieriger.",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "mathe",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-06-6f7a8b9c",
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Ein Rechteck ist 6 cm lang und 4 cm breit. Wie groß ist der Umfang?",
+      "options": [
+        {
+          "id": "q-12-06-6f7a8b9c-opt-1",
+          "text": "10 cm",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-06-6f7a8b9c-opt-2",
+          "text": "20 cm",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-06-6f7a8b9c-opt-3",
+          "text": "24 cm",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-06-6f7a8b9c-opt-4",
+          "text": "28 cm",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-06-6f7a8b9c-opt-2",
+      "explanation": "Umfang = 2 × Länge + 2 × Breite = 2×6 + 2×4 = 12 + 8 = 20 cm. Wer 24 gewählt hat, hat Fläche (6×4) statt Umfang berechnet.",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "mathe",
+        "geometrie",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-07-7a8b9c0d",
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Welches Wort ist im Satz „Der kleine Hund bellt laut.\" ein Adjektiv?",
+      "options": [
+        {
+          "id": "q-12-07-7a8b9c0d-opt-1",
+          "text": "Der",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-07-7a8b9c0d-opt-2",
+          "text": "kleine",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-07-7a8b9c0d-opt-3",
+          "text": "Hund",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-07-7a8b9c0d-opt-4",
+          "text": "bellt",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-07-7a8b9c0d-opt-2",
+      "explanation": "Adjektiv = Eigenschaftswort. Es beschreibt, wie ein Nomen ist. \"Kleine\" beschreibt den Hund. Nicht \"laut\"? Laut ist hier ein Adverb — aber das war Klasse 5.",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "deutsch",
+        "grammatik",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-08-8b9c0d1e",
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Wie groß ist ein rechter Winkel?",
+      "options": [
+        {
+          "id": "q-12-08-8b9c0d1e-opt-1",
+          "text": "45 Grad",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-08-8b9c0d1e-opt-2",
+          "text": "60 Grad",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-08-8b9c0d1e-opt-3",
+          "text": "90 Grad",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-08-8b9c0d1e-opt-4",
+          "text": "180 Grad",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-08-8b9c0d1e-opt-3",
+      "explanation": "90 Grad. Wie eine Ecke. Wie ein Buchstabe L. 180 Grad wäre eine gerade Linie — also gar kein Winkel mehr.",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "mathe",
+        "geometrie",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-09-9c0d1e2f",
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Wie heißt das Ergebnis einer Subtraktion?",
+      "options": [
+        {
+          "id": "q-12-09-9c0d1e2f-opt-1",
+          "text": "Summe",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-09-9c0d1e2f-opt-2",
+          "text": "Differenz",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-09-9c0d1e2f-opt-3",
+          "text": "Produkt",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-09-9c0d1e2f-opt-4",
+          "text": "Restklasse",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-09-9c0d1e2f-opt-2",
+      "explanation": "Subtraktion → Differenz. Das ist die Differenz zwischen \"ich weiß das noch\" und \"ich hab das komplett vergessen\".",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "mathe",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-10-a0d1e2f3",
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Ein Rechteck ist 5 cm lang und 8 cm breit. Wie groß ist der Flächeninhalt?",
+      "options": [
+        {
+          "id": "q-12-10-a0d1e2f3-opt-1",
+          "text": "13 cm²",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-10-a0d1e2f3-opt-2",
+          "text": "26 cm²",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-10-a0d1e2f3-opt-3",
+          "text": "40 cm²",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-10-a0d1e2f3-opt-4",
+          "text": "80 cm²",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-10-a0d1e2f3-opt-3",
+      "explanation": "Fläche = Länge × Breite = 5 × 8 = 40 cm². Wer 26 gewählt hat, hat den Umfang berechnet. Andere Formel!",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "mathe",
+        "geometrie",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-11-b1e2f3a4",
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Was ist eine Primzahl?",
+      "options": [
+        {
+          "id": "q-12-11-b1e2f3a4-opt-1",
+          "text": "Eine gerade Zahl ohne Rest",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-11-b1e2f3a4-opt-2",
+          "text": "Eine Zahl, die nur durch 1 und sich selbst teilbar ist",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-11-b1e2f3a4-opt-3",
+          "text": "Eine Zahl mit besonders vielen Teilern",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-11-b1e2f3a4-opt-4",
+          "text": "Jede ungerade Zahl, die größer als 1 ist",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-11-b1e2f3a4-opt-2",
+      "explanation": "Primzahlen haben genau zwei Teiler: 1 und sich selbst. Beispiele: 2, 3, 5, 7, 11, 13. Wichtig: 1 ist KEINE Primzahl — nur ein Teiler.",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "mathe",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-12-c2f3a4b5",
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Was ist ¾ von 20?",
+      "options": [
+        {
+          "id": "q-12-12-c2f3a4b5-opt-1",
+          "text": "10",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-12-c2f3a4b5-opt-2",
+          "text": "12",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-12-c2f3a4b5-opt-3",
+          "text": "15",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-12-c2f3a4b5-opt-4",
+          "text": "18",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-12-c2f3a4b5-opt-3",
+      "explanation": "Ein Viertel von 20 = 5. Drei Viertel = 3 × 5 = 15. Bruchrechnen in Klasse 4 — mit Erwachsenengehirn immer noch lösbar.",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "mathe",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-13-d3a4b5c6",
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Wie viele Bundesländer hat Deutschland?",
+      "options": [
+        {
+          "id": "q-12-13-d3a4b5c6-opt-1",
+          "text": "12",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-13-d3a4b5c6-opt-2",
+          "text": "14",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-13-d3a4b5c6-opt-3",
+          "text": "16",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-13-d3a4b5c6-opt-4",
+          "text": "18",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-13-d3a4b5c6-opt-3",
+      "explanation": "16 Bundesländer. Sachkunde Klasse 3. Wer 14 oder 12 gesagt hat, vergisst vermutlich Berlin, Hamburg oder Bremen als Stadtstaaten.",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "sachkunde",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-14-e4b5c6d7",
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Was ist der Unterschied zwischen Wetter und Klima?",
+      "options": [
+        {
+          "id": "q-12-14-e4b5c6d7-opt-1",
+          "text": "Wetter ist kurzfristig, Klima ist der langfristige Durchschnitt",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-14-e4b5c6d7-opt-2",
+          "text": "Wetter ist global, Klima ist nur lokal messbar",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-14-e4b5c6d7-opt-3",
+          "text": "Klima ist schlechter als Wetter, weil es länger andauert",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-14-e4b5c6d7-opt-4",
+          "text": "Es gibt keinen Unterschied, beide beschreiben dasselbe",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-14-e4b5c6d7-opt-1",
+      "explanation": "Wetter = was gerade passiert. Klima = was statistisch über Jahrzehnte passiert. \"Das Wetter ist schlecht\" — aber \"das Klima wird wärmer.\"",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "sachkunde",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-15-f5c6d7e8",
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Welche Vergangenheitsform passt: „Ich ___ gestern zur Schule.\"?",
+      "options": [
+        {
+          "id": "q-12-15-f5c6d7e8-opt-1",
+          "text": "gehe",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-15-f5c6d7e8-opt-2",
+          "text": "ging",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-15-f5c6d7e8-opt-3",
+          "text": "gehen",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-15-f5c6d7e8-opt-4",
+          "text": "gegangen",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-15-f5c6d7e8-opt-2",
+      "explanation": "\"Ich ging\" ist das Präteritum von gehen. Umgangssprache sagt \"ich bin gegangen\" (Perfekt) — aber die Schule wollte \"ich ging\". Immer noch aktuell.",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "deutsch",
+        "grammatik",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-16-a6d7e8f9",
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "7 × 7 = ?",
+      "options": [
+        {
+          "id": "q-12-16-a6d7e8f9-opt-1",
+          "text": "42",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-16-a6d7e8f9-opt-2",
+          "text": "47",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-16-a6d7e8f9-opt-3",
+          "text": "49",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-16-a6d7e8f9-opt-4",
+          "text": "56",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-16-a6d7e8f9-opt-3",
+      "explanation": "7 × 7 = 49. Sieben mal sieben. Einer der Klassiker, den man auswendig können sollte — und den man manchmal trotzdem kurz nachrechnet.",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "mathe",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-17-b7e8f9a0",
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Warum gibt es Tag und Nacht?",
+      "options": [
+        {
+          "id": "q-12-17-b7e8f9a0-opt-1",
+          "text": "Weil die Erde um die Sonne kreist",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-17-b7e8f9a0-opt-2",
+          "text": "Weil sich die Erde um ihre eigene Achse dreht",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-17-b7e8f9a0-opt-3",
+          "text": "Weil der Mond die Sonne verdeckt",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-17-b7e8f9a0-opt-4",
+          "text": "Weil die Sonne nachts ausgeht",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-17-b7e8f9a0-opt-2",
+      "explanation": "Die Erdrotation um die eigene Achse (1x pro Tag) erzeugt Tag und Nacht. Die Erdumlaufbahn um die Sonne erzeugt die Jahreszeiten. Anderes Thema.",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "sachkunde",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-18-c8f9a0b1",
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Welcher Bruch ist gleich groß wie 6/8?",
+      "options": [
+        {
+          "id": "q-12-18-c8f9a0b1-opt-1",
+          "text": "2/3",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-18-c8f9a0b1-opt-2",
+          "text": "3/4",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-18-c8f9a0b1-opt-3",
+          "text": "4/6",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-18-c8f9a0b1-opt-4",
+          "text": "8/10",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-18-c8f9a0b1-opt-2",
+      "explanation": "6/8 ÷ 2/2 = 3/4. Brüche kürzen. Zähler und Nenner durch dieselbe Zahl teilen. Klingt simpel — und ist es auch, wenn man kurz nachdenkt.",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "mathe",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-19-d9a0b1c2",
+      "type": "fast_guess",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Schnell, kein Zögern: 9 × 8 = ?",
+      "options": [
+        {
+          "id": "q-12-19-d9a0b1c2-opt-1",
+          "text": "63",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-19-d9a0b1c2-opt-2",
+          "text": "72",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-19-d9a0b1c2-opt-3",
+          "text": "81",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-19-d9a0b1c2-opt-4",
+          "text": "76",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-19-d9a0b1c2-opt-2",
+      "answer": {
+        "canonical": "72",
+        "context": "9 × 8 = 72"
+      },
+      "explanation": "9 × 8 = 72. Die meisten Erwachsenen stocken hier genau 0,5 Sekunden länger als bei 2 × 2. Das nennt man Einmaleins-Trauma.",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "mathe",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-20-e0b1c2d3",
+      "type": "fast_guess",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Auch schnell: 9 × 6 = ?",
+      "options": [
+        {
+          "id": "q-12-20-e0b1c2d3-opt-1",
+          "text": "48",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-20-e0b1c2d3-opt-2",
+          "text": "54",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-20-e0b1c2d3-opt-3",
+          "text": "56",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-20-e0b1c2d3-opt-4",
+          "text": "63",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-20-e0b1c2d3-opt-2",
+      "answer": {
+        "canonical": "54",
+        "context": "9 × 6 = 54"
+      },
+      "explanation": "9 × 6 = 54. Eselsbrücke: Neuner-Reihe: Quersumme immer 9 — 54 → 5+4 = 9. Hat die Lehrerin gesagt. Wer hat zugehört?",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "mathe",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-21-f1c2d3e4",
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "56 ÷ 7 = ?",
+      "options": [
+        {
+          "id": "q-12-21-f1c2d3e4-opt-1",
+          "text": "6",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-21-f1c2d3e4-opt-2",
+          "text": "7",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-21-f1c2d3e4-opt-3",
+          "text": "8",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-21-f1c2d3e4-opt-4",
+          "text": "9",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-21-f1c2d3e4-opt-3",
+      "explanation": "7 × 8 = 56, also 56 ÷ 7 = 8. Das Einmaleins rückwärts. Schöner Test, ob es wirklich sitzt.",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "mathe",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-22-a2d3e4f5",
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Im Kopf bitte: 100 − 37 = ?",
+      "options": [
+        {
+          "id": "q-12-22-a2d3e4f5-opt-1",
+          "text": "53",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-22-a2d3e4f5-opt-2",
+          "text": "63",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-22-a2d3e4f5-opt-3",
+          "text": "67",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-22-a2d3e4f5-opt-4",
+          "text": "73",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-22-a2d3e4f5-opt-2",
+      "explanation": "100 − 37 = 63. Weg: 37 + 3 = 40, + 60 = 100. Also 63. Oder einfach: 100 − 40 + 3 = 63. Beide Wege führen nach Rom — äh, zu 63.",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "mathe",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-23-b3e4f5a6",
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Wie nennt man das Ergebnis einer Multiplikation?",
+      "options": [
+        {
+          "id": "q-12-23-b3e4f5a6-opt-1",
+          "text": "Summe",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-23-b3e4f5a6-opt-2",
+          "text": "Differenz",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-23-b3e4f5a6-opt-3",
+          "text": "Produkt",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-23-b3e4f5a6-opt-4",
+          "text": "Quotient",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-23-b3e4f5a6-opt-3",
+      "explanation": "Multiplikation → Produkt. Wer \"Summe\" gesagt hat: Das ist Addition. Alle vier: Addition=Summe, Subtraktion=Differenz, Multiplikation=Produkt, Division=Quotient.",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "mathe",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-24-c4f5a6b7",
+      "type": "multiple_choice",
+      "difficulty": "hard",
+      "difficulty_score": 4,
+      "points": 1,
+      "prompt": "Wie nennt man das Ergebnis einer Division?",
+      "options": [
+        {
+          "id": "q-12-24-c4f5a6b7-opt-1",
+          "text": "Produkt",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-24-c4f5a6b7-opt-2",
+          "text": "Summe",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-24-c4f5a6b7-opt-3",
+          "text": "Differenz",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-24-c4f5a6b7-opt-4",
+          "text": "Quotient",
+          "is_correct": true
+        }
+      ],
+      "correct_option_id": "q-12-24-c4f5a6b7-opt-4",
+      "explanation": "Division → Quotient. Der am wenigsten erinnerte der vier Fachbegriffe. Wer ihn sofort wusste: Glückwunsch, du hast in der Grundschule aufgepasst.",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "mathe",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-25-d5a6b7c8",
+      "type": "multiple_choice",
+      "difficulty": "hard",
+      "difficulty_score": 4,
+      "points": 1,
+      "prompt": "Wie viele Ecken hat ein Würfel?",
+      "options": [
+        {
+          "id": "q-12-25-d5a6b7c8-opt-1",
+          "text": "6",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-25-d5a6b7c8-opt-2",
+          "text": "8",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-25-d5a6b7c8-opt-3",
+          "text": "10",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-25-d5a6b7c8-opt-4",
+          "text": "12",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-25-d5a6b7c8-opt-2",
+      "explanation": "8 Ecken! Der Würfel hat 6 Seiten (Flächen), 8 Ecken und 12 Kanten. Wer 6 gewählt hat, hat Seiten mit Ecken verwechselt. Klassischer Grundschulfehler — und Erwachsenenfehler.",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "mathe",
+        "geometrie",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-26-e6b7c8d9",
+      "type": "multiple_choice",
+      "difficulty": "hard",
+      "difficulty_score": 4,
+      "points": 1,
+      "prompt": "Wie viele Kanten hat ein Würfel?",
+      "options": [
+        {
+          "id": "q-12-26-e6b7c8d9-opt-1",
+          "text": "6",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-26-e6b7c8d9-opt-2",
+          "text": "8",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-26-e6b7c8d9-opt-3",
+          "text": "12",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-26-e6b7c8d9-opt-4",
+          "text": "16",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-26-e6b7c8d9-opt-3",
+      "explanation": "12 Kanten. Ein Würfel: 6 Seiten, 8 Ecken, 12 Kanten. Merkhilfe: Euler-Formel — Ecken − Kanten + Seiten = 2 → 8 − 12 + 6 = 2. ✓",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "mathe",
+        "geometrie",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-27-f7c8d9e0",
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Ein Quadrat hat eine Seitenlänge von 9 cm. Wie groß ist der Flächeninhalt?",
+      "options": [
+        {
+          "id": "q-12-27-f7c8d9e0-opt-1",
+          "text": "18 cm²",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-27-f7c8d9e0-opt-2",
+          "text": "36 cm²",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-27-f7c8d9e0-opt-3",
+          "text": "81 cm²",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-27-f7c8d9e0-opt-4",
+          "text": "90 cm²",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-27-f7c8d9e0-opt-3",
+      "explanation": "9 × 9 = 81 cm². Flächeninhalt = Seite². Wer 36 gewählt hat, hat 9 × 4 gerechnet — das wäre der Umfang geteilt durch... nein, das passt auch nicht. Kurz nachdenken hilft.",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "mathe",
+        "geometrie",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-28-a8d9e0f1",
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Wie groß ist der Umfang eines Quadrats mit 5 cm Seitenlänge?",
+      "options": [
+        {
+          "id": "q-12-28-a8d9e0f1-opt-1",
+          "text": "10 cm",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-28-a8d9e0f1-opt-2",
+          "text": "20 cm",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-28-a8d9e0f1-opt-3",
+          "text": "25 cm",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-28-a8d9e0f1-opt-4",
+          "text": "30 cm",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-28-a8d9e0f1-opt-2",
+      "explanation": "Umfang = 4 × Seite = 4 × 5 = 20 cm. Wer 25 gewählt hat: Das ist die Fläche (5²). Andere Formel. Man muss drum herumlaufen, nicht draufstehen.",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "mathe",
+        "geometrie",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-29-b9e0f1a2",
+      "type": "multiple_choice",
+      "difficulty": "hard",
+      "difficulty_score": 4,
+      "points": 1,
+      "prompt": "Auf welchen Zehner wird die Zahl 85 gerundet?",
+      "options": [
+        {
+          "id": "q-12-29-b9e0f1a2-opt-1",
+          "text": "80",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-29-b9e0f1a2-opt-2",
+          "text": "85",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-29-b9e0f1a2-opt-3",
+          "text": "90",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-29-b9e0f1a2-opt-4",
+          "text": "Kann nicht gerundet werden",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-29-b9e0f1a2-opt-3",
+      "explanation": "Bei einer 5 in der Einerstelle wird aufgerundet. 85 → 90. Die Regel: ab 5 aufwärts, unter 5 abrunden. Intuitiv fühlt sich 85 \"genau in der Mitte\" an — aber die Regel sagt: rauf.",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "mathe",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-30-c0f1a2b3",
+      "type": "multiple_choice",
+      "difficulty": "hard",
+      "difficulty_score": 4,
+      "points": 1,
+      "prompt": "Was ist die kleinste Primzahl?",
+      "options": [
+        {
+          "id": "q-12-30-c0f1a2b3-opt-1",
+          "text": "0",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-30-c0f1a2b3-opt-2",
+          "text": "1",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-30-c0f1a2b3-opt-3",
+          "text": "2",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-30-c0f1a2b3-opt-4",
+          "text": "3",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-30-c0f1a2b3-opt-3",
+      "explanation": "2 ist die kleinste Primzahl — und die einzige gerade. 1 ist KEINE Primzahl, weil sie nur einen Teiler hat (sich selbst). Primzahlen brauchen genau zwei Teiler.",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "mathe",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-31-d1a2b3c4",
+      "type": "multiple_choice",
+      "difficulty": "hard",
+      "difficulty_score": 4,
+      "points": 1,
+      "prompt": "Welcher Bruch ist größer: 2/3 oder 3/4?",
+      "options": [
+        {
+          "id": "q-12-31-d1a2b3c4-opt-1",
+          "text": "2/3",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-31-d1a2b3c4-opt-2",
+          "text": "3/4",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-31-d1a2b3c4-opt-3",
+          "text": "Beide gleich groß",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-31-d1a2b3c4-opt-4",
+          "text": "Kann man nicht vergleichen",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-31-d1a2b3c4-opt-2",
+      "explanation": "3/4 = 0,75; 2/3 ≈ 0,667. Also 3/4 > 2/3. Brüche vergleichen: Auf gleichen Nenner bringen. 2/3 = 8/12; 3/4 = 9/12. Klar: 9/12 > 8/12.",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "mathe",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-32-e2b3c4d5",
+      "type": "multiple_choice",
+      "difficulty": "hard",
+      "difficulty_score": 4,
+      "points": 1,
+      "prompt": "Was ist die Hälfte von einem Viertel?",
+      "options": [
+        {
+          "id": "q-12-32-e2b3c4d5-opt-1",
+          "text": "1/2",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-32-e2b3c4d5-opt-2",
+          "text": "1/6",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-32-e2b3c4d5-opt-3",
+          "text": "1/8",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-32-e2b3c4d5-opt-4",
+          "text": "2/4",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-32-e2b3c4d5-opt-3",
+      "explanation": "Die Hälfte von 1/4 = 1/4 ÷ 2 = 1/8. Denk ans Kuchenteilen: Ein Viertel nochmal halbieren ergibt ein Achtel. Praktischer Alltag.",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "mathe",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-33-f3c4d5e6",
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Wie viele Drittel ergeben zusammen ein Ganzes?",
+      "options": [
+        {
+          "id": "q-12-33-f3c4d5e6-opt-1",
+          "text": "2",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-33-f3c4d5e6-opt-2",
+          "text": "3",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-33-f3c4d5e6-opt-3",
+          "text": "4",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-33-f3c4d5e6-opt-4",
+          "text": "6",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-33-f3c4d5e6-opt-2",
+      "explanation": "3/3 = 1. Drei Drittel ergeben ein Ganzes. Wie eine Pizza in drei Stücke geteilt: alle drei zusammen ist eine ganze Pizza.",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "mathe",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-34-a4d5e6f7",
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Was ist ein Nomen (auch: Substantiv)?",
+      "options": [
+        {
+          "id": "q-12-34-a4d5e6f7-opt-1",
+          "text": "Ein Tätigkeitswort (was jemand tut)",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-34-a4d5e6f7-opt-2",
+          "text": "Ein Eigenschaftswort (wie etwas ist)",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-34-a4d5e6f7-opt-3",
+          "text": "Ein Namenwort (Personen, Tiere, Sachen, Pflanzen)",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-34-a4d5e6f7-opt-4",
+          "text": "Ein Wort, das einen Ort beschreibt",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-34-a4d5e6f7-opt-3",
+      "explanation": "Nomen = Namenwort. Großgeschrieben. Bezeichnet Personen (Lehrerin), Tiere (Hund), Sachen (Tisch), Pflanzen (Baum). Merkhilfe: Im Deutschen schreibt man Nomen groß — und nur Nomen.",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "deutsch",
+        "grammatik",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-35-b5e6f7a8",
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Was ist das Gegenteil von \"Mehrzahl\" in der Grammatik?",
+      "options": [
+        {
+          "id": "q-12-35-b5e6f7a8-opt-1",
+          "text": "Wenigzahl",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-35-b5e6f7a8-opt-2",
+          "text": "Einzahl",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-35-b5e6f7a8-opt-3",
+          "text": "Kurzform",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-35-b5e6f7a8-opt-4",
+          "text": "Grundform",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-35-b5e6f7a8-opt-2",
+      "explanation": "Einzahl (Singular) ↔ Mehrzahl (Plural). \"der Hund\" — Einzahl. \"die Hunde\" — Mehrzahl. Wer Latein hatte, kennt das als Singular/Plural.",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "deutsch",
+        "grammatik",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-36-c6f7a8b9",
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Welche Wortart beschreibt, wie ein Nomen ist — also seine Eigenschaft?",
+      "options": [
+        {
+          "id": "q-12-36-c6f7a8b9-opt-1",
+          "text": "Verb",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-36-c6f7a8b9-opt-2",
+          "text": "Adjektiv",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-36-c6f7a8b9-opt-3",
+          "text": "Pronomen",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-36-c6f7a8b9-opt-4",
+          "text": "Artikel",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-36-c6f7a8b9-opt-2",
+      "explanation": "Adjektiv = Eigenschaftswort. \"Der große Hund.\" — groß ist das Adjektiv. Es sagt, wie der Hund ist. Klasse 2. Wer es wusste: ✓.",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "deutsch",
+        "grammatik",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-37-d7a8b9c0",
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Warum schreibt man \"Hund\" im Satz „Der Hund bellt.\" groß?",
+      "options": [
+        {
+          "id": "q-12-37-d7a8b9c0-opt-1",
+          "text": "Weil es am Satzanfang steht",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-37-d7a8b9c0-opt-2",
+          "text": "Weil es ein Nomen ist",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-37-d7a8b9c0-opt-3",
+          "text": "Weil es ein Tier ist",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-37-d7a8b9c0-opt-4",
+          "text": "Weil es nach \"der\" kommt",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-37-d7a8b9c0-opt-2",
+      "explanation": "Nomen werden im Deutschen immer großgeschrieben — egal, wo im Satz sie stehen. Nicht wegen \"der\", nicht wegen Position: weil es ein Nomen ist. Das ist die Regel.",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "deutsch",
+        "grammatik",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-38-e8b9c0d1",
+      "type": "common_mistake",
+      "difficulty": "hard",
+      "difficulty_score": 4,
+      "points": 1,
+      "prompt": "Welcher Satz ist grammatikalisch korrekt?",
+      "options": [
+        {
+          "id": "q-12-38-e8b9c0d1-opt-1",
+          "text": "Ich habe ihr gesagt das sie kommen soll.",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-38-e8b9c0d1-opt-2",
+          "text": "Ich habe ihr gesagt, dass sie kommen soll.",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-38-e8b9c0d1-opt-3",
+          "text": "Ich habe ihr gesagt, das sie kommen soll.",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-38-e8b9c0d1-opt-4",
+          "text": "Ich habe ihr gesagt dass sie kommen soll.",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-38-e8b9c0d1-opt-2",
+      "answer": {
+        "canonical": "Ich habe ihr gesagt, dass sie kommen soll.",
+        "context": "Komma + dass (Konjunktion, nicht Artikel)"
+      },
+      "explanation": "\"dass\" (Konjunktion, leitet Nebensatz ein) ≠ \"das\" (Artikel oder Pronomen). Test: Ersetzt man \"das\" durch \"dieses\", klappt es? Wenn nein: \"dass\". Und das Komma fehlt auch nicht.",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "deutsch",
+        "rechtschreibung",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-39-f9c0d1e2",
+      "type": "logic",
+      "difficulty": "hard",
+      "difficulty_score": 4,
+      "points": 1,
+      "prompt": "Was kommt im Wörterbuch früher: „spielen\" oder „springen\"?",
+      "options": [
+        {
+          "id": "q-12-39-f9c0d1e2-opt-1",
+          "text": "spielen",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-39-f9c0d1e2-opt-2",
+          "text": "springen",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-39-f9c0d1e2-opt-3",
+          "text": "Beide gleich weit vorne",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-39-f9c0d1e2-opt-4",
+          "text": "Kommt auf das Wörterbuch an",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-39-f9c0d1e2-opt-1",
+      "explanation": "Beide beginnen mit \"spi-\" vs. \"spr-\". Der 3. Buchstabe entscheidet: i kommt vor r im Alphabet → spielen kommt zuerst. Wörterbuchordnung: Buchstabe für Buchstabe.",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "deutsch",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-40-a0d1e2f3",
+      "type": "multiple_choice",
+      "difficulty": "hard",
+      "difficulty_score": 4,
+      "points": 1,
+      "prompt": "Welche deutschen Städte sind gleichzeitig ein eigenständiges Bundesland?",
+      "options": [
+        {
+          "id": "q-12-40-a0d1e2f3-opt-1",
+          "text": "Nur Berlin",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-40-a0d1e2f3-opt-2",
+          "text": "Berlin und Hamburg",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-40-a0d1e2f3-opt-3",
+          "text": "Berlin, Hamburg und Bremen",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-40-a0d1e2f3-opt-4",
+          "text": "München, Berlin und Hamburg",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-40-a0d1e2f3-opt-3",
+      "explanation": "Die drei Stadtstaaten: Berlin, Hamburg und Bremen (mit Bremerhaven). München ist \"nur\" eine Stadt in Bayern. Falle für alle, die Hamburg kennen aber Bremen vergessen.",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "sachkunde",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-41-b1e2f3a4",
+      "type": "multiple_choice",
+      "difficulty": "hard",
+      "difficulty_score": 4,
+      "points": 1,
+      "prompt": "Warum gibt es Jahreszeiten auf der Erde?",
+      "options": [
+        {
+          "id": "q-12-41-b1e2f3a4-opt-1",
+          "text": "Weil sich die Erde im Sommer näher an der Sonne befindet",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-41-b1e2f3a4-opt-2",
+          "text": "Weil die Erdachse geneigt ist",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-41-b1e2f3a4-opt-3",
+          "text": "Weil der Mond die Sonnenstrahlen im Winter blockiert",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-41-b1e2f3a4-opt-4",
+          "text": "Weil die Sonne im Winter schwächer leuchtet",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-41-b1e2f3a4-opt-2",
+      "explanation": "Die Erdachse ist um 23,5° geneigt. Im Sommer zeigt die Nordhalbkugel stärker zur Sonne — mehr Energie, wärmer. Kein Abstandsproblem: Im Januar ist die Erde sogar am nächsten zur Sonne.",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "sachkunde",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-42-c2f3a4b5",
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Was passiert bei der Kondensation mit Wasserdampf?",
+      "options": [
+        {
+          "id": "q-12-42-c2f3a4b5-opt-1",
+          "text": "Er wird zu Eis",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-42-c2f3a4b5-opt-2",
+          "text": "Er versickert im Boden",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-42-c2f3a4b5-opt-3",
+          "text": "Er wird zu flüssigem Wasser",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-42-c2f3a4b5-opt-4",
+          "text": "Er entweicht ins Weltall",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-42-c2f3a4b5-opt-3",
+      "explanation": "Kondensation: gasförmig → flüssig. Das Gegenteil von Verdunstung. Beispiel: Wassertropfen am kalten Bierglas — das ist Kondensation von Luftfeuchtigkeit.",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "sachkunde",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-43-d3a4b5c6",
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Als wievielter Planet von der Sonne liegt der Mars?",
+      "options": [
+        {
+          "id": "q-12-43-d3a4b5c6-opt-1",
+          "text": "Der zweite",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-43-d3a4b5c6-opt-2",
+          "text": "Der dritte",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-43-d3a4b5c6-opt-3",
+          "text": "Der vierte",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-43-d3a4b5c6-opt-4",
+          "text": "Der fünfte",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-43-d3a4b5c6-opt-3",
+      "explanation": "Reihenfolge: Merkur, Venus, Erde, Mars, Jupiter, Saturn, Uranus, Neptun. Mars ist der vierte Planet. Merkhilfe: \"Mein Vater Erklärt Mir Jeden Sonntag Unsere Neun Planeten\" — wobei Pluto inzwischen raus ist.",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "sachkunde",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-44-e4b5c6d7",
+      "type": "multiple_choice",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Was ist ein Säugetier?",
+      "options": [
+        {
+          "id": "q-12-44-e4b5c6d7-opt-1",
+          "text": "Ein Tier, das ausschließlich im Wasser lebt",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-44-e4b5c6d7-opt-2",
+          "text": "Ein Tier mit Schuppen",
+          "is_correct": false
+        },
+        {
+          "id": "q-12-44-e4b5c6d7-opt-3",
+          "text": "Ein Tier, das seine Jungen mit Muttermilch ernährt",
+          "is_correct": true
+        },
+        {
+          "id": "q-12-44-e4b5c6d7-opt-4",
+          "text": "Ein Tier, das nie im Wasser lebt",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "q-12-44-e4b5c6d7-opt-3",
+      "explanation": "Säugetiere ernähren ihre Jungtiere mit Muttermilch (daher \"Säuge-tier\"). Dazu zählen auch Wale und Delfine — die trotz Wasser-Leben Säugetiere sind. Reptilien haben Schuppen.",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "sachkunde",
+        "grundschule"
+      ]
+    },
+    {
+      "id": "q-12-45-f5c6d7e8",
+      "type": "majority_guess",
+      "difficulty": "medium",
+      "difficulty_score": 3,
+      "points": 1,
+      "prompt": "Ehrlich: Welches Fach hättest du in der Grundschule am liebsten gestrichen?",
+      "options": [
+        {
+          "id": "q-12-45-f5c6d7e8-opt-1",
+          "text": "Sport"
+        },
+        {
+          "id": "q-12-45-f5c6d7e8-opt-2",
+          "text": "Mathe"
+        },
+        {
+          "id": "q-12-45-f5c6d7e8-opt-3",
+          "text": "Deutsch"
+        },
+        {
+          "id": "q-12-45-f5c6d7e8-opt-4",
+          "text": "Sachkunde"
+        }
+      ],
+      "explanation": "Keine richtige Antwort — nur ehrliche. Wer Mathe sagt, hat heute noch Albträume vom Einmaleins. Wer Sport sagt, hat eine schwierige Kindheit gehabt.",
+      "category_id": "cat-12",
+      "tags": [
+        "schulwissen",
+        "nostalgie",
+        "grundschule"
+      ]
+    }
+  ]
+}

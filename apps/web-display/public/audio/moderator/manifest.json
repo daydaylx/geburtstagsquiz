@@ -1,0 +1,129 @@
+{
+  "next_question": [
+    "/audio/moderator/next_question_01.mp3",
+    "/audio/moderator/next_question_02.mp3",
+    "/audio/moderator/next_question_03.mp3",
+    "/audio/moderator/next_question_04.mp3",
+    "/audio/moderator/next_question_05.mp3",
+    "/audio/moderator/next_question_06.mp3",
+    "/audio/moderator/next_question_07.mp3",
+    "/audio/moderator/next_question_08.mp3"
+  ],
+  "all_wrong": [
+    "/audio/moderator/all_wrong_01.mp3",
+    "/audio/moderator/all_wrong_02.mp3",
+    "/audio/moderator/all_wrong_03.mp3",
+    "/audio/moderator/all_wrong_04.mp3",
+    "/audio/moderator/all_wrong_05.mp3",
+    "/audio/moderator/all_wrong_06.mp3",
+    "/audio/moderator/all_wrong_07.mp3",
+    "/audio/moderator/all_wrong_08.mp3"
+  ],
+  "all_correct": [
+    "/audio/moderator/all_correct_01.mp3",
+    "/audio/moderator/all_correct_02.mp3",
+    "/audio/moderator/all_correct_03.mp3",
+    "/audio/moderator/all_correct_04.mp3",
+    "/audio/moderator/all_correct_05.mp3",
+    "/audio/moderator/all_correct_06.mp3",
+    "/audio/moderator/all_correct_07.mp3"
+  ],
+  "single_correct": [
+    "/audio/moderator/single_correct_01.mp3",
+    "/audio/moderator/single_correct_02.mp3",
+    "/audio/moderator/single_correct_03.mp3",
+    "/audio/moderator/single_correct_04.mp3",
+    "/audio/moderator/single_correct_05.mp3",
+    "/audio/moderator/single_correct_06.mp3"
+  ],
+  "leader_change": [
+    "/audio/moderator/leader_change_01.mp3",
+    "/audio/moderator/leader_change_02.mp3",
+    "/audio/moderator/leader_change_03.mp3",
+    "/audio/moderator/leader_change_04.mp3",
+    "/audio/moderator/leader_change_05.mp3",
+    "/audio/moderator/leader_change_06.mp3",
+    "/audio/moderator/leader_change_07.mp3"
+  ],
+  "close_race": [
+    "/audio/moderator/close_race_01.mp3",
+    "/audio/moderator/close_race_02.mp3",
+    "/audio/moderator/close_race_03.mp3",
+    "/audio/moderator/close_race_04.mp3",
+    "/audio/moderator/close_race_05.mp3",
+    "/audio/moderator/close_race_06.mp3"
+  ],
+  "comeback": [
+    "/audio/moderator/comeback_01.mp3",
+    "/audio/moderator/comeback_02.mp3",
+    "/audio/moderator/comeback_03.mp3",
+    "/audio/moderator/comeback_04.mp3",
+    "/audio/moderator/comeback_05.mp3",
+    "/audio/moderator/comeback_06.mp3"
+  ],
+  "scoreboard": [
+    "/audio/moderator/scoreboard_01.mp3",
+    "/audio/moderator/scoreboard_02.mp3",
+    "/audio/moderator/scoreboard_03.mp3",
+    "/audio/moderator/scoreboard_04.mp3",
+    "/audio/moderator/scoreboard_05.mp3",
+    "/audio/moderator/scoreboard_06.mp3"
+  ],
+  "final_questions": [
+    "/audio/moderator/final_questions_01.mp3",
+    "/audio/moderator/final_questions_02.mp3",
+    "/audio/moderator/final_questions_03.mp3",
+    "/audio/moderator/final_questions_04.mp3",
+    "/audio/moderator/final_questions_05.mp3",
+    "/audio/moderator/final_questions_06.mp3"
+  ],
+  "last_question": [
+    "/audio/moderator/last_question_01.mp3",
+    "/audio/moderator/last_question_02.mp3",
+    "/audio/moderator/last_question_03.mp3",
+    "/audio/moderator/last_question_04.mp3",
+    "/audio/moderator/last_question_05.mp3"
+  ],
+  "winner": [
+    "/audio/moderator/winner_01.mp3",
+    "/audio/moderator/winner_02.mp3",
+    "/audio/moderator/winner_03.mp3",
+    "/audio/moderator/winner_04.mp3",
+    "/audio/moderator/winner_05.mp3",
+    "/audio/moderator/winner_06.mp3",
+    "/audio/moderator/winner_07.mp3"
+  ],
+  "time_low": [
+    "/audio/moderator/time_low_01.mp3",
+    "/audio/moderator/time_low_02.mp3",
+    "/audio/moderator/time_low_03.mp3",
+    "/audio/moderator/time_low_04.mp3",
+    "/audio/moderator/time_low_05.mp3",
+    "/audio/moderator/time_low_06.mp3"
+  ],
+  "reveal_intro": [
+    "/audio/moderator/reveal_intro_01.mp3",
+    "/audio/moderator/reveal_intro_02.mp3",
+    "/audio/moderator/reveal_intro_03.mp3",
+    "/audio/moderator/reveal_intro_04.mp3",
+    "/audio/moderator/reveal_intro_05.mp3",
+    "/audio/moderator/reveal_intro_06.mp3"
+  ],
+  "intro": [
+    "/audio/moderator/intro_01.mp3",
+    "/audio/moderator/intro_02.mp3",
+    "/audio/moderator/intro_03.mp3",
+    "/audio/moderator/intro_04.mp3",
+    "/audio/moderator/intro_05.mp3"
+  ],
+  "filler": [
+    "/audio/moderator/filler_01.mp3",
+    "/audio/moderator/filler_02.mp3",
+    "/audio/moderator/filler_03.mp3",
+    "/audio/moderator/filler_04.mp3",
+    "/audio/moderator/filler_05.mp3",
+    "/audio/moderator/filler_06.mp3",
+    "/audio/moderator/filler_07.mp3",
+    "/audio/moderator/filler_08.mp3"
+  ]
+}
