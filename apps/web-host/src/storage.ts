@@ -3,6 +3,8 @@ export interface HostStoredSession {
   sessionId: string;
 }
 
+const USED_QUESTIONS_STORAGE_KEY = "quiz:used-questions:v1";
+
 const HOST_SESSION_STORAGE_KEY = "quiz:host-session:v1";
 
 export function loadHostStoredSession(): HostStoredSession | null {
@@ -42,4 +44,38 @@ export function clearHostStoredSession(): void {
   } catch (error) {
     console.warn("host-session:clear-failed", error);
   }
+}
+
+export function loadUsedQuestionIds(): Set<string> {
+  try {
+    const raw = window.localStorage.getItem(USED_QUESTIONS_STORAGE_KEY);
+    if (!raw) return new Set();
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return new Set();
+    return new Set(parsed.filter((v): v is string => typeof v === "string"));
+  } catch {
+    return new Set();
+  }
+}
+
+export function addUsedQuestionId(id: string): void {
+  try {
+    const current = loadUsedQuestionIds();
+    current.add(id);
+    window.localStorage.setItem(USED_QUESTIONS_STORAGE_KEY, JSON.stringify([...current]));
+  } catch (error) {
+    console.warn("used-questions:save-failed", error);
+  }
+}
+
+export function clearUsedQuestionIds(): void {
+  try {
+    window.localStorage.removeItem(USED_QUESTIONS_STORAGE_KEY);
+  } catch (error) {
+    console.warn("used-questions:clear-failed", error);
+  }
+}
+
+export function getUsedQuestionCount(): number {
+  return loadUsedQuestionIds().size;
 }

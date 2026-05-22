@@ -145,13 +145,15 @@ export function buildDefaultGamePlan(catalog: QuizCatalogSummary): GamePlan {
 function filterQuestionsForPlan(questions: Question[], plan: GamePlan): Question[] {
   const categoryIds = new Set(plan.categoryIds);
   const questionTypes = new Set(plan.questionTypes);
+  const excluded = new Set(plan.excludedQuestionIds ?? []);
 
   return questions.filter(
     (question) =>
       !question.isDemoQuestion &&
       question.categoryId !== undefined &&
       categoryIds.has(question.categoryId) &&
-      questionTypes.has(question.type),
+      questionTypes.has(question.type) &&
+      !excluded.has(question.id),
   );
 }
 
@@ -216,8 +218,12 @@ export function resolveGamePlan(plan: GamePlan, catalog: QuizCatalogSummary, qui
 
   const available = filterQuestionsForPlan(quiz.questions, normalizedPlan).length;
   if (available < normalizedPlan.questionCount) {
+    const hasExclusions = (normalizedPlan.excludedQuestionIds?.length ?? 0) > 0;
+    const hint = hasExclusions
+      ? " Viele Fragen wurden bereits gespielt – die Fragen-Historie zurücksetzen, um alle Fragen wieder verfügbar zu machen."
+      : " Bitte mehr Kategorien oder Fragetypen aktivieren.";
     throw new GamePlanValidationError(
-      `Nicht genug Fragen für diese Auswahl. Verfügbar: ${available}. Benötigt: ${normalizedPlan.questionCount}. Bitte mehr Kategorien oder Fragetypen aktivieren.`,
+      `Nicht genug Fragen für diese Auswahl. Verfügbar: ${available}. Benötigt: ${normalizedPlan.questionCount}.${hint}`,
     );
   }
 
