@@ -16,15 +16,14 @@ export function HostLobbyStage({
   return (
     <div className="host-lobby-layout">
       <div className="host-lobby-info-bar">
-        <div className="host-lobby-info-code">
-          <p className="host-section-label host-section-label--muted">Raum</p>
-          <p className="host-join-code">{s.roomInfo.joinCode}</p>
-        </div>
         {s.qrCodeDataUrl && (
           <div className="host-lobby-info-qr">
             <img alt="Join QR" src={s.qrCodeDataUrl} />
           </div>
         )}
+        <div className="host-lobby-info-code">
+          <p className="host-join-code">{s.roomInfo.joinCode}</p>
+        </div>
         {playerJoinUrl && (
           <div className="host-lobby-info-url">
             <p className="host-join-url">{playerJoinUrl}</p>

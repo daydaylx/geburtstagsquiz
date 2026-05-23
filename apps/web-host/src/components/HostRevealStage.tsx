@@ -25,7 +25,49 @@ export function HostRevealStage({
 
   return (
     <div className="host-panel-content">
+      {/* Control info — oben: Summary + Bereit-Fortschritt */}
       <p className="host-section-label">Auflösung läuft</p>
+      <div className="host-round-summary">
+        <div className="host-round-summary-card" data-state="correct">
+          <p className="host-control-label">Richtig</p>
+          <p>{correctRoundCount}</p>
+        </div>
+        <div className="host-round-summary-card" data-state="wrong">
+          <p className="host-control-label">Falsch</p>
+          <p>{wrongRoundCount}</p>
+        </div>
+        <div className="host-round-summary-card" data-state="missing">
+          <p className="host-control-label">Keine Antwort</p>
+          <p>{missingRoundCount}</p>
+        </div>
+      </div>
+      <div className="host-progress-block">
+        <div className="host-bar-meta">
+          <span className="host-section-label host-section-label--compact">Bereit</span>
+          <strong>{nextReadyLabel}</strong>
+        </div>
+        <div
+          className="host-progress-bar"
+          role="progressbar"
+          aria-valuenow={Math.round(nextReadyPercent)}
+          aria-valuemin={0}
+          aria-valuemax={100}
+        >
+          <div className="host-progress-fill" style={{ width: `${nextReadyPercent}%` }} />
+        </div>
+      </div>
+      {s.gamePlanDraft?.revealMode === "manual_with_fallback" && (
+        <p className="host-reveal-fallback-hint">Auto-weiter in ~30s falls kein Klick.</p>
+      )}
+      {s.nextQuestionReadyProgress?.totalEligiblePlayers === 0 && (
+        <p className="host-zero-players-hint">
+          Keine Spieler verbunden – warte auf Reconnect oder gehe manuell weiter.
+        </p>
+      )}
+
+      {/* Trennlinie — Referenzinhalt (Frage + Antworten) folgt */}
+      <hr className="host-reveal-divider" />
+
       <h3 className="host-question-text">{s.question.text}</h3>
       {(s.question.type === QuestionType.MultipleChoice ||
         s.question.type === QuestionType.Logic ||
@@ -80,43 +122,6 @@ export function HostRevealStage({
           );
         })()}
       {s.revealExplanation && <p className="host-explanation">{s.revealExplanation}</p>}
-      <div className="host-round-summary">
-        <div className="host-round-summary-card" data-state="correct">
-          <p className="host-control-label">Richtig</p>
-          <p>{correctRoundCount}</p>
-        </div>
-        <div className="host-round-summary-card" data-state="wrong">
-          <p className="host-control-label">Falsch</p>
-          <p>{wrongRoundCount}</p>
-        </div>
-        <div className="host-round-summary-card" data-state="missing">
-          <p className="host-control-label">Keine Antwort</p>
-          <p>{missingRoundCount}</p>
-        </div>
-      </div>
-      <div className="host-progress-block">
-        <div className="host-bar-meta">
-          <span className="host-section-label host-section-label--compact">Bereit</span>
-          <strong>{nextReadyLabel}</strong>
-        </div>
-        <div
-          className="host-progress-bar"
-          role="progressbar"
-          aria-valuenow={Math.round(nextReadyPercent)}
-          aria-valuemin={0}
-          aria-valuemax={100}
-        >
-          <div className="host-progress-fill" style={{ width: `${nextReadyPercent}%` }} />
-        </div>
-      </div>
-      {s.gamePlanDraft?.revealMode === "manual_with_fallback" && (
-        <p className="host-reveal-fallback-hint">Auto-weiter in ~30s falls kein Klick.</p>
-      )}
-      {s.nextQuestionReadyProgress?.totalEligiblePlayers === 0 && (
-        <p className="host-zero-players-hint">
-          Keine Spieler verbunden – warte auf Reconnect oder gehe manuell weiter.
-        </p>
-      )}
 
       <div className="host-flag-action">
         <button

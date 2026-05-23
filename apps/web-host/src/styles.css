@@ -85,7 +85,11 @@ body {
   height: 100vh;
   overflow: hidden;
   background-color: var(--bg-black);
-  background-image: radial-gradient(circle, rgba(246, 199, 106, 0.04) 1px, transparent 1px);
+  background-image: radial-gradient(
+    circle,
+    rgba(246, 199, 106, 0.04) 1px,
+    transparent 1px
+  );
   background-size: 22px 22px;
   color: var(--host-ink);
 }
@@ -215,7 +219,7 @@ button:focus-visible {
   border-radius: 999px;
   background: rgba(0, 0, 0, 0.35);
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: 500;
   border: 1px solid rgba(255, 255, 255, 0.14);
   display: flex;
   align-items: center;
@@ -251,7 +255,7 @@ button:focus-visible {
   border: 2px solid var(--solid-border);
   background: var(--bg-card);
   color: var(--host-ink);
-  font-weight: 700;
+  font-weight: 500;
   font-size: 0.85rem;
 }
 
@@ -350,7 +354,7 @@ button:focus-visible {
   margin-bottom: 14px;
   color: var(--host-ink-soft);
   font-size: 0.68rem;
-  font-weight: 800;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.12em;
 }
@@ -378,7 +382,7 @@ button:focus-visible {
 .host-online-count {
   color: var(--host-green);
   font-size: 0.78rem;
-  font-weight: 800;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
@@ -399,7 +403,11 @@ button:focus-visible {
   top: 16px;
   bottom: 16px;
   width: 2px;
-  background: linear-gradient(to bottom, var(--solid-border-strong) 0%, transparent 100%);
+  background: linear-gradient(
+    to bottom,
+    var(--solid-border-strong) 0%,
+    transparent 100%
+  );
   pointer-events: none;
 }
 
@@ -597,7 +605,7 @@ button:focus-visible {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px 0 12px;
+  padding: 14px 0 16px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.07);
   margin-bottom: 14px;
 }
@@ -982,7 +990,8 @@ button:focus-visible {
   color: #ffe0a0;
 }
 
-.host-scoreboard-list[data-final="true"] .host-scoreboard-item[data-placement="1"] {
+.host-scoreboard-list[data-final="true"]
+  .host-scoreboard-item[data-placement="1"] {
   min-height: 80px;
 }
 
@@ -1085,7 +1094,7 @@ button:focus-visible {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 14px 24px;
+  padding: 16px 28px;
   background: var(--bg-card-active);
   border-radius: var(--host-radius);
   border: 2px solid var(--solid-border);
@@ -1110,14 +1119,15 @@ button:focus-visible {
   font-size: 0.62rem;
   text-transform: uppercase;
   color: var(--host-ink-soft);
-  font-weight: 900;
+  font-weight: 600;
   letter-spacing: 0.12em;
+  opacity: 0.7;
 }
 
 .host-control-value {
-  font-size: 1.1rem;
-  font-weight: 800;
-  color: var(--host-ink);
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--host-ink-soft);
 }
 
 .host-fallback-actions {
@@ -1127,6 +1137,7 @@ button:focus-visible {
   flex-wrap: wrap;
   margin-left: auto;
   margin-right: 10px;
+  opacity: 0.85;
 }
 
 /* ── Buttons ────────────────────────────────────────────────────────── */
@@ -1135,19 +1146,19 @@ button:focus-visible {
   background: var(--accent-gold);
   color: #170f02;
   border: 2px solid var(--accent-gold);
-  padding: 14px 44px;
-  border-radius: var(--host-radius);
+  padding: 20px 56px;
+  border-radius: 12px;
   font-weight: 900;
-  font-size: 1.15rem;
+  font-size: 1.3rem;
   text-transform: uppercase;
-  letter-spacing: 0.07em;
-  box-shadow: var(--solid-shadow);
+  letter-spacing: 0.06em;
+  box-shadow: 0 6px 28px rgba(246, 199, 106, 0.35);
   transition:
     transform var(--dur-fast),
     box-shadow var(--dur-fast),
     filter var(--dur-fast);
   white-space: nowrap;
-  min-width: 180px;
+  min-width: 220px;
 }
 
 .host-primary-button:hover:not(:disabled) {
@@ -1168,21 +1179,24 @@ button:focus-visible {
 }
 
 .host-secondary-button {
-  padding: 10px 16px;
+  padding: 8px 14px;
   background: var(--bg-card);
   color: var(--host-ink);
-  border: 2px solid var(--solid-border);
+  border: 1px solid var(--solid-border);
   border-radius: var(--host-radius);
-  font-weight: 800;
-  font-size: 0.88rem;
+  font-weight: 500;
+  font-size: 0.82rem;
+  opacity: 0.75;
   transition:
     background var(--dur-fast),
-    border-color var(--dur-fast);
+    border-color var(--dur-fast),
+    opacity var(--dur-fast);
 }
 
 .host-secondary-button:hover {
   background: var(--bg-card-active);
   border-color: var(--solid-border-strong);
+  opacity: 1;
 }
 
 .host-secondary-button--danger {
@@ -1308,7 +1322,7 @@ button:focus-visible {
 
 .host-toggle-copy small {
   color: var(--host-ink-soft);
-  font-weight: 800;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-size: 0.68rem;
@@ -1372,25 +1386,25 @@ button:focus-visible {
 .host-lobby-info-bar {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 20px;
   padding: 16px 20px;
   background: rgba(0, 0, 0, 0.35);
   border: 2px solid rgba(246, 199, 106, 0.25);
   border-radius: var(--host-radius);
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 }
 
 .host-lobby-info-code {
   text-align: center;
-  min-width: 120px;
+  flex-shrink: 0;
 }
 
 .host-join-code {
   font-size: 3.2rem;
   font-weight: 900;
   font-family: var(--font-display);
-  letter-spacing: 0;
-  margin: 8px 0;
+  letter-spacing: 0.06em;
+  margin: 4px 0 2px;
   color: #fff;
   text-align: center;
   text-shadow: 0 0 20px rgba(246, 199, 106, 0.4);
@@ -1416,7 +1430,7 @@ button:focus-visible {
   align-items: center;
   gap: 8px;
   flex: 1;
-  min-width: 180px;
+  min-width: 0;
 }
 
 .host-lobby-info-url .host-join-url {
@@ -1457,7 +1471,7 @@ button:focus-visible {
   background: var(--bg-card-active);
   color: var(--host-ink);
   font-size: 0.7rem;
-  font-weight: 900;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   transition:
@@ -1773,7 +1787,7 @@ button:focus-visible {
   align-items: center;
   gap: 10px;
   color: var(--host-ink-soft);
-  font-weight: 800;
+  font-weight: 500;
   font-size: 0.88rem;
 }
 
@@ -1790,7 +1804,7 @@ button:focus-visible {
   border-radius: 7px;
   color: var(--host-ink);
   font-size: 0.82rem;
-  font-weight: 800;
+  font-weight: 600;
   cursor: pointer;
   transition:
     background var(--dur-fast),
@@ -2013,6 +2027,81 @@ button:focus-visible {
   50% {
     transform: scale(1.03);
   }
+}
+
+/* ── Control Panel Mode: Frage-Screen schrumpft Inhalt ─────────────── */
+
+.host-shell[data-screen="question"] .host-question-text {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--host-ink-soft);
+  margin: 8px 0 10px;
+  max-height: 4em;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  text-wrap: unset;
+  max-width: unset;
+}
+
+.host-shell[data-screen="question"] .host-options-grid {
+  gap: 5px;
+}
+
+.host-shell[data-screen="question"] .host-option-card {
+  min-height: 32px;
+  padding: 5px 10px;
+  border-left-width: 3px;
+}
+
+.host-shell[data-screen="question"] .host-option-id {
+  width: 26px;
+  height: 26px;
+  font-size: 0.7rem;
+}
+
+.host-shell[data-screen="question"] .host-option-label {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--host-ink-soft);
+}
+
+/* ── Control Panel Mode: Reveal-Screen — Summary nach oben ──────────── */
+
+.host-shell[data-screen="reveal"] .host-question-text {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--host-ink-soft);
+  max-width: unset;
+  margin: 6px 0 8px;
+}
+
+.host-shell[data-screen="reveal"] .host-option-card {
+  min-height: 32px;
+  padding: 5px 10px;
+}
+
+.host-shell[data-screen="reveal"] .host-option-label {
+  font-size: 0.78rem;
+}
+
+.host-shell[data-screen="reveal"] .host-option-id {
+  width: 26px;
+  height: 26px;
+  font-size: 0.7rem;
+}
+
+.host-round-summary-card p:last-child {
+  font-size: 2.2rem;
+}
+
+.host-reveal-divider {
+  height: 1px;
+  background: var(--solid-border);
+  margin: 14px 0;
+  opacity: 0.6;
+  border: none;
 }
 
 /* ── Media Queries ──────────────────────────────────────────────────── */
@@ -2413,7 +2502,10 @@ button:focus-visible {
   background: transparent;
   color: var(--host-ink-soft);
   cursor: pointer;
-  transition: color var(--dur-fast), border-color var(--dur-fast), background var(--dur-fast);
+  transition:
+    color var(--dur-fast),
+    border-color var(--dur-fast),
+    background var(--dur-fast);
 }
 
 .host-flag-button:hover {
