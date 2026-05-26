@@ -2,7 +2,7 @@
 
 ## Ziel
 
-Ein browserbasiertes Geburtstagsquiz fuer Gruppen mit getrennten Rollen:
+Ein browserbasiertes Privatquiz fuer Gruppen mit getrennten Rollen:
 
 - **Display/TV**
   - Lobby

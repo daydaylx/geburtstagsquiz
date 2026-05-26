@@ -8,7 +8,7 @@ import {
   updateFlag,
 } from "./questionFlagsStorage.js";
 
-const STORAGE_KEY = "geburtstagsquiz:host-question-flags:v1";
+const STORAGE_KEY = "privatquiz:host-question-flags:v1";
 
 function makeFlag(overrides: Partial<QuestionFlag> = {}): QuestionFlag {
   return {

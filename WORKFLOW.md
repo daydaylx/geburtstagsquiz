@@ -2,7 +2,7 @@
 
 ## Zweck
 
-Dieser Workflow beschreibt die praktische Arbeitsreihenfolge fuer Entwicklung, Review und Dokumentationspflege im Multi-Service-Geburtstagsquiz.
+Dieser Workflow beschreibt die praktische Arbeitsreihenfolge fuer Entwicklung, Review und Dokumentationspflege im Multi-Service-Privatquiz.
 
 Das Ziel bleibt klein: Display/TV, Host, Player und Server muessen fuer einen Abend stabil zusammenspielen. Der Abendbetrieb laeuft ueber den bestehenden Cloudflare Tunnel; die lokalen Ports sind nur Zielports hinter dem Tunnel.
 

@@ -1,6 +1,6 @@
-# Geburtstagsquiz
+# Privatquiz
 
-Privates browserbasiertes Quiz fuer einen Geburtstag.
+Privates browserbasiertes Quiz fuer kleine Runden.
 
 Dieses Repo ist kein Produkt, keine Plattform und kein langfristiges System. Ziel ist ein stabiler Ablauf fuer einen Abend:
 
@@ -51,7 +51,7 @@ Wenn etwas technisch schoen klingt, aber fuer den Abend keinen direkten Nutzen h
 ## Repo-Struktur
 
 ```text
-geburtstagsquiz/
+privatquiz/
 |- apps/
 |  |- server/       # Raum, Spielstatus, Timer, Auswertung
 |  |- web-display/  # Display/TV-Screen fuer Publikum und QR-Codes
@@ -203,7 +203,7 @@ Das Original-JSON wird nicht veraendert. Der Review-Zustand wird als `review_sta
 
 ## Aktueller Fokus
 
-Dieses Repo soll ein brauchbares Geburtstagsquiz liefern, nicht eine ausbaubare Quiz-Plattform. Deshalb gilt:
+Dieses Repo soll ein brauchbares Privatquiz fuer kleine Runden liefern, nicht eine ausbaubare Quiz-Plattform. Deshalb gilt:
 
 - lieber wenige echte Spielplaene und eine praktische freie Auswahl als mehrere halbe Modi
 - lieber In-Memory und einfache lokale Bedienung als Persistenz und Deploy-Theater

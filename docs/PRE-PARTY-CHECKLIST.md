@@ -33,7 +33,7 @@ Kompakte Checkliste fuer den Quiz-Abend. Reihenfolge einhalten.
 - Display-Disconnect (HDMI-Wackler): 45s Frist/Warnung, Raum laeuft weiter
 - Host-Browser-Crash: 5 Min Frist — einfach Seite neu laden
 - "Neues Spiel" nach Spielende: Host-Seite einfach neu laden
-- Logs bei Bedarf: `${XDG_RUNTIME_DIR:-/tmp}/geburtstagsquiz/logs/`
+- Logs bei Bedarf: `${XDG_RUNTIME_DIR:-/tmp}/privatquiz/logs/`
 
 ## Fallback
 

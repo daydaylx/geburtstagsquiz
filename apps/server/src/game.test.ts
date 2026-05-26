@@ -227,7 +227,7 @@ describe("getDefaultQuiz", () => {
   it("loads the JSON question bank", () => {
     const quiz = getDefaultQuiz();
 
-    expect(quiz.id).toBe("geburtstagsquiz-millennials-v2-engine-v2");
+    expect(quiz.id).toBe("privatquiz-millennials-v2");
     expect(quiz.questions).toHaveLength(516);
     expect(new Set(quiz.questions.map((q) => q.id)).size).toBe(516);
     expect(quiz.questions.every((q) => q.durationMs === QUESTION_DURATION_MS)).toBe(true);

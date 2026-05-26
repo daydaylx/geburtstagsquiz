@@ -2,7 +2,7 @@
 
 ## Ziel
 
-Gebaut wird kein grosses Quiz-System, sondern ein funktionierendes Geburtstagsquiz fuer einen Abend.
+Gebaut wird kein grosses Quiz-System, sondern ein funktionierendes Privatquiz fuer kleine Runden.
 
 Erfolg bedeutet:
 
@@ -134,7 +134,7 @@ corepack pnpm test
 corepack pnpm build
 ```
 
-Vor dem Geburtstag zusaetzlich:
+Vor der Quizrunde zusaetzlich:
 
 - mindestens ein Test mit echten Handys.
 - ein Test auf dem vorgesehenen Display/TV.

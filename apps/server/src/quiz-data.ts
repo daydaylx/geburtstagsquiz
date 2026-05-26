@@ -16,8 +16,8 @@ import {
 import { QUESTION_DURATION_MS } from "./config.js";
 
 const QUIZ_CATEGORIES_DIR = "data/quiz/questions";
-const QUIZ_ID = "geburtstagsquiz-millennials-v2-engine-v2";
-const QUIZ_TITLE = "Geburtstagsquiz für Millennials";
+const QUIZ_ID = "privatquiz-millennials-v2";
+const QUIZ_TITLE = "Privatquiz für Millennials";
 
 type RawCategory = {
   category_id?: string;

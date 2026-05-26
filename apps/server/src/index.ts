@@ -57,7 +57,7 @@ const server = createServer((request, response) => {
       JSON.stringify({
         ok: originAllowed,
         status: originAllowed ? "ok" : "forbidden",
-        service: "geburtstagsquiz-server",
+        service: "privatquiz-server",
         time: new Date().toISOString(),
       }),
     );

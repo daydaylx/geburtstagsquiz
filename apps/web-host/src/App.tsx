@@ -114,7 +114,14 @@ export function App() {
           ? "Warte auf Fragenkatalog..."
           : !s.gamePlanDraft
             ? "Spielplan wird geladen..."
-            : "Mindestens 1 Spieler benötigt"
+            : "Warte auf Spieler - teile den Join-Code"
+      : null;
+
+  const lobbyStartTitle =
+    s.screen === "lobby" ? (startBlockReason ? startBlockReason : "Startbereit - Quiz kann losgehen") : null;
+  const lobbyStartMeta =
+    s.screen === "lobby"
+      ? `${connectedPlayerCount} Spieler verbunden · Display ${s.displayConnected ? "verbunden" : "nicht verbunden"}`
       : null;
 
   const primaryActionLabel =
@@ -225,7 +232,7 @@ export function App() {
     <main className="host-shell" data-screen={s.screen}>
       <header className="host-header">
         <div className="host-brand">
-          <h1 className="host-title">Geburtstagsquiz</h1>
+          <h1 className="host-title">Privatquiz</h1>
           <div className="host-status" data-state={connectionState}>
             {getConnectionLabel(connectionState)}
           </div>
@@ -268,7 +275,7 @@ export function App() {
               </>
             ) : (
               <>
-                <h2 className="host-stage-title host-stage-title--hero">Geburtstagsquiz</h2>
+                <h2 className="host-stage-title host-stage-title--hero">Quizrunde</h2>
                 <p className="host-start-hint">Erstelle einen Raum, dann öffne das Display-Fenster auf dem HDMI-TV.</p>
                 <button
                   className="host-action-button host-action-button--primary"
@@ -289,6 +296,11 @@ export function App() {
               <HostLobbyStage session={s} connectedPlayerCount={connectedPlayerCount} />
             </div>
             <footer className="host-controls host-controls--lobby">
+              <div className="host-lobby-start-status" data-ready={!isPrimaryDisabled ? "true" : undefined}>
+                <span>{isPrimaryDisabled ? "Noch nicht startbereit" : "Bereit"}</span>
+                {lobbyStartTitle && <strong>{lobbyStartTitle}</strong>}
+                {lobbyStartMeta && <small>{lobbyStartMeta}</small>}
+              </div>
               <button
                 className="host-primary-button"
                 disabled={isPrimaryDisabled}
@@ -297,7 +309,6 @@ export function App() {
               >
                 {primaryActionLabel}
               </button>
-              {startBlockReason && <p className="host-start-block-reason">{startBlockReason}</p>}
             </footer>
           </>
         ) : (

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# quiz.sh — Geburtstagsquiz starten
+# quiz.sh — Privatquiz starten
 # Aufruf: ./quiz.sh  oder  quiz  (wenn ~/.local/bin/quiz angelegt ist)
 set -Eeuo pipefail
 
@@ -7,7 +7,7 @@ PROJECT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
 
 DOMAIN="quiz.disaai.de"
 CONFIG_FILE="$PROJECT_DIR/.cloudflared/config.yml"
-STATE_DIR="${STATE_DIR:-${XDG_RUNTIME_DIR:-/tmp}/geburtstagsquiz}"
+STATE_DIR="${STATE_DIR:-${XDG_RUNTIME_DIR:-/tmp}/privatquiz}"
 LOG_DIR="$STATE_DIR/logs"
 
 # ── ANSI ──────────────────────────────────────────────────────────────────────
@@ -391,7 +391,7 @@ show_dashboard() {
 
   clear
   printf "\n%s%s%s%s\n" "$BLUE" "$BOLD" "$SEP" "$NC"
-  printf "%s%s   🎂  GEBURTSTAGSQUIZ LÄUFT  🎉%s\n" "$BLUE" "$BOLD" "$NC"
+  printf "%s%s   🎲  PRIVATQUIZ LÄUFT  🎉%s\n" "$BLUE" "$BOLD" "$NC"
   printf "%s%s%s%s\n\n" "$BLUE" "$BOLD" "$SEP" "$NC"
   printf "   %s✓%s  Server      %s→%s  %s\n" "$GREEN" "$NC" "$DIM" "$NC" "$server"
   printf "   %s✓%s  TV-Display  %s→%s  %s\n" "$GREEN" "$NC" "$DIM" "$NC" "$tv"
@@ -431,7 +431,7 @@ main() {
   mkdir -p "$STATE_DIR"
 
   clear
-  printf "\n${BOLD}${CYAN}🎂 Geburtstagsquiz${NC}  –  Modus: ${BOLD}Tunnel (quiz.disaai.de)${NC}\n"
+  printf "\n${BOLD}${CYAN}Quizrunde${NC}  –  Modus: ${BOLD}Tunnel (quiz.disaai.de)${NC}\n"
 
   check_prereqs
 

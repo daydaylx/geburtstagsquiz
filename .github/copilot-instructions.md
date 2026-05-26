@@ -1,6 +1,6 @@
 # Copilot Instructions
 
-Read `AGENTS.md` before making broad suggestions. This repo is a private one-evening birthday quiz, not a reusable SaaS platform.
+Read `AGENTS.md` before making broad suggestions. This repo is a private quiz for small groups, not a reusable SaaS platform.
 
 ## Project Shape
 

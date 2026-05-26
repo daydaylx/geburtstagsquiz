@@ -4,7 +4,7 @@ Kanonische Regeln stehen in `AGENTS.md`. Diese Datei ist der kurze operative Ein
 
 ## Projekt
 
-Privates Geburtstagsquiz fuer einen Abend: Node/WebSocket-Server, Display/TV, Host-Controller und Player-UI. Der Server ist die einzige Spielwahrheit; Clients senden nur Absichten oder zeigen Zustand.
+Privates Quiz fuer kleine Runden: Node/WebSocket-Server, Display/TV, Host-Controller und Player-UI. Der Server ist die einzige Spielwahrheit; Clients senden nur Absichten oder zeigen Zustand.
 
 ## Erst Lesen
 

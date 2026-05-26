@@ -9,10 +9,23 @@ const QUESTION_COUNT_CHOICES = [10, 15, 20, 25, 30] as const;
 const TIMER_CHOICES = [20_000, 30_000, 45_000, 60_000, 90_000] as const;
 const REVEAL_CHOICES: Array<{ label: string; value: number; mode: RevealMode }> = [
   { label: "Manuell", value: 30_000, mode: "manual" },
-  { label: "30s Fallback", value: 30_000, mode: "manual_with_fallback" },
+  { label: "Fallback nach 30s", value: 30_000, mode: "manual_with_fallback" },
 ];
 const REVEAL_DELAY_CHOICES = [0, 2_000, 3_000, 5_000, 8_000] as const;
 const READING_PHASE_CHOICES = [0, 3_000, 5_000, 8_000] as const;
+const CATEGORY_LABELS: Record<string, { title: string; meta: string }> = {
+  "cat-01": { title: "Harry Potter", meta: "Nur Filme · schwer" },
+  "cat-02": { title: "Sex & Liebe", meta: "explizit · mittel-schwer" },
+  "cat-03": { title: "Internet-Slang", meta: "Millennial · Fossilien" },
+  "cat-05": { title: "Party-Drinks", meta: "Feiern · Jugenddrinks" },
+  "cat-06": { title: "Popkultur", meta: "Skandale · Meltdowns" },
+  "cat-07": { title: "Gaming", meta: "Frust · Pixel-Nostalgie" },
+  "cat-08": { title: "Musik", meta: "Jugendsünden · Emo-Phasen" },
+  "cat-09": { title: "Adulting", meta: "Halbwissen · Erwachsene" },
+  "cat-10": { title: "Technik-Fails", meta: "Hardware-Friedhof" },
+  "cat-11": { title: "Allgemeinwissen", meta: "Logik" },
+  "cat-12": { title: "Schulwissen", meta: "Klasse 1-4" },
+};
 
 function getTopVotedCategoryId(votes: Record<string, number>, categories: { id: string }[]): string | null {
   const sorted = categories
@@ -22,27 +35,18 @@ function getTopVotedCategoryId(votes: Record<string, number>, categories: { id: 
   return sorted[0]?.id ?? null;
 }
 
-function PlanSummaryBadges({ session: s }: { session: UseHostSessionReturn }) {
-  if (!s.gamePlanDraft) return null;
-  return (
-    <div className="host-plan-summary">
-      <span>{s.gamePlanDraft.questionCount} Fragen</span>
-      <span>{s.gamePlanDraft.timerMs / 1000}s Timer</span>
-      <span>
-        {s.gamePlanDraft.revealMode === "manual"
-          ? "Manuell"
-          : s.gamePlanDraft.revealMode === "manual_with_fallback"
-            ? "30s Fallback"
-            : `${s.gamePlanDraft.revealDurationMs / 1000}s Reveal`}
-      </span>
-      {s.gamePlanDraft.revealDelayMs > 0 && <span>Delay: {s.gamePlanDraft.revealDelayMs / 1000}s</span>}
-      {s.gamePlanDraft.playerReadingPhaseMs > 0 && (
-        <span>Lesephase: {s.gamePlanDraft.playerReadingPhaseMs / 1000}s</span>
-      )}
-      <span>Show: {getShowLevelLabel(s.gamePlanDraft.displayShowLevel)}</span>
-      <span>Demo: {s.gamePlanDraft.enableDemoQuestion ? "an" : "aus"}</span>
-    </div>
-  );
+function getCategoryLabel(category: { id: string; name: string; difficulty?: string; questionCount: number }) {
+  const override = CATEGORY_LABELS[category.id];
+  if (override) return override;
+
+  const parenthetical = category.name.match(/\(([^)]+)\)\s*$/);
+  const title = category.name.replace(/\s*\([^)]+\)\s*$/, "").trim();
+  const difficulty = category.difficulty ? category.difficulty.replaceAll("_", "-") : null;
+  const meta =
+    parenthetical?.[1] ??
+    (difficulty ? `${difficulty} · ${category.questionCount} Fragen` : `${category.questionCount} Fragen`);
+
+  return { title, meta };
 }
 
 interface HostGamePlanBuilderProps {
@@ -57,6 +61,9 @@ export function HostGamePlanBuilder({ session: s }: HostGamePlanBuilderProps) {
   const topId = getTopVotedCategoryId(s.votes, s.catalog.categories);
   const topName = topId ? (s.catalog.categories.find((c) => c.id === topId)?.name ?? topId) : null;
   const topCount = topId ? (s.votes[topId] ?? 0) : 0;
+  const selectedCategoryCount = s.gamePlanDraft.categoryIds.length;
+  const categoryStatus =
+    selectedCategoryCount === 1 ? "1 Kategorie aktiv" : `${selectedCategoryCount} Kategorien aktiv`;
 
   const handleVotingOverride = () => {
     if (!topId) return;
@@ -81,10 +88,9 @@ export function HostGamePlanBuilder({ session: s }: HostGamePlanBuilderProps) {
     <div className="host-plan-builder">
       <div className="host-section-head">
         <p className="host-section-label">Spielplan</p>
-        <span className="host-online-count">{s.catalog.totalQuestions} Fragen verfügbar</span>
+        <span className="host-plan-catalog-count">{s.catalog.totalQuestions} Fragen verfügbar</span>
       </div>
 
-      {/* Preset strip – 5 compact buttons */}
       <div className="host-preset-strip">
         {PRESET_IDS.map((presetId) => (
           <button
@@ -109,7 +115,6 @@ export function HostGamePlanBuilder({ session: s }: HostGamePlanBuilderProps) {
         </button>
       </div>
 
-      {/* Voting override */}
       {topId && (
         <button className="host-preset-button host-preset-button--voting" onClick={handleVotingOverride} type="button">
           <strong>Voting übernehmen</strong>
@@ -119,12 +124,17 @@ export function HostGamePlanBuilder({ session: s }: HostGamePlanBuilderProps) {
         </button>
       )}
 
-      {/* Kategorien – always visible as visual cards */}
-      <p className="host-section-label host-section-sublabel">Kategorien</p>
+      <div className="host-section-head host-section-head--categories">
+        <p className="host-section-label host-section-sublabel">Kategorien</p>
+        <span className="host-plan-catalog-count">
+          {s.catalog.totalQuestions} Fragen verfügbar · {categoryStatus}
+        </span>
+      </div>
       <div className="host-category-grid">
         {s.catalog.categories.map((category) => {
           const voteCount = s.votes[category.id] ?? 0;
           const isSelected = s.gamePlanDraft!.categoryIds.includes(category.id);
+          const categoryLabel = getCategoryLabel(category);
           return (
             <label className="host-category-card" key={category.id}>
               <input
@@ -138,15 +148,18 @@ export function HostGamePlanBuilder({ session: s }: HostGamePlanBuilderProps) {
                 }}
                 type="checkbox"
               />
-              <span className="host-category-name">{category.name}</span>
+              <span className="host-category-name">{categoryLabel.title}</span>
+              <span className="host-category-meta">
+                {categoryLabel.meta} · {category.questionCount} Fragen
+              </span>
               {voteCount > 0 && <span className="host-vote-badge">{voteCount}</span>}
             </label>
           );
         })}
       </div>
 
-      {/* Settings rows – always visible */}
       <div className="host-custom-plan">
+        <p className="host-section-label host-section-label--compact">Feineinstellungen</p>
         <div className="host-choice-row">
           <span>Fragen</span>
           <div className="host-segmented">
@@ -164,18 +177,21 @@ export function HostGamePlanBuilder({ session: s }: HostGamePlanBuilderProps) {
               </button>
             ))}
           </div>
-          <input
-            className="host-small-number-input"
-            max={s.catalog.maxQuestionCount}
-            min={5}
-            onChange={(event) => {
-              const nextCount = Math.max(5, Math.min(s.catalog!.maxQuestionCount, Number(event.target.value) || 5));
-              s.setSelectedPlanMode("custom");
-              s.handlePlanDraftChange({ ...s.gamePlanDraft!, questionCount: nextCount });
-            }}
-            type="number"
-            value={s.gamePlanDraft.questionCount}
-          />
+          <label className="host-number-field">
+            <span>Eigene Anzahl</span>
+            <input
+              className="host-small-number-input"
+              max={s.catalog.maxQuestionCount}
+              min={5}
+              onChange={(event) => {
+                const nextCount = Math.max(5, Math.min(s.catalog!.maxQuestionCount, Number(event.target.value) || 5));
+                s.setSelectedPlanMode("custom");
+                s.handlePlanDraftChange({ ...s.gamePlanDraft!, questionCount: nextCount });
+              }}
+              type="number"
+              value={s.gamePlanDraft.questionCount}
+            />
+          </label>
         </div>
         <div className="host-choice-row">
           <span>Timer</span>
@@ -196,7 +212,7 @@ export function HostGamePlanBuilder({ session: s }: HostGamePlanBuilderProps) {
           </div>
         </div>
         <div className="host-choice-row">
-          <span>Reveal</span>
+          <span>Auflösung</span>
           <div className="host-segmented">
             {REVEAL_CHOICES.map((choice) => (
               <button
@@ -222,7 +238,7 @@ export function HostGamePlanBuilder({ session: s }: HostGamePlanBuilderProps) {
           </div>
         </div>
         <div className="host-choice-row">
-          <span>Reveal-Verzögerung</span>
+          <span>Auflösung verzögern</span>
           <div className="host-segmented">
             {REVEAL_DELAY_CHOICES.map((delayMs) => (
               <button
@@ -240,7 +256,7 @@ export function HostGamePlanBuilder({ session: s }: HostGamePlanBuilderProps) {
           </div>
         </div>
         <div className="host-choice-row">
-          <span>Lesephase</span>
+          <span>Lesezeit</span>
           <div className="host-segmented">
             {READING_PHASE_CHOICES.map((phaseMs) => (
               <button
@@ -258,7 +274,7 @@ export function HostGamePlanBuilder({ session: s }: HostGamePlanBuilderProps) {
           </div>
         </div>
         <div className="host-choice-row">
-          <span>Show</span>
+          <span>Anzeige-Modus</span>
           <div className="host-segmented">
             {(["minimal", "normal", "high"] as const).map((displayShowLevel) => (
               <button
@@ -287,13 +303,10 @@ export function HostGamePlanBuilder({ session: s }: HostGamePlanBuilderProps) {
             }}
             type="checkbox"
           />
-          <span>Demo-/Testfrage</span>
+          <span>Testfrage vor dem Start</span>
         </label>
 
-        {/* Question types */}
-        <p className="host-section-label host-section-label--compact" style={{ marginTop: "6px" }}>
-          Fragetypen
-        </p>
+        <p className="host-section-label host-section-label--compact host-question-types-label">Fragetypen</p>
         <div className="host-checkbox-grid host-checkbox-grid--types">
           {s.catalog.questionTypes.map((entry) => (
             <label className="host-checkbox-pill" key={entry.type}>
@@ -315,8 +328,6 @@ export function HostGamePlanBuilder({ session: s }: HostGamePlanBuilderProps) {
           ))}
         </div>
       </div>
-
-      <PlanSummaryBadges session={s} />
     </div>
   );
 }

@@ -1,10 +1,10 @@
 # architecture.md
 
-# Geburtstagsquiz - pragmatische Architektur
+# Privatquiz - pragmatische Architektur
 
 ## Zweck
 
-Dieses Repo ist fuer ein privates browserbasiertes Geburtstagsquiz an einem Abend gedacht.
+Dieses Repo ist fuer ein privates browserbasiertes Quiz fuer kleine private Runden gedacht.
 
 Es ist bewusst nicht gedacht als:
 

@@ -22,7 +22,7 @@ export function getPresetHint(presetId: GamePlanPresetId): string {
     case "quick_dirty":
       return "12 Fragen, schnell, wenig Frust.";
     case "normal_evening":
-      return "20 Fragen, gemischt, Geburtstags-Default.";
+      return "20 Fragen, gemischt, Standard-Abend.";
     case "full_evening":
       return "30 Fragen, langer Mix.";
     case "chaos_party":
@@ -50,10 +50,10 @@ export function getQuestionTypeLabel(type: QuestionType): string {
 export function getShowLevelLabel(level: DisplayShowLevel): string {
   switch (level) {
     case "minimal":
-      return "Minimal";
+      return "Kompakt";
     case "normal":
       return "Normal";
     case "high":
-      return "High";
+      return "Effektvoll";
   }
 }

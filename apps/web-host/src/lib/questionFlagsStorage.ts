@@ -1,4 +1,4 @@
-const STORAGE_KEY = "geburtstagsquiz:host-question-flags:v1";
+const STORAGE_KEY = "privatquiz:host-question-flags:v1";
 
 export interface QuestionFlag {
   questionId: string;

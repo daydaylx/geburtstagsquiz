@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Privates browserbasiertes Geburtstagsquiz fuer einen einzelnen Abend.
+Privates browserbasiertes Quiz fuer kleine private Runden.
 
 Dieses Repo ist kein Produkt, keine Plattform und kein langfristiges SaaS-System. Ziel ist ein stabiler Ablauf mit getrenntem Display/TV, Host-Controller, Player-UI, WebSocket/API-Backend und Cloudflare Tunnel als oeffentlichem Einstieg.
 

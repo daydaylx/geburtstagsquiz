@@ -1,6 +1,6 @@
 # event-protocol.md
 
-# Event-Protokoll fuer das Geburtstagsquiz
+# Event-Protokoll fuer das Privatquiz
 
 ## Zweck
 

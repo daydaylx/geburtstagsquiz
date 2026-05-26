@@ -128,7 +128,7 @@ Spieler tippt eine Freitext-Antwort. Pflicht: `prompt`, `answer.canonical` (rich
 Alle Fragen stehen in der JSON-Datei im Repo-Root:
 
 ```
-geburtstagsquiz_millennials_engine_v5_expanded.json
+data/quiz/questions/cat-*.json
 ```
 
 Struktur: `quiz.categories[].questions[]`.

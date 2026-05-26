@@ -1,6 +1,6 @@
 # state-machine.md
 
-# Zustandsmaschine fuer das Geburtstagsquiz
+# Zustandsmaschine fuer das Privatquiz
 
 ## Zweck
 

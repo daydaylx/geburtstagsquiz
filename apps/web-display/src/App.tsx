@@ -129,7 +129,7 @@ export function App() {
         {s.screen === "setup" && (
           <div className="display-setup">
             <div className="display-setup-hero">
-              <p className="display-setup-label">Geburtstags-Quiz</p>
+              <p className="display-setup-label">Quizrunde</p>
               <h1>Display wartet auf Host</h1>
               <p className="display-setup-hint">
                 Öffne das Display-Fenster über den Host-Controller und zieh es auf den HDMI-TV.
