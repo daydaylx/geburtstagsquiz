@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Question Studio</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Question Studio</h1>
+      <div id="status-bar">
+        <span id="api-status" class="status-unknown">API-Key: prüfe...</span>
+        <button id="btn-refresh-models" title="Modelle neu laden">
+          Modelle neu laden
+        </button>
+      </div>
+    </header>
+
+    <main id="app">
+      <!-- Generator View -->
+      <section id="view-generator">
+        <h2>Neue Fragen generieren</h2>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="select-category">Kategorie</label>
+            <select id="select-category">
+              <option value="">-- Kategorie wählen --</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="select-model">Modell</label>
+            <select id="select-model">
+              <option value="">-- Erst Modelle laden --</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="select-mode">Qualitätsmodus</label>
+            <select id="select-mode">
+              <option value="fast">Schnell</option>
+              <option value="better">Besser</option>
+              <option value="strict">Streng</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="select-difficulty">Schwierigkeit (1-5)</label>
+            <select id="select-difficulty">
+              <option value="1">1 – sehr einfach</option>
+              <option value="2">2 – einfach</option>
+              <option value="3" selected>3 – mittel</option>
+              <option value="4">4 – schwer</option>
+              <option value="5">5 – fies aber fair</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="input-count">Anzahl Fragen</label>
+            <input type="number" id="input-count" value="5" min="1" max="20" />
+          </div>
+        </div>
+
+        <div class="form-group full-width">
+          <label>Regeln</label>
+          <div id="rules-checkboxes" class="checkbox-grid"></div>
+        </div>
+
+        <div class="form-group full-width">
+          <label for="textarea-custom-rules">Zusatzregeln (Freitext)</label>
+          <textarea
+            id="textarea-custom-rules"
+            rows="3"
+            placeholder="z.B. Keine Fragen über aktuelle Politik."
+          ></textarea>
+        </div>
+
+        <div class="action-bar">
+          <button id="btn-generate" class="btn-primary" disabled>
+            Fragen generieren
+          </button>
+          <span id="generate-status" class="status-text"></span>
+        </div>
+      </section>
+
+      <!-- Results View -->
+      <section id="view-results" class="hidden">
+        <h2>Ergebnis <span id="result-count"></span></h2>
+        <div id="validation-summary"></div>
+        <div id="results-list"></div>
+        <div class="action-bar">
+          <button id="btn-select-all" class="btn-secondary">
+            Alle behalten
+          </button>
+          <button id="btn-discard-all" class="btn-secondary">
+            Alle verwerfen
+          </button>
+          <button id="btn-save-draft" class="btn-primary" disabled>
+            Auswahl als Draft speichern
+          </button>
+          <span id="save-status" class="status-text"></span>
+        </div>
+        <button id="btn-back" class="btn-secondary">
+          Zurück zum Generator
+        </button>
+      </section>
+
+      <!-- Save Confirmation View -->
+      <section id="view-saved" class="hidden">
+        <h2>Draft gespeichert</h2>
+        <div id="save-confirmation"></div>
+        <button id="btn-new-generate" class="btn-primary">
+          Weitere Fragen generieren
+        </button>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

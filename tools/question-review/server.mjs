@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import { createServer } from "node:http";
 import { readFile, rename, writeFile } from "node:fs/promises";
+import { createServer } from "node:http";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -239,7 +239,8 @@ function readAnswer(item) {
   }
 
   const correctOptions = options.filter(
-    (option) => isRecord(option) && (option.correct === true || option.isCorrect === true || option.is_correct === true),
+    (option) =>
+      isRecord(option) && (option.correct === true || option.isCorrect === true || option.is_correct === true),
   );
   if (correctOptions.length > 0) {
     return correctOptions.map(readableValue).join(", ");
